@@ -1,0 +1,27 @@
+\name{showMeta}
+\alias{showMeta}
+\title{showMeta}
+\usage{
+  showMeta(x)
+}
+\arguments{
+  \item{x}{repgrid object}
+}
+\value{
+  \code{NULL}
+}
+\description{
+  prints meta information about the grid to the console
+  (id, name of interviewee etc.)
+}
+\examples{
+\dontrun{
+
+   ####  TODO  ####
+}
+}
+\author{
+  Mark Heckmann
+}
+\keyword{internal}
+
