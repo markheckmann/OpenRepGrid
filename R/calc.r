@@ -642,7 +642,7 @@ constructRmsCor <- function(x, method = c("pearson", "kendall", "spearman"),
                             trim=NA, digits=2, output=1){
   method <- match.arg(method)
   res <- constructCor(x, method = method, trim=trim,    # calc correlations
-                      col.index=FALSE, digits=10, out=0)
+                      col.index=FALSE, digits=10, output=0)
   diag(res) <- NA                                       # remove diagonal 
   res <- apply(res^2, 1, mean, na.rm=TRUE)              # mean of squared values
   res <- data.frame(RMS=res^.5)                         # root of mean squares
@@ -829,7 +829,7 @@ constructPca <- function(x, nfactors=3, rotate="varimax",
     stop('only "none", "varimax", "promax" and "cluster" are possible rotations')
   
   res <- constructCor(x, method=method, trim=trim,          # calc inter constructs correations
-                      digits=10, out=0)
+                      digits=10, output=0)
   pc <- principal(res, nfactors = nfactors, rotate=rotate)  # make PCA
 
   # console output
@@ -922,16 +922,16 @@ constructPca <- function(x, nfactors=3, rotate="varimax",
 #' }
 #'
 alignByLoadings <- function(x, trim=20, output=0, digits=1){
-  options(warn=1)                                 # surpress warnings (TODO sometimes error in SVD due to singularities in grid)
+  options(warn=1)                                    # surpress warnings (TODO sometimes error in SVD due to singularities in grid)
   ccor.old <- constructCor(x, trim=trim, 
-                          out=0)                  # construct correlation unreversed
-  pc.old <- principal(ccor.old)                   # calc principal component (psych pkg)
+                          output=0)                  # construct correlation unreversed
+  pc.old <- principal(ccor.old)                      # calc principal component (psych pkg)
   reverseIndex <- 
-    which(pc.old$loadings[ ,1] < 0)               # which constructs to reverse
-  x2 <- swapPoles(x, reverseIndex)                # reverse constructs
-  ccor.new <- constructCor(x2, trim=trim, out=0)  # correlation with reversed constructs
-  pc.new <- principal(constructCor(x2, out=0))    # 2nd principal comps
-  options(warn=0)                                 # reset to do warnings
+    which(pc.old$loadings[ ,1] < 0)                  # which constructs to reverse
+  x2 <- swapPoles(x, reverseIndex)                   # reverse constructs
+  ccor.new <- constructCor(x2, trim=trim, output=0)  # correlation with reversed constructs
+  pc.new <- principal(constructCor(x2, output=0))    # 2nd principal comps
+  options(warn=0)                                    # reset to do warnings
   
   # output to concole
   if (output == 1){
@@ -940,7 +940,8 @@ alignByLoadings <- function(x, trim=20, output=0, digits=1){
     cat("\n###################################\n")
     
     cat("\nConstruct correlations - before alignment\n\n")
-    print(constructCor(x, trim=trim, col.index=F, index=T, out=2, digits=digits))
+    print(constructCor(x, trim=trim, col.index=F, index=T, 
+                       output=2, digits=digits))
     
     cat("\nConstruct factor loadiongs on PC1 - before alignment\n\n")
     print(round(pc.old$loadings[,1, drop=F], digits))
@@ -954,7 +955,8 @@ alignByLoadings <- function(x, trim=20, output=0, digits=1){
     }
     
     cat("\nConstruct correlations - after alignment\n\n")
-    print(constructCor(x2, trim=trim, col.index=F, index=T, out=2, digits=digits))    
+    print(constructCor(x2, trim=trim, col.index=F, index=T, 
+                       output=2, digits=digits))    
     
     cat("\nConstruct factor loadings on PC1 - after alignment\n\n")
     print(round(pc.new$loadings[,1, drop=F], digits))

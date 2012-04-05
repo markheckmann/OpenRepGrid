@@ -8,7 +8,7 @@ LazyLoad: yes
 Author: Mark Heckmann
 Description: Tools to analyse repertory grid data
 Version: 0.1.6
-Date: 2011-17-07
+Date: 2012-04-05
 Depends:
     methods,
     grid,

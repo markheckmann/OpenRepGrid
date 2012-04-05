@@ -615,7 +615,7 @@ randomWords <- function(n){
 	            "money", "he", "owes", "him", "Brownstone", "then", "flees", 
 	            "back", "to", "the", "mainland", "by", "airplane", "before", 
 	            "he", "realizes", "what", "has", "happened", "I", "she")
-	sample(words, n, rep=TRUE)
+	sample(words, n, replace=TRUE)
 }
 
 
@@ -653,7 +653,7 @@ randomSentence <- function(n, maxchar=Inf){
 #' randomSentences(5, 10)     # five random sentences with ten words each
 #' randomSentences(5, 2:10)   # five random sentences between two and ten words
 randomSentences <- function(n, nwords, maxchar=Inf){
-  sapply(sample(nwords, n, rep = TRUE), 
+  sapply(sample(nwords, n, replace = TRUE), 
           randomSentence, maxchar = maxchar)
 }
 

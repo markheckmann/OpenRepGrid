@@ -1,9 +1,8 @@
-\name{show,repgrid-method}
+\docType{methods}
+\name{show}
+\alias{show}
 \alias{show,repgrid-method}
 \title{Show method for repgrid}
-\usage{
-  \S4method{show}{repgrid}(object)
-}
 \arguments{
   \item{object}{a \code{repgrid} object}
 }

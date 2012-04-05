@@ -1,6 +1,7 @@
 ###############################################################################
 ### Functions taken from other packages which shall not be loaded due to    ###
-### too much overhead or additional dependencies                            ###
+### too much overhead or additional dependencies. Hence they are not        ### 
+### included as imports.                                                    ###
 ###############################################################################
 
 
@@ -121,9 +122,9 @@ pointLabel <- function (x, y = NULL, labels = seq(along = x), cex = 1,
             gene
         }
         crossbreed <- function(g1, g2) ifelse(sample(c(0, 1), 
-            length(g1), repl = TRUE) > 0.5, g1, g2)
+            length(g1), replace = TRUE) > 0.5, g1, g2)
         genes <- matrix(sample(1:8, n_labels * n_startgenes, 
-            repl = TRUE), n_startgenes, n_labels)
+            replace = TRUE), n_startgenes, n_labels)
         for (i in 1:10) {
             scores <- array(0, NROW(genes))
             for (j in 1:NROW(genes)) scores[j] <- objective(genes[j, 

@@ -39,7 +39,7 @@ widths_matrix_columns <- function(x){
 
 
 random_df <- function(nrow=ncol, ncol=nrow, wrow=6, wcol=10){
-  x <- data.frame(replicate(ncol, sample(1:5, nrow, rep=TRUE)))
+  x <- data.frame(replicate(ncol, sample(1:5, nrow, replace=TRUE)))
   rownames(x) <- replicate(nrow, randomSentence(wrow))
   colnames(x) <- replicate(ncol, randomSentence(wcol))
   x

@@ -47,7 +47,8 @@ randomGrid <- function(nc=10, ne=15, nwc=8, nwe=5, range=c(1,5), prob=NULL, opti
     left <- paste("lconstruct", seq_len(nc), sep="")
     right <- paste("rconstruct", seq_len(nc), sep="")
   }
-  scores <- sample(range[1]:range[2], nc*ne, rep=TRUE, prob=prob) 
+  scores <- sample(range[1]:range[2], nc*ne, 
+                   replace=TRUE, prob=prob) 
   args <- list( name=elem,
   		  	      l.name=left,
   		  	      r.name=right,

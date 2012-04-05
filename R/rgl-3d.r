@@ -68,7 +68,7 @@ rglDrawElementLabels <- function(coords, labels=FALSE, dim=1:3, e.radius=.1, e.c
     texts3d(x= coords.text[,1], 
             y= coords.text[,2], 
             z= coords.text[,3], 
-            text=labels, adj=c(1,1), cex=e.cex, col=e.text.col, aspect =F )
+            texts=labels, adj=c(1,1), cex=e.cex, col=e.text.col, aspect =F )
   } 
 }
 
@@ -110,7 +110,7 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
   coords <- coords[ ,dim]
   coords[is.na(coords)] <- 0        # replace NAs by zero, so Na can be entered as dim for 2d projection
   if (!identical(labels, FALSE)){
-    texts3d(coords, text=labels, adj=c(.5,.5), 
+    texts3d(coords, texts=labels, adj=c(.5,.5), 
             cex=c.cex, col=c.text.col, aspect=F)  
   }
 }
@@ -213,7 +213,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
     #rglDrawConstructLabels(Cup, labels=labels.r, ...)  
     #rglDrawConstructLabels(-Cup, labels=labels.l, ...)
   } else if (lines.c == 2){     # construct lines from center to outside
-    nm <- matrix(0, nc=3, nr=nrow(cl.l.xyz.outer))
+    nm <- matrix(0, ncol=3, nrow=nrow(cl.l.xyz.outer))
     segments3d(interleave(nm, as.matrix(cl.l.xyz.outer)), col="grey")
     rglDrawConstructLabels(cl.l.xyz.outer, labels=cs.l$label, ...)        
     rglDrawStandardAxes(lef * mval, a.col="black")
@@ -256,7 +256,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
                     -mval, -mval,  mval,
                     -mval, -mval, -mval,
                      mval, -mval,  mval,
-                     mval, -mval, -mval), nc=3, by=T)
+                     mval, -mval, -mval), ncol=3, byrow=T)
     segments3d(ss, col=col.frame)
   } else if (frame == 2){
     grid3d(c("x+","x-", "y+", "y-", "z+", "z-"))    

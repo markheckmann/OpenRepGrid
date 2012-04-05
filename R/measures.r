@@ -146,7 +146,7 @@ indexVariability <- function(x, min, max, digits=2){
 indexPvaff <- function(x, output=1, digits=2){
 	if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-  cr <- constructCor(x, out=0)
+  cr <- constructCor(x, output=0)
   sv <- svd(cr)$d 
   pvaff <- sv[1]^2/sum(sv^2)
   if (output == 1){
@@ -165,7 +165,7 @@ indexPvaff <- function(x, output=1, digits=2){
 indexPvaff2 <- function(x){
 	if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-	r <- constructCor(x, out=0)
+	r <- constructCor(x, output=0)
   sv <- princomp(r)$sdev
   pvaff <- sv[1]^2/sum(sv^2)
 }
@@ -247,12 +247,12 @@ indexPvaff2 <- function(x){
 indexIntensity <- function(x, rc=FALSE, output=TRUE, trim=30, digits=2){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-	cr <- constructCor(x, trim=trim, digits=8, out=0)
+	cr <- constructCor(x, trim=trim, digits=8, output=0)
 	nc <- getNoOfConstructs(x)
 	diag(cr) <- 0                                           # out zeros in diagonal (won't have an effect)
   c.int <- apply(cr^2, 2, function(x) sum(x) / (nc-1))    # sum of squared correlations / nc -1 
 	
-	er <- elementCor(x, rc=rc, trim=trim, digits=8, out=0)
+	er <- elementCor(x, rc=rc, trim=trim, digits=8, output=0)
 	ne <- getNoOfElements(x)
 	diag(er) <- 0                                           # out zeros in diagonal (won't have an effect)
   e.int <- apply(er^2, 2, function(x) sum(x) / (ne-1))    # sum of squared correlations / ne -1 
@@ -384,7 +384,7 @@ distanceSlater <- function(x, trim=10, indexcol=FALSE, digits=2, output=1,
                            upper=TRUE){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-	E <- distance(x, along=2, digits = 10, out=0)
+	E <- distance(x, along=2, digits = 10, output=0)
 	m <- getNoOfElements(x)
 	D <- center(x)              # row centering of grid data
 	S <- sum(diag(t(D) %*% D))  
@@ -555,7 +555,7 @@ distanceHartmann <- function(x, rep=100, meantype=2, quant=c(.05, .5, .95),
                               digits=2, output=1, progress=TRUE, upper=TRUE){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-  D <- distanceSlater(x, digits=10, out=0)
+  D <- distanceSlater(x, digits=10, output=0)
 
   range <- getScale(x)            # get in and max scale value
   nc <- getNoOfConstructs(x)
@@ -794,7 +794,7 @@ distanceNormalized <- function(x, rep=100, quant=c(.05, .5, .95),
 
   # calculate Hartmann and Slater distances
   h <- distanceHartmann(x, rep=rep, digits=10, prob=prob, 
-                        progress=progress, quant=quant, out=0)
+                        progress=progress, quant=quant, output=0)
   
   # optimal lambda for Box-Cox transformation. Add constant as only defined for positive values
   constant <- abs(min(c(h$h.vals, h$hartmann))) + 0.00001
@@ -956,7 +956,7 @@ indexConflict1Out1 <- function(res){
 indexConflict1 <- function(x, digits=1, output=1){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-	r <- constructCor(x, out=0)             # construct correlation matrix
+	r <- constructCor(x, output=0)          # construct correlation matrix
 	z <- fisherz(r)
 	nc <- getNoOfConstructs(x)              # number of constructs
 	comb <- t(combn(nc, 3))                 # all possible correlation triads
@@ -1088,7 +1088,7 @@ indexConflict2Out2 <- function(res){
 indexConflict2 <- function(x, crit=.03, digits=1, output=1){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-	r <- constructCor(x, out=0)             # construct correlation matrix
+	r <- constructCor(x, output=0)          # construct correlation matrix
 	z <- fisherz(r)
 	nc <- getNoOfConstructs(x)              # number of constructs
 	comb <- t(combn(nc, 3))                 # all possible correlation triads
@@ -1436,7 +1436,7 @@ indexConflict3 <- function(x, p=2, output=1,
           print(as.data.frame(formatMatrix(x$disc, 
                               rnames=paste("c", seq_len(nrow(x$disc)), sep=""), 
                               cnames=paste("e", seq_len(ncol(x$disc)), sep=""),
-                              pre.ind=c(F,F),
+                              pre.index=c(F,F),
                               mode=2, diag=F), stringsAsFactors=F))
         }
         cat("\nAv. level of discrepancy:   ", x$avg, "\n")
@@ -1474,8 +1474,8 @@ indexConflict3 <- function(x, p=2, output=1,
 #
 indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 {
-  rc.including <- constructCor(x, out=0)  
-  rc.excluding <- constructCor(x[, -c(e1, e2)], out=0)
+  rc.including <- constructCor(x, output=0)  
+  rc.excluding <- constructCor(x[, -c(e1, e2)], output=0)
   rc.inc.vals <- abs(rc.including[lower.tri(rc.including)])
   rc.exc.vals <- abs(rc.excluding[lower.tri(rc.excluding)])
 
@@ -1549,8 +1549,9 @@ indexDilemmaInternal <- function(x, self, ideal,
 
   # inter-construct correlations including and excluding 
   # the elements self and ideal self
-  rc.include <- constructCor(x, digits=digits, out=0)  
-  rc.exclude <- constructCor(x[, -c(self, ideal)], digits=digits, out=0)
+  rc.include <- constructCor(x, digits=digits, output=0)  
+  rc.exclude <- constructCor(x[, -c(self, ideal)], digits=digits, 
+                             output=0)
   
   # correlations to use for evaluation
   if (exclude)

@@ -931,7 +931,7 @@ makeRepgrid <- function(args){
   x <- do.call(c.setConstructs, l)
   x <- initRatingArray(x)								# initialize rating array
   l <- c(list(x=x), args)								# make a new repgrid object	
-  x[ , ] <- matrix(args$scores, ncol=getNoOfElements(x), by=T)  # to fill matrix rowwise
+  x[ , ] <- matrix(args$scores, ncol=getNoOfElements(x), byrow=T)  # to fill matrix rowwise
   #x <- do.call(r.setRatings, l)        # old version
   l <- c(list(x=x), args)								# make a new repgrid object	
   x <- do.call(rg.setCoupled, l)        # if no coupled argument then coupled=TRUE

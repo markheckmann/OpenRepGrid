@@ -371,7 +371,7 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL){
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("Gridstat files", ".dat"),
                         ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filter = Filters, multi=TRUE)     # returns complete path                    
+    file <- tk_choose.files(filters = Filters, multi=TRUE)     # returns complete path                    
   }
   imps <- lapply(as.list(file), importGridstatInternal,       # make import objects for each .txt file
                  dir=dir, min=min, max=max)
@@ -606,7 +606,7 @@ importGridcor <- function(file, dir=NULL){
   if (missing(file)){                                       # open file selection menu if no file argument is supplied
     Filters <- matrix(c("Gridcor files", ".dat"),
                       ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filter = Filters, multi=TRUE)   # returns complete path                    
+    file <- tk_choose.files(filters = Filters, multi=TRUE)  # returns complete path                    
   }
   imps <- lapply(as.list(file), importGridcorInternal,      # make import objects for each .txt file
                  dir=dir)
@@ -789,15 +789,15 @@ importGridsuite <- function(file, dir=NULL){
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("Gridsuite files", ".xml"),
                       ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filter = Filters, multi=TRUE)     # returns complete path                    
+    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
   }
-  imps <- lapply(as.list(file), importGridsuiteInternal,       # make import objects for each .txt file
+  imps <- lapply(as.list(file), importGridsuiteInternal,      # make import objects for each .txt file
                  dir=dir)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
   if (length(file) == 1) {
-    return(rgs[[1]])                                        # return a single repgrid opbject if a single file is prompted
+    return(rgs[[1]])                                          # return a single repgrid opbject if a single file is prompted
   } else {
-    return(rgs)                                             # return a list of repgrid objects
+    return(rgs)                                               # return a list of repgrid objects
   }
 }
 
@@ -1133,7 +1133,7 @@ importScivesco <- function(file, dir=NULL){
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("Sci:Vesco files", ".scires"),
                         ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filter = Filters, multi=TRUE)     # returns complete path                    
+    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
   }
   imps <- lapply(as.list(file), importScivescoInternal,       # make import objects for each .txt file
                  dir=dir)
@@ -1413,15 +1413,15 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("text files", ".txt"),
                         ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filter = Filters, multi=TRUE)     # returns complete path                    
+    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
   }
   imps <- lapply(as.list(file), importTxtInternal,            # make import objects for each .txt file
                  dir=dir, min=min, max=max)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
   if (length(file) == 1) {
-    return(rgs[[1]])                                        # return a single repgrid opbject if a single file is prompted
+    return(rgs[[1]])                                          # return a single repgrid opbject if a single file is prompted
   } else {
-    return(rgs)                                             # return a list of repgrid objects
+    return(rgs)                                               # return a list of repgrid objects
   }
 }
 
@@ -1458,7 +1458,7 @@ loadgrid <- function(){
                       "idiogrid", ".grd"),
                       ncol=2, byrow = TRUE)
   #choose.files(filters = Filters[c("dat", "scires", "All"),])
-  tk_choose.files(filter = Filters)
+  tk_choose.files(filters = Filters)
 }
 
 

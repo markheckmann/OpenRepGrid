@@ -412,11 +412,11 @@ biplotSimple <- function(x, dim=1:2, center=1, normalize=0,
   abline(v=0, h=0, col="grey")
   
   # plot constructs and labels
-  arrows(0,0, -Cu[ ,d1], -Cu[ ,d2], len=.05, 
+  arrows(0,0, -Cu[ ,d1], -Cu[ ,d2], length=.05, 
          col=c.point.col, lty=1)              # plot left poles
   text(-Cu[ ,d1], -Cu[ ,d2], cnames[,1], pos=1, 
         cex=c.label.cex, col=c.label.col)
-  arrows(0,0, Cu[ ,d1], Cu[ ,d2], len=.05, 
+  arrows(0,0, Cu[ ,d1], Cu[ ,d2], length=.05, 
          col=c.point.col, lty=3)               # plot right poles
   text(Cu[ ,d1], Cu[ ,d2], cnames[,2], pos=1, 
        cex=c.label.cex, col=c.label.col)
@@ -647,24 +647,24 @@ prepareBiplotData <- function(x, dim=c(1,2), map.dim=3,
   cex.label.e <- mapCoordinatesToValue(z, e.label.cex)
   cex.point.e <- mapCoordinatesToValue(z, e.point.cex)
   #color.e <- mapCoordinatesToColor(z, color=e.color, val.range=e.color.map)
-  color.label.e <- mapCoordinatesToColor(z, color=e.label.col, val.range=e.color.map)
-  color.point.e <- mapCoordinatesToColor(z, color=e.point.col, val.range=e.color.map)
+  color.label.e <- mapCoordinatesToColor(z, colors=e.label.col, val.range=e.color.map)
+  color.point.e <- mapCoordinatesToColor(z, colors=e.point.col, val.range=e.color.map)
   
   z <- subset(df, type=="cl", sel=z)
   #cex.cl <- mapCoordinatesToValue(z, c.cex.map)
   cex.label.cl <- mapCoordinatesToValue(z, c.label.cex)
   cex.point.cl <- mapCoordinatesToValue(z, c.point.cex)  
   #color.cl <- mapCoordinatesToColor(z, color=c.color, val.range=c.color.map)
-  color.label.cl <- mapCoordinatesToColor(z, color=c.label.col, val.range=c.color.map)
-  color.point.cl <- mapCoordinatesToColor(z, color=c.point.col, val.range=c.color.map)
+  color.label.cl <- mapCoordinatesToColor(z, colors=c.label.col, val.range=c.color.map)
+  color.point.cl <- mapCoordinatesToColor(z, colors=c.point.col, val.range=c.color.map)
 
   z <- subset(df, type=="cr", sel=z)
   #cex.cr <- mapCoordinatesToValue(z, c.cex.map)
   cex.label.cr <- mapCoordinatesToValue(z, c.label.cex)
   cex.point.cr <- mapCoordinatesToValue(z, c.point.cex)
   #color.cr <- mapCoordinatesToColor(z, color=c.color, val.range=c.color.map)
-  color.label.cr <- mapCoordinatesToColor(z, color=c.label.col, val.range=c.color.map)
-  color.point.cr <- mapCoordinatesToColor(z, color=c.point.col, val.range=c.color.map)
+  color.label.cr <- mapCoordinatesToColor(z, colors=c.label.col, val.range=c.color.map)
+  color.point.cr <- mapCoordinatesToColor(z, colors=c.point.col, val.range=c.color.map)
 
   #df$cex <- unlist(rbind(cex.e, cex.cl, cex.cr))
   #df$color <- c(color.e, color.cl, color.cr)
@@ -855,8 +855,8 @@ biplotDraw <- function(x,
     
   # initial coords for labels for strokes
   str.3 <- calcCoordsBorders(x["x"], x["y"], 
-                             xm=max.ext * (1 + strokes.x + offset.labels), # + rect.margins[1]/2), 
-                             ym=max.ext * (1 + strokes.y + offset.labels))# + rect.margins[2]/2))
+                             xmax=max.ext * (1 + strokes.x + offset.labels), # + rect.margins[1]/2), 
+                             ymax=max.ext * (1 + strokes.y + offset.labels))# + rect.margins[2]/2))
   colnames(str.3) <- c("str.3.x", "str.3.y")                           
   x <- cbind(x, str.3)
   
@@ -973,12 +973,12 @@ biplotDraw <- function(x,
   # make outer strokes for all labels (elements and constructs) 
   # select which to draw later
   # coordinates for stroke starts
-  str.1 <- calcCoordsBorders(x["x"], x["y"], xm=max.ext, ym=max.ext)
+  str.1 <- calcCoordsBorders(x["x"], x["y"], xmax=max.ext, ymax=max.ext)
   colnames(str.1) <- c("str.1.x", "str.1.y")
   
   # coordinates for stroke ends
-  str.2 <- calcCoordsBorders(x["x"], x["y"], xm=max.ext * (1 + strokes.x), 
-                             ym=max.ext * (1 + strokes.y))
+  str.2 <- calcCoordsBorders(x["x"], x["y"], xmax=max.ext * (1 + strokes.x), 
+                             ymax=max.ext * (1 + strokes.y))
   colnames(str.2) <- c("str.2.x", "str.2.y")
   
   x <- cbind(x, str.1, str.2)
@@ -986,8 +986,8 @@ biplotDraw <- function(x,
   # redo coordinates for stroke ends according to edges of rectangles that have been offsetted
   a <- list()
   for (i in seq_len(nrow(x))){
-    a[[i]] <- calcCoordsBorders(x[i, "x"], x[i, "y"], xm=max.ext * (1 + strokes.x), 
-                               ym=abs(x[i, "str.3.y"]))
+    a[[i]] <- calcCoordsBorders(x[i, "x"], x[i, "y"], xmax=max.ext * (1 + strokes.x), 
+                               ymax=abs(x[i, "str.3.y"]))
   }
   str.4 <- do.call(rbind, a)
   colnames(str.4) <- c("str.4.x", "str.4.y")
