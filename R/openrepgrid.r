@@ -11,11 +11,11 @@
 #' @author    Currently the \pkg{OpenRepGrid} development team is Mark Heckmann. 
 #'            Everyone who is interested in developing the package is invited to join.
 #'
-#'            The \pkg{OpenRepGrid} package is developed at R-Forge (\url{http://r-forge.r-project.org/projects/openrepgrid/}).
-#'            The R-Forge site provides information and mailing lists for help queries and bug reports. 
+#'            The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
+#'            The github site provides information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
 #'            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-#'            The package maintainer at R-Forge is Mark Heckmann  <heckmann(at)uni-bremen.de>.
+#'            The package maintainer at github is Mark Heckmann  <heckmann(at)uni-bremen.de>.
 #'
 #' @note      To get started with \pkg{OpenRepGrid} visit the project's home under \url{www.openrepgrid.org}. 
 #'            On this site you will find tutorials, explanation about the theory, methods of analysis and 
