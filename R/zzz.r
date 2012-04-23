@@ -1,20 +1,41 @@
-# called for the side effects, i.e. for a welcome message
-#
-.onLoad <- function(lib, pkg){
-    packageStartupMessage(
-            "------------------------------------------------",
-          "\n OpenRepGrid Version ",  utils::packageDescription("OpenRepGrid", field="Version"), 
-          "\n Tools for the analysis of repertory grid data",
-          "\n For an introduction visit: www.openrepgrid.org",
-          "\n------------------------------------------------", 
-          appendLF = TRUE)
+### This file is part of the OpenRepGrid package for R.  It is made
+### available under the terms of the GNU General Public License,
+### version 2, or at your option, any later version, incorporated
+### herein by reference.
+###
+### This program is distributed in the hope that it will be
+### useful, but WITHOUT ANY WARRANTY; without even the implied
+### warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+### PURPOSE. See the GNU General Public License for more
+### details.
+###
+### You should have received a copy of the GNU General Public
+### License along with this program; if not, write to the Free
+### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+### MA 02110-1301, USA
 
-    # invisible object in workspace to store parameters (TODO)
-    .openrepgrid <<- list()
-    .openrepgrid$par <- "some parameters to store"
+
+# environment in package namespace used to save package
+# settings
+.OpenRepGridEnv <- new.env()
+assign("settings",  list(), envir = .OpenRepGridEnv)
+
+
+.onLoad <- function(lib, pkg){
+  packageStartupMessage(
+          "------------------------------------------------",
+        "\n OpenRepGrid Version ",  utils::packageDescription("OpenRepGrid", field="Version"), 
+        "\n Tools for the analysis of repertory grid data",
+        "\n For an introduction visit: www.openrepgrid.org",
+        "\n------------------------------------------------", 
+        appendLF = TRUE)
+  
+  # invisible object saved in environment in namespace
+  setDefaultSettings()
 }
+
 
 # clean up workspace
-.onUnload <- function(lib){
-    #rm(.openrepgrid)
-}
+# .onUnload <- function(lib){
+#
+# } 
