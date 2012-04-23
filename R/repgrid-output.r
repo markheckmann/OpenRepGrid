@@ -158,7 +158,7 @@ df_out <- function(df,                # data frame
                                       # (e.g. "+---"). characters
                    keeprows=T,        # whether to show rows after each pagebreak
                    colstart="l",
-                   margin=1,          # right mragin for linebreak
+                   margin=1,          # right margin for linebreak
                    trim=c(NA,NA),     # maximum number of character for r/c entry.
                    cut=c(NA, NA),     # maximal number of chars left and right of main matrix
                    id=c(T,T),         # id numbers at beginning/end of each row/column
@@ -434,21 +434,22 @@ df_out <- function(df,                # data frame
 #' @author            Mark Heckmann
 #' @include repgrid.r
 #'
-setMethod("show", "repgrid", function(object){
+setMethod("show", "repgrid", function(object){   
+  pars <- settings() 
+  trim <- c(pars$show.trim, pars$show.trim)   #trim <- c(30,30)
+  cut <- c(pars$show.cut, pars$show.cut)      #cut <- c(20,20)  
   verbose <- TRUE    # what parts to print TRUE prints all information about the grid
   showopt <- 1
-  id <- c(T,T)
+  id <- c(pars$c.no, pars$e.no)   #  c(T,T)
   hatform <- T
-  trim <- c(30,30)
-  cut <- c(20,20)
-
+  
   x <- object
   do.bertin <- FALSE
   # verbose output displays all grid information available
   if (verbose){
     # print meta data
-    showMeta(x)
-    showScale(x)    #print scale info
+    if (pars$show.meta)  showMeta(x)
+    if (pars$show.scale) showScale(x)    #print scale info
     cat("\nRATINGS:\n")
   }
   

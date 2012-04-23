@@ -7,7 +7,7 @@ Type: Package
 LazyLoad: yes
 Author: Mark Heckmann
 Description: Tools to analyse repertory grid data
-Version: 0.1.6
+Version: 0.1.7
 Date: 2012-04-05
 Depends:
     methods,
@@ -40,3 +40,4 @@ Collate:
     'repgrid-output.r'
     'repgrid-plots.r'
     'rgl-3d.r'
+    'settings.r'
