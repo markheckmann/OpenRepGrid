@@ -10,6 +10,8 @@
   opened.}
 }
 \description{
-  Load OpenRepGrid settings
+  OpenRepGrid settings saved in an a settings file with the
+  extension \code{.orgset} can be loaded to restore the
+  settings.
 }
 

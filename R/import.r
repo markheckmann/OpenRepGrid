@@ -1245,7 +1245,8 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   if (!is.null(dir)) 
     file <- paste(dir, file, sep="/", collapse="")
 
-  data <- readLines(file)    # read txt file line by line
+  data <- readLines(file)             # read txt file line by line
+  data <- gsub("\t", " ", data)       # replace tabulators by simple blank
   
   line.elements <- which(data == "ELEMENTS")
   line.elements.end <- which(data == "END ELEMENTS")
@@ -1265,21 +1266,21 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   l$constructs <- as.list(data[(line.constructs + 1):(line.constructs.end-1)])
   l$constructs <- lapply(l$constructs, function(x) trimBlanksInString(x) )
   tmp <- lapply(l$constructs, function(x) {
-    strsplit(x, ":")[[1]]									# separate emergent and constrast pole by splitting at hyphene, colon or slash (see email from Richard)
+    strsplit(x, ":")[[1]]              # separate emergent and constrast pole by splitting at hyphene, colon or slash (see email from Richard)
   })
   l$emergentPoles <- lapply(tmp, function(x) trimBlanksInString(x[1]) )
-  l$contrastPoles <- lapply(tmp, function(x) trimBlanksInString(x[2]) ) 		
+  l$contrastPoles <- lapply(tmp, function(x) trimBlanksInString(x[2]) ) 
  	
  	# read ratings and convert to numeric
  	op <- options()$warn
  	options(warn=-1)
   l$ratings <- as.list(data[(line.ratings + 1):(line.ratings.end-1)])
   l$ratings <- lapply(l$ratings, function(x){
-    tmp <- strsplit(x, " ")[[1]]
+    tmp <- trimBlanksInString(x)
+    tmp <- strsplit(tmp, " ")[[1]]
     as.numeric(tmp)
   })
  	options(warn=op)
- 
  
   # read range if available
   if (!identical(line.range, integer(0))){
