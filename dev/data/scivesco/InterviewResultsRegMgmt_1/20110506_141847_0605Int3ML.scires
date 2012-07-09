@@ -1,0 +1,929 @@
+<Scivesco Version="3.0.1.132" Date="Fri, 06 May 2011 14:54:59 GMT" Type="InterviewResult" Hash="3df097eb37a6d77348c5cff16fb2e4c5">
+  <Interview Id="aa82678b-bb0a-4510-83e6-c3deeca3ec37" StartDateTime="Fri, 06 May 2011 14:18:47 GMT" EndDateTime="Fri, 06 May 2011 14:54:59 GMT">
+    <Expert>0605Int3ML</Expert>
+    <Interviewer>ML</Interviewer>
+    <Notes>
+    </Notes>
+    <InterviewSettingData Topic="MitteHessen v4" Id="049ff632-e6bb-4c41-9577-a03ba5700026" ReceiveAndRatingOrder="ReceiveRatingLoop">
+      <Description>
+      </Description>
+      <Language Default="de" UserCanChangeLanguage="true" />
+      <ReceiveConstructType Default="D-GGC-UGC" UserCanChangeReceiveConstructType="false" />
+      <RatingType Default="Scale" Digital="true" UserCanChangeRatingType="true" />
+      <Elements>
+        <ElementsCollection Count="32">
+          <Element Id="0c865de0-3950-4d50-8a2f-a04a3a95d5e4">
+            <Name Show="true">Regionalmanagement mein Idealmodell</Name>
+            <Token>Regionalmanagement mein Idealmodell</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="8a0aef91-252c-4a3d-9617-51fc20ef210d">
+            <Name Show="true">Realistische Potentiale des Regional-managements</Name>
+            <Token>Realistische Potentiale des Regional-managements</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="c6dcc832-1a18-4baa-b4fc-8523b43d15fd">
+            <Name Show="true">Region Mittelhessen - mein Erfolgskonzept</Name>
+            <Token>Region Mittelhessen - mein Erfolgskonzept</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267">
+            <Name Show="true">Mittelhessen als lebenswerte Region</Name>
+            <Token>Mittelhessen als lebenswerte Region</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03">
+            <Name Show="true">Mittelhessen als wettbewerbsstarke Region</Name>
+            <Token>Mittelhessen als wettbewerbsstarke Region</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="003719a9-325d-4857-b341-45817f7640f2">
+            <Name Show="true">MitteHessen e.V. als Vermarkter der Region</Name>
+            <Token>MitteHessen e.V. als Vermarkter der Region</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="0d9b7d13-762f-4948-965b-e823abae68d3">
+            <Name Show="true">MitteHessen e.V. als Interessenvertretung</Name>
+            <Token>MitteHessen e.V. als Interessenvertretung</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="dae96e68-5bfb-46b5-98f6-3eafc28c8587">
+            <Name Show="true">MitteHessen e.V. als Netzwerkplattform</Name>
+            <Token>MitteHessen e.V. als Netzwerkplattform</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="304f4597-cc23-466b-a153-fdff2b5090ad">
+            <Name Show="true">MitteHessen e.V. als Treiber regionaler Entwicklung</Name>
+            <Token>MitteHessen e.V. als Treiber regionaler Entwicklung</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="1fa09d12-95c2-47bc-a63a-d67dd33015cb">
+            <Name Show="true">MitteHessen e.V. vor 5 Jahren</Name>
+            <Token>MitteHessen e.V. vor 5 Jahren</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7">
+            <Name Show="true">MitteHessen e.V. heute</Name>
+            <Token>MitteHessen e.V. heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ce484a2f-1be7-4040-b8cd-1df820831153">
+            <Name Show="true">MitteHessen e.V. in 5 Jahren (real)</Name>
+            <Token>MitteHessen e.V. in 5 Jahren (real)</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="36f9f86b-bb3f-4362-9609-3bde93fdca1c">
+            <Name Show="true">Mittelhessen als Marke (vor 5 Jahren)</Name>
+            <Token>Mittelhessen als Marke (vor 5 Jahren)</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="73653bf7-4eb9-435c-9869-0a51cdbab445">
+            <Name Show="true">Mittelhessen als Marke (heute)</Name>
+            <Token>Mittelhessen als Marke (heute)</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="750c54c2-cfe5-469e-b772-bb72b84c1c79">
+            <Name Show="true">Region Mittelhessen vor 5 Jahren</Name>
+            <Token>Region Mittelhessen vor 5 Jahren</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="95af8edb-72c7-4e08-934c-f89fd3d78b84">
+            <Name Show="true">Region Mittelhessen (heute)</Name>
+            <Token>Region Mittelhessen (heute)</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436">
+            <Name Show="true">Region Mittelhessen in 5 Jahren (real)</Name>
+            <Token>Region Mittelhessen in 5 Jahren (real)</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97">
+            <Name Show="true">Regionalmanagement als Unternehmen organisiert</Name>
+            <Token>Regionalmanagement als Unternehmen organisiert</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="14b2765c-bbc2-47a8-a054-ce73fb203b62">
+            <Name Show="true">Regionalmanagement als Verein organisiert</Name>
+            <Token>Regionalmanagement als Verein organisiert</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="a61ffa91-4700-4225-8cc3-60de57bea497">
+            <Name Show="true">Die Organisation in der ich tätig bin</Name>
+            <Token>Die Organisation in der ich tätig bin</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="979fd99d-d171-4690-93ef-c1f477dc50a3">
+            <Name Show="true">Clustermanagement in Mittelhessen</Name>
+            <Token>Clustermanagement in Mittelhessen</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11">
+            <Name Show="true">IHK als Mitglied von MitteHessen e.V. </Name>
+            <Token>IHK als Mitglied von MitteHessen e.V. </Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="84a504fc-9ad3-429f-bddd-0c8d7680010d">
+            <Name Show="true">Handwerkskammer als Mitglied von MitteHessen e.V. </Name>
+            <Token>Handwerkskammer als Mitglied von MitteHessen e.V. </Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="bd924acc-c79b-457c-8844-1063fbe83024">
+            <Name Show="true">Regierungspräsidium als Mitglied von MitteHessen e.V.</Name>
+            <Token>Regierungspräsidium als Mitglied von MitteHessen e.V.</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="b410f959-70eb-40c6-a3b3-8a41c9bfefe1">
+            <Name Show="true">Hochschulen als Mitglieder von MitteHessen e.V.</Name>
+            <Token>Hochschulen als Mitglieder von MitteHessen e.V.</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="289c14bf-a5ce-40d9-88c0-ecc4e261cb82">
+            <Name Show="true">Landkreise als Mitglied von MitteHessen e.V.</Name>
+            <Token>Landkreise als Mitglied von MitteHessen e.V.</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="17c212a5-eab2-47bb-a918-9ef027a7b54d">
+            <Name Show="true">Kommunen als Mitglieder von MitteHessen</Name>
+            <Token>Kommunen als Mitglieder von MitteHessen</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="9aa1b0fc-0347-40c5-a716-fabc4cf84eef">
+            <Name Show="true">Unternehmen als Mitglieder von MitteHessen</Name>
+            <Token>Unternehmen als Mitglieder von MitteHessen</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ac8c539c-918e-4fde-8d24-27c8d3037cb2">
+            <Name Show="true">Lokale Wirtschaftsförderung</Name>
+            <Token>Lokale Wirtschaftsförderung</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ce612285-02e4-4742-874d-26a20331ab00">
+            <Name Show="true">Rhein-Main-Gebiet</Name>
+            <Token>Rhein-Main-Gebiet</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ba113746-896b-44d7-9560-c10a4615df2d">
+            <Name Show="true">Region Nordhessen</Name>
+            <Token>Region Nordhessen</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="89034607-b32f-4d29-bcf4-a43b4020e9bf">
+            <Name Show="true">Meine Region</Name>
+            <Token>Meine Region</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+        </ElementsCollection>
+      </Elements>
+      <ElementCombinations>
+        <WhiteCombinations>
+          <ElementCombinationsCollection Count="6">
+            <ElementCombination Id="1c9c7007-8ce8-43a7-a936-a7a8e2a01af2" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+              <Element Id="1fa09d12-95c2-47bc-a63a-d67dd33015cb" />
+              <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+            </ElementCombination>
+            <ElementCombination Id="9c54e7fa-13d7-41f6-b1c5-d810e807fb54" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+              <Element Id="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" />
+              <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+            </ElementCombination>
+            <ElementCombination Id="db22cc34-9d19-4d0b-9be5-489294d36714" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+              <Element Id="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" />
+              <Element Id="14b2765c-bbc2-47a8-a054-ce73fb203b62" />
+            </ElementCombination>
+            <ElementCombination Id="793c7c6a-e929-49e8-b580-2a22fb40e3e3" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+              <Element Id="a61ffa91-4700-4225-8cc3-60de57bea497" />
+              <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+            </ElementCombination>
+            <ElementCombination Id="34bee4b9-d526-49b5-8d42-87a5c40410c6" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+              <Element Id="750c54c2-cfe5-469e-b772-bb72b84c1c79" />
+              <Element Id="95af8edb-72c7-4e08-934c-f89fd3d78b84" />
+            </ElementCombination>
+            <ElementCombination Id="52794d42-3863-4525-bd9e-afec0ac0aa6d" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+              <Element Id="95af8edb-72c7-4e08-934c-f89fd3d78b84" />
+              <Element Id="ce612285-02e4-4742-874d-26a20331ab00" />
+            </ElementCombination>
+          </ElementCombinationsCollection>
+        </WhiteCombinations>
+        <BlackCombinations>
+          <ElementCombinationsCollection Count="0" />
+        </BlackCombinations>
+      </ElementCombinations>
+      <PredefinedConstructPairs Time="Before" AskOnlyPredefinedConstructPairs="false">
+        <InterviewPredefinedConstructPairsCollection Count="0" />
+      </PredefinedConstructPairs>
+      <AdditionalQuestions Time="After">
+        <InterviewAdditionalQuestionsCollection Count="11">
+          <InterviewAdditionalQuestion Id="03eb66de-6b8c-40cd-bf34-471e109e6609">
+            <Text>Ihr Geschlecht:</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="2">
+                <InterviewAdditionalQuestionAnswer Id="81871ee0-decc-4eb1-8c34-7a72f82eb3cb" BelongToQuestionId="03eb66de-6b8c-40cd-bf34-471e109e6609" RadiobuttonGroup="radgroup_03eb66de-6b8c-40cd-bf34-471e109e6609" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>weiblich</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="69966b8d-0b0d-4c48-bd05-8ec8a2d9ffbb" BelongToQuestionId="03eb66de-6b8c-40cd-bf34-471e109e6609" RadiobuttonGroup="radgroup_03eb66de-6b8c-40cd-bf34-471e109e6609" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>männlich</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="02370e0d-daa3-4f6e-a404-2b02ed48b985">
+            <Text>Welchem Bereich ist Ihre Institution zuzuordnen?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="4">
+                <InterviewAdditionalQuestionAnswer Id="ceaa82c5-a66d-4554-8d78-868abcc8682a" BelongToQuestionId="02370e0d-daa3-4f6e-a404-2b02ed48b985" RadiobuttonGroup="radgroup_02370e0d-daa3-4f6e-a404-2b02ed48b985" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Politik / öffentliche Institutionen</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a7018042-1c9f-4dc9-8545-6c4dd9f06421" BelongToQuestionId="02370e0d-daa3-4f6e-a404-2b02ed48b985" RadiobuttonGroup="radgroup_02370e0d-daa3-4f6e-a404-2b02ed48b985" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Privatwirtschaftliche Unternehmen </Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="51292d8f-98f0-42a3-874d-64e16784a7b4" BelongToQuestionId="02370e0d-daa3-4f6e-a404-2b02ed48b985" RadiobuttonGroup="radgroup_02370e0d-daa3-4f6e-a404-2b02ed48b985" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Bildungseinrichtung</Text>
+                  <Value>3</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="85b0342f-10d4-435c-8d75-09cfaa4e7202" BelongToQuestionId="02370e0d-daa3-4f6e-a404-2b02ed48b985" RadiobuttonGroup="radgroup_02370e0d-daa3-4f6e-a404-2b02ed48b985" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Medien</Text>
+                  <Value>4</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="26bd3d70-1d7d-461a-861c-30eb9d6164d5">
+            <Text>Ist Ihre Institution Mitglied von MitteHessen e.V.?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="2">
+                <InterviewAdditionalQuestionAnswer Id="5e3c26cf-9154-459a-aee5-88b461fc442b" BelongToQuestionId="26bd3d70-1d7d-461a-861c-30eb9d6164d5" RadiobuttonGroup="radgroup_26bd3d70-1d7d-461a-861c-30eb9d6164d5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Mitglied</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="9bb037d7-fb27-4cca-8156-546db839d5d2" BelongToQuestionId="26bd3d70-1d7d-461a-861c-30eb9d6164d5" RadiobuttonGroup="radgroup_26bd3d70-1d7d-461a-861c-30eb9d6164d5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Kein Mitglied</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="b30a8f41-e092-46cd-80a7-a32993a1f228">
+            <Text>Wie lange ist Ihre Institution schon Mitglied von MitteHessen e.V.?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="4">
+                <InterviewAdditionalQuestionAnswer Id="69c8bf6b-02b7-46f5-b6fe-e7300c2ab2c3" BelongToQuestionId="b30a8f41-e092-46cd-80a7-a32993a1f228" RadiobuttonGroup="radgroup_b30a8f41-e092-46cd-80a7-a32993a1f228" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>&lt; 1 Jahre</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="1ca5ce12-299e-42e9-b1b3-a30663d6939a" BelongToQuestionId="b30a8f41-e092-46cd-80a7-a32993a1f228" RadiobuttonGroup="radgroup_b30a8f41-e092-46cd-80a7-a32993a1f228" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>1-2 Jahre</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="b0afdfd2-8553-4d69-a453-1238c8f7f6eb" BelongToQuestionId="b30a8f41-e092-46cd-80a7-a32993a1f228" RadiobuttonGroup="radgroup_b30a8f41-e092-46cd-80a7-a32993a1f228" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>3-4 Jahre</Text>
+                  <Value>3</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="5bac954c-e317-4f1a-ba64-5110a94898c0" BelongToQuestionId="b30a8f41-e092-46cd-80a7-a32993a1f228" RadiobuttonGroup="radgroup_b30a8f41-e092-46cd-80a7-a32993a1f228" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>&gt;= 5 Jahre</Text>
+                  <Value>4</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d">
+            <Text>In welchem Landkreis ist Ihre Institution angesiedelt?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="6">
+                <InterviewAdditionalQuestionAnswer Id="9aa4ef77-773d-4cf3-8ab7-aa2301eafe8d" BelongToQuestionId="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" RadiobuttonGroup="radgroup_2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Gießen</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="8f3efad6-46f8-4038-a72b-ae8b5056815d" BelongToQuestionId="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" RadiobuttonGroup="radgroup_2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Lanh-Dill-Kreis</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="db51f240-9b4f-4b85-8642-43187146677f" BelongToQuestionId="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" RadiobuttonGroup="radgroup_2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Limburg-Weilburg</Text>
+                  <Value>3</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a2f82133-e1b4-4b0e-941b-d47b0e674fdc" BelongToQuestionId="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" RadiobuttonGroup="radgroup_2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Marburg-Biedenkopf</Text>
+                  <Value>4</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="6693b28f-0bb4-4bea-b8d3-0f3aa296f588" BelongToQuestionId="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" RadiobuttonGroup="radgroup_2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Vogelsbergkreis</Text>
+                  <Value>5</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="73050f68-a427-4164-8b8c-74753aef236c" BelongToQuestionId="2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" RadiobuttonGroup="radgroup_2744f9c3-3979-4f1f-bdc7-a31c7e0cf75d" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Nicht in Mittelhessen</Text>
+                  <Value>6</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="b39cc669-3722-49db-82ea-af8ae1346f96">
+            <Text>Bitte nennen Sie die aus Ihrer Sicht die drei wichtigsten Kernaufgaben des Regionalmanagements:</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="3">
+                <InterviewAdditionalQuestionAnswer Id="87c34bd3-6cc1-4fc3-9bb2-592809cfe5b5" BelongToQuestionId="b39cc669-3722-49db-82ea-af8ae1346f96" RadiobuttonGroup="radgroup_b39cc669-3722-49db-82ea-af8ae1346f96" InterviewAdditionalQuestionAnswerType="Textbox">
+                  <Text>
+                  </Text>
+                  <Value>
+                  </Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="3e7607e8-5dc2-45f9-a4ba-338abbcd032a" BelongToQuestionId="b39cc669-3722-49db-82ea-af8ae1346f96" RadiobuttonGroup="radgroup_b39cc669-3722-49db-82ea-af8ae1346f96" InterviewAdditionalQuestionAnswerType="Textbox">
+                  <Text>
+                  </Text>
+                  <Value>
+                  </Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a83191a2-e6a5-48fa-989e-62d81383aa0d" BelongToQuestionId="b39cc669-3722-49db-82ea-af8ae1346f96" RadiobuttonGroup="radgroup_b39cc669-3722-49db-82ea-af8ae1346f96" InterviewAdditionalQuestionAnswerType="Textbox">
+                  <Text>
+                  </Text>
+                  <Value>
+                  </Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="c355d5de-3ce2-4e54-a8c3-1eaec54d8c94">
+            <Text>Bitte geben Sie Ihre Einschätzung hinsichtlich der wirtschaftlichen Entwicklung der Region Mittelhessen ab.</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="5">
+                <InterviewAdditionalQuestionAnswer Id="13dfe09d-8f33-43e8-accc-d6a651c49c82" BelongToQuestionId="c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" RadiobuttonGroup="radgroup_c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>sehr positive Entwicklung</Text>
+                  <Value>5</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="257e6914-a5b2-4bbc-bb07-040f6f196da9" BelongToQuestionId="c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" RadiobuttonGroup="radgroup_c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>leicht positive Entwicklung</Text>
+                  <Value>4</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a3fe469c-7b6d-4d9c-90c5-92fa87b7aad3" BelongToQuestionId="c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" RadiobuttonGroup="radgroup_c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>keine Veränderung</Text>
+                  <Value>
+                  </Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="5a71c404-9bf3-4244-ab2e-c17b846968ab" BelongToQuestionId="c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" RadiobuttonGroup="radgroup_c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>leicht negative Entwicklung</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="dd61c283-65f6-4af3-a6bd-6487f25f5e0a" BelongToQuestionId="c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" RadiobuttonGroup="radgroup_c355d5de-3ce2-4e54-a8c3-1eaec54d8c94" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>sehr negative Entwicklung</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="d51ac01c-41d9-4e19-b791-7235fb5f2037">
+            <Text>Meine Institution / Mein Unternehmen profitiert sehr von den Aktivitäten des Vereins MitteHessen e.V.</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="5">
+                <InterviewAdditionalQuestionAnswer Id="9473484b-3062-4b34-a4ed-849a6913b436" BelongToQuestionId="d51ac01c-41d9-4e19-b791-7235fb5f2037" RadiobuttonGroup="radgroup_d51ac01c-41d9-4e19-b791-7235fb5f2037" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>triftt völlig zu</Text>
+                  <Value>5</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="0b07ee5f-6bb1-418f-bafa-a6d2baf76a55" BelongToQuestionId="d51ac01c-41d9-4e19-b791-7235fb5f2037" RadiobuttonGroup="radgroup_d51ac01c-41d9-4e19-b791-7235fb5f2037" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>trifft zu </Text>
+                  <Value>4</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="24360908-d1b0-4d49-8138-53a29a9d7bb1" BelongToQuestionId="d51ac01c-41d9-4e19-b791-7235fb5f2037" RadiobuttonGroup="radgroup_d51ac01c-41d9-4e19-b791-7235fb5f2037" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>teils-teils</Text>
+                  <Value>3</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="928f6755-73aa-49f2-bd23-4b8440fe5389" BelongToQuestionId="d51ac01c-41d9-4e19-b791-7235fb5f2037" RadiobuttonGroup="radgroup_d51ac01c-41d9-4e19-b791-7235fb5f2037" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>trifft wenig zu</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="815b6db8-fd68-4aba-bf2d-fe560b42f40d" BelongToQuestionId="d51ac01c-41d9-4e19-b791-7235fb5f2037" RadiobuttonGroup="radgroup_d51ac01c-41d9-4e19-b791-7235fb5f2037" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>trifft gar nicht zu</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="807119a7-bd99-4927-bb60-6b539022f902">
+            <Text>Wie zufrieden sind Sie insgesamt mit der Arbeit von MitteHessen e.V.?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="5">
+                <InterviewAdditionalQuestionAnswer Id="43887288-23f1-4d78-b613-6bfc790dc4c3" BelongToQuestionId="807119a7-bd99-4927-bb60-6b539022f902" RadiobuttonGroup="radgroup_807119a7-bd99-4927-bb60-6b539022f902" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>sehr zufrieden</Text>
+                  <Value>5</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a25e6590-d753-4346-ab81-f3f313008624" BelongToQuestionId="807119a7-bd99-4927-bb60-6b539022f902" RadiobuttonGroup="radgroup_807119a7-bd99-4927-bb60-6b539022f902" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>zufrieden</Text>
+                  <Value>4</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="b8ba2364-a27a-4b86-89ba-4f1f925e0b54" BelongToQuestionId="807119a7-bd99-4927-bb60-6b539022f902" RadiobuttonGroup="radgroup_807119a7-bd99-4927-bb60-6b539022f902" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>teils-teils</Text>
+                  <Value>3</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="6c4abda2-a15c-4e13-8bae-7c51bffefafc" BelongToQuestionId="807119a7-bd99-4927-bb60-6b539022f902" RadiobuttonGroup="radgroup_807119a7-bd99-4927-bb60-6b539022f902" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>unzufriedem</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="d9673de5-9452-458f-a50f-0c044f2aefa8" BelongToQuestionId="807119a7-bd99-4927-bb60-6b539022f902" RadiobuttonGroup="radgroup_807119a7-bd99-4927-bb60-6b539022f902" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>sehr unzufrieden</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="96dedb18-a6ab-4d55-ae88-126e9ebd3eed">
+            <Text>Wir nehmen regelmäßig an Veranstaltungen von MItteHessen e.V. teil.</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="2">
+                <InterviewAdditionalQuestionAnswer Id="2875fd66-5168-4c62-b486-b25a3b627874" BelongToQuestionId="96dedb18-a6ab-4d55-ae88-126e9ebd3eed" RadiobuttonGroup="radgroup_96dedb18-a6ab-4d55-ae88-126e9ebd3eed" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>ja</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a1dd26fa-24cc-4b1c-a6e8-c43672b00c75" BelongToQuestionId="96dedb18-a6ab-4d55-ae88-126e9ebd3eed" RadiobuttonGroup="radgroup_96dedb18-a6ab-4d55-ae88-126e9ebd3eed" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>nein</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="82ed3ae1-7baf-4067-be93-dd775931d1d7">
+            <Text>Üben Sie im Verein MitteHessen e.V. eine Funktion aus (z.B. Vorstand, Leiter/in eines Arbeitskreises, etc.)?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="2">
+                <InterviewAdditionalQuestionAnswer Id="4e64bc5a-8e84-447e-ba5f-a99ae4ebc634" BelongToQuestionId="82ed3ae1-7baf-4067-be93-dd775931d1d7" RadiobuttonGroup="radgroup_82ed3ae1-7baf-4067-be93-dd775931d1d7" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>ja</Text>
+                  <Value>1</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="d72a093c-9560-425b-8962-ca4e7eda17de" BelongToQuestionId="82ed3ae1-7baf-4067-be93-dd775931d1d7" RadiobuttonGroup="radgroup_82ed3ae1-7baf-4067-be93-dd775931d1d7" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>nein</Text>
+                  <Value>2</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+        </InterviewAdditionalQuestionsCollection>
+      </AdditionalQuestions>
+    </InterviewSettingData>
+    <DoneCombinations>
+      <ElementCombinationsCollection Count="5">
+        <ElementCombination Id="1c9c7007-8ce8-43a7-a936-a7a8e2a01af2" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+          <Element Id="1fa09d12-95c2-47bc-a63a-d67dd33015cb" />
+          <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+        </ElementCombination>
+        <ElementCombination Id="9c54e7fa-13d7-41f6-b1c5-d810e807fb54" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+          <Element Id="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" />
+          <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+        </ElementCombination>
+        <ElementCombination Id="db22cc34-9d19-4d0b-9be5-489294d36714" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+          <Element Id="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" />
+          <Element Id="14b2765c-bbc2-47a8-a054-ce73fb203b62" />
+        </ElementCombination>
+        <ElementCombination Id="793c7c6a-e929-49e8-b580-2a22fb40e3e3" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+          <Element Id="a61ffa91-4700-4225-8cc3-60de57bea497" />
+          <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+        </ElementCombination>
+        <ElementCombination Id="34bee4b9-d526-49b5-8d42-87a5c40410c6" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+          <Element Id="750c54c2-cfe5-469e-b772-bb72b84c1c79" />
+          <Element Id="95af8edb-72c7-4e08-934c-f89fd3d78b84" />
+        </ElementCombination>
+      </ElementCombinationsCollection>
+    </DoneCombinations>
+    <InterviewAdditionalQuestionAnswerResults>
+      <Answer Id="81871ee0-decc-4eb1-8c34-7a72f82eb3cb" Result="false" />
+      <Answer Id="69966b8d-0b0d-4c48-bd05-8ec8a2d9ffbb" Result="true" />
+      <Answer Id="ceaa82c5-a66d-4554-8d78-868abcc8682a" Result="false" />
+      <Answer Id="a7018042-1c9f-4dc9-8545-6c4dd9f06421" Result="true" />
+      <Answer Id="51292d8f-98f0-42a3-874d-64e16784a7b4" Result="false" />
+      <Answer Id="85b0342f-10d4-435c-8d75-09cfaa4e7202" Result="false" />
+      <Answer Id="5e3c26cf-9154-459a-aee5-88b461fc442b" Result="false" />
+      <Answer Id="9bb037d7-fb27-4cca-8156-546db839d5d2" Result="true" />
+      <Answer Id="69c8bf6b-02b7-46f5-b6fe-e7300c2ab2c3" Result="false" />
+      <Answer Id="1ca5ce12-299e-42e9-b1b3-a30663d6939a" Result="false" />
+      <Answer Id="b0afdfd2-8553-4d69-a453-1238c8f7f6eb" Result="false" />
+      <Answer Id="5bac954c-e317-4f1a-ba64-5110a94898c0" Result="false" />
+      <Answer Id="9aa4ef77-773d-4cf3-8ab7-aa2301eafe8d" Result="true" />
+      <Answer Id="8f3efad6-46f8-4038-a72b-ae8b5056815d" Result="false" />
+      <Answer Id="db51f240-9b4f-4b85-8642-43187146677f" Result="false" />
+      <Answer Id="a2f82133-e1b4-4b0e-941b-d47b0e674fdc" Result="false" />
+      <Answer Id="6693b28f-0bb4-4bea-b8d3-0f3aa296f588" Result="false" />
+      <Answer Id="73050f68-a427-4164-8b8c-74753aef236c" Result="false" />
+      <Answer Id="87c34bd3-6cc1-4fc3-9bb2-592809cfe5b5" Result="Repräsentation nach innen und nach außen" />
+      <Answer Id="3e7607e8-5dc2-45f9-a4ba-338abbcd032a" Result="Überbrückungsfunktion der politischen Grenzen" />
+      <Answer Id="a83191a2-e6a5-48fa-989e-62d81383aa0d" Result="" />
+      <Answer Id="13dfe09d-8f33-43e8-accc-d6a651c49c82" Result="false" />
+      <Answer Id="257e6914-a5b2-4bbc-bb07-040f6f196da9" Result="true" />
+      <Answer Id="a3fe469c-7b6d-4d9c-90c5-92fa87b7aad3" Result="false" />
+      <Answer Id="5a71c404-9bf3-4244-ab2e-c17b846968ab" Result="false" />
+      <Answer Id="dd61c283-65f6-4af3-a6bd-6487f25f5e0a" Result="false" />
+      <Answer Id="9473484b-3062-4b34-a4ed-849a6913b436" Result="false" />
+      <Answer Id="0b07ee5f-6bb1-418f-bafa-a6d2baf76a55" Result="false" />
+      <Answer Id="24360908-d1b0-4d49-8138-53a29a9d7bb1" Result="false" />
+      <Answer Id="928f6755-73aa-49f2-bd23-4b8440fe5389" Result="true" />
+      <Answer Id="815b6db8-fd68-4aba-bf2d-fe560b42f40d" Result="false" />
+      <Answer Id="43887288-23f1-4d78-b613-6bfc790dc4c3" Result="false" />
+      <Answer Id="a25e6590-d753-4346-ab81-f3f313008624" Result="false" />
+      <Answer Id="b8ba2364-a27a-4b86-89ba-4f1f925e0b54" Result="true" />
+      <Answer Id="6c4abda2-a15c-4e13-8bae-7c51bffefafc" Result="false" />
+      <Answer Id="d9673de5-9452-458f-a50f-0c044f2aefa8" Result="false" />
+      <Answer Id="2875fd66-5168-4c62-b486-b25a3b627874" Result="true" />
+      <Answer Id="a1dd26fa-24cc-4b1c-a6e8-c43672b00c75" Result="false" />
+      <Answer Id="4e64bc5a-8e84-447e-ba5f-a99ae4ebc634" Result="false" />
+      <Answer Id="d72a093c-9560-425b-8962-ca4e7eda17de" Result="true" />
+    </InterviewAdditionalQuestionAnswerResults>
+    <InterviewResultTurnsCollection Count="4">
+      <InterviewResultTurn Id="2ee60e4f-8e19-454b-be36-078245785d6c">
+        <UsedElementCombination ChoosenOption="similar">
+          <ElementCombination Id="1c9c7007-8ce8-43a7-a936-a7a8e2a01af2" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+            <Element Id="1fa09d12-95c2-47bc-a63a-d67dd33015cb" />
+            <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>träge</Pole1>
+        <Pole2>dynamisch</Pole2>
+        <RatingPole1>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.0202464385506849" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.384375429435207" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.00781457560349963" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.445769776922725" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.175021758050479" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.754518803536256" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.915267280472722" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.489235490815812" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="1" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0.771874856854931" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.765965828409143" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.710966057441253" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.844230681141496" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.758618478310659" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.417786633686043" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.286826073015437" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.28129723787275" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.219504374513307" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.649594613164766" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.334872429114562" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.742563327378498" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.721538179652787" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.41640327973982" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.762287572717695" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.729274884338784" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.451275708854381" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.816778892400715" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.102166643763456" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.430186432137786" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.428780174980532" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.979753561449315" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.615624570564793" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.9921854243965" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.554230223077275" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.824978241949521" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.245481196463744" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.0847327195272778" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.510764509184188" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0.228125143145069" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.234034171590857" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.289033942558747" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.155769318858504" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.241381521689341" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.582213366313957" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.713173926984563" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.71870276212725" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.780495625486693" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.350405386835234" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.665127570885438" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.257436672621502" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.278461820347213" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.583596720260181" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.237712427282305" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.270725115661216" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.548724291145619" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.183221107599285" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.897833356236544" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.569813567862214" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.571219825019468" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="adbfc729-903d-420c-82ab-32b924906206">
+        <UsedElementCombination ChoosenOption="different">
+          <ElementCombination Id="9c54e7fa-13d7-41f6-b1c5-d810e807fb54" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+            <Element Id="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" />
+            <Element Id="6847ef22-5e5e-4073-bd11-519c0a47a5d7" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>Hohe Durchschlagskraft / Effizienz</Pole1>
+        <Pole2>Lahme Ente</Pole2>
+        <RatingPole1>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.968439375200403" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.762278411433283" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.972497824194952" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.684879300077871" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.772795565938345" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.163615958957446" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.28726123402501" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.494732261463057" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0.123287984975494" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0.146617195730842" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.111850121387018" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.125559983509688" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.25745041454812" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.401328386239751" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.349077000595484" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.473716275021758" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.481929366497183" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.656497640969264" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.319788374330081" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.620704502771289" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.231363657184737" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.22682882140076" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.597796711098896" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.196120196051486" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.212578443497778" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.470514406119738" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.150295451422289" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.753533965461958" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.461792863359443" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.467257569511246" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.0315606247995969" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.237721588566717" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.0275021758050478" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.315120699922129" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.227204434061655" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.836384041042554" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.71273876597499" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.505267738536943" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0.876712015024506" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0.853382804269158" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.888149878612982" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.874440016490312" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.74254958545188" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.598671613760249" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.650922999404516" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.526283724978242" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.518070633502817" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.343502359030736" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.680211625669919" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.379295497228711" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.768636342815263" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.77317117859924" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.402203288901104" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.803879803948514" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.787421556502222" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.529485593880262" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.849704548577711" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.246466034538042" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.538207136640557" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.532742430488754" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="046a2a06-01f5-400a-b25e-b01ddf3c8737">
+        <UsedElementCombination ChoosenOption="different">
+          <ElementCombination Id="db22cc34-9d19-4d0b-9be5-489294d36714" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+            <Element Id="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" />
+            <Element Id="14b2765c-bbc2-47a8-a054-ce73fb203b62" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>Höherer Grad an Unabhängigkeit</Pole1>
+        <Pole2>Abhängigkeit (mehr Fußfesseln; Entscheidungsprozesse)</Pole2>
+        <RatingPole1>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.84766739956942" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.828396637808621" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.750035591589941" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.672668544729971" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.467881773624662" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.163772937565846" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.155495717099537" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.457786038202556" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0.15367720214374" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0.0258452200998582" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.106510329348175" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.136710503412579" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.5" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.5" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.438556502221612" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.438144244423068" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.450479913883927" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.796822271082406" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.150919655535706" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.963035454170675" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.269998030323851" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.139037469653245" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.641927854885255" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.157799780129174" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.133032247721131" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.428071412211992" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.143581466721634" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.694600659612478" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.433091796069809" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.434433924236178" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.15233260043058" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.171603362191379" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.249964408410059" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.327331455270029" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.532118226375338" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.836227062434154" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.844504282900463" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.542213961797444" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0.84632279785626" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0.974154779900142" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.893489670651826" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.863289496587421" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.5" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.5" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.561443497778388" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.561855755576932" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.549520086116073" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.203177728917594" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.849080344464294" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.0369645458293253" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.730001969676149" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.860962530346755" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.358072145114745" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.842200219870826" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.866967752278869" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.571928587788008" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.856418533278366" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.305399340387522" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.566908203930191" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.565566075763822" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="dfd186d0-b085-45e4-b388-f1e4d2859553">
+        <UsedElementCombination ChoosenOption="similar">
+          <ElementCombination Id="34bee4b9-d526-49b5-8d42-87a5c40410c6" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="049ff632-e6bb-4c41-9577-a03ba5700026">
+            <Element Id="750c54c2-cfe5-469e-b772-bb72b84c1c79" />
+            <Element Id="95af8edb-72c7-4e08-934c-f89fd3d78b84" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>Heimat / Nähe / sich gut aufgehoben fühlen</Pole1>
+        <Pole2>Die Fremde / keine gute Vertretung (gefühlt)</Pole2>
+        <RatingPole1>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.781549173194082" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.600123677339563" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.663304475287435" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.951472676469241" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.779666529247401" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.229577206724383" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.222674178919884" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.619783793687875" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0.224978241949521" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="0" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.115972699372452" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.223127662498282" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.679327561724154" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.662424991983876" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.93585726718886" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.92719985341945" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.935412944894874" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.615271861114928" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.589130136045074" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.808968897439421" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.217621730566625" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.189725619531859" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.4631258302414" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.194746003389675" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.183720397599743" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.452649901516193" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.177779304658513" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.154385964912281" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.173212404379094" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.911121799276258" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="0c865de0-3950-4d50-8a2f-a04a3a95d5e4" Value="0.218450826805918" />
+          <Rating ElementId="8a0aef91-252c-4a3d-9617-51fc20ef210d" Value="0.399876322660437" />
+          <Rating ElementId="c6dcc832-1a18-4baa-b4fc-8523b43d15fd" Value="0.336695524712565" />
+          <Rating ElementId="ed3e92f6-e0ef-4d93-87f7-8f1b4ff9a267" Value="0.0485273235307589" />
+          <Rating ElementId="8ea90ade-7b45-4cfb-b5b5-c0de9ecfff03" Value="0.220333470752599" />
+          <Rating ElementId="003719a9-325d-4857-b341-45817f7640f2" Value="0.770422793275617" />
+          <Rating ElementId="0d9b7d13-762f-4948-965b-e823abae68d3" Value="0.777325821080116" />
+          <Rating ElementId="dae96e68-5bfb-46b5-98f6-3eafc28c8587" Value="0.380216206312125" />
+          <Rating ElementId="304f4597-cc23-466b-a153-fdff2b5090ad" Value="0.775021758050479" />
+          <Rating ElementId="1fa09d12-95c2-47bc-a63a-d67dd33015cb" Value="1" />
+          <Rating ElementId="6847ef22-5e5e-4073-bd11-519c0a47a5d7" Value="0.884027300627548" />
+          <Rating ElementId="ce484a2f-1be7-4040-b8cd-1df820831153" Value="0.776872337501718" />
+          <Rating ElementId="36f9f86b-bb3f-4362-9609-3bde93fdca1c" Value="0.320672438275846" />
+          <Rating ElementId="73653bf7-4eb9-435c-9869-0a51cdbab445" Value="0.337575008016124" />
+          <Rating ElementId="750c54c2-cfe5-469e-b772-bb72b84c1c79" Value="0.0641427328111399" />
+          <Rating ElementId="95af8edb-72c7-4e08-934c-f89fd3d78b84" Value="0.0728001465805503" />
+          <Rating ElementId="dc2f1d3a-c1c3-4bcf-80db-e7717fd8e436" Value="0.0645870551051259" />
+          <Rating ElementId="f0537369-ec4d-4ca9-8fdb-8ed20eb4fe97" Value="0.384728138885072" />
+          <Rating ElementId="14b2765c-bbc2-47a8-a054-ce73fb203b62" Value="0.410869863954926" />
+          <Rating ElementId="a61ffa91-4700-4225-8cc3-60de57bea497" Value="0.191031102560579" />
+          <Rating ElementId="979fd99d-d171-4690-93ef-c1f477dc50a3" Value="0.5" />
+          <Rating ElementId="9caccd4c-bdf4-4a9e-9029-95a8a58a1c11" Value="0.782378269433375" />
+          <Rating ElementId="84a504fc-9ad3-429f-bddd-0c8d7680010d" Value="0.810274380468141" />
+          <Rating ElementId="bd924acc-c79b-457c-8844-1063fbe83024" Value="0.5" />
+          <Rating ElementId="b410f959-70eb-40c6-a3b3-8a41c9bfefe1" Value="0.5368741697586" />
+          <Rating ElementId="289c14bf-a5ce-40d9-88c0-ecc4e261cb82" Value="0.805253996610325" />
+          <Rating ElementId="17c212a5-eab2-47bb-a918-9ef027a7b54d" Value="0.816279602400257" />
+          <Rating ElementId="9aa1b0fc-0347-40c5-a716-fabc4cf84eef" Value="0.547350098483807" />
+          <Rating ElementId="ac8c539c-918e-4fde-8d24-27c8d3037cb2" Value="0.822220695341487" />
+          <Rating ElementId="ce612285-02e4-4742-874d-26a20331ab00" Value="0.845614035087719" />
+          <Rating ElementId="ba113746-896b-44d7-9560-c10a4615df2d" Value="0.826787595620906" />
+          <Rating ElementId="89034607-b32f-4d29-bcf4-a43b4020e9bf" Value="0.0888782007237416" />
+        </RatingPole2>
+      </InterviewResultTurn>
+    </InterviewResultTurnsCollection>
+  </Interview>
+</Scivesco>

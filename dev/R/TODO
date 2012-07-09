@@ -1,0 +1,42 @@
+### TODO LIST ####
+
+# BASICS
+- Type of grid in meta: ranked, rated (implicit, dependency etc.) will be implemented later
+- necessity to write different setReplaceMethods depending on the value type
+- store standard colors in grid itself (for bertin), not only in presets
+- necessity to set scale range for grid
+    should be included in validity check ???
+    generate warning if scales are not set!
+- Möglichkeit Kürzel für Konstrukte und Elemente zu hinterlegen bzw. ggf. eine Legend mit Ziffern oder        
+  Buchstaben erstellen zu lassen.
+- provided and elicited constructs
+- Speichern: grades (1=very strong...)
+- add SCM (Bell, 2000, p. 130)?
+    
+# CALCULATIONS
+- deleting rows and columns that do not have deviation
+- calc degrees
+
+# VISUALIZATION:
+- add a star or another indicator for each row to mark triad or dyad elements
+- round to 0 or 1 digit in standard output window depending on the data
+- make profile lines
+- RepGrid “Crossplot”
+- dual diagram (one dimensio only)
+- self identity plot (Norris and Mahklouf- Norris (1975))
+
+# ORGANISTAION:
+- enter feedback() to console or press GUI button to send feedback or get to wiki
+
+# IMPORT:
+- import gridstat format: whatvariations are there in gridstat output files?
+- check if importGricor works
+- importing: return list of repgrid object if one grid only is loaded?
+- import from Rep5: Gaines & Shaw (2009). Rep 5 Conceptual Representation Software. chapter 4 Data Formats
+
+
+
+---------------------------------------------------------------
+            What I am working at currrently (mh)
+---------------------------------------------------------------
+20110307    coupled slot. Adding the slot

@@ -1,0 +1,1101 @@
+<Scivesco Version="3.0.1.115" Date="Sat, 26 Jun 2010 12:59:46 GMT" Type="InterviewResult" Hash="f00b035edcf84f7a45007e0e0892bf62">
+  <Interview Id="01135ad3-3919-4d13-8579-2181bdf02f7f" StartDateTime="Sat, 26 Jun 2010 11:57:03 GMT" EndDateTime="Sat, 26 Jun 2010 12:59:46 GMT">
+    <Expert>MRL06</Expert>
+    <Interviewer>MRL</Interviewer>
+    <Notes>
+    </Notes>
+    <InterviewSettingData Topic="Politikstudie Freie Wähler Hessen MRL face-to-face" Id="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+      <Description>
+      </Description>
+      <Language Default="de" UserCanChangeLanguage="true" />
+      <ReceiveConstructType Default="D-GGC-UGC" UserCanChangeReceiveConstructType="false" />
+      <RatingType Default="Scale" Digital="true" UserCanChangeRatingType="false" />
+      <Elements>
+        <ElementsCollection Count="26">
+          <Element Id="005da6e4-631a-4063-9494-14d6fe88524a">
+            <Name Show="true">Eine Partei, so wie ich sie mir wünsche</Name>
+            <Token>Eine Partei, so wie ich sie mir wünsche</Token>
+            <Description Show="false">Stellen Sie sich ein Partei vor, die in allen Punkten ihren idealen Vorstellungen entspricht</Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="adcada76-33d0-4a82-b1de-68d0fa93ae51">
+            <Name Show="true">Eine Partei, die ich niemals wählen würde</Name>
+            <Token>Eine Partei, die ich niemals wählen würde</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1">
+            <Name Show="true">Kommunalpolitik, wie ich sie mir wünsche</Name>
+            <Token>Kommunalpolitik, wie ich sie mir wünsche</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="4a598726-f2fe-41d4-b268-b6f48b387b26">
+            <Name Show="true">CDU</Name>
+            <Token>CDU</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="b33d8515-3fab-4844-a7ff-8bed74d6dff8">
+            <Name Show="true">SPD</Name>
+            <Token>SPD</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2">
+            <Name Show="true">FDP</Name>
+            <Token>FDP</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="db4c53ac-58ee-46b6-a0bb-64c353f94659">
+            <Name Show="true">Bd. 90 / Die Grünen</Name>
+            <Token>Bd. 90 / Die Grünen</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="783b12ef-9760-412f-b8f9-4c0aee8a21b0">
+            <Name Show="true">Freie Wähler auf Landesebene</Name>
+            <Token>Freie Wähler auf Landesebene</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6">
+            <Name Show="true">Freie Wähler auf Kommunalebene</Name>
+            <Token>Freie Wähler auf Kommunalebene</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ff796854-651e-4fae-965b-e4e4ed78eba7">
+            <Name Show="true">Die Linke</Name>
+            <Token>Die Linke</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="2507682a-06eb-4935-8bfb-06d6327bb26d">
+            <Name Show="true">Leben in meiner Gemeinde, wie es heute ist</Name>
+            <Token>Leben in meiner Gemeinde, wie es heute ist</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="2a386523-943b-41b3-8da5-7a637b9db0e6">
+            <Name Show="true">Leben in meiner Gemeinde, wie es in 10 Jahren sein wird</Name>
+            <Token>Leben in meiner Gemeinde, wie es in 10 Jahren sein wird</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="d142002d-1f88-4611-803d-a7f13377591e">
+            <Name Show="true">Leben in meiner Gemeinde, wie ich es mir wünsche</Name>
+            <Token>Leben in meiner Gemeinde, wie ich es mir wünsche</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58">
+            <Name Show="true">Ideale Parteiführung</Name>
+            <Token>Ideale Parteiführung</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c">
+            <Name Show="true">Dinge, die ich ändern möchte</Name>
+            <Token>Dinge, die ich ändern möchte</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae">
+            <Name Show="true">Glaubwürdige Politik</Name>
+            <Token>Glaubwürdige Politik</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="0a39341a-0571-44d1-97d5-69d1efb01c89">
+            <Name Show="true">Integrations- und Ausländerpolitik in Hessen heute</Name>
+            <Token>Integrations- und Ausländerpolitik in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="57102560-ad17-437e-bd9e-a196d586563f">
+            <Name Show="true">Umweltpolitik in Hessen heute</Name>
+            <Token>Umweltpolitik in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="517be706-cf99-4a4f-a5c3-a189553d16f0">
+            <Name Show="true">Wirtschaftspolitik in Hessen heute</Name>
+            <Token>Wirtschaftspolitik in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="f3cbec14-77b6-4254-a930-ba7ecf459046">
+            <Name Show="true">Sozialsystem in Hessen heute</Name>
+            <Token>Sozialsystem in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="114ecc57-81ac-4b02-9898-4d950d7d2328">
+            <Name Show="true">Familienpolitik in Hessen heute</Name>
+            <Token>Familienpolitik in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="465df7ab-e718-49fa-b888-8b415da0cd99">
+            <Name Show="true">Umgang mit öffentlichen Geldern in Hessen heute</Name>
+            <Token>Umgang mit öffentlichen Geldern in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="8579e823-4090-453d-999f-bd7ec50cadde">
+            <Name Show="true">Bildungssystem in Hessen heute</Name>
+            <Token>Bildungssystem in Hessen heute</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="98fffac7-2f44-4750-84b9-a129381a4ac9">
+            <Name Show="true">Bürgerbewegung</Name>
+            <Token>Bürgerbewegung</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="283df8c0-3afc-4ca6-84b1-9e2554d61714">
+            <Name Show="true">Eine Bewegung, an der ich mich beteiligen würde</Name>
+            <Token>Eine Bewegung, an der ich mich beteiligen würde</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+          <Element Id="39efa501-7e29-4679-b976-624701411860">
+            <Name Show="true">Hervorstechende Persönlichkeit einer Partei</Name>
+            <Token>Helmut Kohl</Token>
+            <Description Show="false">
+            </Description>
+            <Image HasImage="false" Size="100" Show="false" ShowElementBackground="true" />
+          </Element>
+        </ElementsCollection>
+      </Elements>
+      <ElementCombinations>
+        <WhiteCombinations>
+          <ElementCombinationsCollection Count="14">
+            <ElementCombination Id="0202d2d3-1555-440e-9378-02ea7c096af9" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+              <Element Id="db4c53ac-58ee-46b6-a0bb-64c353f94659" />
+            </ElementCombination>
+            <ElementCombination Id="d22c031e-9f7d-4224-b904-1c20a39306d9" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="2507682a-06eb-4935-8bfb-06d6327bb26d" />
+              <Element Id="d142002d-1f88-4611-803d-a7f13377591e" />
+            </ElementCombination>
+            <ElementCombination Id="59da55a2-e484-4631-996d-7a96b7c7fd0f" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+              <Element Id="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" />
+            </ElementCombination>
+            <ElementCombination Id="d5029b34-eb1a-4ec1-9dd7-45aabcf55a6c" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" />
+              <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+            </ElementCombination>
+            <ElementCombination Id="ff0ea437-30e0-4f75-a377-9c4b9c9527cc" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="b33d8515-3fab-4844-a7ff-8bed74d6dff8" />
+              <Element Id="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" />
+            </ElementCombination>
+            <ElementCombination Id="6fac970d-43b8-442c-a63e-ae73da131073" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="2507682a-06eb-4935-8bfb-06d6327bb26d" />
+              <Element Id="2a386523-943b-41b3-8da5-7a637b9db0e6" />
+            </ElementCombination>
+            <ElementCombination Id="37ec6030-6487-4b89-b4b4-2e214e4c2439" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" />
+              <Element Id="98fffac7-2f44-4750-84b9-a129381a4ac9" />
+            </ElementCombination>
+            <ElementCombination Id="9e306b41-abab-4db0-a31b-aef936381095" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+              <Element Id="57102560-ad17-437e-bd9e-a196d586563f" />
+            </ElementCombination>
+            <ElementCombination Id="660dfea5-115d-49d0-bad5-0641bc376400" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="8579e823-4090-453d-999f-bd7ec50cadde" />
+              <Element Id="4a598726-f2fe-41d4-b268-b6f48b387b26" />
+            </ElementCombination>
+            <ElementCombination Id="826aa4dd-b508-49d2-9676-f43cb190da53" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+              <Element Id="f3cbec14-77b6-4254-a930-ba7ecf459046" />
+            </ElementCombination>
+            <ElementCombination Id="5624b183-eceb-451e-9286-a441d730954e" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="b33d8515-3fab-4844-a7ff-8bed74d6dff8" />
+              <Element Id="114ecc57-81ac-4b02-9898-4d950d7d2328" />
+            </ElementCombination>
+            <ElementCombination Id="bd5bc894-73c9-4a34-bf58-c3242304b437" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="465df7ab-e718-49fa-b888-8b415da0cd99" />
+              <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+            </ElementCombination>
+            <ElementCombination Id="c48153bf-6c45-4207-84c8-5531161cb11b" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="db4c53ac-58ee-46b6-a0bb-64c353f94659" />
+              <Element Id="0a39341a-0571-44d1-97d5-69d1efb01c89" />
+            </ElementCombination>
+            <ElementCombination Id="5dd0263b-e408-467d-9833-0cf405b5affa" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+              <Element Id="517be706-cf99-4a4f-a5c3-a189553d16f0" />
+              <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+            </ElementCombination>
+          </ElementCombinationsCollection>
+        </WhiteCombinations>
+        <BlackCombinations>
+          <ElementCombinationsCollection Count="0" />
+        </BlackCombinations>
+      </ElementCombinations>
+      <PredefinedConstructPairs Time="After">
+        <InterviewPredefinedConstructPairsCollection Count="0" />
+      </PredefinedConstructPairs>
+      <AdditionalQuestions Time="Before">
+        <InterviewAdditionalQuestionsCollection Count="8">
+          <InterviewAdditionalQuestion Id="93631d7c-2d7e-4422-85aa-45f1eee4ea45">
+            <Text>Wie alt sind Sie?</Text>
+            <Explanation>Ich bin ...</Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="4">
+                <InterviewAdditionalQuestionAnswer Id="e73cea14-71c0-446b-b438-96c494291d4f" BelongToQuestionId="93631d7c-2d7e-4422-85aa-45f1eee4ea45" RadiobuttonGroup="radgroup_93631d7c-2d7e-4422-85aa-45f1eee4ea45" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>zwischen 18 und 24 Jahre alt</Text>
+                  <Value>18-24</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="1f3f8db2-a221-4e1c-8bf6-4f1e118644ff" BelongToQuestionId="93631d7c-2d7e-4422-85aa-45f1eee4ea45" RadiobuttonGroup="radgroup_93631d7c-2d7e-4422-85aa-45f1eee4ea45" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>zwischen 25 und 40 Jahre alt</Text>
+                  <Value>25-40</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a1954d4a-0a47-439c-98f7-a22002c1e882" BelongToQuestionId="93631d7c-2d7e-4422-85aa-45f1eee4ea45" RadiobuttonGroup="radgroup_93631d7c-2d7e-4422-85aa-45f1eee4ea45" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>zwischen 41 und 65 Jahre alt</Text>
+                  <Value>41-65</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="fb893315-f723-4dfc-bd5b-9f4e761f9642" BelongToQuestionId="93631d7c-2d7e-4422-85aa-45f1eee4ea45" RadiobuttonGroup="radgroup_93631d7c-2d7e-4422-85aa-45f1eee4ea45" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Ich bin älter als 65</Text>
+                  <Value>&gt;65</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="62d21491-c5b4-4128-ba6d-84bb4230fc80">
+            <Text>Geschlecht</Text>
+            <Explanation>Ich bin ...</Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="2">
+                <InterviewAdditionalQuestionAnswer Id="384d06c6-eb46-458c-88dd-6303313024d8" BelongToQuestionId="62d21491-c5b4-4128-ba6d-84bb4230fc80" RadiobuttonGroup="radgroup_62d21491-c5b4-4128-ba6d-84bb4230fc80" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>eine Frau</Text>
+                  <Value>weiblich</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="9dff8369-e642-4fbf-9ac9-f5b05d4c7a3f" BelongToQuestionId="62d21491-c5b4-4128-ba6d-84bb4230fc80" RadiobuttonGroup="radgroup_62d21491-c5b4-4128-ba6d-84bb4230fc80" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>ein Mann</Text>
+                  <Value>männlich</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="4422eaa1-1988-44e1-8ce5-89e54b1c7751">
+            <Text>Bildung</Text>
+            <Explanation>Ich habe ...</Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="5">
+                <InterviewAdditionalQuestionAnswer Id="be440bec-218e-4a4c-bd52-372246d7c8d9" BelongToQuestionId="4422eaa1-1988-44e1-8ce5-89e54b1c7751" RadiobuttonGroup="radgroup_4422eaa1-1988-44e1-8ce5-89e54b1c7751" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>keinen Schulabschluss</Text>
+                  <Value>kein Schulabschluss</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="e373b874-b56e-449d-9487-ccc0d3a50601" BelongToQuestionId="4422eaa1-1988-44e1-8ce5-89e54b1c7751" RadiobuttonGroup="radgroup_4422eaa1-1988-44e1-8ce5-89e54b1c7751" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>einen Hauptschulabschluss</Text>
+                  <Value>Hauptschule</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="69899a94-e814-4956-94c1-52f2bb6c0d66" BelongToQuestionId="4422eaa1-1988-44e1-8ce5-89e54b1c7751" RadiobuttonGroup="radgroup_4422eaa1-1988-44e1-8ce5-89e54b1c7751" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>den Realschulabschluss (die mittlere Reife)</Text>
+                  <Value>Realschulabschluss</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="785f1a1d-4c56-4c49-8a7e-d13461cd070a" BelongToQuestionId="4422eaa1-1988-44e1-8ce5-89e54b1c7751" RadiobuttonGroup="radgroup_4422eaa1-1988-44e1-8ce5-89e54b1c7751" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Fachabitur / Abitur</Text>
+                  <Value>Abitur</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="e9187c9d-649c-4d71-8774-2582649d588d" BelongToQuestionId="4422eaa1-1988-44e1-8ce5-89e54b1c7751" RadiobuttonGroup="radgroup_4422eaa1-1988-44e1-8ce5-89e54b1c7751" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>einen Hochschulabschluss</Text>
+                  <Value>Hochschulabschluss</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="030ac218-d007-44be-8b9f-79fd7f23ec06">
+            <Text>Zu welcher Berufsgruppe gehören Sie?</Text>
+            <Explanation>Ich bin ...</Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="7">
+                <InterviewAdditionalQuestionAnswer Id="dfb901e4-ec2c-4c8c-98a8-0703a4bcbf1a" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Unternehmer/in</Text>
+                  <Value>Unternehmer</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a2a80e13-0e0a-495f-8bd9-ab060dcfba22" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Freiberufler/in</Text>
+                  <Value>Freiberufler</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="2921cc8d-bcc6-4ebc-a273-06a2a2b8ba74" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Beamte/r</Text>
+                  <Value>Beamte</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="ace5f2b2-3883-4009-aac5-eb4fb195ed2c" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Angestellte/r</Text>
+                  <Value>Angestellte</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="1acee526-0c58-4d2b-93fc-5cf621a66e5c" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Arbeiter</Text>
+                  <Value>Arbeiter</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="e7b6434a-0958-4fe4-b616-df97d73da23c" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Student</Text>
+                  <Value>Student</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="4f803c12-1048-48fc-82ca-597631e7a2c3" BelongToQuestionId="030ac218-d007-44be-8b9f-79fd7f23ec06" RadiobuttonGroup="radgroup_030ac218-d007-44be-8b9f-79fd7f23ec06" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>im Ruhestand</Text>
+                  <Value>Ruhestand</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="4fbc1d71-47f9-4544-9ab3-571b738a82a5">
+            <Text>Aus welchem Landkreis oder welcher kreisfreien Stadt kommen Sie?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="26">
+                <InterviewAdditionalQuestionAnswer Id="ef09723d-cbf6-461d-b515-eecfcd2d6984" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Bergstraße</Text>
+                  <Value>Bergstraße</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="86699311-94f6-4e42-ae6f-5c6c7940a9b0" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Darmstadt-Dieburg (Landkreis)</Text>
+                  <Value>Darmstadt-Dieburg (Landkreis)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="ddb1dd12-7fd4-45da-a0a6-b941633e43a4" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Darmstadt (Stadt)</Text>
+                  <Value>Darmstadt (Stadt)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="bf083bc5-27be-4157-8f8d-1b8b10f99648" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Frankfurt am Main (Stadt)</Text>
+                  <Value>Frankfurt am Main (Stadt)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="8808ccec-7579-4828-b075-74f4bbefd9c5" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Fulda</Text>
+                  <Value>Fulda</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="44775794-9837-4daa-8a2c-e0aaed1ed46e" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Gießen</Text>
+                  <Value>Gießen</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="55845005-8791-474a-9dd5-674773ea38c2" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Groß-Gerau</Text>
+                  <Value>Groß-Gerau</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="2b085dbf-7cdd-4778-94f6-85526f32c614" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Hersfeld-Rotenburg</Text>
+                  <Value>Hersfeld-Rotenburg</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="b2fed263-3d92-429f-a443-5ecadf8bce12" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Hochtaunuskreis</Text>
+                  <Value>Hochtaunuskreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="543fb0f2-89cd-46aa-bba8-9e5705f8757f" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Kassel (Landkreis)</Text>
+                  <Value>Kassel (Landkreis)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="0e2f0349-dfaf-4590-b792-65fd837b4129" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Kassel (Stadt)</Text>
+                  <Value>Kassel (Stadt)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="69073dc1-c6aa-4c72-80ca-b3fc63346c86" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Lahn-Dill-Kreis</Text>
+                  <Value>Lahn-Dill-Kreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="86cf2937-1a84-47cb-9c39-6a702122488b" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Limburg-Weilburg</Text>
+                  <Value>Limburg-Weilburg</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="9601910e-e1fa-47a2-91a3-0d0d5aca24bf" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Main-Kinzig-Kreis</Text>
+                  <Value>Main-Kinzig-Kreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="6584bb35-dc82-4e87-8aab-d11ff503cad7" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Main-Taunus-Kreis</Text>
+                  <Value>Main-Taunus-Kreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="552f6aa0-4bf0-4e2c-b4bd-013cc14ab565" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Marburg-Biedenkopf</Text>
+                  <Value>Marburg-Biedenkopf</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="e0668fe3-022a-477a-9947-36a05c64b367" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Odenwaldkreis</Text>
+                  <Value>Odenwaldkreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="7fe588fa-916d-49bb-8afd-8d76bbbce31d" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Offenbach (Landkreis)</Text>
+                  <Value>Offenbach (Landkreis)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="4feb740c-23cd-4176-866d-a20d288bc79f" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Offenbach am Main (Stadt)</Text>
+                  <Value>Offenbach am Main (Stadt)</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a363d19b-5604-4d8e-b66c-1075b98816bf" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Rheingau-Taunus-Kreis</Text>
+                  <Value>Rheingau-Taunus-Kreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="3caa0280-e757-4815-8218-f8d2590a5481" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Schwalm-Eder-Kreis</Text>
+                  <Value>Schwalm-Eder-Kreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="3fd05d53-e312-4cd1-a7d6-9ebbfbe343e6" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Vogelsbergkreis</Text>
+                  <Value>Vogelsbergkreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="206315a9-f02e-4105-b9bd-97589e275efa" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Waldeck-Frankenberg</Text>
+                  <Value>Waldeck-Frankenberg</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="e74c75b3-7eb5-400b-9bb5-65b5783227c6" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Werra-Meißner-Kreis</Text>
+                  <Value>Werra-Meißner-Kreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="80acb821-822a-4a1d-87e8-2a99cd125192" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Wetteraukreis</Text>
+                  <Value>Wetteraukreis</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="a56b0cd1-6f27-47ad-a289-12a0efd9540c" BelongToQuestionId="4fbc1d71-47f9-4544-9ab3-571b738a82a5" RadiobuttonGroup="radgroup_4fbc1d71-47f9-4544-9ab3-571b738a82a5" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Wiesbaden</Text>
+                  <Value>Wiesbaden</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="ec468d02-39ea-4885-b58b-0cf62f9aaafe">
+            <Text>Ich bin Mitglied bei den Freien Wählern?</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="3">
+                <InterviewAdditionalQuestionAnswer Id="db67e2b9-2a45-437b-86bb-987459756055" BelongToQuestionId="ec468d02-39ea-4885-b58b-0cf62f9aaafe" RadiobuttonGroup="radgroup_ec468d02-39ea-4885-b58b-0cf62f9aaafe" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Nein</Text>
+                  <Value>Nein</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="32b6d232-c941-4625-a994-468c1dcb9643" BelongToQuestionId="ec468d02-39ea-4885-b58b-0cf62f9aaafe" RadiobuttonGroup="radgroup_ec468d02-39ea-4885-b58b-0cf62f9aaafe" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Ja, übe aber kein Amt aus</Text>
+                  <Value>Ja, kein Amt</Value>
+                </InterviewAdditionalQuestionAnswer>
+                <InterviewAdditionalQuestionAnswer Id="dddbc14f-6b07-4789-ab1f-41be242688c1" BelongToQuestionId="ec468d02-39ea-4885-b58b-0cf62f9aaafe" RadiobuttonGroup="radgroup_ec468d02-39ea-4885-b58b-0cf62f9aaafe" InterviewAdditionalQuestionAnswerType="Radiobutton">
+                  <Text>Ja, und ich übe ein Amt aus</Text>
+                  <Value>Ja, Amt</Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="33eae1d4-ec20-4db2-a725-51eb0f40e88d">
+            <Text>Ich habe die Freien Wähler bei Kommunalwahlen schon gewählt.</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="1">
+                <InterviewAdditionalQuestionAnswer Id="28391edf-08d4-4845-9a6b-16e69d4647eb" BelongToQuestionId="33eae1d4-ec20-4db2-a725-51eb0f40e88d" RadiobuttonGroup="radgroup_33eae1d4-ec20-4db2-a725-51eb0f40e88d" InterviewAdditionalQuestionAnswerType="Checkbox">
+                  <Text>Ja</Text>
+                  <Value>
+                  </Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+          <InterviewAdditionalQuestion Id="2f83c2f5-69c4-43ef-ba51-d2094290a56b">
+            <Text>Ich habe die Freien Wähler bei Landeswahlen schon gewählt.</Text>
+            <Explanation>
+            </Explanation>
+            <Answers>
+              <InterviewAdditionalQuestionAnswersCollection Count="1">
+                <InterviewAdditionalQuestionAnswer Id="6f82208f-1810-477e-ac43-7d1856f49a79" BelongToQuestionId="2f83c2f5-69c4-43ef-ba51-d2094290a56b" RadiobuttonGroup="radgroup_2f83c2f5-69c4-43ef-ba51-d2094290a56b" InterviewAdditionalQuestionAnswerType="Checkbox">
+                  <Text>Ja</Text>
+                  <Value>
+                  </Value>
+                </InterviewAdditionalQuestionAnswer>
+              </InterviewAdditionalQuestionAnswersCollection>
+            </Answers>
+          </InterviewAdditionalQuestion>
+        </InterviewAdditionalQuestionsCollection>
+      </AdditionalQuestions>
+    </InterviewSettingData>
+    <DoneCombinations>
+      <ElementCombinationsCollection Count="11">
+        <ElementCombination Id="0202d2d3-1555-440e-9378-02ea7c096af9" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+          <Element Id="db4c53ac-58ee-46b6-a0bb-64c353f94659" />
+        </ElementCombination>
+        <ElementCombination Id="d22c031e-9f7d-4224-b904-1c20a39306d9" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="2507682a-06eb-4935-8bfb-06d6327bb26d" />
+          <Element Id="d142002d-1f88-4611-803d-a7f13377591e" />
+        </ElementCombination>
+        <ElementCombination Id="59da55a2-e484-4631-996d-7a96b7c7fd0f" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+          <Element Id="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" />
+        </ElementCombination>
+        <ElementCombination Id="d5029b34-eb1a-4ec1-9dd7-45aabcf55a6c" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" />
+          <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+        </ElementCombination>
+        <ElementCombination Id="ff0ea437-30e0-4f75-a377-9c4b9c9527cc" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="b33d8515-3fab-4844-a7ff-8bed74d6dff8" />
+          <Element Id="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" />
+        </ElementCombination>
+        <ElementCombination Id="6fac970d-43b8-442c-a63e-ae73da131073" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="2507682a-06eb-4935-8bfb-06d6327bb26d" />
+          <Element Id="2a386523-943b-41b3-8da5-7a637b9db0e6" />
+        </ElementCombination>
+        <ElementCombination Id="37ec6030-6487-4b89-b4b4-2e214e4c2439" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" />
+          <Element Id="98fffac7-2f44-4750-84b9-a129381a4ac9" />
+        </ElementCombination>
+        <ElementCombination Id="9e306b41-abab-4db0-a31b-aef936381095" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+          <Element Id="57102560-ad17-437e-bd9e-a196d586563f" />
+        </ElementCombination>
+        <ElementCombination Id="660dfea5-115d-49d0-bad5-0641bc376400" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="8579e823-4090-453d-999f-bd7ec50cadde" />
+          <Element Id="4a598726-f2fe-41d4-b268-b6f48b387b26" />
+        </ElementCombination>
+        <ElementCombination Id="826aa4dd-b508-49d2-9676-f43cb190da53" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+          <Element Id="f3cbec14-77b6-4254-a930-ba7ecf459046" />
+        </ElementCombination>
+        <ElementCombination Id="5624b183-eceb-451e-9286-a441d730954e" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+          <Element Id="b33d8515-3fab-4844-a7ff-8bed74d6dff8" />
+          <Element Id="114ecc57-81ac-4b02-9898-4d950d7d2328" />
+        </ElementCombination>
+      </ElementCombinationsCollection>
+    </DoneCombinations>
+    <InterviewAdditionalQuestionAnswerResults>
+      <Answer Id="e73cea14-71c0-446b-b438-96c494291d4f" Result="false" />
+      <Answer Id="1f3f8db2-a221-4e1c-8bf6-4f1e118644ff" Result="false" />
+      <Answer Id="a1954d4a-0a47-439c-98f7-a22002c1e882" Result="true" />
+      <Answer Id="fb893315-f723-4dfc-bd5b-9f4e761f9642" Result="false" />
+      <Answer Id="384d06c6-eb46-458c-88dd-6303313024d8" Result="true" />
+      <Answer Id="9dff8369-e642-4fbf-9ac9-f5b05d4c7a3f" Result="false" />
+      <Answer Id="be440bec-218e-4a4c-bd52-372246d7c8d9" Result="false" />
+      <Answer Id="e373b874-b56e-449d-9487-ccc0d3a50601" Result="false" />
+      <Answer Id="69899a94-e814-4956-94c1-52f2bb6c0d66" Result="false" />
+      <Answer Id="785f1a1d-4c56-4c49-8a7e-d13461cd070a" Result="false" />
+      <Answer Id="e9187c9d-649c-4d71-8774-2582649d588d" Result="false" />
+      <Answer Id="dfb901e4-ec2c-4c8c-98a8-0703a4bcbf1a" Result="false" />
+      <Answer Id="a2a80e13-0e0a-495f-8bd9-ab060dcfba22" Result="false" />
+      <Answer Id="2921cc8d-bcc6-4ebc-a273-06a2a2b8ba74" Result="false" />
+      <Answer Id="ace5f2b2-3883-4009-aac5-eb4fb195ed2c" Result="true" />
+      <Answer Id="1acee526-0c58-4d2b-93fc-5cf621a66e5c" Result="false" />
+      <Answer Id="e7b6434a-0958-4fe4-b616-df97d73da23c" Result="false" />
+      <Answer Id="4f803c12-1048-48fc-82ca-597631e7a2c3" Result="false" />
+      <Answer Id="ef09723d-cbf6-461d-b515-eecfcd2d6984" Result="false" />
+      <Answer Id="86699311-94f6-4e42-ae6f-5c6c7940a9b0" Result="false" />
+      <Answer Id="ddb1dd12-7fd4-45da-a0a6-b941633e43a4" Result="false" />
+      <Answer Id="bf083bc5-27be-4157-8f8d-1b8b10f99648" Result="false" />
+      <Answer Id="8808ccec-7579-4828-b075-74f4bbefd9c5" Result="false" />
+      <Answer Id="44775794-9837-4daa-8a2c-e0aaed1ed46e" Result="true" />
+      <Answer Id="55845005-8791-474a-9dd5-674773ea38c2" Result="false" />
+      <Answer Id="2b085dbf-7cdd-4778-94f6-85526f32c614" Result="false" />
+      <Answer Id="b2fed263-3d92-429f-a443-5ecadf8bce12" Result="false" />
+      <Answer Id="543fb0f2-89cd-46aa-bba8-9e5705f8757f" Result="false" />
+      <Answer Id="0e2f0349-dfaf-4590-b792-65fd837b4129" Result="false" />
+      <Answer Id="69073dc1-c6aa-4c72-80ca-b3fc63346c86" Result="false" />
+      <Answer Id="86cf2937-1a84-47cb-9c39-6a702122488b" Result="false" />
+      <Answer Id="9601910e-e1fa-47a2-91a3-0d0d5aca24bf" Result="false" />
+      <Answer Id="6584bb35-dc82-4e87-8aab-d11ff503cad7" Result="false" />
+      <Answer Id="552f6aa0-4bf0-4e2c-b4bd-013cc14ab565" Result="false" />
+      <Answer Id="e0668fe3-022a-477a-9947-36a05c64b367" Result="false" />
+      <Answer Id="7fe588fa-916d-49bb-8afd-8d76bbbce31d" Result="false" />
+      <Answer Id="4feb740c-23cd-4176-866d-a20d288bc79f" Result="false" />
+      <Answer Id="a363d19b-5604-4d8e-b66c-1075b98816bf" Result="false" />
+      <Answer Id="3caa0280-e757-4815-8218-f8d2590a5481" Result="false" />
+      <Answer Id="3fd05d53-e312-4cd1-a7d6-9ebbfbe343e6" Result="false" />
+      <Answer Id="206315a9-f02e-4105-b9bd-97589e275efa" Result="false" />
+      <Answer Id="e74c75b3-7eb5-400b-9bb5-65b5783227c6" Result="false" />
+      <Answer Id="80acb821-822a-4a1d-87e8-2a99cd125192" Result="false" />
+      <Answer Id="a56b0cd1-6f27-47ad-a289-12a0efd9540c" Result="false" />
+      <Answer Id="db67e2b9-2a45-437b-86bb-987459756055" Result="true" />
+      <Answer Id="32b6d232-c941-4625-a994-468c1dcb9643" Result="false" />
+      <Answer Id="dddbc14f-6b07-4789-ab1f-41be242688c1" Result="false" />
+      <Answer Id="28391edf-08d4-4845-9a6b-16e69d4647eb" Result="true" />
+      <Answer Id="6f82208f-1810-477e-ac43-7d1856f49a79" Result="false" />
+    </InterviewAdditionalQuestionAnswerResults>
+    <InterviewResultTurnsCollection Count="7">
+      <InterviewResultTurn Id="c856284f-2403-4135-8f11-62a591880f9e">
+        <UsedElementCombination ChoosenOption="different">
+          <ElementCombination Id="0202d2d3-1555-440e-9378-02ea7c096af9" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+            <Element Id="db4c53ac-58ee-46b6-a0bb-64c353f94659" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>Darstellung der politischen Inhalte gelingt sehr gut</Pole1>
+        <Pole2>Politik erklärt Inhalte nicht verständlich</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.940401315789474" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.0607412280701753" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.933712719298246" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.728010964912281" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.511728070175439" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.711728070175439" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.278504385964912" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.287989035087719" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.888592105263158" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.042813596491228" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.71019298245614" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.692649122807018" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.713098684210526" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.500543859649123" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.520993421052632" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.513043859649123" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.703449561403509" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.581355263157895" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.489798245614035" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.725434210526316" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.504655701754386" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.690949561403509" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.506190789473684" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.512934210526316" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.940456140350877" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.714578947368421" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0595986842105263" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.939258771929825" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.0662872807017544" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.271989035087719" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.488271929824561" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.288271929824561" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.721495614035088" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.712010964912281" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.111407894736842" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.957186403508772" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.28980701754386" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.307350877192982" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.286901315789474" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.499456140350877" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.479006578947368" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.486956140350877" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.296550438596491" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.418644736842105" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.510201754385965" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.274565789473684" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.495344298245614" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.309050438596491" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.493809210526316" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.487065789473684" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.0595438596491228" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.285421052631579" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="565a22c6-4816-4528-ba8a-5ce1483f377a">
+        <UsedElementCombination ChoosenOption="similar">
+          <ElementCombination Id="d22c031e-9f7d-4224-b904-1c20a39306d9" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="2507682a-06eb-4935-8bfb-06d6327bb26d" />
+            <Element Id="d142002d-1f88-4611-803d-a7f13377591e" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>gute Infrastruktur (Einkaufsmöglichkeiten, Sportverein, Hallenbad), Nähe zur Stadt als Ergänzung (Einkaufsmöglichkeiten und kulturelle Veranstaltungen, berufliche Tätigkeit)</Pole1>
+        <Pole2>Einschränkung des gesellschaftlichen Lebens durch Reduzierung der Angebote in Sportvereinen (z.B. Schließung Hallenbad)</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.932177631578947" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.0566293859649122" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.920006578947368" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.728010964912281" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.351366228070175" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.506135964912281" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.266168859649123" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.507287280701754" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.71315350877193" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.0414429824561403" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.615620614035088" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.373296052631579" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.761070175438596" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.682835526315789" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.784151315789474" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.715894736842105" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.395061403508772" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.526530701754386" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.640565789473684" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.525324561403509" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.508767543859649" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.590894736842105" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.293745614035088" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.804765350877193" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.778997807017544" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0678223684210526" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.943370614035088" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.0799934210526316" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.271989035087719" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.648633771929825" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.493864035087719" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.733831140350877" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.492712719298246" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.28684649122807" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.95855701754386" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.384379385964912" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.626703947368421" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.238929824561404" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.317164473684211" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.215848684210526" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.284105263157895" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.604938596491228" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.473469298245614" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.359434210526316" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.474675438596491" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.491232456140351" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.409105263157895" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.706254385964912" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.195234649122807" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.221002192982456" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="4c4ca087-55c1-4e92-831e-00cbb08acc5f">
+        <UsedElementCombination ChoosenOption="similar">
+          <ElementCombination Id="59da55a2-e484-4631-996d-7a96b7c7fd0f" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+            <Element Id="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>Neue und moderne Konzepte in der öffentlichen Verwaltung</Pole1>
+        <Pole2>Stillstand, alte Systeme werden beibehalten</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.928065789473684" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.0182521929824563" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.925489035087719" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.50597149122807" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.275982456140351" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.486947368421053" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.266168859649123" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.492210526315789" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.718635964912281" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.0345899122807019" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.732122807017544" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.715949561403509" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.918690789473684" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.696541666666667" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.929436403508772" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.51441447368421" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.503339912280702" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.31956798245614" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.314359649122807" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.271760964912281" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.26205701754386" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.485357456140351" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.488372807017544" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.723899122807018" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.67894298245614" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0719342105263158" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.981747807017544" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.0745109649122807" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.49402850877193" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.724017543859649" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.513052631578947" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.733831140350877" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.507789473684211" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.281364035087719" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.965410087719298" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.267877192982456" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.284050438596491" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.0813092105263158" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.303458333333333" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.070563596491228" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.48558552631579" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.496660087719298" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.68043201754386" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.685640350877193" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.728239035087719" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.73794298245614" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.514642543859649" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.511627192982456" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.276100877192982" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.32105701754386" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="b2423ed5-b59d-4bcb-9a78-e39a95aff28e">
+        <UsedElementCombination ChoosenOption="similar">
+          <ElementCombination Id="d5029b34-eb1a-4ec1-9dd7-45aabcf55a6c" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" />
+            <Element Id="1a7902d5-5368-488b-a2c9-17993cf88bd2" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>klare Aussagen, klare Konzepte, die eingehalten und durchgesetzt werden</Pole1>
+        <Pole2>Konzepte verwerfen und aufgrund von politischen Situationen aufgegeben werden oder ganz und gar verschwinden</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.97215350877193" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.0335570175438598" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.983282894736842" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.720015350877193" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.318699561403509" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.510475877192982" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.274620614035088" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.506144736842105" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.703787280701754" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.00329385964912288" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.504828947368421" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.280322368421053" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.981967105263158" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.996934210526316" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.726813596491228" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.744905701754386" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.504938596491228" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.513052631578947" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.496879385964912" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.492657894736842" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.498030701754386" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.514368421052632" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.494083333333333" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.958502192982456" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.725771929824561" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0278464912280701" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.96644298245614" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.0167171052631578" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.279984649122807" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.681300438596491" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.489524122807018" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.725379385964912" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.493855263157895" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.296212719298246" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.996706140350877" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.495171052631579" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.719677631578947" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.0180328947368421" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.00306578947368419" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.273186403508772" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.255094298245614" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.495061403508772" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.486947368421053" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.503120614035088" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.507342105263158" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.501969298245614" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.485631578947368" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.505916666666667" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.0414978070175438" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.274228070175439" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="db8cfdb5-8f55-42af-b8a9-ecbea74590a7">
+        <UsedElementCombination ChoosenOption="different">
+          <ElementCombination Id="9e306b41-abab-4db0-a31b-aef936381095" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="005da6e4-631a-4063-9494-14d6fe88524a" />
+            <Element Id="57102560-ad17-437e-bd9e-a196d586563f" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>stärkere Nutzung von Verbrennungsanlagen, da umweltfreundlicher als Mülldeponie</Pole1>
+        <Pole2>Getrennte Abfallwirtschaft wenig sinnvoll</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.959589912280702" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.053888157894737" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.936453947368421" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.670445175438597" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.275982456140351" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.495171052631579" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.0701710526315791" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.5" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.698076754385965" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.5" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.293526315789474" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.302024122807018" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.729546052631579" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.710247807017544" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.741662280701754" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.503449561403509" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.5" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.282561403508772" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.506245614035088" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.5" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.5" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.500434210526316" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.5" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.737605263157895" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.711837719298246" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0404100877192982" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.946111842105263" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.063546052631579" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.329554824561404" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.724017543859649" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.504828947368421" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.929828947368421" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.5" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.301923245614035" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.5" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.706473684210526" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.697975877192982" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.270453947368421" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.289752192982456" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.258337719298246" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.496550438596491" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.5" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.717438596491228" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.493754385964912" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.5" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.5" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.499565789473684" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.5" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.262394736842105" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.288162280701754" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="f831ca4f-6262-4832-944e-9e0a928d0421">
+        <UsedElementCombination ChoosenOption="similar">
+          <ElementCombination Id="660dfea5-115d-49d0-bad5-0641bc376400" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="8579e823-4090-453d-999f-bd7ec50cadde" />
+            <Element Id="4a598726-f2fe-41d4-b268-b6f48b387b26" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>konservative Ausrichtung, Vermittlung konservativer Werte</Pole1>
+        <Pole2>keine ausreichende Differnzierung (sozialistischer Einheitsbrei)</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.922697368421053" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.0608552631578947" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.911896929824561" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.910416666666667" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.277467105263158" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.696765350877193" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.142927631578947" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.489583333333333" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.800986842105263" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.000438596491228016" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.290899122807018" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.295285087719298" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.681688596491228" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.725438596491228" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.765076754385965" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.50219298245614" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.491118421052632" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.330646929824561" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.481688596491228" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.545997807017544" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.477357456140351" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.5" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.674890350877193" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.918640350877193" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.724287280701754" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0773026315789473" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.939144736842105" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.0881030701754386" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.0895833333333333" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.722532894736842" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.303234649122807" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.857072368421053" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.510416666666667" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.199013157894737" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.999561403508772" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.709100877192982" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.704714912280702" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.318311403508772" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.274561403508772" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.234923245614035" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.49780701754386" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.508881578947368" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.669353070175439" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.518311403508772" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.454002192982456" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.522642543859649" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.5" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.325109649122807" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.081359649122807" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.275712719298246" />
+        </RatingPole2>
+      </InterviewResultTurn>
+      <InterviewResultTurn Id="ccf5506b-78f1-46d7-b80e-15758a482321">
+        <UsedElementCombination ChoosenOption="different">
+          <ElementCombination Id="5624b183-eceb-451e-9286-a441d730954e" IsMono="false" IsDyadic="true" IsTriadic="false" BelongToInterviewSettingId="cc92a568-cf1c-49ec-9a81-d61a4c6b7b75">
+            <Element Id="b33d8515-3fab-4844-a7ff-8bed74d6dff8" />
+            <Element Id="114ecc57-81ac-4b02-9898-4d950d7d2328" />
+          </ElementCombination>
+        </UsedElementCombination>
+        <Pole1>Starke Unterstützung durch den Staat</Pole1>
+        <Pole2>Übernahme von Aufgaben durch die Familien / Bürger</Pole2>
+        <RatingPole1>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.0442478070175439" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.935421052631579" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.270563596491228" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.507570175438597" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.503732456140351" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.489916666666667" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.742" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.5" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.50230701754386" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.9545" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.492493421052632" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.725771929824561" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.0348728070175439" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.270508771929825" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.0689188596491229" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.492712719298246" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.722866228070175" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.5" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.505103070175439" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.735256578947368" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.726923245614035" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.5" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.713381578947368" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.147098684210526" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.488655701754386" />
+        </RatingPole1>
+        <RatingPole2>
+          <Rating ElementId="005da6e4-631a-4063-9494-14d6fe88524a" Value="0.955752192982456" />
+          <Rating ElementId="adcada76-33d0-4a82-b1de-68d0fa93ae51" Value="0.0645789473684211" />
+          <Rating ElementId="70c7fb6f-b41a-4e8f-b229-ff2cadca48d1" Value="0.729436403508772" />
+          <Rating ElementId="4a598726-f2fe-41d4-b268-b6f48b387b26" Value="0.492429824561404" />
+          <Rating ElementId="b33d8515-3fab-4844-a7ff-8bed74d6dff8" Value="0.496267543859649" />
+          <Rating ElementId="1a7902d5-5368-488b-a2c9-17993cf88bd2" Value="0.510083333333333" />
+          <Rating ElementId="db4c53ac-58ee-46b6-a0bb-64c353f94659" Value="0.258" />
+          <Rating ElementId="783b12ef-9760-412f-b8f9-4c0aee8a21b0" Value="0.5" />
+          <Rating ElementId="5fa9e72f-c5c9-47d3-a262-cf6ab20411a6" Value="0.49769298245614" />
+          <Rating ElementId="ff796854-651e-4fae-965b-e4e4ed78eba7" Value="0.0455" />
+          <Rating ElementId="2507682a-06eb-4935-8bfb-06d6327bb26d" Value="0.507506578947368" />
+          <Rating ElementId="2a386523-943b-41b3-8da5-7a637b9db0e6" Value="0.274228070175439" />
+          <Rating ElementId="d142002d-1f88-4611-803d-a7f13377591e" Value="0.965127192982456" />
+          <Rating ElementId="ae19edcd-ba14-43cb-b1a9-5a8ff0258b58" Value="0.729491228070175" />
+          <Rating ElementId="f71ae7c8-d6ab-4c60-ada8-0ce5334e5b2c" Value="0.931081140350877" />
+          <Rating ElementId="6a88fed3-bfc9-4c0e-8333-ed5785b0ffae" Value="0.507287280701754" />
+          <Rating ElementId="0a39341a-0571-44d1-97d5-69d1efb01c89" Value="0.277133771929825" />
+          <Rating ElementId="57102560-ad17-437e-bd9e-a196d586563f" Value="0.5" />
+          <Rating ElementId="517be706-cf99-4a4f-a5c3-a189553d16f0" Value="0.494896929824561" />
+          <Rating ElementId="f3cbec14-77b6-4254-a930-ba7ecf459046" Value="0.264743421052632" />
+          <Rating ElementId="114ecc57-81ac-4b02-9898-4d950d7d2328" Value="0.273076754385965" />
+          <Rating ElementId="465df7ab-e718-49fa-b888-8b415da0cd99" Value="0.5" />
+          <Rating ElementId="8579e823-4090-453d-999f-bd7ec50cadde" Value="0.286618421052632" />
+          <Rating ElementId="98fffac7-2f44-4750-84b9-a129381a4ac9" Value="0.5" />
+          <Rating ElementId="283df8c0-3afc-4ca6-84b1-9e2554d61714" Value="0.852901315789474" />
+          <Rating ElementId="39efa501-7e29-4679-b976-624701411860" Value="0.511344298245614" />
+        </RatingPole2>
+      </InterviewResultTurn>
+    </InterviewResultTurnsCollection>
+  </Interview>
+</Scivesco>

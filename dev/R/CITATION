@@ -1,0 +1,11 @@
+citHeader("To cite the OpenRepGrid R package in publications:")
+
+citEntry(entry = "book",
+  author = "Mark Heckmann",
+  title = "OpenRepGrid - An R package for the analysis of repertory grids",
+  publisher = "University of Bremen, Germany, Diploma thesis",
+  year = "2011",
+  isbn = "",
+  url = "http://www.openrepgrid.uni-bremen.de",
+  textVersion = "Heckmann, M. (2011). OpenRepGrid - An R package for the analysis of repertory grids. University of Bremen, Germany, Diploma thesis."
+)

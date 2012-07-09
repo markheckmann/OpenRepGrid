@@ -6,11 +6,14 @@ For a technical overview on changes see file CHANGELOG in source.
 			            OPENREPGRID RELEASE VERSIONS 
 		       	      ============================
 
+Version 0.1.7 (not yet release) --------------------------   
+
+
 Version 0.1.6 (released April 5, 2012) --------------------------   
 
-  * biplot functions fixed. They work again
+  * biplot functions fixed. They work again.
 
   
 Version 0.1.5 (released July 17, 2011) --------------------------
 
-	* None. First public version release version available on CRAN
+	* None. First public version release version available on CRAN.
