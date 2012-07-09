@@ -1,5 +1,7 @@
 .DS_Store
 .Rhistory
+.Rproj.user
+.Rproj.user/
 .Rproj.user/*  
 .Rbuildignore
 OpenRepGrid.Rproj
