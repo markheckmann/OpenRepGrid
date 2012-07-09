@@ -2,7 +2,11 @@ OpenRepGrid release versions at http://cran.r-project.org/.
 
 Here technical changes are documented. See NEWS for a description of changes in release versions.
 
-OpenRepGrid 0.1.6 (opened 2012-04-05) ----------------------------------------
+OpenRepGrid 0.1.7 (opened 2012-04-05) ----------------------------------------
+  * settings function added
+
+
+OpenRepGrid 0.1.6 (2012-04-05) ----------------------------------------
   * migrating code from roxygen to roxygen2
   * fixed bug in calcCoordsBorders
 
