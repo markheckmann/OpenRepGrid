@@ -2,54 +2,41 @@
 \alias{indexConflict3}
 \title{Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances.}
 \usage{
-  indexConflict3(x, p = 2, output = 1, e.out = NA,
-    e.threshold = NA, c.out = NA, c.threshold = NA,
-    trim = 20, digits = 1, discrepancies = TRUE)
+  indexConflict3(x, p = 2, e.out = NA, e.threshold = NA,
+    c.out = NA, c.threshold = NA, trim = 20)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
 
   \item{p}{The power of the Minkowski distance. \code{p=2}
-  will result in euclidean distances, \code{p=1} in city
-  block distances. Any other Minkowski metric can be used
-  as well.}
-
-  \item{output}{Type of output. \code{output=1} will print
-  all results to the console, \code{output=2} will only
-  print the detailed statistics for elements and
-  constructs, \code{0} will surpress all console output.}
+  (default) will result in euclidean distances, \code{p=1}
+  in city block distances.}
 
   \item{e.out}{Numeric. A vector giving the indexes of the
   elements for which detailed stats (number of conflicts
   per element, discrepancies for triangles etc.) are
-  promted (default code{NA}, i. e. no detailed stats).}
+  promted (default \code{NA}, i.e. no detailed stats for
+  any element).}
 
-  \item{e.threshold}{Numeric. Detailed stats for elements
-  with a an attributable percentage to the overall
-  conflicts higher than the supplied value are printed
+  \item{e.threshold}{Numeric. Detailed stats are prompted
+  for those elements with a an attributable percentage to
+  the overall conflicts higher than the supplied threshold
   (default \code{NA}).}
 
   \item{c.out}{Numeric. A vector giving the indexes of the
   constructs for which detailed stats (discrepancies for
-  triangles etc.)  are promted (default code{NA}, i. e. no
+  triangles etc.)  are promted (default \code{NA}, i. e. no
   detailed stats).}
 
-  \item{c.threshold}{Numeric. Detailed stats for constructs
-  with a an attributable percentage to the overall
-  conflicts higher than the supplied value are printed
+  \item{c.threshold}{Numeric. Detailed stats are prompted
+  for those constructs with a an attributable percentage to
+  the overall conflicts higher than the supplied threshold
   (default \code{NA}).}
 
   \item{trim}{The number of characters a construct
   (element) is trimmed to (default is \code{10}). If
   \code{NA} no trimming is done. Trimming simply saves
   space when displaying the output.}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{discrepancies}{Logical. Whether to show matrices of
-  discrepancies in detailed element and construct stats
-  (default \code{TRUE}).}
 }
 \value{
   A list (invisibly) containing containing: \cr
@@ -65,7 +52,11 @@
   in total of conflictive relations}
   \item{e.stats}{detailed statistics for prompted elements}
   \item{c.stats}{detailed statistics for prompted
-  constructs}
+  constructs} \item{e.threshold}{threshold percentage. Used
+  by print method} \item{c.threshold}{threshold percentage.
+  Used by print method} \item{enames}{trimmed element
+  names. Used by print method} \item{cnames}{trimmed
+  construct names. Used by print method}
 }
 \description{
   Conflict measure as proposed by Bell (2004).
@@ -91,10 +82,31 @@
   standardization and z-test for discrepancies; Index of
   Conflict Variation.
 }
+\section{output}{
+  For further control over the output see
+  \code{\link{print.indexConflict3}}.
+}
 \examples{
 \dontrun{
 
- ### TODO ###
+ # calculate conflicts
+ indexConflict3(bell2010)
+
+ # show additional stats for elements 1 to 3
+ indexConflict3(bell2010, e.out=1:3)
+
+ # show additional stats for constructs 1 and 5
+ indexConflict3(bell2010, c.out=c(1,5))
+
+ # finetune output
+ ## change number of digits
+ x <- indexConflict3(bell2010)
+ print(x, digits=4)
+
+ ## omit discrepancy matrices for constructs
+ x <- indexConflict3(bell2010, c.out=5:6)
+ print(x, discrepancies=FALSE)
+
 }
 }
 \author{

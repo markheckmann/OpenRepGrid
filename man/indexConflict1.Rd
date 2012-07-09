@@ -2,18 +2,18 @@
 \alias{indexConflict1}
 \title{Conflict measure for grids (Slade & Sheehan, 1979) based on correlations.}
 \usage{
-  indexConflict1(x, digits = 1, output = 1)
+  indexConflict1(x)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
+}
+\value{
+  A list with the following elements:
 
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{1}).}
-
-  \item{output}{Numeric. The output printed to the console.
-  \code{output=1} (default) will print information about
-  the conflicts to the console.  \code{output=0} will
-  surpress the output.}
+  \item{total}{Total number of triads}
+  \item{imbalanced}{Number of imbalanced triads}
+  \item{prop.balanced}{Proportion of balanced triads}
+  \item{prop.imbalanced}{Proportion of imbalanced triads}
 }
 \description{
   Conflict measure as proposed by Slade and Sheehan (1979)

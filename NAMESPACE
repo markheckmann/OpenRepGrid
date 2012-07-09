@@ -1,5 +1,8 @@
 S3method("[",openrepgridSettings)
 S3method(dim,repgrid)
+S3method(print,indexConflict1)
+S3method(print,indexConflict2)
+S3method(print,indexConflict3)
 S3method(print,openrepgridSettings)
 export(addConstruct)
 export(addElement)

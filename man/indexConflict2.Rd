@@ -2,7 +2,7 @@
 \alias{indexConflict2}
 \title{Conflict measure for grids (Bassler et al., 1992) based on correlations.}
 \usage{
-  indexConflict2(x, crit = 0.03, digits = 1, output = 1)
+  indexConflict2(x, crit = 0.03)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
@@ -12,15 +12,6 @@
   imbalanced triads. The default is \code{0.03}. The value
   should be adjusted with regard to the researchers
   interest.}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{1}).}
-
-  \item{output}{Numeric. The output printed to the console.
-  \code{output=1} (default) will print information about
-  the conflicts to the console.  \code{output=2} will
-  additionally print the conflictive triads.
-  \code{output=0} will surpress the output.}
 }
 \description{
   Conflict measure as proposed by Bassler et al. (1992).
@@ -54,8 +45,9 @@
   Z_mdn < 0}, the triad is balanced if \eqn{ Z_{min} -
   Z_{max} Z_{mdn} <= crit } { Z_min - Z_max x Z_mdn <= crit
   }.  } }
-
-  NOTE: (MH) I am a bit suspicious about step 2. To devide
+}
+\section{Personal remarks (MH)}{
+  I am a bit suspicious about step 2 from above. To devide
   by 3 appears pretty arbitrary.  The r for a z-values of 3
   is 0.9950548 and not 1.  The r for 4 is 0.9993293. Hence,
   why not a value of 4, 5, or 6?  Denoting the value to
@@ -68,8 +60,20 @@
 \examples{
 \dontrun{
 
-  indexConflict2(bell2010)
+ indexConflict2(bell2010)
 
+ x <- indexConflict2(bell2010)
+ print(x)
+
+ # show conflictive triads
+ print(x, output=2)
+
+ # accessing the calculations for further use
+ x$total
+ x$imbalanced
+ x$prop.balanced
+ x$prop.imbalanced
+ x$triads.imbalanced
 }
 }
 \author{
@@ -89,6 +93,6 @@
 \seealso{
   See \code{\link{indexConflict1}} for the older version of
   this measure; see \code{\link{indexConflict3}} for a
-  measure based on distances.
+  measure based on distances instead of correlations.
 }
 

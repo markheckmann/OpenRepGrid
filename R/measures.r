@@ -865,22 +865,34 @@ distanceNormalized <- function(x, rep=100, quant=c(.05, .5, .95),
 }
 
 
-
 ###############################################################################
-###  						            CONFLICT MEASURES 	      						          ###
+###    					            CONFLICT MEASURES       							          ###
 ###############################################################################
 
-indexConflict1Out1 <- function(res){
+#' Print function for class indexConflict1
+#' 
+#' @param x         Object of class indexConflict1.
+#' @param digits    Numeric. Number of digits to round to (default is 
+#'                  \code{1}).
+#' @param ...       Not evaluated.
+#' @export
+#' @method          print indexConflict1
+#' @keywords        internal
+#' 
+print.indexConflict1 <- function(x, digits=1, ...)
+{
   cat("\n################################")
   cat("\nConflicts based on correlations")
   cat("\n################################") 
   cat("\n\nAs devised by Slade & Sheehan (1979)")
   
-  cat("\n\nTotal number of triads:", res[[1]])
-  cat("\nNumber of imbalanced triads:", res[[2]])
+  cat("\n\nTotal number of triads:", x$total)
+  cat("\nNumber of imbalanced triads:",x$imbalanced)
   
-  cat("\n\nProportion of balanced triads:", res[[3]] * 100, "%")
-  cat("\nProportion of imbalanced triads:", res[[4]] * 100, "%")
+  cat("\n\nProportion of balanced triads:", 
+      round(x$prop.balanced * 100, digits=digits), "%")
+  cat("\nProportion of imbalanced triads:", 
+      round(x$prop.imbalanced * 100, digits=digits), "%")
 }
 
 
@@ -916,11 +928,12 @@ indexConflict1Out1 <- function(res){
 #' @title         Conflict measure for grids (Slade & Sheehan, 1979) based on correlations.
 #'
 #' @param x       \code{repgrid} object.
-#' @param digits  Numeric. Number of digits to round to (default is 
-#'                \code{1}).
-#' @param output  Numeric. The output printed to the console. \code{output=1} (default)
-#'                will print information about the conflicts to the console.
-#'                \code{output=0} will surpress the output.
+#' @return        A list with the following elements:
+#' 
+#'    \item{total}{Total number of triads} 
+#'    \item{imbalanced}{Number of imbalanced triads} 
+#'    \item{prop.balanced}{Proportion of balanced triads} 
+#'    \item{prop.imbalanced}{Proportion of imbalanced triads} 
 #'
 #' @references    Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). 
 #'                A new approach to the identification of cognitive conflicts 
@@ -953,7 +966,7 @@ indexConflict1Out1 <- function(res){
 #'
 #' }
 #'
-indexConflict1 <- function(x, digits=1, output=1){
+indexConflict1 <- function(x) {
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
 	r <- constructCor(x, output=0)          # construct correlation matrix
@@ -969,41 +982,15 @@ indexConflict1 <- function(x, digits=1, output=1){
   	  balanced[i] <- TRUE else
   	  balanced[i] <- FALSE
 	} 
-	prop.balanced <- round(sum(balanced) / length(balanced), digits)    # proportion of 
+	prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
 	prop.imbalanced <- 1 - prop.balanced                                # proportion of 
 	
 	res <- list(total=length(balanced),
 	            imbalanced=sum(!balanced),
 	            prop.balanced=prop.balanced, 
 	            prop.imbalanced=prop.imbalanced)
-
-	# make console output
-	if (output == 1)
-	  indexConflict1Out1(res)
-	invisible(res)
-}
-
-
-
-indexConflict2Out1 <- function(res){
-  cat("\n###############################")
-  cat("\nConflicts based on correlations")
-  cat("\n###############################") 
-  cat("\n\nAs devised by Bassler et al. (1992)")
-  
-  cat("\n\nTotal number of triads:", res[[1]])
-  cat("\nNumber of imbalanced triads:", res[[2]])
-  
-  cat("\n\nProportion of balanced triads:", res[[3]] * 100, "%")
-  cat("\nProportion of imbalanced triads:", res[[4]] * 100, "%\n")
-}
-
-
-indexConflict2Out2 <- function(res){
-  cat("\nConstructs that form imbalanced triads:\n")
-  df <- as.data.frame(res[[5]])
-  colnames(df) <- c(" ", "  ", "   ")
-  print(df)
+  class(res) <- "indexConflict1"
+	res
 }
 
 
@@ -1041,7 +1028,7 @@ indexConflict2Out2 <- function(res){
 #'    }        
 #'  }
 #'
-#' NOTE: (MH) I am a bit suspicious about step 2. To devide by 3 appears pretty arbitrary.
+#' @section Personal remarks (MH): I am a bit suspicious about step 2 from above. To devide by 3 appears pretty arbitrary.
 #'        The r for a z-values of 3 is 0.9950548 and not 1.
 #'        The r for 4 is 0.9993293. Hence, why not a value of 4, 5, or 6?
 #'        Denoting the value to devide by with \code{a}, the relation for the
@@ -1057,13 +1044,6 @@ indexConflict2Out2 <- function(res){
 #'                unbalanced. A bigger values willl lead to less imbalanced 
 #'                triads. The default is \code{0.03}. The value should
 #'                be adjusted with regard to the researchers interest.
-#' @param digits  Numeric. Number of digits to round to (default is 
-#'                \code{1}).
-#' @param output  Numeric. The output printed to the console. \code{output=1} (default)
-#'                will print information about the conflicts to the console.
-#'                \code{output=2} will additionally print the conflictive
-#'                triads. \code{output=0} will surpress the output.
-#'
 #' @references    Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). 
 #'                A new approach to the identification of cognitive conflicts 
 #'                in the repertory grid: An illustrative case study. 
@@ -1077,15 +1057,27 @@ indexConflict2Out2 <- function(res){
 #' @export
 #' @seealso       See \code{\link{indexConflict1}} for the older version 
 #'                of this measure; see \code{\link{indexConflict3}} 
-#'                for a measure based on distances.
+#'                for a measure based on distances instead of correlations.
 #'
 #' @examples \dontrun{
 #'
-#'   indexConflict2(bell2010)
-#'
+#'  indexConflict2(bell2010)
+#'   
+#'  x <- indexConflict2(bell2010)  
+#'  print(x)
+#'  
+#'  # show conflictive triads
+#'  print(x, output=2)
+#'  
+#'  # accessing the calculations for further use
+#'  x$total
+#'  x$imbalanced
+#'  x$prop.balanced
+#'  x$prop.imbalanced
+#'  x$triads.imbalanced
 #' }
 #' 
-indexConflict2 <- function(x, crit=.03, digits=1, output=1){
+indexConflict2 <- function(x, crit=.03){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
 	r <- constructCor(x, output=0)          # construct correlation matrix
@@ -1107,24 +1099,62 @@ indexConflict2 <- function(x, crit=.03, digits=1, output=1){
   	  balanced[i] <- z.3 - z.12 <= crit
   	}  
 	} 
-	prop.balanced <- round(sum(balanced) / length(balanced), digits)   # proportion of 
-	prop.imbalanced <- 1 - prop.balanced                                # proportion of 
+	prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
+	prop.imbalanced <- 1 - prop.balanced                 # proportion of 
 
 	res <- list(total=length(balanced),
   	          imbalanced=sum(!balanced),
   	          prop.balanced=prop.balanced, 
 	            prop.imbalanced=prop.imbalanced,
 	            triads.imbalanced=comb[!balanced, ])
-
-	# make console output
-	if (output == 1){
-	  indexConflict2Out1(res) 
-	} else if (output == 2){
-	  indexConflict2Out1(res)
-	  indexConflict2Out2(res)
-	}
-	invisible(res)
+  class(res) <- "indexConflict2"
+	res
 }
+
+
+indexConflict2Out1 <- function(x, digits=1) {
+  cat("\n###############################")
+  cat("\nConflicts based on correlations")
+  cat("\n###############################") 
+  cat("\n\nAs devised by Bassler et al. (1992)")
+  
+  cat("\n\nTotal number of triads:", x$total)
+  cat("\nNumber of imbalanced triads:", x$imbalanced)  
+  cat("\n\nProportion of balanced triads:", 
+      round(x$prop.balanced * 100, digits=digits), "%")
+  cat("\nProportion of imbalanced triads:", 
+      round(x$prop.imbalanced * 100, digits=digits), "%\n")
+}
+
+
+indexConflict2Out2 <- function(x) {
+  cat("\nConstructs that form imbalanced triads:\n")
+  df <- as.data.frame(x$triads.imbalanced)
+  colnames(df) <- c(" ", "  ", "   ")
+  print(df)
+}
+
+
+#' Print method for class indexConflict2
+#' 
+#' @param x       A \code{repgrid} object.
+#' @param digits  Numeric. Number of digits to round to (default is 
+#'                \code{1}).
+#' @param output  Numeric. The output printed to the console. \code{output=1} (default) 
+#'                will print information about the conflicts to the console.
+#'                \code{output=2} will additionally print the conflictive
+#'                triads. 
+#' @param ...     Not evaluated.
+#' @export
+#' @method        print indexConflict2
+#' @keywords      internal
+#'
+print.indexConflict2 <- function(x, digits=1, output=1, ...){
+  indexConflict2Out1(x, digits=digits) 
+  if (output == 2) 
+    indexConflict2Out2(x)
+} 
+
 
 
 #' Conflict measure as proposed by Bell (2004). 
@@ -1149,35 +1179,27 @@ indexConflict2 <- function(x, crit=.03, digits=1, output=1){
 #' @title       Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances.
 #'
 #' @param x             \code{repgrid} object.
-#' @param  p            The power of the Minkowski distance. \code{p=2} will result
+#' @param p             The power of the Minkowski distance. \code{p=2} (default) will result
 #'                      in euclidean distances, \code{p=1} in city block
-#'                      distances. Any other Minkowski metric can be used as well.
-#' @param output        Type of output. \code{output=1} will print all results
-#'                      to the console, \code{output=2} will only print the
-#'                      detailed statistics for elements and constructs, 
-#'                      \code{0} will surpress all console output.
+#'                      distances.
 #' @param e.out         Numeric. A vector giving the indexes of the elements
 #'                      for which detailed stats (number of conflicts per element,
 #'                      discrepancies for triangles etc.) are promted 
-#'                      (default code{NA}, i. e. no detailed stats).
-#' @param e.threshold   Numeric. Detailed stats for elements with a an 
+#'                      (default \code{NA}, i.e. no detailed stats for any element).
+#' @param e.threshold   Numeric. Detailed stats are prompted for those elements with a an 
 #'                      attributable percentage to the overall conflicts 
-#'                      higher than the supplied value
-#'                      are printed (default \code{NA}).
+#'                      higher than the supplied threshold
+#'                      (default \code{NA}).
 #' @param c.out         Numeric. A vector giving the indexes of the constructs
 #'                      for which detailed stats (discrepancies for triangles etc.) 
-#'                      are promted (default code{NA}, i. e. no detailed stats).
-#' @param c.threshold   Numeric. Detailed stats for constructs with a an 
+#'                      are promted (default \code{NA}, i. e. no detailed stats).
+#' @param c.threshold   Numeric. Detailed stats are prompted for those constructs with a an 
 #'                      attributable percentage to the overall conflicts 
-#'                      higher than the supplied value
-#'                      are printed (default \code{NA}).
+#'                      higher than the supplied threshold
+#'                      (default \code{NA}).
 #' @param trim          The number of characters a construct (element) is trimmed to (default is
 #'                      \code{10}). If \code{NA} no trimming is done. Trimming
 #'                      simply saves space when displaying the output.
-#' @param digits        Numeric. Number of digits to round to (default is 
-#'                      \code{2}).
-#' @param discrepancies Logical. Whether to show matrices of discrepancies in 
-#'                      detailed element and construct stats (default \code{TRUE}). 
 #'
 #' @return              A list (invisibly) containing containing: \cr
 #'                      \item{potential}{number of potential conflicts}
@@ -1188,12 +1210,16 @@ indexConflict2 <- function(x, crit=.03, digits=1, output=1){
 #'                      \item{e.count}{number of involvements of each construct in conflictive relation}
 #'                      \item{c.perc}{percentage of involvement of each construct in total of conflictive relations}
 #'                      \item{e.stats}{detailed statistics for prompted elements}
-#'                      \item{c.stats}{detailed statistics for prompted constructs}
+#'                      \item{c.stats}{detailed statistics for prompted constructs}                     
+#'                      \item{e.threshold}{threshold percentage. Used by print method}
+#'                      \item{c.threshold}{threshold percentage. Used by print method}
+#'                      \item{enames}{trimmed element names. Used by print method}
+#'                      \item{cnames}{trimmed construct names. Used by print method}
 #'
 #' @references    Bell, R. C. (2004). A new approach to measuring inconsistency 
 #'                or conflict in grids. Personal Construct Theory & Practice, 
 #'                (1), 53-59.
-#'
+#' @section output: For further control over the output see \code{\link{print.indexConflict3}}.
 #' @author        Mark Heckmann
 #' @export
 #' @seealso       See \code{\link{indexConflict1}} and \code{\link{indexConflict2}} 
@@ -1201,16 +1227,31 @@ indexConflict2 <- function(x, crit=.03, digits=1, output=1){
 #'
 #' @examples \dontrun{
 #'
-#'  ### TODO ###
+#'  # calculate conflicts
+#'  indexConflict3(bell2010)
+#'  
+#'  # show additional stats for elements 1 to 3
+#'  indexConflict3(bell2010, e.out=1:3)
+#'  
+#'  # show additional stats for constructs 1 and 5
+#'  indexConflict3(bell2010, c.out=c(1,5))
+#'  
+#'  # finetune output
+#'  ## change number of digits
+#'  x <- indexConflict3(bell2010)
+#'  print(x, digits=4)
+#'
+#'  ## omit discrepancy matrices for constructs
+#'  x <- indexConflict3(bell2010, c.out=5:6)
+#'  print(x, discrepancies=FALSE)
+#'  
 #' }
 #'
 #'
-indexConflict3 <- function(x, p=2, output=1, 
+indexConflict3 <- function(x, p=2,  
                            e.out=NA, e.threshold=NA,
                            c.out=NA, c.threshold=NA,
-                           trim=20,
-                           digits=1,
-                           discrepancies=TRUE){
+                           trim=20) {
   # To assess the triangle inequality we need:
   #
   # - d.ij   'distance'  between element i and constuct j
@@ -1289,7 +1330,7 @@ indexConflict3 <- function(x, p=2, output=1,
   
   ### Detailed stats for elements ###
   
-  conflictAttributedByConstructForElement <- function(e, digits=1){
+  conflictAttributedByConstructForElement <- function(e){
     e.disc.0 <- e.disc.na <- conflict.disc[ , , e]          # version with NAs and zeros for no discrepancies
     e.disc.0[is.na(e.disc.0)] <- 0                          # replace NAs by zeros
       
@@ -1305,18 +1346,18 @@ indexConflict3 <- function(x, p=2, output=1,
     disc.stand <- (e.disc.na - disc.avg) / disc.sd          # standardized discrepancy
     
     list(e=e, 
-         disc=round(e.disc.na, digits),
+         disc=e.disc.na,
          pairs=n.conflict.pairs,
-         constructs=round(e.disc.perc.df, digits),
-         avg=round(disc.avg, digits),
-         sd=round(disc.sd, digits + 1))#,
+         constructs=e.disc.perc.df,
+         avg=disc.avg,
+         sd=disc.sd)#,
          #disc.stand=round(disc.stand, digits))
   }
   
   
   ### Detailed stats for constructs ###
 
-  conflictAttributedByElementForConstruct <- function(c1, digits=1){
+  conflictAttributedByElementForConstruct <- function(c1) {
     c1.disc.0 <- c1.disc.na <- conflict.disc[c1, , ]     # version with NAs and zeros for no discrepancies
     rownames(c1.disc.na) <- paste("c", seq_len(nrow(c1.disc.na)))
     colnames(c1.disc.na) <- paste("e", seq_len(ncol(c1.disc.na)))
@@ -1326,12 +1367,11 @@ indexConflict3 <- function(x, p=2, output=1,
     disc.avg <- mean(c1.disc.0)                          # average level of discrepancy
     disc.sd <- sd(as.vector(c1.disc.na), na.rm=T)        # sd of discrepancies
     list(c1=c1, 
-         disc=round(c1.disc.na, digits),
-         avg=round(disc.avg, digits),
-         sd=round(disc.sd, digits + 1))#,
+         disc=c1.disc.na,
+         avg=disc.avg,
+         sd=disc.sd)#,
           #disc.stand=round(disc.stand, digits))
   }
-  
   
   # Select which detailed stats for elements. Either all bigger than
   # a threshold or the ones selected manually.
@@ -1344,7 +1384,7 @@ indexConflict3 <- function(x, p=2, output=1,
   e.stats <- list()               # list with detailed results
   if (!is.na(e.select[1])){
     for (e in seq_along(e.select))
-      e.stats[[e]] <- conflictAttributedByConstructForElement(e.select[e], digits) 
+      e.stats[[e]] <- conflictAttributedByConstructForElement(e.select[e]) 
     names(e.stats) <- enames[e.select]   
   }
  
@@ -1359,115 +1399,145 @@ indexConflict3 <- function(x, p=2, output=1,
   c.stats <- list()               # list with detailed results
   if (!is.na(c.select[1])){
     for (c in seq_along(c.select))
-      c.stats[[c]] <- conflictAttributedByElementForConstruct(c.select[c], digits)
+      c.stats[[c]] <- conflictAttributedByElementForConstruct(c.select[c])
     names(c.stats) <- cnames[c.select]   
   }
-   
-  ### Output to console ###
-  out1 <- function(){
-     cat("\n##########################################################")
-     cat("\nCONFLICT OR INCONSISTENCIES BASED ON TRIANGLE INEQUALITIES")
-     cat("\n##########################################################\n")
-     cat("\nPotential conflicts in grid: ", conflicts.potential)
-     cat("\nActual conflicts in grid: ", conflict.total) 
-     cat("\nOverall percentage of conflict in grid: ", 
-          round(conflict.total/conflicts.potential * 100, digits), "%\n") 
-
-     cat("\nELEMENTS")
-     cat("\n########\n")
-     cat("\nPercent of conflict attributable to element:\n\n")
-     print(round(conflict.e.df / conflict.total * 100, digits)) 
-     cat("\nChi-square test of equal count of conflicts for elements.\n")
-     print(chisq.test(conflict.e))
      
-     cat("\nCONSTRUCTS")
-     cat("\n##########\n")
-     cat("\nPercent of conflict attributable to construct:\n\n")
-     conflict.c.perc <- .5 * conflict.c.df / conflict.total * 100
-     print(round(conflict.c.perc , digits))
-     cat("\nChi-square test of equal count of conflicts for constructs.\n")
-     print(chisq.test(conflict.c))
-     #print(sd(conflict.c.perc))
-     #print(var(conflict.c.perc))    
-  }
-  
-  out2 <- function(e.stats){
-    if (length(e.stats) == 0)     # stop function in case  
-      return(NULL)
-     
-    cat("\n\nCONFLICTS BY ELEMENT")
-    cat("\n####################\n")
-    if (!is.na(e.threshold))
-      cat("(Details for elements with conflict >", e.threshold, "%)\n")
-    
-    for (e in seq_along(e.stats)){
-      x <- e.stats[[e]]
-      if (!is.null(x)){
-        cat("\n\n### Element: ", enames[x$e], "\n")
-        cat("\nNumber of conflicting construct pairs: ", x$pairs, "\n")
-        if(discrepancies){
-          cat("\nConstruct conflict discrepancies:\n\n")
-          print(as.data.frame(formatMatrix(x$disc, rnames="", 
-                              mode=2, diag=F), stringsAsFactors=F))
-        }
-        cat("\nPercent of conflict attributable to each construct:\n\n")    
-        print(x$constructs)
-        cat("\nAv. level of discrepancy:   ", x$avg, "\n")
-        cat("\nStd. dev. of discrepancies: ", x$sd, "\n")
-      }
-    }
-  }
-  
-  out3 <- function(c.stats){
-    if (length(c.stats) == 0)     # stop function in case  
-      return(NULL)
-     
-    cat("\n\nCONFLICTS BY CONSTRUCT")
-    cat("\n######################\n")
-    if (!is.na(c.threshold))
-      cat("(Details for constructs with conflict >", c.threshold, "%)\n")
-    
-    for (c in seq_along(c.stats)){
-      x <- c.stats[[c]]
-      if (!is.null(x)){
-        cat("\n\n### Construct: ", cnames[x$c1], "\n")
-        if(discrepancies){
-          cat("\nElement-construct conflict discrepancies:\n\n")
-          print(as.data.frame(formatMatrix(x$disc, 
-                              rnames=paste("c", seq_len(nrow(x$disc)), sep=""), 
-                              cnames=paste("e", seq_len(ncol(x$disc)), sep=""),
-                              pre.index=c(F,F),
-                              mode=2, diag=F), stringsAsFactors=F))
-        }
-        cat("\nAv. level of discrepancy:   ", x$avg, "\n")
-        cat("\nStd. dev. of discrepancies: ", x$sd, "\n")
-      }
-    }
-  }
-  
-  #Details for Constructs involved in Conflict
-  
-  # print output
-  if (output == 1){
-    out1()
-    out2(e.stats)
-    out3(c.stats)
-  } else if (output ==2){
-    out2(e.stats)
-    out3(c.stats)
-  } 
-  res <- list(potential=conflicts.potential,
-              actual=conflict.total,  
-              overall=round(conflict.total/conflicts.potential * 100, digits),
-              e.count=conflict.e,
-              e.perc= round(conflict.e.df / conflict.total * 100, digits),
-              c.count=conflict.c,
-              c.perc=round(.5 * conflict.c.df / conflict.total * 100, digits),
-              e.stats=e.stats,
-              c.stats=c.stats)
-  invisible(res)
+  res <- list(potential = conflicts.potential,
+              actual = conflict.total,  
+              overall = conflict.total/conflicts.potential * 100,
+              e.count = conflict.e,
+              e.perc = conflict.e.df / conflict.total * 100,
+              c.count= conflict.c,
+              c.perc = .5 * conflict.c.df / conflict.total * 100,
+              e.stats = e.stats,
+              c.stats = c.stats,
+              e.threshold = e.threshold,    # threshold for elements
+              c.threshold = c.threshold,
+              enames=enames,                # element names
+              cnames=cnames)
+  class(res) <- "indexConflict3"
+  res
 }
 
+
+### Output to console ###
+indexConflict3Out1 <- function(x, digits=1) {
+  cat("\n##########################################################")
+  cat("\nCONFLICT OR INCONSISTENCIES BASED ON TRIANGLE INEQUALITIES")
+  cat("\n##########################################################\n")
+  cat("\nPotential conflicts in grid: ", x$potential)
+  cat("\nActual conflicts in grid: ", x$actual) 
+  cat("\nOverall percentage of conflict in grid: ", 
+      round(x$actual / x$potential * 100, digits), "%\n") 
+  
+  cat("\nELEMENTS")
+  cat("\n########\n")
+  cat("\nPercent of conflict attributable to element:\n\n")
+  print(round(x$e.perc * 100, digits)) 
+  cat("\nChi-square test of equal count of conflicts for elements.\n")
+  print(chisq.test(x$e.count))
+  
+  cat("\nCONSTRUCTS")
+  cat("\n##########\n")
+  cat("\nPercent of conflict attributable to construct:\n\n")
+  print(round(x$c.perc , digits))
+  cat("\nChi-square test of equal count of conflicts for constructs.\n")
+  print(chisq.test(x$c.count))
+  #print(sd(conflict.c.perc))
+  #print(var(conflict.c.perc))    
+}
+
+
+indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
+  e.stats <- x$e.stats
+  e.threshold <- x$e.threshold
+  enames <- x$enames
+  
+  if (length(e.stats) == 0)     # stop function in case  
+    return(NULL)
+  
+  cat("\n\nCONFLICTS BY ELEMENT")
+  cat("\n####################\n")
+  if (!is.na(e.threshold))
+    cat("(Details for elements with conflict >", e.threshold, "%)\n")
+  
+  for (e in seq_along(e.stats)){
+    m <- e.stats[[e]]
+    if (!is.null(m)){
+      cat("\n\n### Element: ", enames[m$e], "\n")
+      cat("\nNumber of conflicting construct pairs: ", m$pairs, "\n")
+      if (discrepancies){
+        cat("\nConstruct conflict discrepancies:\n\n")
+        disc <- round(m$disc, digits)
+        print(as.data.frame(formatMatrix(disc, rnames="", 
+                                         mode=2, diag=F), stringsAsFactors=F))
+      }
+      cat("\nPercent of conflict attributable to each construct:\n\n")    
+      print(round(m$constructs, digits))
+      cat("\nAv. level of discrepancy:   ", round(m$avg, digits), "\n")
+      cat("\nStd. dev. of discrepancies: ", round(m$sd, digits + 1), "\n")
+    }
+  }
+}
+
+
+indexConflict3Out3 <- function(x, digits=1, discrepancies=TRUE) 
+{
+  c.threshold <- x$c.threshold
+  c.stats <- x$c.stats
+  cnames <- x$cnames
+  
+  if (length(c.stats) == 0)     # stop function in case  
+    return(NULL)
+  
+  cat("\n\nCONFLICTS BY CONSTRUCT")
+  cat("\n######################\n")
+  if (!is.na(c.threshold))
+    cat("(Details for constructs with conflict >", c.threshold, "%)\n")
+  
+  for (c in seq_along(c.stats)) {
+    x <- c.stats[[c]]
+    if (!is.null(x)) {
+      cat("\n\n### Construct: ", cnames[x$c1], "\n")
+      if (discrepancies) {
+        cat("\nElement-construct conflict discrepancies:\n\n")
+        disc <- round(x$disc, digits)
+        print(as.data.frame(formatMatrix(disc, 
+                                         rnames=paste("c", seq_len(nrow(x$disc)), sep=""), 
+                                         cnames=paste("e", seq_len(ncol(x$disc)), sep=""),
+                                         pre.index=c(F,F),
+                                         mode=2, diag=F), stringsAsFactors=F))
+      }
+      cat("\nAv. level of discrepancy:   ", round(x$avg, digits), "\n")
+      cat("\nStd. dev. of discrepancies: ", round(x$sd, digits + 1), "\n")
+    }
+  }
+}
+
+
+#' print method for class indexConflict3
+#' 
+#' @param x             Output from funtion indexConflict3
+#' @param output        Type of output. \code{output=1} will print all results
+#'                      to the console, \code{output=2} will only print the
+#'                      detailed statistics for elements and constructs. 
+#' @param digits        Numeric. Number of digits to round to (default is 
+#'                      \code{2}).
+#' @param discrepancies Logical. Whether to show matrices of discrepancies in 
+#'                      detailed element and construct stats (default \code{TRUE}).
+#' @param ...           Not evaluated.
+#' @export
+#' @method              print indexConflict3
+#' @keywords            internal
+#'                    
+print.indexConflict3 <- function(x, digits=2, output=1, discrepancies=TRUE, ...)
+{
+  if (output == 1)
+    indexConflict3Out1(x, digits=digits) 
+  indexConflict3Out2(x, digits=digits, discrepancies=discrepancies)
+  indexConflict3Out3(x, digits=digits, discrepancies=discrepancies) 
+}
 
 
 # plots distribution of construct correlations
