@@ -45,11 +45,11 @@
 \examples{
 \dontrun{
 
-  feixas2004                         # original grid
-  alignByIdeal(feixas2004, 13)       # aligned with preference pole on the right
+  feixas2004                             # original grid
+  alignByIdeal(feixas2004, 13)           # aligned with preference pole on the right
 
-  raeithel                           # original grid
-  alignByIdeal(raeithel, 3, high=F)  # aligned with preference pole on the left
+  raeithel                               # original grid
+  alignByIdeal(raeithel, 3, high=FALSE)  # aligned with preference pole on the left
 
 }
 }

@@ -2,19 +2,20 @@
 \alias{constructD}
 \title{Calculate Somers' d for the constructs.}
 \usage{
-  constructD(x, dependent = "c", trim = 30, index = T,
-    col.index = F, digits = 1, output = 1)
+  constructD(x, dependent = "columns", trim = 30,
+    index = TRUE)
 }
 \arguments{
   \item{x}{\code{repgrid} object}
 
   \item{dependent}{A string denoting the direction of
   dependency in the output table (as d is assymetrical).
-  Possible values are \code{"c"} (the default) for setting
-  the columns as dependent, \code{"r"} for setting the rows
-  as the dependent variable and \code{"s"} for the
-  symmetrical Somers' d measure (the mean of the two
-  directional values for code{"c"} and \code{"r"}).}
+  Possible values are \code{"columns"} (the default) for
+  setting the columns as dependent, \code{"rows"} for
+  setting the rows as the dependent variable and
+  \code{"symmetric"} for the symmetrical Somers' d measure
+  (the mean of the two directional values for
+  code{"columns"} and \code{"rows"}).}
 
   \item{trim}{The number of characters a construct is
   trimmed to (default is \code{30}). If \code{NA} no
@@ -23,20 +24,6 @@
 
   \item{index}{Whether to print the number of the construct
   (default is \code{TRUE}).}
-
-  \item{col.index}{Logical. Wether to add an extra index
-  column so the column names are indexes instead of
-  construct names. This option renders a neater output as
-  long construct names will stretch the output (default is
-  \code{FALSE}).}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{output}{The type of output printed to the console.
-  \code{output=0} will supress printing of the output.
-  \code{output=1} (default) will print results to the
-  screen.}
 }
 \value{
   \code{matrix} of construct correlations.

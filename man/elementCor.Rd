@@ -2,16 +2,14 @@
 \alias{elementCor}
 \title{Calculate the correlations between elements.}
 \usage{
-  elementCor(x, rc = TRUE,
-    method = c("pearson", "kendall", "spearman"),
-    trim = 20, index = FALSE, col.index = TRUE, digits = 2,
-    output = 1, upper = T)
+  elementCor(x, rc = TRUE, method = "pearson", trim = 20,
+    index = TRUE)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
 
   \item{rc}{Use Cohen's rc which is invariant to construct
-  reflection (see notes). It is used as default.}
+  reflection (see notes). It is used as the default.}
 
   \item{method}{A character string indicating which
   correlation coefficient is to be computed. One of
@@ -26,21 +24,6 @@
 
   \item{index}{Whether to print the number of the
   construct.}
-
-  \item{col.index}{Logical. Whether to add an extra index
-  column so the column names are indexes instead of
-  construct names. This option renders a neater output as
-  long construct names will stretch the output (default is
-  \code{FALSE}).}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{output}{The type of output printed to the console.
-  \code{output=0} will supress printing of the output.}
-
-  \item{upper}{Whether to display upper triangle of
-  correlation matrix only (default is \code{TRUE}).}
 }
 \value{
   \code{matrix} of element correlations
@@ -54,23 +37,25 @@
   the argument \code{rc=TRUE} which is the default option.
 }
 \examples{
-\dontrun{
-
-   elementCor(mackay1992)                      # Cohen's rc
-   elementCor(mackay1992, rc=F)                # PM correlation
-   elementCor(mackay1992, rc=F, meth="spear")  # Spearman correlation
+elementCor(mackay1992)                      # Cohen's rc
+   elementCor(mackay1992, rc=FALSE)            # PM correlation
+   elementCor(mackay1992, rc=FALSE, method="spearman")  # Spearman correlation
 
    # format output
-   elementCor(mackay1992, upper=F)
-   elementCor(mackay1992, col.index=F, trim=6)
-   elementCor(mackay1992, index=T, col.index=F, trim=6)
+   elementCor(mackay1992, trim=6)
+   elementCor(mackay1992, index=FALSE, trim=6)
 
-   # save as object for further processing.
-   # no visible output.
-   r <- elementCor(mackay1992, trim=6, out=0)
+   # save as object for further processing
+   r <- elementCor(mackay1992)
    r
 
-}
+   # change output of object
+   print(r, digits=5)
+   print(r, col.index=FALSE)
+   print(r, upper=FALSE)
+
+   # accessing elements of the correlation matrix
+   r[1,3]
 }
 \author{
   Mark Heckmann

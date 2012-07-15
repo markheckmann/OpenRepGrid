@@ -2,19 +2,10 @@
 \alias{indexPvaff}
 \title{Percentage of Variance Accounted for by the First Factor (PVAFF)}
 \usage{
-  indexPvaff(x, output = 1, digits = 2)
+  indexPvaff(x)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{output}{The type of output printed to the console.
-  \code{output=0} will supress printing of the output.}
-}
-\value{
-  Numeric.
 }
 \description{
   The PVAFF is used as a measure of cognitive complexity.
@@ -31,20 +22,19 @@
 \details{
   The percentage of variance is calculated using the
   corelation matrix of te constructs submitted to
-  \code{\link{svd}}. TODO: Results have not yet been
-  checked against other grid programs.
+  \code{\link{svd}}.
+}
+\section{Development}{
+  TODO: Results have not yet been checked against other
+  grid programs.
 }
 \examples{
-\dontrun{
-
-   indexPvaff(bell2010)
+indexPvaff(bell2010)
    indexPvaff(feixas2004)
 
-   # no printing to console
-   p <- indexPvaff(bell2010, out=0)
+   # save results to object
+   p <- indexPvaff(bell2010)
    p
-
-}
 }
 \author{
   Mark Heckmann

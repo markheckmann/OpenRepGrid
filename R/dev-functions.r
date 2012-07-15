@@ -1,4 +1,4 @@
-###############################################################################
+######################### Developer's functions  ##############################
 ###   Functions that can be used by developers. Often these are             ###
 ###   are simple wrappers to access slots of the repgrid object.            ###
 ###   They are supposd to facilitate adding new functions for               ###

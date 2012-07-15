@@ -1,0 +1,19 @@
+\name{print.indexPvaff}
+\alias{print.indexPvaff}
+\title{Print method for class indexPvaff.}
+\usage{
+  \method{print}{indexPvaff} (x, digits = 2, ...)
+}
+\arguments{
+  \item{x}{Object of class indexPvaff.}
+
+  \item{digits}{Numeric. Number of digits to round to
+  (default is \code{2}).}
+
+  \item{...}{Not evaluated.}
+}
+\description{
+  Print method for class indexPvaff.
+}
+\keyword{internal}
+

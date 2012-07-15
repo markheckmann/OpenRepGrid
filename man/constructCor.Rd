@@ -1,11 +1,10 @@
 \name{constructCor}
 \alias{constructCor}
-\title{Calculate the correlations between constructs.}
+\title{Calculate correlations between constructs.}
 \usage{
   constructCor(x,
     method = c("pearson", "kendall", "spearman"),
-    trim = 20, index = FALSE, col.index = TRUE, digits = 2,
-    output = 1, upper = T)
+    trim = 20, index = FALSE)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
@@ -23,52 +22,31 @@
 
   \item{index}{Whether to print the number of the
   construct.}
-
-  \item{col.index}{Logical. Whether to add an extra index
-  column so the column names are indexes instead of
-  construct names. This option renders a neater output as
-  long construct names will stretch the output (default is
-  \code{FALSE}).}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{output}{The type of output printed to the console.
-  \code{output=0} will supress printing of the output.
-  \code{output=1} will print results to the screen.
-  \code{output=2} will surpress printing but return a
-  matrix ready for printing.}
-
-  \item{upper}{Whether to display upper triangle of
-  correlation matrix only (default is \code{TRUE}).}
 }
 \value{
-  Prints results to the console and invisibly returns a
-  matrix of construct correlations.
+  Returns a matrix of construct correlations.
 }
 \description{
   Different types of correlations can be requested: PMC,
   Kendall tau rank correlation, Spearman rank correlation.
 }
 \examples{
-\dontrun{
-
-   # three different types of correlations
+# three different types of correlations
    constructCor(mackay1992)
-   constructCor(mackay1992, meth="kend")
-   constructCor(mackay1992, meth="spea")
+   constructCor(mackay1992, method="kendall")
+   constructCor(mackay1992, method="spearman")
 
    # format output
-   constructCor(mackay1992, upper=F)
-   constructCor(mackay1992, col.index=F, trim=6)
-   constructCor(mackay1992, index=T, col.index=F, trim=6)
+   constructCor(mackay1992, trim=6)
+   constructCor(mackay1992, index=TRUE, trim=6)
 
-   # save as object for further processing.
-   # no visible output.
-   r <- constructCor(mackay1992, trim=6, out=0)
+   # save correlation matrix for further processing
+   r <- constructCor(mackay1992)
    r
+   print(r, digits=5)
 
-}
+   # accessing the correlation matrix
+   r[1, 3]
 }
 \author{
   Mark Heckmann

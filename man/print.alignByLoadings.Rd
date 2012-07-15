@@ -1,0 +1,26 @@
+\name{print.alignByLoadings}
+\alias{print.alignByLoadings}
+\title{Print method for class alignByLoadings.}
+\usage{
+  \method{print}{alignByLoadings} (x, digits = 2,
+    col.index = TRUE, ...)
+}
+\arguments{
+  \item{x}{Object of class alignByLoadings.}
+
+  \item{digits}{Numeric. Number of digits to round to
+  (default is \code{2}).}
+
+  \item{col.index}{Logical. Whether to add an extra index
+  column so the column names are indexes instead of
+  construct names (e.g. for the correlation matrices). This
+  option renders a neater output as long construct names
+  will stretch the output (default is \code{TRUE}).}
+
+  \item{...}{Not evaluated.}
+}
+\description{
+  Print method for class alignByLoadings.
+}
+\keyword{internal}
+

@@ -3,20 +3,17 @@
 \title{Calculate SSQ (accuracy) of biplot representation for elements
 and constructs.}
 \usage{
-  ssq(x, along = 2, cum = T, center = 1, normalize = 0,
-    g = 0, h = 1 - g, col.active = NA, col.passive = NA,
-    digits = 1, print = TRUE, ...)
+  ssq(x, along = 2, center = 1, normalize = 0, g = 0,
+    h = 1 - g, col.active = NA, col.passive = NA, ...)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
 
   \item{along}{Numeric. Table of sum-of-squares (SSQ) for
-  1=constructs, 2=elements.  Note that currently these
-  calculations only make sense for biplot reperesentations
-  with \code{g=1} and \code{h=1} respectively.}
-
-  \item{cum}{Logical. Return a cumulated table of
-  sum-of-squares?  (default is \code{TRUE}).}
+  1=constructs, 2=elements (default).  Note that currently
+  these calculations only make sense for biplot
+  reperesentations with \code{g=1} and \code{h=1}
+  respectively.}
 
   \item{center}{Numeric. The type of centering to be
   performed.  0= no centering, 1= row mean centering
@@ -46,16 +43,15 @@ and constructs.}
   but projecte into the component space afterwards. They do
   not determine the solution. Default is \code{NA}, i.e. no
   elements are set supplementary.}
-
-  \item{digits}{Number of digits to round the output to.}
-
-  \item{print}{Whether to print the oputut to the console
-  (default \code{TRUE}).}
 }
 \value{
-  \code{dataframe} containing the explained (cumulated)
-  sum-of-squares for each construct or element on each
-  principal component.
+  A list containing three wo elements \cr
+  \item{ssq.table}{dataframe with sum-of-squares explained
+  for element/construct by each dimension}
+  \item{ssq.table.cumsum}{dataframe with cumulated
+  sum-of-squares explained for element/construct number of
+  dimensions} \item{ssq.total}{total sum-of-squares after
+  pre-transforming grid matrix}
 }
 \description{
   Each construct and element are vectors in a
@@ -74,6 +70,28 @@ and constructs.}
   measure accuracy of representation as currently the ssq
   of each point are set in constrast with the
   pre-transformed matrix.
+}
+\examples{
+# explained sum-of-squares for elements
+ ssq(bell2010)
+
+ # explained sum-of-squares for constructs
+ ssq(bell2010, along=1)
+
+ # save results
+ s <- ssq(bell2010)
+
+ # printing options
+ print(s)
+ print(s, digits=4)
+ print(s, dim=3)
+ print(s, cumulated=FALSE)
+
+ # access results
+ names(s)
+ s$ssq.table
+ s$ssq.table.cumsum
+ s$ssq.total
 }
 \author{
   Mark Heckmann

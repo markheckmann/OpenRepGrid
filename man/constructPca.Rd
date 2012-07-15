@@ -3,8 +3,7 @@
 \title{Principal component analysis (PCA) of inter-construct correlations.}
 \usage{
   constructPca(x, nfactors = 3, rotate = "varimax",
-    method = c("pearson", "kendall", "spearman"),
-    trim = NA, digits = 2, cutoff = 0, output = 1)
+    method = "pearson", trim = NA)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
@@ -26,22 +25,9 @@
   trimmed to (default is \code{7}). If \code{NA} no
   trimming occurs. Trimming simply saves space when
   displaying correlation of constructs with long names.}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{cutoff}{Loadings smaller than cutoff are not
-  printed.}
-
-  \item{output}{The type of output printed to the console.
-  \code{output=0} will supress printing of the output.
-  \code{output=1} (default) will print results to the
-  screen. \code{output==2} will invisibly retrn the whole
-  object from \code{principal} not only the loadings.}
 }
 \value{
-  Invisibly returns a matrix of loadings on the principal
-  components.
+  Returns an object of class \code{constructPca}.
 }
 \description{
   Various methods for rotation and methods for the
@@ -53,19 +39,25 @@
 \examples{
 \dontrun{
 
+   constructPca(bell2010)
+
    # data from grid manual by Fransella et al. (2003, p. 87)
    # note that the construct order is different
-   constructPca(fbb2003, nf=2)
-
-   # surpress printing to console
-   m <- constructPca(fbb2003, nf=2)
-   m
+   constructPca(fbb2003, nfactors=2)
 
    # no rotation
    constructPca(fbb2003, rotate="none")
 
-   # using a different correlation matrix (Spearman)
+   # use a different type of correlation (Spearman)
    constructPca(fbb2003, method="spearman")
+
+   # save output to object
+   m <- constructPca(fbb2003, nfactors=2)
+   m
+
+   # different printing options
+   print(m, digits=5)
+   print(m, cutoff=.3)
 
 }
 }
@@ -76,5 +68,9 @@
   Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A
   Manual for Repertory Grid Technique} (2. Ed.).
   Chichester: John Wiley & Sons.
+}
+\seealso{
+  To extract the PCA loadings for further processing see
+  \code{\link{constructPcaLoadings}}.
 }
 

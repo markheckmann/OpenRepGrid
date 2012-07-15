@@ -2,6 +2,7 @@
 ### 				          basic operations on repgrid objects      	        		###	 
 ###############################################################################
 
+############################# EXTRACT AND SET #################################
 
 ## S4 methods
 # overloading primitive generic "[" getter
@@ -123,7 +124,217 @@ setMethod("[<-", signature(x = "repgrid", i = "ANY", j="ANY", value="ANY"),
 })
 
 
-#############################      CHANGE POSITIONS      #################################
+###########################  GETTER AND SETTER  ###############################
+
+
+#' get rating layer
+#'
+#' @param   x       \code{repgrid} object.
+#' @param   layer   layer to be returned.
+#' @param   names   extract row and columns names (constructs and elements).
+#' @param trim      the number of characters a row or column name is trimmed to 
+#'                  (default is \code{10}). If \code{NA} no trimming is done. Trimming
+#'                  simply saves space when displaying the output.
+#' @return          a \code{matrix} 
+#'
+#' @export
+#' @keywords internal
+#' @author Mark Heckmann
+#'
+#' @examples \dontrun{
+#'
+#'      getRatingLayer(bell2010)
+#' }
+#'
+getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){
+  scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
+  rm <- apply(scores, 2 , I)                        # convert array to matrix 
+  if (names) {
+    cnames.l <- getConstructNames(x)[ ,1]
+    cnames.r <- getConstructNames(x)[ ,2]
+    enames <- getElementNames(x)
+    if (!is.na(trim)){                              # trim names if prompted
+      cnames.l <- substr(cnames.l, 1, trim)
+      cnames.r <- substr(cnames.r, 1, trim)
+      enames <- substr(enames, 1, trim)
+    }                             
+    rownames(rm) <- paste(cnames.l, cnames.r, sep=" - ") 
+    colnames(rm) <- enames   
+  }
+  rm
+}
+
+
+#' get number of constructs
+#'
+#' @param x \code{repgrid} object
+#' @return \code{numeric}
+#'
+#' @export
+#' @keywords internal
+#' @author Mark Heckmann
+#'
+#' @examples \dontrun{
+#'
+#'      getNoOfConstructs(bell2010)
+#' }
+#'
+getNoOfConstructs <- function(x){
+  if (!inherits(x, "repgrid"))   # check if x is repgrid object
+    stop("object x and y must be of class 'repgrid'")
+  length(x@constructs)
+}
+
+
+#' get number of elements
+#'
+#' @param x \code{repgrid} object
+#' @return \code{numeric} 
+#'
+#' @export
+#' @keywords internal
+#' @author Mark Heckmann
+#'
+#' @examples \dontrun{
+#'
+#'      getNoOfElements(bell2010)
+#' }
+#'
+getNoOfElements <- function(x){
+  if (!inherits(x, "repgrid")) 	# check if x is repgrid object
+    stop("object x and y must be of class 'repgrid'")
+  length(x@elements)
+}
+
+#' Set the scale range of a grid. 
+#'
+#' The scale must be known for certain 
+#' operations, e.g. to swap the construct poles. If the user construes
+#' a grid he should make sure that the scale range is set correctly.
+#'
+#' @param x       \code{repgrid} object.
+#' @param min     Minimal possible scale value for ratings.
+#' @param max     Maximal possible scale value for ratings.
+#' @param step    Steps the scales uses (not yet in use).
+#' @param ...     Not evaluated.
+#' 
+#' @return \code{repgrid} object
+#' @export
+#' @author Mark Heckmann
+#'
+#' @examples \dontrun{
+#'
+#'    x <- bell2010
+#'    x <- setScale(x, 0, 8)   # not set correctly
+#'    x
+#'    x <- setScale(x, 1, 7)   # set correctly
+#'    x
+#' }
+#'
+setScale <- function(x, min, max, step, ...){         # ... needes for makeRepgrid call
+  if(!inherits(x, "repgrid"))   						# check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  if (!missing(min)){
+    if (any(x@ratings < min, na.rm=TRUE))  # any rating value smaller than min?
+      stop("Some ratings are smaller than the min value you entered. ",
+           "The setting of the min value in the grid was not performed. ", 
+           "Please check the ratings or choose another min value.")
+    x@scale$min <- min
+  }
+  if (!missing(max)){
+    if (any(x@ratings > max, na.rm=TRUE))  # any rating value smaller than min?
+      stop("Some ratings are bigger than the max value you entered. ",
+           "The setting of the max value in the grid was not performed. ", 
+           "Please check the ratings or choose another max value.")
+    x@scale$max <- max
+  }
+  if (!missing(step))
+    x@scale$step <- step
+  x
+}
+# setScale(x, min=1, max=5, step=1)
+
+
+#' Get minimum and maximum scale value used in grid.
+#'
+#' The values are returned either as a vector or a list.
+#'
+#' @param x         \code{repgrid} object.
+#' @param output    Type of output object. 1= named vector, 2 = list.
+#' @return          Vector or list (depends on \code{output} containing 
+#'                  minimum and maximum scale value.
+#' @keywords        internal
+#' @export
+#' @author          Mark Heckmann
+#'
+getScale <- function(x, output=1){
+  if (!inherits(x, "repgrid")) 							# check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  smin <- x@scale$min
+  smax <- x@scale$max
+  if (output == 1)
+    res <- c(min=smin, max=smax) else 
+      if (output == 2)
+        res <- list(min=smin, max=smax)
+  res
+}
+
+
+### TODO
+#' setMeta
+#'
+#' set meta data of a grid (e.g. id, name of interview partner)
+#'
+#' @param x     repgrid object
+#' @param type  typemof grid in use (rating, ranked, implication)
+#' @param id    id of the interview
+#' @param name  name of the interview partner
+#' @return \code{repgrid} object
+#' @export
+#' @keywords internal
+#' @author   Mark Heckmann
+#'
+#' @examples \dontrun{
+#'
+#'    ####  TODO  ####
+#' }
+#'
+setMeta <- function(x, type, id, name){
+  if (!inherits(x, "repgrid"))   						# check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  if (!missing(type))                 # rating, rank or implication
+    x@meta$type <- type
+  if (!missing(name))
+    x@meta$id <- id
+  if (!missing(name))
+    x@meta$name <- name
+  x
+}
+#x <- setMeta(x, id=1, name="John Doe")
+
+
+#' Get midpoint of the grid rating scale
+#'
+#' @param x     \code{repgrid} object.
+#' @return      Midpoint of scale.
+#'
+#' @export
+#' @keywords    internal
+#' @author      Mark Heckmann
+#' @examples \dontrun{
+#'
+#'      getScaleMidpoint(bell2010)
+#'
+#' }
+#'
+getScaleMidpoint <- function(x){
+  if (!inherits(x, "repgrid"))   # check if x is repgrid object
+    stop("object x and y must be of class 'repgrid'")
+  (x@scale$max - x@scale$min)/2 + x@scale$min
+}
+
+
+#############################  CHANGE POSITION   ##############################
 
 #' Swap the position of two elements in a grid.
 #'
@@ -706,78 +917,7 @@ modifyElement <- function(x, pos, name=NA, abbreviation=NA, status=NA,
 #x <- modifyElement(x, pos=2, name="test")
 
 
-#' Set the scale range of a grid. 
-#'
-#' The scale must be known for certain 
-#' operations, e.g. to swap the construct poles. If the user construes
-#' a grid he should make sure that the scale range is set correctly.
-#'
-#' @param x       \code{repgrid} object.
-#' @param min     Minimal possible scale value for ratings.
-#' @param max     Maximal possible scale value for ratings.
-#' @param step    Steps the scales uses (not yet in use).
-#' @param ...     Not evaluated.
-#' 
-#' @return \code{repgrid} object
-#' @export
-#' @author Mark Heckmann
-#'
-#' @examples \dontrun{
-#'
-#'    x <- bell2010
-#'    x <- setScale(x, 0, 8)   # not set correctly
-#'    x
-#'    x <- setScale(x, 1, 7)   # set correctly
-#'    x
-#' }
-#'
-setScale <- function(x, min, max, step, ...){         # ... needes for makeRepgrid call
-  if(!inherits(x, "repgrid")) 							# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'")
-  if (!missing(min)){
-    if (any(x@ratings < min, na.rm=TRUE))  # any rating value smaller than min?
-      stop("Some ratings are smaller than the min value you entered. ",
-            "The setting of the min value in the grid was not performed. ", 
-            "Please check the ratings or choose another min value.")
-    x@scale$min <- min
-  }
-  if (!missing(max)){
-    if (any(x@ratings > max, na.rm=TRUE))  # any rating value smaller than min?
-      stop("Some ratings are bigger than the max value you entered. ",
-            "The setting of the max value in the grid was not performed. ", 
-            "Please check the ratings or choose another max value.")
-    x@scale$max <- max
-  }
-  if (!missing(step))
-    x@scale$step <- step
-  x
-}
-# setScale(x, min=1, max=5, step=1)
 
-
-#' Get minimum and maximum scale value used in grid.
-#'
-#' The values are returned either as a vector or a list.
-#'
-#' @param x         \code{repgrid} object.
-#' @param output    Type of output object. 1= named vector, 2 = list.
-#' @return          Vector or list (depends on \code{output} containing 
-#'                  minimum and maximum scale value.
-#' @keywords        internal
-#' @export
-#' @author          Mark Heckmann
-#'
-getScale <- function(x, output=1){
-  if (!inherits(x, "repgrid")) 							# check if x is repgrid object
-	  stop("Object x must be of class 'repgrid'")
-	smin <- x@scale$min
-	smax <- x@scale$max
-	if (output == 1)
-	  res <- c(min=smin, max=smax) else 
-	if (output == 2)
-  	res <- list(min=smin, max=smax)
-  res
-}
 
  
 #' Print scale range information to the console.
@@ -828,37 +968,7 @@ setCoupled <- function(x, coupled=TRUE){
 
 
 
-### TODO
-#' setMeta
-#'
-#' set meta data of a grid (e.g. id, name of interview partner)
-#'
-#' @param x     repgrid object
-#' @param type  typemof grid in use (rating, ranked, implication)
-#' @param id    id of the interview
-#' @param name  name of the interview partner
-#' @return \code{repgrid} object
-#' @export
-#' @keywords internal
-#' @author   Mark Heckmann
-#'
-#' @examples \dontrun{
-#'
-#'    ####  TODO  ####
-#' }
-#'
-setMeta <- function(x, type, id, name){
-  if (!inherits(x, "repgrid")) 							# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'")
-	if (!missing(type))                 # rating, rank or implication
-    x@meta$type <- type
-	if (!missing(name))
-    x@meta$id <- id
-	if (!missing(name))
-    x@meta$name <- name
-  x
-}
-#x <- setMeta(x, id=1, name="John Doe")
+
 
 
 #' showMeta
@@ -1033,49 +1143,6 @@ doubleEntry <- function(x){
 }
 
 
-
-#' get number of constructs
-#'
-#' @param x \code{repgrid} object
-#' @return \code{numeric}
-#'
-#' @export
-#' @keywords internal
-#' @author Mark Heckmann
-#'
-#' @examples \dontrun{
-#'
-#'      getNoOfConstructs(bell2010)
-#' }
-#'
-getNoOfConstructs <- function(x){
-  if (!inherits(x, "repgrid")) 	# check if x is repgrid object
-		stop("object x and y must be of class 'repgrid'")
-	length(x@constructs)
-}
-
-
-#' get number of elements
-#'
-#' @param x \code{repgrid} object
-#' @return \code{numeric} 
-#'
-#' @export
-#' @keywords internal
-#' @author Mark Heckmann
-#'
-#' @examples \dontrun{
-#'
-#'      getNoOfElements(bell2010)
-#' }
-#'
-getNoOfElements <- function(x){
-  if (!inherits(x, "repgrid")) 	# check if x is repgrid object
-		stop("object x and y must be of class 'repgrid'")
-	length(x@elements)
-}
-
-
 #' Return size of a grid. 
 #'
 #' \code{dim} returns a numeric vector of length
@@ -1100,66 +1167,6 @@ dim.repgrid <- function(x){
  		stop("object x and y must be of class 'repgrid'")
   c(constructs=getNoOfConstructs(x), elements=getNoOfElements(x))
 }
-
-
-#' Get midpoint of the grid rating scale
-#'
-#' @param x     \code{repgrid} object.
-#' @return      Midpoint of scale.
-#'
-#' @export
-#' @keywords    internal
-#' @author      Mark Heckmann
-#' @examples \dontrun{
-#'
-#'      getScaleMidpoint(bell2010)
-#'
-#' }
-#'
-getScaleMidpoint <- function(x){
-  if (!inherits(x, "repgrid")) 	# check if x is repgrid object
-		stop("object x and y must be of class 'repgrid'")
-	(x@scale$max - x@scale$min)/2 + x@scale$min
-}
-
-
-#' get rating layer
-#'
-#' @param   x       \code{repgrid} object.
-#' @param   layer   layer to be returned.
-#' @param   names   extract row and columns names (constructs and elements).
-#' @param trim      the number of characters a row or column name is trimmed to 
-#'                  (default is \code{10}). If \code{NA} no trimming is done. Trimming
-#'                  simply saves space when displaying the output.
-#' @return          a \code{matrix} 
-#'
-#' @export
-#' @keywords internal
-#' @author Mark Heckmann
-#'
-#' @examples \dontrun{
-#'
-#'      getRatingLayer(bell2010)
-#' }
-#'
-getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){
-  scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
-  rm <- apply(scores, 2 , I)                        # convert array to matrix 
-  if (names) {
-    cnames.l <- getConstructNames(x)[ ,1]
-    cnames.r <- getConstructNames(x)[ ,2]
-    enames <- getElementNames(x)
-    if (!is.na(trim)){                              # trim names if prompted
-       cnames.l <- substr(cnames.l, 1, trim)
-       cnames.r <- substr(cnames.r, 1, trim)
-       enames <- substr(enames, 1, trim)
-    }                             
-    rownames(rm) <- paste(cnames.l, cnames.r, sep=" - ") 
-    colnames(rm) <- enames   
-  }
-  rm
-}
-
 
 
 # set status coupled equals TRIE or FALSE. Depending on the setting,
@@ -1187,6 +1194,8 @@ decouple <- function(x){
   }
   x
 }
+
+
 
 
 

@@ -300,6 +300,7 @@ NULL
 #' She attended a group for survivors of child sexual abuse and 
 #' completed repertory grids prior to the group, immediately after the 
 #' group and at 3- and 6-month follow-up." (Leach et al. 2001, p. 230).\cr \cr
+#' 
 #' \code{leach2001a} is the pre-therapy, \code{leach2001b}
 #' is the post-therapy therapy datset. The construct and elements are 
 #' identical.

@@ -2,7 +2,7 @@
 \alias{alignByLoadings}
 \title{Align constructs by loadings on first pricipal component.}
 \usage{
-  alignByLoadings(x, trim = 20, output = 0, digits = 1)
+  alignByLoadings(x, trim = 20, index = TRUE)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
@@ -12,28 +12,27 @@
   trimming is done. Trimming simply saves space when
   displaying the output.}
 
-  \item{output}{Numeric. The function returns either the
-  \code{repgrid} object with aligned constructs
-  (\code{output=0 or 1}), additionaly prints the
-  calculation results to the console (\code{output=1}) or
-  returns a \code{list} containing the calculation results,
-  i.e.  correlation matrices before and after reversal,
-  loadings on first PC before and after reversal and a list
-  (printout) of the constructs that have been reversed.}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
+  \item{index}{Whether to print the number of the construct
+  (e.g. for correltion matrices). The default is
+  \code{TRUE}.}
 }
 \value{
-  Aligned \code{repgrid} object for \code{output=0 or 1} or
-  a list for \code{output=2}.
+  An object of class \code{alignByLoadings} containing a
+  list of calculations with the following entries:
+
+  \item{cor.before}{Construct correlation matrix before
+  reversal} \item{loadings.before}{Loadings on PCs before
+  reversal} \item{reversed}{Constructs that have been
+  reversed} \item{cor.after}{Construct correlation matrix
+  after reversal} \item{loadings.after}{Loadings on PCs
+  after reversal}
 }
 \description{
   In case a construct loads negatively on the first
-  principal component, the function \code{alignByLoadings}
-  will reverse it so that all constructs have positive
-  loadings on the first principal component (see deatil
-  section for more).
+  principal component, the function
+  \code{\link{alignByLoadings}} will reverse it so that all
+  constructs have positive loadings on the first principal
+  component (see deatil section for more).
 }
 \details{
   The direction of the constructs in a grid is arbitrary
@@ -63,15 +62,24 @@
   grid PCA.
 }
 \examples{
-\dontrun{
+# reproduction of the example in the Bell (2010)
+  # constructs aligned by loadings on PC 1
+  bell2010
+  alignByLoadings(bell2010)
 
-  # reproduction of the example in the Bell (2010)
-  bell2010                    # show grid
-  alignByLoadings(bell2010)   # constructs aligned by loadings on PC 1
+  # save results
+  a <- alignByLoadings(bell2010)
 
-  alignByLoadings(bell2010, output=2)  # show results
+  # modify printing of resukts
+  print(a, digits=5)
 
-}
+  # access results for further processing
+  names(a)
+  a$cor.before
+  a$loadings.before
+  a$reversed
+  a$cor.after
+  a$loadings.after
 }
 \author{
   Mark Heckmann

@@ -31,9 +31,9 @@
   for the program.
 }
 \author{
-  Currently the \pkg{OpenRepGrid} development team is Mark
-  Heckmann.  Everyone who is interested in developing the
-  package is invited to join.
+  Current members of the \pkg{OpenRepGrid} development
+  team: Mark Heckmann.  Everyone who is interested in
+  developing the package is invited to join.
 
   The \pkg{OpenRepGrid} package development is hosted on
   github

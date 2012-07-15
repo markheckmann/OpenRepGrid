@@ -3,8 +3,7 @@
 \title{Distance measures (between constructs or elements).}
 \usage{
   distance(x, along = 1, dmethod = "euclidean", p = 2,
-    trim = 20, index = TRUE, col.index = FALSE, digits = 2,
-    output = 1, upper = T, ...)
+    trim = 20, index = TRUE, ...)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
@@ -30,21 +29,6 @@
   \item{index}{Whether to print the number of the construct
   (default is \code{TRUE}).}
 
-  \item{col.index}{Logical. Whether to add an extra index
-  column so the column names are indexes instead of
-  construct names. This option renders a neater output as
-  long construct names will stretch the output (default is
-  \code{FALSE}).}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
-
-  \item{output}{The type of output printed to the console.
-  \code{output=0} will supress printing of the output.}
-
-  \item{upper}{Whether to display upper triangle of
-  correlation matrix only (default is \code{TRUE}).}
-
   \item{...}{Additional parameters to be passed to function
   \code{dist}.  Type \code{dist} for further information.}
 }
@@ -68,8 +52,16 @@
    distance(bell2010, dm="mink", p=3)   # minkowski metric to the power of 3
 
    # to save the results without printing to the console
-   d <- distance(bell2010, out=0, trim=7)
+   d <- distance(bell2010, trim=7)
    d
+
+   # some more options when printing the distance matrix
+   print(d, digits=5)
+   print(d, col.index=FALSE)
+   print(d, upper=FALSE)
+
+   # accessing entries from the matrix
+   d[1,3]
 
 }
 }
