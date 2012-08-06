@@ -2,36 +2,31 @@
 \alias{indexIntensity}
 \title{Intensity index}
 \usage{
-  indexIntensity(x, rc = FALSE, output = TRUE, trim = 30,
-    digits = 2)
+  indexIntensity(x, rc = FALSE, trim = 30)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
 
   \item{rc}{Whether to use Cohen's rc for the calculation
-  of inter-element correlations. See also
-  \code{\link{elementCor}} for further explanations.}
-
-  \item{output}{Logical. Whether to print the results to
-  the console (default \code{TRUE}).}
+  of inter-element correlations. See
+  \code{\link{elementCor}} for further explanations of this
+  measure.}
 
   \item{trim}{The number of characters a construct is
   trimmed to (default is \code{30}). If \code{NA} no
   trimming occurs. Trimming simply saves space when
   displaying correlation of constructs or elements with
   long names.}
-
-  \item{digits}{Numeric. Number of digits to round to
-  (default is \code{2}).}
 }
 \value{
-  Invisibly returns \code{list} object containing: \cr
+  An object of class \code{indexIntensity} containing a
+  list with the following elements: \cr
+
   \item{c.int}{Intensity scores by construct.}
-  \item{e.int}{Intensity scores by element.}
   \item{e.int}{Intensity scores by element.}
   \item{c.int.mean}{Average intensity score for
   constructs.} \item{e.int.mean}{Average intensity score
-  for elements.} \item{total.int}{Toal intensity score.}
+  for elements.} \item{total.int}{Total intensity score.}
 }
 \description{
   Calculate intensity index.
@@ -68,23 +63,30 @@
   average of all single scores (for elements and
   construct).
 }
-\note{
+\section{Development}{
   TODO: Results have not been tested against other
   programs' results.
 }
 \examples{
-\dontrun{
-
- indexIntensity(bell2010)
+indexIntensity(bell2010)
  indexIntensity(bell2010, trim=NA)
 
  # using Cohen's rc for element correlations
- indexIntensity(bell2010, rc=T)
+ indexIntensity(bell2010, rc=TRUE)
 
- # prevent output to console
- res <- indexIntensity(bell2010, out=F)
- res
-}
+ # save output
+ x <- indexIntensity(bell2010)
+ x
+
+ # printing options
+ print(x, digits=4)
+
+ # accessing the objects' content
+ x$c.int
+ x$e.int
+ x$c.int.mean
+ x$e.int.mean
+ x$total.int
 }
 \author{
   Mark Heckmann

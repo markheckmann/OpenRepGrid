@@ -210,29 +210,24 @@ indexPvaff2 <- function(x){
 #'
 #' @title         Intensity index 
 #'
-#' @note          TODO: Results have not been tested against other programs' results.
+#' @section Development: TODO: Results have not been tested against other programs' results.
 #'
 #' @param x       \code{repgrid} object.
 #' @param rc      Whether to use Cohen's rc for the calculation of
-#'                inter-element correlations. See also \code{\link{elementCor}}
-#'                for further explanations.
-#' @param output  Logical. Whether to print the results to the 
-#'                console (default \code{TRUE}).
+#'                inter-element correlations. See \code{\link{elementCor}}
+#'                for further explanations of this measure.
 #' @param trim    The number of characters a construct is trimmed to (default is
 #'                \code{30}). If \code{NA} no trimming occurs. Trimming
 #'                simply saves space when displaying correlation of constructs
 #'                or elements with long names.
-#' @param digits  Numeric. Number of digits to round to (default is 
-#'                \code{2}).
-#'
-#' @return 
-#'  Invisibly returns \code{list} object containing: \cr
+#' @return        An object of class \code{indexIntensity} containing a list 
+#'                with the following elements: \cr
+#'                
 #'  \item{c.int}{Intensity scores by construct.}
-#'  \item{e.int}{Intensity scores by element.}
 #'  \item{e.int}{Intensity scores by element.}
 #'  \item{c.int.mean}{Average intensity score for constructs.}
 #'  \item{e.int.mean}{Average intensity score for elements.}
-#'  \item{total.int}{Toal intensity score.}
+#'  \item{total.int}{Total intensity score.}
 #'
 #' @export      
 #' @author      Mark Heckmann
@@ -240,20 +235,30 @@ indexPvaff2 <- function(x){
 #' @references    Bannister, D. (1960). Conceptual structure in 
 #'                thought-disordered schizophrenics. \emph{The Journal 
 #'                of mental science}, 106, 1230-49.
-#' @examples \dontrun{
+#' @examples 
 #' 
 #'  indexIntensity(bell2010)
 #'  indexIntensity(bell2010, trim=NA)
 #'
 #'  # using Cohen's rc for element correlations
-#'  indexIntensity(bell2010, rc=T)
+#'  indexIntensity(bell2010, rc=TRUE)
 #'
-#'  # prevent output to console
-#'  res <- indexIntensity(bell2010, out=F)
-#'  res
-#' }
-#'
-indexIntensity <- function(x, rc=FALSE, output=TRUE, trim=30, digits=2){
+#'  # save output 
+#'  x <- indexIntensity(bell2010)
+#'  x
+#'  
+#'  # printing options
+#'  print(x, digits=4)
+#'  
+#'  # accessing the objects' content
+#'  x$c.int
+#'  x$e.int
+#'  x$c.int.mean
+#'  x$e.int.mean
+#'  x$total.int
+#' 
+indexIntensity <- function(x, rc=FALSE, trim=30)
+{
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
 	cr <- constructCor(x, trim=trim)
@@ -275,60 +280,91 @@ indexIntensity <- function(x, rc=FALSE, output=TRUE, trim=30, digits=2){
 	            e.int=e.int,
 	            c.int.mean=c.int.mean,
 	            e.int.mean=e.int.mean,
-	            total.int=total.int)
-	            
-	if (output){
-	  cat("\n################")
-	  cat("\nIntensity index")
-	  cat("\n################")
-	  cat("\n\nTotal intensity:", round(total.int, digits), "\n")
-	  
-	  cat("\n\nAverage intensity of constructs:", round(c.int.mean, digits), "\n")
-	  cat("\nItensity by construct:\n")
-	  df.c.int <- data.frame(intensity=c.int)
-	  rownames(df.c.int) <- paste(seq_along(c.int), names(c.int))
-	  print(round(df.c.int, digits))
-	  
-	  cat("\n\nAverage intensity of elements:", round(e.int.mean, digits), "\n")
-	  cat("\nItensity by element:\n")
-	  df.e.int <- data.frame(intensity=e.int)
-	  rownames(df.e.int) <- paste(seq_along(e.int), names(e.int))
-	  print(round(df.e.int, digits))
-	}
-	invisible(res)
+	            total.int=total.int)	            
+	class(res) <- "indexIntensity"
+  res
 }
 
 
-### Slater distance ###
+#' Print method for class indexIntensity.
+#' 
+#' @param x         Object of class indexIntensity.
+#' @param digits    Numeric. Number of digits to round to (default is 
+#'                  \code{2}).
+#' @param ...       Not evaluated.
+#' @export
+#' @method          print indexIntensity
+#' @keywords        internal
+#'
+print.indexIntensity <- function(x, digits=2, ...)
+{
+  cat("\n################")
+  cat("\nIntensity index")
+  cat("\n################")
+  cat("\n\nTotal intensity:", round(x$total.int, digits), "\n")
+  
+  cat("\n\nAverage intensity of constructs:", round(x$c.int.mean, digits), "\n")
+  cat("\nItensity by construct:\n")
+  df.c.int <- data.frame(intensity=x$c.int)
+  rownames(df.c.int) <- paste(seq_along(x$c.int), names(x$c.int))
+  print(round(df.c.int, digits))
+  
+  cat("\n\nAverage intensity of elements:", round(x$e.int.mean, digits), "\n")
+  cat("\nItensity by element:\n")
+  df.e.int <- data.frame(intensity=x$e.int)
+  rownames(df.e.int) <- paste(seq_along(x$e.int), names(x$e.int))
+  print(round(df.e.int, digits))
+}
+
+
+#### Distances ####
+
+
+#' Internal workhorse for Slater standardization.
+#' 
+#' Function uses a matrix as input. All overhead
+#' of \code{repgrid} class is avoided. Needed for speedy simulations.
+#'
+#' @param x   A matrix.
+#' @keywords internal
+#' @export
+#' 
+slaterStandardization <- function(x)
+{
+  E <- dist(t(x), diag=TRUE, upper=TRUE)  # euclidean distance
+  E <- as.matrix(E)
+  m <- ncol(x)                            # number of elements  
+  D <- sweep(x, 1, apply(x, 1, mean))     # row-center data
+  S <- sum(diag(t(D) %*% D))
+  U <- (2 * S/(m - 1))^0.5
+  E/U                                     # devide by expected distance unit
+}
+
+
 #' Calculate Slater distance.
 #'
-#' The euclidean distance is often used as a measure of similarity  
-#' between elements (see \code{\link{distance}}.
-#' A drawback of this measure is that it 
-#' depends on the range of the rating scale and the number of constructs 
-#' used, i. e. on the size of a grid. An approach to standardize the 
-#' euclidean distance to make it independent from size and range of 
-#' ratings and was 
-#' proposed by Slater (1977, pp. 94). The 'Slater distance' 
-#' is the Euclidean distance divided by the expected distance.
-#' Slater distances bigger than 1 are greater than 
-#' expected, lesser than 1 are smaller than expected. The minimum value is 0
-#' and values bigger than 2 are rarely found. Slater distances 
-#' have been be used to compare inter-element distances between
-#' different grids, where the grids do not need to have the same 
-#' constructs or elements. 
-#' Hartmann (1992) showed that Slater distance is not independent
-#' of grid size. Also the distribution of the 
-#' Slater distances is asymmetric. Hence, the upper and lower
-#' limit to infer 'significance' of distance is not symmetric.
-#' The practical relevance of Hartmann's findings have been demonstrated
-#' by Schoeneich and Klapp (1998).  
-#' To calculate Hartmann's version of the standardized distances see
+#' The euclidean distance is often used as a measure of similarity between
+#' elements (see \code{\link{distance}}. A drawback of this measure is that it 
+#' depends on the range of the rating scale and the number of constructs used,
+#' i. e. on the size of a grid. \cr 
+#' An approach to standardize the euclidean distance to make it independent from
+#' size and range of ratings and was proposed by Slater (1977, pp. 94). The
+#' 'Slater distance' is the Euclidean distance divided by the expected distance.
+#' Slater distances bigger than 1 are greater than expected, lesser than 1 are
+#' smaller than expected. The minimum value is 0 and values bigger than 2 are
+#' rarely found. Slater distances have been be used to compare inter-element
+#' distances between different grids, where the grids do not need to have the
+#' same constructs or elements. Hartmann (1992) showed that Slater distance is
+#' not independent of grid size. Also the distribution of the Slater distances
+#' is asymmetric. Hence, the upper and lower limit to infer 'significance' of
+#' distance is not symmetric. The practical relevance of Hartmann's findings
+#' have been demonstrated by Schoeneich and Klapp (1998). To calculate
+#' Hartmann's version of the standardized distances see
 #' \code{\link{distanceHartmann}}
 #' 
-#'
-#' The Slater distance is calculated as follows. For a derivation 
-#' see Slater (1977, p.94).       \cr
+#' 
+#' @section Calculation: The Slater distance is calculated as follows. 
+#' For a derivation see Slater (1977, p.94).       \cr
 #' Let matrix \eqn{D}{D} contain the row centered ratings. Then
 #'    \deqn{P = D^TD}{P = D^TD} and
 #'    \deqn{S = tr(P)}{S = tr(P)}
@@ -342,25 +378,8 @@ indexIntensity <- function(x, rc=FALSE, output=TRUE, trim=30, digits=2){
 #' 
 #' @title 'Slater distances' (standardized Euclidean distances).
 #'
-#' @param x           \code{repgrid} object.
-#' @param trim        The number of characters a element names are trimmed to (default is
-#'                    \code{10}). If \code{NA} no trimming is done. Trimming
-#'                    simply saves space when displaying the output.
-#' @param indexcol    Logical. Whether to add an extra index column so the 
-#'                    column names are indexes instead of element names. This option 
-#'                    renders a neater output as long element names will stretch 
-#'                    the output (default is \code{FALSE}). Note that the index column
-#'                    is the first matrix column.
-#' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
-#' @param output      The output type. The default (\code{output=1}) will print
-#'                    the Slater distances to the console.
-#'                    \code{output=0} will suppress the printing.
-#'                    In both cases a matrix list containig the results of the calculations
-#'                    is returned invisibly.
-#' @param upper       Logical. Whether to display only upper part of the distance matrix
-#'                    (default \code{TRUE}).
-#' @return            A matrix is returned invisibly.
+#' @param inheritParams distance
+#' @return            A matrix with Slater distances.
 #'
 #' @references        Hartmann, A. (1992). Element comparisons in repertory 
 #'                    grid technique: Results and consequences of a Monte 
@@ -379,101 +398,65 @@ indexIntensity <- function(x, rc=FALSE, output=TRUE, trim=30, digits=2){
 #' @author            Mark Heckmann
 #' @export
 #' @seealso \code{\link{distanceHartmann}}
-#' @examples \dontrun{
+#' @examples 
 #'
 #'    distanceSlater(bell2010)
-#'    distanceSlater(bell2010, upper=F)
-#'    distanceSlater(bell2010, trim=40, index=T)
+#'    distanceSlater(bell2010, index=FALSE)
+#'    distanceSlater(bell2010, trim=40)
 #'
 #'    d <- distanceSlater(bell2010, out=0, digits=4)
 #'    d
-#' }
 #'
-distanceSlater <- function(x, trim=10, indexcol=FALSE, digits=2, output=1,
-                           upper=TRUE){
+distanceSlater <- function(x, trim=20, index=TRUE) {
   if (!inherits(x, "repgrid")) 
-		stop("Object must be of class 'repgrid'")
-	E <- distance(x, along=2, digits = 10, output=0)
-	m <- getNoOfElements(x)
-	D <- center(x)              # row centering of grid data
-	S <- sum(diag(t(D) %*% D))  
-	U <- (2*S/(m - 1))^.5
-	E.sl <- round(E/U, digits)
-	
-  # E.std <- addNamesToMatrix(x = x, m = E.std, trim = trim, along = 2)
-  #   if (indexcol) 
-  #     E.std <- addIndexColumnToMatrix(E.std)
-  #   E.std
-  
-  
-  # Prepare output: add names
-  E.out <- E.sl
-  E.out <- addNamesToMatrix(x = x, m = E.out, trim = trim, along = 2)
-  
-  blanks <- paste(rep(" ", digits), collapse="")
-  
-  if (upper){
-    diag(E.out) <- blanks
-    E.out[lower.tri(E.out, diag=T)] <- blanks
-  }
-  
-  if (indexcol) {
-    E.out <- addIndexColumnToMatrix(E.out)
-  } else {
-    E.out.rownames <- rownames(E.out)
-    rownames(E.out) <- paste(seq_along(E.out.rownames), E.out.rownames)    
-    colnames(E.out) <- seq_len(ncol(E.out))
-  }     
-  E.show <- as.data.frame(E.out)
-  
-  slaterOut <- function(...){
-    cat("\nSlater distances\n")
-    cat("################\n\n")
-    print(E.show)
-    cat("\n\nNote that Slater distances cannot be compared across grids",
-        "with a different number of constructs.\n")
-  }
-  
-  if (output == 1)
-    slaterOut()
-  invisible(E.sl)
+		stop("Object must be of class 'repgrid'")  
+	E <- distance(x, along=2, index=index)
+  E.sl <- slaterStandardization(E)
+  notes <- c("\nNote that Slater distances cannot be compared across grids",
+             "with a different number of constructs (see Hartmann, 1992).\n")
+  attr(E.sl, "arguments") <- list(along=2, dmethod="Slater (standardized Euclidean)", 
+                                  p=2, notes=notes)                                
+  class(E.sl) <- c("distance", "matrix")
+  E.sl
 }
 
 
 
-### Hartmann distance ###
 #' Calculate Hartmann distance
 #' 
-#' Hartmann (1992) showed in a Monte Carlo study that Slater distances
-#' (see \code{\link{distanceSlater}}) based on random grids, for 
-#' which Slater coined the expression quasis, have a skewed distribution,
-#' a mean and a standard deviation depending on the number 
-#' of constructs elicited. He suggested a linear transformation (z-transformation) 
-#' which takes into account the estimated (or expected) mean and 
-#' the standard deviation 
-#' of the derived distribution to standardize Slater distance scores 
-#' across different grid sizes. 'Hartmann distances' represent
-#' a more accurate version of 'Slater distances'. Note that Hartmann distances
-#' are multiplied by -1. Hence, negative Hartmann values represent 
-#' dissimilarity, i.e. a big Slater distance.  \cr  \cr
-#' The function \code{distanceHartmann}
-#' conducts a small Monte Carlo simulation for the supplied grid.
-#' I. e. a number of quasis of the same size and with the same scale range
-#' as the grid under investigation are generated. A distrubution of
-#' Slater distances derived from the quasis is calculated and used for
-#' Hartmann's standardization.    \cr  \cr
-#' It is also possible to return the quantiles of the sample distribution
-#' and only the element distances consideres 'significant'
-#' according to the quantiles defined.
+#' Hartmann (1992) showed in a simulation study that Slater distances (see 
+#' \code{\link{distanceSlater}}) based on random grids, for which Slater coined 
+#' the expression quasis, have a skewed distribution, a mean and a standard 
+#' deviation depending on the number of constructs elicited. He suggested a 
+#' linear transformation (z-transformation) which takes into account the 
+#' estimated (or expected) mean and the standard deviation of the derived 
+#' distribution to standardize Slater distance scores across different grid 
+#' sizes. 'Hartmann distances' represent a more accurate version of 'Slater 
+#' distances'. Note that Hartmann distances are multiplied by -1. Hence, 
+#' negative Hartmann values represent dissimilarity, i.e. a big Slater distance.
+#' \cr
+#' 
+#' There are two ways to use this function. Hartmann distances can either be 
+#' calculated based on the reference values (i.e. means and standard deviations 
+#' of Slater distance distributions) as given by Hartmann in his paper. The
+#' second option is to conduct an instant simulation for the supplied grid 
+#' size for each calculation. The second option will be more accurate when
+#' a big number of quasis is used in the simulation. \cr
+#' 
+#' It is also possible to return the quantiles of the sample distribution and
+#' only the element distances consideres 'significant' according to the
+#' quantiles defined.
 #'
 #'
-#' The 'Hartmann distance' is calculated as follows (Hartmann 1992, p. 49).       \cr
+#' @section Calculation:
+#' 
+#' The 'Hartmann distance' is calculated as follows (Hartmann 1992, p. 49).  \cr
 #' \deqn{D = -1 (\frac{D_{slater} - M_c}{sd_c})}{D = -1 (D_slater - M_c / sd_c)}
 #' Where \eqn{D_{slater}}{D_slater} denotes the Slater distances of the grid,
 #' \eqn{M_c}{M_c} the sample distribution's mean value and 
 #' \eqn{sd_c}{sd_c} the sample distributions's standard deviation.
 #'
-#' @title 'Hartmann distance' (standardized Euclidean distances).
+#' @title 'Hartmann distance' (standardized Slater distances).
 #'
 #' @param x           \code{repgrid} object.
 #' @param rep         Number of random grids to generate to produce
@@ -564,8 +547,8 @@ distanceHartmann <- function(x, rep=100, meantype=2, quant=c(.05, .5, .95),
                               digits=2, output=1, progress=TRUE, upper=TRUE){
   if (!inherits(x, "repgrid")) 
 		stop("Object must be of class 'repgrid'")
-  D <- distanceSlater(x, digits=10, output=0)
-
+  D <- distanceSlater(x)
+  browser()
   range <- getScale(x)            # get in and max scale value
   nc <- getNoOfConstructs(x)
   ne <- getNoOfElements(x)

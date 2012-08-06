@@ -18,7 +18,7 @@
 #'            The github site provides information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
 #'            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-#'            The package maintainer at github is Mark Heckmann  <heckmann(at)uni-bremen.de>.
+#'            The package maintainer is Mark Heckmann  <heckmann(at)uni-bremen.de>.
 #'
 #' @note      To get started with \pkg{OpenRepGrid} visit the project's home under \url{www.openrepgrid.org}. 
 #'            On this site you will find tutorials, explanation about the theory, methods of analysis and 
@@ -67,15 +67,91 @@ NULL
 #'
 #' \bold{Loading and saving data} \cr 
 #' 
+#' \tabular{ll}{
+#' \code{\link{importGridcor}}  \tab Import GRIDCOR data files \cr
+#' \code{\link{importGridstat}}	\tab Import Gridstat data files \cr
+#' \code{\link{importGridsuite}} \tab	Import Gridsuite data files \cr
+#' \code{\link{importScivesco}}	\tab Import sci:vesco data files \cr
+#' \code{\link{importTxt}}	\tab Import grid data from a text file \cr
+#'  \tab \cr
+#' \code{\link{saveAsTxt}} \tab Save grid in a text file (txt) \cr
+#' }
+#' 
 #' \bold{Analyzing constructs} \cr 
+#' 
+#' Descriptive statistics of constructs
+#' Construct correlations
+#' distance
+#' Root mean square of inter-construct correlations
+#' Somers' D 
+#' Principal component analysis (PCA) of construct correlation matrix 
+#' Cluster analysis of constructs
 #' 
 #' \bold{Analyzing elements} \cr 
 #' 
 #' \bold{Visual representation} \cr 
 #' 
-#' \bold{Index measures} \cr
+#' \tabular{ll}{
+#' \emph{Bertin plots} \tab \cr
+#'   \tab \cr
+#'   \code{\link{bertin}}             \tab  Make Bertin display of grid data \cr
+#'   \code{\link{bertinCluster}}      \tab	Bertin display with corresponding cluster anaylsis \cr
+#'   \tab \cr
+#'   \tab \cr
+#' \emph{Biplots} \tab \cr
+#'   \tab \cr
+#' \code{\link{biplot2d}}             \tab Draw a two-dimensional biplot \cr
+#' \code{\link{biplotEsa2d}}          \tab Plot an eigenstructure analysis (ESA) biplot in 2D \cr
+#' \code{\link{biplotSlater2d}}       \tab Draws Slater's INGRID biplot in 2D \cr
+#'    \tab \cr
+#' \code{\link{biplotPseudo3d}}       \tab See 'biplotPseudo3d' for its use. Draws a biplot of the grid in 2D with depth impression (pseudo 3D) \cr
+#' \code{\link{biplotEsaPseudo3d}}    \tab Plot an eigenstructure analysis (ESA) in 2D grid with 3D impression (pseudo 3D) \cr
+#' \code{\link{biplotSlaterPseudo3d}} \tab Draws Slater's biplot in 2D with depth impression (pseudo 3D) \cr
+#'    \tab \cr
+#' \code{\link{biplot3d}}	            \tab Draw grid in rgl (3D device) \cr
+#' \code{\link{biplotEsa3d}}	        \tab Draw the eigenstructure analysis (ESA) biplot in rgl (3D device) \cr
+#' \code{\link{biplotSlater3d}}	      \tab Draw the Slater's INGRID biplot in rgl (3D device) \cr
+#'    \tab \cr
+#' \code{\link{biplotSimple}}         \tab A graphically unsophisticated version of a biplot \cr
+#' } 
 #' 
+#' \bold{Index measures} \cr
 #'  
+#' \tabular{ll}{
+#' \code{\link{indexConflict1}}	  \tab Conflict measure for grids (Slade & Sheehan, 1979) based on correlations \cr
+#' \code{\link{indexConflict2}}	  \tab Conflict measure for grids (Bassler et al., 1992) based on correlations \cr
+#' \code{\link{indexConflict3}}	  \tab Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances \cr
+#' \code{\link{indexDilemma}}	    \tab Detect implicative dilemmas (conflicts) \cr
+#'    \tab \cr
+#' \code{\link{indexIntensity}}	  \tab Intensity index \cr
+#' \code{\link{indexPvaff}}	      \tab Percentage of Variance Accounted for by the First Factor (PVAFF) \cr
+#'    \tab \cr
+#' \code{\link{indexBias}}        \tab Calculate 'bias' of grid as defined by Slater (1977) \cr
+#' \code{\link{indexVariability}}	\tab Calculate 'variability' of a grid as defined by Slater (1977) \cr
+#' }
+#' 
+#' \bold{Special features} \cr
+#' 
+#' \tabular{ll}{
+#' \code{\link{alignByIdeal}}     \tab  Align constructs using the ideal element to gain pole preferences \cr
+#' \code{\link{alignByLoadings}}  \tab	Align constructs by loadings on first pricipal component \cr
+#' \code{\link{reorder2d}}        \tab Order grid by angles between construct and/or elements in 2D \cr
+#' }
+#' 
+#' @section Settings:
+#' 
+#' \pkg{OpenRepGrid} uses several default settings e.g. to determine 
+#' how many construct characters to display by default when displaying a grid.
+#' The function \code{settings} can be used to show and change these settings.
+#' Also it is possible to store the settings to a file and load the settings
+#' file to restore the settings.
+#' 
+#' \tabular{ll}{
+#' \code{\link{settings}}      \tab Show and modify global settings for OpenRepGrid \cr
+#' \code{\link{settingsSave}}  \tab Save OpenRepGrid settings to file \cr
+#' \code{\link{settingsLoad}}  \tab Load OpenRepGrid settings from file\cr
+#' }
+#' 
 #' @section Grid datasets:
 #' 
 #' \pkg{OpenRepGrid} already contains some ready to use grid data sets. Most of 
@@ -161,16 +237,17 @@ NULL
 #' functions for these purposes.
 #'
 #' \tabular{ll}{
-#' \code{\link{getRatingLayer}}       \tab    \cr
-#' \code{\link{getNoOfConstructs}}    \tab    \cr
-#' \code{\link{getNoOfElements}}      \tab    \cr
-#' \code{\link{getScale}}             \tab    \cr
-#' \code{\link{getScaleMidpoint}}     \tab    \cr
-#' \code{\link{getConstructNames}}    \tab    \cr
-#' \code{\link{getConstructNames2}}   \tab    \cr
-#' \code{\link{getElementNames}}      \tab    \cr
-#' \code{\link{bindConstructs}}       \tab    \cr
-#' \code{\link{doubleEntry}}          \tab    \cr
+#' \code{\link{getRatingLayer}}       \tab Retrieve grid scores from grid object. \cr
+#' \code{\link{getNoOfConstructs}}    \tab Get the number of constructs in a grid object.    \cr
+#' \code{\link{getNoOfElements}}      \tab Get the number of elements in a grid object.   \cr
+#' \code{\link{dim}}                  \tab Get grid dimensions, i.e. contructs x elements.    \cr
+#' \code{\link{getScale}}             \tab Get minimum and maximum scale value used in grid.  \cr
+#' \code{\link{getScaleMidpoint}}     \tab Get midpoint of the grid rating scale.    \cr
+#' \code{\link{getConstructNames}}    \tab Get construct names.                       \cr
+#' \code{\link{getConstructNames2}}   \tab Get construct names (another newer version).      \cr
+#' \code{\link{getElementNames}}      \tab Retrieve element names of repgrid object.  \cr
+#' \code{\link{bindConstructs}}       \tab Concatenate the constructs of two grids.   \cr
+#' \code{\link{doubleEntry}}          \tab  Join the constructs of a grid with the same reversed constructs.  \cr
 #' }
 #'
 #' \bold{Other internal functions} \cr
@@ -186,15 +263,12 @@ NULL
 #'            The github site provides information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
 #'            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-#'            The package maintainer at github is Mark Heckmann  <heckmann(at)uni-bremen.de>.
+#'            The package maintainer is Mark Heckmann <heckmann(at)uni-bremen.de>.
 #'
 #' @name OpenRepGrid-overview
 #' @keywords package
 #' @docType package
 #'
 NULL
-
-
-############################ Package topic overview ###########################
 
 

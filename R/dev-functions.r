@@ -132,14 +132,15 @@ randomGrids <- function(rep=3, nc=10, ne=15, nwc=8, nwe=5,
 #'  
 #' }
 #'
-quasiDistributionDistanceSlater <- function(rep, nc, ne, range, prob=NULL, progress=TRUE){
+quasiDistributionDistanceSlater <- function(rep, nc, ne, range, prob=NULL, progress=TRUE)
+{
   quasis <- randomGrids(rep, nc=nc, ne=ne, range=range, prob=prob, options=0)
   if (progress)                 # whether to show progress bar
     lapply_fun <- lapply_pb else
     lapply_fun <- lapply
   quasis.sd <- lapply_fun(quasis, function(x){
-                      ds <- distanceSlater(x, digits=6, output=0)
-                      ds[lower.tri(ds, diag=F)]
+                      ds <- distanceSlater(x)
+                      ds[lower.tri(ds, diag=FALSE)]
                       })
   unlist(quasis.sd)         # return as vector
 }

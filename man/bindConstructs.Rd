@@ -1,45 +1,39 @@
 \name{bindConstructs}
 \alias{bindConstructs}
-\title{Concatenate the constructs of two grids.}
+\title{Concatenate the constructs of two or more grids.}
 \usage{
-  bindConstructs(x, y, match = TRUE)
+  bindConstructs(..., index = FALSE)
 }
 \arguments{
-  \item{x}{\code{repgrid} object}
+  \item{...}{One or more repgrid objects or a list
+  containing \code{repgrid} object.}
 
-  \item{y}{\code{repgrid} object}
-
-  \item{match}{Constructs will only be combined if they
-  refer to the same set of elements. If the elements are
-  not the same or do not have the same order no binding is
-  done (if \code{test=TRUE}, default).}
+  \item{index}{TODO. Logical (default \code{TRUE}). Whether
+  to add an index at the end of each construct name so it
+  remains clear from which grid each construct came.}
 }
 \value{
-  \code{repgrid} object
+  \code{repgrid} object with concatenated constructs.
 }
 \description{
   I.e. the constructs are combined to form one long grid.
+  The girds must have the same set of elements and an
+  identical scale range. The order of the elements may
+  differ.
+}
+\details{
   This function can be used in order to analyse multiple
   grids as one 'big grid' (eg. Slater, 1977, chap. 11).
 }
-\note{
-  Currently the grids are joined regardless if the column
-  names are identical or not. Handle this function with
-  care and make sure the elements of the grids are in the
-  same order. In a future version automatic testing of
-  construct identity will take place.  TODO: Does not work
-  well yet.
-}
 \examples{
-\dontrun{
+a <- randomGrid()
+ b <- randomGrid()
+ b@elements <- rev(a@elements)   # reverse elements
+ bindConstructs(a, b)
+ bindConstructs(a, b, a)
 
-   a <- randomGrid()
-   b <- randomGrid()
-   b@elements <- rev(a@elements)   # reverse elements
-   bindConstructs(a, b)
-
-   bindConstructs(a, b, m=F)       # no binding
-}
+ # using lists of repgrid objects
+ bindConstructs(a, list(a, b))
 }
 \author{
   Mark Heckmann

@@ -42,8 +42,8 @@
   reports or feature requests.  Bug reports can also be
   emailed to the package maintainer or issued on
   \url{http://www.openrepgrid.org} under section
-  \emph{Suggestions/Issues}.  The package maintainer at
-  github is Mark Heckmann <heckmann(at)uni-bremen.de>.
+  \emph{Suggestions/Issues}.  The package maintainer is
+  Mark Heckmann <heckmann(at)uni-bremen.de>.
 }
 \references{
   Fransella, F., Bell, R. C., & Bannister, D. (2003).

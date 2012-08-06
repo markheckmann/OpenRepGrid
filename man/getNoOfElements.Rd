@@ -1,6 +1,6 @@
 \name{getNoOfElements}
 \alias{getNoOfElements}
-\title{get number of elements}
+\title{Get number of elements}
 \usage{
   getNoOfElements(x)
 }
@@ -11,7 +11,7 @@
   \code{numeric}
 }
 \description{
-  get number of elements
+  Get number of elements
 }
 \examples{
 \dontrun{

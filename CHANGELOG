@@ -3,7 +3,11 @@ OpenRepGrid release versions at http://cran.r-project.org/.
 Here technical changes are documented. See NEWS for a description of changes in release versions.
 
 OpenRepGrid 0.1.7 (opened 2012-04-05) ----------------------------------------
-  * settings function added
+  * settings function added. Settings can now be modified, saved and loaded
+  * print functions for most grid indexes added, former output argument no longer exists
+  * functions by topic overview documentation added
+  * bindConstructs can now take many grids and/or lists of grids as arguments. Element names are now matched and reordered automatically
+  * '+' can now be used to concatenated two grids or list of grids
 
 
 OpenRepGrid 0.1.6 (2012-04-05) ----------------------------------------
@@ -12,11 +16,9 @@ OpenRepGrid 0.1.6 (2012-04-05) ----------------------------------------
 
 
 OpenRepGrid 0.1.5 (2011-17-07) ----------------------------------------
-  
-  * method dim to return size of a grid. A simple wrapper around getNoOfConstructs and
-    getNoOfElements
+  * method dim to return size of a grid. A simple wrapper around getNoOfConstructs and getNoOfElements
   * package description updated
-  * prob argument in distanceXXX functions
+  * prob argument in distanceXXX functions added
   * bug in makeRepgrid corrected: ratings now read by row
 
 

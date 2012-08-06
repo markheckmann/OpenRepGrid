@@ -1,3 +1,4 @@
+
 #' Descriptive statistics for constructs and elements of a grid.
 #'
 #' @param x       \code{repgrid} object.
@@ -11,7 +12,7 @@
 #'                (see \code{\link{describe}}): \cr
 #'                item name \cr
 #'                item number \cr 
-#'                number of valid cases \cr
+#'                number of valid cases \cr  
 #'                mean standard deviation \cr
 #'                trimmed mean (with trim defaulting to .1) \cr
 #'                median (standard or interpolated) \cr
@@ -177,7 +178,6 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 
 
 
-
 #' Distance measures (between constructs or elements).
 #'
 #' Various distance measures between elements or constructs are calculated.
@@ -192,12 +192,13 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 #'                    \code{?dist}. 
 #' @param  p          The power of the Minkowski distance, in case \code{"minkowski"}
 #'                    is used as argument for \code{dmethod}.
-#' @param trim        The number of characters a construct is trimmed to (default is
+#' @param trim        The number of characters a construct or element is trimmed to (default is
 #'                    \code{20}). If \code{NA} no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs
 #'                    with long names.
-#' @param index       Whether to print the number of the construct 
-#'                    (default is \code{TRUE}).
+#' @param index       Whether to print the number of the construct or element 
+#'                    in front of the name (default is \code{TRUE}). This is useful to avoid
+#'                    identical row names, which may cause an error.
 #' @param ...         Additional parameters to be passed to function \code{dist}.
 #'                    Type \code{dist} for further information. 
 #' @return            \code{matrix} object.
@@ -242,10 +243,11 @@ distance <- function(x, along=1, dmethod="euclidean",
   if (along == 2)
     r <- t(r)
   d <- dist(r, method = dmethod, p = p, ...)
-  d <- as.matrix(d) # round(d, digits))
+  d <- as.matrix(d) 
   d <- addNamesToMatrix2(x, d, index=index, trim=trim, along=along)  
   class(d) <-  c("distance", "matrix")
-  attr(d, "arguments") <- list(along=along, dmethod=dmethod, p=p)
+  attr(d, "arguments") <- list(along=along, dmethod=dmethod, p=p, 
+                               notes=NULL, cutoff=NULL)
   return(d)
 }
 
@@ -261,27 +263,55 @@ distance <- function(x, along=1, dmethod="euclidean",
 #'                    the output (default is \code{TRUE}).
 #' @param upper       Whether to display upper triangle of correlation matrix only 
 #'                    (default is \code{TRUE}).
+#' @param cutoffs     Cutoff values. Values below or above this interval are not 
+#'                    printed. For Slater distances \code{c(.8, 1.2)} are common 
+#'                    values.
+#' @param p           Quantiles corresponding to probablities are used as cutoffs. 
+#'                    Currently only works for Hartmann distances. If used 
+#'                    \code{cutoffs} is overwritten.
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print distance
 #' @keywords          internal
 #'
 print.distance <- function(x, digits=2, col.index=TRUE,
-                           upper=TRUE, ...)
+                           upper=TRUE, diag=FALSE, cutoffs=NA,
+                           p=NA, ...)
 {
+  diag <- !diag                   # convert as used in upper.tri
   args <- attr(x, "arguments")
   d <- x
-  class(d) <- "matrix"
-  d <- round(d, digits) 
-  d <- format(d, nsmall=digits)
-
-  # console output
+  class(d) <- "matrix" 
+  d <- round(d, digits)     
+  e <- format(d, nsmall=digits)   # convert to characters for printing
+  
+  ## console output ##
+  
+  blank <- paste(rep(" ",  max(nchar(as.vector(e)))), collapse="", sep="")
+  # only use p argument in case Hartmann distance is used
+  if (!attr(x, "arguments")$dmethod == "Hartmann (standardized Slater distances)")
+    p <- NA
+  # get quantiles from distance object (only for Hartmann distance). Not the best
+  # approach, maybe change this in the future to use a lookup table 
+  # when solid cutoffs are available
+  if (!is.na(p[1])) { 
+    which.p <- round(seq(0, 1, .001), 6) %in% round(p, 6)  # to avoid floating number representation inequalities
+    qs <- attr(x, "quantiles")$hartmann[which.p]   
+    cutoffs <- qs
+  }
+  # remove values above or below explicit cutoff
+  if (!is.na(cutoffs[1])) { 
+    n.s. <- min(cutoffs) < d & d < max(cutoffs)
+    e[n.s.] <- blank    
+  }
+  
   if (upper)
-    d[lower.tri(d, diag=TRUE)] <- paste(rep(" ", digits + 1), collapse="", sep="")
-  if (col.index)                                   # make index column for neater colnames
-    d <- addIndexColumnToMatrix(d) else
-      colnames(d) <- seq_len(ncol(d))
-  d <- as.data.frame(d)
+    e[lower.tri(e, diag=diag)] <- blank
+  # make index column for neater colnames
+  if (col.index)                                   
+    e <- addIndexColumnToMatrix(e) else
+      colnames(e) <- seq_len(ncol(e))
+  e <- as.data.frame(e)
   if (args$along == 1) { 
     cat("\n############################")
     cat("\nDistances between constructs") 
@@ -295,7 +325,14 @@ print.distance <- function(x, digits=2, col.index=TRUE,
   if (args$dmethod == "minkowski")
     cat("power p:", args$p, "\n")
   cat("\n")
-  print(d) 
+  print(e) 
+  if (!is.na(p[1])) {
+    cat("\nquantiles:\n")
+    print(round(qs, 4))    
+  }
+  if (!is.null(args$notes))
+    cat(args$notes)
+  cat("\n")
 }
 
 
@@ -319,7 +356,6 @@ print.distance <- function(x, digits=2, col.index=TRUE,
 # order elements and constructs by angles in first two dimensions from
 # singular value decomposition approach (cf. Raeithel ???)
 ###############################################################################
-
 
 #' Calculate angles for points in first two columns.
 #'

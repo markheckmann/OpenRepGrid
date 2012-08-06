@@ -1,6 +1,6 @@
 \name{getNoOfConstructs}
 \alias{getNoOfConstructs}
-\title{get number of constructs}
+\title{Get number of constructs}
 \usage{
   getNoOfConstructs(x)
 }
@@ -11,7 +11,7 @@
   \code{numeric}
 }
 \description{
-  get number of constructs
+  Get number of constructs
 }
 \examples{
 \dontrun{
