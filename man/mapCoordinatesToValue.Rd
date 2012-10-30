@@ -1,0 +1,27 @@
+\name{mapCoordinatesToValue}
+\alias{mapCoordinatesToValue}
+\title{Map arbitrary numeric vector to a given range of values.}
+\usage{
+  mapCoordinatesToValue(z, val.range = c(0.5, 1))
+}
+\arguments{
+  \item{z}{numeric vector.}
+
+  \item{val.range}{numeric vector of lengths two (default
+  \code{c(.5, 1)}).}
+}
+\value{
+  numeric vector
+}
+\description{
+  From a given numeric vector \code{z} the range is
+  determined and the values are linearly mapped onto the
+  interval given by \code{val.range}. This funtion can be
+  used in order to map arbitrary vectors to a given range
+  of values.
+}
+\author{
+  Mark Heckmann
+}
+\keyword{internal}
+

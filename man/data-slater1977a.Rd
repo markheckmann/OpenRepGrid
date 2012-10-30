@@ -1,0 +1,15 @@
+\docType{data}
+\name{data-slater1977a}
+\alias{data-slater1977a}
+\alias{slater1977a}
+\title{Drug addict's grid data set from Slater (1977, p. 32).}
+\description{
+  Drug addict's grid data set from Slater (1977, p. 32).
+}
+\references{
+  Slater, P. (1977). \emph{The measurement of intrapersonal
+  space by grid technique}. London: Wiley.
+}
+\keyword{data}
+\keyword{datasets}
+

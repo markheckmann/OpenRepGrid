@@ -1,0 +1,76 @@
+\name{constructPca}
+\alias{constructPca}
+\title{Principal component analysis (PCA) of inter-construct correlations.}
+\usage{
+  constructPca(x, nfactors = 3, rotate = "varimax",
+    method = "pearson", trim = NA)
+}
+\arguments{
+  \item{x}{\code{repgrid} object.}
+
+  \item{nfactors}{Number of components to extract (default
+  is \code{3}).}
+
+  \item{rotate}{\code{"none"}, \code{"varimax"},
+  \code{"promax"} and \code{"cluster"} are possible
+  rotations (default is \code{none}).}
+
+  \item{method}{A character string indicating which
+  correlation coefficient is to be computed. One of
+  \code{"pearson"} (default), \code{"kendall"} or
+  \code{"spearman"}, can be abbreviated.  The default is
+  \code{"pearson"}.}
+
+  \item{trim}{The number of characters a construct is
+  trimmed to (default is \code{7}). If \code{NA} no
+  trimming occurs. Trimming simply saves space when
+  displaying correlation of constructs with long names.}
+}
+\value{
+  Returns an object of class \code{constructPca}.
+}
+\description{
+  Various methods for rotation and methods for the
+  calculation of the correlations are available. Note that
+  the number of factors has to be specified. For more
+  information on the PCA function itself type
+  \code{?principal}.
+}
+\examples{
+\dontrun{
+
+   constructPca(bell2010)
+
+   # data from grid manual by Fransella et al. (2003, p. 87)
+   # note that the construct order is different
+   constructPca(fbb2003, nfactors=2)
+
+   # no rotation
+   constructPca(fbb2003, rotate="none")
+
+   # use a different type of correlation (Spearman)
+   constructPca(fbb2003, method="spearman")
+
+   # save output to object
+   m <- constructPca(fbb2003, nfactors=2)
+   m
+
+   # different printing options
+   print(m, digits=5)
+   print(m, cutoff=.3)
+
+}
+}
+\author{
+  Mark Heckmann
+}
+\references{
+  Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A
+  Manual for Repertory Grid Technique} (2. Ed.).
+  Chichester: John Wiley & Sons.
+}
+\seealso{
+  To extract the PCA loadings for further processing see
+  \code{\link{constructPcaLoadings}}.
+}
+

@@ -1,0 +1,45 @@
+\name{setElementAttr}
+\alias{setElementAttr}
+\title{Set the attributes of an element}
+\usage{
+  setElementAttr(x, pos, name, abb, status)
+}
+\arguments{
+  \item{x}{\code{repgrid} object.}
+
+  \item{pos}{Column number of element in the grid whose
+  attributes are changed.}
+
+  \item{name}{New element name (optional).}
+
+  \item{abb}{Abbreviation of element name (optional).}
+
+  \item{status}{Status of element (e.g. ideal etc.)
+  (optional).}
+}
+\value{
+  \code{repgrid} object
+}
+\description{
+  Set the attributes of an element i.e. name, abbreviation,
+  status etc.
+}
+\note{
+  Currently the main purpose is to change element names.
+  Future implementations will allow to set further
+  attributes.
+}
+\examples{
+\dontrun{
+
+   x <- setElementAttr(boeker, 1, "new name")   # change name of first element
+   x
+}
+}
+\author{
+  Mark Heckmann
+}
+\seealso{
+  \code{\link{setConstructAttr}}
+}
+

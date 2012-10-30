@@ -1,0 +1,25 @@
+\name{print.indexConflict2}
+\alias{print.indexConflict2}
+\title{Print method for class indexConflict2}
+\usage{
+  \method{print}{indexConflict2} (x, digits = 1,
+    output = 1, ...)
+}
+\arguments{
+  \item{x}{A \code{repgrid} object.}
+
+  \item{digits}{Numeric. Number of digits to round to
+  (default is \code{1}).}
+
+  \item{output}{Numeric. The output printed to the console.
+  \code{output=1} (default) will print information about
+  the conflicts to the console.  \code{output=2} will
+  additionally print the conflictive triads.}
+
+  \item{...}{Not evaluated.}
+}
+\description{
+  Print method for class indexConflict2
+}
+\keyword{internal}
+

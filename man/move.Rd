@@ -1,0 +1,55 @@
+\name{left}
+\alias{down}
+\alias{left}
+\alias{right}
+\alias{up}
+\title{Move construct or element in grid to the left, right, up or down.}
+\usage{
+  left(x, pos = 0)
+
+  right(x, pos = 0)
+
+  up(x, pos = 0)
+
+  down(x, pos = 0)
+}
+\arguments{
+  \item{x}{\code{repgrid} object.}
+
+  \item{pos}{Row (column) number of construct (element) to
+  be moved leftwards, rightwards, upwards or downwards.
+  The default is \code{0}. For indexes outside the range of
+  the grid no moving is done.}
+}
+\value{
+  \code{repgrid} object.
+
+  \code{repgrid} object
+
+  \code{repgrid} object
+
+  \code{repgrid} object
+}
+\description{
+  Move construct or element in grid to the left, right, up
+  or down.
+
+  Move element in grid to the right.
+
+  Move construct in grid upwards.
+
+  Move construct in grid downwards.
+}
+\examples{
+\dontrun{
+   x <- randomGrid()
+   left(x, 2)    # 2nd element to the left
+   right(x, 1)   # 1st element to the right
+   up(x, 2)      # 2nd construct upwards
+   down(x, 1)    # 1st construct downwards
+}
+}
+\author{
+  Mark Heckmann
+}
+
