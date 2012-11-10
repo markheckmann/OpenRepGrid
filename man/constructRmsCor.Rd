@@ -7,14 +7,14 @@
 \arguments{
   \item{x}{\code{repgrid} object}
 
-  \item{method}{a character string indicating which
+  \item{method}{A character string indicating which
   correlation coefficient is to be computed. One of
   \code{"pearson"} (default), \code{"kendall"} or
   \code{"spearman"}, can be abbreviated.  The default is
   \code{"pearson"}.}
 
-  \item{trim}{the number of characters a construct is
-  trimmed to (default is \code{7}). If \code{NA} no
+  \item{trim}{The number of characters a construct is
+  trimmed to (default is \code{NA}). If \code{NA} no
   trimming occurs. Trimming simply saves space when
   displaying correlation of constructs with long names.}
 }
@@ -52,6 +52,6 @@
   John Wiley & Sons.
 }
 \seealso{
-  \code{\link{constructCor}}
+  \code{\link{elementRmsCor}}, \code{\link{constructCor}}
 }
 

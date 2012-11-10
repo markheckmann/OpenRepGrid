@@ -339,7 +339,7 @@ reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g,
 #'
 #' @param x         \code{repgrid} object.
 #' @param rc        Use Cohen's rc which is invariant to construct 
-#'                  reflection (see notes). It is used as the default.
+#'                  reflection (see desciption above). It is used as the default.
 #' @param method    A character string indicating which correlation coefficient 
 #'                  is to be computed. One of \code{"pearson"} (default), 
 #'                  \code{"kendall"} or \code{"spearman"}, can be abbreviated.
@@ -451,6 +451,69 @@ print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 }
 
 
+#' Root mean square (RMS) of inter-element correlations.
+#'
+#' The RMS is also known as 'quadratic mean' of 
+#' the inter-element correlations. The RMS serves as a simplification of the 
+#' correlation table. It reflects the average relation of one element with all 
+#' other elements. Note that as the correlations are squared during its calculation, 
+#' the RMS is not affected by the sign of the correlation (cf. Fransella, 
+#' Bell & Bannister, 2003, p. 86).
+#' 
+#' Note that simple element correlations as a measure of similarity
+#' are flawed as they are not invariant to construct reflection (Mackay, 1992; 
+#' Bell, 2010). A correlation index invariant to construct reflection is 
+#' Cohen's rc measure (1969), which can be calculated using the argument 
+#' \code{rc=TRUE} which is the default option in this function.
+#'                  
+#' @param x       \code{repgrid} object.
+#' @param rc      Whether to use Cohen's rc which is invariant to construct 
+#'                reflection (see desciption above). It is used as the default.
+#' @param method  A character string indicating which correlation coefficient 
+#'                to be computed. One of \code{"pearson"} (default), 
+#'                \code{"kendall"} or \code{"spearman"}, can be abbreviated.
+#'                The default is \code{"pearson"}.
+#' @param trim    The number of characters an element is trimmed to (default is
+#'                \code{NA}). If \code{NA} no trimming occurs. Trimming
+#'                simply saves space when displaying correlation of constructs
+#'                with long names.
+#' @return        \code{dataframe} of the RMS of inter-element correlations
+#'
+#' @author        Mark Heckmann
+#' @export
+#' @seealso  \code{\link{constructRmsCor}}, \code{\link{elementCor}}
+#'
+#' @references    Fransella, F., Bell, R. C., & Bannister, D. (2003). 
+#'                A Manual for Repertory 
+#'                Grid Technique (2. Ed.). Chichester: John Wiley & Sons.
+#'
+#' @examples 
+#'
+#'    # data from grid manual by Fransella, Bell and Bannister
+#'    elementRmsCor(fbb2003)    
+#'    elementRmsCor(fbb2003, trim=10)
+#'    
+#'    # modify output
+#'    r <- elementRmsCor(fbb2003) 
+#'    print(r, digits=5)
+#'
+#'    # access second row of calculation results
+#'    r[2, "RMS"]
+#'
+elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA)
+{
+  method <- match.arg(method,  c("pearson", "kendall", "spearman"))
+  res <- elementCor(x, rc = rc, method = method, trim = trim,
+             index = TRUE)                              # calc correlations 
+  diag(res) <- NA                                       # remove diagonal 
+  res <- apply(res^2, 1, mean, na.rm=TRUE)              # mean of squared values 
+  res <- data.frame(RMS = res^.5)                       # root of mean squares
+  class(res) <- c("rmsCor", "data.frame")
+  attr(res, "type") <- "elements"
+  return(res)
+}
+
+
 ###############################################################################
 
 #' Calculate correlations between constructs. 
@@ -559,19 +622,19 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 #' Bell & Bannister, 2003, p. 86).
 #'
 #' @param x       \code{repgrid} object
-#' @param method  a character string indicating which correlation coefficient 
+#' @param method  A character string indicating which correlation coefficient 
 #'                is to be computed. One of \code{"pearson"} (default), 
 #'                \code{"kendall"} or \code{"spearman"}, can be abbreviated.
 #'                The default is \code{"pearson"}.
-#' @param trim    the number of characters a construct is trimmed to (default is
-#'                \code{7}). If \code{NA} no trimming occurs. Trimming
+#' @param trim    The number of characters a construct is trimmed to (default is
+#'                \code{NA}). If \code{NA} no trimming occurs. Trimming
 #'                simply saves space when displaying correlation of constructs
 #'                with long names.
 #' @return        \code{dataframe} of the RMS of inter-construct correlations
 #'
 #' @author        Mark Heckmann
 #' @export
-#' @seealso \code{\link{constructCor}}
+#' @seealso    \code{\link{elementRmsCor}}, \code{\link{constructCor}}
 #'
 #' @references    Fransella, F., Bell, R. C., & Bannister, D. (2003). 
 #'                A Manual for Repertory 
@@ -590,7 +653,7 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 #'    # access calculation results
 #'    r[2, 1]
 #'
-constructRmsCor <- function(x, method = "pearson", trim=NA)
+constructRmsCor <- function(x, method = "pearson", trim = NA)
 {
   method <- match.arg(method,  c("pearson", "kendall", "spearman"))
   res <- constructCor(x, method = method, trim=trim, 
@@ -598,27 +661,29 @@ constructRmsCor <- function(x, method = "pearson", trim=NA)
   diag(res) <- NA                                       # remove diagonal 
   res <- apply(res^2, 1, mean, na.rm=TRUE)              # mean of squared values
   res <- data.frame(RMS = res^.5)                       # root of mean squares
-  class(res) <- c("constructRmsCor", "data.frame")
+  class(res) <- c("rmsCor", "data.frame")
+  attr(res, "type") <- "constructs" 
   return(res)
 }
 
 
-#' Print method for class constructRmsCor.
+#' Print method for class rmsCor (RMS correlation for constructs or elements)
 #' 
-#' @param x           Object of class constructRmsCor.
+#' @param x           Object of class rmsCor.
 #' @param digits      Numeric. Number of digits to round to (default is 
 #'                    \code{2}).
 #' @param ...         Not evaluated.
 #' @export
-#' @method            print constructRmsCor
+#' @method            print rmsCor
 #' @keywords          internal
 #'
-print.constructRmsCor <- function(x, digits=2, ...)
+print.rmsCor <- function(x, digits=2, ...)
 {
   d <- as.data.frame(x)
   d <- round(d, digits)  
+  type <- attr(x, "type")
   cat("\n##########################################")
-  cat("\nRoot-mean-square correlation of constructs")
+  cat("\nRoot-mean-square correlation of", type)
   cat("\n##########################################\n\n")
   print(d) 
   cat("\nAverage of statistic", round(mean(unlist(d), na.rm=TRUE), digits), "\n")

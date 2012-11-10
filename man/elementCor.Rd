@@ -9,7 +9,8 @@
   \item{x}{\code{repgrid} object.}
 
   \item{rc}{Use Cohen's rc which is invariant to construct
-  reflection (see notes). It is used as the default.}
+  reflection (see desciption above). It is used as the
+  default.}
 
   \item{method}{A character string indicating which
   correlation coefficient is to be computed. One of
