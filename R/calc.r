@@ -1223,8 +1223,7 @@ cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, trim=N
     fit.constructs <- hclust(d, method=cmethod)   # hclust object for constructs
     dend.con <- as.dendrogram(fit.constructs)
     con.ord <- order.dendrogram(rev(dend.con))
-    x <- x[con.ord, ]                             # reorder repgrid object
-    
+    x <- x[con.ord, ]                             # reorder repgrid object    
   }
   
   if (along %in% c(0,2)){
@@ -1254,8 +1253,6 @@ cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, trim=N
   }
   invisible(x)                                      # return reordered repgrid object
 }
-
-
 
 
 
