@@ -5,4 +5,5 @@
 .Rproj.user/*  
 .Rbuildignore
 .RData
+.Rapp.history
 OpenRepGrid.Rproj
