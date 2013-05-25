@@ -1265,16 +1265,19 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
  	options(warn=-1)
   l$ratings <- as.list(data[(line.ratings + 1):(line.ratings.end-1)])
   l$ratings <- lapply(l$ratings, function(x){
-    tmp <- trimBlanksInString(x)
-    tmp <- strsplit(tmp, " ")[[1]]
+    tmp <- trimBlanksInString(x)          # trim blanks at beginning and end of string
+    tmp <- strsplit(tmp, "[ \t]+")[[1]]   # split at one or more tabs or blanks
+    tmp <- gsub("[-?]", "NA", tmp)        # replace missing indicators (-,?) by "NA"
     as.numeric(tmp)
   })
  	options(warn=op)
  
   # read range if available
   if (!identical(line.range, integer(0))){
-    range <- strsplit(data[line.range + 1], " ")[[1]]
-    range <- as.numeric(range)
+    d <- data[line.range + 1]             # get line with scale range data
+    tmp <- trimBlanksInString(d)          # trim blanks at beginning and end of string
+    tmp <- strsplit(tmp, "[ \t]+")[[1]]   # split at one or more tabs or blanks
+    range <- as.numeric(tmp)
   } else {
     range <- c( min(unlist(l$ratings), na.rm=T), 
                 max(unlist(l$ratings), na.rm=T))
@@ -1402,7 +1405,8 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
 #'
 importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("text files", ".txt"),
+    Filters <- matrix(c("text files", ".txt",
+                        "text files", ".TXT"),
                         ncol=2, byrow = TRUE)
     file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
   }

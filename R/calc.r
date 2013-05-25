@@ -1146,6 +1146,7 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 }
 
 
+#### CLUSTER ANALYIS ####
 
 #' Cluster analysis (of constructs or elements).
 #'
@@ -1255,6 +1256,109 @@ cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, trim=N
 }
 
 
+# function calculates cluster dendrogram from doublebind grid matrix
+# and reverses the constructs accoring to the upper big cluster
+align <- function(x, along = 0, dmethod = "euclidean", 
+                  cmethod = "ward", p = 2, ...) 
+{
+  x2 <- doubleEntry(x)
+  xr <- cluster(x2, dmethod=dmethod, cmethod=cmethod, p=p, print=FALSE)
+  nc <- getNoOfConstructs(xr) / 2
+  xr[1:nc, ]
+}
+
+
+#' Multiscale bootstrap cluster analysis.
+#' 
+#' p-values are calculated for each branch of the cluster dendrogram to indicate
+#' the stability of a specific partition. \code{clusterBoot} will yield the same
+#' clusters as the \code{\link{cluster}} function with additional biased
+#' (BP=bootstrap probabiulity) and approximately unbiased (AU) p-values for each
+#' partition.
+#' 
+#' In standard (hierarchical) cluster analysis the question arises which of the 
+#' idientified clusters are significant or emerged by chance. Over the last
+#' decade several methods have been developed to test clusters for robustness.
+#' One line of research in this area is based on resampling. The idea is to
+#' resample the rows or columns of the data matrix and to build the dendrogram
+#' for each bootstrap sample (Felsenstein, 1985). The p-values indicates the number of times a
+#' specific cluster is identified across the bootstrap resamples. As the p-value
+#' is biased (Hillis & Bull, 1993; Zharkikh & Li, 1995) a method called multiscale bootstrap is used to correct
+#' the p-value (Shimodaira, 2002, 2004). In conventional bootstrap analysis the size of the resample is
+#' identical to the orginal sample size. Multiscale bootstrap varies the
+#' bootstrap sample size in order to infer a correction formula for the biased
+#' p-value on the basis of the different bootstrap results (Suzuki & Shimodaira, 2006).
+#'  
+#' @references 
+#' 
+#' Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using 
+#' the Bootstrap. \emph{Evolution, 39}(4), 783. doi:10.2307/2408678
+#' 
+#' Hillis, D. M., & Bull, J. J. (1993). An Empirical Test of Bootstrapping as a
+#' Method for Assessing Confidence in Phylogenetic Analysis. \emph{Systematic Biology,
+#' 42}(2), 182–192.
+#' 
+#' Shimodaira, H. (2002) An approximately unbiased test of phylogenetic tree
+#' selection. \emph{Syst. Biol., 51}, 492–508.
+#' 
+#' Shimodaira,H. (2004) Approximately unbiased tests of regions using multistep-
+#' multiscale bootstrap resampling. \emph{Ann. Stat., 32}, 2616–2641.
+#' 
+#' Suzuki, R., & Shimodaira, H. (2006). Pvclust: an R package for assessing the
+#' uncertainty in hierarchical clustering. \emph{Bioinformatics,
+#' 22}(12), 1540–1542. doi:10.1093/bioinformatics/btl117
+#' 
+#' Zharkikh, A., & Li, W.-H. (1995). Estimation of confidence in phylogeny: the
+#' complete-and-partial bootstrap technique. \emph{Molecular Phylogenetic Evolution,
+#' 4}(1), 44–63.
+#' 
+#' 
+#' @param x       \code{grid object}
+#' @param align   Whether the constructs should be aligned before clustering
+#'                (default is \code{TRUE}). If not, the matrix is clustered as is. Aligning
+#'                will reverse constructs to make them more similar to another. See Details
+#'                section for mor information.
+#' @param along   Along which dimension to cluster. 1 = constructs, 2= elements.                 
+#' @inheritParams cluster
+#' @param p       Power of the Minkowski metric. Not yet passed on to pvclust!
+#' @inheritParams pvclust::pvclust
+#' @param seed    Random seed for bootstrapping. Can be set for reproducibility (see
+#'                \code{\link{set.seed}}). Usually not needed.
+#' @param ...     Arguments to pass on to \code{\link{pvclust}}.
+#' @return        A pvclust object as returned by the function \code{\link{pvclust}}
+#'  
+#' @author        Mark Heckmann
+#' @export
+#'
+#' @examples \dontrun{
+#'
+#'  # p-values for construct dendrogram
+#'  s <- clusterBoot(boeker)
+#'  plot(s)
+#'  pvrect(s, max.only=FALSE)
+#'  
+#'  # p-values for element dendrogram
+#'  s <- clusterBoot(boeker, along=2)
+#'  plot(s)
+#'  pvrect(s, max.only=FALSE)
+#' }
+#'
+clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean", 
+                        cmethod = "ward", p=2, nboot=1000,
+                        r=seq(.8, 1.4, by=.1), seed=NULL, ...)
+{
+  if (! along %in% 1:2)
+    stop("along must either be 1 for constructs (default) or 2 for element clustering", call.=FALSE)
+  if (align)
+    x <- align(x)
+  xr <- getRatingLayer(x)
+  if (!is.null(seed) & is.numeric(seed))
+    set.seed(seed)  
+  if (along ==1)
+    xr <- t(xr)       
+  pv.e <- pvclust(xr, method.hclust=cmethod, method.dist=dmethod, r=r, nboot=nboot, ...)
+  pv.e
+}
 
 
 

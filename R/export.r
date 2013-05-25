@@ -138,6 +138,39 @@ saveAsTxt <- function(x, file=NA){
 # END RANGE
 
 
-
+# exportTxt <- function(x, file=NULL)
+# {
+#   file <- "test.txt"
+#   # redirect output to connection
+#   sink(file)
+#   
+#   # elements
+#   cat("\n")
+#   cat("ELEMENTS\n")
+#   for (name in getElementNames(g))
+#     cat(name, "\n")
+#   cat("END ELEMENTS\n\n")
+#   
+#   # constructs
+#   cat("CONSTRUCTS\n")
+#   for (name in getConstructNames2(g, sep=" : ", trim=NA))
+#     cat(name, "\n")
+#   cat("END CONSTRUCTS\n\n")
+#   
+#   # ratings
+#   cat("RATINGS\n")
+#   r <- getRatingLayer(g)
+#   for (i in 1:nrow(r))
+#     cat(r[i, ], "\n")
+#   cat("END RATINGS\n\n")
+#   
+#   # range
+#   cat("RANGE\n")
+#   cat(getScale(g), "\n")  
+#   cat("END RANGE\n\n")
+#   
+#   # reset output stream
+#   sink()
+# }
 
 

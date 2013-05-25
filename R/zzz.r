@@ -27,7 +27,8 @@ assign("settings",  list(), envir = .OpenRepGridEnv)
         "\n OpenRepGrid Version ",  utils::packageDescription("OpenRepGrid", field="Version"), 
         "\n Tools for the analysis of repertory grid data",
         "\n For an introduction visit: www.openrepgrid.org",
-        "\n CAUTION: The package is in alpha phase. Design changes may still occur.", 
+        "\n CAUTION: The package is in alpha phase.",
+        "\n          Design changes may still occur.", 
         "\n------------------------------------------------", 
         appendLF = TRUE)
   

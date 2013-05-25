@@ -9,6 +9,7 @@ OpenRepGrid 0.1.7 (opened 2012-04-05) ----------------------------------------
   * bindConstructs can now take many grids and/or lists of grids as arguments. Element names are now matched and reordered automatically
   * '+' can now be used to concatenated two grids or list of grids
   * importExcel function added
+  * importTxt: ratings and range can now have an arbitrary number of blanks or tabs between the values. The characters - (minus) and ? (question mark) are read in as missing values (NA). The file extensions .TXT (capitals) is now recognized
 
 OpenRepGrid 0.1.6 (2012-04-05) ----------------------------------------
   * migrating code from roxygen to roxygen2

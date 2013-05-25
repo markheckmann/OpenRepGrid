@@ -19,7 +19,8 @@ Depends:
     psych,
     XML,
     tcltk,
-    xlsx
+    xlsx,
+    pvclust
 Collate:
     'data-openrepgrid.r'
     'repgrid.r'
