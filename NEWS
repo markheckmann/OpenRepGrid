@@ -6,8 +6,12 @@ For a technical overview on changes see file CHANGELOG in source.
 			            OPENREPGRID RELEASE VERSIONS 
 		       	      ============================
 
-Version 0.1.7 (not yet release) --------------------------   
+Version 0.1.7 (released May 25, 2013) --------------------------
+
   * import function for Excel
+  * settings function to modify settings (e.g. trimming of constructs)
+  * clusterBoot function for p-values in cluster analysis
+  * functions by topic overview documentation
 
 Version 0.1.6 (released April 5, 2012) --------------------------   
 

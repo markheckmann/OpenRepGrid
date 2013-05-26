@@ -1296,22 +1296,21 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' 
 #' Hillis, D. M., & Bull, J. J. (1993). An Empirical Test of Bootstrapping as a
 #' Method for Assessing Confidence in Phylogenetic Analysis. \emph{Systematic Biology,
-#' 42}(2), 182–192.
+#' 42}(2), 182-192.
 #' 
 #' Shimodaira, H. (2002) An approximately unbiased test of phylogenetic tree
-#' selection. \emph{Syst. Biol., 51}, 492–508.
+#' selection. \emph{Syst, Biol., 51}, 492-508.
 #' 
 #' Shimodaira,H. (2004) Approximately unbiased tests of regions using multistep-
-#' multiscale bootstrap resampling. \emph{Ann. Stat., 32}, 2616–2641.
-#' 
+#' multiscale bootstrap resampling. \emph{Ann. Stat., 32}, 2616-2614.
+#'  
 #' Suzuki, R., & Shimodaira, H. (2006). Pvclust: an R package for assessing the
 #' uncertainty in hierarchical clustering. \emph{Bioinformatics,
-#' 22}(12), 1540–1542. doi:10.1093/bioinformatics/btl117
+#' 22}(12), 1540-1542. doi:10.1093/bioinformatics/btl117
 #' 
 #' Zharkikh, A., & Li, W.-H. (1995). Estimation of confidence in phylogeny: the
 #' complete-and-partial bootstrap technique. \emph{Molecular Phylogenetic Evolution,
-#' 4}(1), 44–63.
-#' 
+#' 4}(1), 44-63. 
 #' 
 #' @param x       \code{grid object}
 #' @param align   Whether the constructs should be aligned before clustering

@@ -449,7 +449,7 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #' @export
 #' @author            Mark Heckmann
 #' @seealso \code{\link{distanceSlater}}
-#' @examples 
+#' @examples \dontrun{
 #'
 #'    ### basics  ###
 #'    
@@ -474,9 +474,8 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #'    l <- attr(h, "distributions") 
 #'    hist(l$slater, breaks=100)
 #'    hist(l$hartmann, breaks=100)
+#' }
 #' 
-#'
-#
 distanceHartmann <- function(x, method="paper", reps=10000,  
                              prob=NULL, progress=TRUE, distributions=FALSE)
 {

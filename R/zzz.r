@@ -21,7 +21,7 @@
 assign("settings",  list(), envir = .OpenRepGridEnv)
 
 
-.onLoad <- function(lib, pkg){
+.onAttach <- function(lib, pkg){
   packageStartupMessage(
           "------------------------------------------------",
         "\n OpenRepGrid Version ",  utils::packageDescription("OpenRepGrid", field="Version"), 

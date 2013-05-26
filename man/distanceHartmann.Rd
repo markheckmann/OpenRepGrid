@@ -89,7 +89,9 @@
   distributions's standard deviation.
 }
 \examples{
-### basics  ###
+\dontrun{
+
+   ### basics  ###
 
    distanceHartmann(bell2010)
    distanceHartmann(bell2010, method="simulate")
@@ -112,6 +114,7 @@
    l <- attr(h, "distributions")
    hist(l$slater, breaks=100)
    hist(l$hartmann, breaks=100)
+}
 }
 \author{
   Mark Heckmann
