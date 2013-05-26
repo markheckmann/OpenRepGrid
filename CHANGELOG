@@ -2,7 +2,9 @@ OpenRepGrid release versions at http://cran.r-project.org/.
 
 Here technical changes are documented. See NEWS for a description of changes in release versions.
 
-OpenRepGrid 0.1.7 (opened 2012-04-05) ----------------------------------------
+OpenRepGrid 0.1.8 (opened 2013-05-26) ----------------------------------------
+
+OpenRepGrid 0.1.7 (2013-05-26) ----------------------------------------
   * settings function added. Settings can now be modified, saved and loaded
   * print functions for most grid indexes added, former output argument no longer exists
   * functions by topic overview documentation added
@@ -10,6 +12,7 @@ OpenRepGrid 0.1.7 (opened 2012-04-05) ----------------------------------------
   * '+' can now be used to concatenated two grids or list of grids
   * importExcel function added
   * importTxt: ratings and range can now have an arbitrary number of blanks or tabs between the values. The characters - (minus) and ? (question mark) are read in as missing values (NA). The file extensions .TXT (capitals) is now recognized
+  * clusterBoot added:implementation of pvclust functions
 
 OpenRepGrid 0.1.6 (2012-04-05) ----------------------------------------
   * migrating code from roxygen to roxygen2
