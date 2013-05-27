@@ -1277,18 +1277,29 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' partition.
 #' 
 #' In standard (hierarchical) cluster analysis the question arises which of the 
-#' idientified clusters are significant or emerged by chance. Over the last
-#' decade several methods have been developed to test clusters for robustness.
-#' One line of research in this area is based on resampling. The idea is to
-#' resample the rows or columns of the data matrix and to build the dendrogram
-#' for each bootstrap sample (Felsenstein, 1985). The p-values indicates the number of times a
-#' specific cluster is identified across the bootstrap resamples. As the p-value
-#' is biased (Hillis & Bull, 1993; Zharkikh & Li, 1995) a method called multiscale bootstrap is used to correct
-#' the p-value (Shimodaira, 2002, 2004). In conventional bootstrap analysis the size of the resample is
-#' identical to the orginal sample size. Multiscale bootstrap varies the
-#' bootstrap sample size in order to infer a correction formula for the biased
-#' p-value on the basis of the different bootstrap results (Suzuki & Shimodaira, 2006).
-#'  
+#' idientified clusters are significant or emerged by chance. Over the last 
+#' decade several methods have been developed to test clusters for robustness. 
+#' One line of research in this area is based on resampling. The idea is to 
+#' resample the rows or columns of the data matrix and to build the dendrogram 
+#' for each bootstrap sample (Felsenstein, 1985). The p-values indicates the
+#' number of times a specific cluster is identified across the bootstrap
+#' resamples. As the p-value is biased (Hillis & Bull, 1993; Zharkikh & Li,
+#' 1995) a method called multiscale bootstrap is used to correct the p-value
+#' (Shimodaira, 2002, 2004). In conventional bootstrap analysis the size of the
+#' resample is identical to the orginal sample size. Multiscale bootstrap varies
+#' the bootstrap sample size in order to infer a correction formula for the
+#' biased p-value on the basis of the different bootstrap results (Suzuki &
+#' Shimodaira, 2006).
+#'
+#' \bold{align}: Aligning will reverse constructs if necessary to yield a
+#' maximal similarity between constructs. In a first step the constructs are
+#' clustered including both directions. In a second step the direction of a
+#' construct that yields smaller distances to the adjacent constructs is
+#' preserved and used for the final clustering. As a result, every construct is
+#' included once but with an orientation that guarantees optimal clustering.
+#' This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
+#' 1982).
+#' 
 #' @references 
 #' 
 #' Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using 
@@ -1297,6 +1308,10 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' Hillis, D. M., & Bull, J. J. (1993). An Empirical Test of Bootstrapping as a
 #' Method for Assessing Confidence in Phylogenetic Analysis. \emph{Systematic Biology,
 #' 42}(2), 182-192.
+#' 
+#' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
+#' Repertory Grids in Human Resource Development. \emph{Personnel Review,
+#' 11}(4), 15-22. doi:10.1108/eb055464.
 #' 
 #' Shimodaira, H. (2002) An approximately unbiased test of phylogenetic tree
 #' selection. \emph{Syst, Biol., 51}, 492-508.
@@ -1314,9 +1329,8 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' 
 #' @param x       \code{grid object}
 #' @param align   Whether the constructs should be aligned before clustering
-#'                (default is \code{TRUE}). If not, the matrix is clustered as is. Aligning
-#'                will reverse constructs to make them more similar to another. See Details
-#'                section for mor information.
+#'                (default is \code{TRUE}). If not, the grid matrix is clustered 
+#'                as is. See Details section for more information.
 #' @param along   Along which dimension to cluster. 1 = constructs, 2= elements.                 
 #' @inheritParams cluster
 #' @param p       Power of the Minkowski metric. Not yet passed on to pvclust!

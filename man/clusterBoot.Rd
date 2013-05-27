@@ -12,9 +12,8 @@
 
   \item{align}{Whether the constructs should be aligned
   before clustering (default is \code{TRUE}). If not, the
-  matrix is clustered as is. Aligning will reverse
-  constructs to make them more similar to another. See
-  Details section for mor information.}
+  grid matrix is clustered as is. See Details section for
+  more information.}
 
   \item{along}{Along which dimension to cluster. 1 =
   constructs, 2= elements.}
@@ -80,6 +79,17 @@
   the bootstrap sample size in order to infer a correction
   formula for the biased p-value on the basis of the
   different bootstrap results (Suzuki & Shimodaira, 2006).
+
+  \bold{align}: Aligning will reverse constructs if
+  necessary to yield a maximal similarity between
+  constructs. In a first step the constructs are clustered
+  including both directions. In a second step the direction
+  of a construct that yields smaller distances to the
+  adjacent constructs is preserved and used for the final
+  clustering. As a result, every construct is included once
+  but with an orientation that guarantees optimal
+  clustering. This approach is akin to the procedure used
+  in FOCUS (Jankowicz & Thomas, 1982).
 }
 \examples{
 \dontrun{
@@ -107,6 +117,11 @@
   Bootstrapping as a Method for Assessing Confidence in
   Phylogenetic Analysis. \emph{Systematic Biology, 42}(2),
   182-192.
+
+  Jankowicz, D., & Thomas, L. (1982). An Algorithm for the
+  Cluster Analysis of Repertory Grids in Human Resource
+  Development. \emph{Personnel Review, 11}(4), 15-22.
+  doi:10.1108/eb055464.
 
   Shimodaira, H. (2002) An approximately unbiased test of
   phylogenetic tree selection. \emph{Syst, Biol., 51},
