@@ -288,6 +288,43 @@ importGridstatInternal <- function(file, dir=NULL, min=NULL, max=NULL){
 #file <- "/Users/unimitarbeiter/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/gridstat_nolabels.dat"
 
 
+#' Converts a Gridstat multigrid file into temporary single grid files and
+#' returns their path
+#' 
+#' The format for a multigrid file resembles the single Gridstat data file. The
+#' lines of the single files are simply placed below each other without any
+#' blank lines in between. The function reads in a file and tests if it is a
+#' multigrid file. Multigrid files are seperated into single Gridstat temp
+#' files. The file path for the temp files is returned. If the file is a single
+#' grid files the path is left unaltered.
+#' 
+#' @param file    Filenames of Gridstat file
+#' @return        A vector containing the paths to the temp files
+#' @export
+#' @keywords internal
+#' 
+multigridFileToSinglegridFiles <- function(file) 
+{
+  l <- readLines(file)
+  r <- grepl("^[ \t]*[0-9]+[ \t]+[0-9]+ *$", l)   # lines with number of c and e, i.e. two digits seperated by space
+  is.multigrid.file <- sum(r) > 1                 # check if it is a multi-grid file
+  if (is.multigrid.file) {
+    pos <- which(r) -1                              # subtract 1 as it is preceeded by an info line, i.e. where the grid starts
+    pos.ext <- c(pos, length(l) + 1)                # add last position
+    tmp.files <- vector("character")
+    for (i in seq_along(pos)) {                     # save single grids to temp files
+      lines <- l[pos.ext[i]:(pos.ext[i+1] - 1)]     # read info for single grid
+      tmp.file <- tempfile("importGridstat_", 
+                           fileext=".dat")          # generate temp file
+      writeLines(lines, tmp.file)                   # write grid to temp file
+      tmp.files <- c(tmp.files, tmp.file)           # vector of temp file names
+    } 
+    return(tmp.files)
+  } else 
+    return(file) 
+}
+
+
 #' Import Gridstat data files.
 #'
 #' Reads the file format that is used by the latest version of the grid 
@@ -364,19 +401,22 @@ importGridstatInternal <- function(file, dir=NULL, min=NULL, max=NULL){
 #' rg <- importGridstat(file, dir, min=1, max=6)
 #' }
 #'
-importGridstat <- function(file, dir=NULL, min=NULL, max=NULL){
-  if (missing(file)){                                         # open file selection menu if no file argument is supplied
+importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
+{
+  if (missing(file)) {                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("Gridstat files", ".dat"),
-                        ncol=2, byrow = TRUE)
+                      ncol=2, byrow = TRUE)
     file <- tk_choose.files(filters = Filters, multi=TRUE)     # returns complete path                    
-  }
-  imps <- lapply(as.list(file), importGridstatInternal,       # make import objects for each .txt file
+  }  
+  tmp.files <- unlist(lapply(as.list(file),                    # convert multigrid files to single grid files
+                             multigridFileToSinglegridFiles))  
+  imps <- lapply(as.list(tmp.files), importGridstatInternal,   # make import objects for each .txt file
                  dir=dir, min=min, max=max)
-  rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
+  rgs <- lapply(imps, convertImportObjectToRepGridObject)      # make repgrid object from import object
   if (length(file) == 1) {
-    return(rgs[[1]])                                        # return a single repgrid opbject if a single file is prompted
+    return(rgs[[1]])                                           # return a single repgrid opbject if a single file is prompted
   } else {
-    return(rgs)                                             # return a list of repgrid objects
+    return(rgs)                                                # return a list of repgrid objects
   }
 }
 
@@ -384,7 +424,6 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL){
 # file <- "/Users/markheckmann/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/gridstat.dat"
 # tmp <- importGridstat(file)
 # str(tmp)
-
 
 
 ############################# GRIDCOR #########################################
@@ -493,7 +532,7 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL){
 #' }
 #'
 #'
-importGridcorInternal <- function(file, dir=NULL){
+importGridcorInternal <- function(file, dir=NULL) {
   if (!is.null(dir)) 
     file <- paste(dir, file, sep="/", collapse="")
   l <- list()
