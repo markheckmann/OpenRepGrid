@@ -413,7 +413,7 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
   imps <- lapply(as.list(tmp.files), importGridstatInternal,   # make import objects for each .txt file
                  dir=dir, min=min, max=max)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)      # make repgrid object from import object
-  if (length(file) == 1) {
+  if (length(tmp.files) == 1) {
     return(rgs[[1]])                                           # return a single repgrid opbject if a single file is prompted
   } else {
     return(rgs)                                                # return a list of repgrid objects
