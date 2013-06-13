@@ -63,6 +63,9 @@
   be erroneous. This may effect other functions that depend
   on knowing the correct range and it is thus strongly
   recommended to set the scale range correctly.
+
+  Question marks (?) in the ratings are treated as missing
+  data.
 }
 \examples{
 \dontrun{

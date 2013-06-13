@@ -56,29 +56,35 @@
   p-values are calculated for each branch of the cluster
   dendrogram to indicate the stability of a specific
   partition. \code{clusterBoot} will yield the same
-  clusters as the \code{\link{cluster}} function with
-  additional biased (BP=bootstrap probabiulity) and
-  approximately unbiased (AU) p-values for each partition.
+  clusters as the \code{\link{cluster}} function (i.e.
+  standard hierarchical clustering) with additional
+  p-values. Two kindes of p-values are reported: bootstrap
+  probabilities (BP) and approximately unbiased (AU)
+  probabilities (see Details section for more information).
 }
 \details{
   In standard (hierarchical) cluster analysis the question
-  arises which of the idientified clusters are significant
-  or emerged by chance. Over the last decade several
-  methods have been developed to test clusters for
-  robustness. One line of research in this area is based on
-  resampling. The idea is to resample the rows or columns
-  of the data matrix and to build the dendrogram for each
-  bootstrap sample (Felsenstein, 1985). The p-values
-  indicates the number of times a specific cluster is
-  identified across the bootstrap resamples. As the p-value
-  is biased (Hillis & Bull, 1993; Zharkikh & Li, 1995) a
-  method called multiscale bootstrap is used to correct the
-  p-value (Shimodaira, 2002, 2004). In conventional
-  bootstrap analysis the size of the resample is identical
-  to the orginal sample size. Multiscale bootstrap varies
-  the bootstrap sample size in order to infer a correction
-  formula for the biased p-value on the basis of the
-  different bootstrap results (Suzuki & Shimodaira, 2006).
+  arises which of the idientified structures are
+  significant or just emerged by chance. Over the last
+  decade several methods have been developed to test
+  structures for robustness. One line of research in this
+  area is based on resampling. The idea is to resample the
+  rows or columns of the data matrix and to build the
+  dendrogram for each bootstrap sample (Felsenstein, 1985).
+  The p-values indicates the pecentage of times a specific
+  structure is identified across the bootstrap samples. It
+  was shown that the p-value is biased (Hillis & Bull,
+  1993; Zharkikh & Li, 1995). In the literature several
+  methods for bias correction have been proposed. In
+  \code{clusterBoot} a method based on the \emph{multiscale
+  bootstrap} is used to derive corrected (approximately
+  unbiased) p-values (Shimodaira, 2002, 2004). In
+  conventional bootstrap analysis the size of the bootstrap
+  sample is identical to the orginal sample size.
+  Multiscale bootstrap varies the bootstrap sample size in
+  order to infer a correction formula for the biased
+  p-value on the basis of the variation of the results for
+  the different sample sizes (Suzuki & Shimodaira, 2006).
 
   \bold{align}: Aligning will reverse constructs if
   necessary to yield a maximal similarity between

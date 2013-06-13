@@ -1236,6 +1236,8 @@ importScivesco <- function(file, dir=NULL){
 #' is issued as the range may be erroneous. This may effect other functions that 
 #' depend on knowing the correct range and it is thus strongly recommended to 
 #' set the scale range correctly.
+#' 
+#' Question marks (?) in the ratings are treated as missing data.
 #'
 #' @param file	  Filename including path if file is not in current working 
 #'                directory. File can also be a complete URL. The fileformat
@@ -1306,7 +1308,7 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   l$ratings <- lapply(l$ratings, function(x){
     tmp <- trimBlanksInString(x)          # trim blanks at beginning and end of string
     tmp <- strsplit(tmp, "[ \t]+")[[1]]   # split at one or more tabs or blanks
-    tmp <- gsub("[-?]", "NA", tmp)        # replace missing indicators (-,?) by "NA"
+    tmp <- gsub("[?]", "NA", tmp)        # replace missing indicator (?) by "NA"
     as.numeric(tmp)
   })
  	options(warn=op)
