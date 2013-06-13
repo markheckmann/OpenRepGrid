@@ -6,6 +6,10 @@ For a technical overview on changes see file CHANGELOG in source.
 			            OPENREPGRID RELEASE VERSIONS 
 		       	      ============================
 
+Version 0.1.8 (released June 13, 2013) --------------------------
+  * importGridstat can now import multigrid files
+  * bug fix in importTxt: negative values are read in again
+
 Version 0.1.7 (released May 25, 2013) --------------------------
 
   * import function for Excel
