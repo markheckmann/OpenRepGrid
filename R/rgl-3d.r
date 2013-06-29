@@ -141,7 +141,12 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
 biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1, 
                      lef=1.1, frame=1, col.frame=grey(.6), 
                      col.sphere ="black", alpha.sphere=.05, zoom=1,
-                     ...){
+#                           c.points.show=TRUE,
+#                           c.labels.show=TRUE,
+#                          e.points.show=TRUE,
+#                          e.labels.show=TRUE,      
+                     ...)
+{
   x <- calcBiplotCoords(x, ...)
   x <- prepareBiplotData(x, ...)
   
@@ -152,7 +157,9 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
         windowRect=c(100,100,600,600)))           # enlarge and position 3d device
   view3d(theta = 0, phi = 0, zoom=.6)             # change 3d view angle
   rgl.bg(color="white")                           # set background color
-   
+     
+  # select spheres to draw and labels to show
+  # select which elements to show
   if (identical(labels.e, TRUE)) 
     labels.e <- getElementNames(x)  
   if (identical(labels.c, TRUE)){
@@ -178,7 +185,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
   # prolongation of construct vector to outer side
   Cu.norm <- apply(Cu[, dim]^2, 1, sum, na.rm=TRUE)^.5 
   Cup <- Cu[, dim] / Cu.norm * (lef * mval)
-  
+    
   # plot element spheres
   es.p <- subset(pdat, type=="e" & showpoint==T)
   rglDrawElementPoints(es.p[c("x", "y", "z")], e.radius=mval/50, ...)

@@ -1152,8 +1152,17 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'
 #' \code{cluster} is a preliminary implementation of a cluster function. 
 #' It supports
-#' various distance measures as well as cluster methods. More is to come. 
-#'
+#' various distance measures as well as cluster methods. More is to come.
+#'  
+#' \bold{align}: Aligning will reverse constructs if necessary to yield a
+#' maximal similarity between constructs. In a first step the constructs are
+#' clustered including both directions. In a second step the direction of a
+#' construct that yields smaller distances to the adjacent constructs is
+#' preserved and used for the final clustering. As a result, every construct is
+#' included once but with an orientation that guarantees optimal clustering.
+#' This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
+#' 1982).
+#' 
 #' @param x          \code{repgrid} object.
 #' @param along      Along which dimension to cluster. 1 = constructs only, 
 #'                   2= elements only, 0=both (default).
@@ -1168,6 +1177,9 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'                   \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
 #' @param  p         The power of the Minkowski distance, in case \code{"minkowski"}
 #'                   is used as argument for \code{dmethod}.
+#' @param align      Whether the constructs should be aligned before clustering
+#'                   (default is \code{TRUE}). If not, the grid matrix is clustered 
+#'                   as is. See Details section for more information.
 #' @param trim       the number of characters a construct is trimmed to (default is
 #'                   \code{10}). If \code{NA} no trimming is done. Trimming
 #'                   simply saves space when displaying the output.
@@ -1183,7 +1195,12 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'                   information. This option is usually not needed, except if special
 #'                   designs are needed.
 #' @return           Reordered \code{repgrid} object.
-#'
+#' @references 
+#' 
+#' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
+#' Repertory Grids in Human Resource Development. \emph{Personnel Review,
+#' 11}(4), 15-22. doi:10.1108/eb055464.
+#' 
 #' @author            Mark Heckmann
 #' @export
 #' @seealso           \code{\link{bertinCluster}}
@@ -1200,11 +1217,11 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'           edgePar = list(lty=1:2, col=2:1))
 #' }
 #'
-cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, trim=NA,
-                    main=NULL,
+cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, 
+                    align=TRUE, trim=NA, main=NULL,
                     mar=c(4, 2, 3, 15), cex=0, lab.cex=.8, cex.main=.9, 
-                    print=TRUE, ...){
-  
+                    print=TRUE, ...)
+{
   dmethods <- c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
   dmethod <- match.arg(dmethod, dmethods)
   
@@ -1215,7 +1232,8 @@ cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, trim=N
     main <- paste(dmethod, "distance and", cmethod, "clustering")
   if (! along %in% 0:2)
     stop("'along must take the value 0, 1 or 2.")
-    
+  if (align)
+    x <- align(x)  
   r <- getRatingLayer(x, trim=trim)             # get ratings
 
   # dendrogram for constructs

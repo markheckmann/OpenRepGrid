@@ -3,6 +3,7 @@ OpenRepGrid release versions at http://cran.r-project.org/.
 Here technical changes are documented. See NEWS for a description of changes in release versions.
 
 OpenRepGrid 0.1.9 (opened 2013-06-13) ----------------------------------------
+  * align parameter added to cluster
 
 
 OpenRepGrid 0.1.8 (2013-06-13) ----------------------------------------

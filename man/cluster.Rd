@@ -3,9 +3,9 @@
 \title{Cluster analysis (of constructs or elements).}
 \usage{
   cluster(x, along = 0, dmethod = "euclidean",
-    cmethod = "ward", p = 2, trim = NA, main = NULL,
-    mar = c(4, 2, 3, 15), cex = 0, lab.cex = 0.8,
-    cex.main = 0.9, print = TRUE, ...)
+    cmethod = "ward", p = 2, align = TRUE, trim = NA,
+    main = NULL, mar = c(4, 2, 3, 15), cex = 0,
+    lab.cex = 0.8, cex.main = 0.9, print = TRUE, ...)
 }
 \arguments{
   \item{x}{\code{repgrid} object.}
@@ -28,6 +28,11 @@
   \item{p}{The power of the Minkowski distance, in case
   \code{"minkowski"} is used as argument for
   \code{dmethod}.}
+
+  \item{align}{Whether the constructs should be aligned
+  before clustering (default is \code{TRUE}). If not, the
+  grid matrix is clustered as is. See Details section for
+  more information.}
 
   \item{trim}{the number of characters a construct is
   trimmed to (default is \code{10}). If \code{NA} no
@@ -66,6 +71,18 @@
   cluster function. It supports various distance measures
   as well as cluster methods. More is to come.
 }
+\details{
+  \bold{align}: Aligning will reverse constructs if
+  necessary to yield a maximal similarity between
+  constructs. In a first step the constructs are clustered
+  including both directions. In a second step the direction
+  of a construct that yields smaller distances to the
+  adjacent constructs is preserved and used for the final
+  clustering. As a result, every construct is included once
+  but with an orientation that guarantees optimal
+  clustering. This approach is akin to the procedure used
+  in FOCUS (Jankowicz & Thomas, 1982).
+}
 \examples{
 \dontrun{
 
@@ -81,6 +98,12 @@
 }
 \author{
   Mark Heckmann
+}
+\references{
+  Jankowicz, D., & Thomas, L. (1982). An Algorithm for the
+  Cluster Analysis of Repertory Grids in Human Resource
+  Development. \emph{Personnel Review, 11}(4), 15-22.
+  doi:10.1108/eb055464.
 }
 \seealso{
   \code{\link{bertinCluster}}
