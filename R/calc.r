@@ -1280,7 +1280,8 @@ align <- function(x, along = 0, dmethod = "euclidean",
                   cmethod = "ward", p = 2, ...) 
 {
   x2 <- doubleEntry(x)
-  xr <- cluster(x2, dmethod=dmethod, cmethod=cmethod, p=p, print=FALSE)
+  xr <- cluster(x2, dmethod=dmethod, cmethod=cmethod, p=p, 
+                align=FALSE, print=FALSE)
   nc <- getNoOfConstructs(xr) / 2
   xr[1:nc, ]
 }
