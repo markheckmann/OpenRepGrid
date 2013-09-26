@@ -684,8 +684,8 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))              
 #' }
 #'
-bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"), 
-                          cmethod=c("ward", "ward"), p=c(2,2), align=TRUE, 
+bertinCluster <- function(x, dmethod="euclidean", 
+                          cmethod="ward", p=2, align=TRUE, 
                           trim=NA, type=c("triangle"), 
                           xsegs = c(0, .2, .7, .9, 1), ysegs = c(0, .1, .7, 1),
                           x.off=0.01, y.off=0.01,

@@ -2,9 +2,8 @@
 \alias{bertinCluster}
 \title{Bertin display with corresponding cluster anaylsis.}
 \usage{
-  bertinCluster(x, dmethod = c("euclidean", "euclidean"),
-    cmethod = c("ward", "ward"), p = c(2, 2), align = TRUE,
-    trim = NA, type = c("triangle"),
+  bertinCluster(x, dmethod = "euclidean", cmethod = "ward",
+    p = 2, align = TRUE, trim = NA, type = c("triangle"),
     xsegs = c(0, 0.2, 0.7, 0.9, 1),
     ysegs = c(0, 0.1, 0.7, 1), x.off = 0.01, y.off = 0.01,
     cex.axis = 0.6, col.axis = grey(0.4), draw.axis = TRUE,
