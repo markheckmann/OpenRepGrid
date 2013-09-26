@@ -598,6 +598,9 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'                    is used as argument for \code{dmethod}. \code{p} can be a vector
 #'                    of length two if different powers are wanted for constructs and
 #'                    elements respectively (e.g. \code{c(2,1)}).
+#' @param align       Whether the constructs should be aligned before clustering
+#'                    (default is \code{TRUE}). If not, the grid matrix is clustered 
+#'                    as is. See Details section in function \code{\link{cluster}} for more information.
 #' @param trim        The number of characters a construct is trimmed to (default is
 #'                    \code{10}). If \code{NA} no trimming is done. Trimming
 #'                    simply saves space when displaying the output.
@@ -682,8 +685,8 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #' }
 #'
 bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"), 
-                          cmethod=c("ward", "ward"), p=c(2,2), trim=NA,
-                          type=c("triangle"), 
+                          cmethod=c("ward", "ward"), p=c(2,2), align=TRUE, 
+                          trim=NA, type=c("triangle"), 
                           xsegs = c(0, .2, .7, .9, 1), ysegs = c(0, .1, .7, 1),
                           x.off=0.01, y.off=0.01,
                           cex.axis =.6, col.axis =  grey(.4), draw.axis=TRUE, ...)
@@ -708,6 +711,10 @@ bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"),
   xlim.bertin <- xsegs[2:3] / inr.x
   ylim.bertin <- c(0, (ysegs[3] - ysegs[2]) / inr.y)
   
+  if (align)               # align grid if promoted
+    x <- align(x, along = along, dmethod = dmethod, 
+               cmethod = cmethod, p = p)  
+    
   r <- getRatingLayer(x, trim=trim)    # get ratings
 
   # dendrogram for constructs

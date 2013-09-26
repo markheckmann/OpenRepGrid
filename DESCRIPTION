@@ -46,3 +46,4 @@ Collate:
     'settings.r'
     'distance.R'
     'double-entry.R'
+    'onair.r'

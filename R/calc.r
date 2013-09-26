@@ -1233,7 +1233,8 @@ cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2,
   if (! along %in% 0:2)
     stop("'along must take the value 0, 1 or 2.")
   if (align)
-    x <- align(x)  
+    x <- align(x, along = along, dmethod = dmethod, 
+               cmethod = cmethod, p = p)  
   r <- getRatingLayer(x, trim=trim)             # get ratings
 
   # dendrogram for constructs

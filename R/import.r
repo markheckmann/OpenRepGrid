@@ -1285,7 +1285,9 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   line.ratings <- which(data == "RATINGS") 
   line.ratings.end <- which(data == "END RATINGS")
   line.range <- which(data == "RANGE")
- 
+  line.bipolar.implications <- which(data == "BIPOLAR IMPLICATIONS") 
+  line.bipolar.implications.end <- which(data == "END BIPOLAR IMPLICATIONS")
+  
   l <- list()
   
   # read elements and trim blanks
@@ -1328,7 +1330,7 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
               "See ?importTxt for more information", call. = FALSE)      
     }
   }
-
+  
   l$noConstructs <- length(l$constructs)   # no of constructs
   l$noElements <- length(l$elements)       # no of elements
   l$minValue <- range[1]                   # minimum value for Likert scale
@@ -1342,6 +1344,12 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
     l$maxValue <- range[2]
   } else l$maxValue <- max
   
+  # read bipolar implications if available 
+  if (!identical(line.range, integer(0))){
+    l$bipolar.implications <- as.list(data[(line.bipolar.implications + 1):(line.bipolar.implications.end-1)])
+    l$bipolar.implications <- lapply(l$bipolar.implications, function(x) trimBlanksInString(x) )  
+  }
+
   l
 }
 

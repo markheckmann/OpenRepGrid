@@ -3,8 +3,9 @@
 \title{Bertin display with corresponding cluster anaylsis.}
 \usage{
   bertinCluster(x, dmethod = c("euclidean", "euclidean"),
-    cmethod = c("ward", "ward"), p = c(2, 2), trim = NA,
-    type = c("triangle"), xsegs = c(0, 0.2, 0.7, 0.9, 1),
+    cmethod = c("ward", "ward"), p = c(2, 2), align = TRUE,
+    trim = NA, type = c("triangle"),
+    xsegs = c(0, 0.2, 0.7, 0.9, 1),
     ysegs = c(0, 0.1, 0.7, 1), x.off = 0.01, y.off = 0.01,
     cex.axis = 0.6, col.axis = grey(0.4), draw.axis = TRUE,
     ...)
@@ -44,6 +45,11 @@
   \code{dmethod}. \code{p} can be a vector of length two if
   different powers are wanted for constructs and elements
   respectively (e.g. \code{c(2,1)}).}
+
+  \item{align}{Whether the constructs should be aligned
+  before clustering (default is \code{TRUE}). If not, the
+  grid matrix is clustered as is. See Details section in
+  function \code{\link{cluster}} for more information.}
 
   \item{trim}{The number of characters a construct is
   trimmed to (default is \code{10}). If \code{NA} no

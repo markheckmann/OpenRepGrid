@@ -2,6 +2,10 @@ OpenRepGrid release versions at http://cran.r-project.org/.
 
 Here technical changes are documented. See NEWS for a description of changes in release versions.
 
+TODO: 
+make package slimmer, remove xlxs and rJava dependencies:
+http://www.r-bloggers.com/quickly-read-excel-xlsx-worksheets-into-r-on-any-platform/
+
 OpenRepGrid 0.1.9 (opened 2013-06-13) ----------------------------------------
   * align parameter added to cluster
 
