@@ -577,7 +577,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'                    Default is \code{"euclidean"}.
 #'                    Any unambiguous substring can be given (e.g. \code{"euc"} 
 #'                    for \code{"euclidean"}). 
-#'                    A vector of length two can be passed if a different dustance measure for
+#'                    A vector of length two can be passed if a different distance measure for
 #'                    constructs and elements is wanted (e.g.\code{c("euclidean", "manhattan")}).
 #'                    This will apply euclidean distance to the constructs and
 #'                    manhattan distance to the elements.
@@ -684,8 +684,8 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))              
 #' }
 #'
-bertinCluster <- function(x, dmethod="euclidean", 
-                          cmethod="ward", p=2, align=TRUE, 
+bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"), 
+                          cmethod=c("ward", "ward"), p=c(2,2), align=TRUE, 
                           trim=NA, type=c("triangle"), 
                           xsegs = c(0, .2, .7, .9, 1), ysegs = c(0, .1, .7, 1),
                           x.off=0.01, y.off=0.01,
@@ -711,9 +711,9 @@ bertinCluster <- function(x, dmethod="euclidean",
   xlim.bertin <- xsegs[2:3] / inr.x
   ylim.bertin <- c(0, (ysegs[3] - ysegs[2]) / inr.y)
   
-  if (align)               # align grid if promoted
-    x <- align(x, along = along, dmethod = dmethod, 
-               cmethod = cmethod, p = p)  
+  if (align)               # align grid if promoted, uses dmethod etc. for constructs, i.e. [1]
+    x <- align(x, along = along, dmethod = dmethod[1], 
+               cmethod = cmethod[1], p = p[1])  
     
   r <- getRatingLayer(x, trim=trim)    # get ratings
 

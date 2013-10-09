@@ -1345,12 +1345,12 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   } else l$maxValue <- max
   
   # read bipolar implications if available 
-  if (!identical(line.range, integer(0))){
+  if (!identical(line.bipolar.implications, integer(0)) & 
+      !identical(line.bipolar.implications.end, integer(0))) {
     l$bipolar.implications <- as.list(data[(line.bipolar.implications + 1):(line.bipolar.implications.end-1)])
     l$bipolar.implications <- lapply(l$bipolar.implications, function(x) trimBlanksInString(x) )  
   }
 
-  l
 }
 
 
