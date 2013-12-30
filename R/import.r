@@ -1275,8 +1275,9 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   if (!is.null(dir)) 
     file <- paste(dir, file, sep="/", collapse="")
 
-  data <- readLines(file)             # read txt file line by line
-  data <- gsub("\t", " ", data)       # replace tabulators by simple blank
+  data <- readLines(file)               # read txt file line by line
+  data <- gsub("\t", " ", data)         # replace tabulators by simple blank
+  data <- data[str_trim(data) != ""]    # remove all empty lines
   
   line.elements <- which(data == "ELEMENTS")
   line.elements.end <- which(data == "END ELEMENTS")
@@ -1350,7 +1351,7 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
     l$bipolar.implications <- as.list(data[(line.bipolar.implications + 1):(line.bipolar.implications.end-1)])
     l$bipolar.implications <- lapply(l$bipolar.implications, function(x) trimBlanksInString(x) )  
   }
-
+  l  
 }
 
 
