@@ -11,10 +11,6 @@ To install the latest development version from github you can use the `devtools`
     library(devtools)
     install_github("OpenRepGrid", "markheckmann") 
 
-You may also download the development binaries from the [downloads](http://github.com/markheckmann/OpenRepGrid/downloads) page. 
-
-    Not yet available    
-
 To load the OpenRepGrid package after installation type
 
     library(OpenRepGrid) 
