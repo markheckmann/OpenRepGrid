@@ -164,10 +164,15 @@ calcCoordsBorders <- function(x, y, xmax=1, ymax=1, cx=0, cy=0)
   b.ul <- ymax * sign(y)
   a.ul <- x/y * b.ul
   
-  a.lr[is.nan(unlist(a.lr))] <- 0       # in case one of x or y is zero Inf results ans subsequently NaN
-  b.lr[is.nan(unlist(b.lr))] <- 0
-  a.ul[is.nan(unlist(a.ul))] <- 0
-  b.ul[is.nan(unlist(b.ul))] <- 0  
+  a.lr <- unlist(a.lr)
+  b.lr <- unlist(b.lr)
+  a.ul <- unlist(a.ul)
+  b.ul <- unlist(b.ul)
+  
+  a.lr[is.nan(a.lr)] <- 0       # in case one of x or y is zero Inf results ans subsequently NaN
+  b.lr[is.nan(b.lr)] <- 0
+  a.ul[is.nan(a.ul)] <- 0
+  b.ul[is.nan(b.ul)] <- 0  
   
   # join both parts
   b <- (b.ul * !is.lr.part) + (b.lr * is.lr.part)
@@ -1045,7 +1050,13 @@ biplotDraw <- function(x,
 
 	# positioning of element and constructs labels inside the plot
 	if (inner.positioning) {    # positioning by landmark algorithm from maptools package
-		sh <- subset(x, showlabel==T & showpoint==T)
+		
+    # dirty hack as I do not understand the problem why some values become NA: 
+    #  replace NAs in showlabel and showpoint. Endas grid #10 produces this
+		x$showlabel[is.na(x$showlabel)] <- TRUE 
+		x$showpoint[is.na(x$showpoint)] <- TRUE 
+		
+    sh <- subset(x, showlabel==T & showpoint==T)# & 
 		lpos <- pointLabel(sh[c("x", "y")], labels=sh$label, doPlot=FALSE, cex=cex.pos)     # package maptools
 	  x$x.pos <- NA
 	  x$y.pos <- NA
@@ -1059,8 +1070,6 @@ biplotDraw <- function(x,
 	  x[x$type=="e", ]$y.pos <- x[x$type=="e", ]$y + offset.y.pos * offset.e  # offset element labels by normal stringheight times x
 	  x[x$type %in% c("cl", "cr"), ]$y.pos <- x[x$type %in% c("cl", "cr"), ]$y - .05
 	}
-	
-	#browser()
 	
 	# text labels for elements
 	#es <- subset(x, type=="e" & showlabel==T & showpoint==T)   # old version
