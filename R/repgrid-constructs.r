@@ -45,7 +45,7 @@ getConstructNames <- function(x){
   l <- lapply(x@constructs, function(x) 
                  data.frame(leftpole=x$leftpole$name, 
                             rightpole=x$rightpole$name, stringsAsFactors=FALSE))
-  plyr:::list_to_dataframe(l)
+	list_to_dataframe(l)
 }
 cNames <- getConstructNames
 #getConstructNames(x)
@@ -146,9 +146,8 @@ constructInfo <- function(x, all=TRUE){
 													 r.preffered=x$rightpole$preferred,
 													 r.emerged=x$rightpole$emerged, 
 													 stringsAsFactors=FALSE))
-	#info <- as.data.frame(t(l))
-  info <- plyr:::list_to_dataframe(l)  #old version using lapply above
-	if(all)
+  info <- list_to_dataframe(l)  #old version using lapply above
+	if (all)
 	  info else
 	  info[c("leftpole", "rightpole")]
 }
