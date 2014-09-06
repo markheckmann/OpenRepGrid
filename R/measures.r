@@ -1041,9 +1041,9 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #                        \code{diff.congruent=1}). Note that the value
 #                        needs to be adjusted by the user according to the rating scale
 #                        used.
-# @param diff.discrepant        Is used if \code{diff.mode=1}. Minimal difference between
+# @param diff.discrepant Is used if \code{diff.mode=1}. Minimal difference between
 #                        element ratings to define construct as discrepant (default
-#                        \code{diff.discrepant=3}). Note that the value
+#                        \code{diff.discrepant=4}). Note that the value
 #                        needs to be adjusted by the user according to the rating scale
 #                        used.
 # @param diff.poles      Not yet implemented.
@@ -1067,7 +1067,7 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #
 indexDilemmaInternal <- function(x, self, ideal, 
                             diff.mode = 1, diff.congruent = 0,
-                            diff.discrepant = 3, diff.poles=1, 
+                            diff.discrepant = 4, diff.poles=1, 
                             r.min=.35, exclude=FALSE, digits=2,
                             index=T, trim=NA)
 {
