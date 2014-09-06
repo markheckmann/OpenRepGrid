@@ -225,7 +225,7 @@ gmTextBox <- function(text=c("text 1", "text 2"), textCol = c("black", "black"),
 # adopted from Murrell(2008) R Graphics, p...
 gmSplitString  <- function(text, horiz=TRUE, splitWidth=unit(.98, "npc"))			# function to split grobtext
 {				
-	require(grid)
+	#require(grid)
 	if(is.expression(text)){			# Expressions können nicht weiter verarbeitet werden
 		return(text)
 		break
@@ -433,7 +433,7 @@ gmMakeVpBorders <- function(side, col, lwd, ...)
 
 gmRandomColor <- function(n=1, h=runif(n)*360, s=runif(n), v=runif(n), shuffle=TRUE, plot=FALSE )
 {
-	require(colorspace)
+	#require(colorspace)
 	#hexColorVec <- hex(HSV(runif(n), runif(n), runif(n)))
 	hexColorVec <- hex(HSV(h, s, v))
 	if(shuffle) hexColorVec <- hexColorVec[sample(seq_along(hexColorVec), length(hexColorVec))]

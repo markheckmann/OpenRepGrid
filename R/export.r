@@ -62,7 +62,7 @@
 #'
 saveAsTxt <- function(x, file=NA){  
 	if (is.na(file)){
-	  require(tcltk)
+	  #require(tcltk)
   	fileName <- tclvalue(tkgetSaveFile())     # open filename dialog  
 	} else 
 	  fileName <- file

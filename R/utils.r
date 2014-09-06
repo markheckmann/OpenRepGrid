@@ -955,3 +955,8 @@ stepChart <- function(vals, breaks="Sturges", add=FALSE, ...){
     plot(x, y, type="s", ...)
 }
 
+
+list_to_dataframe <- function(l){
+  #plyr:::list_to_dataframe(l)
+  do.call(rbind.data.frame, l)
+}
