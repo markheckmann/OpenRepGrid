@@ -1008,8 +1008,15 @@ importScivescoInternal <- function(file, dir=NULL){
       selectPole <- "RatingPole2" 
     ratingsList <- xmlChildren(xmlChildren(x)[[selectPole]])
     ratings <- lapply(ratingsList, xmlAttrs)
-    df.ratings <- plyr:::list_to_dataframe(ratings)[-1]
-    round(as.numeric(df.ratings$Value), digits)
+    
+    ## old plyr code removed due to ::: in v0.1.9
+    #df.ratings <- plyr:::list_to_dataframe(ratings)[-1]
+    #round(as.numeric(df.ratings$Value), digits)
+    
+    # new code
+    df.ratings.2 <- list_to_dataframe(ratings)[-1]
+    names(df.ratings.2) <- "Value"
+    round(as.numeric(as.character(df.ratings.2$Value)), digits)
   }
   l$ratings <- NA
   l$ratings1 <-  lapply(level.3.InterviewResultTurnsCollection, 
