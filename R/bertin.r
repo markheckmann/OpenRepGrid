@@ -712,7 +712,7 @@ bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"),
   ylim.bertin <- c(0, (ysegs[3] - ysegs[2]) / inr.y)
   
   if (align)               # align grid if promoted, uses dmethod etc. for constructs, i.e. [1]
-    x <- align(x, along = along, dmethod = dmethod[1], 
+    x <- align(x, along = 0, dmethod = dmethod[1], 
                cmethod = cmethod[1], p = p[1])  
     
   r <- getRatingLayer(x, trim=trim)    # get ratings
