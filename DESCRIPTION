@@ -4,7 +4,7 @@ Title: Tools to analyse repertory grid data
 LazyData: yes
 Type: Package
 LazyLoad: yes
-Authors@R: person("Heckmann", "Mark", email = "heckmann@uni-bremen.de",
+Authors@R: person("Mark", "Heckmann", email = "heckmann@uni-bremen.de",
     role = c("aut", "cre"))
 Description: Tools to analyse repertory grid data
 Version: 0.1.9
