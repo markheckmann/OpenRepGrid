@@ -438,6 +438,7 @@ df_out <- function(df,                # data frame
 
 #' Show method for repgrid
 #' 
+#' @param object A \code{repgrid} object.
 #' @include repgrid.r
 #' 
 setMethod("show", "repgrid", function(object){   

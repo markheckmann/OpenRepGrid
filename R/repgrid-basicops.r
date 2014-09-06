@@ -1,5 +1,5 @@
 ###############################################################################
-### 				          basic operations on repgrid objects      	        		###	 
+####  				          basic operations on repgrid objects      	        		###	 
 ###############################################################################
 
 ############################# EXTRACT AND SET #################################
@@ -11,12 +11,17 @@
 # TODO: ?keep single entry as row selection. Normally its column selection e.g. 
 # in data frames.
 
+# @aliases [,repgrid-method
+# @docType methods
+
 #' Extract parts of the repgrid object.
 #'
 #' Methods for \code{"["}, i.e., subsetting of repgrid objects. 
-#'
-#' @aliases [,repgrid-method
-#' @docType methods
+#' 
+#' @param  x  A \code{repgrid} object.
+#' @param i,j   Row and column indices.
+#' @param ...   Not evaluated.
+#' @param drop  Not used.
 #' @author Mark heckmann
 #' @rdname extract-methods
 #' @include repgrid.r
@@ -63,15 +68,19 @@ setMethod("[", signature(x = "repgrid", i = "ANY", j="ANY"),
 		x
 })
 
+# @aliases [<-,repgrid-method 
+# @docType methods
 
 # overloading primitive generic "[<-" setter. 
 #
 #' Method for "<-" assignment of the repgrid ratings. 
 #'
 #' It should be possible to use it for ratings on all layers.
-#'
-#' @aliases [<-,repgrid-method 
-#' @docType methods
+#' 
+#' @param x  A \code{repgrid} object.
+#' @param i,j     Row and column indices.
+#' @param value   Numeric replacement value(s).
+#' @param ...     Not evaluated.
 #' @author  Mark Heckmann
 #' @rdname subassign
 #' @include repgrid.r
@@ -968,8 +977,6 @@ setCoupled <- function(x, coupled=TRUE){
 
 
 
-
-
 #' showMeta
 #'
 #' prints meta information about the grid to the console (id, name of interviewee etc.)
@@ -1169,15 +1176,16 @@ bindConstructs <- function(..., index=FALSE)
 }
 
 
+# @aliases +,repgrid,repgrid-method
+# @docType methods
+
 #' Concatenate repgrid objects.
 #' 
 #' Simple concatenation of repgrid objects or list containing
 #' repgrid objects using the '+' operator.
 #'
 #' Methods for \code{"+"} function. 
-#'
-#' @aliases +,repgrid,repgrid-method
-#' @docType methods
+#' @param e1,e2  A \code{repgrid} object.
 #' @author Mark heckmann
 #' @rdname ops-methods
 #' @include repgrid.r
