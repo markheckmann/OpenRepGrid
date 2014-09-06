@@ -5,11 +5,11 @@ LazyData: yes
 Type: Package
 LazyLoad: yes
 Authors@R: person("Heckmann", "Mark", email = "heckmann@uni-bremen.de",
-  role = c("aut", "cre"))
+    role = c("aut", "cre"))
 Description: Tools to analyse repertory grid data
 Version: 0.1.9
 Date: 2014-09-06
-Depends:
+Imports:
     methods,
     grid,
     colorspace,
@@ -20,32 +20,33 @@ Depends:
     GPArotation,
     psych,
     XML,
-    tcltk,
+    tcltk
+Depends:
     pvclust
-Suggest:
-    xlxs  
+Suggests:
+    xlsx
 Collate:
-    'data-openrepgrid.r'
-    'repgrid.r'
-    'repgrid-basicops.r'
-    'zzz.r'
-    'openrepgrid.r'
-    'repgrid-constructs.r'
-    'repgrid-elements.r'
-    'repgrid-ratings.r'
-    'gmMain.r'
-    'utils-import.r'
-    'utils.r'
-    'export.r'
-    'import.r'
     'bertin.r'
     'calc.r'
+    'data-openrepgrid.r'
     'dev-functions.r'
-    'measures.r'
-    'repgrid-output.r'
-    'repgrid-plots.r'
-    'rgl-3d.r'
-    'settings.r'
     'distance.R'
     'double-entry.R'
+    'export.r'
+    'gmMain.r'
+    'import.r'
+    'measures.r'
     'onair.r'
+    'openrepgrid.r'
+    'repgrid.r'
+    'repgrid-basicops.r'
+    'repgrid-constructs.r'
+    'repgrid-elements.r'
+    'repgrid-output.r'
+    'repgrid-plots.r'
+    'repgrid-ratings.r'
+    'rgl-3d.r'
+    'settings.r'
+    'utils-import.r'
+    'utils.r'
+    'zzz.r'
