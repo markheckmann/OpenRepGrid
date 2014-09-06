@@ -1,14 +1,14 @@
 Package: OpenRepGrid
-Maintainer: Mark Heckmann <heckmann@uni-bremen.de>
 License: GPL (>= 2)
 Title: Tools to analyse repertory grid data
 LazyData: yes
 Type: Package
 LazyLoad: yes
-Author: Mark Heckmann
+Authors@R: person("Heckmann", "Mark", email = "heckmann@uni-bremen.de",
+  role = c("aut", "cre"))
 Description: Tools to analyse repertory grid data
 Version: 0.1.9
-Date: 2013-06-13
+Date: 2014-09-06
 Depends:
     methods,
     grid,
@@ -21,8 +21,9 @@ Depends:
     psych,
     XML,
     tcltk,
-    xlsx,
     pvclust
+Suggest:
+    xlxs  
 Collate:
     'data-openrepgrid.r'
     'repgrid.r'

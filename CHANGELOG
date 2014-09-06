@@ -9,6 +9,8 @@ http://www.r-bloggers.com/quickly-read-excel-xlsx-worksheets-into-r-on-any-platf
 OpenRepGrid 0.1.9 (opened 2013-06-13) ----------------------------------------
   * align parameter added to cluster
   * importTxt will now erase empty lines
+  * changed default settings for discrepancies for implicative dilemmas to 4
+  * dependency on xlsx removed (issue #15)
 
 
 OpenRepGrid 0.1.8 (2013-06-13) ----------------------------------------

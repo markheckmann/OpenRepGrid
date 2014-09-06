@@ -1660,13 +1660,21 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #'
 importExcel <- function(file, dir=NULL, sheetIndex=1, min=NULL, max=NULL)
 {
+  if (!require(xlsx)) 
+    stop("\n---------------------------------------------------------------------------\n",
+         "  This functions requires the xlsx package to be installed.\n",
+         "  xlsx in turn requires the Java Runtime Environment (JRE) on your system.\n",
+         "  Install the JRE and the xlsx package if you want to use this feature.\n",
+         "---------------------------------------------------------------------------",
+         call. = FALSE)
+
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("excel", ".xlsx",
                         "excel", ".xls"),
                       ncol=2, byrow = TRUE)
     file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
   }
-  imps <- lapply(as.list(file), importExcelInternal,            # make import objects for each .txt file
+  imps <- lapply(as.list(file), importExcelInternal,          # make import objects for each .txt file
                  dir=dir, sheetIndex=sheetIndex,
                  min=min, max=max)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
