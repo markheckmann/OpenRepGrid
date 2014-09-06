@@ -308,8 +308,7 @@ NULL
 #' @title   Pre- and post therapy dataset from Leach et al. (2001).
 #'
 #' @name data-leach2001
-#' @aliases leach2001a
-#' @aliases leach2001b
+#' @aliases leach2001a leach2001b
 #' @docType data
 #'
 #' @references      Leach, C., Freshwater, K., Aldridge, J., & 
