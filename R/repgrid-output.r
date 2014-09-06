@@ -425,15 +425,21 @@ df_out <- function(df,                # data frame
 # method depends on the definition of the 'repgrid' object
 # hence has to come before this code in COLLATE tag in DESCRIPTION
 
+# @aliases show,repgrid-method
+
+# Show method for repgrid
+#
+# @param object a \code{repgrid} object
+# @docType methods
+# @usage \S4method{show}{repgrid}(object)
+# @author            Mark Heckmann
+# @include repgrid.r
+#
+
 #' Show method for repgrid
-#'
-#' @param object a \code{repgrid} object
-#' @docType methods
-#' @aliases show,repgrid-method
-#' @usage \S4method{show}{repgrid}(object)
-#' @author            Mark Heckmann
+#' 
 #' @include repgrid.r
-#'
+#' 
 setMethod("show", "repgrid", function(object){   
   pars <- settings() 
   trim <- c(pars$show.trim, pars$show.trim)   #trim <- c(30,30)
