@@ -1546,7 +1546,17 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 {
   if (!is.null(dir)) 
     file <- paste(dir, file, sep="/", collapse="")
-  x <- read.xlsx(file, sheetIndex=1, header=FALSE)  # read .xlxs or .xls file
+  
+  if (requireNamespace("xlsx", quietly=TRUE) )  {
+    x <- xlsx::read.xlsx(file, sheetIndex=1, header=FALSE)  # read .xlxs or .xls file
+  } else {
+    stop("\n---------------------------------------------------------------------------\n",
+         "  This functions requires the xlsx package to be installed.\n",
+         "  xlsx in turn requires the Java Runtime Environment (JRE) on your system.\n",
+         "  Install the JRE and the xlsx package if you want to use this feature.\n",
+         "---------------------------------------------------------------------------",
+         call. = FALSE)    
+  }
 
   # remove NA lines when too many rows in Excel  
   na.rows <- apply(x, 1, function(x) all(is.na(unlist(x))))
@@ -1667,14 +1677,6 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #'
 importExcel <- function(file, dir=NULL, sheetIndex=1, min=NULL, max=NULL)
 {
-  if (!require(xlsx)) 
-    stop("\n---------------------------------------------------------------------------\n",
-         "  This functions requires the xlsx package to be installed.\n",
-         "  xlsx in turn requires the Java Runtime Environment (JRE) on your system.\n",
-         "  Install the JRE and the xlsx package if you want to use this feature.\n",
-         "---------------------------------------------------------------------------",
-         call. = FALSE)
-
   if (missing(file)){                                         # open file selection menu if no file argument is supplied
     Filters <- matrix(c("excel", ".xlsx",
                         "excel", ".xls"),
