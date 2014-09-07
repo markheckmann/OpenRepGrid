@@ -23,6 +23,6 @@ And for a first impression of the package features type
 
 If you use OpenRepGrid in your publications, you can cite it like this. 
 
-Heckmann, M. (2014). The OpenRepgrid R package - Tools to analyze repertory grid data. ZENODO. doi:10.5281/zenodo.8492
+Heckmann, M. (2014). OpenRepGrid: An R package for the analysis of repertory grids. ZENODO. doi:10.5281/zenodo.8492
 
 [![DOI](https://zenodo.org/badge/5972/markheckmann/OpenRepGrid.png)](http://dx.doi.org/10.5281/zenodo.11623)
