@@ -9,6 +9,7 @@ Authors@R: person("Mark", "Heckmann", email = "heckmann@uni-bremen.de",
 Description: Tools to analyse repertory grid data
 Version: 0.1.9
 Date: 2014-09-06
+URL: http://openrepgrid.org, https://github.com/markheckmann/OpenRepGrid
 Imports:
     methods,
     grid,
