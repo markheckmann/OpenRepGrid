@@ -9,7 +9,7 @@ You can install the latest release version from [CRAN](http://www.cran.r-project
 To install the latest development version from github you can use the `devtools` package.
     
     library(devtools)
-    install_github("OpenRepGrid", "markheckmann") 
+    install_github("markheckmann/OpenRepGrid") 
 
 To load the OpenRepGrid package after installation type
 

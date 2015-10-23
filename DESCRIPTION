@@ -25,7 +25,7 @@ Imports:
 Depends:
     pvclust
 Suggests:
-    xlsx
+    readxl
 Collate:
     'bertin.r'
     'calc.r'
