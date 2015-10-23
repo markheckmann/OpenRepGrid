@@ -1529,7 +1529,7 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
 #'
 #' @examples \dontrun{
 #'
-#' # supposing that the data file sample.txt is in the current directory
+#' # supposing that the data file grid.xlsx is in the current directory
 #' file <- "grid.xlsx"
 #' imp <- importExcelInternal(file)
 #'
@@ -1636,7 +1636,7 @@ importExcelInternal <- function(file, dir=NULL, sheet=1,
 #'                the files.
 #' @param dir	    Alternative way to supply the directory where the file is located
 #'                (default \code{NULL}).
-#' @param sheetIndex  The number of the Excel sheet that contains the grid data.
+#' @param sheet   The number of the Excel sheet that contains the grid data.
 #' @param min	    Optional argument (\code{numeric}, default \code{NULL})
 #'                for minimum rating value in grid.
 #' @param max	    Optional argument (\code{numeric}, default \code{NULL})
@@ -1682,7 +1682,7 @@ importExcel <- function(file, dir=NULL, sheetIndex=1, min=NULL, max=NULL)
     file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path
   }
   imps <- lapply(as.list(file), importExcelInternal,          # make import objects for each .txt file
-                 dir=dir, sheetIndex=sheetIndex,
+                 dir=dir, sheet=sheet,
                  min=min, max=max)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
   if (length(file) == 1) {
