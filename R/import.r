@@ -1516,7 +1516,7 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
 #'                is \code{.xlsx} or \code{.xls}.
 #' @param dir	    Alternative way to supply the directory where the file is located
 #'                (default \code{NULL}).
-#' @param sheetIndex  The number of the Excel sheet that contains the grid data.
+#' @param sheet   The number of the Excel sheet that contains the grid data.
 #' @param min	    Optional argument (\code{numeric}, default \code{NULL})
 #'                for minimum rating value in grid.
 #' @param max	    Optional argument (\code{numeric}, default \code{NULL})
@@ -1541,14 +1541,14 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
 #' imp <- importExcelInternal("/Users/markheckmann/data/grid.xlsx")
 #' }
 #'
-importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
+importExcelInternal <- function(file, dir=NULL, sheet=1,
                                 min=NULL, max=NULL)
 {
   if (!is.null(dir))
     file <- paste(dir, file, sep="/", collapse="")
 
   if (requireNamespace("readxl", quietly=TRUE) )  {
-    x <- readxl::read_excel()(path = file, sheet = 1, col_names = FALSE)  # read .xlxs or .xls file
+    x <- readxl::read_excel()(path = file, sheet = sheet, col_names = FALSE)  # read .xlxs or .xls file
   } else {
     stop("\n---------------------------------------------------------------------------\n",
          "  This functions requires the readxl package to be installed.\n",
