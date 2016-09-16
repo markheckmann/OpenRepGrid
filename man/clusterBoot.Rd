@@ -83,6 +83,9 @@ This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
 \examples{
 \dontrun{
 
+ # pvclust must be loaded
+ library(pvclust)
+ 
  # p-values for construct dendrogram
  s <- clusterBoot(boeker)
  plot(s)

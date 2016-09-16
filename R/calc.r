@@ -1371,6 +1371,9 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #'
 #' @examples \dontrun{
 #'
+#'  # pvclust must be loaded
+#'  library(pvclust)
+#'  
 #'  # p-values for construct dendrogram
 #'  s <- clusterBoot(boeker)
 #'  plot(s)
@@ -1395,7 +1398,7 @@ clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean",
     set.seed(seed)  
   if (along ==1)
     xr <- t(xr)       
-  pv.e <- pvclust(xr, method.hclust=cmethod, method.dist=dmethod, r=r, nboot=nboot, ...)
+  pv.e <- pvclust::pvclust(xr, method.hclust=cmethod, method.dist=dmethod, r=r, nboot=nboot, ...)
   pv.e
 }
 
