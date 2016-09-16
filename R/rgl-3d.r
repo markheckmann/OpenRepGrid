@@ -132,6 +132,7 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
 #' @param col.frame       Color of the sourrounding frame.
 #' @param zoom            Not yet used. Scaling factor for all vectors. Can be used to zoom
 #'                        the plot in and out (default \code{1}). 
+#' @param draw.xyz.axes   Draw standard XYZ axes.                     
 #' @param ...             Parameters to be passed on.  
 #'
 #' @author  Mark Heckmann
@@ -141,6 +142,7 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
 biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1, 
                      lef=1.1, frame=1, col.frame=grey(.6), 
                      col.sphere ="black", alpha.sphere=.05, zoom=1,
+                     draw.xyz.axes = TRUE,
 #                           c.points.show=TRUE,
 #                           c.labels.show=TRUE,
 #                          e.points.show=TRUE,
@@ -209,13 +211,13 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
   
   if (lines.c == 0){           # no construct lines labels at cons pos
     rglDrawConstructLabels(cl.l.xyz, labels=cs.l$label, ...)    
-    rglDrawStandardAxes(mval, spheres=F)
+    if (draw.xyz.axes) rglDrawStandardAxes(mval, spheres=F)
     #rglDrawConstructLabels(Cu[, dim], labels=labels.r, ...)
     #rglDrawConstructLabels(-Cu[, dim], labels=labels.l, ...)
   } else if (lines.c == 1){     # construct lines from cons pos to outside
     segments3d(interleave(cl.l.xyz, cl.l.xyz.outer), col="grey")
     rglDrawConstructLabels(cl.l.xyz.outer, labels=cs.l$label, ...)        
-    rglDrawStandardAxes(lef * mval, a.col="black")
+    if (draw.xyz.axes) rglDrawStandardAxes(lef * mval, a.col="black")
     #segments3d(interleave(-Cu[, dim], -Cup), col="grey")       # Cu and Cup from older implementation without use if x@plotdata
     #rglDrawConstructLabels(Cup, labels=labels.r, ...)  
     #rglDrawConstructLabels(-Cup, labels=labels.l, ...)
@@ -223,7 +225,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
     nm <- matrix(0, ncol=3, nrow=nrow(cl.l.xyz.outer))
     segments3d(interleave(nm, as.matrix(cl.l.xyz.outer)), col="grey")
     rglDrawConstructLabels(cl.l.xyz.outer, labels=cs.l$label, ...)        
-    rglDrawStandardAxes(lef * mval, a.col="black")
+    if (draw.xyz.axes) rglDrawStandardAxes(lef * mval, a.col="black")
   } else {
     stop("'lines.c' can only take numeric values from 0 to 2")
   }
