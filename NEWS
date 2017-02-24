@@ -1,8 +1,4 @@
 
-  TODOS
-  
-  * move pvclust from imports to suggests and correct examples
-  
 OpenRepGrid 0.1.10 (released February 24, 2017) --------------------------
   
   * indexDilemma: improved implicative dilemmas (thanks to Alejandro García, (#24, @j4n7) 
