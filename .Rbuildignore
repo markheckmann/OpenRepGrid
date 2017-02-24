@@ -3,6 +3,5 @@
 README.md
 ^README\.Rmd$
 ^README-.*\.png$
-^NEWS\.md$
 cran-comments.md
 ^\.travis\.yml$
