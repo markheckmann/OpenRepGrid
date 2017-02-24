@@ -6,6 +6,18 @@ TODO:
 make package slimmer, remove xlxs and rJava dependencies:
 http://www.r-bloggers.com/quickly-read-excel-xlsx-worksheets-into-r-on-any-platform/
 
+OpenRepGrid 0.2.9.9002 (2016-12-12) Alejandro García ---------------------------------------
+  ** indexDilemma(): corrected Implicative Dilemmas function (Feixas & Saúl, 2004).
+  * CORRECTION: a construct can't be congruent if it's self score is 4 (AKA self-disorientation).
+  * CORRECTION: to create a dilemma, the 'self' scores of both contructs must beon the same pole. We have to check for that.
+  * CORRECTION: don't use ABS values in correlations, we invert scores to check constructs to find correlations the other way.
+  * NEW: create a vector of inverted scores for the 'self' element.
+  * CHANGE: set defaults to RECORD 5.0 defaults.
+  * NEW: reordered dilemma output.
+  * New: invert construct label poles if needed.
+  * New: Put all discrepant constructs to the right.
+
+
 OpenRepGrid 0.1.9.9001 (opened 2014-09-06) ----------------------------------------
 
 
