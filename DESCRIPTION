@@ -1,6 +1,6 @@
 Package: OpenRepGrid
 License: GPL (>= 2)
-Title: Tools to analyse repertory grid data
+Title: Tools to Analyse Repertory Grid Data
 LazyData: yes
 Type: Package
 LazyLoad: yes
