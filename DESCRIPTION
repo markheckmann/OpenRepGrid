@@ -13,7 +13,7 @@ Encoding: UTF-8
 URL: http://openrepgrid.org,
         https://github.com/markheckmann/OpenRepGrid
 Imports: methods, graphics, grid, utils, stats, grDevices,  
-         colorspace, plyr, stringr, abind, rgl,
+         plyr, stringr, abind, rgl, colorspace,
          GPArotation, psych, XML, tcltk, pvclust
 Suggests: xlsx
 Collate: 'bertin.r' 'calc.r' 'data-openrepgrid.r' 'dev-functions.r'
