@@ -7,8 +7,8 @@ LazyLoad: yes
 Authors@R: person("Mark", "Heckmann", email = "heckmann@uni-bremen.de",
     role = c("aut", "cre"))
 Description: Tools to analyse repertory grid data
-Version: 0.2.9002
-Date: 2016-09-16
+Version: 0.1.10
+Date: 2017-02-24
 URL: http://openrepgrid.org,
         https://github.com/markheckmann/OpenRepGrid
 Imports: methods, grid, colorspace, plyr, stringr, abind, rgl,
@@ -21,7 +21,7 @@ Collate: 'bertin.r' 'calc.r' 'data-openrepgrid.r' 'dev-functions.r'
         'repgrid-elements.r' 'repgrid-output.r' 'repgrid-plots.r'
         'repgrid-ratings.r' 'rgl-3d.r' 'settings.r' 'utils-import.r'
         'utils.r' 'zzz.r'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
 Packaged: 2016-12-11 18:38:22 UTC; Jan
 Author: Mark Heckmann [aut, cre]
