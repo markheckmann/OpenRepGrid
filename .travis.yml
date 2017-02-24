@@ -4,3 +4,9 @@ language: R
 sudo: false
 cache: packages
 
+addons:
+  apt:
+    packages:
+    - tcl8.5-dev
+    - tk8.5-dev
+
