@@ -916,8 +916,6 @@ importGridsuite <- function(file, dir=NULL){
 #' @keywords internal
 #' @author  Mark Heckmann
 #'
-#' @references    \url{http://www.elementsandconstructs.de/}
-#'
 #' @examples \dontrun{
 #' 
 #' # supposing that the data file scivesco.scires is in the current directory
@@ -1140,9 +1138,7 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #' @export
 #' @author        Mark Heckmann
 #' 
-#' @references    \url{http://www.elementsandconstructs.de/}
-#'
-#'                Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
+#' @references    Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
 #'                rationale Konstrukte verstehen. \emph{Personalfuehrung, 4}(7), 91-99.
 #'
 #' @seealso       \code{\link{importGridcor}},

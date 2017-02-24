@@ -60,9 +60,6 @@ imp <- importScivescoInternal("http://www.openrepgrid.uni-bremen.de/data/scivesc
 
 
 }
-\references{
-\url{http://www.elementsandconstructs.de/}
-}
 \author{
 Mark Heckmann
 }

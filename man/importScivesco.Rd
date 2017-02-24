@@ -66,9 +66,7 @@ rg <- importScivesco("http://www.openrepgrid.uni-bremen.de/data/scivesco.scires"
 
 }
 \references{
-\url{http://www.elementsandconstructs.de/}
-
-               Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
+Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
                rationale Konstrukte verstehen. \emph{Personalfuehrung, 4}(7), 91-99.
 }
 \seealso{
