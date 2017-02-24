@@ -1550,7 +1550,7 @@ indexDilemmaOut2 <- function(res, exclude){
 #' @param digits          Numeric. Number of digits to round to (default is 
 #'                        \code{2}).
 #'
-#' @author                Mark Heckmann
+#' @author                Mark Heckmann, Alejandro García
 #' @export
 #' @return                Called for console output. Invisbly returns a list containing
 #'                        the result dataframes and all results from the calculations.
