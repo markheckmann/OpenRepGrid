@@ -6,9 +6,10 @@ Type: Package
 LazyLoad: yes
 Authors@R: person("Mark", "Heckmann", email = "heckmann@uni-bremen.de",
     role = c("aut", "cre"))
-Description: Tools to analyse repertory grid data
+Description: The package contains a set of functions to analyze repertory grid data.
 Version: 0.1.10
 Date: 2017-02-24
+Encoding: UTF-8
 URL: http://openrepgrid.org,
         https://github.com/markheckmann/OpenRepGrid
 Imports: methods, grid, colorspace, plyr, stringr, abind, rgl,
