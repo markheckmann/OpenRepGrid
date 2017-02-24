@@ -47,10 +47,9 @@ Add a new construct to an existing grid object.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{addElement}}
 }
-
+\author{
+Mark Heckmann
+}

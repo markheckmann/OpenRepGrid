@@ -27,4 +27,3 @@ Get midpoint of the grid rating scale
 Mark Heckmann
 }
 \keyword{internal}
-

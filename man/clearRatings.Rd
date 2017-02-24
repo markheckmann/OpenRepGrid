@@ -31,4 +31,3 @@ set certain ratings in grid to NA (unknown)
 Mark Heckmann
 }
 \keyword{internal}
-

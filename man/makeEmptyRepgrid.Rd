@@ -16,4 +16,3 @@ Constructor for repgrid class
 Mark Heckmann
 }
 \keyword{internal}
-

@@ -27,16 +27,6 @@ To get started with \pkg{OpenRepGrid} visit the project's home under \url{www.op
            numerous contributors. It may contain bugs and errors.
            There is no warranty whatsoever for the program.
 }
-\author{
-Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann. 
-           Everyone who is interested in developing the package is invited to join.
-
-           The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
-           The github site provides information and allows to file bug reports or feature requests.
-           Bug reports can also be emailed to the package maintainer or issued on 
-           \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-           The package maintainer is Mark Heckmann  <heckmann(at)uni-bremen.de>.
-}
 \references{
 Fransella, F., Bell, R. C., & Bannister, D. (2003). \emph{A Manual for Repertory 
                  Grid Technique (2. Ed.)}. Chichester: John Wiley & Sons.
@@ -44,6 +34,16 @@ Fransella, F., Bell, R. C., & Bannister, D. (2003). \emph{A Manual for Repertory
              Kelly, G. A. (1955). \emph{The psychology of personal constructs. Vol. I, II.} 
                  New York: Norton, (2nd printing: 1991, Routledge, London, New York).
 }
+\author{
+\pkg{OpenRepGrid} was initiated by Mark Heckmann. 
+           Current contributors are: Mark Heckmann, Alejandro García.
+           Researchers interested in developing the package are invited to join.
+
+           The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
+           The github site provides information and allows to file bug reports or feature requests.
+           Bug reports can also be emailed to the package maintainer or issued on 
+           \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
+           The package maintainer is Mark Heckmann  <heckmann(at)uni-bremen.de>.
+}
 \keyword{package}
 \keyword{repgrid}
-

@@ -24,4 +24,3 @@ the output (default is \code{TRUE}).}
 Print method for class alignByLoadings.
 }
 \keyword{internal}
-

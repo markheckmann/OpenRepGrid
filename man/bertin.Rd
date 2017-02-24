@@ -107,4 +107,3 @@ Bertin, J. (1974). \emph{Graphische Semiologie: Diagramme, Netze,
                  Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen 
                  Psychologie} (pp. 209-254). Opladen: Westdeutscher Verlag.
 }
-

@@ -43,9 +43,6 @@ Bell & Bannister, 2003, p. 86).
    r[2, 1]
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Fransella, F., Bell, R. C., & Bannister, D. (2003). 
                A Manual for Repertory 
@@ -54,4 +51,6 @@ Fransella, F., Bell, R. C., & Bannister, D. (2003).
 \seealso{
 \code{\link{elementRmsCor}}, \code{\link{constructCor}}
 }
-
+\author{
+Mark Heckmann
+}

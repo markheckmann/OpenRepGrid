@@ -23,4 +23,3 @@ triads.}
 Print method for class indexConflict2
 }
 \keyword{internal}
-

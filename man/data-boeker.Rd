@@ -2,8 +2,8 @@
 % Please edit documentation in R/data-openrepgrid.r
 \docType{data}
 \name{data-boeker}
-\alias{boeker}
 \alias{data-boeker}
+\alias{boeker}
 \title{Grid data from Boeker (1996).}
 \description{
 Grid data from a schizophrenic patient undergoing psychoanalytically 
@@ -19,4 +19,3 @@ Boeker, H. (1996). The reconstruction of the self in
                Giessen: Psychosozial-Verlag.
 }
 \keyword{data}
-

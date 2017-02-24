@@ -81,6 +81,7 @@ Where \eqn{D_{slater}}{D_slater} denotes the Slater distances of the grid,
 \eqn{M_c}{M_c} the sample distribution's mean value and 
 \eqn{sd_c}{sd_c} the sample distributions's standard deviation.
 }
+
 \examples{
 \dontrun{
 
@@ -110,9 +111,6 @@ Where \eqn{D_{slater}}{D_slater} denotes the Slater distances of the grid,
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Hartmann, A. (1992). Element comparisons in repertory 
                    grid technique: Results and consequences of a Monte 
@@ -122,4 +120,6 @@ Hartmann, A. (1992). Element comparisons in repertory
 \seealso{
 \code{\link{distanceSlater}}
 }
-
+\author{
+Mark Heckmann
+}

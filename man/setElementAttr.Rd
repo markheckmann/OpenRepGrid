@@ -36,10 +36,9 @@ Currently the main purpose is to change element names.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{setConstructAttr}}
 }
-
+\author{
+Mark Heckmann
+}

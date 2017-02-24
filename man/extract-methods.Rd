@@ -31,4 +31,3 @@ Methods for \code{"["}, i.e., subsetting of repgrid objects.
 \author{
 Mark heckmann
 }
-

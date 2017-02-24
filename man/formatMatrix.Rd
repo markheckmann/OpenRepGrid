@@ -31,4 +31,3 @@ Format a matrix and add index column.
 Mark Heckmann
 }
 \keyword{internal}
-

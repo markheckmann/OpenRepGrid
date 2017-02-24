@@ -94,4 +94,3 @@ TODO: if g or h is not equal to 1 the SSQ does not measure
 Mark Heckmann
 }
 \keyword{internal}
-

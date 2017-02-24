@@ -70,4 +70,3 @@ imp <- importExcelInternal("/Users/markheckmann/data/grid.xlsx")
 Mark Heckmann
 }
 \keyword{internal}
-

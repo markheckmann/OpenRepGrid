@@ -2,8 +2,8 @@
 % Please edit documentation in R/data-openrepgrid.r
 \docType{data}
 \name{data-bell2010}
-\alias{bell2010}
 \alias{data-bell2010}
+\alias{bell2010}
 \title{Grid data from Bell (2010).}
 \description{
 Grid data orginated (but is not shown in the paper) from a study by Haritos, 
@@ -20,4 +20,3 @@ Bell, R. C. (2010).	A note on aligning constructs.
                psychology, 17}(3), 221-236.
 }
 \keyword{data}
-

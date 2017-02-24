@@ -18,4 +18,3 @@
 Print method for class rmsCor (RMS correlation for constructs or elements)
 }
 \keyword{internal}
-

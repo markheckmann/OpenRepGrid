@@ -40,4 +40,3 @@ quantiles are calculated.  These are contained as attributes in the
 highest values are used as cutoffs in \code{print.distance}.
 }
 \keyword{internal}
-

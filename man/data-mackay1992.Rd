@@ -16,4 +16,3 @@ Mackay, N. (1992). Identification, reflection,
              Construct Psychology, 5}(1), 57-75.
 }
 \keyword{data}
-

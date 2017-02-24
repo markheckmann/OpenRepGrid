@@ -16,4 +16,3 @@ Get construct names
 Mark Heckmann
 }
 \keyword{internal}
-

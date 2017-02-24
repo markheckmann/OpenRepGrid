@@ -25,11 +25,10 @@ two containing the number of constructs and elements.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{getNoOfConstructs}};   \code{\link{getNoOfElements}}
 }
+\author{
+Mark Heckmann
+}
 \keyword{internal}
-

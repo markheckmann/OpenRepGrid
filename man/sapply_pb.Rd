@@ -33,11 +33,10 @@ it does is create an additional progress bar.
 
 }
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{sapply}}
 }
+\author{
+Mark Heckmann
+}
 \keyword{internal}
-

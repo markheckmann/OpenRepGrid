@@ -58,4 +58,3 @@ Adds the percentage of the sum-of-squares explained by each axis to the plot.
 Mark Heckmann
 }
 \keyword{internal}
-

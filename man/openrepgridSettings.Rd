@@ -15,4 +15,3 @@ subset method for openrepgridSettings class
 Print method for openrepgridSettings class
 }
 \keyword{internal}
-

@@ -54,9 +54,6 @@ rg <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml")
 
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 \url{http://www.gridsuite.de/}
 
@@ -73,4 +70,6 @@ Mark Heckmann
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-
+\author{
+Mark Heckmann
+}

@@ -20,4 +20,3 @@ Draw standard ellipses in the origin in an rgl plot.
 Mark Heckmann
 }
 \keyword{internal}
-

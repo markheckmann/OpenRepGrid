@@ -41,11 +41,10 @@ imp <- importGridcorInternal("http://www.openrepgrid.uni-bremen.de/data/gridcor.
 
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 \url{http://www.terapiacognitiva.net/record/gridcor.htm}
 }
+\author{
+Mark Heckmann
+}
 \keyword{internal}
-

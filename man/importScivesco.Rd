@@ -65,9 +65,6 @@ rg <- importScivesco("http://www.openrepgrid.uni-bremen.de/data/scivesco.scires"
 
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 \url{http://www.elementsandconstructs.de/}
 
@@ -82,4 +79,6 @@ Mark Heckmann
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-
+\author{
+Mark Heckmann
+}

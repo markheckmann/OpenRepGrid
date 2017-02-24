@@ -26,4 +26,3 @@ detailed element and construct stats (default \code{TRUE}).}
 print method for class indexConflict3
 }
 \keyword{internal}
-

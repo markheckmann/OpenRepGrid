@@ -26,9 +26,6 @@ grading scale" (Slater, 1977, p.88).
 \note{
 STATUS:    Working and checked against example in Slater, 1977, p. 87.
 }
-\author{
-Mark Heckmann
-}
 \references{
 Slater, P. (1977). \emph{The measurement of intrapersonal space 
                  by Grid technique}. London: Wiley.
@@ -36,4 +33,6 @@ Slater, P. (1977). \emph{The measurement of intrapersonal space
 \seealso{
 \code{\link{indexVariability}}
 }
-
+\author{
+Mark Heckmann
+}

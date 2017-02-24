@@ -57,9 +57,6 @@ A, B, and C is balanced and imbalanced.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). 
                A new approach to the identification of cognitive conflicts 
@@ -84,4 +81,6 @@ Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992).
 \code{\link{indexConflict2}} for an improved version of this measure;
          see \code{\link{indexConflict3}} for a measure based on distances.
 }
-
+\author{
+Mark Heckmann
+}

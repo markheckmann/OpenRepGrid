@@ -14,4 +14,3 @@ Function uses a matrix as input. All overhead
 of \code{repgrid} class is avoided. Needed for speedy simulations.
 }
 \keyword{internal}
-

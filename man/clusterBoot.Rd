@@ -98,9 +98,6 @@ This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using 
 the Bootstrap. \emph{Evolution, 39}(4), 783. doi:10.2307/2408678
@@ -127,4 +124,6 @@ Zharkikh, A., & Li, W.-H. (1995). Estimation of confidence in phylogeny: the
 complete-and-partial bootstrap technique. \emph{Molecular Phylogenetic Evolution,
 4}(1), 44-63.
 }
-
+\author{
+Mark Heckmann
+}

@@ -28,6 +28,7 @@ of te constructs submitted to \code{\link{svd}}.
  
 TODO: Results have not yet been checked against other grid programs.
 }
+
 \examples{
 
    indexPvaff(bell2010)
@@ -38,9 +39,6 @@ TODO: Results have not yet been checked against other grid programs.
    p
 
 
-}
-\author{
-Mark Heckmann
 }
 \references{
 Bell, R. C. (2003). An evaluation of indices used to 
@@ -58,4 +56,6 @@ Bell, R. C. (2003). An evaluation of indices used to
                  constructs} (Unpublished doctoral thesis). Ohio State 
                  University, Columbus, OH.
 }
-
+\author{
+Mark Heckmann
+}

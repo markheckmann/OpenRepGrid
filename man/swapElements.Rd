@@ -30,4 +30,3 @@ Swap the position of two elements in a grid.
 \author{
 Mark Heckmann
 }
-

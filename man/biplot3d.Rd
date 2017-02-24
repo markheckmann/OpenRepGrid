@@ -108,9 +108,6 @@ of elements under investigation (e.g. Raeithel, 1998).
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Raeithel, A. (1998). Kooperative Modellproduktion von 
                  Professionellen und Klienten - erlauetert am Beispiel des 
@@ -135,4 +132,6 @@ Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
            Function to set view in 3D:
            \code{\link{home}}.
 }
-
+\author{
+Mark Heckmann
+}

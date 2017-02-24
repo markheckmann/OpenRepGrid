@@ -57,12 +57,11 @@ Thanks to Marc Schwartz for supplying the code to calculate
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Somers, R. H. (1962). A New Asymmetric Measure of Association
                    for Ordinal Variables. \emph{American Sociological Review, 27}(6),
                    799-811.
 }
-
+\author{
+Mark Heckmann
+}

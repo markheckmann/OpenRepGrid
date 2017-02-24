@@ -18,4 +18,3 @@ Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen
          Westdeutscher Verlag.
 }
 \keyword{data}
-

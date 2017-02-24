@@ -39,4 +39,3 @@ a grid he should make sure that the scale range is set correctly.
 \author{
 Mark Heckmann
 }
-

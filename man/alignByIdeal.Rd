@@ -51,9 +51,6 @@ the construct direction remains unchanged (a warning is issued in that case).
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Bell, R. C. (2010). A note on aligning constructs.
                \emph{Personal Construct Theory & Practice, 7}, 42-48.
@@ -70,4 +67,6 @@ Bell, R. C. (2010). A note on aligning constructs.
 \seealso{
 \code{\link{alignByLoadings}}
 }
-
+\author{
+Mark Heckmann
+}

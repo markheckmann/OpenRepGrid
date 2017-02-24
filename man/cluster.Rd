@@ -85,9 +85,6 @@ This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
 Repertory Grids in Human Resource Development. \emph{Personnel Review,
@@ -96,4 +93,6 @@ Repertory Grids in Human Resource Development. \emph{Personnel Review,
 \seealso{
 \code{\link{bertinCluster}}
 }
-
+\author{
+Mark Heckmann
+}

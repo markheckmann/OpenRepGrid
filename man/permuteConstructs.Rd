@@ -31,4 +31,3 @@ Generate a list with all possible construct reflections of a grid.
 \author{
 Mark Heckmann
 }
-

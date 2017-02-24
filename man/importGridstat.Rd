@@ -78,9 +78,6 @@ rg <- importGridstat(file, dir, min=1, max=6)
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
                repertory grid. Melbourne: Author.
@@ -93,4 +90,6 @@ Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-
+\author{
+Mark Heckmann
+}
