@@ -11,8 +11,8 @@
 # TODO: ?keep single entry as row selection. Normally its column selection e.g. 
 # in data frames.
 
-# @aliases [,repgrid-method
-# @docType methods
+# aliases [,repgrid-method
+# docType methods
 
 #' Extract parts of the repgrid object.
 #'
@@ -24,6 +24,7 @@
 #' @param drop  Not used.
 #' @author Mark heckmann
 #' @rdname extract-methods
+#' @aliases [,repgrid-method
 #' @include repgrid.r
 #' @examples 
 #' 
@@ -68,8 +69,8 @@ setMethod("[", signature(x = "repgrid", i = "ANY", j="ANY"),
 		x
 })
 
-# @aliases [<-,repgrid-method 
-# @docType methods
+# aliases [<-,repgrid-method 
+# docType methods
 
 # overloading primitive generic "[<-" setter. 
 #
