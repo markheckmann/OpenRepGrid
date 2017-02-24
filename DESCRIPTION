@@ -12,8 +12,9 @@ Date: 2017-02-24
 Encoding: UTF-8
 URL: http://openrepgrid.org,
         https://github.com/markheckmann/OpenRepGrid
-Imports: methods, grid, colorspace, plyr, stringr, abind, rgl,
-        GPArotation, psych, XML, tcltk, pvclust
+Imports: methods, graphics, grid, utils, stats, grDevices,  
+         colorspace, plyr, stringr, abind, rgl,
+         GPArotation, psych, XML, tcltk, pvclust
 Suggests: xlsx
 Collate: 'bertin.r' 'calc.r' 'data-openrepgrid.r' 'dev-functions.r'
         'distance.R' 'double-entry.R' 'export.r' 'gmMain.r' 'import.r'

@@ -41,7 +41,7 @@
 #' @keywords package repgrid
 #' @name OpenRepGrid
 #' @docType package
-#' @import methods grid colorspace plyr stringr abind rgl GPArotation psych XML tcltk pvclust
+#' @import methods graphics grid utils stats grDevices colorspace plyr stringr abind rgl GPArotation psych XML tcltk pvclust
 NULL
 
 
