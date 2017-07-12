@@ -45,3 +45,4 @@ Currently the vector is supposed to start in the origin \code{c(0,0)}.
 Mark Heckmann
 }
 \keyword{internal}
+

@@ -54,6 +54,9 @@ Cohen's rc measure (1969), which can be calculated using the argument
    r[2, "RMS"]
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Fransella, F., Bell, R. C., & Bannister, D. (2003). 
                A Manual for Repertory 
@@ -62,6 +65,4 @@ Fransella, F., Bell, R. C., & Bannister, D. (2003).
 \seealso{
 \code{\link{constructRmsCor}}, \code{\link{elementCor}}
 }
-\author{
-Mark Heckmann
-}
+

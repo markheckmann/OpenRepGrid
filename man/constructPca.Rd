@@ -60,6 +60,9 @@ has to be specified. For more information on the PCA function itself type
 }
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A Manual for Repertory 
                    Grid Technique} (2. Ed.). Chichester: John Wiley & Sons.
@@ -68,6 +71,4 @@ Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A Manual for Repertory
 To extract the PCA loadings for further processing see
                    \code{\link{constructPcaLoadings}}.
 }
-\author{
-Mark Heckmann
-}
+

@@ -38,3 +38,4 @@ recycle(letters[1:3],  letters[1:7])
 recycle(letters[1:40],  letters[1:7])		# vec is cut off
 }
 \keyword{internal}
+

@@ -77,7 +77,6 @@ TODO:    standardization and z-test for discrepancies;
 \section{output}{
  For further control over the output see \code{\link{print.indexConflict3}}.
 }
-
 \examples{
 \dontrun{
 
@@ -103,6 +102,9 @@ TODO:    standardization and z-test for discrepancies;
 
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Bell, R. C. (2004). A new approach to measuring inconsistency 
                or conflict in grids. Personal Construct Theory & Practice, 
@@ -112,6 +114,4 @@ Bell, R. C. (2004). A new approach to measuring inconsistency
 See \code{\link{indexConflict1}} and \code{\link{indexConflict2}} 
                for conflict measures based on triads of correlations.
 }
-\author{
-Mark Heckmann
-}
+

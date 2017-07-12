@@ -27,3 +27,4 @@ the output (default is \code{TRUE}).}
 Print method for class elementCor.
 }
 \keyword{internal}
+

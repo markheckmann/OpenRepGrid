@@ -18,3 +18,4 @@
 Print function for class indexConflict1
 }
 \keyword{internal}
+

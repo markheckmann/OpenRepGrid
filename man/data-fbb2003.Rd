@@ -14,3 +14,4 @@ Fransella, F., Bell, R. & Bannister, D. (2003). A Manual for Repertory
              Grid Technique (2. Ed.). Chichester: John Wiley & Sons.
 }
 \keyword{data}
+

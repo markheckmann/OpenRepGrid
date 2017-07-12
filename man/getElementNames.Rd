@@ -22,3 +22,4 @@ structures (S3, S4).
 Mark Heckmann
 }
 \keyword{internal}
+

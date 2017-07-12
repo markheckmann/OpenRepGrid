@@ -57,6 +57,9 @@ Cohen's rc measure (1969), which can be calculated using the argument
    r[1,3]
    
 }
+\author{
+Mark Heckmann
+}
 \references{
 Bell, R. C. (2010). A note on aligning constructs. 
                  \emph{Personal Construct Theory & Practice}, (7), 42-48.
@@ -73,6 +76,4 @@ Bell, R. C. (2010). A note on aligning constructs.
 \seealso{
 \code{\link{constructCor}}
 }
-\author{
-Mark Heckmann
-}
+

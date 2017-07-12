@@ -26,6 +26,9 @@ towards both end of the gradings scale. (Slater, 1977, p.88).
 \note{
 STATUS: working and checked against example in Slater, 1977 , p.88.
 }
+\author{
+Mark Heckmann
+}
 \references{
 Slater, P. (1977). \emph{The measurement of intrapersonal space 
                by Grid technique}. London: Wiley.
@@ -33,6 +36,4 @@ Slater, P. (1977). \emph{The measurement of intrapersonal space
 \seealso{
 \code{\link{indexBias}}
 }
-\author{
-Mark Heckmann
-}
+

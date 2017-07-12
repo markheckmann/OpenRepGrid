@@ -73,7 +73,6 @@ z-transformed to derive a common scaling.
 The code for the calculation of the optimal lambda was written by Ioannis 
 Kosmidis.
 }
-
 \examples{
 \dontrun{
 
@@ -102,6 +101,9 @@ Kosmidis.
 }
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Box, G. E. P., & Cox, D. R. (1964). An Analysis of Transformations. 
                    \emph{Journal of the Royal Statistical Society. 
@@ -123,6 +125,4 @@ Box, G. E. P., & Cox, D. R. (1964). An Analysis of Transformations.
 \seealso{
 \code{\link{distanceHartmann}} and \code{\link{distanceSlater}}.
 }
-\author{
-Mark Heckmann
-}
+

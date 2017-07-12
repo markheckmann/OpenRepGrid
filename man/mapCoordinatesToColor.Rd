@@ -27,3 +27,4 @@ the mapped values are transformed into hex color values.
 Mark Heckmann
 }
 \keyword{internal}
+

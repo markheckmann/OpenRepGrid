@@ -57,7 +57,6 @@ Description of the balance / imbalance assessment:
        { a x Z_max x Z_mdn =< crit/a + Z_min}. This shows that a bigger value of \code{a}
        will make it more improbabale that the relation will hold.
 }
-
 \examples{
 \dontrun{
 
@@ -78,6 +77,9 @@ Description of the balance / imbalance assessment:
 }
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). 
                A new approach to the identification of cognitive conflicts 
@@ -93,6 +95,4 @@ See \code{\link{indexConflict1}} for the older version
                of this measure; see \code{\link{indexConflict3}} 
                for a measure based on distances instead of correlations.
 }
-\author{
-Mark Heckmann
-}
+

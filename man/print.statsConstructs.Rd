@@ -18,3 +18,4 @@
 Print method for class statsConstructs
 }
 \keyword{internal}
+

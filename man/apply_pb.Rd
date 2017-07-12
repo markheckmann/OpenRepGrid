@@ -39,10 +39,11 @@ it does is create an additional progress bar.
 }
 
 }
-\seealso{
-\code{\link{apply}}
-}
 \author{
 Mark Heckmann
 }
+\seealso{
+\code{\link{apply}}
+}
 \keyword{internal}
+

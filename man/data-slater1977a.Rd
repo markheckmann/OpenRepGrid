@@ -13,3 +13,4 @@ Slater, P. (1977). \emph{The measurement of intrapersonal space
              by grid technique}. London: Wiley.
 }
 \keyword{data}
+

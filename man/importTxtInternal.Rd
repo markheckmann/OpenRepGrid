@@ -97,3 +97,4 @@ imp <- importTxtInternal("http://www.openrepgrid.uni-bremen.de/data/sample.txt")
 Mark Heckmann
 }
 \keyword{internal}
+

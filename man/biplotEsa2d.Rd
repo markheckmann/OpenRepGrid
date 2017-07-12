@@ -41,6 +41,9 @@ To see all the parameters that can be changed see \code{\link{biplot2d}}.
 }
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen 
                und Klienten. Erlaeutert am Beispiel des Repertory Grid.
@@ -66,6 +69,4 @@ Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
            Function to set view in 3D:
            \code{\link{home}}.
 }
-\author{
-Mark Heckmann
-}
+

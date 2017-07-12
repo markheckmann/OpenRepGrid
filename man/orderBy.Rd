@@ -18,3 +18,4 @@ vector
 small wrapper to order one vector by another, hardly worth a function
 }
 \keyword{internal}
+

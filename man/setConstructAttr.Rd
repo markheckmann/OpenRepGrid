@@ -39,9 +39,10 @@ Set the attributes of a construct i.e. name, abbreviation, status etc.
 }
 
 }
-\seealso{
-\code{\link{setElementAttr}}
-}
 \author{
 Mark Heckmann
 }
+\seealso{
+\code{\link{setElementAttr}}
+}
+

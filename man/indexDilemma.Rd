@@ -191,6 +191,9 @@ indicator for implication.
  }
 
 }
+\author{
+Mark Heckmann, Alejandro García
+}
 \references{
 Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing
                        the Data of A Repertory Grid} (manual). University of Melbourne,
@@ -213,6 +216,4 @@ Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing
                        disorder and therapeutic change. \emph{British Journal of Medical 
                        Psychology, 55} (Pt 3), 257-269.
 }
-\author{
-Mark Heckmann, Alejandro García
-}
+

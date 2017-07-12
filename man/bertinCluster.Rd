@@ -141,9 +141,10 @@ distance measures as well as cluster methods are supported.
 }
 
 }
-\seealso{
-\code{\link{cluster}}
-}
 \author{
 Mark Heckmann
 }
+\seealso{
+\code{\link{cluster}}
+}
+

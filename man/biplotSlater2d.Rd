@@ -40,6 +40,9 @@ To see all the parameters that can be changed see \code{\link{biplot2d}}.
 }
 
 }
+\author{
+Mark Heckmann
+}
 \seealso{
 Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
            2D biplots:
@@ -57,6 +60,4 @@ Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
            Function to set view in 3D:
            \code{\link{home}}.
 }
-\author{
-Mark Heckmann
-}
+

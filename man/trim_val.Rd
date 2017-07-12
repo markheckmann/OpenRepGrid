@@ -28,3 +28,4 @@ trim_val(30, c(10,20))
 
 }
 \keyword{internal}
+

@@ -119,3 +119,4 @@ TODO:  How to omit \code{map.dim}?
 Mark Heckmann
 }
 \keyword{internal}
+

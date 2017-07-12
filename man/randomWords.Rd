@@ -20,3 +20,4 @@ set of words
 randomWords(10)  # 10 random words
 }
 \keyword{internal}
+

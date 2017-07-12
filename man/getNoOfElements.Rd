@@ -26,3 +26,4 @@ Get number of elements
 Mark Heckmann
 }
 \keyword{internal}
+

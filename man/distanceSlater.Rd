@@ -57,7 +57,6 @@ The standardized Slater distances is the matrix of Euclidean distances
 \eqn{E}{E} devided by the expected distance \eqn{U}{U}. 
 \deqn{E/U}{E/U}
 }
-
 \examples{
 
    distanceSlater(bell2010)
@@ -70,6 +69,9 @@ The standardized Slater distances is the matrix of Euclidean distances
    # using Norris and Makhlouf-Norris (problematic) cutoffs
    print(d, cutoffs=c(.8, 1.2))
 
+}
+\author{
+Mark Heckmann
 }
 \references{
 Hartmann, A. (1992). Element comparisons in repertory 
@@ -89,6 +91,4 @@ Hartmann, A. (1992). Element comparisons in repertory
 \seealso{
 \code{\link{distanceHartmann}}
 }
-\author{
-Mark Heckmann
-}
+

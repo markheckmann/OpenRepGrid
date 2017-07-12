@@ -52,6 +52,9 @@ rg <- importGridcor("http://www.openrepgrid.uni-bremen.de/data/gridcor.dat")
 
 
 }
+\author{
+Mark Heckmann
+}
 \references{
 Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
                for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
@@ -65,6 +68,4 @@ Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}
+

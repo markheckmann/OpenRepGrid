@@ -41,12 +41,13 @@ assess the distributions standard deviation.
 }
 
 }
+\author{
+Mark Heckmann
+}
 \seealso{
 \code{\link{randomGrids}};  
          \code{\link{distanceSlater}}; 
          \code{\link{distanceHartmann}}.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}
+

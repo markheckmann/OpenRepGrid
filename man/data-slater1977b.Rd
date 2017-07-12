@@ -19,3 +19,4 @@ Slater, P. (1977). \emph{The measurement of intrapersonal space
              18}(1), 67-73.
 }
 \keyword{data}
+

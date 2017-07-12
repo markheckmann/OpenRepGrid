@@ -17,3 +17,4 @@ Convert the returned object from an import function into a \code{repgrid}
 object. Works for all importXInternal functions (except scivesco).
 }
 \keyword{internal}
+

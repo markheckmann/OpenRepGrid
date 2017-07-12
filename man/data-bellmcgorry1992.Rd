@@ -2,8 +2,8 @@
 % Please edit documentation in R/data-openrepgrid.r
 \docType{data}
 \name{data-bellmcgorry1992}
-\alias{data-bellmcgorry1992}
 \alias{bellmcgorry1992}
+\alias{data-bellmcgorry1992}
 \title{Grid data from Bell and McGorry (1992).}
 \description{
 The grid data set is used in Bell's technical report "Using SPSS to Analyse
@@ -22,3 +22,4 @@ Bell, R. C. (1977). \emph{Using SPSS to
                Lincoln, UK: European Personal Construct Association.
 }
 \keyword{data}
+

@@ -36,3 +36,4 @@ Calculate coordinates for biplot.
 Mark Heckmann
 }
 \keyword{internal}
+

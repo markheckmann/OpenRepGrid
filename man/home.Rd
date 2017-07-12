@@ -35,12 +35,13 @@ poiting out of the screen.
 }
 
 }
+\author{
+Mark Heckmann
+}
 \seealso{
 Interactive 3D biplots:
            \code{\link{biplot3d}},      
            \code{\link{biplotSlater3d}},
            \code{\link{biplotEsa3d}}.
 }
-\author{
-Mark Heckmann
-}
+
