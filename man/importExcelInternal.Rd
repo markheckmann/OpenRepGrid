@@ -2,15 +2,14 @@
 % Please edit documentation in R/import.r
 \name{importExcelInternal}
 \alias{importExcelInternal}
-\title{ImportExcelInternal is the parser for importExcel.}
+\title{workhiorse function (parser) for importExcel.}
 \usage{
 importExcelInternal(file, dir = NULL, sheetIndex = 1, min = NULL,
   max = NULL)
 }
 \arguments{
-\item{file}{Filename including path if file is not in current working 
-directory. File can also be a complete URL. The fileformat
-is \code{.xlsx} or \code{.xls}.}
+\item{file}{A vector of filenames including the full path if file is not in current working 
+directory. The file suffix has to be \code{.xlsx} (used since Excel 2007).}
 
 \item{dir}{Alternative way to supply the directory where the file is located 
 (default \code{NULL}).}
@@ -23,50 +22,11 @@ for minimum rating value in grid.}
 \item{max}{Optional argument (\code{numeric}, default \code{NULL})
 for maximum rating value in grid.}
 }
-\value{
-List of relevant data.
-}
 \description{
-ImportExcelInternal is the parser for importExcel that constructs an import 
-object. The \code{.xlsx} or \code{.xls} file has to be in specified fixed 
-format. The first row contains the minimum of the rating scale, the names of 
-the elements and the maximum of the rating scale. Below every row contains
-the left construct pole, the ratings and the right construct pole.
-}
-\details{
-\tabular{lllll}{
-\code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-\code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-\code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-}
-
-Note that the maximum and minimum value has to be defined using the
-\code{min} and \code{max} arguments if no values are supplied at the
-beginning and end of the first row. Otherwise the scaling range is inferred
-from the available data and a warning is issued as the range may be
-erroneous. This may effect other functions that depend on knowing the correct
-range and it is thus strongly recommended to set the scale range correctly.
-
-A sample Excel file can be found here: 
-\url{http://www.openrepgrid.uni-bremen.de/data/grid.xlsx}.
-}
-\examples{
-\dontrun{
-
-# supposing that the data file sample.txt is in the current directory
-file <- "grid.xlsx"
-imp <- importExcelInternal(file)
-
-# specifying a directory (arbitrary example directory)
-dir <- "/Users/markheckmann/data"
-imp <- importExcelInternal(file, dir)
-
-# using a full path
-imp <- importExcelInternal("/Users/markheckmann/data/grid.xlsx")
-}
-
+workhiorse function (parser) for importExcel.
 }
 \author{
 Mark Heckmann
 }
 \keyword{internal}
+

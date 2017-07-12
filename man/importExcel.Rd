@@ -8,9 +8,7 @@ importExcel(file, dir = NULL, sheetIndex = 1, min = NULL, max = NULL)
 }
 \arguments{
 \item{file}{A vector of filenames including the full path if file is not in current working 
-directory. The file suffix has to be \code{.xlsx} or \code{.xls}. 
-If no file is supplied a selection pop up menu is opened to select
-the files.}
+directory. The file suffix has to be \code{.xlsx} (used since Excel 2007).}
 
 \item{dir}{Alternative way to supply the directory where the file is located 
 (default \code{NULL}).}
@@ -28,18 +26,21 @@ A single \code{repgrid} object in case one file and
                a list of \code{repgrid} objects in case multiple files are imported.
 }
 \description{
-If you do not have a grid program at hand you can define a grid using
-Microsoft Excel and by saving it as a \code{.xlsx} or \code{.xls} file.
-The \code{.xlsx} or \code{.xls} file has to be in specified fixed 
-format. The first row contains the minimum of the rating scale, the names of 
-the elements and the maximum of the rating scale. Below every row contains
-the left construct pole, the ratings and the right construct pole.
+You can define a grid using Microsoft Excel and by saving it as a
+\code{.xlsx} file. The \code{.xlsx} file has to be in a specified fixed 
+format (see section Details).
 }
 \details{
-\tabular{lllll}{
-\code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-\code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-\code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
+Excel file structure: The first row contains the minimum of the rating scale,
+the names of the elements and the maximum of the rating scale. Below every
+row contains the left construct pole, the ratings and the right construct
+pole.
+
+\tabular{lccccr}{
+\code{1}           \tab \code{E1}  \tab \code{E2} \tab \code{E3} \tab \code{E4}  \tab \code{5}        \cr
+\code{left pole 1} \tab \code{1}   \tab \code{5}  \tab \code{3}  \tab \code{4}   \tab \code{right pole 1} \cr
+\code{left pole 2} \tab \code{3}   \tab \code{1}  \tab \code{1}  \tab \code{3}   \tab \code{right pole 2} \cr
+\code{left pole 3} \tab \code{4}   \tab \code{2}  \tab \code{5}  \tab \code{1}   \tab \code{right pole 3} \cr
 }
 
 Note that the maximum and minimum value has to be defined using the
@@ -48,32 +49,27 @@ beginning and end of the first row. Otherwise the scaling range is inferred
 from the available data and a warning is issued as the range may be
 erroneous. This may effect other functions that depend on knowing the correct
 range and it is thus strongly recommended to set the scale range correctly.
-
-A sample Excel file can be found here: 
-\url{http://www.openrepgrid.uni-bremen.de/data/grid.xlsx}.
 }
 \examples{
 \dontrun{
 
-# using the pop-up selection menu
-rg <- importExcel()   
-
-# supposing that the data file sample.txt is in the current directory
-file <- "grid.xlsx"
+# Open Excel file delivered along with the package
+file <- system.file("extdata", "excel_grid_001.xlsx", package = "OpenRepGrid")
 rg <- importExcel(file)
 
-# specifying a directory (arbitrary example directory)
-dir <- "/Users/markheckmann/data"
-rg <- importExcel(file, dir)
+# To see the structure of the Excel file try to open it as follows.
+# Requires Excel to be installed.
+system2("open", file)
 
-# using a full path
-rg <- importExcel("/Users/markheckmann/data/grid.xlsx")
-
-# import more than one Excel file via R code
-files <- c("grid_1.xlsx", "grid_2.xlsx")
+# Import more than one Excel file
+files <- system.file("extdata", c("excel_grid_001.xlsx", "excel_grid_002.xlsx") , package = "OpenRepGrid")
 rg <- importExcel(files)
+
 }
 
+}
+\author{
+Mark Heckmann
 }
 \seealso{
 \code{\link{importGridcor}},
@@ -82,6 +78,4 @@ rg <- importExcel(files)
                \code{\link{importGridsuite}},
                \code{\link{importTxt}}
 }
-\author{
-Mark Heckmann
-}
+

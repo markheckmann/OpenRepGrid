@@ -1,3 +1,8 @@
+
+# OpenRepGrid 0.1.11 (not yet released) 
+
+  * replace xlsx by openxlsx to import Excel files to get rid of JRE dependency
+  
 # OpenRepGrid 0.1.10 (released February 24, 2017) 
 
   * indexDilemma: improved implicative dilemmas (thanks to Alejandro García, (#24, @j4n7)

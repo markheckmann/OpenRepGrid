@@ -1483,59 +1483,12 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
 ############################# IMPORT EXCEL ####################################
 
 
-#' ImportExcelInternal is the parser for importExcel.
-#'
-#' ImportExcelInternal is the parser for importExcel that constructs an import 
-#' object. The \code{.xlsx} or \code{.xls} file has to be in specified fixed 
-#' format. The first row contains the minimum of the rating scale, the names of 
-#' the elements and the maximum of the rating scale. Below every row contains
-#' the left construct pole, the ratings and the right construct pole.
-#'
-#' \tabular{lllll}{
-#' \code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-#' \code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-#' \code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-#' }
-#'
-#' Note that the maximum and minimum value has to be defined using the
-#' \code{min} and \code{max} arguments if no values are supplied at the
-#' beginning and end of the first row. Otherwise the scaling range is inferred
-#' from the available data and a warning is issued as the range may be
-#' erroneous. This may effect other functions that depend on knowing the correct
-#' range and it is thus strongly recommended to set the scale range correctly.
+#' workhiorse function (parser) for importExcel.
 #' 
-#' A sample Excel file can be found here: 
-#' \url{http://www.openrepgrid.uni-bremen.de/data/grid.xlsx}.
-#' 
-#' @param file    Filename including path if file is not in current working 
-#'                directory. File can also be a complete URL. The fileformat
-#'                is \code{.xlsx} or \code{.xls}.
-#' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @param sheetIndex  The number of the Excel sheet that contains the grid data.
-#' @param min	    Optional argument (\code{numeric}, default \code{NULL})
-#'                for minimum rating value in grid.
-#' @param max	    Optional argument (\code{numeric}, default \code{NULL})
-#'                for maximum rating value in grid.
-#' @return        List of relevant data.
-#'
+#' @inheritParams importExcel
 #' @export
 #' @keywords      internal
 #' @author        Mark Heckmann
-#'
-#' @examples \dontrun{
-#' 
-#' # supposing that the data file sample.txt is in the current directory
-#' file <- "grid.xlsx"
-#' imp <- importExcelInternal(file)
-#' 
-#' # specifying a directory (arbitrary example directory)
-#' dir <- "/Users/markheckmann/data"
-#' imp <- importExcelInternal(file, dir)
-#' 
-#' # using a full path
-#' imp <- importExcelInternal("/Users/markheckmann/data/grid.xlsx")
-#' }
 #'
 importExcelInternal <- function(file, dir=NULL, sheetIndex=1, 
                                 min=NULL, max=NULL)
@@ -1543,16 +1496,8 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
   if (!is.null(dir)) 
     file <- paste(dir, file, sep="/", collapse="")
   
-  if (requireNamespace("xlsx", quietly=TRUE) )  {
-    x <- xlsx::read.xlsx(file, sheetIndex=1, header=FALSE)  # read .xlxs or .xls file
-  } else {
-    stop("\n---------------------------------------------------------------------------\n",
-         "  This functions requires the xlsx package to be installed.\n",
-         "  xlsx in turn requires the Java Runtime Environment (JRE) on your system.\n",
-         "  Install the JRE and the xlsx package if you want to use this feature.\n",
-         "---------------------------------------------------------------------------",
-         call. = FALSE)    
-  }
+  # read in Excel file 
+  x <- openxlsx::read.xlsx(file, sheet=sheetIndex, colNames=F)  # read .xlxs or .xls file
 
   # remove NA lines when too many rows in Excel  
   na.rows <- apply(x, 1, function(x) all(is.na(unlist(x))))
@@ -1604,18 +1549,21 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 
 
 #' Import grid data from an Excel file.
-#'
-#' If you do not have a grid program at hand you can define a grid using
-#' Microsoft Excel and by saving it as a \code{.xlsx} or \code{.xls} file.
-#' The \code{.xlsx} or \code{.xls} file has to be in specified fixed 
-#' format. The first row contains the minimum of the rating scale, the names of 
-#' the elements and the maximum of the rating scale. Below every row contains
-#' the left construct pole, the ratings and the right construct pole.
-#'
-#' \tabular{lllll}{
-#' \code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-#' \code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
-#' \code{1} & \code{element 1} & \code{element 2} & \code{element 3} & \code{5} \cr
+#' 
+#' You can define a grid using Microsoft Excel and by saving it as a
+#' \code{.xlsx} file. The \code{.xlsx} file has to be in a specified fixed 
+#' format (see section Details).
+#' 
+#' Excel file structure: The first row contains the minimum of the rating scale,
+#' the names of the elements and the maximum of the rating scale. Below every
+#' row contains the left construct pole, the ratings and the right construct
+#' pole.
+#' 
+#' \tabular{lccccr}{
+#' \code{1}           \tab \code{E1}  \tab \code{E2} \tab \code{E3} \tab \code{E4}  \tab \code{5}        \cr
+#' \code{left pole 1} \tab \code{1}   \tab \code{5}  \tab \code{3}  \tab \code{4}   \tab \code{right pole 1} \cr
+#' \code{left pole 2} \tab \code{3}   \tab \code{1}  \tab \code{1}  \tab \code{3}   \tab \code{right pole 2} \cr
+#' \code{left pole 3} \tab \code{4}   \tab \code{2}  \tab \code{5}  \tab \code{1}   \tab \code{right pole 3} \cr
 #' }
 #'
 #' Note that the maximum and minimum value has to be defined using the
@@ -1624,14 +1572,9 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #' from the available data and a warning is issued as the range may be
 #' erroneous. This may effect other functions that depend on knowing the correct
 #' range and it is thus strongly recommended to set the scale range correctly.
-#' 
-#' A sample Excel file can be found here: 
-#' \url{http://www.openrepgrid.uni-bremen.de/data/grid.xlsx}.
 #'
 #' @param file    A vector of filenames including the full path if file is not in current working 
-#'                directory. The file suffix has to be \code{.xlsx} or \code{.xls}. 
-#'                If no file is supplied a selection pop up menu is opened to select
-#'                the files.
+#'                directory. The file suffix has to be \code{.xlsx} (used since Excel 2007). 
 #' @param dir	    Alternative way to supply the directory where the file is located 
 #'                (default \code{NULL}).
 #' @param sheetIndex  The number of the Excel sheet that contains the grid data.
@@ -1652,35 +1595,24 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #'
 #' @examples \dontrun{
 #' 
-#' # using the pop-up selection menu
-#' rg <- importExcel()   
-#'
-#' # supposing that the data file sample.txt is in the current directory
-#' file <- "grid.xlsx"
+#' # Open Excel file delivered along with the package
+#' file <- system.file("extdata", "excel_grid_001.xlsx", package = "OpenRepGrid")
 #' rg <- importExcel(file)
 #' 
-#' # specifying a directory (arbitrary example directory)
-#' dir <- "/Users/markheckmann/data"
-#' rg <- importExcel(file, dir)
+#' # To see the structure of the Excel file try to open it as follows.
+#' # Requires Excel to be installed.
+#' system2("open", file)
 #' 
-#' # using a full path
-#' rg <- importExcel("/Users/markheckmann/data/grid.xlsx")
-#'
-#' # import more than one Excel file via R code
-#' files <- c("grid_1.xlsx", "grid_2.xlsx")
+#' # Import more than one Excel file
+#' files <- system.file("extdata", c("excel_grid_001.xlsx", "excel_grid_002.xlsx") , package = "OpenRepGrid")
 #' rg <- importExcel(files)
+#' 
 #' }
-#'
+#' 
 importExcel <- function(file, dir=NULL, sheetIndex=1, min=NULL, max=NULL)
 {
-  if (missing(file)){                                         # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("excel", ".xlsx",
-                        "excel", ".xls"),
-                      ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
-  }
   imps <- lapply(as.list(file), importExcelInternal,          # make import objects for each .txt file
-                 dir=dir, sheetIndex=sheetIndex,
+                 dir=dir, sheet=sheetIndex,
                  min=min, max=max)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
   if (length(file) == 1) {
