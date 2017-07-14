@@ -63,7 +63,7 @@ Structure of a txt file that can be read by \code{\link{importTxt}}.
 \dontrun{
 
  x <- randomGrid()
- saveToTxt(x, "random.txt")
+ saveAsTxt(x, "random.txt")
 
 }
 

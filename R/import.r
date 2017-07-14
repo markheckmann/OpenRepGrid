@@ -1596,7 +1596,7 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #' @examples \dontrun{
 #' 
 #' # Open Excel file delivered along with the package
-#' file <- system.file("extdata", "excel_grid_001.xlsx", package = "OpenRepGrid")
+#' file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
 #' rg <- importExcel(file)
 #' 
 #' # To see the structure of the Excel file try to open it as follows.
@@ -1604,7 +1604,7 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #' system2("open", file)
 #' 
 #' # Import more than one Excel file
-#' files <- system.file("extdata", c("excel_grid_001.xlsx", "excel_grid_002.xlsx") , package = "OpenRepGrid")
+#' files <- system.file("extdata", c("grid_01.xlsx", "grid_02.xlsx") , package = "OpenRepGrid")
 #' rg <- importExcel(files)
 #' 
 #' }

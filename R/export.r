@@ -1,3 +1,7 @@
+
+############################# EXPORT TXT ####################################
+
+
 #' Save grid in a text file (txt).
 #'
 #' \code{saveAsTxt} will save the grid as a \code{.txt} file
@@ -56,7 +60,7 @@
 #' @examples \dontrun{
 #' 
 #'  x <- randomGrid()
-#'  saveToTxt(x, "random.txt")
+#'  saveAsTxt(x, "random.txt")
 #'
 #' }
 #'
@@ -172,5 +176,56 @@ saveAsTxt <- function(x, file=NA){
 #   # reset output stream
 #   sink()
 # }
+
+
+############################# EXPORT EXCEL ####################################
+
+
+#' Save grid in a Microsoft Excel file (.xlsx)
+#'
+#' \code{saveAsExcel} will save the grid as a Microsoft Excel file 
+#' (\code{.xlsx}).  
+#'
+#' @param x     A \code{repgrid} object.
+#' @param file  Filename to save the grid to. The name should have 
+#'              the suffix \code{.xlsx}.
+#' @param sheet Index of the sheet to write to.
+#' @return      Invisibly returns the name of the file.
+#' @author    Mark Heckmann
+#' @export
+#'
+#' @seealso     \code{\link{importExcel}}
+#'
+#' @examples \dontrun{
+#' 
+#'  x <- randomGrid(options=0)
+#'  saveAsExcel(x, "grid.xlsx")
+#'
+#' }
+#'
+saveAsExcel <- function(x, file, sheet=1)
+{  
+  # check for correct file extension
+  ext <- tools::file_ext(file) 
+  if (ext != "xlsx")
+    stop("The file extension must be '.xlsx' but you have '.", ext, "'", call. = FALSE)
+  
+  # build matrix to write to Excel
+  enames <- getElementNames(x)
+  cnames <- getConstructNames(x)
+  scores <- getRatingLayer(x, names=FALSE)
+  mm <- getScale(x)  # min, max
+  
+  part1 <- c(mm[1], enames, mm[2])
+  part2 <- cbind(cnames$leftpole, scores, cnames$rightpole)
+  m <- rbind(part1, part2)
+  m <- unname(m)
+  
+  # write to disk
+  openxlsx::write.xlsx(m, file, colNames = FALSE, rowNames = FALSE, sheet=sheet)
+  
+  invisible(file)
+}
+
 
 

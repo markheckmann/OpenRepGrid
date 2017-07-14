@@ -8,7 +8,7 @@ Authors@R: person("Mark", "Heckmann", email = "heckmann@uni-bremen.de",
     role = c("aut", "cre"))
 Description: A set of functions to analyze repertory grid data.
 Version: 0.1.11
-Date: 2017-07-11
+Date: 2017-07-14
 Encoding: UTF-8
 URL: http://openrepgrid.org,
     https://github.com/markheckmann/OpenRepGrid
