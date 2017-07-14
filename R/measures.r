@@ -1103,7 +1103,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   # invscr = 8 - scr
   # Example: 2 -> 8 - 2 -> 6
   #          5 -> 8 - 5 -> 3
-  inverteds <- 8 - s
+  inverteds <- getScale(x)[2] - s + 1   # e.g. 8 - 1
   nc <- getNoOfConstructs(x)
   cnames <- getConstructNames2(x, index=index, trim=trim, mode=1, pre="", post=" ")
   
