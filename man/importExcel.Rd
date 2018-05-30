@@ -68,9 +68,6 @@ rg <- importExcel(files)
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{importGridcor}},
                \code{\link{importGridstat}},
@@ -78,4 +75,6 @@ Mark Heckmann
                \code{\link{importGridsuite}},
                \code{\link{importTxt}}
 }
-
+\author{
+Mark Heckmann
+}

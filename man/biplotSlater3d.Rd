@@ -67,4 +67,3 @@ Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
            Function to set view in 3D:
            \code{\link{home}}.
 }
-

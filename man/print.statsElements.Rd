@@ -18,4 +18,3 @@
 Print method for class statsElements
 }
 \keyword{internal}
-

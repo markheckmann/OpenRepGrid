@@ -16,4 +16,3 @@ decouple a grid
 Mark Heckmann
 }
 \keyword{internal}
-

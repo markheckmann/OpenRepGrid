@@ -47,4 +47,3 @@ exploring distributions of indexes etc.
 \author{
 Mark Heckmann
 }
-

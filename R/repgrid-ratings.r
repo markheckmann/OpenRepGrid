@@ -199,7 +199,7 @@ r.deleteRatingsRow <- function(x, pos=NA){
 		stop("Object x must be of class 'repgrid'.")
 	if(is.na(pos[1])){
 		return(x);
-		break
+		#break
 	}
 	if(any(pos<0 | pos > nrow(x@ratings)))
 		stop("pos must contains values greater than 1 and equal or less than ratings rows.")
@@ -213,7 +213,7 @@ r.deleteRatingsColumns <- function(x, pos=NA){
 		stop("Object x must be of class 'repgrid'.")
 	if(is.na(pos[1])){
 		return(x);
-		break
+		#break
 	}
 	if(any(pos<0 | pos > ncol(x@ratings)))
 		stop("pos must contains values greater than 1 and equal or less than ratings columns.")

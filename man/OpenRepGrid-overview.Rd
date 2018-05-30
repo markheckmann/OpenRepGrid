@@ -218,6 +218,7 @@ functions for these purposes.
 \code{\link{importTxtInternal}}  \tab  \cr
 }
 }
+
 \author{
 Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann. 
            Everyone who is interested in developing the package is invited to join.
@@ -229,4 +230,3 @@ Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann.
            The package maintainer is Mark Heckmann <heckmann(at)uni-bremen.de>.
 }
 \keyword{package}
-

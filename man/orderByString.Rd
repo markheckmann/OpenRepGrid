@@ -28,4 +28,3 @@ find the order of a string vector so it will match the order of another
 
 }
 \keyword{internal}
-

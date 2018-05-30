@@ -30,10 +30,9 @@ Invisibly returns the name of the file.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{importExcel}}
 }
-
+\author{
+Mark Heckmann
+}

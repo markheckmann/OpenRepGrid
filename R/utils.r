@@ -36,20 +36,20 @@ baseSplitStringInt <- function(text, availwidth=1, cex=1)			# function to split 
 {				
 	if (is.expression(text)){			# expressions cannot be split
 		return(text)
-		break
+		#break
 	}
 	if (identical(text, NULL)) text <- ""
 	if (identical(text, NA)) text <- ""
 	if (identical(text, character(0))) text <- ""
 	if (text == ""){
 		return(paste(text))
-		break
+		#break
 	}
 
 	strings <- strsplit(as.character(text), " ")[[1]]
 	if (length(strings) == 1){
 		return(paste(strings))
-		break
+		#break
 	}
 	newstring <- strings[1]
 	linewidth <- strwidth(newstring, cex = cex)

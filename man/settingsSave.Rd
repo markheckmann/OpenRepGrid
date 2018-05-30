@@ -14,4 +14,3 @@ an interactive file saver dialog is opened.}
 The current settings of OpenRepGrid can be saved into a file with
 the extension \code{.orgset}.
 }
-

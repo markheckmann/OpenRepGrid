@@ -24,4 +24,3 @@ generate a random sentence with n words
 randomSentence(10)   # one random sentence with 10 words
 }
 \keyword{internal}
-

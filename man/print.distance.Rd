@@ -33,4 +33,3 @@ values.}
 Print method for class distance.
 }
 \keyword{internal}
-

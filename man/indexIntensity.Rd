@@ -61,6 +61,7 @@ single scores (for elements and construct).
 \section{Development}{
  TODO: Results have not been tested against other programs' results.
 }
+
 \examples{
 
  indexIntensity(bell2010)
@@ -84,12 +85,11 @@ single scores (for elements and construct).
  x$total.int
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Bannister, D. (1960). Conceptual structure in 
                thought-disordered schizophrenics. \emph{The Journal 
                of mental science}, 106, 1230-49.
 }
-
+\author{
+Mark Heckmann
+}

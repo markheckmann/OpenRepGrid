@@ -22,4 +22,3 @@ files. The file path for the temp files is returned. If the file is a single
 grid files the path is left unaltered.
 }
 \keyword{internal}
-

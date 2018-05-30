@@ -35,4 +35,3 @@ Please note that the scale of the rating grid has to be set in order to
 \author{
 Mark Heckmann
 }
-

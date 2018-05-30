@@ -80,9 +80,6 @@ Bell (2010) proposed a solution for the problem of construct
   a$loadings.after
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Bell, R. C. (2010). A note on aligning constructs.
                  \emph{Personal Construct Theory & Practice, 7}, 42-48.
@@ -95,4 +92,6 @@ Bell, R. C. (2010). A note on aligning constructs.
 \seealso{
 \code{\link{alignByIdeal}}
 }
-
+\author{
+Mark Heckmann
+}

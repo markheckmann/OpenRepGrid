@@ -228,19 +228,19 @@ gmSplitString  <- function(text, horiz=TRUE, splitWidth=unit(.98, "npc"))			# fu
 	#require(grid)
 	if(is.expression(text)){			# Expressions können nicht weiter verarbeitet werden
 		return(text)
-		break
+		#break
 	}
 	if(is.null(text)) text <- ""
 	if(length(text) ==1 & is.na(text)) text <- ""
 	if(is.character(text) & length(text)==0) text <- ""
 	if(text==""){
 		return(paste(text))
-		break
+		#break
 	}
 	strings <- strsplit(as.character(text), " ")[[1]]
 	if(length(strings)==1){
 		return(paste(strings))
-		break
+		#break
 	}
 	newstring <- strings[1]
 	linewidth <- stringWidth(newstring)

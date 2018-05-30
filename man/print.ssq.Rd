@@ -26,4 +26,3 @@ If \code{FALSE} the uncumulated sum-of-squares are printed.
 Print method for class ssq.
 }
 \keyword{internal}
-

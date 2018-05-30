@@ -28,4 +28,3 @@ map a value onto others
 
 }
 \keyword{internal}
-

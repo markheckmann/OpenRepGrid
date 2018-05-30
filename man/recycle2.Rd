@@ -29,4 +29,3 @@ recycle2(1, 1:5, na.fill=TRUE)
 recycle2(1:5, 5:1)    # vectors unchanged
 }
 \keyword{internal}
-

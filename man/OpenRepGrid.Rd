@@ -27,6 +27,13 @@ To get started with \pkg{OpenRepGrid} visit the project's home under \url{www.op
            numerous contributors. It may contain bugs and errors.
            There is no warranty whatsoever for the program.
 }
+\references{
+Fransella, F., Bell, R. C., & Bannister, D. (2003). \emph{A Manual for Repertory 
+                 Grid Technique (2. Ed.)}. Chichester: John Wiley & Sons.
+
+             Kelly, G. A. (1955). \emph{The psychology of personal constructs. Vol. I, II.} 
+                 New York: Norton, (2nd printing: 1991, Routledge, London, New York).
+}
 \author{
 \pkg{OpenRepGrid} was initiated by Mark Heckmann. 
            Current contributors are: Mark Heckmann, Alejandro García.
@@ -38,13 +45,5 @@ To get started with \pkg{OpenRepGrid} visit the project's home under \url{www.op
            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
            The package maintainer is Mark Heckmann  <heckmann(at)uni-bremen.de>.
 }
-\references{
-Fransella, F., Bell, R. C., & Bannister, D. (2003). \emph{A Manual for Repertory 
-                 Grid Technique (2. Ed.)}. Chichester: John Wiley & Sons.
-
-             Kelly, G. A. (1955). \emph{The psychology of personal constructs. Vol. I, II.} 
-                 New York: Norton, (2nd printing: 1991, Routledge, London, New York).
-}
 \keyword{package}
 \keyword{repgrid}
-

@@ -31,4 +31,3 @@ It should be possible to use it for ratings on all layers.
 \author{
 Mark Heckmann
 }
-

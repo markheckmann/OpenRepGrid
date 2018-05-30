@@ -65,9 +65,6 @@ rg <- importScivesco("http://www.openrepgrid.uni-bremen.de/data/scivesco.scires"
 
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
                rationale Konstrukte verstehen. \emph{Personalfuehrung, 4}(7), 91-99.
@@ -80,4 +77,6 @@ Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-
+\author{
+Mark Heckmann
+}

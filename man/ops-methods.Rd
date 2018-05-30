@@ -2,9 +2,9 @@
 % Please edit documentation in R/repgrid-basicops.r
 \docType{methods}
 \name{+,repgrid,repgrid-method}
+\alias{+,repgrid,repgrid-method}
 \alias{+,list,repgrid-method}
 \alias{+,repgrid,list-method}
-\alias{+,repgrid,repgrid-method}
 \title{Concatenate repgrid objects.}
 \usage{
 \S4method{+}{repgrid,repgrid}(e1, e2)
@@ -34,4 +34,3 @@ list(x,x) + x
 \author{
 Mark heckmann
 }
-

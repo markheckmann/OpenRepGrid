@@ -29,11 +29,10 @@ it does is create an additional progress bar.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{lapply}}
 }
+\author{
+Mark Heckmann
+}
 \keyword{internal}
-

@@ -64,4 +64,3 @@ imp <- importScivescoInternal("http://www.openrepgrid.uni-bremen.de/data/scivesc
 Mark Heckmann
 }
 \keyword{internal}
-

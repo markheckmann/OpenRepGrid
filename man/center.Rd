@@ -42,4 +42,3 @@ If scale midpoint centering is applied no row or column centering can be
 \author{
 Mark Heckmann
 }
-

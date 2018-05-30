@@ -29,4 +29,3 @@ workhiorse function (parser) for importExcel.
 Mark Heckmann
 }
 \keyword{internal}
-

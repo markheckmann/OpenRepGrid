@@ -4,10 +4,10 @@ Title: Tools to Analyse Repertory Grid Data
 LazyData: yes
 Type: Package
 LazyLoad: yes
-Authors@R: person("Mark", "Heckmann", email = "heckmann@uni-bremen.de",
+Authors@R: person("Mark", "Heckmann", email = "heckmann.mark@gmail.com",
     role = c("aut", "cre"))
 Description: A set of functions to analyze repertory grid data.
-Version: 0.1.11
+Version: 0.1.12
 Date: 2017-07-14
 Encoding: UTF-8
 URL: http://openrepgrid.org,
@@ -55,7 +55,7 @@ Collate:
     'utils-import.r'
     'utils.r'
     'zzz.r'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>

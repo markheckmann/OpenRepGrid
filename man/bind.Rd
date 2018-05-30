@@ -40,12 +40,11 @@ as one 'big grid' (eg. Slater, 1977, chap. 11).
 }
 
 }
-\author{
-Mark Heckmann
-}
 \references{
 Slater, P. (1977). \emph{The measurement of intrapersonal space 
              by grid technique}. London: Wiley.
 }
+\author{
+Mark Heckmann
+}
 \keyword{internal}
-

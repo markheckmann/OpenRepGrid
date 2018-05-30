@@ -101,9 +101,6 @@ rg <- importTxt(files)
 }
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{importGridcor}},
                \code{\link{importGridstat}},
@@ -112,4 +109,6 @@ Mark Heckmann
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-
+\author{
+Mark Heckmann
+}

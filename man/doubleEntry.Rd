@@ -27,4 +27,3 @@ Join the constructs of a grid with the same reversed constructs.
 Mark Heckmann
 }
 \keyword{internal}
-

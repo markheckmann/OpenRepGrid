@@ -42,4 +42,3 @@ producing high-quality output.
 Mark Heckmann
 }
 \keyword{internal}
-

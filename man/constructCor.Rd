@@ -49,10 +49,9 @@ PMC, Kendall tau rank correlation, Spearman rank correlation.
    r[1, 3]
 
 }
-\author{
-Mark Heckmann
-}
 \seealso{
 \code{\link{elementCor}}
 }
-
+\author{
+Mark Heckmann
+}

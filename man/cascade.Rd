@@ -27,4 +27,3 @@ the midpoint and descend afterwards again.
 }
 }
 \keyword{internal}
-

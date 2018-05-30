@@ -25,4 +25,3 @@ Extract loadings from PCA of constructs.
  l[1,1]
  
 }
-
