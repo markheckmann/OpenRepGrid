@@ -6,9 +6,14 @@ Type: Package
 LazyLoad: yes
 Authors@R: person("Mark", "Heckmann", email = "heckmann.mark@gmail.com",
     role = c("aut", "cre"))
-Description: A set of functions to analyze repertory grid data.
+Description: OpenRepGrid is a package to analyze repertory grids, a qualitative-quantitative 
+    data collection technique devised by George A. Kelly in the 1950s. Today, grids are used across 
+    various domains ranging from clinical psychology to marketing. The package contains
+    functions to quantitatively analyze and visualize repertory grid data 
+    (see e.g. Bell, 2005, <doi:10.1002/0470013370.ch9>; 
+    Fransella, Bell, & Bannister, 2004, ISBN: 978-0-470-09080-0).
 Version: 0.1.12
-Date: 2017-07-14
+Date: 2018-05-31
 Encoding: UTF-8
 URL: http://openrepgrid.org,
     https://github.com/markheckmann/OpenRepGrid
