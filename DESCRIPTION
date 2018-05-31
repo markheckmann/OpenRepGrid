@@ -1,12 +1,12 @@
 Package: OpenRepGrid
 License: GPL (>= 2)
-Title: Tools to Analyse Repertory Grid Data
+Title: Tools to Analyze Repertory Grid Data
 LazyData: yes
 Type: Package
 LazyLoad: yes
 Authors@R: person("Mark", "Heckmann", email = "heckmann.mark@gmail.com",
     role = c("aut", "cre"))
-Description: OpenRepGrid is a package to analyze repertory grids, a qualitative-quantitative 
+Description: Analyze repertory grids, a qualitative-quantitative 
     data collection technique devised by George A. Kelly in the 1950s. Today, grids are used across 
     various domains ranging from clinical psychology to marketing. The package contains
     functions to quantitatively analyze and visualize repertory grid data 
