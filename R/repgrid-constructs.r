@@ -1,6 +1,7 @@
-################################################################
-### 				basic construct operations				 ###
-################################################################
+#----------------------------------------------#
+### 				basic construct operations		   ###
+#----------------------------------------------#
+
 # Function that start with c. operate on the constructs only.
 # These functions serve for basic operations on constructs.
 # In case a function needs to operate on constructs and other
@@ -22,14 +23,15 @@
 #		+--emerged
 
 
-#require(plyr)       # namespace needs to import plyr
 
 ##############   FUNCTIONS TO RETRIEVE INFORMATION FROM REPGRID OBJECTS   ##################
 
 #' Get construct names
 #'
-#' @param x   \code{repgrid} object.
-#'
+#' @param x \code{repgrid} object.
+#' @section Deprecated functions: \code{getConstructNames()},
+#'   and \code{cNames()} have been deprecated.
+#'   Instead use \code{constructs()}.
 #' @export
 #' @keywords internal
 #' @author  Mark Heckmann
@@ -37,18 +39,15 @@
 getConstructNames <- function(x){
 	if (!inherits(x, "repgrid")) 							# check if x is repgrid object
 		stop("Object x must be of class 'repgrid'")
-  #l <- sapply(x@constructs, function(x) 
-  #            data.frame(leftpole=x$leftpole$name, 
-  #                       rightpole=x$rightpole$name, stringsAsFactors=FALSE))
-  #as.data.frame(t(l))
-	# old version used plyr		
+
+  .Deprecated("constructs")
+  
   l <- lapply(x@constructs, function(x) 
                  data.frame(leftpole=x$leftpole$name, 
                             rightpole=x$rightpole$name, stringsAsFactors=FALSE))
 	list_to_dataframe(l)
 }
 cNames <- getConstructNames
-#getConstructNames(x)
 
 
 #' Retrieves the construct names from a \code{repgrid}.
@@ -89,6 +88,7 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
                                sep = " - ", pre="(", post=") " ){
   if (!inherits(x, "repgrid")) 							
    	 stop("Object x must be of class 'repgrid'")
+  
   cnames <- getConstructNames(x)
   cnames.l <- cnames[ ,1]
   cnames.r <- cnames[ ,2]
@@ -114,6 +114,145 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
     cnames.new <- paste(ind, cnames.r, sep="") 
   cnames.new
 }
+
+
+#' Get or replace construct poles 
+#' 
+#' Allows to get and set construct poles. 
+#' Replaces the older functions \code{getConstructNames}, \code{getConstructNames2},
+#' and \code{eNames} which are deprecated.
+#' 
+#' @param  x A repgrid object.
+#' @param value Character vector of poles.
+#' @rdname constructs
+#' @export
+#' @examples 
+#' 
+#' # shorten object name
+#' x <- boeker
+#' 
+#' ## get construct poles
+#' constructs(x)   # both left and right poles
+#' leftpoles(x)    # left poles only
+#' rightpoles(x)
+#' 
+#' ## replace construct poles
+#' constructs(x)[1,1] <- "left pole 1"
+#' constructs(x)[1,"leftpole"] <- "left pole 1"  # alternative
+#' constructs(x)[1:3,2] <- paste("right pole", 1:3)
+#' constructs(x)[1:3,"rightpole"] <- paste("right pole", 1:3) # alternative
+#' constructs(b)[4,1:2] <- c("left pole 4", "right pole 4")
+#' 
+#' l <- leftpoles(x)
+#' leftpoles(x) <- sample(l)             # brind poles into random order
+#' leftpoles(x)[1] <- "new left pole 1"  # replace name of first left pole
+#' 
+#' # replace left poles of constructs 1 and 3
+#' leftpoles(x)[c(1,3)] <- c("new left pole 1", "new left pole 3")
+#'  
+constructs <- function(x)
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get left and right pole name properties from each construct
+  data.frame(
+    leftpole = leftpoles(x),
+    rightpole = rightpoles(x), 
+    stringsAsFactors = FALSE
+  )
+}
+
+
+#' @rdname constructs
+#' @export
+`constructs<-` <- function(x, i, j, value) 
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get dataframe and replace using bracket operator
+  # this replacement type function somehow works. 
+  # Other attempts falied.
+  d <- constructs(x)
+  d[i, j] <- value
+  
+  # replace left and right poles 
+  leftpoles(x) <- d$leftpole
+  rightpoles(x) <- d$rightpole
+  
+  x
+}
+
+
+#' @rdname constructs
+#' @export
+leftpoles <- function(x)
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get left pole name property from each construct
+  sapply(x@constructs, function(x) x$leftpole$name)
+}
+
+
+#' @rdname constructs
+#' @export
+`leftpoles<-` <- function(x, position, value) 
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get element names and replace one or more
+  p <- leftpoles(x)
+  p[position] <- value
+  
+  # replace leftpole name property of each construct
+  for (i in seq_along(p)) 
+    x@constructs[[i]]$leftpole$name <- p[i]
+  
+  x
+}
+
+#' @rdname constructs
+#' @export
+rightpoles <- function(x)
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get left pole name property from each construct
+  sapply(x@constructs, function(x) x$rightpole$name)
+}
+
+#' @rdname constructs
+#' @export
+`rightpoles<-` <- function(x, position, value) 
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get element names and replace one or more
+  p <- rightpoles(x)
+  p[position] <- value
+  
+  # replace leftpole name property of each construct
+  for (i in seq_along(p)) 
+    x@constructs[[i]]$rightpole$name <- p[i]
+  
+  x
+}
+
+
+
+
 
 
 getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){

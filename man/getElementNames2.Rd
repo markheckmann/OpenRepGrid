@@ -25,7 +25,7 @@ names (default \code{TRUE}).}
 Vector with (trimmed) element names.
 }
 \description{
-DEPRECATED: Retrieves the element names from a \code{repgrid}.
+Retrieves the element names from a \code{repgrid}.
 }
 \details{
 Different features like trimming, indexing and choices of seperators
