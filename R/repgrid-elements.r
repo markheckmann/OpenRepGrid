@@ -64,10 +64,7 @@ eNames <- getElementNames
 
 
 
-
-
-
-#' DEPRECATED: Retrieves the element names from a \code{repgrid}.
+#' Retrieves the element names from a \code{repgrid}.
 #' 
 #' Different features like trimming, indexing and choices of seperators
 #' allow to return the kind of format that is needed.
