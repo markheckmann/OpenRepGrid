@@ -57,6 +57,68 @@ eNames <- getElementNames
 # getElementNames(rg1)
 
 
+
+#' Get or replace element names 
+#' 
+#' Allows to get and set element names. 
+#' Replaces the older functions \code{getElementNames}, \code{getElementNames2},
+#' and \code{eNames} which are deprecated.
+#' 
+#' @param  x A repgrid object.
+#' @rdname elementNames
+#' @export
+#' @examples 
+#' 
+#' ## get element names
+#' e <- elementNames(x)
+#' e
+#' 
+#' ## replace element names
+#' elementNames(x) <- rev(e)       # reverse all element names
+#' elementNames(x)[1] <- "Hannes"  # replace name of first element
+#' 
+#' # replace names of elements 1 and 3
+#' elementNames(x)[c(1,3)] <- c("element 1", "element 3")   
+#'  
+elementNames <- function(x)
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get name property from each element
+  sapply(x@elements, function(x) x$name)
+}
+
+
+#' @param value Character vector of element names.
+#' @rdname elementNames
+#' @export
+#' 
+`elementNames<-` <- function(x, position, value) 
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # get element names and replace one or more
+  e.names <- elementNames(x)
+  e.names[position] <- value
+  
+  # replace name propert of each element
+  for (i in seq_along(e.names)) {
+    x@elements[[i]]$name <- e.names[i]
+  }
+  
+  x
+}
+
+
+
+
+
+
+
 #' Retrieves the element names from a \code{repgrid}.
 #' 
 #' Different features like trimming, indexing and choices of seperators

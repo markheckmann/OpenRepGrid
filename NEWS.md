@@ -1,5 +1,11 @@
 
-# OpenRepGrid 0.1.11 (not yet released) 
+# OpenRepGrid 0.1.13 
+
+  * elementNames to get and set element names replaces oler functions getElementNames, getElementNames2, and 
+    eNames which are now deprecated.
+
+# OpenRepGrid 0.1.11
+
   * saveAsExcel to save grids as Microsoft Excel files
   * replace xlsx by openxlsx to import Excel files to get rid of JRE dependency
   
