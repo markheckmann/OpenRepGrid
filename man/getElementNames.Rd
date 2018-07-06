@@ -10,14 +10,18 @@ getElementNames(x)
 \item{x}{\code{repgrid} object.}
 }
 \value{
-vector   Vector containing the names of the elements.
+vector Vector containing the names of the elements.
 }
 \description{
-Function for convenience, 
-so new users do not have to deal with object slots
-as they will typically not have knowledge about R object 
-structures (S3, S4).
+Function for convenience, so new users do not have to deal with object slots
+as they will typically not have knowledge about R object structures (S3, S4).
 }
+\section{Deprecated functions}{
+ \code{getElementNames()},
+  \code{getElementNames2()}, and \code{eNames()} have been deprecated.
+  Instead use \code{elements()}.
+}
+
 \author{
 Mark Heckmann
 }
