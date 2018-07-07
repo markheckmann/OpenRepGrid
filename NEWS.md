@@ -1,8 +1,9 @@
 
 # OpenRepGrid 0.1.13 
 
-  * 'elements' to get and set element names replaces 'getElementNames' and 'eNames' which have become deprecated.
-  * 'constructs', 'leftpoles', and 'rightpoles' to get and set construct poles replace 'getConstructNames' and 'cNames' which have become  deprecated.
+  * 'ratings' to access and replace grid ratings added
+  * 'elements' added to get and set element names replaces 'getElementNames' and 'eNames' which have become deprecated.
+  * 'constructs', 'leftpoles', and 'rightpoles' added to get and set construct poles replace 'getConstructNames' and 'cNames' which have become  deprecated.
 
 # OpenRepGrid 0.1.11
 

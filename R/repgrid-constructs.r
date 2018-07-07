@@ -251,27 +251,25 @@ rightpoles <- function(x)
 }
 
 
-
-
-
-
-getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){
-  scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
-  rm <- apply(scores, 2 , I)                        # convert array to matrix 
-  if (names) {
-    cnames.l <- getConstructNames(x)[ ,1]
-    cnames.r <- getConstructNames(x)[ ,2]
-    enames <- getElementNames(x)
-    if (!is.na(trim)){                              # trim names if prompted
-       cnames.l <- substr(cnames.l, 1, trim)
-       cnames.r <- substr(cnames.r, 1, trim)
-       enames <- substr(enames, 1, trim)
-    }                             
-    rownames(rm) <- paste(cnames.l, cnames.r, sep=" - ") 
-    colnames(rm) <- enames   
-  }
-  rm
-}
+# TODO: can it be removed as already in regrid-basicops
+#
+# getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){
+#   scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
+#   rm <- apply(scores, 2 , I)                        # convert array to matrix 
+#   if (names) {
+#     cnames.l <- getConstructNames(x)[ ,1]
+#     cnames.r <- getConstructNames(x)[ ,2]
+#     enames <- getElementNames(x)
+#     if (!is.na(trim)){                              # trim names if prompted
+#        cnames.l <- substr(cnames.l, 1, trim)
+#        cnames.r <- substr(cnames.r, 1, trim)
+#        enames <- substr(enames, 1, trim)
+#     }                             
+#     rownames(rm) <- paste(cnames.l, cnames.r, sep=" - ") 
+#     colnames(rm) <- enames   
+#   }
+#   rm
+# }
 
 
 constructInfo <- function(x, all=TRUE){

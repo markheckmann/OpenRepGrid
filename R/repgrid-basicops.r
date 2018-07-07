@@ -154,13 +154,14 @@ setMethod("[<-", signature(x = "repgrid", i = "ANY", j="ANY", value="ANY"),
 #'      getRatingLayer(bell2010)
 #' }
 #'
-getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){
+getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
+{
   scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
   rm <- apply(scores, 2 , I)                        # convert array to matrix 
   if (names) {
-    cnames.l <- getConstructNames(x)[ ,1]
-    cnames.r <- getConstructNames(x)[ ,2]
-    enames <- getElementNames(x)
+    cnames.l <- constructs(x)$leftpole
+    cnames.r <- constructs(x)$rightpole
+    enames <- elements(x)
     if (!is.na(trim)){                              # trim names if prompted
       cnames.l <- substr(cnames.l, 1, trim)
       cnames.r <- substr(cnames.r, 1, trim)
@@ -171,6 +172,84 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10){
   }
   rm
 }
+
+
+# 'ratings' function replaces 'getRatingLayer' 
+# as it sounds simpler
+
+#' Get ratings.
+#'
+#' @param x A \code{repgrid} object.
+#' @param names Extract row and columns names (constructs and elements).
+#' @param trim The number of characters a row or column name is trimmed to
+#'   (default is \code{10}). If \code{NA} no trimming is done. Trimming simply
+#'   saves space when displaying the output.
+#' @return A \code{matrix}.#'
+#' @export
+#' @author Mark Heckmann
+#' @rdname ratings
+#' @seealso \code{`[<--method`}
+#' @examples 
+#' 
+#' ## store Bell's dataset in x
+#' x <- bell2010
+#' 
+#' ## get ratings
+#' ratings(x)
+#' 
+#' 
+#' ## replace ratings   
+#'        
+#' ratings(x)[1,1] <- 999
+#' # noet that this is even simpler using the repgrid object directly
+#' x[1,1] <- 888
+#' 
+#' #replace several values
+#' 
+#' ratings(x)[1,1:5] <- 999
+#' x[1,1:5] <- 888   # the same
+#' 
+#' ratings(x)[1:3,5:6] <- matrix(55, 3, 2)
+#' x[1:3,5:6] <- matrix(55, 3, 2)   # the same
+#' 
+ratings <- function(x, names=TRUE, trim=10)
+{
+  layer <- 1 #  get first layer of ratings array. The other two are not used
+  scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
+  rm <- apply(scores, 2 , I)                        # convert array to matrix 
+  if (names) {
+    cnames.l <- constructs(x)$leftpole
+    cnames.r <- constructs(x)$rightpole
+    enames <- elements(x)
+    if (!is.na(trim)){                              # trim names if prompted
+      cnames.l <- substr(cnames.l, 1, trim)
+      cnames.r <- substr(cnames.r, 1, trim)
+      enames <- substr(enames, 1, trim)
+    }                             
+    rownames(rm) <- paste(cnames.l, cnames.r, sep=" - ") 
+    colnames(rm) <- enames   
+  }
+  rm
+}
+
+
+#' @rdname ratings
+#' @export
+`ratings<-` <- function(x, i, j, value) 
+{
+  # check if x is a repgrid object
+  if (!inherits(x, "repgrid")) 
+    stop("Object x must be of class 'repgrid'.")
+  
+  # fet rating matrix and replace values
+  r <- ratings(x)
+  r[i, j] <- value
+  
+  # replace all ratings
+  x[,] <- r
+  x
+}
+
 
 
 #' Get number of constructs
