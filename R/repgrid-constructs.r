@@ -141,7 +141,7 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
 #' constructs(x)[1,"leftpole"] <- "left pole 1"  # alternative
 #' constructs(x)[1:3,2] <- paste("right pole", 1:3)
 #' constructs(x)[1:3,"rightpole"] <- paste("right pole", 1:3) # alternative
-#' constructs(b)[4,1:2] <- c("left pole 4", "right pole 4")
+#' constructs(x)[4,1:2] <- c("left pole 4", "right pole 4")
 #' 
 #' l <- leftpoles(x)
 #' leftpoles(x) <- sample(l)             # brind poles into random order
