@@ -99,9 +99,7 @@ getElementNames2 <- function(x, trim=20, index=F,
   if (!inherits(x, "repgrid")) 							
     stop("Object x must be of class 'repgrid'")
   
-  .Deprecated("elements")
-  
-  enames <- getElementNames(x)
+  enames <- elements(x)
   
   # add numeric index in front of elements
   if (index)
