@@ -40,8 +40,6 @@ getConstructNames <- function(x){
 	if (!inherits(x, "repgrid")) 							# check if x is repgrid object
 		stop("Object x must be of class 'repgrid'")
 
-  .Deprecated("constructs")
-  
   l <- lapply(x@constructs, function(x) 
                  data.frame(leftpole=x$leftpole$name, 
                             rightpole=x$rightpole$name, stringsAsFactors=FALSE))
