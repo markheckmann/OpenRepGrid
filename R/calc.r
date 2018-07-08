@@ -162,7 +162,7 @@ getScoreDataFrame <- function(x){
 #
 makeDiscrepancy <- function(x, disc, remove=TRUE){
   sc <- x@ratings[,,1]
-  colnames(sc) <- getElementNames(x)
+  colnames(sc) <- elements(x)
   scDiscElement <- sc[, disc]
   if (remove)
     sc[, -disc] - scDiscElement else 

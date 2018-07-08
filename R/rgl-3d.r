@@ -163,7 +163,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
   # select spheres to draw and labels to show
   # select which elements to show
   if (identical(labels.e, TRUE)) 
-    labels.e <- getElementNames(x)  
+    labels.e <- elements(x)  
   if (identical(labels.c, TRUE)){
     labels.l <- constructs(x)$leftpole
     labels.r <- constructs(x)$rightpole
