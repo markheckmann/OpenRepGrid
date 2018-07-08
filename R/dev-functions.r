@@ -37,7 +37,8 @@
 #'      x
 #' }
 #'
-randomGrid <- function(nc=10, ne=15, nwc=8, nwe=5, range=c(1,5), prob=NULL, options=1){
+randomGrid <- function(nc=10, ne=15, nwc=8, nwe=5, range=c(1,5), prob=NULL, options=1)
+{
   if (options == 1){          # full constructs and element names
     elem <- randomSentences(ne, nwe)
     left <- randomSentences(nc, nwc)

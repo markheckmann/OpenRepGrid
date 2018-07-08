@@ -1,6 +1,7 @@
-###############################################################################
-####  				          basic operations on repgrid objects      	        		###	 
-###############################################################################
+#-------------------------------------------------------------#
+#  			    	basic operations on repgrid objects       	    #	 
+#-------------------------------------------------------------#
+
 
 ############################# EXTRACT AND SET #################################
 
@@ -35,7 +36,8 @@
 #'    x[1,1]
 #'
 setMethod("[", signature(x = "repgrid", i = "ANY", j="ANY"),
-  function (x, i, j, ..., drop){
+  function (x, i, j, ..., drop)
+  {
     dots <- list(...)
 		if(length(dots)==0){
 			layer <- seq_along(dim(x@ratings)[3])   # 1:3
@@ -86,14 +88,23 @@ setMethod("[", signature(x = "repgrid", i = "ANY", j="ANY"),
 #' @rdname subassign
 #' @include repgrid.r
 #' @examples \dontrun{
-#'    x <- randomGrid()
-#'    x[1,1] <- 2
-#'    x[1, ] <- 4
-#'    x[ ,2] <- 3
+#' x <- randomGrid()
+#' x[1,1] <- 2
+#' x[1, ] <- 4
+#' x[ ,2] <- 3
+#'    
+#' # settings values outside defined rating scale 
+#' # range throws an error
+#' x[1,1] <- 999
+#'    
+#' # removing scale range allows arbitary values to be set
+#' x <- setScale(x, min = NA, max=NA) 
+#' x[1,1] <- 999
 #' }
 #'
 setMethod("[<-", signature(x = "repgrid", i = "ANY", j="ANY", value="ANY"),
-  function (x, i, j, ..., value){
+  function (x, i, j, ..., value)
+  {
     dots <- list(...)
     if(length(dots)==0){
       layer <- 1
@@ -121,6 +132,14 @@ setMethod("[<-", signature(x = "repgrid", i = "ANY", j="ANY", value="ANY"),
     if (any(j > length(x@elements)) | any(j == 0))              # check if all indexes do not exceed numer of elements or constructs
       stop("index for elements is out of range. Index must not",
             " exceed the number of elements or equal zero.")
+    
+    # prevent values outside of scale range from being set
+    s <- getScale(x)
+    sn <- is.null(s) | any(is.na(s))
+    if ( (!sn & (any(value < s[1]) | any(value > s[2])) ) )
+      stop("Setting values outside of defined scale range is not allowed.",
+           " Use 'getScale' to see and 'setScale' to define the scale range. ", call. = FALSE)
+    
     x@ratings[i, j, layer] <- value                               
     # to fill by rows
       #as.vector(matrix(as.vector(value), ncol=length(x@elements), byrow=TRUE))
@@ -1119,7 +1138,8 @@ showMeta <- function(x){
 #'    x
 #' }
 #'
-makeRepgrid <- function(args){
+makeRepgrid <- function(args)
+{
   x <- makeEmptyRepgrid()	
   l <- c(list(x=x), args)								# make a new repgrid object
   x <- do.call(e.setElements, l)

@@ -21,10 +21,18 @@ It should be possible to use it for ratings on all layers.
 }
 \examples{
 \dontrun{
-   x <- randomGrid()
-   x[1,1] <- 2
-   x[1, ] <- 4
-   x[ ,2] <- 3
+x <- randomGrid()
+x[1,1] <- 2
+x[1, ] <- 4
+x[ ,2] <- 3
+   
+# settings values outside defined rating scale 
+# range throws an error
+x[1,1] <- 999
+   
+# removing scale range allows arbitary values to be set
+x <- setScale(x, min = NA, max=NA) 
+x[1,1] <- 999
 }
 
 }
