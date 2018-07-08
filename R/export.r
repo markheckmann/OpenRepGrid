@@ -71,8 +71,8 @@ saveAsTxt <- function(x, file=NA){
 	} else 
 	  fileName <- file
 	
-	enames <- getElementNames(x)
-	cnames <- getConstructNames(x)
+	enames <- elements(x)
+	cnames <- constructs(x)
 	scores <- getRatingLayer(x)
 	# write txt file
 	con <- file(fileName, "w")                # open an output file connection
@@ -211,9 +211,9 @@ saveAsExcel <- function(x, file, sheet=1)
     stop("The file extension must be '.xlsx' but you have '.", ext, "'", call. = FALSE)
   
   # build matrix to write to Excel
-  enames <- getElementNames(x)
-  cnames <- getConstructNames(x)
-  scores <- getRatingLayer(x, names=FALSE)
+  enames <- elements(x)
+  cnames <- constructs(x)
+  scores <- ratings(x, names=FALSE)
   mm <- getScale(x)  # min, max
   
   part1 <- c(mm[1], enames, mm[2])

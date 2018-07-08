@@ -546,8 +546,8 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
   if (!showvalues)
     scores <- recycle("", nc * ne)
   bertinBase(nrow=nc, ncol=ne, labels=scores, labels.elements=getElementNames(x),
-             labels.left=getConstructNames(x)$leftpole, 
-             labels.right=getConstructNames(x)$rightpole,
+             labels.left=constructs(x)$leftpole, 
+             labels.right=constructs(x)$rightpole,
              col.fill=col.fill,
              xlim=xlim, ylim=ylim, margins=margins,
              cex.elements=cex.elements, cex.constructs=cex.elements,

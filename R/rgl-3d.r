@@ -165,8 +165,8 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
   if (identical(labels.e, TRUE)) 
     labels.e <- getElementNames(x)  
   if (identical(labels.c, TRUE)){
-    labels.l <- getConstructNames(x)$l
-    labels.r <- getConstructNames(x)$r
+    labels.l <- constructs(x)$leftpole
+    labels.r <- constructs(x)$rightpole
   } else {
     labels.r <- FALSE
     labels.l <- FALSE

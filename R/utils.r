@@ -872,11 +872,11 @@ addNamesToMatrix <- function(x, m, trim=7, along=1){
   if (!inherits(x, "repgrid")) 							    # check if x is repgrid object
   	stop("Object x must be of class 'repgrid'")
   if (along == 1){
-    cnamesl <- getConstructNames(x)[ ,1]
-    cnamesr <- getConstructNames(x)[ ,2]
+    cnamesl <- constructs(x)$leftpole
+    cnamesr <- constructs(x)$rightpole
     new.names <- paste(cnamesl, cnamesr, sep = " - ")
   } else {
-    new.names <- getElementNames(x)
+    new.names <- elements(x)
   }
   if (!is.na(trim))                               # trim constructs if prompted
     new.names <- substr(new.names, 1, trim)

@@ -461,13 +461,13 @@ setMethod("show", "repgrid", function(object){
   }
   
   # make data frame for left and right constructs
-  constructs <- getConstructNames(x)
+  con <- constructs(x)
   
   # make data frame for data
   df.ratings <- as.data.frame(x@ratings[ , ,1, drop=FALSE])     # extract scores
   colnames(df.ratings) <- getElementNames(x)                    # name columns
-  left <- constructs[ ,1]
-  right <- constructs[, 2]
+  left <- con[ ,1]
+  right <- con[, 2]
   df_out(df.ratings, left, right, just.main="r", hatform=hatform, id=id, 
         trim=trim, cut=cut, equal=F, showopt=showopt)
   cat("\n")

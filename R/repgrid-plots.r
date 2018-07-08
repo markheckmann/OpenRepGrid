@@ -59,8 +59,8 @@ calcBiplotCoords <- function(x, g=0, h=1-g,
   # t(X) %*% U %*% (D^g)^-1               # only works when g + h =1, thus: 
   E <- t(X) %*% U %*% diag((D^(1-h))^-1)  # only dependent on h not g                                            
 
-  rownames(C) <- getConstructNames(x)[ ,2]  # names of direction into which vector points
-  rownames(E) <- getElementNames(x)
+  rownames(C) <- constructs(x)[ ,2]  # names of direction into which vector points
+  rownames(E) <- elements(x)
     
   x@calcs$biplot <- list(X=X, element.coords=E, construct.coords=C,
                          D=D,U=U, V=V, col.passive=col.active, 
@@ -387,7 +387,7 @@ biplotSimple <- function(x, dim=1:2, center=1, normalize=0,
                         normalize=normalize, 
                         col.active=col.active, 
                         col.passive=col.passive, ...)
-  cnames <- getConstructNames(x)
+  cnames <- constructs(x)
   E <- x@calcs$biplot$el
   C <- x@calcs$biplot$con
   X <- x@calcs$biplot$X
@@ -592,9 +592,9 @@ prepareBiplotData <- function(x, dim=c(1,2), map.dim=3,
       
   # construct data frame containing all information needed for different plotting functions
   # (e.g. rgl and biplot functions)
-  labels.e <- getElementNames(x)
-  labels.cl <- getConstructNames(x)[,1] 
-  labels.cr <- getConstructNames(x)[,2]
+  labels.e <- elements(x)
+  labels.cl <- constructs(x)[,1] 
+  labels.cr <- constructs(x)[,2]
   labels.all <- c(labels.e, labels.cr, labels.cl)         # join all labels
   type <- factor(c(rep("e", getNoOfElements(x)),          # make factor specifying if row is element or construct
                    rep(c("cl", "cr"), each=getNoOfConstructs(x))))

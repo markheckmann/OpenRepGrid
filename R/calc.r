@@ -152,8 +152,8 @@ print.statsConstructs <- function(x, digits=2, ...)
 
 getScoreDataFrame <- function(x){
   sc <- x@ratings[,,1]
-  rownames(sc) <- getConstructNames(x)$l
-  colnames(sc) <- getElementNames(x)
+  rownames(sc) <- constructs(x)$l
+  colnames(sc) <- elements(x)
   sc
 }
 
@@ -1618,8 +1618,8 @@ ssq <- function(x, along=2, center=1, normalize=0,
   C <- x@calcs$biplot$con
   X <- x@calcs$biplot$X
   
-  enames <- getElementNames(x)
-  cnames <- getConstructNames(x)$rightpole
+  enames <- elements(x)
+  cnames <- constructs(x)$rightpole
   
   ssq.c <- diag(X %*% t(X))         # SSQ for each row (constructs)
   ssq.e <- diag(t(X) %*% X)         # SSQ for each column(element)
