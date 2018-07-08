@@ -129,6 +129,9 @@ getElementNames2 <- function(x, trim=20, index=F,
 #' @export
 #' @examples 
 #' 
+#' # copy Boeker grid to x
+#' x <- boeker
+#' 
 #' ## get element names
 #' e <- elements(x)
 #' e

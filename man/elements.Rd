@@ -21,6 +21,9 @@ and \code{eNames} which are deprecated.
 }
 \examples{
 
+# copy Boeker grid to x
+x <- boeker
+
 ## get element names
 e <- elements(x)
 e
