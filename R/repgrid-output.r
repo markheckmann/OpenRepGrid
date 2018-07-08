@@ -465,7 +465,7 @@ setMethod("show", "repgrid", function(object){
   
   # make data frame for data
   df.ratings <- as.data.frame(x@ratings[ , ,1, drop=FALSE])     # extract scores
-  colnames(df.ratings) <- getElementNames(x)                    # name columns
+  colnames(df.ratings) <- elements(x)                    # name columns
   left <- con[ ,1]
   right <- con[, 2]
   df_out(df.ratings, left, right, just.main="r", hatform=hatform, id=id, 
