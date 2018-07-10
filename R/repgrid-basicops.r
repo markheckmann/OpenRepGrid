@@ -203,6 +203,8 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
 #' @param trim The number of characters a row or column name is trimmed to
 #'   (default is \code{10}). If \code{NA} no trimming is done. Trimming simply
 #'   saves space when displaying the output.
+#' @param i,j   Row and column indices.
+#' @param value   Numeric replacement value(s).
 #' @return A \code{matrix}.#'
 #' @export
 #' @author Mark Heckmann

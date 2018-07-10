@@ -17,6 +17,10 @@ ratings(x, i, j) <- value
 \item{trim}{The number of characters a row or column name is trimmed to
 (default is \code{10}). If \code{NA} no trimming is done. Trimming simply
 saves space when displaying the output.}
+
+\item{i, j}{Row and column indices.}
+
+\item{value}{Numeric replacement value(s).}
 }
 \value{
 A \code{matrix}.#'
@@ -35,17 +39,17 @@ ratings(x)
 
 ## replace ratings   
        
-ratings(x)[1,1] <- 999
+ratings(x)[1,1] <- 1
 # noet that this is even simpler using the repgrid object directly
-x[1,1] <- 888
+x[1,1] <- 2
 
 #replace several values
 
-ratings(x)[1,1:5] <- 999
-x[1,1:5] <- 888   # the same
+ratings(x)[1,1:5] <- 1
+x[1,1:5] <- 2   # the same
 
-ratings(x)[1:3,5:6] <- matrix(55, 3, 2)
-x[1:3,5:6] <- matrix(55, 3, 2)   # the same
+ratings(x)[1:3,5:6] <- matrix(5, 3, 2)
+x[1:3,5:6] <- matrix(5, 3, 2)   # the same
 
 }
 \seealso{
