@@ -219,17 +219,17 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
 #' 
 #' ## replace ratings   
 #'        
-#' ratings(x)[1,1] <- 999
+#' ratings(x)[1,1] <- 1
 #' # noet that this is even simpler using the repgrid object directly
-#' x[1,1] <- 888
+#' x[1,1] <- 2
 #' 
 #' #replace several values
 #' 
-#' ratings(x)[1,1:5] <- 999
-#' x[1,1:5] <- 888   # the same
+#' ratings(x)[1,1:5] <- 1
+#' x[1,1:5] <- 2   # the same
 #' 
-#' ratings(x)[1:3,5:6] <- matrix(55, 3, 2)
-#' x[1:3,5:6] <- matrix(55, 3, 2)   # the same
+#' ratings(x)[1:3,5:6] <- matrix(5, 3, 2)
+#' x[1:3,5:6] <- matrix(5, 3, 2)   # the same
 #' 
 ratings <- function(x, names=TRUE, trim=10)
 {
