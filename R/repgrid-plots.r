@@ -1,5 +1,5 @@
 
-###############################################################################
+#//////////////////////////////////////////////////////
 
 
 #' Calculate coordinates for biplot.
@@ -1496,7 +1496,7 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
                     e.label.cex=.7,   
                     e.color.map=c(.4, 1),               
                     c.point.col="black",
-                    c.point.cex=.8,
+                    c.point.cex=0,  # construct positions are not displayed by default
                     c.label.col="black",
                     c.label.cex=.7,
                     c.color.map=c(.4, 1),
@@ -1927,7 +1927,7 @@ biplotEsaPseudo3d <- function(x, center=4, g=1, h=1, ...){
 
 
 
-###############################################################################
+#//////////////////////////////////////////////////////////
 
 # x <- boeker
 # x <- calcBiplotCoords(x, g=1, h=1)
@@ -1937,7 +1937,7 @@ biplotEsaPseudo3d <- function(x, center=4, g=1, h=1, ...){
 # biplot2d(x)
 
 
-###############################################################################
+#//////////////////////////////////////////////////////////
 
 
 

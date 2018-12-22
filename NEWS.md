@@ -1,6 +1,6 @@
 
 # OpenRepGrid 0.1.13 
-
+  * biplot2d does now hide construct points as default setting (cex=0)
   * setting a rating value outside the defined scale range now throws an error
   * 'ratings' to access and replace grid ratings added
   * 'elements' added to get and set element names replaces 'getElementNames' and 'eNames' which have become deprecated.
