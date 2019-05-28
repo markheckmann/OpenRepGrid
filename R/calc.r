@@ -194,10 +194,10 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 # plot(as.dendrogram(fit), horiz = F)
 
 
-###############################################################################
+#/////////////////////////////////////////////////////////////////////////////
 # order elements and constructs by angles in first two dimensions from
 # singular value decomposition approach (cf. Raeithel ???)
-###############################################################################
+#/////////////////////////////////////////////////////////////////////////////
 
 #' Calculate angles for points in first two columns.
 #'
@@ -324,9 +324,8 @@ reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g,
 
 
   
-  
-  
-###############################################################################
+#### __________________ ####
+####      ELEMENTS      ####
 
 
 #' Calculate the correlations between elements.
@@ -514,7 +513,9 @@ elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA)
 }
 
 
-###############################################################################
+#### __________________ ####
+####      CONSTRUCTS    ####
+
 
 #' Calculate correlations between constructs. 
 #'
@@ -1146,7 +1147,8 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 }
 
 
-#### CLUSTER ANALYIS ####
+#### __________________ ####
+####   CLUSTER ANALYIS  ####
 
 #' Cluster analysis (of constructs or elements).
 #'
