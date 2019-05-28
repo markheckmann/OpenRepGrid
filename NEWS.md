@@ -1,5 +1,15 @@
+# NEWS
+
+
+# TODO
+
+  * Format scripts with RStudio comment headers to make them more readable
+  * Redo printing 
+  * move gh-pages to /docs folder
+  * add tests
 
 # OpenRepGrid 0.1.13 
+
   * biplot2d does now hide construct points as default setting (cex=0)
   * setting a rating value outside the defined scale range now throws an error
   * 'ratings' to access and replace grid ratings added
