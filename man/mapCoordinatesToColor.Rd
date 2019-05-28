@@ -4,8 +4,8 @@
 \alias{mapCoordinatesToColor}
 \title{Determine color values according to a given range of values.}
 \usage{
-mapCoordinatesToColor(z, colors = c("white", "black"), val.range = c(0.2,
-  0.8))
+mapCoordinatesToColor(z, colors = c("white", "black"),
+  val.range = c(0.2, 0.8))
 }
 \arguments{
 \item{z}{numeric vector.}

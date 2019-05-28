@@ -6,10 +6,11 @@
 \usage{
 biplotDraw(x, inner.positioning = TRUE, outer.positioning = TRUE,
   c.labels.inside = F, flipaxes = c(F, F), strokes.x = 0.1,
-  strokes.y = 0.1, offsetting = TRUE, offset.labels = 0, offset.e = 1,
-  axis.ext = 0.1, mai = c(0.2, 1.5, 0.2, 1.5), rect.margins = c(0.01,
-  0.01), srt = 45, cex.pos = 0.7, xpd = TRUE, c.lines = TRUE,
-  col.c.lines = grey(0.9), zoom = 1, ...)
+  strokes.y = 0.1, offsetting = TRUE, offset.labels = 0,
+  offset.e = 1, axis.ext = 0.1, mai = c(0.2, 1.5, 0.2, 1.5),
+  rect.margins = c(0.01, 0.01), srt = 45, cex.pos = 0.7,
+  xpd = TRUE, c.lines = TRUE, col.c.lines = grey(0.9), zoom = 1,
+  ...)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

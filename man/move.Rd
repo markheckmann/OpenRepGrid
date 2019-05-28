@@ -5,9 +5,6 @@
 \alias{right}
 \alias{up}
 \alias{down}
-\alias{right}
-\alias{up}
-\alias{down}
 \title{Move construct or element in grid to the left, right, up or down.}
 \usage{
 left(x, pos = 0)
@@ -36,13 +33,7 @@ the grid no moving is done.}
 \code{repgrid} object
 }
 \description{
-Move construct or element in grid to the left, right, up or down.
-
 Move element in grid to the right.
-
-Move construct in grid upwards.
-
-Move construct in grid downwards.
 }
 \examples{
 \dontrun{

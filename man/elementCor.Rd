@@ -4,7 +4,8 @@
 \alias{elementCor}
 \title{Calculate the correlations between elements.}
 \usage{
-elementCor(x, rc = TRUE, method = "pearson", trim = 20, index = TRUE)
+elementCor(x, rc = TRUE, method = "pearson", trim = 20,
+  index = TRUE)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

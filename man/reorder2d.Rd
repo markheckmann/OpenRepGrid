@@ -4,8 +4,8 @@
 \alias{reorder2d}
 \title{Order grid by angles between construct and/or elements in 2D.}
 \usage{
-reorder2d(x, dim = c(1, 2), center = 1, normalize = 0, g = 0, h = 1 -
-  g, rc = TRUE, re = TRUE, ...)
+reorder2d(x, dim = c(1, 2), center = 1, normalize = 0, g = 0,
+  h = 1 - g, rc = TRUE, re = TRUE, ...)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

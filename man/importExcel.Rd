@@ -4,7 +4,8 @@
 \alias{importExcel}
 \title{Import grid data from an Excel file.}
 \usage{
-importExcel(file, dir = NULL, sheetIndex = 1, min = NULL, max = NULL)
+importExcel(file, dir = NULL, sheetIndex = 1, min = NULL,
+  max = NULL)
 }
 \arguments{
 \item{file}{A vector of filenames including the full path if file is not in current working 
