@@ -60,7 +60,7 @@ Collate:
     'utils-import.r'
     'utils.r'
     'zzz.r'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>

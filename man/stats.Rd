@@ -3,7 +3,6 @@
 \name{statsElements}
 \alias{statsElements}
 \alias{statsConstructs}
-\alias{statsConstructs}
 \title{Descriptive statistics for constructs and elements of a grid.}
 \usage{
 statsElements(x, index = TRUE, trim = 20)

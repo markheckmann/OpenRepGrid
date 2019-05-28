@@ -4,8 +4,8 @@
 \alias{constructCor}
 \title{Calculate correlations between constructs.}
 \usage{
-constructCor(x, method = c("pearson", "kendall", "spearman"), trim = 20,
-  index = FALSE)
+constructCor(x, method = c("pearson", "kendall", "spearman"),
+  trim = 20, index = FALSE)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

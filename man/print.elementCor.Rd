@@ -4,8 +4,8 @@
 \alias{print.elementCor}
 \title{Print method for class elementCor.}
 \usage{
-\method{print}{elementCor}(x, digits = 2, col.index = TRUE, upper = TRUE,
-  ...)
+\method{print}{elementCor}(x, digits = 2, col.index = TRUE,
+  upper = TRUE, ...)
 }
 \arguments{
 \item{x}{Object of class elementCor}

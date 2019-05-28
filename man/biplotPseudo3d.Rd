@@ -6,8 +6,8 @@
 Draws a biplot of the grid in 2D with depth impression (pseudo 3D).}
 \usage{
 biplotPseudo3d(x, dim = 1:2, map.dim = 3, e.point.col = c("white",
-  "black"), e.point.cex = c(0.6, 1.2), e.label.col = c("white", "black"),
-  e.label.cex = c(0.6, 0.8), e.color.map = c(0.4, 1),
+  "black"), e.point.cex = c(0.6, 1.2), e.label.col = c("white",
+  "black"), e.label.cex = c(0.6, 0.8), e.color.map = c(0.4, 1),
   c.point.col = c("white", "darkred"), c.point.cex = c(0.6, 1.2),
   c.label.col = c("white", "darkred"), c.label.cex = c(0.6, 0.8),
   c.color.map = c(0.4, 1), ...)

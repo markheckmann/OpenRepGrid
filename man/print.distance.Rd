@@ -4,8 +4,8 @@
 \alias{print.distance}
 \title{Print method for class distance.}
 \usage{
-\method{print}{distance}(x, digits = 2, col.index = TRUE, upper = TRUE,
-  diag = FALSE, cutoffs = NA, ...)
+\method{print}{distance}(x, digits = 2, col.index = TRUE,
+  upper = TRUE, diag = FALSE, cutoffs = NA, ...)
 }
 \arguments{
 \item{x}{Object of class distance.}
