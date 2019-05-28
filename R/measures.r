@@ -1272,13 +1272,14 @@ indexDilemmaInternal <- function(x, self, ideal,
   
   # New: invert construct label poles if needed
   needs.to.invert[is.na(needs.to.invert)] <- F
-  print(needs.to.invert)
-  print(nc)
-  print(is.na(needs.to.invert))
+  # print(needs.to.invert)
+  # print(nc)
+  # print(is.na(needs.to.invert))
 
   leftpole <- get.pole(x, 'left')
   rightpole <- get.pole(x, 'right')
   
+  # bug 181228 here
   for (i in 1:nc) {
     if (needs.to.invert[i]) {
       s[i, self] <- inverteds[i, self]

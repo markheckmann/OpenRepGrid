@@ -1,0 +1,53 @@
+------------ 3-13.txt file ---------------
+
+anything not contained within the tags will be discarded
+
+ELEMENTS
+pre-t self
+after-t self
+self now
+future self
+ideal self
+perpetrator
+boyfriend
+cat
+mom
+dad
+female friend
+professor
+END ELEMENTS
+
+CONSTRUCTS
+low selfesteem:high selfesteem
+strained:less strained
+firm:acceptable
+extro:introvert
+unexpressed:open
+supportive:hateful
+in harmony:uncomfortable
+helpless:purposeful
+not planned:planned
+trust worthy:untrustworthy
+powerful:powerless
+secure:insecure
+END CONSTRUCTS
+
+RATINGS
+6 1 2 5 7 4 6 7 5 6 2 4
+7 1 2 6 6 2 6 3 3 7 6 4
+6 2 2 5 6 4 4 4 2 6 5 2
+1 7 6 3 3 2 2 5 4 6 2 4
+6 1 3 4 5 4 1 2 2 3 2 4
+2 7 3 2 1 4 4 2 4 2 2 5
+1 7 6 3 2 4 1 4 5 1 1 4
+6 1 5 6 7 4 5 3 5 6 4 6
+1 1 1 6 7 4 3 4 7 2 6 7
+4 6 4 3 2 7 3 1 1 1 2 4
+2 7 4 2 1 4 3 3 4 7 5 2
+2 7 4 3 1 4 4 1 4 5 2 4
+END RATINGS
+
+RANGE
+1 7
+END RANGE
+---------------- end of file ----------------
