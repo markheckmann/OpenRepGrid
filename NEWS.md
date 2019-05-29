@@ -1,5 +1,7 @@
 
 # OpenRepGrid 0.1.13 
+
+  * indexDilemma was improved and fixed (thanks to Diego Vitali aka @artoo-git)
   * biplot2d does now hide construct points as default setting (cex=0)
   * setting a rating value outside the defined scale range now throws an error
   * 'ratings' to access and replace grid ratings added
