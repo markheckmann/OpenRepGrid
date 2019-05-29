@@ -6,8 +6,8 @@
 \usage{
 addVarianceExplainedToBiplot2d(x, dim = c(1, 2, 3), var.cex = 0.7,
   var.show = TRUE, var.col = grey(0.1), axis.ext = 0.1, center = 1,
-  normalize = 0, g = 0, h = 1 - g, col.active = NA, col.passive = NA,
-  ...)
+  normalize = 0, g = 0, h = 1 - g, col.active = NA,
+  col.passive = NA, ...)
 }
 \arguments{
 \item{x}{\code{repgrid} object containing the biplot coords, i.e. after 

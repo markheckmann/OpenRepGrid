@@ -6,8 +6,8 @@
 \usage{
 indexDilemma(x, self = 1, ideal = ncol(x), diff.mode = 1,
   diff.congruent = NA, diff.discrepant = NA, diff.poles = 1,
-  r.min = 0.2, exclude = FALSE, digits = 2, show = F, output = 1,
-  index = T, trim = 20)
+  r.min = 0.34, exclude = FALSE, digits = 2, show = F,
+  output = 1, index = T, trim = 20)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}
@@ -16,11 +16,10 @@ indexDilemma(x, self = 1, ideal = ncol(x), diff.mode = 1,
 
 \item{ideal}{Numeric. Index of ideal self element.}
 
-\item{diff.mode}{Numeric. Mode to classify construct pairs into congruent and
-discrepant. \code{diff.mode=1} will use the difference in 
-ratings between the self and the ideal element to determine if
-the construct is congruent or discrepant. No other
-modes have yet been implemented.}
+\item{diff.mode}{Numeric. Method adopted to classify construct pairs into congruent 
+and discrepant. With \code{diff.mode=1}, the minimal and maximal 
+score difference criterion is applied. With \code{diff.mode=0} the Mid-point
+rating criterion is applied. Default is \code{diff.mode=1}.}
 
 \item{diff.congruent}{Is used if \code{diff.mode=1}. Maximal difference between
 element ratings to define construct as congruent (default
@@ -103,8 +102,40 @@ is based on the rating differences between the elements
 A construct is 'congruent' if the construction of the 'self' and the 
 preferred state (i.e. ideal self) are the same or similar. 
 A construct is discrepant if the construction of the 'self' and 
-the 'ideal' is dissimilar. 
-Suppose the element 'self' is rated 2 and 'ideal self' 5 on 
+the 'ideal' is dissimilar.
+
+There are two popular accepted methods to
+identify congruent and discrepant constructs:
+\enumerate{
+   \item  "Scale Midpoint criterion" (cf. Grice 2008)
+   \item  "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
+}
+
+\emph{"Scale Midpoint criterion" (cf. Grice 2008)}
+
+As reported in the Idiogrid (v. 2.4) manual: "[..] The Scale Midpoint uses the 
+scales as the 'dividing line' for discrepancies; for example, if the actual 
+element is rated above the midpoint, then the discrepancy exists (and vice versa). 
+If the two selves are the same as the actual side of the scale, then a discrepancy 
+does not exist". As an example:
+Assuming a scoring range of 1-7, the midpoint score will be 4, we then look at self 
+and ideal-self scoring on any given construct and we proceed as follow:
+
+\itemize{
+   \item If the scoring of Self AND Ideal Self are both < 4: construct is "Congruent"
+   \item If the scoring of Self AND Ideal Self are both > 4: construct is "Congruent"
+   \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR viceversa): construct is "discrepant"
+   \item If scoring Self OR Ideal Self = 4 then the construct is NOT Discrepant and it is "Undifferentiated"
+}
+
+\emph{Minimal and maximal score difference criterion (cf. Feixas & Saul, 2004)}
+
+This other method is more conservative and it is designed to minimize Type I errors by a) setting
+a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the ideal Self and self are 
+neither congruent or discrepant; c) discarding cases where ideal self is "not oriented", i.e. 
+scored as the midpoint.
+'
+E.g. suppose the element 'self' is rated 2 and 'ideal self' 5 on 
 a scale from 1 to 6. The ratings differences are 5-2 = 3. If this 
 difference is smaller than e.g. 1 the construct is 'congruent', if it
 is bigger than 3 it is 'discrepant'. \cr
@@ -121,7 +152,7 @@ or 'discrepant' can be determined in several ways (cf. Bell, 2009):
 The value mode is determined via the argument \code{diff.mode}.\cr
 If no 'a priori' criteria to determine if the construct
 is congruent or discrepant is supplied as an argument, the values are chosen
-acording to the range of the rating scale used. For the following scales
+according to the range of the rating scale used. For the following scales
 the defaults are chosen as:
 
 \tabular{ll}{
@@ -212,7 +243,10 @@ Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing
                        Winter, D. A. (1982). Construct relationships, psychological
                        disorder and therapeutic change. \emph{British Journal of Medical 
                        Psychology, 55} (Pt 3), 257-269.
+
+                       Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory 
+                       Grids (Version 2.4). Oklahoma: Oklahoma State University.
 }
 \author{
-Mark Heckmann, Alejandro García
+Mark Heckmann, Alejandro García, Diego Vitali
 }
