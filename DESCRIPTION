@@ -4,8 +4,11 @@ Title: Tools to Analyze Repertory Grid Data
 LazyData: yes
 Type: Package
 LazyLoad: yes
-Authors@R: person("Mark", "Heckmann", email = "heckmann.mark@gmail.com",
-    role = c("aut", "cre"))
+Authors@R: c(
+    person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")),
+    person("Alejandro", "García Gutiérrez", role = "ctb"),
+    person("Diego", "Vitali", role = "ctb")
+    )
 Description: Analyze repertory grids, a qualitative-quantitative 
     data collection technique devised by George A. Kelly in the 1950s. Today, grids are used across 
     various domains ranging from clinical psychology to marketing. The package contains
@@ -13,7 +16,7 @@ Description: Analyze repertory grids, a qualitative-quantitative
     (see e.g. Bell, 2005, <doi:10.1002/0470013370.ch9>; 
     Fransella, Bell, & Bannister, 2004, ISBN: 978-0-470-09080-0).
 Version: 0.1.13
-Date: 2018-12-22
+Date: 2019-05-29
 Encoding: UTF-8
 URL: http://openrepgrid.org,
     https://github.com/markheckmann/OpenRepGrid
