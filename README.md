@@ -4,7 +4,7 @@
 
 **OpenRepGrid** is an R package for the analysis of repertory grid data. Its home is  [www.openrepgrid.org](http://www.openrepgrid.org/). 
                                                   
-You can install the latest release version from [CRAN](http://www.cran.r-project.org/web/packages/OpenRepGrid/index.html)  by typing
+You can install the latest release version from [CRAN](https://cran.r-project.org/web/packages/OpenRepGrid/index.html) by typing
 
     install.packages("OpenRepGrid", dep = TRUE)
     
