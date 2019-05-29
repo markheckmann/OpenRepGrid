@@ -4,10 +4,11 @@ language: R
 sudo: false
 cache: packages
 warnings_are_errors: false
-
 addons:
   apt:
     packages:
     - tcl8.5-dev
     - tk8.5-dev
+    - libfreetype6-dev
+    - libglu1-mesa-dev
 
