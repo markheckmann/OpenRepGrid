@@ -4,11 +4,12 @@
 \alias{bertin}
 \title{Make Bertin display of grid data.}
 \usage{
-bertin(x, colors = c("white", "black"), showvalues = TRUE, xlim = c(0.2,
-  0.8), ylim = c(0, 0.6), margins = c(0, 1, 1), cex.elements = 0.7,
-  cex.constructs = 0.7, cex.text = 0.6, col.text = NA, border = "white",
-  lheight = 0.75, id = c(T, T), cc = 0, cr = 0, cc.old = 0,
-  cr.old = 0, col.mark.fill = "#FCF5A4", print = TRUE, ...)
+bertin(x, colors = c("white", "black"), showvalues = TRUE,
+  xlim = c(0.2, 0.8), ylim = c(0, 0.6), margins = c(0, 1, 1),
+  cex.elements = 0.7, cex.constructs = 0.7, cex.text = 0.6,
+  col.text = NA, border = "white", lheight = 0.75, id = c(T, T),
+  cc = 0, cr = 0, cc.old = 0, cr.old = 0,
+  col.mark.fill = "#FCF5A4", print = TRUE, ...)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

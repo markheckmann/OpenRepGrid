@@ -4,9 +4,9 @@
 \alias{cluster}
 \title{Cluster analysis (of constructs or elements).}
 \usage{
-cluster(x, along = 0, dmethod = "euclidean", cmethod = "ward", p = 2,
-  align = TRUE, trim = NA, main = NULL, mar = c(4, 2, 3, 15), cex = 0,
-  lab.cex = 0.8, cex.main = 0.9, print = TRUE, ...)
+cluster(x, along = 0, dmethod = "euclidean", cmethod = "ward",
+  p = 2, align = TRUE, trim = NA, main = NULL, mar = c(4, 2, 3,
+  15), cex = 0, lab.cex = 0.8, cex.main = 0.9, print = TRUE, ...)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}
