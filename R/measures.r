@@ -1,16 +1,18 @@
-###############################################################################
-###  						            GRID INDEX MEASURES     							          ###
-###                                                                         ###
-###     All function for index measures start with a lower case "i"         ###
-###     e.g. 'iBias' that stand for index followed by the an acronym        ###
-###     of what is calculated.                                              ###
-###                                                                         ###
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
+#                                                                             #
+#  			  			            GRID INDEX MEASURES     							            #
+#                                                                             #
+#       All function for index measures start with a lower case "i"           #
+#       e.g. 'iBias' that stand for index followed by the an acronym          #
+#       of what is calculated.                                                #
+#                                                                             #
+#//////////////////////////////////////////////////////////////////////////////
 
 
-###############################################################################
-###  						            MEASURES FROM SLATER 1977							          ###
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
+#   						            SLATER MEASURES  							                 ----
+#//////////////////////////////////////////////////////////////////////////////
+
 
 #' Calculate 'bias' of grid as defined by Slater (1977). 
 #'
@@ -90,24 +92,25 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 }
 
 
-###############################################################################
-###  						              OTHER INDICES          							          ###
-###############################################################################
+
+#//////////////////////////////////////////////////////////////////////////////
+#   						                    MISC             							         ----
+#//////////////////////////////////////////////////////////////////////////////
+
 
 #' Percentage of Variance Accounted for by the First Factor (PVAFF)
 #'
-#' The PVAFF is used as 
-#' a measure of cognitive complexity. It was introduced in an unpublished
-#' PhD thesis by Jones (1954, cit. Bonarius, 1965).
-#' To calculate it, the 'first factor' is extracted from the construct 
-#' correlation matrix by principal component analysis.
-#' The PVAFF reflects the amount of variation that is accounted for by a single 
-#' linear component. If a single latent component is able to explain the
-#' variation in the grid, the cognitive complexity is said to be low. 
-#' In this case the construct system is regarded as 'simple' (Bell, 2003).
+#' The PVAFF is used as a measure of cognitive complexity. It was introduced in
+#' an unpublished PhD thesis by Jones (1954, cit. Bonarius, 1965). To calculate
+#' it, the 'first factor' is extracted from the construct correlation matrix by
+#' principal component analysis. The PVAFF reflects the amount of variation that
+#' is accounted for by a single linear component. If a single latent component
+#' is able to explain the variation in the grid, the cognitive complexity is
+#' said to be low. In this case the construct system is regarded as 'simple'
+#' (Bell, 2003).
 #'
 #' The percentage of variance is calculated using the corelation matrix
-#' of te constructs submitted to \code{\link{svd}}.
+#' of the constructs submitted to \code{\link{svd}}.
 #' 
 #' @section Development: 
 #' TODO: Results have not yet been checked against other grid programs.
@@ -133,40 +136,35 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 #' @examples 
 #'
 #'    indexPvaff(bell2010)
-#'    indexPvaff(feixas2004)
 #'
-#'    # save results to object
-#'    p <- indexPvaff(bell2010)
-#'    p
-#'
-#'
-indexPvaff <- function(x){
-  if (!inherits(x, "repgrid")) 
+indexPvaff <- function(x)
+{
+  if (!inherits(x, "repgrid"))
     stop("Object must be of class 'repgrid'")
   cr <- constructCor(x)
-  sv <- svd(cr)$d 
-  pvaff <- sv[1]^2/sum(sv^2)
+  sv <- svd(cr)$d
+  pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
   return(pvaff)
 }
 
 
-#' Print method for class indexPvaff.
-#' 
-#' @param x         Object of class indexPvaff.
-#' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{2}).
-#' @param ...       Not evaluated.
-#' @export
-#' @method          print indexPvaff
-#' @keywords        internal
-#'
-print.indexPvaff <- function(x, digits=2, ...)
-{
-  cat("\n########################################################")
-  cat("\nPercentage of Variance Accounted for by the First Factor")
-  cat("\n########################################################")
-  cat("\n\nPVAFF: ", round(x*100, digits), "%")
-}
+# Print method for class indexPvaff.
+# 
+# @param x         Object of class indexPvaff.
+# @param digits    Numeric. Number of digits to round to (default is 
+#                  \code{2}).
+# @param ...       Not evaluated.
+# @export
+# @method          print indexPvaff
+# @keywords        internal
+#
+# print.indexPvaff <- function(x, digits=2, ...)
+# {
+#   cat("\n########################################################")
+#   cat("\nPercentage of Variance Accounted for by the First Factor")
+#   cat("\n########################################################")
+#   cat("\n\nPVAFF: ", round(x*100, digits), "%")
+# }
 
 
 # Another version of PVAFF giving slightly different results
@@ -324,9 +322,9 @@ print.indexIntensity <- function(x, digits=2, ...)
 
 
 
-###############################################################################
-###    					            CONFLICT MEASURES       							          ###
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
+#      					            CONFLICT MEASURES       							         ----
+#//////////////////////////////////////////////////////////////////////////////
 
 #' Print function for class indexConflict1
 #' 
@@ -1165,9 +1163,9 @@ indexDilemmaInternal <- function(x, self, ideal,
   # type.c.poles[is.neither.p] <- "neither"
   #
   #
-  ####################################################################################
+  #//////////////////////////////////////////////////////////////////////////////
   ## MIDPOINT-BASED CRITERION TO IDENTIFY CONGRUENT AND DISCREPANT constructs 
-  ####################################################################################
+  #//////////////////////////////////////////////////////////////////////////////
   #### added by DIEGO
   #   I have tried to implement here the other popular method for the identification of 
   #   Congruent and Discrepant constructs. This proposed below is that applied by IDIOGRID
@@ -1193,15 +1191,15 @@ indexDilemmaInternal <- function(x, self, ideal,
     type.c[is.neither] <- "neither"
   }else {stop("\nNO differentiation method (diff.mode) SELECTED! quitting ..")}
 
-  ############## END OF MIDPOINT-BASED CRITERION ####################################
+  #--------------- END OF MIDPOINT-BASED CRITERION -----------------------------#
   
 
 
 
-  ####################################################################################
+  #//////////////////////////////////////////////////////////////////////////////
   # DIEGO: This that I have commented-out is now redundant as the variables are not duplicates 
   # anymore and are calculated only in their conditional loop. This is more efficient
-  # ###################################################################################
+  #//////////////////////////////////////////////////////////////////////////////
   #  if (diff.mode == 1){
   #  is.congruent <- is.congruent.e
   #  is.discrepant <- is.discrepant.e
@@ -1212,7 +1210,8 @@ indexDilemmaInternal <- function(x, self, ideal,
   #  type.construct <- type.c.poles 
   #  }
   # we just need the next line to reconnect with the original indexdilemma routine
-  #####################################################################################
+  #//////////////////////////////////////////////////////////////////////////////
+  
   type.construct <- type.c
   # GET CORRELATIONS
   
@@ -1742,15 +1741,16 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 
 
 
-######################
+#//////////////////////////////////////////////////////////////////////////////
+
 # Pemutation test to test if grid is random.
 # "The null hypothesis [is] that a particular grid 
 # is indis- tinguishable from an array of random numbers" 
 # (Slater, 1976, p. 129).
 #
-randomTest <- function(x){
-  x
-}
+# randomTest <- function(x){
+#   x
+# }
 # permutationTest
 # Hartmann 1992: 
 # To illustrate: If a person decided to produce a nonsense grid, 

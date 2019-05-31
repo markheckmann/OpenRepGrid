@@ -10,19 +10,18 @@ indexPvaff(x)
 \item{x}{\code{repgrid} object.}
 }
 \description{
-The PVAFF is used as 
-a measure of cognitive complexity. It was introduced in an unpublished
-PhD thesis by Jones (1954, cit. Bonarius, 1965).
-To calculate it, the 'first factor' is extracted from the construct 
-correlation matrix by principal component analysis.
-The PVAFF reflects the amount of variation that is accounted for by a single 
-linear component. If a single latent component is able to explain the
-variation in the grid, the cognitive complexity is said to be low. 
-In this case the construct system is regarded as 'simple' (Bell, 2003).
+The PVAFF is used as a measure of cognitive complexity. It was introduced in
+an unpublished PhD thesis by Jones (1954, cit. Bonarius, 1965). To calculate
+it, the 'first factor' is extracted from the construct correlation matrix by
+principal component analysis. The PVAFF reflects the amount of variation that
+is accounted for by a single linear component. If a single latent component
+is able to explain the variation in the grid, the cognitive complexity is
+said to be low. In this case the construct system is regarded as 'simple'
+(Bell, 2003).
 }
 \details{
 The percentage of variance is calculated using the corelation matrix
-of te constructs submitted to \code{\link{svd}}.
+of the constructs submitted to \code{\link{svd}}.
 }
 \section{Development}{
  
@@ -32,12 +31,6 @@ TODO: Results have not yet been checked against other grid programs.
 \examples{
 
    indexPvaff(bell2010)
-   indexPvaff(feixas2004)
-
-   # save results to object
-   p <- indexPvaff(bell2010)
-   p
-
 
 }
 \references{
