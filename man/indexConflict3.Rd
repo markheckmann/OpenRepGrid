@@ -57,17 +57,16 @@ A list (invisibly) containing containing: \cr
 Conflict measure as proposed by Bell (2004).
 }
 \details{
-Measure of conflict or inconsistency as proposed by Bell (2004).
-The identification of conflict is based on distances rather than 
-correlations as in other measures of conflict \code{\link{indexConflict1}}
-and \code{\link{indexConflict2}}. It assesses if the 
-distances between all components of a triad, made up of one element 
-and two constructs, satisfies the "triangle inequality" (cf. Bell, 2004).
-If not, a triad is regarded as conflictive. An advantage of the measure 
-is that it can be interpreted not only as a global measure for a 
-grid but also on an element, construct, and element by construct level 
-making it valuable for detailed feedback. Also, differences in conflict 
-can be submitted to statistical testing procedures.
+Measure of conflict or inconsistency as proposed by Bell (2004). The
+identification of conflict is based on distances rather than correlations as
+in other measures of conflict \code{\link{indexConflict1}} and
+\code{\link{indexConflict2}}. It assesses if the distances between all
+components of a triad, made up of one element and two constructs, satisfies
+the "triangle inequality" (cf. Bell, 2004). If not, a triad is regarded as
+conflictive. An advantage of the measure is that it can be interpreted not
+only as a global measure for a grid but also on an element, construct, and
+element by construct level making it valuable for detailed feedback. Also,
+differences in conflict can be submitted to statistical testing procedures.
 
 Status:  working; output for euclidean and manhattan distance 
          checked against Gridstat output. \cr
@@ -85,19 +84,19 @@ TODO:    standardization and z-test for discrepancies;
  indexConflict3(bell2010)
  
  # show additional stats for elements 1 to 3
- indexConflict3(bell2010, e.out=1:3)
+ indexConflict3(bell2010, e.out = 1:3)
  
  # show additional stats for constructs 1 and 5
- indexConflict3(bell2010, c.out=c(1,5))
+ indexConflict3(bell2010, c.out = c(1,5))
  
  # finetune output
  ## change number of digits
  x <- indexConflict3(bell2010)
- print(x, digits=4)
+ print(x, digits = 4)
 
  ## omit discrepancy matrices for constructs
- x <- indexConflict3(bell2010, c.out=5:6)
- print(x, discrepancies=FALSE)
+ x <- indexConflict3(bell2010, c.out = 5:6)
+ print(x, discrepancies = FALSE)
  
 }
 

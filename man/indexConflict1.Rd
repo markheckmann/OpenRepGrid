@@ -21,20 +21,19 @@ A list with the following elements:
 Conflict measure as proposed by Slade and Sheehan (1979)
 }
 \details{
-The first approach to mathematically derive a conflict measure based on
-grid data was presented by Slade and Sheehan (1979). Their 
-operationalization is based on an approach by Lauterbach (1975) 
-who applied the \emph{balance theory} (Heider, 1958) for a quantitative 
-assessment of psychological conflict. It is based on a count of 
-balanced and imbalanced triads of construct correlations.
-A triad is imbalanced if one or all three of the correlations are 
-negative, i. e. leading to contrary implications. This approach 
-was shown by Winter (1982) to be flawed. An improved version was 
-proposed by Bassler et al. (1992) and has been implemented
-in the function \code{indexConflict2}.
+The first approach to mathematically derive a conflict measure based on grid
+data was presented by Slade and Sheehan (1979). Their operationalization is
+based on an approach by Lauterbach (1975) who applied the \emph{balance
+theory} (Heider, 1958) for a quantitative assessment of psychological
+conflict. It is based on a count of balanced and imbalanced triads of
+construct correlations. A triad is imbalanced if one or all three of the
+correlations are negative, i. e. leading to contrary implications. This
+approach was shown by Winter (1982) to be flawed. An improved version was
+proposed by Bassler et al. (1992) and has been implemented in the function
+\code{indexConflict2}.
 
-The table below shows when a triad made up of the constructs
-A, B, and C is balanced and imbalanced.
+The table below shows when a triad made up of the constructs A, B, and C is
+balanced and imbalanced.
 
 \tabular{cccc}{
  cor(A,B) \tab  cor(A,C) \tab  cor(B,C) \tab  Triad characteristic \cr
@@ -49,12 +48,9 @@ A, B, and C is balanced and imbalanced.
 }
 }
 \examples{
-\dontrun{
    
    indexConflict1(feixas2004)
    indexConflict1(boeker)
-
-}
 
 }
 \references{

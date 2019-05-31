@@ -14,7 +14,7 @@
 
 \item{output}{Numeric. The output printed to the console. \code{output=1} (default) 
 will print information about the conflicts to the console.
-\code{output=2} will additionally print the conflictive
+\code{output = 2} will additionally print the conflictive
 triads.}
 
 \item{...}{Not evaluated.}

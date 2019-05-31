@@ -321,17 +321,15 @@ print.indexIntensity <- function(x, digits = 2, ...)
 
 
 
-
-
 #//////////////////////////////////////////////////////////////////////////////
 #      					            CONFLICT MEASURES       							         ----
 #//////////////////////////////////////////////////////////////////////////////
 
+
 #' Print function for class indexConflict1
 #' 
 #' @param x         Object of class indexConflict1.
-#' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{1}).
+#' @param digits    Numeric. Number of digits to round to (default is \code{1}).
 #' @param ...       Not evaluated.
 #' @export
 #' @method          print indexConflict1
@@ -356,20 +354,19 @@ print.indexConflict1 <- function(x, digits=1, ...)
 
 #' Conflict measure as proposed by Slade and Sheehan (1979) 
 #'
-#' The first approach to mathematically derive a conflict measure based on
-#' grid data was presented by Slade and Sheehan (1979). Their 
-#' operationalization is based on an approach by Lauterbach (1975) 
-#' who applied the \emph{balance theory} (Heider, 1958) for a quantitative 
-#' assessment of psychological conflict. It is based on a count of 
-#' balanced and imbalanced triads of construct correlations.
-#' A triad is imbalanced if one or all three of the correlations are 
-#' negative, i. e. leading to contrary implications. This approach 
-#' was shown by Winter (1982) to be flawed. An improved version was 
-#' proposed by Bassler et al. (1992) and has been implemented
-#' in the function \code{indexConflict2}.
+#' The first approach to mathematically derive a conflict measure based on grid
+#' data was presented by Slade and Sheehan (1979). Their operationalization is
+#' based on an approach by Lauterbach (1975) who applied the \emph{balance
+#' theory} (Heider, 1958) for a quantitative assessment of psychological
+#' conflict. It is based on a count of balanced and imbalanced triads of
+#' construct correlations. A triad is imbalanced if one or all three of the
+#' correlations are negative, i. e. leading to contrary implications. This
+#' approach was shown by Winter (1982) to be flawed. An improved version was
+#' proposed by Bassler et al. (1992) and has been implemented in the function
+#' \code{indexConflict2}.
 #'
-#' The table below shows when a triad made up of the constructs
-#' A, B, and C is balanced and imbalanced.
+#' The table below shows when a triad made up of the constructs A, B, and C is
+#' balanced and imbalanced.
 #'
 #' \tabular{cccc}{
 #'  cor(A,B) \tab  cor(A,C) \tab  cor(B,C) \tab  Triad characteristic \cr
@@ -417,23 +414,23 @@ print.indexConflict1 <- function(x, digits=1, ...)
 #' @seealso \code{\link{indexConflict2}} for an improved version of this measure;
 #'          see \code{\link{indexConflict3}} for a measure based on distances.
 #'
-#' @examples \dontrun{
+#' @examples 
 #'    
 #'    indexConflict1(feixas2004)
 #'    indexConflict1(boeker)
 #'
-#' }
-#'
-indexConflict1 <- function(x) {
+indexConflict1 <- function(x) 
+{
   if (!inherits(x, "repgrid")) 
     stop("Object must be of class 'repgrid'")
+  
   r <- constructCor(x)                    # construct correlation matrix
   z <- fisherz(r)
   nc <- getNoOfConstructs(x)              # number of constructs
   comb <- t(combn(nc, 3))                 # all possible correlation triads
   balanced <- rep(NA, nrow(comb))         # set up result vector
   
-  for (i in 1:nrow(comb)){
+  for (i in 1:nrow(comb)) {
     z.triad <- z[t(combn(comb[i, ], 2))]  # correlations of triad
     z.prod <- prod(z.triad)
     if (sign(z.prod) > 0)   # triad is imbalanced if product of correlations is negative
@@ -443,10 +440,10 @@ indexConflict1 <- function(x) {
   prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
   prop.imbalanced <- 1 - prop.balanced                                # proportion of 
   
-  res <- list(total=length(balanced),
-              imbalanced=sum(!balanced),
-              prop.balanced=prop.balanced, 
-              prop.imbalanced=prop.imbalanced)
+  res <- list(total = length(balanced),
+              imbalanced = sum(!balanced),
+              prop.balanced = prop.balanced, 
+              prop.imbalanced = prop.imbalanced)
   class(res) <- "indexConflict1"
   res
 }
@@ -454,18 +451,16 @@ indexConflict1 <- function(x) {
 
 #' Conflict measure as proposed by Bassler et al. (1992). 
 #'
-#' The function calculates the conflict measure as devised
-#' by Bassler et al. (1992). It is an improved version of the ideas
-#' by Slade and Sheehan (1979) that have been implemented in
-#' the function \code{\link{indexConflict1}}. The new approach 
-#' also takes into account the magnitude of the correlations in
-#' a traid to assess whether it is balanced or imbalanced. 
-#' As a result, small correlations that are psychologically meaningless
-#' are considered accordingly. Also, correlations with a  small magnitude, 
-#' i. e. near zero, which may  be positive or negative due to 
-#' chance alone will no longer distort the measure (Bassler et al., 1992).
+#' The function calculates the conflict measure as devised by Bassler et al.
+#' (1992). It is an improved version of the ideas by Slade and Sheehan (1979)
+#' that have been implemented in the function \code{\link{indexConflict1}}. The
+#' new approach also takes into account the magnitude of the correlations in a
+#' traid to assess whether it is balanced or imbalanced. As a result, small
+#' correlations that are psychologically meaningless are considered accordingly.
+#' Also, correlations with a  small magnitude, i. e. near zero, which may  be
+#' positive or negative due to chance alone will no longer distort the measure
+#' (Bassler et al., 1992).
 #' 
-#'
 #' Description of the balance / imbalance assessment:
 #'
 #' \enumerate{
@@ -525,7 +520,7 @@ indexConflict1 <- function(x) {
 #'  print(x)
 #'  
 #'  # show conflictive triads
-#'  print(x, output=2)
+#'  print(x, output = 2)
 #'  
 #'  # accessing the calculations for further use
 #'  x$total
@@ -535,16 +530,18 @@ indexConflict1 <- function(x) {
 #'  x$triads.imbalanced
 #' }
 #' 
-indexConflict2 <- function(x, crit=.03){
+indexConflict2 <- function(x, crit = .03) 
+{
   if (!inherits(x, "repgrid")) 
     stop("Object must be of class 'repgrid'")
+
   r <- constructCor(x)                    # construct correlation matrix
   z <- fisherz(r)
   nc <- getNoOfConstructs(x)              # number of constructs
   comb <- t(combn(nc, 3))                 # all possible correlation triads
   balanced <- rep(NA, nrow(comb))         # set up result vector
   
-  for (i in 1:nrow(comb)){	
+  for (i in 1:nrow(comb)) {	
     z.triad <- z[t(combn(comb[i, ], 2))]      # z-values of triad
     ind <- order(abs(z.triad), decreasing=T)  # order for absolute magnitude
     z.triad <- z.triad[ind]               # reorder z values by magnitude               
@@ -560,17 +557,18 @@ indexConflict2 <- function(x, crit=.03){
   prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
   prop.imbalanced <- 1 - prop.balanced                 # proportion of 
   
-  res <- list(total=length(balanced),
-              imbalanced=sum(!balanced),
-              prop.balanced=prop.balanced, 
-              prop.imbalanced=prop.imbalanced,
-              triads.imbalanced=comb[!balanced, ])
+  res <- list(total = length(balanced),
+              imbalanced = sum(!balanced),
+              prop.balanced = prop.balanced, 
+              prop.imbalanced = prop.imbalanced,
+              triads.imbalanced = comb[!balanced, ])
   class(res) <- "indexConflict2"
   res
 }
 
 
-indexConflict2Out1 <- function(x, digits=1) {
+indexConflict2Out1 <- function(x, digits=1) 
+{
   cat("\n###############################")
   cat("\nConflicts based on correlations")
   cat("\n###############################") 
@@ -585,7 +583,8 @@ indexConflict2Out1 <- function(x, digits=1) {
 }
 
 
-indexConflict2Out2 <- function(x) {
+indexConflict2Out2 <- function(x) 
+{
   cat("\nConstructs that form imbalanced triads:\n")
   df <- as.data.frame(x$triads.imbalanced)
   colnames(df) <- c(" ", "  ", "   ")
@@ -600,34 +599,33 @@ indexConflict2Out2 <- function(x) {
 #'                \code{1}).
 #' @param output  Numeric. The output printed to the console. \code{output=1} (default) 
 #'                will print information about the conflicts to the console.
-#'                \code{output=2} will additionally print the conflictive
+#'                \code{output = 2} will additionally print the conflictive
 #'                triads. 
 #' @param ...     Not evaluated.
 #' @export
 #' @method        print indexConflict2
 #' @keywords      internal
 #'
-print.indexConflict2 <- function(x, digits=1, output=1, ...){
-  indexConflict2Out1(x, digits=digits) 
+print.indexConflict2 <- function(x, digits = 1, output = 1, ...) 
+{
+  indexConflict2Out1(x, digits = digits) 
   if (output == 2) 
     indexConflict2Out2(x)
 } 
 
 
-
 #' Conflict measure as proposed by Bell (2004). 
 #'
-#' Measure of conflict or inconsistency as proposed by Bell (2004).
-#' The identification of conflict is based on distances rather than 
-#' correlations as in other measures of conflict \code{\link{indexConflict1}}
-#' and \code{\link{indexConflict2}}. It assesses if the 
-#' distances between all components of a triad, made up of one element 
-#' and two constructs, satisfies the "triangle inequality" (cf. Bell, 2004).
-#' If not, a triad is regarded as conflictive. An advantage of the measure 
-#' is that it can be interpreted not only as a global measure for a 
-#' grid but also on an element, construct, and element by construct level 
-#' making it valuable for detailed feedback. Also, differences in conflict 
-#' can be submitted to statistical testing procedures.
+#' Measure of conflict or inconsistency as proposed by Bell (2004). The
+#' identification of conflict is based on distances rather than correlations as
+#' in other measures of conflict \code{\link{indexConflict1}} and
+#' \code{\link{indexConflict2}}. It assesses if the distances between all
+#' components of a triad, made up of one element and two constructs, satisfies
+#' the "triangle inequality" (cf. Bell, 2004). If not, a triad is regarded as
+#' conflictive. An advantage of the measure is that it can be interpreted not
+#' only as a global measure for a grid but also on an element, construct, and
+#' element by construct level making it valuable for detailed feedback. Also,
+#' differences in conflict can be submitted to statistical testing procedures.
 #'
 #' Status:  working; output for euclidean and manhattan distance 
 #'          checked against Gridstat output. \cr
@@ -689,27 +687,29 @@ print.indexConflict2 <- function(x, digits=1, output=1, ...){
 #'  indexConflict3(bell2010)
 #'  
 #'  # show additional stats for elements 1 to 3
-#'  indexConflict3(bell2010, e.out=1:3)
+#'  indexConflict3(bell2010, e.out = 1:3)
 #'  
 #'  # show additional stats for constructs 1 and 5
-#'  indexConflict3(bell2010, c.out=c(1,5))
+#'  indexConflict3(bell2010, c.out = c(1,5))
 #'  
 #'  # finetune output
 #'  ## change number of digits
 #'  x <- indexConflict3(bell2010)
-#'  print(x, digits=4)
+#'  print(x, digits = 4)
 #'
 #'  ## omit discrepancy matrices for constructs
-#'  x <- indexConflict3(bell2010, c.out=5:6)
-#'  print(x, discrepancies=FALSE)
+#'  x <- indexConflict3(bell2010, c.out = 5:6)
+#'  print(x, discrepancies = FALSE)
 #'  
 #' }
 #'
 #'
-indexConflict3 <- function(x, p=2,  
-                           e.out=NA, e.threshold=NA,
-                           c.out=NA, c.threshold=NA,
-                           trim=20) {
+indexConflict3 <- function(x, p = 2,  
+                           e.out = NA, 
+                           e.threshold = NA,
+                           c.out = NA, 
+                           c.threshold = NA,
+                           trim = 20) {
   # To assess the triangle inequality we need:
   #
   # - d.ij   'distance'  between element i and constuct j
@@ -724,29 +724,29 @@ indexConflict3 <- function(x, p=2,
   s <- getRatingLayer(x)            # grid scores matrix
   ne <- getNoOfElements(x)
   nc <- getNoOfConstructs(x)
-  enames <- getElementNames2(x, index=T, trim=trim,  pre="", post=" ")
-  cnames <- getConstructNames2(x, index=T, trim=trim, mode=1, pre="", post=" ")
+  enames <- getElementNames2(x, index = T, trim = trim,  pre = "", post = " ")
+  cnames <- getConstructNames2(x, index = T, trim = trim, mode = 1, pre = "", post = " ")
   
   # set up result vectors
   # confict.disc      discrepancy for each triangle (indexed e, c1, c2)
   # confict.e         number of conflicts for each element
   # conflict.c        number of conflicts for each construct
   # conflict.total    overall value of conflictive triangles
-  conflict.disc  <- array(NA, dim=c(nc, nc, ne))
+  conflict.disc  <- array(NA, dim = c(nc, nc, ne))
   conflict.e  <- rep(0, ne)
   conflict.c  <- rep(0, nc)
   conflict.total <- 0
-  conflicts.potential <-  ne * nc *(nc -1)/2
+  conflicts.potential <-  ne * nc * (nc -1 ) / 2
   # e is i, c1 is j and c2 is k in Bell's Fortran code
   
-  for (e in seq_len(ne)){
+  for (e in seq_len(ne)) {
     # average distance between constructs c1 and c2 not taking into account
     # the element under consideration. Generalization for any minkwoski metric
-    dc <- dist(s[, -e], method="minkowski", p=p) / (ne - 1)^(1/p)     # Bell averages the unsquared distances (euclidean), 
+    dc <- dist(s[, -e], method="minkowski", p=p) / (ne - 1)^(1 / p)     # Bell averages the unsquared distances (euclidean), 
     dc <- as.matrix(dc)   # convert dist object to matrix             # i.e. divide euclidean dist by root of n or p in the general case
     
-    for (c1 in seq_len(nc)){
-      for (c2 in seq_len(nc)){
+    for (c1 in seq_len(nc)) {
+      for (c2 in seq_len(nc)) {
         if (c1 < c2){
           d.jk <- dc[c1, c2]
           d.ij <- s[c1, e]
@@ -803,19 +803,20 @@ indexConflict3 <- function(x, p=2,
     
     disc.stand <- (e.disc.na - disc.avg) / disc.sd          # standardized discrepancy
     
-    list(e=e, 
-         disc=e.disc.na,
-         pairs=n.conflict.pairs,
-         constructs=e.disc.perc.df,
-         avg=disc.avg,
-         sd=disc.sd)#,
+    list(e = e, 
+         disc = e.disc.na,
+         pairs = n.conflict.pairs,
+         constructs = e.disc.perc.df,
+         avg = disc.avg,
+         sd = disc.sd)#,
     #disc.stand=round(disc.stand, digits))
   }
   
   
   ### Detailed stats for constructs ###
   
-  conflictAttributedByElementForConstruct <- function(c1) {
+  conflictAttributedByElementForConstruct <- function(c1) 
+  {
     c1.disc.0 <- c1.disc.na <- conflict.disc[c1, , ]     # version with NAs and zeros for no discrepancies
     rownames(c1.disc.na) <- paste("c", seq_len(nrow(c1.disc.na)))
     colnames(c1.disc.na) <- paste("e", seq_len(ncol(c1.disc.na)))
@@ -823,11 +824,11 @@ indexConflict3 <- function(x, p=2,
     c1.disc.0[is.na(c1.disc.0)] <- 0                     # replace NAs by zeros
     
     disc.avg <- mean(c1.disc.0)                          # average level of discrepancy
-    disc.sd <- sd(as.vector(c1.disc.na), na.rm=T)        # sd of discrepancies
-    list(c1=c1, 
-         disc=c1.disc.na,
-         avg=disc.avg,
-         sd=disc.sd)#,
+    disc.sd <- sd(as.vector(c1.disc.na), na.rm=TRUE)     # sd of discrepancies
+    list(c1 = c1, 
+         disc = c1.disc.na,
+         avg = disc.avg,
+         sd = disc.sd)#,
     #disc.stand=round(disc.stand, digits))
   }
   
@@ -836,7 +837,7 @@ indexConflict3 <- function(x, p=2,
   if (!is.na(e.out[1]))
     e.select <- e.out else 
       if (!is.na(e.threshold[1]))
-        e.select <- which(conflict.e/conflict.total *100 > e.threshold) else
+        e.select <- which(conflict.e / conflict.total * 100 > e.threshold) else
           e.select <- NA
   
   e.stats <- list()               # list with detailed results
@@ -851,7 +852,7 @@ indexConflict3 <- function(x, p=2,
   if (!is.na(c.out[1]))
     c.select <- c.out else 
       if (!is.na(c.threshold[1]))
-        c.select <- which(.5*conflict.c/conflict.total *100 > c.threshold) else
+        c.select <- which(.5 * conflict.c / conflict.total * 100 > c.threshold) else
           c.select <- NA
   
   c.stats <- list()               # list with detailed results
@@ -872,15 +873,16 @@ indexConflict3 <- function(x, p=2,
               c.stats = c.stats,
               e.threshold = e.threshold,    # threshold for elements
               c.threshold = c.threshold,
-              enames=enames,                # element names
-              cnames=cnames)
+              enames = enames,                # element names
+              cnames = cnames)
   class(res) <- "indexConflict3"
   res
 }
 
 
 ### Output to console ###
-indexConflict3Out1 <- function(x, digits=1) {
+indexConflict3Out1 <- function(x, digits = 1) 
+{
   cat("\n##########################################################")
   cat("\nCONFLICT OR INCONSISTENCIES BASED ON TRIANGLE INEQUALITIES")
   cat("\n##########################################################\n")
@@ -907,7 +909,8 @@ indexConflict3Out1 <- function(x, digits=1) {
 }
 
 
-indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
+indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) 
+{
   e.stats <- x$e.stats
   e.threshold <- x$e.threshold
   enames <- x$enames
@@ -940,7 +943,7 @@ indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
 }
 
 
-indexConflict3Out3 <- function(x, digits=1, discrepancies=TRUE) 
+indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE) 
 {
   c.threshold <- x$c.threshold
   c.stats <- x$c.stats
@@ -989,12 +992,12 @@ indexConflict3Out3 <- function(x, digits=1, discrepancies=TRUE)
 #' @method              print indexConflict3
 #' @keywords            internal
 #'                    
-print.indexConflict3 <- function(x, digits=2, output=1, discrepancies=TRUE, ...)
+print.indexConflict3 <- function(x, digits = 2, output = 1, discrepancies = TRUE, ...)
 {
   if (output == 1)
-    indexConflict3Out1(x, digits=digits) 
-  indexConflict3Out2(x, digits=digits, discrepancies=discrepancies)
-  indexConflict3Out3(x, digits=digits, discrepancies=discrepancies) 
+    indexConflict3Out1(x, digits = digits) 
+  indexConflict3Out2(x, digits = digits, discrepancies = discrepancies)
+  indexConflict3Out3(x, digits = digits, discrepancies = discrepancies) 
 }
 
 
@@ -1007,22 +1010,22 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
   rc.inc.vals <- abs(rc.including[lower.tri(rc.including)])
   rc.exc.vals <- abs(rc.excluding[lower.tri(rc.excluding)])
   
-  histDensity <- function(vals, probs=c(.2, .4, .6, .8, .9), ...){
-    h <- hist(vals, breaks=seq(0, 1.01, len=21), freq=F, 
-              xlim=c(0, 1), border="white", col=grey(.8), ...)
+  histDensity <- function(vals, probs = c(.2, .4, .6, .8, .9), ...){
+    h <- hist(vals, breaks = seq(0, 1.01, len = 21), freq = FALSE, 
+              xlim = c(0, 1), border = "white", col = grey(.8), ...)
     d <- density(vals)
     lines(d$x, d$y)
-    q <- quantile(vals, probs=probs)
-    abline(v=q, col="red")
-    text(q, 0, paste(round(probs*100, 0), "%"), cex=.8, pos=2, col="red")  
+    q <- quantile(vals, probs = probs)
+    abline(v = q, col = "red")
+    text(q, 0, paste(round(probs * 100, 0), "%"), cex = .8, pos = 2, col = "red")  
   }
   
-  layout(matrix(c(1,2), ncol=1))
-  par(mar=c(3,4.2,2.4,2))
-  histDensity(rc.inc.vals, cex.main=.8, cex.axis=.8, cex.lab=.8,
-              main="Distribution of absolute construct-correlations \n(including 'self' and 'ideal self')")
-  histDensity(rc.exc.vals,  cex.main=.8, cex.axis=.8, cex.lab=.8, 
-              main="Distribution of absolute construct-correlations \n(excluding 'self' and 'ideal self')")
+  layout(matrix(c(1,2), ncol = 1))
+  par(mar = c(3,4.2,2.4,2))
+  histDensity(rc.inc.vals, cex.main = .8, cex.axis = .8, cex.lab = .8,
+              main = "Distribution of absolute construct-correlations \n(including 'self' and 'ideal self')")
+  histDensity(rc.exc.vals,  cex.main = .8, cex.axis = .8, cex.lab = .8, 
+              main = "Distribution of absolute construct-correlations \n(excluding 'self' and 'ideal self')")
 }
 
 
@@ -1067,9 +1070,10 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #
 
 # THIS IS FUNCTION IS NEEDED TO OUTPUT DILEMMAS CORRECTLY
-get.pole <- function(grid, pole){
+get.pole <- function(grid, pole) 
+{
   # NEW : get the label of the pole to invert construct if needed
-  names <- function(grid){
+  names <- function(grid) {
     grid[[1]]
   }
   poles <- as.data.frame(lapply(grid@constructs, sapply, names))

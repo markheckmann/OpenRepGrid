@@ -9,8 +9,7 @@
 \arguments{
 \item{x}{Object of class indexConflict1.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{1}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{1}).}
 
 \item{...}{Not evaluated.}
 }

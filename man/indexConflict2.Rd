@@ -18,16 +18,15 @@ be adjusted with regard to the researchers interest.}
 Conflict measure as proposed by Bassler et al. (1992).
 }
 \details{
-The function calculates the conflict measure as devised
-by Bassler et al. (1992). It is an improved version of the ideas
-by Slade and Sheehan (1979) that have been implemented in
-the function \code{\link{indexConflict1}}. The new approach 
-also takes into account the magnitude of the correlations in
-a traid to assess whether it is balanced or imbalanced. 
-As a result, small correlations that are psychologically meaningless
-are considered accordingly. Also, correlations with a  small magnitude, 
-i. e. near zero, which may  be positive or negative due to 
-chance alone will no longer distort the measure (Bassler et al., 1992).
+The function calculates the conflict measure as devised by Bassler et al.
+(1992). It is an improved version of the ideas by Slade and Sheehan (1979)
+that have been implemented in the function \code{\link{indexConflict1}}. The
+new approach also takes into account the magnitude of the correlations in a
+traid to assess whether it is balanced or imbalanced. As a result, small
+correlations that are psychologically meaningless are considered accordingly.
+Also, correlations with a  small magnitude, i. e. near zero, which may  be
+positive or negative due to chance alone will no longer distort the measure
+(Bassler et al., 1992).
 
 Description of the balance / imbalance assessment:
 
@@ -67,7 +66,7 @@ Description of the balance / imbalance assessment:
  print(x)
  
  # show conflictive triads
- print(x, output=2)
+ print(x, output = 2)
  
  # accessing the calculations for further use
  x$total
