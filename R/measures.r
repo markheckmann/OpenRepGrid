@@ -54,37 +54,38 @@ indexBias <- function(x, min = NULL, max = NULL, digits=2)
 #' towards both end of the gradings scale. (Slater, 1977, p.88).
 #'
 #' @param  x      \code{repgrid} object.
-#' @param min     Minimum grid scale value. 
-#' @param max     Maximum grdi scale value. 
+#' @param min,max   Minimum and maximum grid scale values. Nor needed 
+#'                  if they are set for the grid.
 #' @param digits  Numeric. Number of digits to round to (default is 
 #'                \code{2}).
 #' @return        Numeric.
-#'
 #' @references    Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                by Grid technique}. London: Wiley.
-#'
 #' @note          STATUS: working and checked against example in Slater, 1977 , p.88.
-#'
 #' @author        Mark Heckmann
 #' @export
 #' @seealso       \code{\link{indexBias}} 
-#'
-indexVariability <- function(x, min, max, digits=2){
-  if (missing(min)) 
-    min <- x@scale$min
-  if (missing(max)) 
-    max <- x@scale$max
+#' @examples      indexVariability(boeker)
+#' 
+indexVariability <- function(x, min = NULL, max = NULL, digits = 2) 
+{
+  dat <- getRatingLayer(x)
+  sc <- getScale(x)
+  if (is.null(min)) 
+    min <- sc[1]
+  if (is.null(max)) 
+    max <- sc[2]
   
   D <- as.matrix(center(x))       # row centered grid matrix
   W <- D %*% t(D)									# co-variation Matrix W
   V <- diag(W)										# extract trace (construct variations)
-  V.tot <- sum(V, na.rm=T)       # total variation
+  V.tot <- sum(V, na.rm = TRUE)   # total variation
   
-  p <- min + (max - min)/2 					    # scale midpoint
-  q <- max - p								          # distance to scale limits
-  n <- nrow(D)								        # number of rows (constructs)
-  m <- ncol(D)								        # number of columns (elements)
-  res <- (V.tot/(n*(m-1)))^.5/q			        # calculate variability
+  p <- min + (max - min) / 2 				# scale midpoint
+  q <- max - p								      # distance to scale limits
+  n <- nrow(D)								      # number of rows (constructs)
+  m <- ncol(D)								      # number of columns (elements)
+  res <- (V.tot / (n * (m - 1)))^.5 / q		# calculate variability
   round(res, digits)
 }
 
