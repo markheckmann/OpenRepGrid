@@ -170,31 +170,32 @@ indexPvaff <- function(x)
 # Another version of PVAFF giving slightly different results
 # maybe due to Bessel's correction. Still unclear which one 
 # is correct.
-indexPvaff2 <- function(x){
-  if (!inherits(x, "repgrid")) 
+indexPvaff2 <- function(x) 
+{
+  if (!inherits(x, "repgrid"))
     stop("Object must be of class 'repgrid'")
   r <- constructCor(x)
   sv <- princomp(r)$sdev
-  pvaff <- sv[1]^2/sum(sv^2)
+  pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
+  pvaff
 }
 
 
 #' Calculate intensity index.
 #'
-#' The Intensity index has been suggested by Bannister (1960) as a 
-#' measure of the amount of construct linkage. Bannister suggested 
-#' that the score reflects the degree of organization of the construct 
-#' system under investigation (Bannister & Mair, 1968). The index 
-#' resulted from his and his colleagues work on construction systems 
-#' of patient suffering schizophrenic thought disorder. The concept of 
-#' intensity has a theoretical connection to the notion of "tight" and 
-#' "loose" construing as proposed by Kelly (1991). While tight constructs 
-#' lead to unvarying prediction, loose constructs allow for varying 
-#' predictions. Bannister hypothesized that schizophrenic thought disorder 
-#' is liked to a process of extremely loose construing leading to a loss 
-#' of predictive power of the subject's construct system. The Intensity 
-#' score as a structural measure is thought to reflect this type of 
-#' system disintegration (Bannister, 1960). 
+#' The Intensity index has been suggested by Bannister (1960) as a measure of
+#' the amount of construct linkage. Bannister suggested that the score reflects
+#' the degree of organization of the construct system under investigation
+#' (Bannister & Mair, 1968). The index resulted from his and his colleagues work
+#' on construction systems of patient suffering schizophrenic thought disorder.
+#' The concept of intensity has a theoretical connection to the notion of
+#' "tight" and "loose" construing as proposed by Kelly (1991). While tight
+#' constructs lead to unvarying prediction, loose constructs allow for varying
+#' predictions. Bannister hypothesized that schizophrenic thought disorder is
+#' liked to a process of extremely loose construing leading to a loss of
+#' predictive power of the subject's construct system. The Intensity score as a
+#' structural measure is thought to reflect this type of system disintegration
+#' (Bannister, 1960).
 #' 
 #' Implementation as in the Gridcor programme and explained on the 
 #' correspoding help pages: 
@@ -208,7 +209,6 @@ indexPvaff2 <- function(x){
 #' single scores (for elements and construct).
 #'
 #' @title         Intensity index 
-#'
 #' @section Development: TODO: Results have not been tested against other programs' results.
 #'
 #' @param x       \code{repgrid} object.
@@ -237,10 +237,10 @@ indexPvaff2 <- function(x){
 #' @examples 
 #' 
 #'  indexIntensity(bell2010)
-#'  indexIntensity(bell2010, trim=NA)
+#'  indexIntensity(bell2010, trim = NA)
 #'
 #'  # using Cohen's rc for element correlations
-#'  indexIntensity(bell2010, rc=TRUE)
+#'  indexIntensity(bell2010, rc = TRUE)
 #'
 #'  # save output 
 #'  x <- indexIntensity(bell2010)
@@ -256,30 +256,31 @@ indexPvaff2 <- function(x){
 #'  x$e.int.mean
 #'  x$total.int
 #' 
-indexIntensity <- function(x, rc=FALSE, trim=30)
+indexIntensity <- function(x, rc = FALSE, trim = 30)
 {
   if (!inherits(x, "repgrid")) 
     stop("Object must be of class 'repgrid'")
-  cr <- constructCor(x, trim=trim)
+ 
+  cr <- constructCor(x, trim = trim)
   nc <- getNoOfConstructs(x)
   diag(cr) <- 0                                           # out zeros in diagonal (won't have an effect)
-  c.int <- apply(cr^2, 2, function(x) sum(x) / (nc-1))    # sum of squared correlations / nc -1 
+  c.int <- apply(cr^2, 2, function(x) sum(x) / (nc - 1))  # sum of squared correlations / nc -1 
   
-  er <- elementCor(x, rc=rc, trim=trim) 
+  er <- elementCor(x, rc = rc, trim = trim) 
   ne <- getNoOfElements(x)
   diag(er) <- 0                                           # out zeros in diagonal (won't have an effect)
-  e.int <- apply(er^2, 2, function(x) sum(x) / (ne-1))    # sum of squared correlations / ne -1 
+  e.int <- apply(er^2, 2, function(x) sum(x) / (ne - 1))  # sum of squared correlations / (ne - 1) 
   
-  c.int.mean <- mean(c.int, na.rm=TRUE)       # mean of construct intensity scors
-  e.int.mean <- mean(e.int, na.rm=TRUE)       # mean of element intensity scors
+  c.int.mean <- mean(c.int, na.rm = TRUE)       # mean of construct intensity scores
+  e.int.mean <- mean(e.int, na.rm = TRUE)       # mean of element intensity scores
   
-  total.int <- mean(c(c.int, e.int, na.rm=TRUE))
+  total.int <- mean(c(c.int, e.int, na.rm = TRUE))
   
-  res <- list(c.int=c.int,
-              e.int=e.int,
-              c.int.mean=c.int.mean,
-              e.int.mean=e.int.mean,
-              total.int=total.int)	            
+  res <- list(c.int = c.int,
+              e.int = e.int,
+              c.int.mean = c.int.mean,
+              e.int.mean = e.int.mean,
+              total.int = total.int)	            
   class(res) <- "indexIntensity"
   res
 }
@@ -295,7 +296,7 @@ indexIntensity <- function(x, rc=FALSE, trim=30)
 #' @method          print indexIntensity
 #' @keywords        internal
 #'
-print.indexIntensity <- function(x, digits=2, ...)
+print.indexIntensity <- function(x, digits = 2, ...)
 {
   cat("\n################")
   cat("\nIntensity index")

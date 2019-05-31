@@ -32,20 +32,19 @@ An object of class \code{indexIntensity} containing a list
 Calculate intensity index.
 }
 \details{
-The Intensity index has been suggested by Bannister (1960) as a 
-measure of the amount of construct linkage. Bannister suggested 
-that the score reflects the degree of organization of the construct 
-system under investigation (Bannister & Mair, 1968). The index 
-resulted from his and his colleagues work on construction systems 
-of patient suffering schizophrenic thought disorder. The concept of 
-intensity has a theoretical connection to the notion of "tight" and 
-"loose" construing as proposed by Kelly (1991). While tight constructs 
-lead to unvarying prediction, loose constructs allow for varying 
-predictions. Bannister hypothesized that schizophrenic thought disorder 
-is liked to a process of extremely loose construing leading to a loss 
-of predictive power of the subject's construct system. The Intensity 
-score as a structural measure is thought to reflect this type of 
-system disintegration (Bannister, 1960).
+The Intensity index has been suggested by Bannister (1960) as a measure of
+the amount of construct linkage. Bannister suggested that the score reflects
+the degree of organization of the construct system under investigation
+(Bannister & Mair, 1968). The index resulted from his and his colleagues work
+on construction systems of patient suffering schizophrenic thought disorder.
+The concept of intensity has a theoretical connection to the notion of
+"tight" and "loose" construing as proposed by Kelly (1991). While tight
+constructs lead to unvarying prediction, loose constructs allow for varying
+predictions. Bannister hypothesized that schizophrenic thought disorder is
+liked to a process of extremely loose construing leading to a loss of
+predictive power of the subject's construct system. The Intensity score as a
+structural measure is thought to reflect this type of system disintegration
+(Bannister, 1960).
 
 Implementation as in the Gridcor programme and explained on the 
 correspoding help pages: 
@@ -65,10 +64,10 @@ single scores (for elements and construct).
 \examples{
 
  indexIntensity(bell2010)
- indexIntensity(bell2010, trim=NA)
+ indexIntensity(bell2010, trim = NA)
 
  # using Cohen's rc for element correlations
- indexIntensity(bell2010, rc=TRUE)
+ indexIntensity(bell2010, rc = TRUE)
 
  # save output 
  x <- indexIntensity(bell2010)
