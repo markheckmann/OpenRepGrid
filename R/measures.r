@@ -18,31 +18,31 @@
 #' grading scale" (Slater, 1977, p.88). 
 #'
 #' @param  x        \code{repgrid} object.
-#' @param min       Minimum grid scale value. 
-#' @param max       Maximum grid scale value.
+#' @param min,max   Minimum and maximum grid scale values. Nor needed 
+#'                  if they are set for the grid.
 #' @param digits    Numeric. Number of digits to round to (default is 
 #'                  \code{2}).
 #' @return Numeric.
-#'
 #' @references      Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                  by Grid technique}. London: Wiley.
-#'
 #' @note STATUS:    Working and checked against example in Slater, 1977, p. 87.
-#'                  
-#' @author        Mark Heckmann
+#' @author          Mark Heckmann
 #' @export
 #' @seealso       \code{\link{indexVariability}} 
+#' @examples indexBias(boeker)
 #'
-indexBias <- function(x, min, max, digits=2){
-  dat <- x@ratings[ , ,1]
-  if (missing(min)) 
-    min <- x@scale$min
-  if (missing(max)) 
-    max <- x@scale$max
-  p <- min + (max - min)/2 			# scale midpoint
+indexBias <- function(x, min = NULL, max = NULL, digits=2) 
+{
+  dat <- getRatingLayer(x)
+  sc <- getScale(x)
+  if (is.null(min)) 
+    min <- sc[1]
+  if (is.null(max)) 
+    max <- sc[2]
+  p <- min + (max - min) / 2 		# scale midpoint
   q <- max - p									# distance to scale limits
   n <- nrow(dat)								# number of rows (constructs)
-  row.means <- apply(dat, 1, mean, na.rm=TRUE)		# means of construct rows
+  row.means <- apply(dat, 1, mean, na.rm = TRUE)		# means of construct rows
   bias <- (sum((row.means - p)^2) / n)^.5 / q		  # calculation of bias
   round(bias, digits)
 }
