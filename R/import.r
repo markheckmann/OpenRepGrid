@@ -1274,7 +1274,8 @@ importScivesco <- function(file, dir=NULL){
 #' imp <- importTxtInternal("http://www.openrepgrid.uni-bremen.de/data/sample.txt")
 #' }
 #'
-importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
+importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
+{
   if (!is.null(dir)) 
     file <- paste(dir, file, sep="/", collapse="")
 
@@ -1282,15 +1283,16 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   data <- gsub("\t", " ", data)         # replace tabulators by simple blank
   data <- data[str_trim(data) != ""]    # remove all empty lines
   
-  line.elements <- which(data == "ELEMENTS")
-  line.elements.end <- which(data == "END ELEMENTS")
-  line.constructs <- which(data == "CONSTRUCTS")
-  line.constructs.end <- which(data == "END CONSTRUCTS")
-  line.ratings <- which(data == "RATINGS") 
-  line.ratings.end <- which(data == "END RATINGS")
-  line.range <- which(data == "RANGE")
-  line.bipolar.implications <- which(data == "BIPOLAR IMPLICATIONS") 
-  line.bipolar.implications.end <- which(data == "END BIPOLAR IMPLICATIONS")
+  d <- str_trim(data)                   # remove blanks for better matching
+  line.elements <- which(d == "ELEMENTS")
+  line.elements.end <- which(d == "END ELEMENTS")
+  line.constructs <- which(d == "CONSTRUCTS")
+  line.constructs.end <- which(d == "END CONSTRUCTS")
+  line.ratings <- which(d == "RATINGS") 
+  line.ratings.end <- which(d == "END RATINGS")
+  line.range <- which(d == "RANGE")
+  line.bipolar.implications <- which(d == "BIPOLAR IMPLICATIONS") 
+  line.bipolar.implications.end <- which(d == "END BIPOLAR IMPLICATIONS")
   
   l <- list()
   

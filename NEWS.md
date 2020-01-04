@@ -10,6 +10,7 @@
 
 # OpenRepGrid 0.1.14 (under construction)
 
+  * allow blanks at end of line after tags in importTxt
   * grids_leave_n_out and grids_bootstrap for resampling constructs
   * repgridlist class, a simple list of repgrid objects
 
