@@ -92,16 +92,9 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 }
 
 
-<<<<<<< HEAD
-###////////////////////////////////////////////////////////////////////////////
-####		                  OTHER INDICES          					                 ####
-###////////////////////////////////////////////////////////////////////////////
-=======
-
 #//////////////////////////////////////////////////////////////////////////////
 #   						                    MISC             							         ----
 #//////////////////////////////////////////////////////////////////////////////
->>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 
 
 #' Percentage of Variance Accounted for by the First Factor (PVAFF)
@@ -331,15 +324,6 @@ print.indexIntensity <- function(x, digits = 2, ...)
 #      					            CONFLICT MEASURES       							         ----
 #//////////////////////////////////////////////////////////////////////////////
 
-
-<<<<<<< HEAD
-###////////////////////////////////////////////////////////////////////////////
-####    					            CONFLICT MEASURES       							      ####
-###////////////////////////////////////////////////////////////////////////////
-
-
-=======
->>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 #' Print function for class indexConflict1
 #' 
 #' @param x         Object of class indexConflict1.
@@ -1760,12 +1744,7 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 
 
 
-<<<<<<< HEAD
-# TODO
-
-=======
 #//////////////////////////////////////////////////////////////////////////////
->>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 
 # Pemutation test to test if grid is random.
 # "The null hypothesis [is] that a particular grid 

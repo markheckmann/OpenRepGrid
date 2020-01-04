@@ -65,11 +65,7 @@ Collate:
     'utils-import.r'
     'utils.r'
     'zzz.r'
-<<<<<<< HEAD
 RoxygenNote: 7.0.2
-=======
-RoxygenNote: 6.1.1
->>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>
