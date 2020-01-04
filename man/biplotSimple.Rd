@@ -4,11 +4,27 @@
 \alias{biplotSimple}
 \title{A graphically unsophisticated version of a biplot.}
 \usage{
-biplotSimple(x, dim = 1:2, center = 1, normalize = 0, g = 0,
-  h = 1 - g, unity = T, col.active = NA, col.passive = NA,
-  scale.e = 0.9, zoom = 1, e.point.col = "black", e.point.cex = 1,
-  e.label.col = "black", e.label.cex = 0.7, c.point.col = grey(0.6),
-  c.label.col = grey(0.6), c.label.cex = 0.6, ...)
+biplotSimple(
+  x,
+  dim = 1:2,
+  center = 1,
+  normalize = 0,
+  g = 0,
+  h = 1 - g,
+  unity = T,
+  col.active = NA,
+  col.passive = NA,
+  scale.e = 0.9,
+  zoom = 1,
+  e.point.col = "black",
+  e.point.cex = 1,
+  e.label.col = "black",
+  e.label.cex = 0.7,
+  c.point.col = grey(0.6),
+  c.label.col = grey(0.6),
+  c.label.cex = 0.6,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

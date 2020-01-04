@@ -45,7 +45,7 @@ predictions. Bannister hypothesized that schizophrenic thought disorder
 is liked to a process of extremely loose construing leading to a loss 
 of predictive power of the subject's construct system. The Intensity 
 score as a structural measure is thought to reflect this type of 
-system disintegration (Bannister, 1960).
+system disintegration (Bannister, 1960). 
 
 Implementation as in the Gridcor programme and explained on the 
 correspoding help pages: 

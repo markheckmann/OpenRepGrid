@@ -4,9 +4,16 @@
 \alias{rglDrawStandardAxes}
 \title{Draw standard axes in the origin in an rgl plot.}
 \usage{
-rglDrawStandardAxes(max.dim = 1, lwd = 1, a.cex = 1.1,
-  a.col = "black", a.radius = 0.05, labels = TRUE, spheres = FALSE,
-  ...)
+rglDrawStandardAxes(
+  max.dim = 1,
+  lwd = 1,
+  a.cex = 1.1,
+  a.col = "black",
+  a.radius = 0.05,
+  labels = TRUE,
+  spheres = FALSE,
+  ...
+)
 }
 \arguments{
 \item{max.dim}{maximum length of axis.}

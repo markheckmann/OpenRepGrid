@@ -5,8 +5,14 @@
 \title{Generate random grids and calculate 'Slater distances'
 for the elements.}
 \usage{
-quasiDistributionDistanceSlater(reps, nc, ne, range, prob = NULL,
-  progress = TRUE)
+quasiDistributionDistanceSlater(
+  reps,
+  nc,
+  ne,
+  range,
+  prob = NULL,
+  progress = TRUE
+)
 }
 \arguments{
 \item{nc}{Number of constructs (default 10).}

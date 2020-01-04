@@ -3,7 +3,6 @@
 \docType{package}
 \name{OpenRepGrid-overview}
 \alias{OpenRepGrid-overview}
-\alias{OpenRepGrid-overview-package}
 \title{\pkg{OpenRepGrid}: Annotated overview of package functions.}
 \description{
 This documentation page contains an overview over the package functions

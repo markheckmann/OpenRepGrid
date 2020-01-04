@@ -4,10 +4,21 @@
 \alias{biplot3dBase2}
 \title{biplot3dBase2 is the workhorse to draw a grid in rgl (3D device).}
 \usage{
-biplot3dBase2(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE,
-  lines.c = 1, lef = 1.1, frame = 1, col.frame = grey(0.6),
-  col.sphere = "black", alpha.sphere = 0.05, zoom = 1,
-  draw.xyz.axes = TRUE, ...)
+biplot3dBase2(
+  x,
+  dim = 1:3,
+  labels.e = TRUE,
+  labels.c = TRUE,
+  lines.c = 1,
+  lef = 1.1,
+  frame = 1,
+  col.frame = grey(0.6),
+  col.sphere = "black",
+  alpha.sphere = 0.05,
+  zoom = 1,
+  draw.xyz.axes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

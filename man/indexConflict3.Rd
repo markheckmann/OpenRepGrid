@@ -4,8 +4,15 @@
 \alias{indexConflict3}
 \title{Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances.}
 \usage{
-indexConflict3(x, p = 2, e.out = NA, e.threshold = NA, c.out = NA,
-  c.threshold = NA, trim = 20)
+indexConflict3(
+  x,
+  p = 2,
+  e.out = NA,
+  e.threshold = NA,
+  c.out = NA,
+  c.threshold = NA,
+  trim = 20
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

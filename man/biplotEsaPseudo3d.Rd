@@ -40,7 +40,7 @@ and \code{\link{biplotPseudo3d}}.
 }
 \examples{
 \dontrun{
-   # See examples in \\code{\\link{biplotPseudo3d}} as the same arguments
+   # See examples in \code{\link{biplotPseudo3d}} as the same arguments
    # can used for this function.
 }
 

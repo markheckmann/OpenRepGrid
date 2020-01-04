@@ -4,9 +4,17 @@
 \alias{modifyConstruct}
 \title{modify a construct}
 \usage{
-modifyConstruct(x, pos, l.name = NA, l.preferred = NA,
-  l.emerged = NA, r.name = NA, r.preferred = NA, r.emerged = NA,
-  replace = FALSE)
+modifyConstruct(
+  x,
+  pos,
+  l.name = NA,
+  l.preferred = NA,
+  l.emerged = NA,
+  r.name = NA,
+  r.preferred = NA,
+  r.emerged = NA,
+  replace = FALSE
+)
 }
 \arguments{
 \item{x}{repgrid object}

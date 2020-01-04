@@ -5,8 +5,17 @@
 \title{Calculate SSQ (accuracy) of biplot representation for elements 
 and constructs.}
 \usage{
-ssq(x, along = 2, center = 1, normalize = 0, g = 0, h = 1 - g,
-  col.active = NA, col.passive = NA, ...)
+ssq(
+  x,
+  along = 2,
+  center = 1,
+  normalize = 0,
+  g = 0,
+  h = 1 - g,
+  col.active = NA,
+  col.passive = NA,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

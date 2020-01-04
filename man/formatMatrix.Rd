@@ -4,9 +4,16 @@
 \alias{formatMatrix}
 \title{Format a matrix and add index column.}
 \usage{
-formatMatrix(x, rnames = rownames(x), pre.index = c(T, F),
-  cnames = seq_len(ncol(x)), indexcol = F, digits = 2, diag = F,
-  mode = 1)
+formatMatrix(
+  x,
+  rnames = rownames(x),
+  pre.index = c(T, F),
+  cnames = seq_len(ncol(x)),
+  indexcol = F,
+  digits = 2,
+  diag = F,
+  mode = 1
+)
 }
 \arguments{
 \item{x}{A matrix onbject.}

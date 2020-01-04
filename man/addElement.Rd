@@ -4,8 +4,15 @@
 \alias{addElement}
 \title{Add an element to an existing grid.}
 \usage{
-addElement(x, name = NA, scores = NA, abbreviation = NA,
-  status = NA, position = NA, side = "pre")
+addElement(
+  x,
+  name = NA,
+  scores = NA,
+  abbreviation = NA,
+  status = NA,
+  position = NA,
+  side = "pre"
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

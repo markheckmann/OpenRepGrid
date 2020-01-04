@@ -4,9 +4,18 @@
 \alias{clusterBoot}
 \title{Multiscale bootstrap cluster analysis.}
 \usage{
-clusterBoot(x, along = 1, align = TRUE, dmethod = "euclidean",
-  cmethod = "ward", p = 2, nboot = 1000, r = seq(0.8, 1.4, by =
-  0.1), seed = NULL, ...)
+clusterBoot(
+  x,
+  along = 1,
+  align = TRUE,
+  dmethod = "euclidean",
+  cmethod = "ward",
+  p = 2,
+  nboot = 1000,
+  r = seq(0.8, 1.4, by = 0.1),
+  seed = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{grid object}}

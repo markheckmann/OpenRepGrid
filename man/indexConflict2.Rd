@@ -29,6 +29,7 @@ are considered accordingly. Also, correlations with a  small magnitude,
 i. e. near zero, which may  be positive or negative due to 
 chance alone will no longer distort the measure (Bassler et al., 1992).
 
+
 Description of the balance / imbalance assessment:
 
 \enumerate{

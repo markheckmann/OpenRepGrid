@@ -4,8 +4,16 @@
 \alias{print.hdistance}
 \title{Print method for class hdistance (Hartmann distance objects).}
 \usage{
-\method{print}{hdistance}(x, digits = 2, col.index = TRUE,
-  upper = TRUE, diag = FALSE, cutoffs = NA, p = NA, ...)
+\method{print}{hdistance}(
+  x,
+  digits = 2,
+  col.index = TRUE,
+  upper = TRUE,
+  diag = FALSE,
+  cutoffs = NA,
+  p = NA,
+  ...
+)
 }
 \arguments{
 \item{x}{Object of class hdistance.}

@@ -18,13 +18,13 @@
 # environment in package namespace used to save package
 # settings
 .OpenRepGridEnv <- new.env()
-assign("settings",  list(), envir = .OpenRepGridEnv)
+assign("settings", list(), envir = .OpenRepGridEnv)
 
 
 .onAttach <- function(lib, pkg){
   packageStartupMessage(
           "------------------------------------------------",
-        "\n OpenRepGrid Version ",  utils::packageDescription("OpenRepGrid", field="Version"), 
+        "\n OpenRepGrid Version ", utils::packageDescription("OpenRepGrid", fields = "Version"), 
         "\n Tools for the analysis of repertory grid data",
         "\n For an introduction visit: www.openrepgrid.org",
         "\n CAUTION: The package is in alpha phase.",

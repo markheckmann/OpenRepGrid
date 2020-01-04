@@ -4,14 +4,31 @@
 \alias{prepareBiplotData}
 \title{Prepare dataframe passed to drawing functions for biplots.}
 \usage{
-prepareBiplotData(x, dim = c(1, 2), map.dim = 3, e.label.cex = 0.8,
-  c.label.cex = 0.6, e.label.col = "black", c.label.col = grey(0.8),
-  e.point.cex = 0.7, c.point.cex = 0.8, e.point.col = "black",
-  c.point.col = "darkred", e.color.map = c(0.4, 1),
-  c.color.map = c(0.4, 1), c.points.devangle = 90,
-  c.labels.devangle = 90, c.points.show = TRUE, c.labels.show = TRUE,
-  e.points.show = TRUE, e.labels.show = TRUE, unity = TRUE,
-  unity3d = FALSE, scale.e = 0.9, ...)
+prepareBiplotData(
+  x,
+  dim = c(1, 2),
+  map.dim = 3,
+  e.label.cex = 0.8,
+  c.label.cex = 0.6,
+  e.label.col = "black",
+  c.label.col = grey(0.8),
+  e.point.cex = 0.7,
+  c.point.cex = 0.8,
+  e.point.col = "black",
+  c.point.col = "darkred",
+  e.color.map = c(0.4, 1),
+  c.color.map = c(0.4, 1),
+  c.points.devangle = 90,
+  c.labels.devangle = 90,
+  c.points.show = TRUE,
+  c.labels.show = TRUE,
+  e.points.show = TRUE,
+  e.labels.show = TRUE,
+  unity = TRUE,
+  unity3d = FALSE,
+  scale.e = 0.9,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

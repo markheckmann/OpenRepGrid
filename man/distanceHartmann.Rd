@@ -4,8 +4,14 @@
 \alias{distanceHartmann}
 \title{'Hartmann distance' (standardized Slater distances).}
 \usage{
-distanceHartmann(x, method = "paper", reps = 10000, prob = NULL,
-  progress = TRUE, distributions = FALSE)
+distanceHartmann(
+  x,
+  method = "paper",
+  reps = 10000,
+  prob = NULL,
+  progress = TRUE,
+  distributions = FALSE
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

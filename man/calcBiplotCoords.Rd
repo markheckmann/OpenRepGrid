@@ -4,8 +4,7 @@
 \alias{calcBiplotCoords}
 \title{Calculate coordinates for biplot.}
 \usage{
-calcBiplotCoords(x, g = 0, h = 1 - g, col.active = NA,
-  col.passive = NA, ...)
+calcBiplotCoords(x, g = 0, h = 1 - g, col.active = NA, col.passive = NA, ...)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

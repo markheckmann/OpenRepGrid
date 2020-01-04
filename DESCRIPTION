@@ -12,8 +12,8 @@ Description: Analyze repertory grids, a qualitative-quantitative
     functions to quantitatively analyze and visualize repertory grid data 
     (see e.g. Bell, 2005, <doi:10.1002/0470013370.ch9>; 
     Fransella, Bell, & Bannister, 2004, ISBN: 978-0-470-09080-0).
-Version: 0.1.13
-Date: 2018-12-22
+Version: 0.1.14
+Date: 2020-01-04
 Encoding: UTF-8
 URL: http://openrepgrid.org,
     https://github.com/markheckmann/OpenRepGrid
@@ -55,12 +55,14 @@ Collate:
     'repgrid-output.r'
     'repgrid-plots.r'
     'repgrid-ratings.r'
+    'repgridlist.R'
+    'resampling.R'
     'rgl-3d.r'
     'settings.r'
     'utils-import.r'
     'utils.r'
     'zzz.r'
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>

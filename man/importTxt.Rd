@@ -68,6 +68,7 @@ is discarded and can thus be used for comments.
 \code{---------------- end of file ----------------} \cr
 }
 
+
 Note that the maximum and minimum value has to be defined using the \code{min} and
 \code{max} arguments if no \code{RANGE} block is contained in the data file.
 Otherwise the scaling range is inferred from the available data and a warning 

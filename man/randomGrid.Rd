@@ -4,8 +4,15 @@
 \alias{randomGrid}
 \title{Generate a random grid (quasis) of prompted size.}
 \usage{
-randomGrid(nc = 10, ne = 15, nwc = 8, nwe = 5, range = c(1, 5),
-  prob = NULL, options = 1)
+randomGrid(
+  nc = 10,
+  ne = 15,
+  nwc = 8,
+  nwe = 5,
+  range = c(1, 5),
+  prob = NULL,
+  options = 1
+)
 }
 \arguments{
 \item{nc}{Number of constructs (default 10).}

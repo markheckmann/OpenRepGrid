@@ -4,8 +4,7 @@
 \alias{print.constructCor}
 \title{Print method for class constructCor.}
 \usage{
-\method{print}{constructCor}(x, digits = 2, col.index = TRUE,
-  upper = TRUE, header = TRUE, ...)
+\method{print}{constructCor}(x, digits = 2, col.index = TRUE, upper = TRUE, header = TRUE, ...)
 }
 \arguments{
 \item{x}{Object of class constructCor.}

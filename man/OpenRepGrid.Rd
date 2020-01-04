@@ -3,7 +3,6 @@
 \docType{package}
 \name{OpenRepGrid}
 \alias{OpenRepGrid}
-\alias{OpenRepGrid-package}
 \title{\pkg{OpenRepGrid}: an R package for the analysis of repertory grids.}
 \description{
 The \pkg{OpenRepGrid} package provides tools for the analysis of repertory grid data.

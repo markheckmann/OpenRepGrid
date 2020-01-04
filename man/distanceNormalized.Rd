@@ -5,8 +5,13 @@
 \title{Standardized inter-element distances' (power transformed 
                    Hartmann distances).}
 \usage{
-distanceNormalized(x, reps = 1000, prob = NULL, progress = TRUE,
-  distributions = TRUE)
+distanceNormalized(
+  x,
+  reps = 1000,
+  prob = NULL,
+  progress = TRUE,
+  distributions = TRUE
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

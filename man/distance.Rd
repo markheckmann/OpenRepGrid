@@ -4,8 +4,15 @@
 \alias{distance}
 \title{Distance measures (between constructs or elements).}
 \usage{
-distance(x, along = 1, dmethod = "euclidean", p = 2, trim = 20,
-  index = TRUE, ...)
+distance(
+  x,
+  along = 1,
+  dmethod = "euclidean",
+  p = 2,
+  trim = 20,
+  index = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

@@ -4,8 +4,13 @@
 \alias{constructPca}
 \title{Principal component analysis (PCA) of inter-construct correlations.}
 \usage{
-constructPca(x, nfactors = 3, rotate = "varimax", method = "pearson",
-  trim = NA)
+constructPca(
+  x,
+  nfactors = 3,
+  rotate = "varimax",
+  method = "pearson",
+  trim = NA
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

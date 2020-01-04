@@ -3,6 +3,13 @@
 #-------------------------------------------------------------#
 
 
+#' Test if object has class repgrid 
+#' @export
+is.repgrid <- function(x) {
+  inherits(x, "repgrid")
+}
+
+
 ############################# EXTRACT AND SET #################################
 
 ## S4 methods

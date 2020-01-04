@@ -4,8 +4,15 @@
 \alias{getConstructNames2}
 \title{Retrieve construct names in needed format.}
 \usage{
-getConstructNames2(x, mode = 1, trim = 20, index = F, sep = " - ",
-  pre = "(", post = ") ")
+getConstructNames2(
+  x,
+  mode = 1,
+  trim = 20,
+  index = F,
+  sep = " - ",
+  pre = "(",
+  post = ") "
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

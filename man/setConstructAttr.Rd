@@ -4,8 +4,16 @@
 \alias{setConstructAttr}
 \title{Set the attributes of a construct}
 \usage{
-setConstructAttr(x, pos, l.name, r.name, l.preferred, r.preferred,
-  l.emerged, r.emerged)
+setConstructAttr(
+  x,
+  pos,
+  l.name,
+  r.name,
+  l.preferred,
+  r.preferred,
+  l.emerged,
+  r.emerged
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}

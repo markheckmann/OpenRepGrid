@@ -1,12 +1,17 @@
 # NEWS
 
-
 # TODO
 
+  * make some function generic so they accept repgridlists as well (index functions)
   * Format scripts with RStudio comment headers to make them more readable
   * Redo printing 
   * move gh-pages to /docs folder
   * add tests
+
+# OpenRepGrid 0.1.14 (under construction)
+
+  * grids_leave_n_out and grids_bootstrap for resampling constructs
+  * repgridlist class, a simple list of repgrid objects
 
 # OpenRepGrid 0.1.13 
 

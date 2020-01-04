@@ -4,8 +4,14 @@
 \alias{modifyElement}
 \title{modifyElement}
 \usage{
-modifyElement(x, pos, name = NA, abbreviation = NA, status = NA,
-  replace = FALSE)
+modifyElement(
+  x,
+  pos,
+  name = NA,
+  abbreviation = NA,
+  status = NA,
+  replace = FALSE
+)
 }
 \arguments{
 \item{x}{repgrid object}

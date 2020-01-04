@@ -4,10 +4,22 @@
 \alias{indexDilemma}
 \title{Detect implicative dilemmas (conflicts).}
 \usage{
-indexDilemma(x, self = 1, ideal = ncol(x), diff.mode = 1,
-  diff.congruent = NA, diff.discrepant = NA, diff.poles = 1,
-  r.min = 0.2, exclude = FALSE, digits = 2, show = F, output = 1,
-  index = T, trim = 20)
+indexDilemma(
+  x,
+  self = 1,
+  ideal = ncol(x),
+  diff.mode = 1,
+  diff.congruent = NA,
+  diff.discrepant = NA,
+  diff.poles = 1,
+  r.min = 0.2,
+  exclude = FALSE,
+  digits = 2,
+  show = F,
+  output = 1,
+  index = T,
+  trim = 20
+)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}
