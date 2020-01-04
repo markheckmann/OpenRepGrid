@@ -1,18 +1,17 @@
-###////////////////////////////////////////////////////////////////////////////
-###                                                                         ###
-###  						            GRID INDEX MEASURES     							          ###
-###                                                                         ###
-###     All function for index measures start with a lower case "i"         ###
-###     e.g. 'iBias' that stand for index followed by the an acronym        ###
-###     of what is calculated.                                              ###
-###                                                                         ###
-###////////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////
+#                                                                             #
+#  			  			            GRID INDEX MEASURES     							            #
+#                                                                             #
+#       All function for index measures start with a lower case "i"           #
+#       e.g. 'iBias' that stand for index followed by the an acronym          #
+#       of what is calculated.                                                #
+#                                                                             #
+#//////////////////////////////////////////////////////////////////////////////
 
 
-
-###////////////////////////////////////////////////////////////////////////////
-###  						            MEASURES FROM SLATER 1977							          ###
-###////////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////
+#   						            SLATER MEASURES  							                 ----
+#//////////////////////////////////////////////////////////////////////////////
 
 
 #' Calculate 'bias' of grid as defined by Slater (1977). 
@@ -21,31 +20,31 @@
 #' grading scale" (Slater, 1977, p.88). 
 #'
 #' @param  x        \code{repgrid} object.
-#' @param min       Minimum grid scale value. 
-#' @param max       Maximum grid scale value.
+#' @param min,max   Minimum and maximum grid scale values. Nor needed 
+#'                  if they are set for the grid.
 #' @param digits    Numeric. Number of digits to round to (default is 
 #'                  \code{2}).
 #' @return Numeric.
-#'
 #' @references      Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                  by Grid technique}. London: Wiley.
-#'
 #' @note STATUS:    Working and checked against example in Slater, 1977, p. 87.
-#'                  
-#' @author        Mark Heckmann
+#' @author          Mark Heckmann
 #' @export
 #' @seealso       \code{\link{indexVariability}} 
+#' @examples indexBias(boeker)
 #'
-indexBias <- function(x, min, max, digits=2){
-  dat <- x@ratings[ , ,1]
-  if (missing(min)) 
-    min <- x@scale$min
-  if (missing(max)) 
-    max <- x@scale$max
-  p <- min + (max - min)/2 			# scale midpoint
+indexBias <- function(x, min = NULL, max = NULL, digits=2) 
+{
+  dat <- getRatingLayer(x)
+  sc <- getScale(x)
+  if (is.null(min)) 
+    min <- sc[1]
+  if (is.null(max)) 
+    max <- sc[2]
+  p <- min + (max - min) / 2 		# scale midpoint
   q <- max - p									# distance to scale limits
   n <- nrow(dat)								# number of rows (constructs)
-  row.means <- apply(dat, 1, mean, na.rm=TRUE)		# means of construct rows
+  row.means <- apply(dat, 1, mean, na.rm = TRUE)		# means of construct rows
   bias <- (sum((row.means - p)^2) / n)^.5 / q		  # calculation of bias
   round(bias, digits)
 }
@@ -57,60 +56,67 @@ indexBias <- function(x, min, max, digits=2){
 #' towards both end of the gradings scale. (Slater, 1977, p.88).
 #'
 #' @param  x      \code{repgrid} object.
-#' @param min     Minimum grid scale value. 
-#' @param max     Maximum grdi scale value. 
+#' @param min,max   Minimum and maximum grid scale values. Nor needed 
+#'                  if they are set for the grid.
 #' @param digits  Numeric. Number of digits to round to (default is 
 #'                \code{2}).
 #' @return        Numeric.
-#'
 #' @references    Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                by Grid technique}. London: Wiley.
-#'
 #' @note          STATUS: working and checked against example in Slater, 1977 , p.88.
-#'
 #' @author        Mark Heckmann
 #' @export
 #' @seealso       \code{\link{indexBias}} 
-#'
-indexVariability <- function(x, min, max, digits=2){
-  if (missing(min)) 
-    min <- x@scale$min
-  if (missing(max)) 
-    max <- x@scale$max
+#' @examples      indexVariability(boeker)
+#' 
+indexVariability <- function(x, min = NULL, max = NULL, digits = 2) 
+{
+  dat <- getRatingLayer(x)
+  sc <- getScale(x)
+  if (is.null(min)) 
+    min <- sc[1]
+  if (is.null(max)) 
+    max <- sc[2]
   
   D <- as.matrix(center(x))       # row centered grid matrix
   W <- D %*% t(D)									# co-variation Matrix W
   V <- diag(W)										# extract trace (construct variations)
-  V.tot <- sum(V, na.rm=T)       # total variation
+  V.tot <- sum(V, na.rm = TRUE)   # total variation
   
-  p <- min + (max - min)/2 					    # scale midpoint
-  q <- max - p								          # distance to scale limits
-  n <- nrow(D)								        # number of rows (constructs)
-  m <- ncol(D)								        # number of columns (elements)
-  res <- (V.tot/(n*(m-1)))^.5/q			        # calculate variability
+  p <- min + (max - min) / 2 				# scale midpoint
+  q <- max - p								      # distance to scale limits
+  n <- nrow(D)								      # number of rows (constructs)
+  m <- ncol(D)								      # number of columns (elements)
+  res <- (V.tot / (n * (m - 1)))^.5 / q		# calculate variability
   round(res, digits)
 }
 
 
+<<<<<<< HEAD
 ###////////////////////////////////////////////////////////////////////////////
 ####		                  OTHER INDICES          					                 ####
 ###////////////////////////////////////////////////////////////////////////////
+=======
+
+#//////////////////////////////////////////////////////////////////////////////
+#   						                    MISC             							         ----
+#//////////////////////////////////////////////////////////////////////////////
+>>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 
 
 #' Percentage of Variance Accounted for by the First Factor (PVAFF)
 #'
-#' The PVAFF is used as 
-#' a measure of cognitive complexity. It was introduced in an unpublished
-#' PhD thesis by Jones (1954, cit. Bonarius, 1965).
-#' To calculate it, the 'first factor' is extracted from the construct 
-#' correlation matrix by principal component analysis.
-#' The PVAFF reflects the amount of variation that is accounted for by a single 
-#' linear component. If a single latent component is able to explain the
-#' variation in the grid, the cognitive complexity is said to be low. 
-#' In this case the construct system is regarded as 'simple' (Bell, 2003).
+#' The PVAFF is used as a measure of cognitive complexity. It was introduced in
+#' an unpublished PhD thesis by Jones (1954, cit. Bonarius, 1965). To calculate
+#' it, the 'first factor' is extracted from the construct correlation matrix by
+#' principal component analysis. The PVAFF reflects the amount of variation that
+#' is accounted for by a single linear component. If a single latent component
+#' is able to explain the variation in the grid, the cognitive complexity is
+#' said to be low. In this case the construct system is regarded as 'simple'
+#' (Bell, 2003).
 #'
 #' The percentage of variance is calculated using the corelation matrix
-#' of te constructs submitted to \code{\link{svd}}.
+#' of the constructs submitted to \code{\link{svd}}.
 #' 
 #' @section Development: 
 #' TODO: Results have not yet been checked against other grid programs.
@@ -136,70 +142,66 @@ indexVariability <- function(x, min, max, digits=2){
 #' @examples 
 #'
 #'    indexPvaff(bell2010)
-#'    indexPvaff(feixas2004)
 #'
-#'    # save results to object
-#'    p <- indexPvaff(bell2010)
-#'    p
-#'
-#'
-indexPvaff <- function(x){
-  if (!inherits(x, "repgrid")) 
+indexPvaff <- function(x)
+{
+  if (!inherits(x, "repgrid"))
     stop("Object must be of class 'repgrid'")
   cr <- constructCor(x)
-  sv <- svd(cr)$d 
-  pvaff <- sv[1]^2/sum(sv^2)
+  sv <- svd(cr)$d
+  pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
   return(pvaff)
 }
 
 
-#' Print method for class indexPvaff.
-#' 
-#' @param x         Object of class indexPvaff.
-#' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{2}).
-#' @param ...       Not evaluated.
-#' @export
-#' @method          print indexPvaff
-#' @keywords        internal
-#'
-print.indexPvaff <- function(x, digits=2, ...)
-{
-  cat("\n########################################################")
-  cat("\nPercentage of Variance Accounted for by the First Factor")
-  cat("\n########################################################")
-  cat("\n\nPVAFF: ", round(x*100, digits), "%")
-}
+# Print method for class indexPvaff.
+# 
+# @param x         Object of class indexPvaff.
+# @param digits    Numeric. Number of digits to round to (default is 
+#                  \code{2}).
+# @param ...       Not evaluated.
+# @export
+# @method          print indexPvaff
+# @keywords        internal
+#
+# print.indexPvaff <- function(x, digits=2, ...)
+# {
+#   cat("\n########################################################")
+#   cat("\nPercentage of Variance Accounted for by the First Factor")
+#   cat("\n########################################################")
+#   cat("\n\nPVAFF: ", round(x*100, digits), "%")
+# }
 
 
 # Another version of PVAFF giving slightly different results
 # maybe due to Bessel's correction. Still unclear which one 
 # is correct.
-indexPvaff2 <- function(x){
-  if (!inherits(x, "repgrid")) 
+indexPvaff2 <- function(x) 
+{
+  if (!inherits(x, "repgrid"))
     stop("Object must be of class 'repgrid'")
   r <- constructCor(x)
   sv <- princomp(r)$sdev
-  pvaff <- sv[1]^2/sum(sv^2)
+  pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
+  pvaff
 }
 
 
 #' Calculate intensity index.
 #'
-#' The Intensity index has been suggested by Bannister (1960) as a 
-#' measure of the amount of construct linkage. Bannister suggested 
-#' that the score reflects the degree of organization of the construct 
-#' system under investigation (Bannister & Mair, 1968). The index 
-#' resulted from his and his colleagues work on construction systems 
-#' of patient suffering schizophrenic thought disorder. The concept of 
-#' intensity has a theoretical connection to the notion of "tight" and 
-#' "loose" construing as proposed by Kelly (1991). While tight constructs 
-#' lead to unvarying prediction, loose constructs allow for varying 
-#' predictions. Bannister hypothesized that schizophrenic thought disorder 
-#' is liked to a process of extremely loose construing leading to a loss 
-#' of predictive power of the subject's construct system. The Intensity 
-#' score as a structural measure is thought to reflect this type of 
-#' system disintegration (Bannister, 1960). 
+#' The Intensity index has been suggested by Bannister (1960) as a measure of
+#' the amount of construct linkage. Bannister suggested that the score reflects
+#' the degree of organization of the construct system under investigation
+#' (Bannister & Mair, 1968). The index resulted from his and his colleagues work
+#' on construction systems of patient suffering schizophrenic thought disorder.
+#' The concept of intensity has a theoretical connection to the notion of
+#' "tight" and "loose" construing as proposed by Kelly (1991). While tight
+#' constructs lead to unvarying prediction, loose constructs allow for varying
+#' predictions. Bannister hypothesized that schizophrenic thought disorder is
+#' liked to a process of extremely loose construing leading to a loss of
+#' predictive power of the subject's construct system. The Intensity score as a
+#' structural measure is thought to reflect this type of system disintegration
+#' (Bannister, 1960).
 #' 
 #' Implementation as in the Gridcor programme and explained on the 
 #' correspoding help pages: 
@@ -213,7 +215,6 @@ indexPvaff2 <- function(x){
 #' single scores (for elements and construct).
 #'
 #' @title         Intensity index 
-#'
 #' @section Development: TODO: Results have not been tested against other programs' results.
 #'
 #' @param x       \code{repgrid} object.
@@ -242,10 +243,10 @@ indexPvaff2 <- function(x){
 #' @examples 
 #' 
 #'  indexIntensity(bell2010)
-#'  indexIntensity(bell2010, trim=NA)
+#'  indexIntensity(bell2010, trim = NA)
 #'
 #'  # using Cohen's rc for element correlations
-#'  indexIntensity(bell2010, rc=TRUE)
+#'  indexIntensity(bell2010, rc = TRUE)
 #'
 #'  # save output 
 #'  x <- indexIntensity(bell2010)
@@ -261,30 +262,31 @@ indexPvaff2 <- function(x){
 #'  x$e.int.mean
 #'  x$total.int
 #' 
-indexIntensity <- function(x, rc=FALSE, trim=30)
+indexIntensity <- function(x, rc = FALSE, trim = 30)
 {
   if (!inherits(x, "repgrid")) 
     stop("Object must be of class 'repgrid'")
-  cr <- constructCor(x, trim=trim)
+ 
+  cr <- constructCor(x, trim = trim)
   nc <- getNoOfConstructs(x)
   diag(cr) <- 0                                           # out zeros in diagonal (won't have an effect)
-  c.int <- apply(cr^2, 2, function(x) sum(x) / (nc-1))    # sum of squared correlations / nc -1 
+  c.int <- apply(cr^2, 2, function(x) sum(x) / (nc - 1))  # sum of squared correlations / nc -1 
   
-  er <- elementCor(x, rc=rc, trim=trim) 
+  er <- elementCor(x, rc = rc, trim = trim) 
   ne <- getNoOfElements(x)
   diag(er) <- 0                                           # out zeros in diagonal (won't have an effect)
-  e.int <- apply(er^2, 2, function(x) sum(x) / (ne-1))    # sum of squared correlations / ne -1 
+  e.int <- apply(er^2, 2, function(x) sum(x) / (ne - 1))  # sum of squared correlations / (ne - 1) 
   
-  c.int.mean <- mean(c.int, na.rm=TRUE)       # mean of construct intensity scors
-  e.int.mean <- mean(e.int, na.rm=TRUE)       # mean of element intensity scors
+  c.int.mean <- mean(c.int, na.rm = TRUE)       # mean of construct intensity scores
+  e.int.mean <- mean(e.int, na.rm = TRUE)       # mean of element intensity scores
   
-  total.int <- mean(c(c.int, e.int, na.rm=TRUE))
+  total.int <- mean(c(c.int, e.int, na.rm = TRUE))
   
-  res <- list(c.int=c.int,
-              e.int=e.int,
-              c.int.mean=c.int.mean,
-              e.int.mean=e.int.mean,
-              total.int=total.int)	            
+  res <- list(c.int = c.int,
+              e.int = e.int,
+              c.int.mean = c.int.mean,
+              e.int.mean = e.int.mean,
+              total.int = total.int)	            
   class(res) <- "indexIntensity"
   res
 }
@@ -300,7 +302,7 @@ indexIntensity <- function(x, rc=FALSE, trim=30)
 #' @method          print indexIntensity
 #' @keywords        internal
 #'
-print.indexIntensity <- function(x, digits=2, ...)
+print.indexIntensity <- function(x, digits = 2, ...)
 {
   cat("\n################")
   cat("\nIntensity index")
@@ -325,18 +327,23 @@ print.indexIntensity <- function(x, digits=2, ...)
 
 
 
+#//////////////////////////////////////////////////////////////////////////////
+#      					            CONFLICT MEASURES       							         ----
+#//////////////////////////////////////////////////////////////////////////////
 
 
+<<<<<<< HEAD
 ###////////////////////////////////////////////////////////////////////////////
 ####    					            CONFLICT MEASURES       							      ####
 ###////////////////////////////////////////////////////////////////////////////
 
 
+=======
+>>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 #' Print function for class indexConflict1
 #' 
 #' @param x         Object of class indexConflict1.
-#' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{1}).
+#' @param digits    Numeric. Number of digits to round to (default is \code{1}).
 #' @param ...       Not evaluated.
 #' @export
 #' @method          print indexConflict1
@@ -361,20 +368,19 @@ print.indexConflict1 <- function(x, digits=1, ...)
 
 #' Conflict measure as proposed by Slade and Sheehan (1979) 
 #'
-#' The first approach to mathematically derive a conflict measure based on
-#' grid data was presented by Slade and Sheehan (1979). Their 
-#' operationalization is based on an approach by Lauterbach (1975) 
-#' who applied the \emph{balance theory} (Heider, 1958) for a quantitative 
-#' assessment of psychological conflict. It is based on a count of 
-#' balanced and imbalanced triads of construct correlations.
-#' A triad is imbalanced if one or all three of the correlations are 
-#' negative, i. e. leading to contrary implications. This approach 
-#' was shown by Winter (1982) to be flawed. An improved version was 
-#' proposed by Bassler et al. (1992) and has been implemented
-#' in the function \code{indexConflict2}.
+#' The first approach to mathematically derive a conflict measure based on grid
+#' data was presented by Slade and Sheehan (1979). Their operationalization is
+#' based on an approach by Lauterbach (1975) who applied the \emph{balance
+#' theory} (Heider, 1958) for a quantitative assessment of psychological
+#' conflict. It is based on a count of balanced and imbalanced triads of
+#' construct correlations. A triad is imbalanced if one or all three of the
+#' correlations are negative, i. e. leading to contrary implications. This
+#' approach was shown by Winter (1982) to be flawed. An improved version was
+#' proposed by Bassler et al. (1992) and has been implemented in the function
+#' \code{indexConflict2}.
 #'
-#' The table below shows when a triad made up of the constructs
-#' A, B, and C is balanced and imbalanced.
+#' The table below shows when a triad made up of the constructs A, B, and C is
+#' balanced and imbalanced.
 #'
 #' \tabular{cccc}{
 #'  cor(A,B) \tab  cor(A,C) \tab  cor(B,C) \tab  Triad characteristic \cr
@@ -422,23 +428,23 @@ print.indexConflict1 <- function(x, digits=1, ...)
 #' @seealso \code{\link{indexConflict2}} for an improved version of this measure;
 #'          see \code{\link{indexConflict3}} for a measure based on distances.
 #'
-#' @examples \dontrun{
+#' @examples 
 #'    
 #'    indexConflict1(feixas2004)
 #'    indexConflict1(boeker)
 #'
-#' }
-#'
-indexConflict1 <- function(x) {
+indexConflict1 <- function(x) 
+{
   if (!inherits(x, "repgrid")) 
     stop("Object must be of class 'repgrid'")
+  
   r <- constructCor(x)                    # construct correlation matrix
   z <- fisherz(r)
   nc <- getNoOfConstructs(x)              # number of constructs
   comb <- t(combn(nc, 3))                 # all possible correlation triads
   balanced <- rep(NA, nrow(comb))         # set up result vector
   
-  for (i in 1:nrow(comb)){
+  for (i in 1:nrow(comb)) {
     z.triad <- z[t(combn(comb[i, ], 2))]  # correlations of triad
     z.prod <- prod(z.triad)
     if (sign(z.prod) > 0)   # triad is imbalanced if product of correlations is negative
@@ -448,10 +454,10 @@ indexConflict1 <- function(x) {
   prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
   prop.imbalanced <- 1 - prop.balanced                                # proportion of 
   
-  res <- list(total=length(balanced),
-              imbalanced=sum(!balanced),
-              prop.balanced=prop.balanced, 
-              prop.imbalanced=prop.imbalanced)
+  res <- list(total = length(balanced),
+              imbalanced = sum(!balanced),
+              prop.balanced = prop.balanced, 
+              prop.imbalanced = prop.imbalanced)
   class(res) <- "indexConflict1"
   res
 }
@@ -459,18 +465,16 @@ indexConflict1 <- function(x) {
 
 #' Conflict measure as proposed by Bassler et al. (1992). 
 #'
-#' The function calculates the conflict measure as devised
-#' by Bassler et al. (1992). It is an improved version of the ideas
-#' by Slade and Sheehan (1979) that have been implemented in
-#' the function \code{\link{indexConflict1}}. The new approach 
-#' also takes into account the magnitude of the correlations in
-#' a traid to assess whether it is balanced or imbalanced. 
-#' As a result, small correlations that are psychologically meaningless
-#' are considered accordingly. Also, correlations with a  small magnitude, 
-#' i. e. near zero, which may  be positive or negative due to 
-#' chance alone will no longer distort the measure (Bassler et al., 1992).
+#' The function calculates the conflict measure as devised by Bassler et al.
+#' (1992). It is an improved version of the ideas by Slade and Sheehan (1979)
+#' that have been implemented in the function \code{\link{indexConflict1}}. The
+#' new approach also takes into account the magnitude of the correlations in a
+#' traid to assess whether it is balanced or imbalanced. As a result, small
+#' correlations that are psychologically meaningless are considered accordingly.
+#' Also, correlations with a  small magnitude, i. e. near zero, which may  be
+#' positive or negative due to chance alone will no longer distort the measure
+#' (Bassler et al., 1992).
 #' 
-#'
 #' Description of the balance / imbalance assessment:
 #'
 #' \enumerate{
@@ -530,7 +534,7 @@ indexConflict1 <- function(x) {
 #'  print(x)
 #'  
 #'  # show conflictive triads
-#'  print(x, output=2)
+#'  print(x, output = 2)
 #'  
 #'  # accessing the calculations for further use
 #'  x$total
@@ -540,16 +544,18 @@ indexConflict1 <- function(x) {
 #'  x$triads.imbalanced
 #' }
 #' 
-indexConflict2 <- function(x, crit=.03){
+indexConflict2 <- function(x, crit = .03) 
+{
   if (!inherits(x, "repgrid")) 
     stop("Object must be of class 'repgrid'")
+
   r <- constructCor(x)                    # construct correlation matrix
   z <- fisherz(r)
   nc <- getNoOfConstructs(x)              # number of constructs
   comb <- t(combn(nc, 3))                 # all possible correlation triads
   balanced <- rep(NA, nrow(comb))         # set up result vector
   
-  for (i in 1:nrow(comb)){	
+  for (i in 1:nrow(comb)) {	
     z.triad <- z[t(combn(comb[i, ], 2))]      # z-values of triad
     ind <- order(abs(z.triad), decreasing=T)  # order for absolute magnitude
     z.triad <- z.triad[ind]               # reorder z values by magnitude               
@@ -565,17 +571,18 @@ indexConflict2 <- function(x, crit=.03){
   prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
   prop.imbalanced <- 1 - prop.balanced                 # proportion of 
   
-  res <- list(total=length(balanced),
-              imbalanced=sum(!balanced),
-              prop.balanced=prop.balanced, 
-              prop.imbalanced=prop.imbalanced,
-              triads.imbalanced=comb[!balanced, ])
+  res <- list(total = length(balanced),
+              imbalanced = sum(!balanced),
+              prop.balanced = prop.balanced, 
+              prop.imbalanced = prop.imbalanced,
+              triads.imbalanced = comb[!balanced, ])
   class(res) <- "indexConflict2"
   res
 }
 
 
-indexConflict2Out1 <- function(x, digits=1) {
+indexConflict2Out1 <- function(x, digits=1) 
+{
   cat("\n###############################")
   cat("\nConflicts based on correlations")
   cat("\n###############################") 
@@ -590,7 +597,8 @@ indexConflict2Out1 <- function(x, digits=1) {
 }
 
 
-indexConflict2Out2 <- function(x) {
+indexConflict2Out2 <- function(x) 
+{
   cat("\nConstructs that form imbalanced triads:\n")
   df <- as.data.frame(x$triads.imbalanced)
   colnames(df) <- c(" ", "  ", "   ")
@@ -605,34 +613,33 @@ indexConflict2Out2 <- function(x) {
 #'                \code{1}).
 #' @param output  Numeric. The output printed to the console. \code{output=1} (default) 
 #'                will print information about the conflicts to the console.
-#'                \code{output=2} will additionally print the conflictive
+#'                \code{output = 2} will additionally print the conflictive
 #'                triads. 
 #' @param ...     Not evaluated.
 #' @export
 #' @method        print indexConflict2
 #' @keywords      internal
 #'
-print.indexConflict2 <- function(x, digits=1, output=1, ...){
-  indexConflict2Out1(x, digits=digits) 
+print.indexConflict2 <- function(x, digits = 1, output = 1, ...) 
+{
+  indexConflict2Out1(x, digits = digits) 
   if (output == 2) 
     indexConflict2Out2(x)
 } 
 
 
-
 #' Conflict measure as proposed by Bell (2004). 
 #'
-#' Measure of conflict or inconsistency as proposed by Bell (2004).
-#' The identification of conflict is based on distances rather than 
-#' correlations as in other measures of conflict \code{\link{indexConflict1}}
-#' and \code{\link{indexConflict2}}. It assesses if the 
-#' distances between all components of a triad, made up of one element 
-#' and two constructs, satisfies the "triangle inequality" (cf. Bell, 2004).
-#' If not, a triad is regarded as conflictive. An advantage of the measure 
-#' is that it can be interpreted not only as a global measure for a 
-#' grid but also on an element, construct, and element by construct level 
-#' making it valuable for detailed feedback. Also, differences in conflict 
-#' can be submitted to statistical testing procedures.
+#' Measure of conflict or inconsistency as proposed by Bell (2004). The
+#' identification of conflict is based on distances rather than correlations as
+#' in other measures of conflict \code{\link{indexConflict1}} and
+#' \code{\link{indexConflict2}}. It assesses if the distances between all
+#' components of a triad, made up of one element and two constructs, satisfies
+#' the "triangle inequality" (cf. Bell, 2004). If not, a triad is regarded as
+#' conflictive. An advantage of the measure is that it can be interpreted not
+#' only as a global measure for a grid but also on an element, construct, and
+#' element by construct level making it valuable for detailed feedback. Also,
+#' differences in conflict can be submitted to statistical testing procedures.
 #'
 #' Status:  working; output for euclidean and manhattan distance 
 #'          checked against Gridstat output. \cr
@@ -694,27 +701,29 @@ print.indexConflict2 <- function(x, digits=1, output=1, ...){
 #'  indexConflict3(bell2010)
 #'  
 #'  # show additional stats for elements 1 to 3
-#'  indexConflict3(bell2010, e.out=1:3)
+#'  indexConflict3(bell2010, e.out = 1:3)
 #'  
 #'  # show additional stats for constructs 1 and 5
-#'  indexConflict3(bell2010, c.out=c(1,5))
+#'  indexConflict3(bell2010, c.out = c(1,5))
 #'  
 #'  # finetune output
 #'  ## change number of digits
 #'  x <- indexConflict3(bell2010)
-#'  print(x, digits=4)
+#'  print(x, digits = 4)
 #'
 #'  ## omit discrepancy matrices for constructs
-#'  x <- indexConflict3(bell2010, c.out=5:6)
-#'  print(x, discrepancies=FALSE)
+#'  x <- indexConflict3(bell2010, c.out = 5:6)
+#'  print(x, discrepancies = FALSE)
 #'  
 #' }
 #'
 #'
-indexConflict3 <- function(x, p=2,  
-                           e.out=NA, e.threshold=NA,
-                           c.out=NA, c.threshold=NA,
-                           trim=20) {
+indexConflict3 <- function(x, p = 2,  
+                           e.out = NA, 
+                           e.threshold = NA,
+                           c.out = NA, 
+                           c.threshold = NA,
+                           trim = 20) {
   # To assess the triangle inequality we need:
   #
   # - d.ij   'distance'  between element i and constuct j
@@ -729,29 +738,29 @@ indexConflict3 <- function(x, p=2,
   s <- getRatingLayer(x)            # grid scores matrix
   ne <- getNoOfElements(x)
   nc <- getNoOfConstructs(x)
-  enames <- getElementNames2(x, index=T, trim=trim,  pre="", post=" ")
-  cnames <- getConstructNames2(x, index=T, trim=trim, mode=1, pre="", post=" ")
+  enames <- getElementNames2(x, index = T, trim = trim,  pre = "", post = " ")
+  cnames <- getConstructNames2(x, index = T, trim = trim, mode = 1, pre = "", post = " ")
   
   # set up result vectors
   # confict.disc      discrepancy for each triangle (indexed e, c1, c2)
   # confict.e         number of conflicts for each element
   # conflict.c        number of conflicts for each construct
   # conflict.total    overall value of conflictive triangles
-  conflict.disc  <- array(NA, dim=c(nc, nc, ne))
+  conflict.disc  <- array(NA, dim = c(nc, nc, ne))
   conflict.e  <- rep(0, ne)
   conflict.c  <- rep(0, nc)
   conflict.total <- 0
-  conflicts.potential <-  ne * nc *(nc -1)/2
+  conflicts.potential <-  ne * nc * (nc -1 ) / 2
   # e is i, c1 is j and c2 is k in Bell's Fortran code
   
-  for (e in seq_len(ne)){
+  for (e in seq_len(ne)) {
     # average distance between constructs c1 and c2 not taking into account
     # the element under consideration. Generalization for any minkwoski metric
-    dc <- dist(s[, -e], method="minkowski", p=p) / (ne - 1)^(1/p)     # Bell averages the unsquared distances (euclidean), 
+    dc <- dist(s[, -e], method="minkowski", p=p) / (ne - 1)^(1 / p)     # Bell averages the unsquared distances (euclidean), 
     dc <- as.matrix(dc)   # convert dist object to matrix             # i.e. divide euclidean dist by root of n or p in the general case
     
-    for (c1 in seq_len(nc)){
-      for (c2 in seq_len(nc)){
+    for (c1 in seq_len(nc)) {
+      for (c2 in seq_len(nc)) {
         if (c1 < c2){
           d.jk <- dc[c1, c2]
           d.ij <- s[c1, e]
@@ -808,19 +817,20 @@ indexConflict3 <- function(x, p=2,
     
     disc.stand <- (e.disc.na - disc.avg) / disc.sd          # standardized discrepancy
     
-    list(e=e, 
-         disc=e.disc.na,
-         pairs=n.conflict.pairs,
-         constructs=e.disc.perc.df,
-         avg=disc.avg,
-         sd=disc.sd)#,
+    list(e = e, 
+         disc = e.disc.na,
+         pairs = n.conflict.pairs,
+         constructs = e.disc.perc.df,
+         avg = disc.avg,
+         sd = disc.sd)#,
     #disc.stand=round(disc.stand, digits))
   }
   
   
   ### Detailed stats for constructs ###
   
-  conflictAttributedByElementForConstruct <- function(c1) {
+  conflictAttributedByElementForConstruct <- function(c1) 
+  {
     c1.disc.0 <- c1.disc.na <- conflict.disc[c1, , ]     # version with NAs and zeros for no discrepancies
     rownames(c1.disc.na) <- paste("c", seq_len(nrow(c1.disc.na)))
     colnames(c1.disc.na) <- paste("e", seq_len(ncol(c1.disc.na)))
@@ -828,11 +838,11 @@ indexConflict3 <- function(x, p=2,
     c1.disc.0[is.na(c1.disc.0)] <- 0                     # replace NAs by zeros
     
     disc.avg <- mean(c1.disc.0)                          # average level of discrepancy
-    disc.sd <- sd(as.vector(c1.disc.na), na.rm=T)        # sd of discrepancies
-    list(c1=c1, 
-         disc=c1.disc.na,
-         avg=disc.avg,
-         sd=disc.sd)#,
+    disc.sd <- sd(as.vector(c1.disc.na), na.rm=TRUE)     # sd of discrepancies
+    list(c1 = c1, 
+         disc = c1.disc.na,
+         avg = disc.avg,
+         sd = disc.sd)#,
     #disc.stand=round(disc.stand, digits))
   }
   
@@ -841,7 +851,7 @@ indexConflict3 <- function(x, p=2,
   if (!is.na(e.out[1]))
     e.select <- e.out else 
       if (!is.na(e.threshold[1]))
-        e.select <- which(conflict.e/conflict.total *100 > e.threshold) else
+        e.select <- which(conflict.e / conflict.total * 100 > e.threshold) else
           e.select <- NA
   
   e.stats <- list()               # list with detailed results
@@ -856,7 +866,7 @@ indexConflict3 <- function(x, p=2,
   if (!is.na(c.out[1]))
     c.select <- c.out else 
       if (!is.na(c.threshold[1]))
-        c.select <- which(.5*conflict.c/conflict.total *100 > c.threshold) else
+        c.select <- which(.5 * conflict.c / conflict.total * 100 > c.threshold) else
           c.select <- NA
   
   c.stats <- list()               # list with detailed results
@@ -877,15 +887,16 @@ indexConflict3 <- function(x, p=2,
               c.stats = c.stats,
               e.threshold = e.threshold,    # threshold for elements
               c.threshold = c.threshold,
-              enames=enames,                # element names
-              cnames=cnames)
+              enames = enames,                # element names
+              cnames = cnames)
   class(res) <- "indexConflict3"
   res
 }
 
 
 ### Output to console ###
-indexConflict3Out1 <- function(x, digits=1) {
+indexConflict3Out1 <- function(x, digits = 1) 
+{
   cat("\n##########################################################")
   cat("\nCONFLICT OR INCONSISTENCIES BASED ON TRIANGLE INEQUALITIES")
   cat("\n##########################################################\n")
@@ -912,7 +923,8 @@ indexConflict3Out1 <- function(x, digits=1) {
 }
 
 
-indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
+indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) 
+{
   e.stats <- x$e.stats
   e.threshold <- x$e.threshold
   enames <- x$enames
@@ -945,7 +957,7 @@ indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
 }
 
 
-indexConflict3Out3 <- function(x, digits=1, discrepancies=TRUE) 
+indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE) 
 {
   c.threshold <- x$c.threshold
   c.stats <- x$c.stats
@@ -994,12 +1006,12 @@ indexConflict3Out3 <- function(x, digits=1, discrepancies=TRUE)
 #' @method              print indexConflict3
 #' @keywords            internal
 #'                    
-print.indexConflict3 <- function(x, digits=2, output=1, discrepancies=TRUE, ...)
+print.indexConflict3 <- function(x, digits = 2, output = 1, discrepancies = TRUE, ...)
 {
   if (output == 1)
-    indexConflict3Out1(x, digits=digits) 
-  indexConflict3Out2(x, digits=digits, discrepancies=discrepancies)
-  indexConflict3Out3(x, digits=digits, discrepancies=discrepancies) 
+    indexConflict3Out1(x, digits = digits) 
+  indexConflict3Out2(x, digits = digits, discrepancies = discrepancies)
+  indexConflict3Out3(x, digits = digits, discrepancies = discrepancies) 
 }
 
 
@@ -1012,22 +1024,22 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
   rc.inc.vals <- abs(rc.including[lower.tri(rc.including)])
   rc.exc.vals <- abs(rc.excluding[lower.tri(rc.excluding)])
   
-  histDensity <- function(vals, probs=c(.2, .4, .6, .8, .9), ...){
-    h <- hist(vals, breaks=seq(0, 1.01, len=21), freq=F, 
-              xlim=c(0, 1), border="white", col=grey(.8), ...)
+  histDensity <- function(vals, probs = c(.2, .4, .6, .8, .9), ...){
+    h <- hist(vals, breaks = seq(0, 1.01, len = 21), freq = FALSE, 
+              xlim = c(0, 1), border = "white", col = grey(.8), ...)
     d <- density(vals)
     lines(d$x, d$y)
-    q <- quantile(vals, probs=probs)
-    abline(v=q, col="red")
-    text(q, 0, paste(round(probs*100, 0), "%"), cex=.8, pos=2, col="red")  
+    q <- quantile(vals, probs = probs)
+    abline(v = q, col = "red")
+    text(q, 0, paste(round(probs * 100, 0), "%"), cex = .8, pos = 2, col = "red")  
   }
   
-  layout(matrix(c(1,2), ncol=1))
-  par(mar=c(3,4.2,2.4,2))
-  histDensity(rc.inc.vals, cex.main=.8, cex.axis=.8, cex.lab=.8,
-              main="Distribution of absolute construct-correlations \n(including 'self' and 'ideal self')")
-  histDensity(rc.exc.vals,  cex.main=.8, cex.axis=.8, cex.lab=.8, 
-              main="Distribution of absolute construct-correlations \n(excluding 'self' and 'ideal self')")
+  layout(matrix(c(1,2), ncol = 1))
+  par(mar = c(3,4.2,2.4,2))
+  histDensity(rc.inc.vals, cex.main = .8, cex.axis = .8, cex.lab = .8,
+              main = "Distribution of absolute construct-correlations \n(including 'self' and 'ideal self')")
+  histDensity(rc.exc.vals,  cex.main = .8, cex.axis = .8, cex.lab = .8, 
+              main = "Distribution of absolute construct-correlations \n(excluding 'self' and 'ideal self')")
 }
 
 
@@ -1036,11 +1048,11 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 # @param x               \code{repgrid} object.
 # @param self            Numeric. Index of self element.
 # @param ideal           Numeric. Index of ideal self element. 
-# @param diff.mode       Numeric. Mode to classify construct pairs into congruent and
-#                        discrepant. \code{diff.mode=1} will use the difference in 
-#                        ratings between the self and the ideal element to determine if
-#                        the construct is congruent or discrepant. No other
-#                        modes have yet been implemented.
+# @param diff.mode       Numeric. Method adopted to classify construct pairs into congruent 
+#                        and discrepant. With \code{diff.mode=1}, the minimal and maximal 
+#                        score difference criterion is applied. With \code{diff.mode=0} the Mid-point
+#                        rating criterion is applied. Default is \code{diff.mode=1}.
+
 # @param diff.congruent  Is used if \code{diff.mode=1}. Maximal difference between
 #                        element ratings to define construct as congruent (default
 #                        \code{diff.congruent=1}). Note that the value
@@ -1072,9 +1084,10 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #
 
 # THIS IS FUNCTION IS NEEDED TO OUTPUT DILEMMAS CORRECTLY
-get.pole <- function(grid, pole){
+get.pole <- function(grid, pole) 
+{
   # NEW : get the label of the pole to invert construct if needed
-  names <- function(grid){
+  names <- function(grid) {
     grid[[1]]
   }
   poles <- as.data.frame(lapply(grid@constructs, sapply, names))
@@ -1096,11 +1109,11 @@ get.pole <- function(grid, pole){
 }
 
 indexDilemmaInternal <- function(x, self, ideal, 
-                                 diff.mode = 1, diff.congruent = 1,
-                                 diff.discrepant = 4, diff.poles = 1, 
-                                 r.min, exclude = FALSE, digits = 2,
-                                 index=T, trim=NA) # CHANGE: set defaults
-                                                   # to RECORD 5.0 defaults
+                            diff.mode = 1, diff.congruent = 1,
+                            diff.discrepant = 4, diff.poles = 1, 
+                            r.min, exclude = FALSE, digits = 2,
+                            index = T, trim = FALSE) # CHANGE: set defaults
+                                                     # to RECORD 5.0 defaults
 {
   s <- getRatingLayer(x)         # grid scores matrix
   # NEW: To invert constructs
@@ -1112,37 +1125,47 @@ indexDilemmaInternal <- function(x, self, ideal,
   nc <- getNoOfConstructs(x)
   cnames <- getConstructNames2(x, index=index, trim=trim, mode=1, pre="", post=" ")
   
+  sc <- getScale(x)
+  midpoint <- (sc[1] + sc[2])/2     # NEW (DIEGO) get scale midpoint this is importat in
+                                    # when Alejandro's code check whether self/ideal   
+                                    # is == to the midpoint or not (see below "Get Dilemmas" section)
+  
   # GET IF CONSTRUCTS ARE DISCREPANT, CONGRUENT OR NEITHER    
   
   # difference self - ideal self  
   diff.between <- abs(s[, self] - s[, ideal])
   
-  is.congruent.e = logical()
-  type.c.elem <- character()
-  
+  #is.congruent.e = logical() # UPDATE (DIEGO) - Simplified - we dont need two sets of logical characters variables now
+  #type.c.elem <- character()
+  is.congruent = logical()
+  type.c <- character()
+ 
   # CORRECTION (ALEJANDRO): a construct 
   # can't be congruent if it's 'self' score is 4 (AKA self-
   # disorientation). Neither can be congruent if IDEAL is 4.
-  for (i in 1:nc){
-    if (s[,self][i] != 4){
-      if (s[,ideal][i] != 4){
-        is.congruent.e[i] <- diff.between[i] <= diff.congruent        
+  # CORRECTION (Diego): I have just updated this avoid hardcoding the midpoint!!
+  if (diff.mode == 1){
+    for (i in 1:nc){
+      if (s[,self][i] != midpoint){
+        if (s[,ideal][i] != midpoint){
+          is.congruent[i] <- diff.between[i] <= diff.congruent        
+        }
+        else{
+          is.congruent[i] <- FALSE
+        }
       }
       else{
-        is.congruent.e[i] <- FALSE
+        is.congruent[i] <- FALSE
       }
     }
-    else{
-      is.congruent.e[i] <- FALSE
-    }
+  
+  is.discrepant<- diff.between >= diff.discrepant
+  is.neither <- !is.congruent & !is.discrepant
+  
+  type.c[is.congruent] <- "congruent"
+  type.c[is.discrepant] <- "discrepant"
+  type.c[is.neither] <- "neither"
   }
-  
-  is.discrepant.e <- diff.between >= diff.discrepant
-  is.neither.e <- !is.congruent.e & !is.discrepant.e 
-  type.c.elem[is.congruent.e] <- "congruent"
-  type.c.elem[is.discrepant.e] <- "discrepant"
-  type.c.elem[is.neither.e] <- "neither"
-  
   # # difference from poles NOT YET IMPLEMENTED
   # sc <- getScale(x)
   # diff.pole1 <- abs(s[, c(e.self, e.ideal)] - sc[1])
@@ -1157,19 +1180,60 @@ indexDilemmaInternal <- function(x, self, ideal,
   # type.c.poles[is.congruent.p] <- "congruent"
   # type.c.poles[is.discrepant.p] <- "discrepant"
   # type.c.poles[is.neither.p] <- "neither"
-  
-  if (diff.mode == 1){
-    is.congruent <- is.congruent.e
-    is.discrepant <- is.discrepant.e
-    type.construct <- type.c.elem
-  } else {
-    # is.congruent <- is.congruent.p
-    # is.discrepant <- is.discrepant.p
-    # type.construct <- type.c.poles 
-  }
-  
-  # GET CORRELATIONS
+  #
+  #
+  #//////////////////////////////////////////////////////////////////////////////
+  ## MIDPOINT-BASED CRITERION TO IDENTIFY CONGRUENT AND DISCREPANT constructs 
+  #//////////////////////////////////////////////////////////////////////////////
+  #### added by DIEGO
+  #   I have tried to implement here the other popular method for the identification of 
+  #   Congruent and Discrepant constructs. This proposed below is that applied by IDIOGRID
+  #   software (V.2.3)
+  #   IDIOGRID uses "the scale midpoint as the 'dividing line' for discrepancies; for example, 
+  #   if the actual self (the Subject Element) is rated above the scale midpoint and the ideal 
+  #   self (the Target Element) is rated below the midpoint, then a discrepancy exists (and 
+  #   vice versa). If the two selves are rated on the same side of the scale or if either 
+  #   the actual self or the ideal self are rated at the midpoint of the scale, then a discre- 
+  #   pancy does not exist." ( from IDIOGRID manual)
 
+  else if (diff.mode == 0){
+    
+    is.congruent <- (s[, self] < midpoint  &  s[, ideal] < midpoint) | 
+                    (s[, self] > midpoint  &  s[, ideal] > midpoint)
+  
+    is.discrepant<- (s[, self] < midpoint  &  s[, ideal] > midpoint) | 
+                    (s[, self] > midpoint  &  s[, ideal] < midpoint)
+  
+    is.neither<- !is.congruent & !is.discrepant
+    type.c[is.congruent] <- "congruent"
+    type.c[is.discrepant] <- "discrepant"
+    type.c[is.neither] <- "neither"
+  }else {stop("\nNO differentiation method (diff.mode) SELECTED! quitting ..")}
+
+  #--------------- END OF MIDPOINT-BASED CRITERION -----------------------------#
+  
+
+
+
+  #//////////////////////////////////////////////////////////////////////////////
+  # DIEGO: This that I have commented-out is now redundant as the variables are not duplicates 
+  # anymore and are calculated only in their conditional loop. This is more efficient
+  #//////////////////////////////////////////////////////////////////////////////
+  #  if (diff.mode == 1){
+  #  is.congruent <- is.congruent.e
+  #  is.discrepant <- is.discrepant.e
+  #  type.construct <- type.c.elem
+  #  } else if (diff.mode == 0){ ##### ADDED CHOICE "0" for MIDPOINT RATING CRITERION
+  #  is.congruent <- is.congruent.p
+  #  is.discrepant <- is.discrepant.p
+  #  type.construct <- type.c.poles 
+  #  }
+  # we just need the next line to reconnect with the original indexdilemma routine
+  #//////////////////////////////////////////////////////////////////////////////
+  
+  type.construct <- type.c
+  # GET CORRELATIONS
+  
   # inter-construct correlations including and excluding 
   # the elements self and ideal self
   rc.include <- constructCor(x)                     # TODO digits=digits
@@ -1180,10 +1244,10 @@ indexDilemmaInternal <- function(x, self, ideal,
     rc.use <- rc.exclude else
       rc.use <- rc.include
   
-  type.c.poles <- type.c.elem <- rep(NA, nrow(s)) # set up reults vectors
-  
+  # type.c.poles <- type.c.elem <- rep(NA, nrow(s)) # set up results vectors
+  type.c <- rep(NA, nrow(s))
   # GET DILEMMAS
-
+  
   # which pairs of absolute construct correlations are bigger than r.min?
   
   comb <- t(combn(nc, 2)) # all possible correlation pairs (don't repeat)
@@ -1195,7 +1259,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   
   # check every pair of constructs for characteristics
   for (i in 1:nrow(comb)){
-    c1 <-	comb[i,1]
+    c1 <- comb[i,1]
     c2 <- comb[i,2]
     r.include[i] <- rc.include[c1, c2]
     r.exclude[i] <- rc.exclude[c1, c2]
@@ -1206,85 +1270,98 @@ indexDilemmaInternal <- function(x, self, ideal,
     # To create a dilemma, the 'self' scores of both contructs must be
     # on the same pole. We have to check for that.
     
-    if (s[c1, self] > 4 & s[c2, self] > 4) {
-      if (rc.use[c1, c2] >= r.min) # CORRECTION: don't use ABS values,
-                                   # we invert scores to check constructs
-                                   # to find correlations the other way
-        bigger.rmin[i] <- TRUE else
-           bigger.rmin[i] <- FALSE
-        check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
-          (is.discrepant[c1] & is.congruent[c2])
-        needs.to.invert[c1] <- TRUE
-        needs.to.invert[c2] <- TRUE
-        
-    }
-    else if (s[c1, self] < 4 & s[c2, self] < 4) {
-      if (rc.use[c1, c2] >= r.min)
-        bigger.rmin[i] <- TRUE else
-          bigger.rmin[i] <- FALSE
-        check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
-          (is.discrepant[c1] & is.congruent[c2])
-        needs.to.invert[c1] <- FALSE
-        needs.to.invert[c2] <- FALSE
-    }
+    # REMOVED HARDCODED MIDPOINT
+    # DIEGO: 4 is the midpoint and it was "hardcoded". This is not good if we have a scoring range
+    # that is not 1-7 because in that case the midpoint will NOT be 4!
+    #
+    # DIEGO: another bug-fix is that in the section where the scripts "reorient" the constructs:
+    # the code to re-orient the constructs is not controlling for self or ideal self to be scored 
+    # as the midpoint. This causes the script break. I have added a condition for those combinations 
+    # equivalent to self-score != midpoint
     
-    # NEW:
-    # Now check for inverted scores.
-    # You only need to invert one construct at a time
-    
-    if (inverteds[c1, self] > 4 & s[c2, self] > 4) {
-      r.include[i] = cor(inverteds[c1,], s[c2,])
-      r.exclude[i] = "*Not implemented"
-      if (r.include[i] >= r.min) 
-        bigger.rmin[i] <- TRUE else
-          bigger.rmin[i] <- FALSE
+    if (s[c1, self] != midpoint & s[c2, self] != midpoint){
+      if (s[c1, self] > midpoint & s[c2, self] > midpoint) {   
+        if (rc.use[c1, c2] >= r.min) # CORRECTION: don't use ABS values,
+          # we invert scores to check constructs
+          # to find correlations the other way
+          bigger.rmin[i] <- TRUE else
+            bigger.rmin[i] <- FALSE
+          check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
+            (is.discrepant[c1] & is.congruent[c2])
+          needs.to.invert[c1] <- TRUE
+          needs.to.invert[c2] <- TRUE
+      }
+      else if (s[c1, self] < midpoint & s[c2, self] < midpoint) {
+        if (rc.use[c1, c2] >= r.min)
+          bigger.rmin[i] <- TRUE else
+            bigger.rmin[i] <- FALSE
+          check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
+            (is.discrepant[c1] & is.congruent[c2])
+          needs.to.invert[c1] <- FALSE
+          needs.to.invert[c2] <- FALSE
+      }
+      
+      # NEW:
+      # Now check for inverted scores.
+      # You only need to invert one construct at a time
+      
+      if (inverteds[c1, self] > midpoint & s[c2, self] > midpoint) {
+        r.include[i] = cor(inverteds[c1,], s[c2,])
+        r.exclude[i] = "*Not implemented"
+        if (r.include[i] >= r.min) 
+          bigger.rmin[i] <- TRUE else
+            bigger.rmin[i] <- FALSE
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c2] <- TRUE
-    }
-    else if (inverteds[c1, self] < 4 & s[c2, self] < 4){
-      r.include[i] = cor(inverteds[c1,], s[c2,])
-      r.exclude[i] = "*Not implemented"
-      if (r.include[i] >= r.min) 
-        bigger.rmin[i] <- TRUE else
-          bigger.rmin[i] <- FALSE
+      }
+      else if (inverteds[c1, self] < midpoint & s[c2, self] < midpoint){
+        r.include[i] = cor(inverteds[c1,], s[c2,])
+        r.exclude[i] = "*Not implemented"
+        if (r.include[i] >= r.min) 
+          bigger.rmin[i] <- TRUE else
+            bigger.rmin[i] <- FALSE
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c1] <- TRUE
-    }
-
-    if (s[c1, self] > 4 & inverteds[c2, self] > 4) {
-      r.include[i] = cor(s[c1,], inverteds[c2,])
-      r.exclude[i] = "*Not implemented"
-      if (r.include[i] >= r.min) 
-        bigger.rmin[i] <- TRUE else
-          bigger.rmin[i] <- FALSE
+      }
+      
+      if (s[c1, self] > midpoint & inverteds[c2, self] > midpoint) {
+        r.include[i] = cor(s[c1,], inverteds[c2,])
+        r.exclude[i] = "*Not implemented"
+        if (r.include[i] >= r.min) 
+          bigger.rmin[i] <- TRUE else
+            bigger.rmin[i] <- FALSE
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c1] <- TRUE
-    }
-    else if (s[c1, self] < 4 & inverteds[c2, self] < 4) {
-      r.include[i] = cor(s[c1,], inverteds[c2,])
-      r.exclude[i] = "*Not implemented"
-      if (r.include[i] >= r.min) 
-        bigger.rmin[i] <- TRUE else
-          bigger.rmin[i] <- FALSE
+      }
+      else if (s[c1, self] < midpoint & inverteds[c2, self] < midpoint) {
+        r.include[i] = cor(s[c1,], inverteds[c2,])
+        r.exclude[i] = "*Not implemented"
+        if (r.include[i] >= r.min) 
+          bigger.rmin[i] <- TRUE else
+            bigger.rmin[i] <- FALSE
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c2] <- TRUE
+      }
     }
+    else{ # DIEGO: closing of the if() where I put the condition for self to be != to the midpoint score
+    needs.to.invert[c1] <- FALSE
+    needs.to.invert[c2] <- FALSE
+    }
+    #print(paste(needs.to.invert,s[c1,self],s[c2,self])) # Diego debug printout of variables
   }
-  
   # New: invert construct label poles if needed
   needs.to.invert[is.na(needs.to.invert)] <- F
-  # print(needs.to.invert)
-  # print(nc)
-  # print(is.na(needs.to.invert))
-
+  #print(needs.to.invert)
+  #print(nc)
+  #print(is.na(needs.to.invert))
+  
   leftpole <- get.pole(x, 'left')
   rightpole <- get.pole(x, 'right')
   
-  # bug 181228 here
   for (i in 1:nc) {
     if (needs.to.invert[i]) {
       s[i, self] <- inverteds[i, self]
@@ -1317,10 +1394,10 @@ indexDilemmaInternal <- function(x, self, ideal,
   cnstr.labels = character()
   cnstr.labels.left <- cnstr.labels.right <- cnstr.labels
   
-    # Number of dilemmas
+  # Number of dilemmas
   nd <- length(res3$c1)
   
-    # New: Put all discrepant constructs to the right
+  # New: Put all discrepant constructs to the right
   if (nd != 0) {
     for (v in 1:nd) {
       if (res3$type.c1[v] == 'discrepant') {
@@ -1345,7 +1422,7 @@ indexDilemmaInternal <- function(x, self, ideal,
 # output function for indexDilemma
 #
 indexDilemmaOut0 <- function(res, self, ideal, enames, 
-                             diff.discrepant, diff.congruent, exclude, r.min){
+                             diff.discrepant, diff.congruent, exclude, r.min, diff.mode){
   cat("\n###################\n")
   cat("Implicative Dilemma")
   cat("\n###################\n")
@@ -1353,10 +1430,15 @@ indexDilemmaOut0 <- function(res, self, ideal, enames,
   cat("\nActual Self Position:", enames[self])               
   cat("\nIdeal Self Position:", enames[ideal])   
   
-  cat("\n\nA Priori Criteria (for classification):")      
-  cat("\nDiscrepant Difference: >=", diff.discrepant)
-  cat("\nCongruent Difference: <=", diff.congruent)
-  
+  cat("\n\nA Priori Criteria (for classification):")
+  # differentiation mode 0 for midpoint-based criterion (Grimes - Idiogrid) OR
+  # differentiation mode 1 for Feixas "correlation cut-off" criterion
+  if (diff.mode == 1){
+    cat("\nDiscrepant Difference: >=", diff.discrepant)
+    cat("\nCongruent Difference: <=", diff.congruent)
+  }else if (diff.mode == 0){
+    cat("\nUsing Midpoint rating criterion")
+  }
   cat("\n\nCorrelation Criterion: >=", r.min)
   if (exclude)
     cat("\nCriterion Correlation excludes Self & Ideal") else 
@@ -1442,7 +1524,39 @@ indexDilemmaOut2 <- function(res, exclude){
 #' preferred state (i.e. ideal self) are the same or similar. 
 #' A construct is discrepant if the construction of the 'self' and 
 #' the 'ideal' is dissimilar. 
-#' Suppose the element 'self' is rated 2 and 'ideal self' 5 on 
+#'
+#' There are two popular accepted methods to
+#' identify congruent and discrepant constructs:
+#' \enumerate{
+#'    \item  "Scale Midpoint criterion" (cf. Grice 2008)
+#'    \item  "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
+#' }
+#'
+#' \emph{"Scale Midpoint criterion" (cf. Grice 2008)}
+#'
+#' As reported in the Idiogrid (v. 2.4) manual: "[..] The Scale Midpoint uses the 
+#' scales as the 'dividing line' for discrepancies; for example, if the actual 
+#' element is rated above the midpoint, then the discrepancy exists (and vice versa). 
+#' If the two selves are the same as the actual side of the scale, then a discrepancy 
+#' does not exist". As an example:
+#' Assuming a scoring range of 1-7, the midpoint score will be 4, we then look at self 
+#' and ideal-self scoring on any given construct and we proceed as follow:
+#'
+#' \itemize{
+#'    \item If the scoring of Self AND Ideal Self are both < 4: construct is "Congruent"
+#'    \item If the scoring of Self AND Ideal Self are both > 4: construct is "Congruent"
+#'    \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR viceversa): construct is "discrepant"
+#'    \item If scoring Self OR Ideal Self = 4 then the construct is NOT Discrepant and it is "Undifferentiated"
+#' }
+#'
+#' \emph{Minimal and maximal score difference criterion (cf. Feixas & Saul, 2004)}
+#'
+#' This other method is more conservative and it is designed to minimize Type I errors by a) setting
+#' a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the ideal Self and self are 
+#' neither congruent or discrepant; c) discarding cases where ideal self is "not oriented", i.e. 
+#' scored as the midpoint.
+#''
+#' E.g. suppose the element 'self' is rated 2 and 'ideal self' 5 on 
 #' a scale from 1 to 6. The ratings differences are 5-2 = 3. If this 
 #' difference is smaller than e.g. 1 the construct is 'congruent', if it
 #' is bigger than 3 it is 'discrepant'. \cr
@@ -1459,7 +1573,7 @@ indexDilemmaOut2 <- function(res, exclude){
 #' The value mode is determined via the argument \code{diff.mode}.\cr
 #' If no 'a priori' criteria to determine if the construct
 #' is congruent or discrepant is supplied as an argument, the values are chosen
-#' acording to the range of the rating scale used. For the following scales
+#' according to the range of the rating scale used. For the following scales
 #' the defaults are chosen as:
 #'
 #' \tabular{ll}{
@@ -1517,11 +1631,11 @@ indexDilemmaOut2 <- function(res, exclude){
 #' @param x               \code{repgrid} object.
 #' @param self            Numeric. Index of self element.
 #' @param ideal           Numeric. Index of ideal self element. 
-#' @param diff.mode       Numeric. Mode to classify construct pairs into congruent and
-#'                        discrepant. \code{diff.mode=1} will use the difference in 
-#'                        ratings between the self and the ideal element to determine if
-#'                        the construct is congruent or discrepant. No other
-#'                        modes have yet been implemented.
+#' @param diff.mode       Numeric. Method adopted to classify construct pairs into congruent 
+#'                        and discrepant. With \code{diff.mode=1}, the minimal and maximal 
+#'                        score difference criterion is applied. With \code{diff.mode=0} the Mid-point
+#'                        rating criterion is applied. Default is \code{diff.mode=1}.
+#'
 #' @param diff.congruent  Is used if \code{diff.mode=1}. Maximal difference between
 #'                        element ratings to define construct as congruent (default
 #'                        \code{diff.congruent=1}). Note that the value
@@ -1556,7 +1670,7 @@ indexDilemmaOut2 <- function(res, exclude){
 #' @param digits          Numeric. Number of digits to round to (default is 
 #'                        \code{2}).
 #'
-#' @author                Mark Heckmann, Alejandro García
+#' @author                Mark Heckmann, Alejandro García, Diego Vitali
 #' @export
 #' @return                Called for console output. Invisbly returns a list containing
 #'                        the result dataframes and all results from the calculations.
@@ -1582,6 +1696,9 @@ indexDilemmaOut2 <- function(res, exclude){
 #'                        disorder and therapeutic change. \emph{British Journal of Medical 
 #'                        Psychology, 55} (Pt 3), 257-269.
 #'
+#'                        Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory 
+#'                        Grids (Version 2.4). Oklahoma: Oklahoma State University.
+#'
 #' @examples \dontrun{
 #'  
 #'  indexDilemma(boeker, self=1, ideal=2)
@@ -1601,7 +1718,7 @@ indexDilemmaOut2 <- function(res, exclude){
 indexDilemma <- function(x, self = 1, ideal = ncol(x), 
                          diff.mode = 1, diff.congruent = NA,
                          diff.discrepant = NA, diff.poles=1, 
-                         r.min=.2, exclude=FALSE, digits=2, show=F,
+                         r.min=.34, exclude=FALSE, digits=2, show=F,
                          output=1, 
                          index=T, trim=20) # CHANGE: set 'self' and
                                   # 'ideal' to first and last column
@@ -1623,39 +1740,41 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
                               index=index, trim=trim)
   
   # type of output printed to te console
-  enames <- getElementNames2(x, trim=trim, index=T)
+  enames <- getElementNames2(x, trim = trim, index = T)
   
-  if (output == 1){
-    indexDilemmaOut0(res, self, ideal, enames, 
-                     diff.discrepant, diff.congruent, 
-                     exclude, r.min)
+  if (output == 1) {
+    indexDilemmaOut0(res, self, ideal, enames, diff.discrepant, 
+                     diff.congruent, exclude, r.min,diff.mode) # added diffmode to print mode in output
     indexDilemmaOut1(res)
     indexDilemmaOut2(res, exclude)
-  } else if(output == 2){
-    indexDilemmaOut0(res, self, ideal, enames, 
-                     diff.discrepant, diff.congruent, 
-                     exclude, r.min)
+  }
+  else if (output == 2) {
+    indexDilemmaOut0(res, self, ideal, enames, diff.discrepant, 
+                     diff.congruent, exclude, r.min,diff.mode)
     indexDilemmaOut2(res, exclude)
-  } 
-  # show distribution if prompted
-  if (show)
+  }
+  if (show) 
     indexDilemmaShowCorrelationDistribution(x, self, ideal)
   invisible(res)
 }
 
 
 
+<<<<<<< HEAD
 # TODO
 
+=======
+#//////////////////////////////////////////////////////////////////////////////
+>>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 
 # Pemutation test to test if grid is random.
 # "The null hypothesis [is] that a particular grid 
 # is indis- tinguishable from an array of random numbers" 
 # (Slater, 1976, p. 129).
 #
-randomTest <- function(x){
-  x
-}
+# randomTest <- function(x){
+#   x
+# }
 # permutationTest
 # Hartmann 1992: 
 # To illustrate: If a person decided to produce a nonsense grid, 

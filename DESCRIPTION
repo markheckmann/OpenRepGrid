@@ -4,8 +4,11 @@ Title: Tools to Analyze Repertory Grid Data
 LazyData: yes
 Type: Package
 LazyLoad: yes
-Authors@R: person("Mark", "Heckmann", email = "heckmann.mark@gmail.com",
-    role = c("aut", "cre"))
+Authors@R: c(
+    person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")),
+    person("Alejandro", "García Gutiérrez", role = "ctb"),
+    person("Diego", "Vitali", role = "ctb")
+    )
 Description: Analyze repertory grids, a qualitative-quantitative 
     data collection technique devised by George A. Kelly in the 1950s. Today, grids are used across 
     various domains ranging from clinical psychology to marketing. The package contains
@@ -62,7 +65,11 @@ Collate:
     'utils-import.r'
     'utils.r'
     'zzz.r'
+<<<<<<< HEAD
 RoxygenNote: 7.0.2
+=======
+RoxygenNote: 6.1.1
+>>>>>>> 76d4b8e5a86ddd7ed520e55241d4c5961d278515
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>
