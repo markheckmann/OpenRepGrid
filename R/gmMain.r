@@ -1,4 +1,4 @@
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
 #  	GRAPHICAL MODULES (gm) script collection						
 #  	graphical moduls is a collection of simple graphical templates 
 #  	that can be used to construct complex custom graphics.
@@ -8,15 +8,15 @@
 #	cuntion that does not have grob at the end. e.g. gmFoo and gmFooGrob
 # 	
 #  	by Mark Heckmann 2009
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
 # TODO: naming of function and corresponding grob function
 
 # package dependencies:
 #require(grid)
 #require(colorspace)
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 
 ###### FUNCTION DEFINITION ########
 # extract luminance value from hex color value. 
@@ -76,20 +76,18 @@ gmSelectTextColorByLuminance <- function(hex, breaks=c(-1,50,101), breakColors=c
 #	}	
 #popViewport()
 
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
 
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # like a gmTextBox
 # like Murrels example that is rezisable but also viewport 
 # rotation enabled allowed
 
 
-
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
 # gmTextBox		fill a viewport with color, and text or two texts
 #
 # evtl mit gpar Objekten??
@@ -109,7 +107,7 @@ gmTextBox <- function(text=c("text 1", "text 2"), textCol = c("black", "black"),
 	#horiz=FALSE
 	#borderCol <- c("black", "black", "black","black")
 	#twoTexts <- TRUE
-	#####
+	###
 
 	if(length(text) == 2 ) {twoTexts <- TRUE} else {twoTexts <- FALSE}				# two text bodies?	
 	gpText_1 <- gpar(col=textCol[1], cex=textsize[1], fontface=fontface[1]) 		# make gpar objects
@@ -212,8 +210,8 @@ gmTextBox <- function(text=c("text 1", "text 2"), textCol = c("black", "black"),
 #popViewport()
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmSplitTextGrob
 # text grob that automatically does line breaks in text, allows resizing
 # and vertical orientation of
@@ -347,8 +345,8 @@ gmSplitTextBox <- function(text, x=unit(0.5, "npc"), y=unit(0.5, "npc"), just=c(
 #popViewport()
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmMakeVpBorders
 # uses the current vp and adds border lines at specified places
 # is useful for the construction of tables etc. and an alternative
@@ -407,23 +405,23 @@ gmMakeVpBorders <- function(side, col, lwd, ...)
 
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmBulletPointsBox					
 # A function that prints a list of text elements as bullet points
 # Bullets can be chosen any pch, numbers, letters or any other vector.
 
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmProfileLines
 # ask Hadley first if he already implicitly has it...
 
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmRandomColor 
 # small convenience wrapper that returns a vector of random colors as hex
 # unsing HSV scheme (hue, saturation, value)
@@ -458,8 +456,8 @@ gmRandomColor <- function(n=1, h=runif(n)*360, s=runif(n), v=runif(n), shuffle=T
 
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmArrowIndicator
 # an arrow of given size, angle, filling and background color which can be 
 # used to visuallize changes or rates.
@@ -592,8 +590,8 @@ gmArrowIndicator <- function(angle=0, col="black", size=5, circle=FALSE, initang
 # grid.draw(fg)
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmShowPalette 
 # convenient wrapper to look at a palett, taken from colorspace vignette
 
@@ -618,8 +616,8 @@ gmShowPalette <- function(col, border = "light gray", ...)
 # gmShowPalette(diverge_hcl(30, h = c(120, 20), c = 70, l = c(55, 98)))
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmSelectColorByValue
 # TODO: vectorize, work on matrix, df etc.
 # if value does not lie within any interval defined by breaks NA is returned
@@ -655,8 +653,8 @@ gmSelectColorByValue <- function(x, breaks= seq(0, 100, by=10),
 #gmShowPalette(tmp)
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmLegends
 # there is a function for grid legends in vcd package, but it does
 # not allow for multiple characters. The code is slightly modified
@@ -757,8 +755,8 @@ gmLegend <- function (x, y, pch, symbol=FALSE, col, labels, hgap = unit(0.5,
 
 
 
-#####################################################################
-#####################################################################
+#//////////////////////////////////////////////////////////////////////////////
+
 # gmLegends_2
 # there is a function for grid legends in vcd package, but it does
 # not allow for multiple characters. The code is slightly modified

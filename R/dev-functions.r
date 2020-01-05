@@ -4,7 +4,7 @@
 ###   They are supposd to facilitate adding new functions for               ###
 ###   newcomers to R.                                                       ###
 ###   Most functions are documentetd in OpenRepGrid-internal                ###
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
 
 
 #' Generate a random grid (quasis) of prompted size.

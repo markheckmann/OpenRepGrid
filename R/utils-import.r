@@ -1,8 +1,8 @@
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
 ### Functions taken from other packages which shall not be loaded due to    ###
 ### too much overhead or additional dependencies. Hence they are not        ### 
 ### included as imports.                                                    ###
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
 
 
 # function pointLabel was taken from package maptools. maptools is not imported 
@@ -317,19 +317,19 @@ errbar <- function (x, y, yplus, yminus, cap = 0.015, main = NULL, sub = NULL,
 
 
 
-##############################################################
+#//////////////////////////////////////////////////////////////////////////////
 ## Optimal Box-Cox transformation according to
 ## a grid-based maximization of the correlation
 ## of a Normal P-P plot.
-##############################################################
+#//////////////////////////////////////////////////////////////////////////////
 ## Author: Ioannis Kosmidis
 ## Email: <I.Kosmidis at warwick dot ac dot uk>
 ## Latest release: 02/08/2008
 ## Distributed under GPL 2 or greater:
 ## Available at http://www.gnu.org/licenses
-##############################################################
+#//////////////////////////////////////////////////////////////////////////////
 ## "normal.ppplot"
-## ----------------
+## 
 ## Arguments:
 ## x: a vector of the observed values
 ## plot: values TRUE/FALSE depending on whether the Normal P-P
@@ -338,9 +338,9 @@ errbar <- function (x, y, yplus, yminus, cap = 0.015, main = NULL, sub = NULL,
 ## Value:
 ## Either a Normal P-P plot or the correlation of the Normal
 ## P-P plot, depending on the values of the plot argument.
-##############################################################
+#//////////////////////////////////////////////////////////////////////////////
 ## "optimal.boxcox"
-## ----------------
+## 
 ## Arguments:
 ## x: a vector of the observed values
 ## lambda: the grid of lambda values that should be considered
@@ -352,7 +352,7 @@ errbar <- function (x, y, yplus, yminus, cap = 0.015, main = NULL, sub = NULL,
 ## correlation.
 ## The vector of the transformed observations is also
 ## returned.
-##############################################################
+#//////////////////////////////////////////////////////////////////////////////
                          
 normal.ppplot <- function(x, plot=FALSE) {
   standardized.x <- (x - mean(x))/sd(x)

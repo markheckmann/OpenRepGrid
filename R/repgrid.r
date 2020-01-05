@@ -1,6 +1,8 @@
-###############################################################################
-###							DEFINITION OF THE STRUCTURE OF REPGRID CLASS							  ###
-###############################################################################
+#//////////////////////////////////////////////////////////////////////////////
+#
+#							DEFINITION OF THE STRUCTURE OF REPGRID CLASS
+#
+#//////////////////////////////////////////////////////////////////////////////
 
 # In this file the repgrid classes are defined.
 # Design note: 	the objects will be defined using S4 classes.

@@ -1,6 +1,9 @@
-################################################################
-### 				basic ratings operations				 ###
-################################################################
+#//////////////////////////////////////////////////////////////////////////////
+#
+#      				           basic ratings operations				 
+#
+#//////////////////////////////////////////////////////////////////////////////
+
 
 
 # sets up an array of proper dimension and dim names to be filled with ratings
@@ -107,8 +110,7 @@ r.setRatings <- function(x, scores=NA, rows=NA, cols=NA, layer=1, ...){
 # a <- abind(a, makeNewElementColumn(a), along=2)				# attach new column
 # a <- a[, c(index$index.base.new, index$index.insert.new), ]	# reorder by pos
 # a
-
-######################################################
+#//////////////////////////////////////////////////////////////////////////////
 
 
 r.makeNewElementColumn <- function(x, pos=NA){
