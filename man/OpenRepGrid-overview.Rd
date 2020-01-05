@@ -226,6 +226,6 @@ Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann.
            The github site provides information and allows to file bug reports or feature requests.
            Bug reports can also be emailed to the package maintainer or issued on 
            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-           The package maintainer is Mark Heckmann <heckmann(at)uni-bremen.de>.
+           The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 }
 \keyword{package}

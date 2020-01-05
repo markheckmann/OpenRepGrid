@@ -36,13 +36,14 @@ Fransella, F., Bell, R. C., & Bannister, D. (2003). \emph{A Manual for Repertory
 \author{
 \pkg{OpenRepGrid} was initiated by Mark Heckmann. 
            Current contributors are: Mark Heckmann, Alejandro García.
-           Researchers interested in developing the package are invited to join.
+           Researchers interested in contributing to the package are 
+           \href{http://docu.openrepgrid.org/contribute.html}{invited get in touch}.
 
            The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
            The github site provides information and allows to file bug reports or feature requests.
            Bug reports can also be emailed to the package maintainer or issued on 
            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-           The package maintainer is Mark Heckmann  <heckmann(at)uni-bremen.de>.
+           The package maintainer is Mark Heckmann  <heckmann(dot)mark(at)gmail(dot)com>.
 }
 \keyword{package}
 \keyword{repgrid}
