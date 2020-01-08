@@ -203,13 +203,14 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
 # 'ratings' function replaces 'getRatingLayer' 
 # as it sounds simpler
 
-#' Get ratings.
+#' Extract ratings (wide or long format)
 #'
 #' @param x A \code{repgrid} object.
 #' @param names Extract row and columns names (constructs and elements).
 #' @param trim The number of characters a row or column name is trimmed to
 #'   (default is \code{10}). If \code{NA} no trimming is done. Trimming simply
 #'   saves space when displaying the output.
+#' @param long Return as long format? (default \code{FALSE})
 #' @param i,j   Row and column indices.
 #' @param value   Numeric replacement value(s).
 #' @return A \code{matrix}.#'
@@ -240,7 +241,13 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
 #' ratings(x)[1:3,5:6] <- matrix(5, 3, 2)
 #' x[1:3,5:6] <- matrix(5, 3, 2)   # the same
 #' 
-ratings <- function(x, names=TRUE, trim=10)
+#' 
+#' ## ratings as dataframe in wide or long format
+#' 
+#' ratings_df(x)
+#' ratings_df(x, long = TRUE)
+#' 
+ratings <- function(x, names = TRUE, trim = 10)
 {
   layer <- 1 #  get first layer of ratings array. The other two are not used
   scores <- x@ratings[ , , layer, drop=FALSE]       # select layer
@@ -258,6 +265,27 @@ ratings <- function(x, names=TRUE, trim=10)
     colnames(rm) <- enames   
   }
   rm
+}
+
+
+#' export
+#' @rdname ratings
+ratings_df <- function(x, long = FALSE, names = TRUE, trim = NA) 
+{
+  r <- ratings(x, trim = trim, names = names)
+  if (!names) {
+    colnames(r) <- paste0("E", 1L:ncol(x))
+  }
+  r <- as.data.frame(r)
+  nc <- nrow(r)
+  cn <- constructs(x)
+  ii <- data.frame(construct_index = 1L:nc)
+  df <- cbind(ii, cn, r)
+  rownames(df) <- NULL
+  if (long) {
+    df <- tidyr::pivot_longer(df, cols = names(r), names_to = "element", values_to = "rating") 
+  }
+  df
 }
 
 

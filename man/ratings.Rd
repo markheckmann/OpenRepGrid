@@ -2,10 +2,13 @@
 % Please edit documentation in R/repgrid-basicops.r
 \name{ratings}
 \alias{ratings}
+\alias{ratings_df}
 \alias{ratings<-}
-\title{Get ratings.}
+\title{Extract ratings (wide or long format)}
 \usage{
 ratings(x, names = TRUE, trim = 10)
+
+ratings_df(x, long = FALSE, names = TRUE, trim = NA)
 
 ratings(x, i, j) <- value
 }
@@ -18,6 +21,8 @@ ratings(x, i, j) <- value
 (default is \code{10}). If \code{NA} no trimming is done. Trimming simply
 saves space when displaying the output.}
 
+\item{long}{Return as long format? (default \code{FALSE})}
+
 \item{i, j}{Row and column indices.}
 
 \item{value}{Numeric replacement value(s).}
@@ -26,7 +31,9 @@ saves space when displaying the output.}
 A \code{matrix}.#'
 }
 \description{
-Get ratings.
+Extract ratings (wide or long format)
+
+export
 }
 \examples{
 
@@ -50,6 +57,12 @@ x[1,1:5] <- 2   # the same
 
 ratings(x)[1:3,5:6] <- matrix(5, 3, 2)
 x[1:3,5:6] <- matrix(5, 3, 2)   # the same
+
+
+## ratings as dataframe in wide or long format
+
+ratings_df(x)
+ratings_df(x, long = TRUE)
 
 }
 \seealso{
