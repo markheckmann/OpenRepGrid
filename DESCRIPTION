@@ -70,3 +70,6 @@ RoxygenNote: 7.0.2
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>
+Suggests: 
+    testthat (>= 2.1.0),
+    covr
