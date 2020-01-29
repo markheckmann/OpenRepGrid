@@ -1,7 +1,11 @@
 # OpenRepGrid
 
 [![Build Status](https://travis-ci.org/markheckmann/OpenRepGrid.svg?branch=master)](https://travis-ci.org/markheckmann/OpenRepGrid)
+
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/markheckmann/OpenRepGrid?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/OpenRepGrid)
+
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/OpenRepGrid)](https://cran.r-project.org/package=OpenRepGrid)
+
 
 **OpenRepGrid** is an R package for the analysis of repertory grid data. Its home is  [www.openrepgrid.org](http://www.openrepgrid.org/). 
                                                   
