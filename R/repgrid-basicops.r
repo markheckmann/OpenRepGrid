@@ -268,7 +268,7 @@ ratings <- function(x, names = TRUE, trim = 10)
 }
 
 
-#' export
+#' @export
 #' @rdname ratings
 ratings_df <- function(x, long = FALSE, names = TRUE, trim = NA) 
 {

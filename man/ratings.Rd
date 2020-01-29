@@ -32,8 +32,6 @@ A \code{matrix}.#'
 }
 \description{
 Extract ratings (wide or long format)
-
-export
 }
 \examples{
 
