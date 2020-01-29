@@ -37,7 +37,8 @@ Imports:
     XML,
     tcltk,
     pvclust,
-    openxlsx
+    openxlsx,
+    tidyr
 Collate:
     'bertin.r'
     'calc.r'
