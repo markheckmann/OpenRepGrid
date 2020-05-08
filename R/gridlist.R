@@ -7,7 +7,8 @@
 #' @export
 #' @rdname gridlist
 gridlist <- function(...) {
-  list(...) %>% as.gridlist()
+  l <- list(...)
+  as.gridlist(l)
 }
 
 

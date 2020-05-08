@@ -17,6 +17,8 @@
 #' 
 grids_leave_n_out <- function(x, n = 0)
 {
+  if (!inherits(x, "repgrid")) 
+    stop("Object must be of class 'repgrid'")
   nc <- getNoOfConstructs(x)    # size construct system
   prop <- n / nc        # proportion left out
   if (prop > .4) 
@@ -35,6 +37,8 @@ grids_leave_n_out <- function(x, n = 0)
 #' 
 grids_bootstrap <- function(x, n = nrow(x), reps = 100, replace = TRUE)
 {
+  if (!inherits(x, "repgrid")) 
+    stop("Object must be of class 'repgrid'")
   nc <- getNoOfConstructs(x)    # size construct system
   prop <- n / nc                # proportion to sample
   if (prop < .6) 

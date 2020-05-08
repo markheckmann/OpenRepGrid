@@ -53,6 +53,7 @@ Collate:
     'measures.r'
     'onair.r'
     'openrepgrid.r'
+    'perturbate.R'
     'repgrid.r'
     'repgrid-basicops.r'
     'repgrid-constructs.r'
