@@ -24,7 +24,7 @@ grids_leave_n_out <- function(x, n = 0)
   n.subset <- nc - n
   l <- combn(seq_len(nc), n.subset, simplify = F) # list of subset indexes
   l <- lapply(l, function(i, x) x[i, ], x = x)
-  as.repgridlist(l)
+  as.gridlist(l)
 }
 
 
@@ -41,7 +41,7 @@ grids_bootstrap <- function(x, n = nrow(x), reps = 100, replace = TRUE)
     warning("Be aware that you resample less than 60% of the constructs", call. = FALSE)
   l_i <- replicate(reps, sample(seq_len(nc), n, replace = replace), simplify = FALSE)
   l <- lapply(l_i, function(i, x) x[i, ], x = x)
-  as.repgridlist(l)
+  as.gridlist(l)
 }
 
 

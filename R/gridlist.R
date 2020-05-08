@@ -75,8 +75,8 @@ print.gridlist <- function(x, all = FALSE)
   ne <- ncol(x)[[1]]
   cat("gridlist (list of repgrid objects):")
   cat("\n  length:", n)
-  cat("\n  no of constructs: [", min(nc), ", ", max(nc), "]", sep = "")
-  cat("\n  no of elements: [", min(ne), ", ", max(ne), "]", sep = "")
+  cat("\n  no of constructs [min, max]: [", min(nc), ", ", max(nc), "]", sep = "")
+  cat("\n  no of elements [min, max]: [", min(ne), ", ", max(ne), "]", sep = "")
 }
 
 
