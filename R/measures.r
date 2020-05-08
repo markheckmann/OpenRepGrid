@@ -101,22 +101,18 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 #'
 #' The PVAFF is used as a measure of cognitive complexity. It was introduced in
 #' an unpublished PhD thesis by Jones (1954, cit. Bonarius, 1965). To calculate
-#' it, the 'first factor' is extracted from the construct correlation matrix by
-#' principal component analysis. The PVAFF reflects the amount of variation that
-#' is accounted for by a single linear component. If a single latent component
-#' is able to explain the variation in the grid, the cognitive complexity is
-#' said to be low. In this case the construct system is regarded as 'simple'
-#' (Bell, 2003).
-#'
-#' The percentage of variance is calculated using the corelation matrix
-#' of the constructs submitted to \code{\link{svd}}.
+#' it, the 'first factor' two different methods may be used. One applies
+#' principal component analysis (PCA) to the construct centered raw data
+#' (default), the second applies SVD to the construct correlation matrix. The
+#' PVAFF reflects the amount of variation that is accounted for by a single
+#' linear component. If a single latent component is able to explain the
+#' variation in the grid, the cognitive complexity is said to be low. In this
+#' case the construct system is regarded as 'simple' (Bell, 2003).
 #' 
-#' @section Development: 
-#' TODO: Results have not yet been checked against other grid programs.
-#'
 #' @param x         \code{repgrid} object.
-#' @export
-#' @author          Mark Heckmann
+#' @param method    Method to compute PVAFF: \code{1} = PCA is applied to raw data 
+#'                  with centered constructs (default), \code{2} =  SVD of construct 
+#'                  correlation matrix.
 #' @references      Bell, R. C. (2003). An evaluation of indices used to 
 #'                  represent construct structure. In G. Chiari & M. L. 
 #'                  Nuzzo (Eds.), \emph{Psychological Constructivism and 
@@ -131,18 +127,31 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 #'                  James, R. E. (1954). \emph{Identification in terms of personal 
 #'                  constructs} (Unpublished doctoral thesis). Ohio State 
 #'                  University, Columbus, OH.  
-#'
+#' @export
 #' @examples 
 #'
 #'    indexPvaff(bell2010)
 #'
-indexPvaff <- function(x)
+indexPvaff <- function(x, method = 1)
 {
+  cat("Note: As of v0.1.14 PVAFF is derived using PCA of the construct centered ratings by default.", 
+     "Before that the construct correlation matrix was used (see method=2).\n\n")
   if (!inherits(x, "repgrid"))
     stop("Object must be of class 'repgrid'")
-  cr <- constructCor(x)
-  sv <- svd(cr)$d
-  pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
+  
+  if (method == 1) {
+    r <- ratings(x) 
+    p <- stats::prcomp(t(r), center = TRUE, scale. = FALSE)
+    pvaff <- (p$sdev^2 / sum(p$sdev^2))[1]
+    
+  } else if (method == 2) {
+    cr <- constructCor(x)
+    sv <- svd(cr)$d
+    pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
+  } else {
+    stop("'method' must be 1 or 2.", call. = FALSE)
+  }
+  
   return(pvaff)
 }
 
@@ -164,20 +173,6 @@ indexPvaff <- function(x)
 #   cat("\n########################################################")
 #   cat("\n\nPVAFF: ", round(x*100, digits), "%")
 # }
-
-
-# Another version of PVAFF giving slightly different results
-# maybe due to Bessel's correction. Still unclear which one 
-# is correct.
-indexPvaff2 <- function(x) 
-{
-  if (!inherits(x, "repgrid"))
-    stop("Object must be of class 'repgrid'")
-  r <- constructCor(x)
-  sv <- princomp(r)$sdev
-  pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
-  pvaff
-}
 
 
 #' Calculate intensity index.

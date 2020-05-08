@@ -4,30 +4,26 @@
 \alias{indexPvaff}
 \title{Percentage of Variance Accounted for by the First Factor (PVAFF)}
 \usage{
-indexPvaff(x)
+indexPvaff(x, method = 1)
 }
 \arguments{
 \item{x}{\code{repgrid} object.}
+
+\item{method}{Method to compute PVAFF: \code{1} = PCA is applied to raw data 
+with centered constructs (default), \code{2} =  SVD of construct 
+correlation matrix.}
 }
 \description{
 The PVAFF is used as a measure of cognitive complexity. It was introduced in
 an unpublished PhD thesis by Jones (1954, cit. Bonarius, 1965). To calculate
-it, the 'first factor' is extracted from the construct correlation matrix by
-principal component analysis. The PVAFF reflects the amount of variation that
-is accounted for by a single linear component. If a single latent component
-is able to explain the variation in the grid, the cognitive complexity is
-said to be low. In this case the construct system is regarded as 'simple'
-(Bell, 2003).
+it, the 'first factor' two different methods may be used. One applies
+principal component analysis (PCA) to the construct centered raw data
+(default), the second applies SVD to the construct correlation matrix. The
+PVAFF reflects the amount of variation that is accounted for by a single
+linear component. If a single latent component is able to explain the
+variation in the grid, the cognitive complexity is said to be low. In this
+case the construct system is regarded as 'simple' (Bell, 2003).
 }
-\details{
-The percentage of variance is calculated using the corelation matrix
-of the constructs submitted to \code{\link{svd}}.
-}
-\section{Development}{
- 
-TODO: Results have not yet been checked against other grid programs.
-}
-
 \examples{
 
    indexPvaff(bell2010)
@@ -48,7 +44,4 @@ Bell, R. C. (2003). An evaluation of indices used to
                  James, R. E. (1954). \emph{Identification in terms of personal 
                  constructs} (Unpublished doctoral thesis). Ohio State 
                  University, Columbus, OH.
-}
-\author{
-Mark Heckmann
 }
