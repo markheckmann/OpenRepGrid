@@ -8,11 +8,12 @@
   * move gh-pages to /docs folder
   * add tests
 
-# OpenRepGrid 0.1.14 (under construction)
+# OpenRepGrid 0.1.14 (work in progress)
 
+  * indexPvaff now uses PCA of construct centered raw data in line with biplot (and Gridcor) 
   * allow blanks at end of line after tags in importTxt
   * grids_leave_n_out and grids_bootstrap for resampling constructs
-  * repgridlist class, a simple list of repgrid objects
+  * gridlist class, a simple list of repgrid objects
 
 # OpenRepGrid 0.1.13 
 

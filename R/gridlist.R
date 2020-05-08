@@ -1,22 +1,29 @@
 
 ##
-## repgridlist object: a list of repgrid objects 
+## gridlist object: a list of repgrid objects 
 ##
 
-
-#' Test or create object of class \code{repgridlist}
+#' Add repgrids into a gridlist
 #' @export
-#' @rdname repgridlist
-is.repgridlist <- function(x) {
-  inherits(x, "repgridlist")
+#' @rdname gridlist
+gridlist <- function(...) {
+  list(...) %>% as.gridlist()
+}
+
+
+#' Test or create object of class \code{gridlist}
+#' @export
+#' @rdname gridlist
+is.gridlist <- function(x) {
+  inherits(x, "gridlist")
 }
 
 
 #' @export
-#' @rdname repgridlist
-as.repgridlist <- function(x) 
+#' @rdname gridlist
+as.gridlist <- function(x) 
 {
-  if (is.repgridlist(x))
+  if (is.gridlist(x))
     return(x)
   if (!is.list(x))
     stop("'x' must be a list.", call. = FALSE)
@@ -24,12 +31,12 @@ as.repgridlist <- function(x)
   if (!all(ii)) 
     stop("All element of 'x' must be 'repgrid' objects", call. = FALSE)
   
-  class(x) <- c("repgridlist", class(x))
+  class(x) <- c("gridlist", class(x))
   x
 }
 
 
-#' Number of constructs and elements all repgrids in repgridlist
+#' Number of constructs and elements all repgrids in gridlist
 #' 
 #' @param x A repgridist object.
 #' @return A list of length 2.
@@ -40,7 +47,7 @@ as.repgridlist <- function(x)
 #' as the access the dim method. The others are not generic
 #' and makiong them so introduces warnings, which I try to avoid.
 #' 
-dim.repgridlist <- function(x) {
+dim.gridlist <- function(x) {
   list(
     constructs = vapply(x, ncol, numeric(1)),
     elements = vapply(x, nrow, numeric(1))
@@ -48,17 +55,17 @@ dim.repgridlist <- function(x) {
 }
 
 
-#' Print method for repgridlist obejcts
+#' Print method for gridlist obejcts
 #' 
-#' @param x A \code{repgridlist} object.
+#' @param x A \code{gridlist} object.
 #' @param all Display all repgrids in console?
 #' @export
 #' @keywords internal
 #' 
-print.repgridlist <- function(x, all = FALSE) 
+print.gridlist <- function(x, all = FALSE) 
 {
-  if (!is.repgridlist(x))
-    stop("'x'muste be a 'repgridlist' object")
+  if (!is.gridlist(x))
+    stop("'x'muste be a 'gridlist' object")
   if (all) {
     class(x) <- "list"
     return(x)
@@ -66,7 +73,7 @@ print.repgridlist <- function(x, all = FALSE)
   n <- length(x)
   nc <- nrow(x)[[1]]   # because a list of length 1 is returned
   ne <- ncol(x)[[1]]
-  cat("repgridlist (list of repgrid objects):")
+  cat("gridlist (list of repgrid objects):")
   cat("\n  length:", n)
   cat("\n  no of constructs: [", min(nc), ", ", max(nc), "]", sep = "")
   cat("\n  no of elements: [", min(ne), ", ", max(ne), "]", sep = "")
