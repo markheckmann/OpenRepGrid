@@ -10,6 +10,7 @@
 
 # OpenRepGrid 0.1.14 (work in progress)
 
+  * correct indexDilemma output bug (#17, thanks to José Antonio González Del Puerto aka @MindCartographer)
   * perturbation of grid ratings by perturbate and grids_perturbate
   * indexPvaff now uses PCA of construct centered raw data in line with biplot (and Gridcor) 
   * allow blanks at end of line after tags in importTxt

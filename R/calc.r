@@ -878,6 +878,59 @@ constructPca <- function(x, nfactors=3, rotate="varimax", method = "pearson" ,
   return(pc)
 }
 
+# TODO
+constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", trim = NA) 
+{
+  method <- match.arg(method,c("raw", "pearson", "kendall", "spearman")) 
+  
+  # PCA of construct centered raw data 
+  if (method == "raw") {
+    input <- "matrix of construct centered raw data"
+    r <- ratings(x) 
+    p <- stats::prcomp(t(r), center = TRUE, scale. = FALSE)  
+    eigenvalues <- p$sdev^2
+    load_mat <- p$rotation
+  } 
+  
+  
+  # PCA of construct correlations
+  if (method != "raw") {
+    input <- "construct correlation matrix"
+    rotate <- match.arg(rotate, c("none", "varimax", "promax", "cluster"))
+    if (!rotate %in% c("none", "varimax", "promax", "cluster"))
+      stop('only "none", "varimax", "promax" and "cluster" are possible rotations')
+    
+    res <- constructCor(x, method = method, trim = trim)          # calc inter constructs correations                    
+    pc <- principal(res, nfactors = nfactors, rotate = rotate)  # do PCA
+    class(pc) <- c("constructPca", class(pc))
+    
+    load_mat <- loadings(pc)
+    class(load_mat) <- "matrix"
+    eigenvalues <- pc$values
+  }
+  
+  
+  
+  # attr(pc, "arguments") <- list(nfactors = nfactors, rotate = rotate, method = method)
+  return(pc)
+  
+  # new structure
+  list(
+    input = input,
+    method = method,
+    nfactors = nfactors,
+    rotation = "none",
+    eigenvalues = eigenvalues,
+    loadings = load_mat
+    
+    
+  )
+  scale(t(r))^2 %>% sum
+  
+  apply(load_mat, 2, function(x) sum(x^2))  
+  
+}
+
 
 #' Extract loadings from PCA of constructs.
 #' 

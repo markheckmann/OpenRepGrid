@@ -1062,30 +1062,30 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #                        calculation.
 #
 
-# THIS IS FUNCTION IS NEEDED TO OUTPUT DILEMMAS CORRECTLY
-get.pole <- function(grid, pole) 
-{
-  # NEW : get the label of the pole to invert construct if needed
-  names <- function(grid) {
-    grid[[1]]
-  }
-  poles <- as.data.frame(lapply(grid@constructs, sapply, names))
-  colnames(poles)<-1:length(poles)
-  poles <- data.frame(lapply(poles, as.character), stringsAsFactors=FALSE)
-  
-  leftpole <- poles[1,]
-  rightpole <- poles[2,]
-  
-  if (pole == 'left') {
-    return(leftpole)
-  }
-  else if (pole == 'right') {
-    return(rightpole)
-  }
-  else {
-    print('Please, introduce left or right pole')
-  }
-}
+# # THIS IS FUNCTION IS NEEDED TO OUTPUT DILEMMAS CORRECTLY
+# get.pole <- function(grid, pole) 
+# {
+#   # NEW : get the label of the pole to invert construct if needed
+#   names <- function(grid) {
+#     grid[[1]]
+#   }
+#   poles <- as.data.frame(lapply(grid@constructs, sapply, names))
+#   colnames(poles) <- 1:length(poles)
+#   poles <- data.frame(lapply(poles, as.character), stringsAsFactors = FALSE)
+#   
+#   leftpole <- poles[1,]
+#   rightpole <- poles[2,]
+#   
+#   if (pole == 'left') {
+#     return(leftpole)
+#   }
+#   else if (pole == 'right') {
+#     return(rightpole)
+#   }
+#   else {
+#     print('Please, introduce left or right pole')
+#   }
+# }
 
 indexDilemmaInternal <- function(x, self, ideal, 
                             diff.mode = 1, diff.congruent = 1,
@@ -1094,22 +1094,23 @@ indexDilemmaInternal <- function(x, self, ideal,
                             index = T, trim = FALSE) # CHANGE: set defaults
                                                      # to RECORD 5.0 defaults
 {
-  s <- getRatingLayer(x)         # grid scores matrix
+  s <- ratings(x)         # grid scores matrix
+
   # NEW: To invert constructs
   # create a vector of inverted scores for the 'self' element:
   # invscr = 8 - scr
   # Example: 2 -> 8 - 2 -> 6
   #          5 -> 8 - 5 -> 3
-  inverteds <- getScale(x)[2] - s + 1   # e.g. 8 - 1
-  nc <- getNoOfConstructs(x)
-  cnames <- getConstructNames2(x, index=index, trim=trim, mode=1, pre="", post=" ")
-  
+  # s_inverted <- getScale(x)[2] - s + 1   # e.g. 8 - 1
+  s_inverted <- ratings(swapPoles(x))
+  nc <- nrow(x)
+  cnames <- getConstructNames2(x, index = index, trim = trim, mode = 1, pre = "", post = " ")
   sc <- getScale(x)
-  midpoint <- (sc[1] + sc[2])/2     # NEW (DIEGO) get scale midpoint this is importat in
+  midpoint <- getScaleMidpoint(x)   # NEW (DIEGO) get scale midpoint this is importat in
                                     # when Alejandro's code check whether self/ideal   
                                     # is == to the midpoint or not (see below "Get Dilemmas" section)
   
-  # GET IF CONSTRUCTS ARE DISCREPANT, CONGRUENT OR NEITHER    
+  # FLAG CONSTRUCTS AS DISCREPANT, CONGRUENT OR NEITHER    
   
   # difference self - ideal self  
   diff.between <- abs(s[, self] - s[, ideal])
@@ -1123,28 +1124,27 @@ indexDilemmaInternal <- function(x, self, ideal,
   # can't be congruent if it's 'self' score is 4 (AKA self-
   # disorientation). Neither can be congruent if IDEAL is 4.
   # CORRECTION (Diego): I have just updated this avoid hardcoding the midpoint!!
-  if (diff.mode == 1){
-    for (i in 1:nc){
-      if (s[,self][i] != midpoint){
-        if (s[,ideal][i] != midpoint){
+  if (diff.mode == 1) {
+    for (i in 1:nc) {
+      if (s[,self][i] != midpoint) {
+        if (s[,ideal][i] != midpoint) {
           is.congruent[i] <- diff.between[i] <= diff.congruent        
-        }
-        else{
+        } else{
           is.congruent[i] <- FALSE
         }
-      }
-      else{
+      } else {
         is.congruent[i] <- FALSE
       }
     }
   
-  is.discrepant<- diff.between >= diff.discrepant
-  is.neither <- !is.congruent & !is.discrepant
-  
-  type.c[is.congruent] <- "congruent"
-  type.c[is.discrepant] <- "discrepant"
-  type.c[is.neither] <- "neither"
+    is.discrepant <- diff.between >= diff.discrepant
+    is.neither <- !is.congruent & !is.discrepant
+    
+    type.c[is.congruent] <- "congruent"
+    type.c[is.discrepant] <- "discrepant"
+    type.c[is.neither] <- "neither"
   }
+  
   # # difference from poles NOT YET IMPLEMENTED
   # sc <- getScale(x)
   # diff.pole1 <- abs(s[, c(e.self, e.ideal)] - sc[1])
@@ -1175,24 +1175,24 @@ indexDilemmaInternal <- function(x, self, ideal,
   #   the actual self or the ideal self are rated at the midpoint of the scale, then a discre- 
   #   pancy does not exist." ( from IDIOGRID manual)
 
-  else if (diff.mode == 0){
+  else if (diff.mode == 0) {
     
     is.congruent <- (s[, self] < midpoint  &  s[, ideal] < midpoint) | 
                     (s[, self] > midpoint  &  s[, ideal] > midpoint)
   
-    is.discrepant<- (s[, self] < midpoint  &  s[, ideal] > midpoint) | 
-                    (s[, self] > midpoint  &  s[, ideal] < midpoint)
+    is.discrepant <- (s[, self] < midpoint  &  s[, ideal] > midpoint) | 
+                     (s[, self] > midpoint  &  s[, ideal] < midpoint)
   
-    is.neither<- !is.congruent & !is.discrepant
+    is.neither <- !is.congruent & !is.discrepant
     type.c[is.congruent] <- "congruent"
     type.c[is.discrepant] <- "discrepant"
     type.c[is.neither] <- "neither"
-  }else {stop("\nNO differentiation method (diff.mode) SELECTED! quitting ..")}
+  } else {
+    stop("Differentiation method (diff.mode) must be 0 or 1", call. = FALSE)
+  }
 
   #--------------- END OF MIDPOINT-BASED CRITERION -----------------------------#
   
-
-
 
   #//////////////////////////////////////////////////////////////////////////////
   # DIEGO: This that I have commented-out is now redundant as the variables are not duplicates 
@@ -1219,25 +1219,25 @@ indexDilemmaInternal <- function(x, self, ideal,
   rc.exclude <- constructCor(x[, -c(self, ideal)])  #digits=digits
   
   # correlations to use for evaluation
-  if (exclude)
-    rc.use <- rc.exclude else
-      rc.use <- rc.include
-  
+  if (exclude) {
+    rc.use <- rc.exclude 
+  } else {
+    rc.use <- rc.include
+  }
+    
   # type.c.poles <- type.c.elem <- rep(NA, nrow(s)) # set up results vectors
   type.c <- rep(NA, nrow(s))
   # GET DILEMMAS
   
   # which pairs of absolute construct correlations are bigger than r.min?
-  
   comb <- t(combn(nc, 2)) # all possible correlation pairs (don't repeat)
   needs.to.invert <- logical()
   
   # set up result vectors
-  check <- bigger.rmin <- r.include <- r.exclude <- 
-    type.c1 <- type.c2 <- rep(NA, nrow(comb))
+  check <- bigger.rmin <- r.include <- r.exclude <- type.c1 <- type.c2 <- rep(NA, nrow(comb))
   
   # check every pair of constructs for characteristics
-  for (i in 1:nrow(comb)){
+  for (i in 1L:nrow(comb)) {
     c1 <- comb[i,1]
     c2 <- comb[i,2]
     r.include[i] <- rc.include[c1, c2]
@@ -1258,7 +1258,7 @@ indexDilemmaInternal <- function(x, self, ideal,
     # as the midpoint. This causes the script break. I have added a condition for those combinations 
     # equivalent to self-score != midpoint
     
-    if (s[c1, self] != midpoint & s[c2, self] != midpoint){
+    if (s[c1, self] != midpoint & s[c2, self] != midpoint) {
       if (s[c1, self] > midpoint & s[c2, self] > midpoint) {   
         if (rc.use[c1, c2] >= r.min) # CORRECTION: don't use ABS values,
           # we invert scores to check constructs
@@ -1284,8 +1284,8 @@ indexDilemmaInternal <- function(x, self, ideal,
       # Now check for inverted scores.
       # You only need to invert one construct at a time
       
-      if (inverteds[c1, self] > midpoint & s[c2, self] > midpoint) {
-        r.include[i] = cor(inverteds[c1,], s[c2,])
+      if (s_inverted[c1, self] > midpoint & s[c2, self] > midpoint) {
+        r.include[i] = cor(s_inverted[c1,], s[c2,])
         r.exclude[i] = "*Not implemented"
         if (r.include[i] >= r.min) 
           bigger.rmin[i] <- TRUE else
@@ -1294,8 +1294,8 @@ indexDilemmaInternal <- function(x, self, ideal,
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c2] <- TRUE
       }
-      else if (inverteds[c1, self] < midpoint & s[c2, self] < midpoint){
-        r.include[i] = cor(inverteds[c1,], s[c2,])
+      else if (s_inverted[c1, self] < midpoint & s[c2, self] < midpoint) {
+        r.include[i] = cor(s_inverted[c1,], s[c2,])
         r.exclude[i] = "*Not implemented"
         if (r.include[i] >= r.min) 
           bigger.rmin[i] <- TRUE else
@@ -1305,8 +1305,8 @@ indexDilemmaInternal <- function(x, self, ideal,
         needs.to.invert[c1] <- TRUE
       }
       
-      if (s[c1, self] > midpoint & inverteds[c2, self] > midpoint) {
-        r.include[i] = cor(s[c1,], inverteds[c2,])
+      if (s[c1, self] > midpoint & s_inverted[c2, self] > midpoint) {
+        r.include[i] = cor(s[c1,], s_inverted[c2,])
         r.exclude[i] = "*Not implemented"
         if (r.include[i] >= r.min) 
           bigger.rmin[i] <- TRUE else
@@ -1315,8 +1315,8 @@ indexDilemmaInternal <- function(x, self, ideal,
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c1] <- TRUE
       }
-      else if (s[c1, self] < midpoint & inverteds[c2, self] < midpoint) {
-        r.include[i] = cor(s[c1,], inverteds[c2,])
+      else if (s[c1, self] < midpoint & s_inverted[c2, self] < midpoint) {
+        r.include[i] = cor(s[c1,], s_inverted[c2,])
         r.exclude[i] = "*Not implemented"
         if (r.include[i] >= r.min) 
           bigger.rmin[i] <- TRUE else
@@ -1326,75 +1326,74 @@ indexDilemmaInternal <- function(x, self, ideal,
         needs.to.invert[c2] <- TRUE
       }
     }
-    else{ # DIEGO: closing of the if() where I put the condition for self to be != to the midpoint score
+    else {# DIEGO: closing of the if() where I put the condition for self to be != to the midpoint score
     needs.to.invert[c1] <- FALSE
     needs.to.invert[c2] <- FALSE
     }
     #print(paste(needs.to.invert,s[c1,self],s[c2,self])) # Diego debug printout of variables
   }
   # New: invert construct label poles if needed
-  needs.to.invert[is.na(needs.to.invert)] <- F
+  needs.to.invert[is.na(needs.to.invert)] <- FALSE
   #print(needs.to.invert)
   #print(nc)
   #print(is.na(needs.to.invert))
   
-  leftpole <- get.pole(x, 'left')
-  rightpole <- get.pole(x, 'right')
-  
-  for (i in 1:nc) {
+  leftpole <- constructs(x)$leftpole #get.pole(x, 'left')
+  rightpole <- constructs(x)$rightpole # get.pole(x, 'right')
+
+  for (i in 1L:nc) {
     if (needs.to.invert[i]) {
-      s[i, self] <- inverteds[i, self]
-      cnames[i] = paste(rightpole[i], leftpole[i], sep = '-')
+      s[i, self] <- s_inverted[i, self]
+      s[i, ideal] <- s_inverted[i, ideal]
+      cnames[i] = paste(rightpole[i], leftpole[i], sep = ' - ')
+    } else {
+      cnames[i] = paste(leftpole[i], rightpole[i], sep = ' - ')
     }
-    else {
-      cnames[i] = paste(leftpole[i], rightpole[i], sep = '-')
-    }
-    
   }
   
   # GET RESULTS
   
   # 1: this data frame contains information related to 'self' and 'ideal' elements
-  
-  res1 <- data.frame(a.priori=type.construct, self=s[, self], ideal=s[, ideal],
-                     stringsAsFactors=F)
+  R <- ratings(x)   # use instead of s which may contain inverted constructs
+  res1 <- data.frame(a.priori = type.construct, self = s[, self], ideal = s[, ideal],
+                     stringsAsFactors = FALSE)
   colnames(res1) <- c("A priori", "Self", "Ideal")
   rownames(res1) <- cnames
   
   # 2: This dataframe stores the information for all posible construct combinations
-  res2 <- data.frame(c1=comb[,1], c2=comb[,2], r.inc=r.include, 
-                     r.exc=r.exclude, bigger.rmin, type.c1, type.c2, check,
-                     name.c1=cnames[comb[,1]], name.c2=cnames[comb[,2]], 
-                     stringsAsFactors=F) 
+  res2 <- data.frame(c1 = comb[,1], c2 = comb[,2], r.inc = r.include, 
+                     r.exc = r.exclude, bigger.rmin, type.c1, type.c2, check,
+                     name.c1 = cnames[comb[,1]], name.c2 = cnames[comb[,2]], 
+                     stringsAsFactors = FALSE) 
   
   # 3: This dataframe contains informartion for all the dilemmas
-  res3 <- subset(res2, check==T & bigger.rmin==T)  
+  res3 <- subset(res2, check == TRUE & bigger.rmin == TRUE)  
   
   cnstr.labels = character()
   cnstr.labels.left <- cnstr.labels.right <- cnstr.labels
   
   # Number of dilemmas
-  nd <- length(res3$c1)
+  no_ids <- length(res3$c1)
   
   # New: Put all discrepant constructs to the right
-  if (nd != 0) {
-    for (v in 1:nd) {
+  if (no_ids != 0) {
+    for (v in seq_len(no_ids)) {
       if (res3$type.c1[v] == 'discrepant') {
-        cnstr.labels.left[v] = res3[v, 10]
-        cnstr.labels.right[v] = res3[v, 9]
+        cnstr.labels.left[v] = res3[v, "name.c2"]
+        cnstr.labels.right[v] = res3[v, "name.c1"]
       }
       else {
-        cnstr.labels.left[v] = res3[v, 9]
-        cnstr.labels.right[v] = res3[v, 10]
+        cnstr.labels.left[v] = res3[v, "name.c1"]
+        cnstr.labels.right[v] = res3[v, "name.c2"]
       }
     }
   }
   
   # 4: NEW: reordered dilemma output
-  res4 <- data.frame(cnstr.labels.left, Rtot=res3[,3], cnstr.labels.right, RexSI=res3[,4])                
+  res4 <- data.frame(cnstr.labels.left, Rtot = res3[,3], cnstr.labels.right, RexSI = res3[,4])                
   colnames(res4) = c('Self - Not self', 'Rtot', 'Self - Ideal', 'RexSI')
   
-  list(res1=res1, res2=res2, res3=res3, res4=res4)
+  list(res1 = res1, res2 = res2, res3 = res3, res4 = res4)
 }
 
 
@@ -1412,10 +1411,10 @@ indexDilemmaOut0 <- function(res, self, ideal, enames,
   cat("\n\nA Priori Criteria (for classification):")
   # differentiation mode 0 for midpoint-based criterion (Grimes - Idiogrid) OR
   # differentiation mode 1 for Feixas "correlation cut-off" criterion
-  if (diff.mode == 1){
+  if (diff.mode == 1) {
     cat("\nDiscrepant Difference: >=", diff.discrepant)
     cat("\nCongruent Difference: <=", diff.congruent)
-  }else if (diff.mode == 0){
+  } else if (diff.mode == 0) {
     cat("\nUsing Midpoint rating criterion")
   }
   cat("\n\nCorrelation Criterion: >=", r.min)
@@ -1452,19 +1451,19 @@ indexDilemmaOut2 <- function(res, exclude){
   cat("\n\nDilemmatic Self-Ideal Construct Pairs")
   cat("\n#####################################")
   cat("\n\nBy A Priori Criteria:\n\n")
-  cat("\n\t", 'Congruents on the left - Discrepants on the right', sep="", "\t\n")
+  cat("\n\t", 'Congruents on the left - Discrepants on the right', sep = "", "\t\n")
   cat("\n", "\n")
   # df <- data.frame(RexSI=ids[,3], Rtot=ids[,4],
   #                   Constructs=paste(ids[,9], ids[,10], sep=" <==> "))
   df <- res$res4
-  if (nrow(df) > 0){
+  if (nrow(df) > 0) {
     print(df)
     cat("\n\tRexSI = Correlations excluding Self & ideal")
     cat("\n\tRtot  = Correlations including Self & ideal")
     if (exclude)
       cor.used <- "RexSI" else
         cor.used <- "Rtot"
-    cat("\n\t", cor.used, " was used as criterion", sep="")
+    cat("\n\t", cor.used, " was used as criterion", sep = "")
   } else {
     cat("No implicative dilemmas detected")
   }
@@ -1472,40 +1471,35 @@ indexDilemmaOut2 <- function(res, exclude){
 
 #' Implicative Dilemmas
 #'
-#' Implicative dilemmas are closely related to the notion of 
-#' conflict. An implicative dilemma arises when a desired change on one 
-#' construct is associated with an undesired 
-#' implication on another construct. 
-#' E. g. a timid subject may want to become more socially skilled but 
-#' associates being socially skilled with different negative characteristics 
-#' (selfish, insensitive etc.). Hence, he may anticipate that becoming less
-#' timid will also make him more selfish (cf. Winter, 1982). 
-#' As a consequence the subject will resist to the change if the 
-#' negative presumed implications will threaten the patients identity 
-#' and the predictive power of his construct system. From this stance 
-#' the resistance to change is a logical consequence coherent with 
-#' the subjects construct system (Feixas, Saul, & Sanchez, 2000).
-#' The investigation of the role of cognitive dilemma in different disorders 
-#' in the context of PCP is a current field of research 
-#' (e.g. Feixas & Saul, 2004, Dorough et al. 2007).
+#' Implicative dilemmas are closely related to the notion of conflict. An
+#' implicative dilemma arises when a desired change on one construct is
+#' associated with an undesired implication on another construct. E. g. a timid
+#' subject may want to become more socially skilled but associates being
+#' socially skilled with different negative characteristics (selfish,
+#' insensitive etc.). Hence, he may anticipate that becoming less timid will
+#' also make him more selfish (cf. Winter, 1982). As a consequence, the subject
+#' will resist to the change if the negative presumed implications will threaten
+#' the patients identity and the predictive power of his construct system. From
+#' this stance the resistance to change is a logical consequence coherent with
+#' the subjects construct system (Feixas, Saul, & Sanchez, 2000). The
+#' investigation of the role of cognitive dilemma in different disorders in the
+#' context of PCP is a current field of research (e.g. Feixas & Saul, 2004,
+#' Dorough et al. 2007).
 #'
 #' The detection of implicative dilemmas happens in two steps. First the 
-#' constructs are classified as being 'congruent' or 'discrepant'. Second
+#' constructs are classified as being 'congruent' or 'discrepant'. Secondly,
 #' the correlation between a congruent and discrepant construct pair
 #' is assessed if it is big enough to indicate an implication.
 #' 
 #' \bold{Classifying the construct} \cr
-#' To detect implicit dilemmas the construct pairs are first
-#' identified as 'congruent' or 'discrepant'. The assessment
-#' is based on the rating differences between the elements
-#' 'self' and 'ideal self'.
-#' A construct is 'congruent' if the construction of the 'self' and the 
-#' preferred state (i.e. ideal self) are the same or similar. 
-#' A construct is discrepant if the construction of the 'self' and 
-#' the 'ideal' is dissimilar. 
+#' To detect implicit dilemmas the construct pairs are first identified as
+#' 'congruent' or 'discrepant'. The assessment is based on the rating
+#' differences between the elements 'self' and 'ideal self'.
+#' A construct is 'congruent' if the construction of the 'self' and the
+#' preferred state (i.e. ideal self) are the same or similar. A construct is
+#' discrepant if the construction of the 'self' and the 'ideal' is dissimilar.
 #'
-#' There are two popular accepted methods to
-#' identify congruent and discrepant constructs:
+#' There are two popular accepted methods to identify congruent and discrepant constructs:
 #' \enumerate{
 #'    \item  "Scale Midpoint criterion" (cf. Grice 2008)
 #'    \item  "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
@@ -1531,10 +1525,10 @@ indexDilemmaOut2 <- function(res, exclude){
 #' \emph{Minimal and maximal score difference criterion (cf. Feixas & Saul, 2004)}
 #'
 #' This other method is more conservative and it is designed to minimize Type I errors by a) setting
-#' a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the ideal Self and self are 
-#' neither congruent or discrepant; c) discarding cases where ideal self is "not oriented", i.e. 
-#' scored as the midpoint.
-#''
+#' a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the 
+#' ideal Self and self are neither congruent or discrepant; c) discarding cases where ideal self is 
+#' "not oriented", i.e. scored at the midpoint.
+#'
 #' E.g. suppose the element 'self' is rated 2 and 'ideal self' 5 on 
 #' a scale from 1 to 6. The ratings differences are 5-2 = 3. If this 
 #' difference is smaller than e.g. 1 the construct is 'congruent', if it
@@ -1546,11 +1540,11 @@ indexDilemmaOut2 <- function(res, exclude){
 #'    \item   They are set 'a priori'.
 #'    \item   They are implicitly derived by taking into account the rating
 #'            differences to the other constructs. 
-#'            Not yet implemented.
+#'            (Not yet implemented)
 #' }
 #'
 #' The value mode is determined via the argument \code{diff.mode}.\cr
-#' If no 'a priori' criteria to determine if the construct
+#' If no 'a priori' criteria to determine wether the construct
 #' is congruent or discrepant is supplied as an argument, the values are chosen
 #' according to the range of the rating scale used. For the following scales
 #' the defaults are chosen as:
@@ -1575,7 +1569,7 @@ indexDilemmaOut2 <- function(res, exclude){
 #' that one construct pole implies the other. A small correlation 
 #' indicates a lack of implication. The minimum criterion for a correlation
 #' to indicate implication is set to .35 (cf. Feixas & Saul, 2004).
-#' The user may also chose another value. To get a an impression
+#' The user may also choose another value. To get a an impression
 #' of the distribution of correlations in the grid, a visualization can 
 #' be prompted via the argument \code{show}.
 #' When calculating the correlation used to assess if an implication
@@ -1584,12 +1578,12 @@ indexDilemmaOut2 <- function(res, exclude){
 #' correlations (see argument \code{exclude}). \cr \cr
 #'
 #' \bold{Example of an implicative dilemma} \cr
-#' A depressive person considers herself as timid and 
-#' wished to change to the opposite pole she defines as extraverted. 
+#' A depressive person considers herself as 'timid' and 
+#' wished to change to the opposite pole she defines as 'extraverted'. 
 #' This construct is called discrepant as the construction of the 'self'
 #' and the desired state (e.g. described by the 'ideal self') on 
 #' this construct differ. The person also considers herself as 
-#' sensitive (preferred pole) for which the opposite pole is selfish. 
+#' 'sensitive' (preferred pole) for which the opposite pole is 'selfish'. 
 #' This construct is congruent, as the person construes herself as 
 #' she would like to be. If the person now changed on the discrepant 
 #' construct from the undesired to the desired pole, i.e. from timid 
@@ -1602,7 +1596,7 @@ indexDilemmaOut2 <- function(res, exclude){
 #' selflish. This relation is called an implicative dilemma. As the 
 #' implications of change on a construct cannot be derived from a rating 
 #' grid directly, the correlation between two constructs is used as an 
-#' indicator for implication.
+#' indicator of implication.
 #'
 #'
 #' @title                 Detect implicative dilemmas (conflicts).
@@ -1680,26 +1674,25 @@ indexDilemmaOut2 <- function(res, exclude){
 #'
 #' @examples \dontrun{
 #'  
-#'  indexDilemma(boeker, self=1, ideal=2)
-#'  indexDilemma(boeker, self=1, ideal=2, out=2)
+#'  indexDilemma(boeker, self = 1, ideal = 2)
+#'  indexDilemma(boeker, self = 1, ideal=2, out = 2)
 #'
 #'  # additionally show correlation distribution
-#'  indexDilemma(boeker, self=1, ideal=2, show=T)
+#'  indexDilemma(boeker, self = 1, ideal = 2, show = T)
 #'
 #'  # adjust minimal correlation
-#'  indexDilemma(boeker, 1, 2, r.min=.25)
+#'  indexDilemma(boeker, 1, 2, r.min = .25)
 #'
 #'  # adjust congruence and discrepance ranges
-#'  indexDilemma(boeker, 1, 2, diff.con=0, diff.disc=4)
+#'  indexDilemma(boeker, 1, 2, diff.con = 0, diff.disc = 4)
 #'
 #'  }
 #'
 indexDilemma <- function(x, self = 1, ideal = ncol(x), 
                          diff.mode = 1, diff.congruent = NA,
-                         diff.discrepant = NA, diff.poles=1, 
-                         r.min=.34, exclude=FALSE, digits=2, show=F,
-                         output=1, 
-                         index=T, trim=20) # CHANGE: set 'self' and
+                         diff.discrepant = NA, diff.poles = 1, 
+                         r.min = .34, exclude = FALSE, digits = 2, show = FALSE,
+                         output = 1, index = TRUE, trim = 20) # CHANGE: set 'self' and
                                   # 'ideal' to first and last column
                                   # respectively
 {
@@ -1712,11 +1705,11 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
     diff.discrepant <-  ceiling(diff(sc) * .6)
   
   # detect dilemmas
-  res <- indexDilemmaInternal(x, self=self, ideal=ideal, 
-                              diff.mode=diff.mode, diff.congruent=diff.congruent,
-                              diff.discrepant=diff.discrepant, diff.poles=diff.poles,
-                              r.min=r.min, exclude=exclude, digits=digits, 
-                              index=index, trim=trim)
+  res <- indexDilemmaInternal(x, self = self, ideal = ideal, 
+                              diff.mode = diff.mode, diff.congruent = diff.congruent,
+                              diff.discrepant = diff.discrepant, diff.poles = diff.poles,
+                              r.min = r.min, exclude = exclude, digits = digits, 
+                              index = index, trim = trim)
   
   # type of output printed to te console
   enames <- getElementNames2(x, trim = trim, index = T)
