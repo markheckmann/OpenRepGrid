@@ -1193,7 +1193,6 @@ indexDilemmaInternal <- function(x, self, ideal,
 
   #--------------- END OF MIDPOINT-BASED CRITERION -----------------------------#
   
-
   #//////////////////////////////////////////////////////////////////////////////
   # DIEGO: This that I have commented-out is now redundant as the variables are not duplicates 
   # anymore and are calculated only in their conditional loop. This is more efficient
