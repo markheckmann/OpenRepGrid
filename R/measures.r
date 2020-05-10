@@ -1074,14 +1074,25 @@ indexDilemmaInternal <- function(x, self, ideal,
                             index = T, trim = FALSE) # CHANGE: set defaults
                                                      # to RECORD 5.0 defaults
 {
+  nc <- nrow(x)
+  e_ii <- seq_len(nc) # possible element indexes
+  if (!self %in% e_ii) 
+    stop("'self' element index must be within interval [", 1, ",", nc, "]", call. = FALSE)
+  if (!ideal %in% e_ii) 
+    stop("'ideal' element index must be within interval [", 1, ",", nc, "]", call. = FALSE)
+  if (diff.congruent < 0)
+    stop("'diff.congruent' must be non-negative", call. = FALSE)
+  if (diff.discrepant < 0)
+    stop("'diff.discrepant' must be non-negative", call. = FALSE)
+  if (diff.congruent >= diff.discrepant)
+    stop("'diff.congruent' must be smaller than 'diff.discrepant'", call. = FALSE)
+  
   s <- ratings(x)         # grid scores matrix
-
   # create a vector of inverted scores for the 'self' element:
   # invscr = 8 - scr
   # Example: 2 -> 8 - 2 -> 6
   #          5 -> 8 - 5 -> 3
-  s_inverted <- ratings(swapPoles(x))
-  nc <- nrow(x)
+  s_inverted <- ratings(swapPoles(x)) # grid with inverted scores
   cnames <- getConstructNames2(x, index = index, trim = trim, mode = 1, pre = "", post = " ")
   sc <- getScale(x)
   midpoint <- getScaleMidpoint(x)   # NEW (DIEGO) get scale midpoint this is importat in
@@ -1422,6 +1433,7 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
   cat("Implicative Dilemmas")
   cat("\n####################\n")
   
+  ## overview
   if (str_detect(output, "O")) {
     cat("\nNumber of Implicative Dilemmas:", no_ids, "\n")
     cat("\nCorrelation Criterion: >=", r.min)
@@ -1434,7 +1446,7 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
     cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
     
     cat("\n\nCriteria (for construct classification):")
-    # differentiation mode 0 for midpoint-based criterion (Grimes - Idiogrid) OR
+    # differentiation mode 0 for midpoint-based criterion (Grices - Idiogrid) OR
     # differentiation mode 1 for Feixas "correlation cut-off" criterion
     if (diff.mode == 1) {
       cat("\nDiscrepant if Self-Ideal difference: >=", diff.discrepant)
@@ -1447,7 +1459,7 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
   #Discrepant Difference: Self-Ideal greater than or equal to, Max Other-Self difference
   #Congruent Difference: Self-Ideal less than or equal to, Min Other-Self difference  
 
-  # classification of constructs:
+  ## classification of constructs:
   if (str_detect(output, "C")) {
     cat("\n\n-------------------------------------------------------------------------------\n")
     cat("\nCLASSIFICATION OF CONSTRUCTS:\n")
@@ -1456,13 +1468,11 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
     print(x$construct_classification)
   }
   
-  # implicative dilemmas:
-  
-  # classification of constructs:
+  ## implicative dilemmas:
   if (str_detect(output, "D")) {
     cat("\n-------------------------------------------------------------------------------\n")
     cat("\nIMPLICATIVE DILEMMAS:\n")
-    cat("\n   Note: Congruent constructs on the left - Discrepants construct on the right")
+    cat("\n   Note: Congruent constructs on the left - Discrepant constructs on the right")
     cat("\n\n")
     
     if (nrow(dilemmas_df) > 0) {
@@ -1478,7 +1488,6 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
       cat("No implicative dilemmas detected")
     }
   }
-  
 }
 
 
