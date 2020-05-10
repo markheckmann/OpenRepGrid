@@ -15,9 +15,9 @@ indexDilemma(
   r.min = 0.34,
   exclude = FALSE,
   digits = 2,
-  show = F,
+  show = FALSE,
   output = 1,
-  index = T,
+  index = TRUE,
   trim = 20
 )
 }
@@ -84,40 +84,35 @@ Called for console output. Invisbly returns a list containing
 Implicative Dilemmas
 }
 \details{
-Implicative dilemmas are closely related to the notion of 
-conflict. An implicative dilemma arises when a desired change on one 
-construct is associated with an undesired 
-implication on another construct. 
-E. g. a timid subject may want to become more socially skilled but 
-associates being socially skilled with different negative characteristics 
-(selfish, insensitive etc.). Hence, he may anticipate that becoming less
-timid will also make him more selfish (cf. Winter, 1982). 
-As a consequence the subject will resist to the change if the 
-negative presumed implications will threaten the patients identity 
-and the predictive power of his construct system. From this stance 
-the resistance to change is a logical consequence coherent with 
-the subjects construct system (Feixas, Saul, & Sanchez, 2000).
-The investigation of the role of cognitive dilemma in different disorders 
-in the context of PCP is a current field of research 
-(e.g. Feixas & Saul, 2004, Dorough et al. 2007).
+Implicative dilemmas are closely related to the notion of conflict. An
+implicative dilemma arises when a desired change on one construct is
+associated with an undesired implication on another construct. E. g. a timid
+subject may want to become more socially skilled but associates being
+socially skilled with different negative characteristics (selfish,
+insensitive etc.). Hence, he may anticipate that becoming less timid will
+also make him more selfish (cf. Winter, 1982). As a consequence, the subject
+will resist to the change if the negative presumed implications will threaten
+the patients identity and the predictive power of his construct system. From
+this stance the resistance to change is a logical consequence coherent with
+the subjects construct system (Feixas, Saul, & Sanchez, 2000). The
+investigation of the role of cognitive dilemma in different disorders in the
+context of PCP is a current field of research (e.g. Feixas & Saul, 2004,
+Dorough et al. 2007).
 
 The detection of implicative dilemmas happens in two steps. First the 
-constructs are classified as being 'congruent' or 'discrepant'. Second
+constructs are classified as being 'congruent' or 'discrepant'. Secondly,
 the correlation between a congruent and discrepant construct pair
 is assessed if it is big enough to indicate an implication.
 
 \bold{Classifying the construct} \cr
-To detect implicit dilemmas the construct pairs are first
-identified as 'congruent' or 'discrepant'. The assessment
-is based on the rating differences between the elements
-'self' and 'ideal self'.
-A construct is 'congruent' if the construction of the 'self' and the 
-preferred state (i.e. ideal self) are the same or similar. 
-A construct is discrepant if the construction of the 'self' and 
-the 'ideal' is dissimilar. 
+To detect implicit dilemmas the construct pairs are first identified as
+'congruent' or 'discrepant'. The assessment is based on the rating
+differences between the elements 'self' and 'ideal self'.
+A construct is 'congruent' if the construction of the 'self' and the
+preferred state (i.e. ideal self) are the same or similar. A construct is
+discrepant if the construction of the 'self' and the 'ideal' is dissimilar.
 
-There are two popular accepted methods to
-identify congruent and discrepant constructs:
+There are two popular accepted methods to identify congruent and discrepant constructs:
 \enumerate{
    \item  "Scale Midpoint criterion" (cf. Grice 2008)
    \item  "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
@@ -143,10 +138,10 @@ and ideal-self scoring on any given construct and we proceed as follow:
 \emph{Minimal and maximal score difference criterion (cf. Feixas & Saul, 2004)}
 
 This other method is more conservative and it is designed to minimize Type I errors by a) setting
-a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the ideal Self and self are 
-neither congruent or discrepant; c) discarding cases where ideal self is "not oriented", i.e. 
-scored as the midpoint.
-'
+a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the 
+ideal Self and self are neither congruent or discrepant; c) discarding cases where ideal self is 
+"not oriented", i.e. scored at the midpoint.
+
 E.g. suppose the element 'self' is rated 2 and 'ideal self' 5 on 
 a scale from 1 to 6. The ratings differences are 5-2 = 3. If this 
 difference is smaller than e.g. 1 the construct is 'congruent', if it
@@ -158,11 +153,11 @@ or 'discrepant' can be determined in several ways (cf. Bell, 2009):
    \item   They are set 'a priori'.
    \item   They are implicitly derived by taking into account the rating
            differences to the other constructs. 
-           Not yet implemented.
+           (Not yet implemented)
 }
 
 The value mode is determined via the argument \code{diff.mode}.\cr
-If no 'a priori' criteria to determine if the construct
+If no 'a priori' criteria to determine wether the construct
 is congruent or discrepant is supplied as an argument, the values are chosen
 according to the range of the rating scale used. For the following scales
 the defaults are chosen as:
@@ -187,7 +182,7 @@ is used as an indicator for implication. A large correlation means
 that one construct pole implies the other. A small correlation 
 indicates a lack of implication. The minimum criterion for a correlation
 to indicate implication is set to .35 (cf. Feixas & Saul, 2004).
-The user may also chose another value. To get a an impression
+The user may also choose another value. To get a an impression
 of the distribution of correlations in the grid, a visualization can 
 be prompted via the argument \code{show}.
 When calculating the correlation used to assess if an implication
@@ -196,12 +191,12 @@ can be included (default) or excluded. The options will cause different
 correlations (see argument \code{exclude}). \cr \cr
 
 \bold{Example of an implicative dilemma} \cr
-A depressive person considers herself as timid and 
-wished to change to the opposite pole she defines as extraverted. 
+A depressive person considers herself as 'timid' and 
+wished to change to the opposite pole she defines as 'extraverted'. 
 This construct is called discrepant as the construction of the 'self'
 and the desired state (e.g. described by the 'ideal self') on 
 this construct differ. The person also considers herself as 
-sensitive (preferred pole) for which the opposite pole is selfish. 
+'sensitive' (preferred pole) for which the opposite pole is 'selfish'. 
 This construct is congruent, as the person construes herself as 
 she would like to be. If the person now changed on the discrepant 
 construct from the undesired to the desired pole, i.e. from timid 
@@ -214,22 +209,22 @@ is presumed to have a undesired effect in moving from sensitive towards
 selflish. This relation is called an implicative dilemma. As the 
 implications of change on a construct cannot be derived from a rating 
 grid directly, the correlation between two constructs is used as an 
-indicator for implication.
+indicator of implication.
 }
 \examples{
 \dontrun{
  
- indexDilemma(boeker, self=1, ideal=2)
- indexDilemma(boeker, self=1, ideal=2, out=2)
+ indexDilemma(boeker, self = 1, ideal = 2)
+ indexDilemma(boeker, self = 1, ideal=2, out = 2)
 
  # additionally show correlation distribution
- indexDilemma(boeker, self=1, ideal=2, show=T)
+ indexDilemma(boeker, self = 1, ideal = 2, show = T)
 
  # adjust minimal correlation
- indexDilemma(boeker, 1, 2, r.min=.25)
+ indexDilemma(boeker, 1, 2, r.min = .25)
 
  # adjust congruence and discrepance ranges
- indexDilemma(boeker, 1, 2, diff.con=0, diff.disc=4)
+ indexDilemma(boeker, 1, 2, diff.con = 0, diff.disc = 4)
 
  }
 
