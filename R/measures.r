@@ -1049,7 +1049,7 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #                        used.
 # @param diff.poles      Not yet implemented.
 # @param r.min           Minimal correlation to determine implications between
-#                        constructs.
+#                        constructs ([0, 1]).
 # @param exclude         Whether to exclude the elements self and ideal self 
 #                        during the calculation of the inter-construct correlations.
 #                        (default is \code{FALSE}).
@@ -1075,7 +1075,9 @@ indexDilemmaInternal <- function(x, self, ideal,
                                                      # to RECORD 5.0 defaults
 {
   nc <- nrow(x)
+  enames <- elements(x)
   e_ii <- seq_len(nc) # possible element indexes
+  
   if (!self %in% e_ii) 
     stop("'self' element index must be within interval [", 1, ",", nc, "]", call. = FALSE)
   if (!ideal %in% e_ii) 
@@ -1086,8 +1088,11 @@ indexDilemmaInternal <- function(x, self, ideal,
     stop("'diff.discrepant' must be non-negative", call. = FALSE)
   if (diff.congruent >= diff.discrepant)
     stop("'diff.congruent' must be smaller than 'diff.discrepant'", call. = FALSE)
-  
-  s <- ratings(x)         # grid scores matrix
+  if (r.min < 0 | r.min > 1 )
+    stop("'r.min' must lie in interval [0, 1]", call. = FALSE)
+
+  # r.min <- abs(r.min)  # direction does not matter the way we process
+  s <- ratings(x)      # grid scores matrix
   # create a vector of inverted scores for the 'self' element:
   # invscr = 8 - scr
   # Example: 2 -> 8 - 2 -> 6
@@ -1330,7 +1335,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   
   # GET RESULTS
   
-  # 1: this data frame contains information related to 'self' and 'ideal' elements
+  ## 1: this data frame contains information related to 'self' and 'ideal' elements
   construct_classification <- data.frame(construct = cnames, a.priori = type.construct, self = s[, self], ideal = s[, ideal], 
                                          stringsAsFactors = FALSE)
   colnames(construct_classification) <- c("Construct", "Classification", "Self", "Ideal")
@@ -1341,19 +1346,19 @@ indexDilemmaInternal <- function(x, self, ideal,
     ) %>% 
     select(Construct, Self, Ideal, Difference, Classification)
   
-  # 2: This dataframe stores the information for all posible construct combinations
+  ## 2: This dataframe stores the information for all posible construct combinations
   all_pairs <- data.frame(c1 = comb[,1], c2 = comb[,2], r.inc = r.include, 
                      r.exc = r.exclude, bigger.rmin, type.c1, type.c2, check,
                      name.c1 = cnames[comb[,1]], name.c2 = cnames[comb[,2]], 
                      stringsAsFactors = FALSE) 
   
-  # 3: This dataframe contains informartion for all the dilemmas
+  ## 3: This dataframe contains informartion for all the dilemmas
   dilemmas_info <- subset(all_pairs, check == TRUE & bigger.rmin == TRUE)  
   no_ids <- nrow(dilemmas_info)  # Number of implicative dilemmas
   cnstr.labels = character()
   cnstr.labels.left <- cnstr.labels.right <- cnstr.labels
 
-  # New: Put all discrepant constructs to the right
+  # Put all discrepant constructs to the right
   if (no_ids != 0) {
     for (v in seq_len(no_ids)) {
       if (dilemmas_info$type.c1[v] == 'discrepant') {
@@ -1367,7 +1372,7 @@ indexDilemmaInternal <- function(x, self, ideal,
     }
   }
   
-  # 4: NEW: reordered dilemma output
+  ## 4: reordered dilemma output
   cnstr.labels.left <- paste0(dilemmas_info$c2, ". ", cnstr.labels.left)
   cnstr.labels.right <- paste0(dilemmas_info$c1, ". ", cnstr.labels.right)
   if (no_ids == 0) {
@@ -1380,7 +1385,17 @@ indexDilemmaInternal <- function(x, self, ideal,
   # colnames(dilemmas_df) = c('Self - Not self', 'Rtot', 'Self - Ideal', 'RexSI')
   colnames(dilemmas_df) = c("congruent", "discrepant", 'R', 'RexSI')
   
-  enames <- elements(x)
+  ## 5: measures
+  # PID = percentage of IDs over total number of possible constructs pairs
+  pid = no_ids / nrow(comb) 
+  
+  measures <- list(
+    pid = list(no_ids = no_ids,
+               possible_ids = nrow(comb),
+               pid = pid)
+  )
+  
+  # indexDilemma object
   l <- list(no_ids = no_ids,
             self = self,
             needs.to.invert = needs.to.invert,
@@ -1392,6 +1407,7 @@ indexDilemmaInternal <- function(x, self, ideal,
             r.min = r.min, 
             diff.mode = diff.mode,
             midpoint = midpoint,
+            measures = measures,
             construct_classification = construct_classification,  # discrepant / congruent
             dilemmas_info = dilemmas_info, 
             dilemmas_df = dilemmas_df  # table with dilemmas and correlations
@@ -1407,14 +1423,15 @@ indexDilemmaInternal <- function(x, self, ideal,
 #' @param digits    Numeric. Number of digits to round to (default is \code{2}).
 #' @param output    String with each letter indicating which parts of the output to print 
 #'                  (default is \code{"OCD"}, order does not matter):
-#'                  \code{O} = Overview on analysis parameters and results,  
+#'                  \code{S} = Summary (Number of IDs, PID, etc.),
+#'                  \code{P} = Analysis parameters,
 #'                  \code{C} = Construct classification table, 
 #'                  \code{D} = Implicative dilemmas table. 
 #' @param ...       Not evaluated.
 #' @method          print indexDilemma
 #' @keywords        internal
 #' @export
-print.indexDilemma <- function(x, digits = 2, output = "OCD", ...) 
+print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) 
 {
   output <- toupper(output)
   enames <- x$elements
@@ -1428,24 +1445,36 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
   exclude <- x$exclude
   midpoint <- x$midpoint
   dilemmas_df <- x$dilemmas_df
+  # measures
+  pid <- x$measures$pid
   
   cat("\n####################\n")
   cat("Implicative Dilemmas")
   cat("\n####################\n")
   
+  ## Summary / MEASURES
+  if (str_detect(output, "S")) {
+    cat("\n-------------------------------------------------------------------------------")
+    cat("\n\nSUMMARY:\n")
+    cat("\nNumber of Implicative Dilemmas (IDs):", no_ids)
+    pid_perc <- scales::percent(pid$pid, .1)
+    pid_no <- paste0("(", pid$no_ids, "/", pid$possible_ids, ")")
+    cat("\nPercentage of IDs (PID):", pid_perc, pid_no)
+  }  
+  
   ## overview
-  if (str_detect(output, "O")) {
-    cat("\nNumber of Implicative Dilemmas:", no_ids, "\n")
-    cat("\nCorrelation Criterion: >=", r.min)
+  if (str_detect(output, "P")) {
+    cat("\n\n-------------------------------------------------------------------------------")
+    cat("\n\nPARAMETERS:\n")
+    cat("\nSelf: Element No.", paste0(self, " = ", enames[self]))
+    cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
+    cat("\n\nCorrelation Criterion: >=", r.min)
     if (exclude) {
       cat("\nNote: Correlation calculated excluding elements Self & Ideal") 
     } else {
       cat("\nNote: Correlation calculated including elements Self & Ideal\n")
     }
-    cat("\nSelf: Element No.", paste0(self, " = ", enames[self]))
-    cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
-    
-    cat("\n\nCriteria (for construct classification):")
+    cat("\nCriteria (for construct classification):")
     # differentiation mode 0 for midpoint-based criterion (Grices - Idiogrid) OR
     # differentiation mode 1 for Feixas "correlation cut-off" criterion
     if (diff.mode == 1) {
@@ -1461,17 +1490,17 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
 
   ## classification of constructs:
   if (str_detect(output, "C")) {
-    cat("\n\n-------------------------------------------------------------------------------\n")
-    cat("\nCLASSIFICATION OF CONSTRUCTS:\n")
-    cat(paste0("\n   Note: 'Self' corresponds to left pole ", 
-               "unless score equals the midpoint (", midpoint, " = undecided)\n\n"))
+    cat("\n\n-------------------------------------------------------------------------------")
+    cat("\n\nCLASSIFICATION OF CONSTRUCTS:\n\n")
+    # cat(paste0("\n   Note: 'Self' corresponds to left pole ", 
+    #            "unless score equals the midpoint (", midpoint, " = undecided)\n\n"))
     print(x$construct_classification)
   }
   
   ## implicative dilemmas:
   if (str_detect(output, "D")) {
-    cat("\n-------------------------------------------------------------------------------\n")
-    cat("\nIMPLICATIVE DILEMMAS:\n")
+    cat("\n-------------------------------------------------------------------------------")
+    cat("\n\nIMPLICATIVE DILEMMAS:\n")
     cat("\n   Note: Congruent constructs on the left - Discrepant constructs on the right")
     cat("\n\n")
     
@@ -1692,7 +1721,7 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
 indexDilemma <- function(x, self = 1, ideal = ncol(x), 
                          diff.mode = 1, diff.congruent = NA,
                          diff.discrepant = NA, diff.poles = 1, 
-                         r.min = .34, exclude = FALSE, digits = 2, show = FALSE,
+                         r.min = .35, exclude = FALSE, digits = 2, show = FALSE,
                          output = 1, index = TRUE, trim = 20) 
 {
   # automatic selection of a priori criteria
@@ -1715,6 +1744,25 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 }
 
 
+dilemmaViz <- function(x) 
+{
+  # self <- id$self
+  # ideal <- id$ideal
+  # i <- 1
+  # id$dilemmas_info
+  # 
+  # r <- ratings(x)  
+  # r_self <- r[i, self]
+  # r_ideal <- r[i, ideal]
+  # 
+  # r = .39                      1   2   3   4   5   6   7
+  # congruent:  jayn jnay inay  |SI-----------------------| jayn jnay inay
+  # discrepant:  sxknsx kmsx    |S----------I-------------| iisxsxsxsxsx
+  # 
+  # library(crayon)
+  #   
+  # 
+}
 
 #//////////////////////////////////////////////////////////////////////////////
 

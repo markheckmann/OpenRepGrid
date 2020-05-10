@@ -12,7 +12,7 @@ indexDilemma(
   diff.congruent = NA,
   diff.discrepant = NA,
   diff.poles = 1,
-  r.min = 0.34,
+  r.min = 0.35,
   exclude = FALSE,
   digits = 2,
   show = FALSE,

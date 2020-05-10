@@ -4,7 +4,7 @@
 \alias{print.indexDilemma}
 \title{Print method for class indexDilemma}
 \usage{
-\method{print}{indexDilemma}(x, digits = 2, output = "OCD", ...)
+\method{print}{indexDilemma}(x, digits = 2, output = "SPCD", ...)
 }
 \arguments{
 \item{x}{Object of class indexDilemma}
@@ -13,7 +13,8 @@
 
 \item{output}{String with each letter indicating which parts of the output to print 
 (default is \code{"OCD"}, order does not matter):
-\code{O} = Overview on analysis parameters and results,  
+\code{S} = Summary (Number of IDs, PID, etc.),
+\code{P} = Analysis parameters,
 \code{C} = Construct classification table, 
 \code{D} = Implicative dilemmas table.}
 
