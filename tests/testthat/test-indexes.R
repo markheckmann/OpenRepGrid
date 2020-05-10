@@ -14,6 +14,6 @@ test_that("indexDilemma matches Gridcor results", {
   
   #zero dilemmas do not cause error
   id <- indexDilemma(boeker, self = 1, ideal = 2, r.min = .99)
-  expect_equal(id$no_ids, 4)
+  expect_equal(id$no_ids, 0)
 })
 

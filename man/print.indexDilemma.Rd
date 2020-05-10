@@ -4,13 +4,18 @@
 \alias{print.indexDilemma}
 \title{Print method for class indexDilemma}
 \usage{
-\method{print}{indexDilemma}(x, digits = 2, ...)
+\method{print}{indexDilemma}(x, digits = 2, output = "OCD", ...)
 }
 \arguments{
 \item{x}{Object of class indexDilemma}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{2}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
+
+\item{output}{String with each letter indicating which parts of the output to print 
+(default is \code{"OCD"}, order does not matter):
+\code{O} = Overview on analysis parameters and results,  
+\code{C} = Construct classification table, 
+\code{D} = Implicative dilemmas table.}
 
 \item{...}{Not evaluated.}
 }

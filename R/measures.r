@@ -1393,15 +1393,19 @@ indexDilemmaInternal <- function(x, self, ideal,
 #' Print method for class indexDilemma
 #' 
 #' @param x         Object of class indexDilemma
-#' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{2}).
+#' @param digits    Numeric. Number of digits to round to (default is \code{2}).
+#' @param output    String with each letter indicating which parts of the output to print 
+#'                  (default is \code{"OCD"}, order does not matter):
+#'                  \code{O} = Overview on analysis parameters and results,  
+#'                  \code{C} = Construct classification table, 
+#'                  \code{D} = Implicative dilemmas table. 
 #' @param ...       Not evaluated.
 #' @method          print indexDilemma
 #' @keywords        internal
 #' @export
-#' 
-print.indexDilemma <- function(x, digits = 2, ...) 
+print.indexDilemma <- function(x, digits = 2, output = "OCD", ...) 
 {
+  output <- toupper(output)
   enames <- x$elements
   self <- x$self
   ideal <- x$ideal
@@ -1417,54 +1421,62 @@ print.indexDilemma <- function(x, digits = 2, ...)
   cat("\n####################\n")
   cat("Implicative Dilemmas")
   cat("\n####################\n")
-  cat("\nNumber of Implicative Dilemmas:", no_ids, "\n")
-  cat("\nCorrelation Criterion: >=", r.min)
-  if (exclude) {
-    cat("\nNote: Correlation calculated excluding elements Self & Ideal") 
-  } else {
-    cat("\nNote: Correlation calculated including elements Self & Ideal\n")
-  }
-  cat("\nSelf: Element No.", paste0(self, " = ", enames[self]))
-  cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
-  cat("\n\nCriteria (for construct classification):")
   
-  # differentiation mode 0 for midpoint-based criterion (Grimes - Idiogrid) OR
-  # differentiation mode 1 for Feixas "correlation cut-off" criterion
-  if (diff.mode == 1) {
-    cat("\nDiscrepant if Self-Ideal difference: >=", diff.discrepant)
-    cat("\nCongruent if Self-Ideal difference: <=", diff.congruent)
-  } else if (diff.mode == 0) {
-    cat("\nUsing Midpoint rating criterion")
+  if (str_detect(output, "O")) {
+    cat("\nNumber of Implicative Dilemmas:", no_ids, "\n")
+    cat("\nCorrelation Criterion: >=", r.min)
+    if (exclude) {
+      cat("\nNote: Correlation calculated excluding elements Self & Ideal") 
+    } else {
+      cat("\nNote: Correlation calculated including elements Self & Ideal\n")
+    }
+    cat("\nSelf: Element No.", paste0(self, " = ", enames[self]))
+    cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
+    
+    cat("\n\nCriteria (for construct classification):")
+    # differentiation mode 0 for midpoint-based criterion (Grimes - Idiogrid) OR
+    # differentiation mode 1 for Feixas "correlation cut-off" criterion
+    if (diff.mode == 1) {
+      cat("\nDiscrepant if Self-Ideal difference: >=", diff.discrepant)
+      cat("\nCongruent if Self-Ideal difference: <=", diff.congruent)
+    } else if (diff.mode == 0) {
+      cat("\nUsing Midpoint rating criterion")
+    }
   }
-
   #Extreme Criteria:
   #Discrepant Difference: Self-Ideal greater than or equal to, Max Other-Self difference
   #Congruent Difference: Self-Ideal less than or equal to, Min Other-Self difference  
-  
+
   # classification of constructs:
-  cat("\n\n-------------------------------------------------------------------------------\n")
-  cat("\nCLASSIFICATION OF CONSTRUCTS:\n")
-  cat(paste0("\n   Note: 'Self' corresponds to left pole ", 
-             "unless score equals the midpoint (", midpoint, " = undecided)\n\n"))
-  print(x$construct_classification)
+  if (str_detect(output, "C")) {
+    cat("\n\n-------------------------------------------------------------------------------\n")
+    cat("\nCLASSIFICATION OF CONSTRUCTS:\n")
+    cat(paste0("\n   Note: 'Self' corresponds to left pole ", 
+               "unless score equals the midpoint (", midpoint, " = undecided)\n\n"))
+    print(x$construct_classification)
+  }
   
   # implicative dilemmas:
-  cat("\n-------------------------------------------------------------------------------\n")
-  cat("\nIMPLICATIVE DILEMMAS:\n")
-  cat("\n   Note: Congruent constructs on the left - Discrepants construct on the right")
-  cat("\n\n")
   
-  if (nrow(dilemmas_df) > 0) {
-    dilemmas_df$R <- round(dilemmas_df$R, digits)
-    ii <- str_detect(dilemmas_df$RexSI, "\\.")
-    dilemmas_df$RexSI[ii] <- as.character(round(as.numeric(dilemmas_df$RexSI[ii]), digits))
-    print(dilemmas_df)
-    cat("\n\tR = Correlation including Self & Ideal")
-    cat("\n\tRexSI = Correlation excluding Self & Ideal")
-    cor.used <- ifelse(exclude, "RexSI", "R")
-    cat("\n\t", cor.used, " was used as criterion", sep = "")
-  } else {
-    cat("No implicative dilemmas detected")
+  # classification of constructs:
+  if (str_detect(output, "D")) {
+    cat("\n-------------------------------------------------------------------------------\n")
+    cat("\nIMPLICATIVE DILEMMAS:\n")
+    cat("\n   Note: Congruent constructs on the left - Discrepants construct on the right")
+    cat("\n\n")
+    
+    if (nrow(dilemmas_df) > 0) {
+      dilemmas_df$R <- round(dilemmas_df$R, digits)
+      ii <- str_detect(dilemmas_df$RexSI, "\\.")
+      dilemmas_df$RexSI[ii] <- as.character(round(as.numeric(dilemmas_df$RexSI[ii]), digits))
+      print(dilemmas_df)
+      cat("\n\tR = Correlation including Self & Ideal")
+      cat("\n\tRexSI = Correlation excluding Self & Ideal")
+      cor.used <- ifelse(exclude, "RexSI", "R")
+      cat("\n\t", cor.used, " was used as criterion", sep = "")
+    } else {
+      cat("No implicative dilemmas detected")
+    }
   }
   
 }
@@ -1674,22 +1686,8 @@ print.indexDilemma <- function(x, digits = 2, ...)
 #'                        Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory 
 #'                        Grids (Version 2.4). Oklahoma: Oklahoma State University.
 #'
-#' @examples \dontrun{
+#' @example inst/examples/example-implicative-dilemmas.R
 #'  
-#'  indexDilemma(boeker, self = 1, ideal = 2)
-#'  indexDilemma(boeker, self = 1, ideal=2, out = 2)
-#'
-#'  # additionally show correlation distribution
-#'  indexDilemma(boeker, self = 1, ideal = 2, show = T)
-#'
-#'  # adjust minimal correlation
-#'  indexDilemma(boeker, 1, 2, r.min = .25)
-#'
-#'  # adjust congruence and discrepance ranges
-#'  indexDilemma(boeker, 1, 2, diff.con = 0, diff.disc = 4)
-#'
-#'  }
-#'
 indexDilemma <- function(x, self = 1, ideal = ncol(x), 
                          diff.mode = 1, diff.congruent = NA,
                          diff.discrepant = NA, diff.poles = 1, 

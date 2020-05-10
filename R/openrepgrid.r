@@ -269,6 +269,7 @@ NULL
 #' @name OpenRepGrid-overview
 #' @keywords package
 #' @docType package
+#' @import dplyr
 #'
 NULL
 

@@ -212,22 +212,18 @@ grid directly, the correlation between two constructs is used as an
 indicator of implication.
 }
 \examples{
-\dontrun{
- 
- indexDilemma(boeker, self = 1, ideal = 2)
- indexDilemma(boeker, self = 1, ideal=2, out = 2)
+id <- indexDilemma(boeker, self = 1, ideal = 2)
+id
 
- # additionally show correlation distribution
- indexDilemma(boeker, self = 1, ideal = 2, show = T)
+# adjust minimal correlation
+indexDilemma(boeker, self = 1, ideal = 2, r.min = .5)
 
- # adjust minimal correlation
- indexDilemma(boeker, 1, 2, r.min = .25)
+# adjust congruence and discrepance ranges
+indexDilemma(boeker, self = 1, ideal = 2, diff.congruent = 0, diff.discrepant = 4)
 
- # adjust congruence and discrepance ranges
- indexDilemma(boeker, 1, 2, diff.con = 0, diff.disc = 4)
-
- }
-
+# print options
+print(id, output = "D")   # dilemmas only
+print(id, output = "OD")  # overview and dilemmas
 }
 \references{
 Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing
