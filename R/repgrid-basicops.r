@@ -464,7 +464,6 @@ setMeta <- function(x, type, id, name){
 #'
 #' @export
 #' @keywords    internal
-#' @author      Mark Heckmann
 #' @examples \dontrun{
 #'
 #'      getScaleMidpoint(bell2010)
@@ -476,6 +475,18 @@ getScaleMidpoint <- function(x){
     stop("object x and y must be of class 'repgrid'")
   (x@scale$max - x@scale$min)/2 + x@scale$min
 }
+
+
+#' Midpoint of the grid rating scale
+#'
+#' @param x    \code{repgrid} object.
+#' @return    Midpoint of scale.
+#'
+#' @export
+#' @examples 
+#' midpoint(bell2010)
+#'
+midpoint <- getScaleMidpoint
 
 
 #############################  CHANGE POSITION   ##############################

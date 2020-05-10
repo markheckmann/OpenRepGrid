@@ -10,6 +10,7 @@
 
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * midpoint function (alias for getScaleMidpoint)
   * print method for indexDilemma
   * correct indexDilemma output bug (#17, thanks to José Antonio González Del Puerto aka @MindCartographer)
   * perturbation of grid ratings by perturbate and grids_perturbate
