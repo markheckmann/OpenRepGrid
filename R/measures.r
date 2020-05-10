@@ -91,7 +91,7 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
   round(res, digits)
 }
 
-
+# . ----
 #//////////////////////////////////////////////////////////////////////////////
 #   						                    MISC             							         ----
 #//////////////////////////////////////////////////////////////////////////////
@@ -314,10 +314,13 @@ print.indexIntensity <- function(x, digits = 2, ...)
 
 
 
-
+# . ----
 #//////////////////////////////////////////////////////////////////////////////
 #      					            CONFLICT MEASURES       							         ----
 #//////////////////////////////////////////////////////////////////////////////
+
+
+# __ Misc ----------------------------------
 
 #' Print function for class indexConflict1
 #' 
@@ -958,10 +961,10 @@ indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE)
         cat("\nElement-construct conflict discrepancies:\n\n")
         disc <- round(x$disc, digits)
         print(as.data.frame(formatMatrix(disc, 
-                                         rnames=paste("c", seq_len(nrow(x$disc)), sep=""), 
-                                         cnames=paste("e", seq_len(ncol(x$disc)), sep=""),
-                                         pre.index=c(F,F),
-                                         mode=2, diag=F), stringsAsFactors=F))
+                                         rnames = paste("c", seq_len(nrow(x$disc)), sep = ""), 
+                                         cnames = paste("e", seq_len(ncol(x$disc)), sep = ""),
+                                         pre.index = c(FALSE, FALSE),
+                                         mode = 2, diag = FALSE), stringsAsFactors = FALSE))
       }
       cat("\nAv. level of discrepancy:   ", round(x$avg, digits), "\n")
       cat("\nStd. dev. of discrepancies: ", round(x$sd, digits + 1), "\n")
@@ -994,6 +997,8 @@ print.indexConflict3 <- function(x, digits = 2, output = 1, discrepancies = TRUE
 }
 
 
+# __ Implicative Dilemma ----------------------------------
+
 # plots distribution of construct correlations
 #
 indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
@@ -1003,7 +1008,7 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
   rc.inc.vals <- abs(rc.including[lower.tri(rc.including)])
   rc.exc.vals <- abs(rc.excluding[lower.tri(rc.excluding)])
   
-  histDensity <- function(vals, probs = c(.2, .4, .6, .8, .9), ...){
+  histDensity <- function(vals, probs = c(.2, .4, .6, .8, .9), ...) {
     h <- hist(vals, breaks = seq(0, 1.01, len = 21), freq = FALSE, 
               xlim = c(0, 1), border = "white", col = grey(.8), ...)
     d <- density(vals)
@@ -1071,12 +1076,10 @@ indexDilemmaInternal <- function(x, self, ideal,
 {
   s <- ratings(x)         # grid scores matrix
 
-  # NEW: To invert constructs
   # create a vector of inverted scores for the 'self' element:
   # invscr = 8 - scr
   # Example: 2 -> 8 - 2 -> 6
   #          5 -> 8 - 5 -> 3
-  # s_inverted <- getScale(x)[2] - s + 1   # e.g. 8 - 1
   s_inverted <- ratings(swapPoles(x))
   nc <- nrow(x)
   cnames <- getConstructNames2(x, index = index, trim = trim, mode = 1, pre = "", post = " ")
@@ -1087,22 +1090,18 @@ indexDilemmaInternal <- function(x, self, ideal,
   
   # FLAG ALL CONSTRUCTS AS DISCREPANT, CONGRUENT OR NEITHER    
   
-  # difference self - ideal self  
-  diff.between <- abs(s[, self] - s[, ideal])
-  
-  #is.congruent.e = logical() # UPDATE (DIEGO) - Simplified - we dont need two sets of logical characters variables now
-  #type.c.elem <- character()
-  is.congruent = logical()
+  diff.between <- abs(s[, self] - s[, ideal])  # self - ideal difference  
+  is.congruent <- logical()
   type.c <- character()
  
-  # CORRECTION (ALEJANDRO): a construct 
-  # can't be congruent if it's 'self' score is 4 (AKA self-
-  # disorientation). Neither can be congruent if IDEAL is 4.
+  # CORRECTION (ALEJANDRO): 
+  # a construct can't be congruent if it's 'self' score is 4 (AKA self-disorientation). 
+  # Neither can be congruent if IDEAL is 4 (i.e. midpoint).
   # CORRECTION (Diego): I have just updated this avoid hardcoding the midpoint!!
   if (diff.mode == 1) {
-    for (i in 1:nc) {
-      if (s[,self][i] != midpoint) {
-        if (s[,ideal][i] != midpoint) {
+    for (i in 1L:nc) {
+      if (s[, self][i] != midpoint) {
+        if (s[, ideal][i] != midpoint) {
           is.congruent[i] <- diff.between[i] <= diff.congruent        
         } else{
           is.congruent[i] <- FALSE
@@ -1111,7 +1110,6 @@ indexDilemmaInternal <- function(x, self, ideal,
         is.congruent[i] <- FALSE
       }
     }
-  
     is.discrepant <- diff.between >= diff.discrepant
     is.neither <- !is.congruent & !is.discrepant
     
@@ -1148,16 +1146,14 @@ indexDilemmaInternal <- function(x, self, ideal,
   #   self (the Target Element) is rated below the midpoint, then a discrepancy exists (and 
   #   vice versa). If the two selves are rated on the same side of the scale or if either 
   #   the actual self or the ideal self are rated at the midpoint of the scale, then a discre- 
-  #   pancy does not exist." ( from IDIOGRID manual)
+  #   pancy does not exist." (from IDIOGRID manual)
 
   else if (diff.mode == 0) {
     
     is.congruent <- (s[, self] < midpoint  &  s[, ideal] < midpoint) | 
                     (s[, self] > midpoint  &  s[, ideal] > midpoint)
-  
     is.discrepant <- (s[, self] < midpoint  &  s[, ideal] > midpoint) | 
                      (s[, self] > midpoint  &  s[, ideal] < midpoint)
-  
     is.neither <- !is.congruent & !is.discrepant
     type.c[is.congruent] <- "congruent"
     type.c[is.discrepant] <- "discrepant"
@@ -1328,7 +1324,12 @@ indexDilemmaInternal <- function(x, self, ideal,
                                          stringsAsFactors = FALSE)
   colnames(construct_classification) <- c("Construct", "Classification", "Self", "Ideal")
   rownames(construct_classification) <- NULL
-
+  construct_classification <- construct_classification %>% 
+    mutate(
+      Difference = abs(Self - Ideal)
+    ) %>% 
+    select(Construct, Self, Ideal, Difference, Classification)
+  
   # 2: This dataframe stores the information for all posible construct combinations
   all_pairs <- data.frame(c1 = comb[,1], c2 = comb[,2], r.inc = r.include, 
                      r.exc = r.exclude, bigger.rmin, type.c1, type.c2, check,
@@ -1358,6 +1359,10 @@ indexDilemmaInternal <- function(x, self, ideal,
   # 4: NEW: reordered dilemma output
   cnstr.labels.left <- paste0(dilemmas_info$c2, ". ", cnstr.labels.left)
   cnstr.labels.right <- paste0(dilemmas_info$c1, ". ", cnstr.labels.right)
+  if (no_ids == 0) {
+    cnstr.labels.left <- character()
+    cnstr.labels.right <- character()
+  }
   dilemmas_df <- data.frame(cnstr.labels.left, cnstr.labels.right, 
                             Rtot = dilemmas_info[,3], RexSI = dilemmas_info[,4], 
                             stringsAsFactors = FALSE)                
@@ -1367,6 +1372,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   enames <- elements(x)
   l <- list(no_ids = no_ids,
             self = self,
+            needs.to.invert = needs.to.invert,
             ideal = ideal, 
             elements = enames, 
             diff.discrepant = diff.discrepant, 
@@ -1425,8 +1431,8 @@ print.indexDilemma <- function(x, digits = 2, ...)
   # differentiation mode 0 for midpoint-based criterion (Grimes - Idiogrid) OR
   # differentiation mode 1 for Feixas "correlation cut-off" criterion
   if (diff.mode == 1) {
-    cat("\nDiscrepant if Self-Ideal Difference: >=", diff.discrepant)
-    cat("\nCongruent if Self-Ideal Difference: <=", diff.congruent)
+    cat("\nDiscrepant if Self-Ideal difference: >=", diff.discrepant)
+    cat("\nCongruent if Self-Ideal difference: <=", diff.congruent)
   } else if (diff.mode == 0) {
     cat("\nUsing Midpoint rating criterion")
   }
@@ -1444,11 +1450,8 @@ print.indexDilemma <- function(x, digits = 2, ...)
   
   # implicative dilemmas:
   cat("\n-------------------------------------------------------------------------------\n")
-  cat("\nCONSTRUCT PAIRS IMPLYING DILEMMAS:\n")
-  
-  # cat("\n######################################\n")
-  # cat("\n\nBy A Priori Criteria:\n\n")
-  cat("\n   Note: Congruents constructs on the left - Discrepants constructs on the right")
+  cat("\nIMPLICATIVE DILEMMAS:\n")
+  cat("\n   Note: Congruent constructs on the left - Discrepants construct on the right")
   cat("\n\n")
   
   if (nrow(dilemmas_df) > 0) {
@@ -1456,8 +1459,8 @@ print.indexDilemma <- function(x, digits = 2, ...)
     ii <- str_detect(dilemmas_df$RexSI, "\\.")
     dilemmas_df$RexSI[ii] <- as.character(round(as.numeric(dilemmas_df$RexSI[ii]), digits))
     print(dilemmas_df)
-    cat("\n\tR = Correlation including Self & ideal")
-    cat("\n\tRexSI = Correlation excluding Self & ideal")
+    cat("\n\tR = Correlation including Self & Ideal")
+    cat("\n\tRexSI = Correlation excluding Self & Ideal")
     cor.used <- ifelse(exclude, "RexSI", "R")
     cat("\n\t", cor.used, " was used as criterion", sep = "")
   } else {
@@ -1695,7 +1698,6 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
                                   # 'ideal' to first and last column
                                   # respectively
 {
-
   # automatic selection of a priori criteria
   sc <- getScale(x)
   if (is.na(diff.congruent))
