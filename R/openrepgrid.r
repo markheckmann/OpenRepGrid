@@ -42,7 +42,7 @@
 #' @keywords package repgrid
 #' @name OpenRepGrid
 #' @docType package
-#' @import methods graphics grid utils stats grDevices plyr stringr abind rgl GPArotation psych XML tcltk pvclust
+#' @import methods graphics grid utils stats grDevices plyr stringr abind rgl GPArotation psych XML tcltk pvclust dplyr
 #' @importFrom colorspace HSV diverge_hcl hex hex2RGB
 NULL
 
@@ -269,7 +269,6 @@ NULL
 #' @name OpenRepGrid-overview
 #' @keywords package
 #' @docType package
-#' @import dplyr
 #'
 NULL
 
