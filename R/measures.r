@@ -1639,13 +1639,6 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
 #' @param exclude         Whether to exclude the elements self and ideal self 
 #'                        during the calculation of the inter-construct correlations.
 #'                        (default is \code{FALSE}).
-#' @param output          The type of output printed to the console. \code{output=1} prints
-#'                        classification of the construct into congruent and discrepant
-#'                        and the detected dilemmas. \code{output=1} only prints the latter.
-#'                        \code{output=0} will surpress printing.
-#'                        Note that the type of output does not affect the object
-#'                        that is returned invisibly which will be the same in any case
-#'                        (see value).
 #' @param show            Whether to additionally plot the distribution
 #'                        of correlations to help the user assess what level
 #'                        is adequate for \code{r.min}.
@@ -1658,9 +1651,8 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
 #'                        \code{2}).
 #'
 #' @author                Mark Heckmann, Alejandro García, Diego Vitali
-#' @export
-#' @return                Called for console output. Invisbly returns a list containing
-#'                        the result dataframes and all results from the calculations.
+#' @return                List object of class \code{indexDilemma}, containing
+#'                        the result from the calculations.
 #' @references            
 #'                        Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing
 #'                        the Data of A Repertory Grid} (manual). University of Melbourne,
@@ -1685,16 +1677,14 @@ print.indexDilemma <- function(x, digits = 2, output = "OCD", ...)
 #'
 #'                        Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory 
 #'                        Grids (Version 2.4). Oklahoma: Oklahoma State University.
-#'
+#' @export
 #' @example inst/examples/example-implicative-dilemmas.R
 #'  
 indexDilemma <- function(x, self = 1, ideal = ncol(x), 
                          diff.mode = 1, diff.congruent = NA,
                          diff.discrepant = NA, diff.poles = 1, 
                          r.min = .34, exclude = FALSE, digits = 2, show = FALSE,
-                         output = 1, index = TRUE, trim = 20) # CHANGE: set 'self' and
-                                  # 'ideal' to first and last column
-                                  # respectively
+                         output = 1, index = TRUE, trim = 20) 
 {
   # automatic selection of a priori criteria
   sc <- getScale(x)

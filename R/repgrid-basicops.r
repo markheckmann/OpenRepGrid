@@ -753,7 +753,8 @@ shift <- function(x, c=1, e=1){
 
 
 
-r.setRatings <- function(x, scores=NA, rows=NA, cols=NA, layer=1, ...){
+r.setRatings <- function(x, scores=NA, rows=NA, cols=NA, layer=1, ...) 
+{
 	if(!inherits(x, "repgrid")) 									# check if x is repgrid object
 		stop("Object x must be of class 'repgrid'.")
 	if(is.list(scores) & !is.data.frame(scores))
@@ -794,7 +795,7 @@ rating <- r.setRatings
 #'
 #'    ####  TODO  ####
 #' }
-clearRatings <- function(x, rows=NA, cols=NA, layer=1){
+clearRatings <- function(x, rows=NA, cols=NA, layer=1) {
   x[rows, cols, layer] <- NA
 	x
 }
@@ -824,20 +825,24 @@ clearRatings <- function(x, rows=NA, cols=NA, layer=1){
 #'
 #' }
 #'
-addElement <- function(x, name=NA, scores=NA, abbreviation=NA, status=NA, position=NA, side="pre"){
-	if(length(name)>1 | length(abbreviation)>1 | length(status)>1)
+addElement <- function(x, name = NA, scores = NA, abbreviation = NA, status = NA, position = NA, side="pre")
+{
+	if (length(name) > 1 | length(abbreviation) > 1 | length(status) > 1)
 		stop("USERINFO: name, abbreviation and status must be of length one")
-	if(is.na(position)) position <- ncol(x@ratings)+1
-	x <- e.addElements(x, name=name, abbreviation=abbreviation, 
-		                 status=status, position=position, side=side) 			# basic element operation
-	x <- r.makeNewElementColumn(x, pos=position) 								          # add column to ratings array
-	# add scores/ratings	
-	if(length(scores)!= length(x@constructs) & !is.na(scores[1]) & length(scores)!=1){
+	if (is.na(position)) 
+	  position <- ncol(x@ratings) + 1
+	x <- e.addElements(x, name = name, abbreviation = abbreviation, 
+		                 status = status, position = position, side = side) 			# basic element operation
+	x <- r.makeNewElementColumn(x, pos = position) 								          # add column to ratings array
+
+		# add scores/ratings	
+	if (length(scores) != length(x@constructs) & 
+	    !is.na(scores[1]) & length(scores) != 1) {
 		warning("The number of ratings you entered do not match the number of constructs.")
 		scores <- scores[1:length(x@constructs)]					                  # missing scores are filled up with NAs
 	}
-	if(length(x@constructs)>0)
-		x <- rating(x, scores, cols=position)
+	if (length(x@constructs) > 0)
+		x <- rating(x, scores, cols = position)
 	return(x)
 }
 # x <- makeEmptyRepgrid()

@@ -61,14 +61,6 @@ during the calculation of the inter-construct correlations.
 of correlations to help the user assess what level
 is adequate for \code{r.min}.}
 
-\item{output}{The type of output printed to the console. \code{output=1} prints
-classification of the construct into congruent and discrepant
-and the detected dilemmas. \code{output=1} only prints the latter.
-\code{output=0} will surpress printing.
-Note that the type of output does not affect the object
-that is returned invisibly which will be the same in any case
-(see value).}
-
 \item{index}{Whether to print index numbers in front of each construct 
 (default is \code{TRUE}).}
 
@@ -77,8 +69,8 @@ that is returned invisibly which will be the same in any case
 simply saves space when displaying the output.}
 }
 \value{
-Called for console output. Invisbly returns a list containing
-                       the result dataframes and all results from the calculations.
+List object of class \code{indexDilemma}, containing
+                       the result from the calculations.
 }
 \description{
 Implicative Dilemmas
