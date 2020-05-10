@@ -39,7 +39,8 @@ Imports:
     pvclust,
     openxlsx,
     tidyr,
-    dplyr
+    dplyr,
+    scales
 Collate:
     'bertin.r'
     'calc.r'
