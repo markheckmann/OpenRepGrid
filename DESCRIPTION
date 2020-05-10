@@ -38,7 +38,8 @@ Imports:
     tcltk,
     pvclust,
     openxlsx,
-    tidyr
+    tidyr,
+    dplyr
 Collate:
     'bertin.r'
     'calc.r'
