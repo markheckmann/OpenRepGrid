@@ -1388,6 +1388,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   
   ## 5: measures
   d = no_ids
+  r <- dilemmas_df$R  # correlations between ID pairs
   
   # PID
   # percentage of IDs over total number of possible constructs pairs
