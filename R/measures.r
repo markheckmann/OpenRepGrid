@@ -1217,6 +1217,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   
   # which pairs of absolute construct correlations are bigger than r.min?
   comb <- t(combn(nc, 2)) # all possible correlation pairs (don't repeat)
+  n_construct_pairs <- nrow(comb)   # = factorial(n) / (2*factorial(n - 2))
   needs.to.invert <- logical()
   
   # set up result vectors
@@ -1386,17 +1387,34 @@ indexDilemmaInternal <- function(x, self, ideal,
   colnames(dilemmas_df) = c("congruent", "discrepant", 'R', 'RexSI')
   
   ## 5: measures
-  # PID = percentage of IDs over total number of possible constructs pairs
-  pid = no_ids / nrow(comb) 
+  d = no_ids
   
+  # PID
+  # percentage of IDs over total number of possible constructs pairs
+  pid = d / nrow(comb) 
+  
+  # IID
+  # Intensity of the implicative dilemma (IID), quotient of the number of 
+  # constructs by the probability of finding implicative dilemmas given the matrix size.
+  iid = sqrt(sum(r^2)) / d * 100  # correct version
+  # iid = sum(r) / d * 100          # incorrect version in Gridcor
+  
+  # PICID
+  # proportion of the intensity of constructs of implicative dilemmas
+  picid = sqrt(sum(r^2)) / n_construct_pairs * 100   # correct version
+  # picid = sum(r) / all_construct_combinations * 100  # incorrect version in Gridcor
+  
+  # gather measures
   measures <- list(
-    pid = list(no_ids = no_ids,
-               possible_ids = nrow(comb),
-               pid = pid)
+    iid = iid,
+    pid = pid,
+    picid = picid
   )
+
   
   # indexDilemma object
   l <- list(no_ids = no_ids,
+            n_construct_pairs = n_construct_pairs,  # = factorial(n) / (2*factorial(n - 2))
             self = self,
             needs.to.invert = needs.to.invert,
             ideal = ideal, 
@@ -1408,6 +1426,7 @@ indexDilemmaInternal <- function(x, self, ideal,
             diff.mode = diff.mode,
             midpoint = midpoint,
             measures = measures,
+            # dataframes
             construct_classification = construct_classification,  # discrepant / congruent
             dilemmas_info = dilemmas_info, 
             dilemmas_df = dilemmas_df  # table with dilemmas and correlations
@@ -1442,27 +1461,34 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
   diff.congruent <- x$diff.congruent
   r.min <- x$r.min
   no_ids <- x$no_ids
+  n_construct_pairs <- x$n_construct_pairs
   exclude <- x$exclude
   midpoint <- x$midpoint
   dilemmas_df <- x$dilemmas_df
+  
   # measures
   pid <- x$measures$pid
+  iid <- x$measures$iid
+  picid <- x$measures$picid
   
   cat("\n####################\n")
   cat("Implicative Dilemmas")
   cat("\n####################\n")
   
-  ## Summary / MEASURES
+  ## Summary and Measures
   if (str_detect(output, "S")) {
     cat("\n-------------------------------------------------------------------------------")
     cat("\n\nSUMMARY:\n")
-    cat("\nNumber of Implicative Dilemmas (IDs):", no_ids)
-    pid_perc <- scales::percent(pid$pid, .1)
-    pid_no <- paste0("(", pid$no_ids, "/", pid$possible_ids, ")")
+    cat("\nNo. of Implicative Dilemmas (IDs):", no_ids)
+    cat("\nNo. of possible construct pairs:", n_construct_pairs)
+    pid_perc <- scales::percent(pid, .1)
+    pid_no <- paste0("(", no_ids, "/", n_construct_pairs, ")")
     cat("\nPercentage of IDs (PID):", pid_perc, pid_no)
+    cat("\nIntensity of IDs (IID):", round(iid, 1))
+    cat("\nProportion of the intensity of constructs of IDs (PICID):", round(picid, 1))
   }  
   
-  ## overview
+  ## Parameters
   if (str_detect(output, "P")) {
     cat("\n\n-------------------------------------------------------------------------------")
     cat("\n\nPARAMETERS:\n")
@@ -1488,7 +1514,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
   #Discrepant Difference: Self-Ideal greater than or equal to, Max Other-Self difference
   #Congruent Difference: Self-Ideal less than or equal to, Min Other-Self difference  
 
-  ## classification of constructs:
+  ## Classification of constructs:
   if (str_detect(output, "C")) {
     cat("\n\n-------------------------------------------------------------------------------")
     cat("\n\nCLASSIFICATION OF CONSTRUCTS:\n\n")
@@ -1497,7 +1523,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
     print(x$construct_classification)
   }
   
-  ## implicative dilemmas:
+  ## Implicative Dilemmas:
   if (str_detect(output, "D")) {
     cat("\n-------------------------------------------------------------------------------")
     cat("\n\nIMPLICATIVE DILEMMAS:\n")
