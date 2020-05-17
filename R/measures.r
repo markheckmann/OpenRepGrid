@@ -1384,7 +1384,7 @@ indexDilemmaInternal <- function(x, self, ideal,
                             Rtot = dilemmas_info[,3], RexSI = dilemmas_info[,4], 
                             stringsAsFactors = FALSE)                
   # colnames(dilemmas_df) = c('Self - Not self', 'Rtot', 'Self - Ideal', 'RexSI')
-  colnames(dilemmas_df) = c("congruent", "discrepant", 'R', 'RexSI')
+  colnames(dilemmas_df) = c("Congruent", "Discrepant", 'R', 'RexSI')
   
   ## 5: measures
   d = no_ids
