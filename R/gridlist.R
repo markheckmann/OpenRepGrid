@@ -66,7 +66,7 @@ dim.gridlist <- function(x) {
 print.gridlist <- function(x, all = FALSE) 
 {
   if (!is.gridlist(x))
-    stop("'x'muste be a 'gridlist' object")
+    stop("'x'must be a 'gridlist' object")
   if (all) {
     class(x) <- "list"
     return(x)
@@ -79,6 +79,29 @@ print.gridlist <- function(x, all = FALSE)
   cat("\n  no of constructs [min, max]: [", min(nc), ", ", max(nc), "]", sep = "")
   cat("\n  no of elements [min, max]: [", min(ne), ", ", max(ne), "]", sep = "")
 }
+
+
+#' rep method for repgrid objects
+#' 
+#' @param x A `repgrid`` object.
+#' @param n Number of times to replicate the grid.
+#' @return A `gridlist`` object.
+#' @export
+#' @keywords internal
+#' @md
+#' @examples 
+#' l <- rep(boeker, 3)   # gridlist with 3 boeker grids
+rep.repgrid <- function(x, n = 1) 
+{
+  if (!is.repgrid(x)) 
+    stop("'x' must be 'repgrid' objects", call. = FALSE)
+  
+  l <- replicate(n, x)
+  as.gridlist(l)
+}
+
+
+
 
 
 

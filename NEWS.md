@@ -10,6 +10,7 @@
 
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * rep method for regrid objects creates gridlist 
   * summary measures for indexDilemma (PID, IID, PICID)
   * midpoint function (alias for getScaleMidpoint)
   * print method for indexDilemma
