@@ -2,7 +2,7 @@
 % Please edit documentation in R/gridlist.R
 \name{rep.repgrid}
 \alias{rep.repgrid}
-\title{rep method for repgrid objects}
+\title{Replicate repgrid objects}
 \usage{
 \method{rep}{repgrid}(x, n = 1)
 }
@@ -15,7 +15,7 @@
 A `gridlist`` object.
 }
 \description{
-rep method for repgrid objects
+Impements the \code{rep} method for \code{repgrid} objects.
 }
 \examples{
 l <- rep(boeker, 3)   # gridlist with 3 boeker grids

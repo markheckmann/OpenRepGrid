@@ -81,7 +81,9 @@ print.gridlist <- function(x, all = FALSE)
 }
 
 
-#' rep method for repgrid objects
+#' Replicate repgrid objects
+#' 
+#' Impements the `rep` method for `repgrid` objects.
 #' 
 #' @param x A `repgrid`` object.
 #' @param n Number of times to replicate the grid.
