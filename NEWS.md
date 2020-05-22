@@ -1,7 +1,7 @@
 # NEWS
 
 # TODO
-
+  * switch to cli package for console output
   * make some function generic so they accept repgridlists as well (index functions)
   * Format scripts with RStudio comment headers to make them more readable
   * Redo printing 

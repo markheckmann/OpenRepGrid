@@ -451,6 +451,43 @@ print.indexCognitiveProfile <- function(x, digits = 2, ...)
 }
 
 
+
+
+# # Alternative using cli package. I do not like the look
+# print.indexCognitiveProfile <- function(x, digits = 2, ...) 
+# {
+#   w <- options()$width
+#   l <- x
+#   cli_h1("COGNITIVE PROFILE")
+#   
+#   cli_h3("MEASURE")
+#   cat_line()
+#   cat_line("  ", l$method, " ", l$method_type)
+#   if (l$method_type == "correlation") {
+#     cat(crayon::blue(
+#       strwrap("Note: All correlations use Cohen's rc version which is invariant to construct reflections",
+#               indent = 2, prefix = "\n", exdent = 8)))
+#   }
+#   cli_h3("COMPARISONS")
+#   cat_line()
+#   comp <- 
+#     c(paste("Self - Ideal: ", round(l$self_ideal, digits)),
+#       paste("Self - Others: ", round(l$self_others, digits)),
+#       paste("Ideal - Others: ", round(l$ideal_others, digits))
+#     )
+#   cat_bullet(comp)
+#   cli_h3("ELEMENTS")
+#   cat_line()
+#   elems <- 
+#     c(paste("self: ", l$self_element),
+#       paste("ideal: ", l$ideal_element),
+#       paste("others:", strwrap(paste(l$other_elements, collapse = ", "), width = w - 12, exdent = 12, prefix = "\n", initial = ""), collapse = " ")
+#     )
+#   
+#   cat_bullet(elems)
+# }
+
+
 # . ----------
 # ___________________ ----
 #//////////////////////////////////////////////////////////////////////////////
