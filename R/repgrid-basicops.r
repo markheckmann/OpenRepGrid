@@ -849,6 +849,52 @@ addElement <- function(x, name = NA, scores = NA, abbreviation = NA, status = NA
 # x <- addElement(x)
 
 
+#' Add a new average element
+#'
+#' A new element is added to the grid. The scores are the arithmetic means
+#' across all selected elements.
+#'
+#' @param x A `repgrid` object.
+#' @param name Name of new element.
+#' @param i Indexes of elements to be averaged across. Negative indexes can be
+#'   used to exclude elements from the complete set. Duplicate indexes are
+#'   allowed but a warning is issued.
+#' @return A `repgrid` object with additional new element.
+#' @export
+#' @md
+#' @examples
+#' addAvgElement(feixas2004, "others", i = 2:12)
+#' 
+#' # exluding elements via negative indexes
+#' addAvgElement(feixas2004, "others", i = c(-1,-13))
+#' 
+addAvgElement <- function(x, name = "avg", i) 
+{
+  if (!is.repgrid(x))
+    stop("'x' must be a repgrid object", call. = FALSE)
+  if (name %in% elements(x))
+    stop("element name '", name, "' already exists,", call. = FALSE)
+  nc <- ncol(x)
+  if (!is.numeric(i) || !length(i) >= 1)  
+    stop("'i' must be a numeric vector with at least one entry", call. = FALSE)
+  if (!all(abs(i) >= 1) && all(abs(i) <= nc))  
+    stop("'i' must range between 1 and ", nc, call. = FALSE)
+  if (any(others < 0) && any(others > 0))
+    stop("It is not allowed to mix positive and negative indexes", call. = FALSE)
+  if ( sum(duplicated(abs(i))) > 0)
+    warning("duplicate indexes detected in 'i'", call. = FALSE)
+  
+  # convert negative indexes
+  if (all(i < 0))
+    others <- setdiff(1L:nc, abs(i))
+  
+  R <- ratings(x)
+  mean_ratings <- rowMeans(R[, i, drop = FALSE])
+  x <- addElement(x, name = name, scores = mean_ratings)
+  x
+}
+
+
 #' Add a new construct to an existing grid object.
 #'
 #' @param x               \code{repgrid} object.

@@ -10,6 +10,7 @@
 
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * addAvgElement to add an average element
   * rep method for regrid objects creates gridlist 
   * summary measures for indexDilemma (PID, IID, PICID)
   * midpoint function (alias for getScaleMidpoint)
