@@ -1251,13 +1251,14 @@ indexDilemmaInternal <- function(x, self, ideal,
                                                      # to RECORD 5.0 defaults
 {
   nc <- nrow(x)
+  ne <- ncol(x)
   enames <- elements(x)
-  e_ii <- seq_len(nc) # possible element indexes
+  e_ii <- seq_len(ne) # possible element indexes
   
   if (!self %in% e_ii) 
-    stop("'self' element index must be within interval [", 1, ",", nc, "]", call. = FALSE)
+    stop("'self' element index must be within interval [", 1, ",", ne, "]", call. = FALSE)
   if (!ideal %in% e_ii) 
-    stop("'ideal' element index must be within interval [", 1, ",", nc, "]", call. = FALSE)
+    stop("'ideal' element index must be within interval [", 1, ",", ne, "]", call. = FALSE)
   if (diff.congruent < 0)
     stop("'diff.congruent' must be non-negative", call. = FALSE)
   if (diff.discrepant < 0)
@@ -1500,6 +1501,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   leftpole <- constructs(x)$leftpole 
   rightpole <- constructs(x)$rightpole
 
+  
   for (i in 1L:nc) {
     if (needs.to.invert[i]) {
       s[i, self] <- s_inverted[i, self]
@@ -1588,6 +1590,9 @@ indexDilemmaInternal <- function(x, self, ideal,
     picid = picid
   )
 
+  # REALIGEND GRID
+  ii_swap <- which(needs.to.invert)
+  x_aligned <- swapPoles(x, pos = ii_swap)
   
   # indexDilemma object
   l <- list(no_ids = no_ids,
@@ -1606,7 +1611,8 @@ indexDilemmaInternal <- function(x, self, ideal,
             # dataframes
             construct_classification = construct_classification,  # discrepant / congruent
             dilemmas_info = dilemmas_info, 
-            dilemmas_df = dilemmas_df  # table with dilemmas and correlations
+            dilemmas_df = dilemmas_df,  # table with dilemmas and correlations
+            grid = x_aligned
             )
   class(l) <- c("indexDilemma", class(l))
   l
