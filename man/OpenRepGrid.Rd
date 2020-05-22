@@ -15,9 +15,9 @@ Psychology (PCP) in a broad range of fields. For an introduction into the
 technique see e.g. Fransella, Bell and Bannister (2003).
 }
 \note{
-To get started with \pkg{OpenRepGrid} visit the project's home under \url{www.openrepgrid.org}. 
-           On this site you will find tutorials, explanation about the theory, methods of analysis and 
-           the according R code.
+To get started with \pkg{OpenRepGrid} visit the project's home under
+           \href{http://www.openrepgrid.org}{openrepgrid.org}. On this site you will find tutorials, 
+           explanation about the theory, the analysis methods and the corresponding R code.
 
            To see the preferable citation of the \pkg{OpenRepGrid} package, type 
            \code{citation("OpenRepGrid")} into the R console.
@@ -48,11 +48,11 @@ Useful links:
            Researchers interested in \href{http://docu.openrepgrid.org/contribute.html}{contributing}
            to the package are welcome.
 
-           The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
-           The github site provides information and allows to file bug reports or feature requests.
+           The \pkg{OpenRepGrid} code is hosted on \href{http://github.com/markheckmann/OpenRepGrid}{GitHub}.
+           The GitHub site provides additional information and allows to file bug reports or feature requests.
            Bug reports can also be emailed to the package maintainer or issued on 
-           \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
-           The package maintainer is Mark Heckmann  <heckmann(dot)mark(at)gmail(dot)com>.
+           \href{http://www.openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.
+           The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 }
 \keyword{package}
 \keyword{repgrid}
