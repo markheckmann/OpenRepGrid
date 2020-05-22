@@ -311,10 +311,146 @@ print.indexIntensity <- function(x, digits = 2, ...)
 }
 
 
+#' Cognitive profile
+#' 
+#' TBD
+#'
+#' @param x       A `repgrid` object.
+#' @param self    Numeric. Index of self element.
+#' @param ideal   Numeric. Index of ideal element. 
+#' @param others  Numeric. Index(es) of self related "other" elements (e.g. father, friend).
+#' @param method  The distance or correlation measure: 
+#'   * Distances:  `euclidean`, `manhattan`, `maximum`,  `canberra`, `binary`, `minkowski`
+#'   * Correlations: `pearson`, `kendall`, `spearman`
+#' @param p       The power of the Minkowski distance, in case `minkowski` is used as argument 
+#'                for `method`, otherwise it is ignored.
+#' @author    Mark Heckmann, José Antonio González Del Puerto
+#' @return    List object of class `indexCognitiveProfile`, containing
+#'            the results from the calculations:
+#'            
+#'  * `grid`: Recuced grid with seld, ideal and others
+#'  * `method_type`: method type (correlation or distance)
+#'  * `method`: correlation or distance method used
+#'  * `self_element`: name of the self element
+#'  * `ideal_element`: name of the ideal element
+#'  * `other_elements`: name(s) of other elements
+#'  * `self_ideal`: measure between self and ideal
+#'  * `self_others`: measure between self and others
+#'  * `ideal_others`: measure betwen ideal and others
+#' 
+#' @references            
+#'  TBD
+#'    
+#' @export
+#' @example inst/examples/example-indexCogniitveProfile.R
+#' @md
+#' 
+indexCognitiveProfile <- function(x, self, ideal, others = c(-self, -ideal), 
+                                  method = "euclidean", p = 2)
+{
+  # sanity/arg checks
+  if (!is.repgrid(x))
+    stop("'x' must be a repgrid object", call. = FALSE)
+  nc <- ncol(x)
+  if (!is.numeric(self) || !length(self) == 1  || !(self >= 1 && self <= nc))  
+    stop("'self' must be ONE numeric value in the range from 1 to ", nc, call. = FALSE)
+  if (!is.numeric(ideal) || !length(ideal) == 1  || !(ideal >= 1 && ideal <= nc))  
+    stop("'ideal' must be ONE numeric value in the range from 1 to ", nc, call. = FALSE)
+  if (!is.numeric(others) || !length(others) >= 1)  
+    stop("'others' must be a numeric vector with at least one entry", call. = FALSE)
+  if (!all(abs(others) >= 1) && all(abs(others) <= nc))  
+    stop("indexes indicating 'others' must range between 1 and ", nc, call. = FALSE)
+  if (any(others < 0) && any(others > 0))
+    stop("It is not allowed to mix positive and negative indexes", call. = FALSE)
+  if ( sum(duplicated(abs(others))) > 0)
+    stop("duplicated indexes ore not allowed in 'others'", call. = FALSE)
+  
+  # treat negative indexes
+  if (all(others < 0))
+    others <- setdiff(1L:nc, abs(others))
+  
+  # warnings for potentially wring input
+  if (self %in% others)
+    warning("'self' is also contained in 'others'", call. = FALSE)
+  if (ideal %in% others)
+    warning("'ideal' is also contained in 'others'", call. = FALSE)
+  
+  # build a new 'others' element as average rating of all others elements
+  x <- addAvgElement(x, name = "others", i = others)
+  i_others <- ncol(x)
+  
+  # Select method and get measures
+  distances <- c("euclidean", "manhattan", "maximum", "canberra", "binary", "minkowski")
+  correlations <- c("pearson", "kendall", "spearman")
+  choices <- c(distances, correlations)
+  method <- match.arg(method, choices)
+  method_type <- NA
+  if (method %in% distances) {
+    method_type <- "distance"
+    S <- distance(x, along = 2, dmethod = method, p = p)
+  } 
+  if (method %in% c("pearson", "kendall", "spearman")) {
+    method_type <- "correlation"
+    S <- elementCor(x, rc = TRUE, method = method)
+  }
+  
+  # extract relevant measures
+  s_self_ideal <- S[self, ideal]
+  s_self_others <- S[self, i_others]
+  s_ideal_others <- S[ideal, i_others]
+  
+  enames <- elements(x)
+  
+  # return indexCognitiveProfile object
+  l <- list(
+    grid = x[, c(self, ideal, i_others)],
+    method_type = method_type,
+    method = method,
+    self_element = enames[self],
+    ideal_element = enames[ideal],
+    other_elements = enames[others],
+    self_ideal = s_self_ideal,
+    self_others = s_self_others,
+    ideal_others = s_ideal_others
+  )
+  class(l) <- c("indexCognitiveProfile", class(l))
+  l
+}
+
+#' Print method for indexCognitiveProfile
+#' @export
+#' @keywords internal
+#' 
+print.indexCognitiveProfile <- function(x, digits = 2, ...) 
+{
+  w <- options()$width
+  l <- x
+  cat("=================")
+  cat("\nCOGNITIVE PROFILE\n")
+  cat("=================\n")
+  cat("\nMEASURE\n\n")
+  cat(" ", l$method, l$method_type)
+  if (l$method_type == "correlation") {
+    cat(crayon::blue(
+      strwrap("Note: All correlations use Cohen's rc version which is invariant to construct reflections",
+              indent = 2, prefix = "\n", exdent = 8)))
+  }
+  cat("\n")
+  cat("\nCOMPARISONS\n",
+      "\n  * Self - Ideal: ", round(l$self_ideal, digits),
+      "\n  * Self - Others: ", round(l$self_others, digits),
+      "\n  * Ideal - Others: ", round(l$ideal_others, digits))
+  cat("\n")
+  cat("\nELEMENTS\n")
+  cat("\n  * self:", l$self_element)
+  cat("\n  * ideal:", l$ideal_element)
+  cat("\n  * others:", strwrap(paste(l$other_elements, collapse = ", "), width = w - 12, exdent = 12, prefix = "\n", initial = ""))
+  cat("\n")
+}
 
 
-
-# . ----
+# . ----------
+# ___________________ ----
 #//////////////////////////////////////////////////////////////////////////////
 #      					            CONFLICT MEASURES       							         ----
 #//////////////////////////////////////////////////////////////////////////////
@@ -997,6 +1133,7 @@ print.indexConflict3 <- function(x, digits = 2, output = 1, discrepancies = TRUE
 }
 
 
+# . ----
 # __ Implicative Dilemma ----------------------------------
 
 # plots distribution of construct correlations
@@ -1790,6 +1927,9 @@ dilemmaViz <- function(x)
   #   
   # 
 }
+
+
+
 
 #//////////////////////////////////////////////////////////////////////////////
 

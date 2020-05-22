@@ -10,6 +10,7 @@
 
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * cognitive profiles: self vs. ideal vs. others (indexCognitiveProfile)
   * addAvgElement to add an average element
   * rep method for regrid objects creates gridlist 
   * summary measures for indexDilemma (PID, IID, PICID)
