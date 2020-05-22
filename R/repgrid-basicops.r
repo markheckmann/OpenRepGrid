@@ -923,22 +923,22 @@ addAvgElement <- function(x, name = "avg", i)
 #'
 #' }
 #'
-addConstruct <- function(x, l.name=NA, r.name=NA, scores=NA, 
-	                        l.preferred=NA,r.preferred=NA, 
-	                        l.emerged=NA,r.emerged=NA,
-						              position=NA, side="pre"){
-	if(is.na(position)) position <- length(x@constructs) +1
-	x <- c.addConstruct(x, l.name=l.name, l.preferred=l.preferred, l.emerged=l.emerged, 
-						   r.name=r.name, r.preferred=r.preferred, r.emerged=r.emerged, 
-						   position=position, side=side)
-	x <- r.makeNewConstructRow(x, pos=position)
+addConstruct <- function(x, l.name = NA, r.name = NA, scores = NA, 
+	                        l.preferred = NA, r.preferred = NA, 
+	                        l.emerged = NA, r.emerged = NA,
+						              position = NA, side = "pre"){
+	if (is.na(position)) position <- length(x@constructs) + 1
+	x <- c.addConstruct(x, l.name = l.name, l.preferred = l.preferred, l.emerged = l.emerged, 
+						   r.name = r.name, r.preferred = r.preferred, r.emerged = r.emerged, 
+						   position = position, side = side)
+	x <- r.makeNewConstructRow(x, pos = position)
 	# add scores/ratings	
-	if(length(scores)!= length(x@elements) & !is.na(scores[1]) & length(scores)!=1){
+	if (length(scores) != length(x@elements) & !is.na(scores[1]) & length(scores) != 1) {
 		warning("The number of ratings you entered do not match the number of elements.")
 		scores <- scores[1:length(x@elements)]					# missing scores are filled up with NAs
 	}
-	if(length(x@elements)>0)
-		x <- rating(x, scores, rows=position)			
+	if (length(x@elements) > 0)
+		x <- rating(x, scores, rows = position)			
 	return(x)
 }
 # x <- makeEmptyRepgrid()
