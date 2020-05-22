@@ -3,6 +3,7 @@
 
 #' \pkg{OpenRepGrid}: an R package for the analysis of repertory grids. 
 #'
+#' \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 #' The \pkg{OpenRepGrid} package provides tools for the analysis of repertory grid data.
 #' The repertory grid is a method devised by George Alexander Kelly
 #' in his seminal work "The Psychology of Personal Constructs" published in 1955.
@@ -10,10 +11,10 @@
 #' Psychology (PCP) in a broad range of fields. For an introduction into the 
 #' technique see e.g. Fransella, Bell and Bannister (2003).
 #' 
-#' @author    \pkg{OpenRepGrid} was initiated by Mark Heckmann. 
-#'            Current contributors are: Mark Heckmann, Alejandro García.
-#'            Researchers interested in contributing to the package are 
-#'            \href{http://docu.openrepgrid.org/contribute.html}{invited get in touch}.
+#' @author    \pkg{OpenRepGrid} is maintained by Mark Heckmann. 
+#'            Other contributors: Alejandro García, Diego Vitali.
+#'            Researchers interested in \href{http://docu.openrepgrid.org/contribute.html}{contributing}
+#'            to the package are welcome.
 #'
 #'            The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
 #'            The github site provides information and allows to file bug reports or feature requests.
@@ -44,7 +45,7 @@
 #' @docType package
 #' @import methods graphics grid utils stats grDevices plyr stringr abind rgl GPArotation psych XML tcltk pvclust dplyr
 #' @importFrom colorspace HSV diverge_hcl hex hex2RGB
-NULL
+"_PACKAGE"
 
 
 #############################  Package overview  ##############################
