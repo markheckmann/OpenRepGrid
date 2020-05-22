@@ -879,14 +879,14 @@ addAvgElement <- function(x, name = "avg", i)
     stop("'i' must be a numeric vector with at least one entry", call. = FALSE)
   if (!all(abs(i) >= 1) && all(abs(i) <= nc))  
     stop("'i' must range between 1 and ", nc, call. = FALSE)
-  if (any(others < 0) && any(others > 0))
+  if (any(i < 0) && any(i > 0))
     stop("It is not allowed to mix positive and negative indexes", call. = FALSE)
-  if ( sum(duplicated(abs(i))) > 0)
+  if (sum(duplicated(abs(i))) > 0)
     warning("duplicate indexes detected in 'i'", call. = FALSE)
   
   # convert negative indexes
   if (all(i < 0))
-    others <- setdiff(1L:nc, abs(i))
+    i <- setdiff(1L:nc, abs(i))
   
   R <- ratings(x)
   mean_ratings <- rowMeans(R[, i, drop = FALSE])

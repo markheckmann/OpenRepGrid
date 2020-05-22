@@ -27,6 +27,7 @@ Imports:
     utils,
     stats,
     grDevices,
+    crayon,
     plyr,
     stringr,
     abind,
