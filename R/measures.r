@@ -432,7 +432,7 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
   w <- options()$width
   l <- x
   cat("=================")
-  cat("\nCOGNITIVE PROFILE\n")
+  cat("\nSELF CONSTRUCTION\n")
   cat("=================\n")
   cat("\n  Mean ratings for 'others' rounded to closest integer: ", l$round)
   cat("\n\nMEASURE\n")
