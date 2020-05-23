@@ -12,7 +12,7 @@
   
   * plot method for indexDilemma to produce network graphs
   * add logo to documetation
-  * cognitive profiles: self vs. ideal vs. others (indexCognitiveProfile)
+  * cognitive self construction: self vs. ideal vs. others (indexSelfConstruction)
   * addAvgElement to add an average element
   * rep method for regrid objects creates gridlist 
   * summary measures for indexDilemma (PID, IID, PICID)

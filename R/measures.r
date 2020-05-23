@@ -313,7 +313,7 @@ print.indexIntensity <- function(x, digits = 2, ...)
 }
 
 
-#' Cognitive profile
+#' Self construction profile
 #' 
 #' TBD
 #'
@@ -327,7 +327,7 @@ print.indexIntensity <- function(x, digits = 2, ...)
 #' @param p       The power of the Minkowski distance, in case `minkowski` is used as argument 
 #'                for `method`, otherwise it is ignored.
 #' @author    Mark Heckmann, José Antonio González Del Puerto
-#' @return    List object of class `indexCognitiveProfile`, containing
+#' @return    List object of class `indexSelfConstruction`, containing
 #'            the results from the calculations:
 #'            
 #'  * `grid`: Recuced grid with seld, ideal and others
@@ -344,10 +344,10 @@ print.indexIntensity <- function(x, digits = 2, ...)
 #'  TBD
 #'    
 #' @export
-#' @example inst/examples/example-indexCogniitveProfile.R
+#' @example inst/examples/example-indexSelfConstruction.R
 #' @md
 #' 
-indexCognitiveProfile <- function(x, self, ideal, others = c(-self, -ideal), 
+indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal), 
                                   method = "euclidean", p = 2)
 {
   # sanity/arg checks
@@ -403,7 +403,7 @@ indexCognitiveProfile <- function(x, self, ideal, others = c(-self, -ideal),
   
   enames <- elements(x)
   
-  # return indexCognitiveProfile object
+  # return indexSelfConstruction object
   l <- list(
     grid = x[, c(self, ideal, i_others)],
     method_type = method_type,
@@ -415,15 +415,15 @@ indexCognitiveProfile <- function(x, self, ideal, others = c(-self, -ideal),
     self_others = s_self_others,
     ideal_others = s_ideal_others
   )
-  class(l) <- c("indexCognitiveProfile", class(l))
+  class(l) <- c("indexSelfConstruction", class(l))
   l
 }
 
-#' Print method for indexCognitiveProfile
+#' Print method for indexSelfConstruction
 #' @export
 #' @keywords internal
 #' 
-print.indexCognitiveProfile <- function(x, digits = 2, ...) 
+print.indexSelfConstruction <- function(x, digits = 2, ...) 
 {
   w <- options()$width
   l <- x
@@ -454,7 +454,7 @@ print.indexCognitiveProfile <- function(x, digits = 2, ...)
 
 
 # # Alternative using cli package. I do not like the look
-# print.indexCognitiveProfile <- function(x, digits = 2, ...) 
+# print.indexSelfConstruction <- function(x, digits = 2, ...) 
 # {
 #   w <- options()$width
 #   l <- x

@@ -18,26 +18,26 @@ test_that("indexDilemma matches Gridcor results", {
 })
 
 
-test_that("indexCognitiveProfile works correctly", {
+test_that("indexSelfConstruction works correctly", {
   
   # by default, other element are all except self and ideal
-  x <- indexCognitiveProfile(feixas2004, self = 1, ideal = 13)
+  x <- indexSelfConstruction(feixas2004, self = 1, ideal = 13)
   check <- length(x$other_elements) == ncol(feixas2004) - 2
   expect_true(check)
   
   # error is thrown if i is out of range
   expect_error({
-    x <- indexCognitiveProfile(feixas2004, 1, 14)
+    x <- indexSelfConstruction(feixas2004, 1, 14)
   })
   expect_error({
-    x <- indexCognitiveProfile(feixas2004, 0, 13)
+    x <- indexSelfConstruction(feixas2004, 0, 13)
   })
   expect_error({
-    x <- indexCognitiveProfile(feixas2004, 1, 13, others = 0)
+    x <- indexSelfConstruction(feixas2004, 1, 13, others = 0)
   })
   # duplicate indexes not allowed
   expect_error({
-    x <- indexCognitiveProfile(feixas2004, 1, 13, others = c(3,3,4))
+    x <- indexSelfConstruction(feixas2004, 1, 13, others = c(3,3,4))
   })
 })
 
