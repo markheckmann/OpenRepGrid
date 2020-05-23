@@ -39,5 +39,12 @@ test_that("indexSelfConstruction works correctly", {
   expect_error({
     x <- indexSelfConstruction(feixas2004, 1, 13, others = c(3,3,4))
   })
+  # rounding of 'others' element works correctly
+  a <- indexSelfConstruction(feixas2004, self = 1, ideal = 13, round = FALSE)
+  b <- indexSelfConstruction(feixas2004, self = 1, ideal = 13, round = TRUE)
+  expect_true({
+    all(round(ratings(a$grid)) == ratings(b$grid))
+  })
+
 })
 

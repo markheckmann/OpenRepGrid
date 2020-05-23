@@ -7,7 +7,8 @@
   * Redo printing 
   * move gh-pages to /docs folder
   * add tests
-
+  * add normalized distances
+  
 # OpenRepGrid 0.1.14 (work in progress)
   
   * plot method for indexDilemma to produce network graphs

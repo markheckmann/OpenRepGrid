@@ -434,7 +434,7 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
   cat("=================")
   cat("\nCOGNITIVE PROFILE\n")
   cat("=================\n")
-  cat("\n Mean ratings for 'others' were rounded to closest integer: ", l$round)
+  cat("\n  Mean ratings for 'others' rounded to closest integer: ", l$round)
   cat("\n\nMEASURE\n")
   cat("\n ", l$method, l$method_type)
   if (l$method_type == "correlation") {
