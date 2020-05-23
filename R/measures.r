@@ -1501,7 +1501,6 @@ indexDilemmaInternal <- function(x, self, ideal,
   leftpole <- constructs(x)$leftpole 
   rightpole <- constructs(x)$rightpole
 
-  
   for (i in 1L:nc) {
     if (needs.to.invert[i]) {
       s[i, self] <- s_inverted[i, self]
@@ -1531,38 +1530,47 @@ indexDilemmaInternal <- function(x, self, ideal,
                      name.c1 = cnames[comb[,1]], name.c2 = cnames[comb[,2]], 
                      stringsAsFactors = FALSE) 
   
-  ## 3: This dataframe contains informartion for all the dilemmas
+  ## 3: This dataframe contains information for all the dilemmas
   dilemmas_info <- subset(all_pairs, check == TRUE & bigger.rmin == TRUE)  
   no_ids <- nrow(dilemmas_info)  # Number of implicative dilemmas
   cnstr.labels = character()
   cnstr.labels.left <- cnstr.labels.right <- cnstr.labels
-
+  cnstr.id.left <- cnstr.id.right <- numeric()
+    
   # Put all discrepant constructs to the right
   if (no_ids != 0) {
     for (v in seq_len(no_ids)) {
       if (dilemmas_info$type.c1[v] == 'discrepant') {
         cnstr.labels.left[v] = dilemmas_info[v, "name.c2"]
         cnstr.labels.right[v] = dilemmas_info[v, "name.c1"]
+        cnstr.id.left[v] = dilemmas_info[v, "c2"]
+        cnstr.id.right[v] = dilemmas_info[v, "c1"]
       }
       else {
         cnstr.labels.left[v] = dilemmas_info[v, "name.c1"]
         cnstr.labels.right[v] = dilemmas_info[v, "name.c2"]
+        cnstr.id.left[v] = dilemmas_info[v, "c1"]
+        cnstr.id.right[v] = dilemmas_info[v, "c2"]
       }
     }
   }
+
   
   ## 4: reordered dilemma output
-  cnstr.labels.left <- paste0(dilemmas_info$c2, ". ", cnstr.labels.left)
-  cnstr.labels.right <- paste0(dilemmas_info$c1, ". ", cnstr.labels.right)
+  cnstr.labels.left <- paste0(cnstr.id.left, ". ", cnstr.labels.left)
+  cnstr.labels.right <- paste0(cnstr.id.right, ". ", cnstr.labels.right)
   if (no_ids == 0) {
+    cnstr.id.left <- numeric()
+    cnstr.id.right <- numeric()
     cnstr.labels.left <- character()
     cnstr.labels.right <- character()
   }
-  dilemmas_df <- data.frame(cnstr.labels.left, cnstr.labels.right, 
+  dilemmas_df <- data.frame(cnstr.id.left, cnstr.labels.left, 
+                            cnstr.id.right, cnstr.labels.right, 
                             Rtot = dilemmas_info[,3], RexSI = dilemmas_info[,4], 
                             stringsAsFactors = FALSE)                
   # colnames(dilemmas_df) = c('Self - Not self', 'Rtot', 'Self - Ideal', 'RexSI')
-  colnames(dilemmas_df) = c("Congruent", "Discrepant", 'R', 'RexSI')
+  colnames(dilemmas_df) = c("id_c", "Congruent", "id_d", "Discrepant", 'R', 'RexSI')
   
   ## 5: measures
   d = no_ids
@@ -1594,11 +1602,15 @@ indexDilemmaInternal <- function(x, self, ideal,
   ii_swap <- which(needs.to.invert)
   x_aligned <- swapPoles(x, pos = ii_swap)
   
+  # CONSTRUCTS INVOLVED in IDS
+  i_involved <- union(dilemmas_info$c1, dilemmas_info$c2)  
+  
   # indexDilemma object
   l <- list(no_ids = no_ids,
             n_construct_pairs = n_construct_pairs,  # = factorial(n) / (2*factorial(n - 2))
             self = self,
-            needs.to.invert = needs.to.invert,
+            reversed = which(needs.to.invert),
+            constructs_involved = i_involved,
             ideal = ideal, 
             elements = enames, 
             diff.discrepant = diff.discrepant, 
@@ -1612,7 +1624,7 @@ indexDilemmaInternal <- function(x, self, ideal,
             construct_classification = construct_classification,  # discrepant / congruent
             dilemmas_info = dilemmas_info, 
             dilemmas_df = dilemmas_df,  # table with dilemmas and correlations
-            grid = x_aligned
+            grid_aligned = x_aligned
             )
   class(l) <- c("indexDilemma", class(l))
   l
@@ -1661,7 +1673,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
   ## Summary and Measures
   if (str_detect(output, "S")) {
     cat("\n-------------------------------------------------------------------------------")
-    cat("\n\nSUMMARY:\n")
+    cat(bold("\n\nSUMMARY:\n"))
     cat("\nNo. of Implicative Dilemmas (IDs):", no_ids)
     cat("\nNo. of possible construct pairs:", n_construct_pairs)
     pid_perc <- scales::percent(pid, .1)
@@ -1674,7 +1686,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
   ## Parameters
   if (str_detect(output, "P")) {
     cat("\n\n-------------------------------------------------------------------------------")
-    cat("\n\nPARAMETERS:\n")
+    cat(bold("\n\nPARAMETERS:\n"))
     cat("\nSelf: Element No.", paste0(self, " = ", enames[self]))
     cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
     cat("\n\nCorrelation Criterion: >=", r.min)
@@ -1700,7 +1712,9 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
   ## Classification of constructs:
   if (str_detect(output, "C")) {
     cat("\n\n-------------------------------------------------------------------------------")
-    cat("\n\nCLASSIFICATION OF CONSTRUCTS:\n\n")
+    cat(bold("\n\nCLASSIFICATION OF CONSTRUCTS:\n"))
+    cat(blue("\n   Note: Constructs aligned so 'Self' corresponds to left pole\n\n"))
+    
     # cat(paste0("\n   Note: 'Self' corresponds to left pole ", 
     #            "unless score equals the midpoint (", midpoint, " = undecided)\n\n"))
     print(x$construct_classification)
@@ -1709,11 +1723,12 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
   ## Implicative Dilemmas:
   if (str_detect(output, "D")) {
     cat("\n-------------------------------------------------------------------------------")
-    cat("\n\nIMPLICATIVE DILEMMAS:\n")
-    cat("\n   Note: Congruent constructs on the left - Discrepant constructs on the right")
+    cat(bold("\n\nIMPLICATIVE DILEMMAS:\n"))
+    cat(blue("\n   Note: Congruent constructs on the left - Discrepant constructs on the right"))
     cat("\n\n")
     
     if (nrow(dilemmas_df) > 0) {
+      dilemmas_df <- dilemmas_df %>% select(-id_c, -id_d)
       dilemmas_df$R <- round(dilemmas_df$R, digits)
       ii <- str_detect(dilemmas_df$RexSI, "\\.")
       dilemmas_df$RexSI[ii] <- as.character(round(as.numeric(dilemmas_df$RexSI[ii]), digits))
@@ -1924,6 +1939,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
 #'
 #'                        Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory 
 #'                        Grids (Version 2.4). Oklahoma: Oklahoma State University.
+#' @seealso \code{\link{print.indexDilemma}}, \code{\link{plot.indexDilemma}}
 #' @export
 #' @example inst/examples/example-implicative-dilemmas.R
 #'  
@@ -1953,8 +1969,142 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 }
 
 
-dilemmaViz <- function(x) 
+
+#' Plot method for indexDilemma (network graph)
+#'
+#' Produces a network graph using of the detected implicative dilemmas using the 
+#'  `igraph` package.
+#'
+#' @param id Object returned by `indexDilemma`.
+#' @param layout Name of layout. One of `rows`, `circle`, `star`, or `nicely` or a 
+#'   `igraph` layout function.
+#' @param both.poles Show both construct poales? (default `TRUE`). If `FALSE`
+#' only the poles corresponding to the implied undesired changes are shown.
+#' @param digits Number of digits for correlations.
+#' @param node.size Size of nodes (default `50`).
+#' @param node.text.cex Text size of construct labels.
+#' @param node.label.color Color of construct labels.
+#' @param node.color.discrepant,node.color.congruent Color of discrepant and congruent constructs nodes. 
+#' @param edge.label.color,edge.label.cex Color and size of correlation labels.
+#' @param edge.color,edge.arrow.size Color and Size of arrow.
+#' @param edge.lty Linetype of arrow.
+#' @keywords internal
+#' @export
+#' @md
+plot.indexDilemma <- function(
+  id, 
+  layout = "rows", 
+  both.poles = TRUE, 
+  node.size = 50,
+  node.text.cex = 1,
+  node.label.color = "black",
+  node.color.discrepant = "darkolivegreen3",
+  node.color.congruent = "lightcoral",
+  edge.label.color = grey(.4),
+  edge.label.cex = 1,
+  edge.digits = 2,
+  edge.arrow.size = .5, 
+  edge.color = grey(.6),
+  edge.lty = 2
+) 
 {
+  # response in case no dilemmas were found
+  if (id$no_ids == 0) {
+    plot.new()
+    text(.5, .5, "No implicative dilemmas detected")
+    return(invisible(NULL))
+  }
+  
+  # rename args
+  vertex.size <- node.size
+  vertex.label.cex <- node.text.cex
+  
+  # get relevant data from indexDilemma object
+  x <- id$grid  
+  r.min <- id$r.min
+  dilemmas_df <- id$dilemmas_df
+  x <- id$grid_aligned
+  i_involved <- id$constructs_involved # constructs involved in IDs
+  R <- constructCor(x, trim = NA)
+  if (both.poles) {
+    vertex_labels <- rownames(R) 
+  } else {
+    vertex_labels <- constructs(x)$rightpole
+  }
+  vertex_labels <- vertex_labels[i_involved] %>% str_wrap(width = 15)
+  
+  # Create directed indicator matrix. Only one direction, i.e. from
+  # discrepant to congruent construct = negative implication
+  # direction in matrix from row (discrepant) to column (congruent)
+  K <- R
+  K[,] <- 0
+  for (i in 1L:nrow(dilemmas_df)) {
+    K[ dilemmas_df$id_d[i], dilemmas_df$id_c[i] ] <- 1  # row -> column
+  }
+  edge_labels <- R[K == 1] %>% round(edge.digits)  # round correlations
+  
+  # remove non-ID constructs
+  W_red <- K[i_involved, i_involved]
+  g <- igraph::graph_from_adjacency_matrix(W_red, diag = FALSE, 
+                                           mode  = "directed", weighted = TRUE)
+  vertex_colors <- dplyr::recode(id$construct_classification$Classification, 
+                                 "congruent" = node.color.congruent, 
+                                 "discrepant" = node.color.discrepant, 
+                                 "neither" = "grey")
+  vertex_colors <- vertex_colors[i_involved]
+  igraph::V(g)$color <- vertex_colors
+  
+  # type vector for bipartite layout (boolean)
+  vertex_bipart_type <- dplyr::recode(id$construct_classification$Classification, 
+                                      "congruent" = T, 
+                                      "discrepant" = F, 
+                                      "neither" = NA)
+  vertex_bipart_type <- vertex_bipart_type[i_involved]
+  igraph::V(g)$type <- vertex_bipart_type
+  
+  # simplified selection among sensible igraph layouts
+  if (is.function(layout)) {
+    layout <- layout
+  } else if (layout == "star") {
+    layout <- igraph::layout_as_star
+  } else if (layout == "circle") {
+    layout <- igraph::layout_in_circle
+  } else if (layout == "rows") {
+    layout <- igraph::layout_as_bipartite
+  } else {
+    layout <- igraph::layout_nicely
+  } 
+  
+  old_par <- par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+  on.exit(old_par)
+  igraph::plot.igraph(g, frame = FALSE, ylim = c(-1.3, 1),
+                      layout = layout, rescale = TRUE,
+                      edge.curved = FALSE,
+                      edge.arrow.size = edge.arrow.size, 
+                      edge.label.cex = edge.label.cex,
+                      edge.lty = edge.lty, 
+                      edge.width = 1.5,
+                      edge.label = edge_labels,
+                      edge.color = edge.color,
+                      edge.label.color = edge.label.color,
+                      vertex.size = vertex.size,
+                      vertex.size2 = vertex.size,
+                      vertex.label = vertex_labels,
+                      vertex.label.color = node.label.color,
+                      vertex.label.cex = vertex.label.cex,
+                      vertex.label.family = "sans",
+                      vertex.color = vertex_colors,
+                      vertex.frame.color = grey(.5))
+  legend(x = "bottom", 
+         legend = c("a desired change on 'discrepant' construct", "implies an undesired change on 'congruent' construct"), 
+         bty = "n", cex = 1, inset = c(0, 0), 
+         xjust = .5, box.col = FALSE, horiz = FALSE, yjust = 1,
+         fill = c(node.color.discrepant, node.color.congruent))
+}
+
+
+# dilemmaViz <- function(x) 
+# {
   # self <- id$self
   # ideal <- id$ideal
   # i <- 1
@@ -1971,7 +2121,7 @@ dilemmaViz <- function(x)
   # library(crayon)
   #   
   # 
-}
+# }
 
 
 

@@ -17,7 +17,7 @@ Description: Analyze repertory grids, a qualitative-quantitative
     Fransella, Bell, & Bannister, 2004, ISBN: 978-0-470-09080-0). The package is part of the 
     OpenRepGrid project (http://www.openrepgrid.org).
 Version: 0.1.14
-Date: 2020-05-22
+Date: 2020-05-23
 Encoding: UTF-8
 URL: https://github.com/markheckmann/OpenRepGrid
 Imports:
@@ -41,7 +41,8 @@ Imports:
     openxlsx,
     tidyr,
     dplyr,
-    scales
+    scales,
+    igraph
 Collate:
     'bertin.r'
     'calc.r'
