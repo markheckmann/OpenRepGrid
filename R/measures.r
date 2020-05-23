@@ -326,6 +326,7 @@ print.indexIntensity <- function(x, digits = 2, ...)
 #'   * Correlations: `pearson`, `kendall`, `spearman`
 #' @param p       The power of the Minkowski distance, in case `minkowski` is used as argument 
 #'                for `method`, otherwise it is ignored.
+#' @param round   Round average rating scores for 'others' to closest integer?
 #' @author    Mark Heckmann, José Antonio González Del Puerto
 #' @return    List object of class `indexSelfConstruction`, containing
 #'            the results from the calculations:
@@ -347,8 +348,9 @@ print.indexIntensity <- function(x, digits = 2, ...)
 #' @example inst/examples/example-indexSelfConstruction.R
 #' @md
 #' 
-indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal), 
-                                  method = "euclidean", p = 2)
+indexSelfConstruction <- function(
+  x, self, ideal, others = c(-self, -ideal), 
+  method = "euclidean", p = 2, round = FALSE)
 {
   # sanity/arg checks
   if (!is.repgrid(x))
@@ -378,7 +380,8 @@ indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
     warning("'ideal' is also contained in 'others'", call. = FALSE)
   
   # build a new 'others' element as average rating of all others elements
-  x <- addAvgElement(x, name = "others", i = others)
+  digits <- ifelse(round, 0, Inf)
+  x <- addAvgElement(x, name = "others", i = others, digits = digits)
   i_others <- ncol(x)
   
   # Select method and get measures
@@ -408,6 +411,7 @@ indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
     grid = x[, c(self, ideal, i_others)],
     method_type = method_type,
     method = method,
+    round = round,
     self_element = enames[self],
     ideal_element = enames[ideal],
     other_elements = enames[others],
@@ -430,8 +434,9 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
   cat("=================")
   cat("\nCOGNITIVE PROFILE\n")
   cat("=================\n")
-  cat("\nMEASURE\n\n")
-  cat(" ", l$method, l$method_type)
+  cat("\n Mean ratings for 'others' were rounded to closest integer: ", l$round)
+  cat("\n\nMEASURE\n")
+  cat("\n ", l$method, l$method_type)
   if (l$method_type == "correlation") {
     cat(crayon::blue(
       strwrap("Note: All correlations use Cohen's rc version which is invariant to construct reflections",

@@ -10,7 +10,8 @@ indexSelfConstruction(
   ideal,
   others = c(-self, -ideal),
   method = "euclidean",
-  p = 2
+  p = 2,
+  round = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ indexSelfConstruction(
 
 \item{p}{The power of the Minkowski distance, in case \code{minkowski} is used as argument
 for \code{method}, otherwise it is ignored.}
+
+\item{round}{Round average rating scores for 'others' to closest integer?}
 }
 \value{
 List object of class \code{indexSelfConstruction}, containing

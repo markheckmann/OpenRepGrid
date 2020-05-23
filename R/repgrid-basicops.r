@@ -859,16 +859,21 @@ addElement <- function(x, name = NA, scores = NA, abbreviation = NA, status = NA
 #' @param i Indexes of elements to be averaged across. Negative indexes can be
 #'   used to exclude elements from the complete set. Duplicate indexes are
 #'   allowed but a warning is issued.
+#' @param digits Digits to round mean value to. By default no rounding is used
+#'   (`digits = Inf`). Use `digits = 0` to round to nearest integer, i.e. only
+#'   using original integer rating scores.
 #' @return A `repgrid` object with additional new element.
 #' @export
 #' @md
 #' @examples
 #' addAvgElement(feixas2004, "others", i = 2:12)
+#' addAvgElement(feixas2004, "others", i = 2:12, round = 0) # integers
 #' 
 #' # exluding elements via negative indexes
 #' addAvgElement(feixas2004, "others", i = c(-1,-13))
 #' 
-addAvgElement <- function(x, name = "avg", i) 
+#' 
+addAvgElement <- function(x, name = "avg", i, digits = Inf) 
 {
   if (!is.repgrid(x))
     stop("'x' must be a repgrid object", call. = FALSE)
@@ -890,6 +895,7 @@ addAvgElement <- function(x, name = "avg", i)
   
   R <- ratings(x)
   mean_ratings <- rowMeans(R[, i, drop = FALSE])
+  mean_ratings <- round(mean_ratings, digits = digits)
   x <- addElement(x, name = name, scores = mean_ratings)
   x
 }
