@@ -117,13 +117,16 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
 #' Get or replace construct poles 
 #' 
 #' Allows to get and set construct poles. 
-#' Replaces the older functions \code{getConstructNames}, \code{getConstructNames2},
-#' and \code{eNames} which are deprecated.
+#' Replaces the older functions `getConstructNames`, `getConstructNames2`,
+#' and `eNames` which are deprecated.
 #' 
 #' @param  x A repgrid object.
 #' @param value Character vector of poles.
+#' @param collapse Return vector with both poles instead.
+#' @param sep Seperator if `collapse = TRUE`, default is `" - "`.
 #' @rdname constructs
 #' @export
+#' @md
 #' @examples 
 #' 
 #' # shorten object name
@@ -133,6 +136,7 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
 #' constructs(x)   # both left and right poles
 #' leftpoles(x)    # left poles only
 #' rightpoles(x)
+#' constructs(x, collapse = TRUE)
 #' 
 #' ## replace construct poles
 #' constructs(x)[1,1] <- "left pole 1"
@@ -148,18 +152,23 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
 #' # replace left poles of constructs 1 and 3
 #' leftpoles(x)[c(1,3)] <- c("new left pole 1", "new left pole 3")
 #'  
-constructs <- function(x)
+constructs <- function(x, collapse = FALSE, sep = " - ")
 {
   # check if x is a repgrid object
   if (!inherits(x, "repgrid")) 
     stop("Object x must be of class 'repgrid'.")
   
   # get left and right pole name properties from each construct
-  data.frame(
+  df <- data.frame(
     leftpole = leftpoles(x),
     rightpole = rightpoles(x), 
     stringsAsFactors = FALSE
   )
+  if (collapse) {
+    res <- paste0(df$leftpole, sep, df$rightpole)
+    return(res)
+  }
+  df
 }
 
 

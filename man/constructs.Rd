@@ -9,7 +9,7 @@
 \alias{rightpoles<-}
 \title{Get or replace construct poles}
 \usage{
-constructs(x)
+constructs(x, collapse = FALSE, sep = " - ")
 
 constructs(x, i, j) <- value
 
@@ -24,10 +24,14 @@ rightpoles(x, position) <- value
 \arguments{
 \item{x}{A repgrid object.}
 
+\item{collapse}{Return vector with both poles instead.}
+
+\item{sep}{Seperator if \code{collapse = TRUE}, default is \code{" - "}.}
+
 \item{value}{Character vector of poles.}
 }
 \description{
-Allows to get and set construct poles. 
+Allows to get and set construct poles.
 Replaces the older functions \code{getConstructNames}, \code{getConstructNames2},
 and \code{eNames} which are deprecated.
 }
@@ -40,6 +44,7 @@ x <- boeker
 constructs(x)   # both left and right poles
 leftpoles(x)    # left poles only
 rightpoles(x)
+constructs(x, collapse = TRUE)
 
 ## replace construct poles
 constructs(x)[1,1] <- "left pole 1"

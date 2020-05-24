@@ -254,9 +254,9 @@ indexPvaff <- function(x, method = 1)
 #' 
 indexIntensity <- function(x, rc = FALSE, trim = 30)
 {
-  if (!inherits(x, "repgrid")) 
-    stop("Object must be of class 'repgrid'")
- 
+  if (!is.repgrid(x)) 
+    stop("'x' must be 'repgrid' object", call. = FALSE)
+  
   cr <- constructCor(x, trim = trim)
   nc <- getNoOfConstructs(x)
   diag(cr) <- 0                                           # out zeros in diagonal (won't have an effect)
@@ -326,6 +326,128 @@ print.indexIntensity <- function(x, digits = 2, output = "TCE")
     df.e.int <- data.frame(intensity = x$e.int)
     rownames(df.e.int) <- paste(seq_along(x$e.int), names(x$e.int))
     print(round(df.e.int, digits))
+  }
+}
+
+
+#' Polarization (percentage of extreme ratings)
+#'
+#' Polarization is the percentage of extreme ratings, e.g. the values 1 and 7
+#' for a grid with a 7-point ratings scale.
+#'
+#' @param x A `repgrid` object.
+#' @param deviation The maximal deviation from the end of the rating scale for
+#'   values to be considered an 'extreme' rating. By default only values that
+#'   lie directly on ends of the ratings scales are considered 'extreme'
+#'   (default = `0`).
+#' @return List of class `indexPolarization`:
+#' 
+#'  * `scale`: Minimum and maximum of grid rating scale.
+#'  * `lower,upper` Lower and upper value to decide which ratings are considered extreme.
+#'  * `polarization_total`: Grid's overall polarization.
+#'  * `polarization_total`: Grid's overall polarization.
+#'  * `polarization_total`: Grid's overall polarization.
+#'    
+#' @example inst/examples/example-indexPolarization.R
+#' @export
+#' @md  
+indexPolarization <- function(x, deviation = 0) 
+{
+  if (!is.repgrid(x))
+    stop("'x' must be 'repgrid' object", call. = FALSE)
+  
+  R <- ratings(x)
+  sc <- getScale(x)
+  lower <-  sc["min"] + deviation
+  upper <- sc["max"] - deviation
+  i_low <- R <= lower
+  i_high <- R >= upper
+  ii <- i_low | i_high
+  K <- R
+  K[,] <- ii  # indicator matrix 0/1
+  R[!ii] <- NA
+  
+  l <- list(
+    scale = sc,
+    lower = lower,
+    upper = upper,
+    polarization_total = data.frame(
+      Ratings = prod(dim(x)),
+      Extreme = sum(K),
+      Polarization = mean(K)
+    ),
+    polarization_constructs = data.frame(
+      Construct = constructs(x, collapse = TRUE),
+      Ratings = unname(ncol(x)),
+      Extremes = unname(rowSums(K)),
+      Polarization = unname(rowMeans(K))
+    ),
+    polarization_elements = data.frame(
+      Element = elements(x),
+      Ratings = unname(nrow(x)),
+      Extremes = unname(colSums(K)),
+      Polarization = unname(colMeans(K))
+    )
+  )
+  class(l) <- c("indexPolarization", class(l))
+  l
+}
+
+
+#' Print method for class indexPolarization.
+#' 
+#' @param x         Object of class indexPolarization.
+#' @param output    String with each letter indicating which parts of the output to print 
+#'                  (default is `"ITCE"`, order does not matter):
+#'                  `I` = Information,
+#'                  `T` = Total Intensity,
+#'                  `C` = Constructs' itenstities,
+#'                  `E` = Elements' itenstities.
+#' @export
+#' @method          print indexPolarization
+#' @keywords        internal
+#' @md
+#'
+print.indexPolarization <- function(x, output = "ITCE")
+{
+  output <- toupper(output)
+  
+  cat("\n##################")
+  cat("\nPolarization index")
+  cat("\n##################\n")
+  
+  ## I = Info
+  if (str_detect(output, "I")) {
+    cat("\nThe grid is rated on a scale from", 
+        x$scale["min"], "(left pole) to", x$scale["max"], "(right pole)")
+    cat("\nExtreme ratings are ratings <=", x$lower, "or >=", x$upper)
+  }
+  
+  ## T = Total
+  if (str_detect(output, "T")) {
+    cat("\n\n")
+    cat(bold("\nPOLARIZATION OVERALL\n\n"))
+    x$polarization_total %>% mutate(
+      Polarization = scales::percent(Polarization, .1)
+    ) %>% print
+  }
+  
+  ## C = Constructs
+  if (str_detect(output, "C")) {
+    cat("\n")
+    cat(bold("\nPOLARIZATION BY CONSTRUCT\n\n"))
+    x$polarization_constructs %>% mutate(
+      Polarization = scales::percent(Polarization, .1)
+    ) %>% print
+  }
+  
+  ## E = Elements
+  if (str_detect(output, "E")) {
+    cat("\n")
+    cat(bold("\nPOLARIZATION BY ELEMENT\n\n"))
+    x$polarization_elements %>% mutate(
+      Polarization = scales::percent(Polarization, .1)
+    ) %>% print
   }
 }
 

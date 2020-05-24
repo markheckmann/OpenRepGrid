@@ -9,9 +9,11 @@
   * add tests
   * polarization
   * dilemmatic constructs
+  * biplot with others in one function (see email José)
   
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * add indexPolarization 
   * new print option for indexIntensity
   * normalize argument in distance and indexSelfConstruction
   * plot method for indexDilemma to produce network graphs
