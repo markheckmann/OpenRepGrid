@@ -867,7 +867,7 @@ addElement <- function(x, name = NA, scores = NA, abbreviation = NA, status = NA
 #' @md
 #' @examples
 #' addAvgElement(feixas2004, "others", i = 2:12)
-#' addAvgElement(feixas2004, "others", i = 2:12, round = 0) # integers
+#' addAvgElement(feixas2004, "others", i = 2:12, digits = 0) # integers
 #' 
 #' # exluding elements via negative indexes
 #' addAvgElement(feixas2004, "others", i = c(-1,-13))
