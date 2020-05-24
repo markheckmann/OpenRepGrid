@@ -348,9 +348,9 @@ print.indexIntensity <- function(x, digits = 2, ...)
 #' @example inst/examples/example-indexSelfConstruction.R
 #' @md
 #' 
-indexSelfConstruction <- function(
-  x, self, ideal, others = c(-self, -ideal), 
-  method = "euclidean", p = 2, round = FALSE)
+indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal), 
+                                  method = "euclidean", p = 2, normalize = TRUE, 
+                                  round = FALSE)
 {
   # sanity/arg checks
   if (!is.repgrid(x))
@@ -392,7 +392,7 @@ indexSelfConstruction <- function(
   method_type <- NA
   if (method %in% distances) {
     method_type <- "distance"
-    S <- distance(x, along = 2, dmethod = method, p = p)
+    S <- distance(x, along = 2, dmethod = method, p = p, normalize = normalize)
   } 
   if (method %in% c("pearson", "kendall", "spearman")) {
     method_type <- "correlation"
@@ -411,6 +411,7 @@ indexSelfConstruction <- function(
     grid = x[, c(self, ideal, i_others)],
     method_type = method_type,
     method = method,
+    normalize = normalize,
     round = round,
     self_element = enames[self],
     ideal_element = enames[ideal],
@@ -436,7 +437,8 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
   cat("=================\n")
   cat("\n  Mean ratings for 'others' rounded to closest integer: ", l$round)
   cat("\n\nMEASURE\n")
-  cat("\n ", l$method, l$method_type)
+  normalized <- ifelse(l$normalize, "normalized", "")
+  cat("\n ", normalized, l$method, l$method_type)
   if (l$method_type == "correlation") {
     cat(crayon::blue(
       strwrap("Note: All correlations use Cohen's rc version which is invariant to construct reflections",

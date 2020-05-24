@@ -9,6 +9,7 @@ distance(
   along = 1,
   dmethod = "euclidean",
   p = 2,
+  normalize = FALSE,
   trim = 20,
   index = TRUE,
   ...
@@ -28,6 +29,10 @@ For additional information on the different types type
 
 \item{p}{The power of the Minkowski distance, in case \code{"minkowski"}
 is used as argument for \code{dmethod}.}
+
+\item{normalize}{Use normalized distances. The distances are divided by the 
+highest possible value given the rating sclae fo the grid, 
+so all distances are in the interval [0,1].}
 
 \item{trim}{The number of characters a construct or element is trimmed to (default is
 \code{20}). If \code{NA} no trimming occurs. Trimming
@@ -51,22 +56,24 @@ Various distance measures between elements or constructs are calculated.
 \dontrun{
 
    # between constructs
-   distance(bell2010, along=1)
+   distance(bell2010, along = 1)
+   distance(bell2010, along = 1, normalize = TRUE)
+   
    # between elements
-   distance(bell2010, along=2)
+   distance(bell2010, along = 2)
  
    # several distance methods
-   distance(bell2010, dm="man")         # manhattan distance
-   distance(bell2010, dm="mink", p=3)   # minkowski metric to the power of 3
+   distance(bell2010, dm = "man")           # manhattan distance
+   distance(bell2010, dm = "mink", p = 3)   # minkowski metric to the power of 3
 
    # to save the results without printing to the console
-   d <- distance(bell2010, trim=7)
+   d <- distance(bell2010, trim = 7)
    d
    
    # some more options when printing the distance matrix
-   print(d, digits=5)
-   print(d, col.index=FALSE)
-   print(d, upper=FALSE)
+   print(d, digits = 5)
+   print(d, col.index = FALSE)
+   print(d, upper = FALSE)
    
    # accessing entries from the matrix
    d[1,3]

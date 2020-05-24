@@ -15,6 +15,9 @@
 #'                    \code{?dist}. 
 #' @param  p          The power of the Minkowski distance, in case \code{"minkowski"}
 #'                    is used as argument for \code{dmethod}.
+#' @param normalize   Use normalized distances. The distances are divided by the 
+#'                    highest possible value given the rating sclae fo the grid, 
+#'                    so all distances are in the interval [0,1].
 #' @param trim        The number of characters a construct or element is trimmed to (default is
 #'                    \code{20}). If \code{NA} no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs
@@ -31,30 +34,32 @@
 #' @examples \dontrun{
 #'
 #'    # between constructs
-#'    distance(bell2010, along=1)
+#'    distance(bell2010, along = 1)
+#'    distance(bell2010, along = 1, normalize = TRUE)
+#'    
 #'    # between elements
-#'    distance(bell2010, along=2)
+#'    distance(bell2010, along = 2)
 #'  
 #'    # several distance methods
-#'    distance(bell2010, dm="man")         # manhattan distance
-#'    distance(bell2010, dm="mink", p=3)   # minkowski metric to the power of 3
+#'    distance(bell2010, dm = "man")           # manhattan distance
+#'    distance(bell2010, dm = "mink", p = 3)   # minkowski metric to the power of 3
 #'
 #'    # to save the results without printing to the console
-#'    d <- distance(bell2010, trim=7)
+#'    d <- distance(bell2010, trim = 7)
 #'    d
 #'    
 #'    # some more options when printing the distance matrix
-#'    print(d, digits=5)
-#'    print(d, col.index=FALSE)
-#'    print(d, upper=FALSE)
+#'    print(d, digits = 5)
+#'    print(d, col.index = FALSE)
+#'    print(d, upper = FALSE)
 #'    
 #'    # accessing entries from the matrix
 #'    d[1,3]
 #'
 #' }
 #'
-distance <- function(x, along=1, dmethod="euclidean", 
-                     p=2, trim=20, index=TRUE, ...)
+distance <- function(x, along = 1, dmethod = "euclidean", 
+                     p = 2, normalize = FALSE, trim = 20, index = TRUE, ...)
 {  
   dmethods <- c("euclidean", "maximum", "manhattan",    # possible distance methods
                 "canberra", "binary", "minkowski")
@@ -67,11 +72,45 @@ distance <- function(x, along=1, dmethod="euclidean",
     r <- t(r)
   d <- dist(r, method = dmethod, p = p, ...)
   d <- as.matrix(d) 
-  d <- addNamesToMatrix2(x, d, index=index, trim=trim, along=along)  
+  d <- addNamesToMatrix2(x, d, index = index, trim = trim, along = along)  
   class(d) <-  c("distance", "matrix")
-  attr(d, "arguments") <- list(along=along, dmethod=dmethod, p=p, 
-                               notes=NULL, cutoff=NULL)
+  attr(d, "arguments") <- list(along = along, dmethod = dmethod, p = p, 
+                               notes = NULL, cutoff = NULL,
+                               normalize = normalize)
+  
+  # normalize distances
+  if (normalize) {
+    mx <- dist_minmax(x, along = along, dmethod = dmethod, p = p, max.only = TRUE)
+    d <- d / mx
+  }
+  
   return(d)
+}
+
+
+#' Calculate minimal and maximal possible distance
+#' 
+#' While the minimal distance will usually be zero,
+#' the maximal distance can be used to normalize arbitrary distances.
+#' 
+dist_minmax <- function(x, along = 1, dmethod = "euclidean", p = 2, max.only = FALSE) 
+{
+  R <- ratings(x)
+  # constructs = 1, elements = 2
+  if (along == 2) {
+    R <- t(R)
+  } 
+  r3 <- r2 <- r1 <- R[1, , drop = FALSE] # make it work with single constructs or element
+  sc <- getScale(x)
+  r1[ , ] <- sc["min"]
+  r2[ , ] <- sc["min"]
+  r3[ , ] <- sc["max"]
+  r <- rbind(r1, r2, r3)
+  d <- dist(r, method = dmethod, p = p)
+  minmax <- range(as.vector(d))
+  if (max.only)
+    return(minmax[2])
+  minmax
 }
 
 
@@ -95,18 +134,18 @@ distance <- function(x, along=1, dmethod="euclidean",
 #' @method            print distance
 #' @keywords          internal
 #'
-print.distance <- function(x, digits=2, col.index=TRUE,
-                           upper=TRUE, diag=FALSE, cutoffs=NA, ...)
+print.distance <- function(x, digits = 2, col.index = TRUE,
+                           upper = TRUE, diag = FALSE, cutoffs = NA, ...)
 {
   diag <- !diag                   # convert as used in upper.tri
   args <- attr(x, "arguments")
   d <- x
   class(d) <- "matrix" 
   d <- round(d, digits)     
-  e <- format(d, nsmall=digits)   # convert to characters for printing
+  e <- format(d, nsmall = digits)   # convert to characters for printing
   
   ## console output ##  
-  blank <- paste(rep(" ",  max(nchar(as.vector(e)))), collapse="", sep="")
+  blank <- paste(rep(" ",  max(nchar(as.vector(e)))), collapse = "", sep = "")
   
   # remove values above or below explicit cutoff
   if (!is.na(cutoffs[1])) { 
@@ -115,7 +154,7 @@ print.distance <- function(x, digits=2, col.index=TRUE,
   }
   
   if (upper)
-    e[lower.tri(e, diag=diag)] <- blank
+    e[lower.tri(e, diag = diag)] <- blank
   # make index column for neater colnames
   if (col.index)                                   
     e <- addIndexColumnToMatrix(e) else
@@ -130,9 +169,10 @@ print.distance <- function(x, digits=2, col.index=TRUE,
     cat("\nDistances between elements") 
     cat("\n##########################")
   }
-  cat("\n\nDistance method: ", args$dmethod, "\n")
+  cat("\n\nDistance method: ", args$dmethod)
   if (args$dmethod == "minkowski")
-    cat("power p:", args$p, "\n")
+    cat("\nPower p:", args$p)
+  cat("\nNormalized:", args$normalize)
   cat("\n")
   print(e) 
   if (!is.null(args$notes))

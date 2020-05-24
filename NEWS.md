@@ -11,6 +11,7 @@
   
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * normalize argument in distance and indexSelfConstruction
   * plot method for indexDilemma to produce network graphs
   * add logo to documetation
   * cognitive self construction: self vs. ideal vs. others (indexSelfConstruction)
