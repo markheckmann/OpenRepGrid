@@ -4,15 +4,19 @@
 \alias{print.indexIntensity}
 \title{Print method for class indexIntensity.}
 \usage{
-\method{print}{indexIntensity}(x, digits = 2, ...)
+\method{print}{indexIntensity}(x, digits = 2, output = "TCE")
 }
 \arguments{
 \item{x}{Object of class indexIntensity.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
+\item{digits}{Numeric. Number of digits to round to (default is
 \code{2}).}
 
-\item{...}{Not evaluated.}
+\item{output}{String with each letter indicating which parts of the output to print
+(default is \code{"TCE"}, order does not matter):
+\code{T} = Total Intensity,
+\code{C} = Constructs' itenstities,
+\code{E} = Elements' itenstities.}
 }
 \description{
 Print method for class indexIntensity.

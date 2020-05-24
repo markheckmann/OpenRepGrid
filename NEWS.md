@@ -7,10 +7,12 @@
   * Redo printing 
   * move gh-pages to /docs folder
   * add tests
-  * add normalized distances
+  * polarization
+  * dilemmatic constructs
   
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * new print option for indexIntensity
   * normalize argument in distance and indexSelfConstruction
   * plot method for indexDilemma to produce network graphs
   * add logo to documetation

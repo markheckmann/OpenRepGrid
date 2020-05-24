@@ -287,29 +287,46 @@ indexIntensity <- function(x, rc = FALSE, trim = 30)
 #' @param x         Object of class indexIntensity.
 #' @param digits    Numeric. Number of digits to round to (default is 
 #'                  \code{2}).
-#' @param ...       Not evaluated.
+#' @param output    String with each letter indicating which parts of the output to print 
+#'                  (default is `"TCE"`, order does not matter):
+#'                  `T` = Total Intensity,
+#'                  `C` = Constructs' itenstities,
+#'                  `E` = Elements' itenstities.
 #' @export
 #' @method          print indexIntensity
 #' @keywords        internal
+#' @md
 #'
-print.indexIntensity <- function(x, digits = 2, ...)
+print.indexIntensity <- function(x, digits = 2, output = "TCE")
 {
+  output <- toupper(output)
+  
   cat("\n################")
   cat("\nIntensity index")
   cat("\n################")
-  cat("\n\nTotal intensity:", round(x$total.int, digits), "\n")
   
-  cat("\n\nAverage intensity of constructs:", round(x$c.int.mean, digits), "\n")
-  cat("\nItensity by construct:\n")
-  df.c.int <- data.frame(intensity = x$c.int)
-  rownames(df.c.int) <- paste(seq_along(x$c.int), names(x$c.int))
-  print(round(df.c.int, digits))
+  ## T = Total
+  if (str_detect(output, "T")) {
+    cat("\n\nTotal intensity:", round(x$total.int, digits), "\n")
+  }
   
-  cat("\n\nAverage intensity of elements:", round(x$e.int.mean, digits), "\n")
-  cat("\nItensity by element:\n")
-  df.e.int <- data.frame(intensity = x$e.int)
-  rownames(df.e.int) <- paste(seq_along(x$e.int), names(x$e.int))
-  print(round(df.e.int, digits))
+  ## C = Constructs
+  if (str_detect(output, "C")) {
+    cat("\n\nAverage intensity of constructs:", round(x$c.int.mean, digits), "\n")
+    cat("\nItensity by construct:\n")
+    df.c.int <- data.frame(intensity = x$c.int)
+    rownames(df.c.int) <- paste(seq_along(x$c.int), names(x$c.int))
+    print(round(df.c.int, digits))
+  }
+  
+  ## E = Elements
+  if (str_detect(output, "E")) {
+    cat("\n\nAverage intensity of elements:", round(x$e.int.mean, digits), "\n")
+    cat("\nItensity by element:\n")
+    df.e.int <- data.frame(intensity = x$e.int)
+    rownames(df.e.int) <- paste(seq_along(x$e.int), names(x$e.int))
+    print(round(df.e.int, digits))
+  }
 }
 
 
@@ -456,8 +473,6 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
   cat("\n  * others:", strwrap(paste(l$other_elements, collapse = ", "), width = w - 12, exdent = 12, prefix = "\n", initial = ""))
   cat("\n")
 }
-
-
 
 
 # # Alternative using cli package. I do not like the look
