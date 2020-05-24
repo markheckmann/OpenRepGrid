@@ -92,6 +92,7 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
   round(res, digits)
 }
 
+
 # . ----
 # ___________________ ----
 #//////////////////////////////////////////////////////////////////////////////
@@ -563,6 +564,7 @@ indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
   l
 }
 
+
 #' Print method for indexSelfConstruction
 #' @export
 #' @keywords internal
@@ -661,9 +663,9 @@ print.indexConflict1 <- function(x, digits=1, ...)
   cat("\nNumber of imbalanced triads:",x$imbalanced)
   
   cat("\n\nProportion of balanced triads:", 
-      round(x$prop.balanced * 100, digits=digits), "%")
+      round(x$prop.balanced * 100, digits = digits), "%")
   cat("\nProportion of imbalanced triads:", 
-      round(x$prop.imbalanced * 100, digits=digits), "%")
+      round(x$prop.imbalanced * 100, digits = digits), "%")
 }
 
 
@@ -858,7 +860,7 @@ indexConflict2 <- function(x, crit = .03)
   
   for (i in 1:nrow(comb)) {	
     z.triad <- z[t(combn(comb[i, ], 2))]      # z-values of triad
-    ind <- order(abs(z.triad), decreasing=T)  # order for absolute magnitude
+    ind <- order(abs(z.triad), decreasing = TRUE)  # order for absolute magnitude
     z.triad <- z.triad[ind]               # reorder z values by magnitude               
     z.12 <- prod(z.triad[1:2])            # product of two biggest z values
     z.3 <- z.triad[3]                     # minimal absolute z value
@@ -892,9 +894,9 @@ indexConflict2Out1 <- function(x, digits=1)
   cat("\n\nTotal number of triads:", x$total)
   cat("\nNumber of imbalanced triads:", x$imbalanced)  
   cat("\n\nProportion of balanced triads:", 
-      round(x$prop.balanced * 100, digits=digits), "%")
+      round(x$prop.balanced * 100, digits = digits), "%")
   cat("\nProportion of imbalanced triads:", 
-      round(x$prop.imbalanced * 100, digits=digits), "%\n")
+      round(x$prop.imbalanced * 100, digits = digits), "%\n")
 }
 
 
@@ -1051,18 +1053,18 @@ indexConflict3 <- function(x, p = 2,
   conflict.e  <- rep(0, ne)
   conflict.c  <- rep(0, nc)
   conflict.total <- 0
-  conflicts.potential <-  ne * nc * (nc -1 ) / 2
+  conflicts.potential <-  ne * nc * (nc - 1 ) / 2
   # e is i, c1 is j and c2 is k in Bell's Fortran code
   
   for (e in seq_len(ne)) {
     # average distance between constructs c1 and c2 not taking into account
     # the element under consideration. Generalization for any minkwoski metric
-    dc <- dist(s[, -e], method="minkowski", p=p) / (ne - 1)^(1 / p)     # Bell averages the unsquared distances (euclidean), 
+    dc <- dist(s[, -e], method = "minkowski", p = p) / (ne - 1)^(1 / p)     # Bell averages the unsquared distances (euclidean), 
     dc <- as.matrix(dc)   # convert dist object to matrix             # i.e. divide euclidean dist by root of n or p in the general case
     
     for (c1 in seq_len(nc)) {
       for (c2 in seq_len(nc)) {
-        if (c1 < c2){
+        if (c1 < c2) {
           d.jk <- dc[c1, c2]
           d.ij <- s[c1, e]
           d.ik <- s[c2, e]
@@ -1071,16 +1073,16 @@ indexConflict3 <- function(x, p = 2,
           # than the sum of the other two distances. The magnitude it is bigger
           # is recorded in disc (discrepancy)
           if (d.ij > (d.ik + d.jk))
-            disc <- d.ij-(d.ik + d.jk) else 
+            disc <- d.ij - (d.ik + d.jk) else 
               if (d.ik > (d.ij + d.jk))
-                disc <- d.ik-(d.ij + d.jk) else 
+                disc <- d.ik - (d.ij + d.jk) else 
                   if (d.jk > (d.ij + d.ik))
                     disc <- d.jk - (d.ij + d.ik) else 
                       disc <- NA
           
           # store size of discrepancy in confict.disc and record discrepancy
           # by element (confict.e) construct (confict.c) and overall (confict.total)
-          if (!is.na(disc)){
+          if (!is.na(disc)) {
             conflict.disc[c1, c2, e]  <- disc
             conflict.disc[c2, c1, e]  <- disc
             conflict.e[e]  <- conflict.e[e] + 1       
@@ -1095,9 +1097,9 @@ indexConflict3 <- function(x, p = 2,
   
   # add e and c names to results
   dimnames(conflict.disc)[[3]] <- enames  
-  conflict.e.df <- data.frame(percentage=conflict.e)
+  conflict.e.df <- data.frame(percentage = conflict.e)
   rownames(conflict.e.df) <- enames
-  conflict.c.df <- data.frame(percentage=conflict.c)
+  conflict.c.df <- data.frame(percentage = conflict.c)
   rownames(conflict.c.df) <- cnames
   
   
@@ -1109,12 +1111,12 @@ indexConflict3 <- function(x, p = 2,
     
     e.disc.no <- apply(!is.na(e.disc.na), 2, sum)           # number of conflicts per construct   
     e.disc.perc <- e.disc.no / sum(e.disc.no) * 100         # no conf. per as percentage
-    e.disc.perc.df <- data.frame(percentage=e.disc.perc)      # convert to dataframe
+    e.disc.perc.df <- data.frame(percentage = e.disc.perc)  # convert to dataframe
     rownames(e.disc.perc.df) <- cnames                      # add rownames
     
     n.conflict.pairs <-  sum(e.disc.no) / 2                 # number of conflicting construct pairs all elements
     disc.avg <- mean(e.disc.0)                              # average level of discrepancy
-    disc.sd <- sd(as.vector(e.disc.na), na.rm=T)            # sd of discrepancies
+    disc.sd <- sd(as.vector(e.disc.na), na.rm = TRUE)       # sd of discrepancies
     
     disc.stand <- (e.disc.na - disc.avg) / disc.sd          # standardized discrepancy
     
@@ -1139,7 +1141,7 @@ indexConflict3 <- function(x, p = 2,
     c1.disc.0[is.na(c1.disc.0)] <- 0                     # replace NAs by zeros
     
     disc.avg <- mean(c1.disc.0)                          # average level of discrepancy
-    disc.sd <- sd(as.vector(c1.disc.na), na.rm=TRUE)     # sd of discrepancies
+    disc.sd <- sd(as.vector(c1.disc.na), na.rm = TRUE)   # sd of discrepancies
     list(c1 = c1, 
          disc = c1.disc.na,
          avg = disc.avg,
@@ -1156,7 +1158,7 @@ indexConflict3 <- function(x, p = 2,
           e.select <- NA
   
   e.stats <- list()               # list with detailed results
-  if (!is.na(e.select[1])){
+  if (!is.na(e.select[1])) {
     for (e in seq_along(e.select))
       e.stats[[e]] <- conflictAttributedByConstructForElement(e.select[e]) 
     names(e.stats) <- enames[e.select]   
@@ -1171,7 +1173,7 @@ indexConflict3 <- function(x, p = 2,
           c.select <- NA
   
   c.stats <- list()               # list with detailed results
-  if (!is.na(c.select[1])){
+  if (!is.na(c.select[1])) {
     for (c in seq_along(c.select))
       c.stats[[c]] <- conflictAttributedByElementForConstruct(c.select[c])
     names(c.stats) <- cnames[c.select]   
@@ -1182,7 +1184,7 @@ indexConflict3 <- function(x, p = 2,
               overall = conflict.total/conflicts.potential * 100,
               e.count = conflict.e,
               e.perc = conflict.e.df / conflict.total * 100,
-              c.count= conflict.c,
+              c.count = conflict.c,
               c.perc = .5 * conflict.c.df / conflict.total * 100,
               e.stats = e.stats,
               c.stats = c.stats,
