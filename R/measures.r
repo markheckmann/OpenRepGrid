@@ -178,6 +178,150 @@ indexPvaff <- function(x, method = 1)
 # }
 
 
+#' Dilemmatic constructs
+#'
+#' A Dilemmatic Construct (DC) is one where the ideal element is rated on the
+#' scale midpoint. This means, the person cannot decide which of the poles is
+#' preferable. Such constructs are called "dilemmatic". For example, on a rating
+#' scale from 1 to 7, a rating of 4 on the ideal element means that the
+#' construct is dilemmatic. By definition, DCs can only emerge in scales with an
+#' uneven number of rating options, i.e. 5-point scale, 7-point scale etc.
+#' However, the function makes it possible to allow for a deviation from the
+#' midpoint, to still count as dilemmatic. This is useful if the grid uses a
+#' large rating scale, e.g. from 0 to 100 or a visual analog scale, as some grid
+#' administration programs do. In this case you may want to set ratings, for
+#' example, between 45 and 55 as close enough to the midpoint to indicate that
+#' both poles are equally desirable.
+#' 
+#' @param x A `repgrid` object.
+#' @param deviation The maximal deviation from the scale midpoint for an ideal
+#'   rating to be considered dilemmatic (default = `0`). For scales larger than
+#'   a 17-point rating scale a warning is raised, if deviation is `0` (see
+#'   details).
+#' @return List of class `indexDilemmatic`:
+#' 
+#'  * `ideal`: Name of the ideal element.
+#'  * `n_constructs` Number of grid's constructs.
+#'  * `scale`: Minimum and maximum of grid rating scale.
+#'  * `midpoint`: Midpoint of rating scale.
+#'  * `lower,upper`: Lower and upper value to for a rating to be considered in the midpoint range.
+#'  * `midpoint_range`: Mipoint range as interval.
+#'  * `n_dilemmatic`: Number of dilemmatic constructs.
+#'  * `perc_dilemmatic`: Percentage of constructs which are dilemmatic.
+#'  * `i_dilemmatic`: Index of dilemmatic constructs.
+#'  * `dilemmatic_constructs`: Labels of dilemmatic constructs.
+#'  * `summary`: Summary dataframe.
+#'  
+#' @example inst/examples/example-indexDilemmatic.R
+#' @export
+#' @md  
+indexDilemmatic <- function(x, ideal, deviation = 0, warn = TRUE) 
+{
+  if (!is.repgrid(x))
+    stop("'x' must be 'repgrid' object", call. = FALSE)
+  ne <- ncol(x)
+  if (ideal < 1 || ideal > ncol(x))
+    stop("'ideal' must be in the range from 1 to ", ne, call. = FALSE)
+  
+  # warn if uneven number of rating options
+  n_options <- diff(getScale(x)) + 1
+  if (n_options %% 2 == 0 && warn) {
+    warning("The rating scale has an even number of options (", n_options, "). ",
+            "Dilemmatic constructs usually require an uneven rating scale length (see details)", call. = FALSE)
+  }
+  # warn if uneven number of rating options
+  if (n_options >= 16 && deviation == 0 && warn) {
+    warning("The rating scale is quite long (", n_options, "). ",
+            "You may want to consider allowing deviations from the midpoint (see details)", call. = FALSE)
+  }
+  
+  cnames <- constructs(x, collapse = TRUE)
+  R <- ratings(x)
+  r_ideal <- R[, ideal]
+  m <- midpoint(x)
+  sc <- getScale(x)
+  lower <-  m - deviation
+  upper <- m + deviation
+  i_low <- r_ideal >= lower
+  i_high <- r_ideal <= upper
+  i_dilemmatic <- i_low & i_high
+  n_dilemmatic <- sum(i_dilemmatic) 
+  midpoint_range <- paste0("[", upper, ", ", lower, "]")
+  
+  df_dilemmatic <- data.frame(
+    Construct = constructs(x, collapse = TRUE),
+    Ideal = unname(r_ideal),
+    MidpointRange = midpoint_range,
+    Dilemmatic = i_dilemmatic
+  )
+  rownames(df_dilemmatic) <- NULL
+  
+  l <- list(
+    ideal = elements(x)[ideal],
+    n_constructs = nrow(x),
+    scale = sc,
+    midpoint = m,
+    deviation = deviation,
+    lower = lower,
+    upper = upper,
+    midpoint_range = midpoint_range,
+    n_dilemmatic = n_dilemmatic,
+    perc_dilemmatic = n_dilemmatic / nrow(x),
+    i_dilemmatic = which(i_dilemmatic),
+    dilemmatic_constructs = cnames[i_dilemmatic],
+    summary = df_dilemmatic
+  )
+  class(l) <- c("indexDilemmatic", class(l))
+  l
+}
+
+
+#' Print method for class indexDilemmatic
+#' 
+#' @param x         Object of class indexDilemmatic
+#' @param output    String with each letter indicating which parts of the output to print 
+#'                  (default is `"SD"`, order does not matter):
+#'                  `S` = Summary,
+#'                  `D` = Details (dilemmatic constructs).
+#' @export
+#' @method          print indexDilemmatic
+#' @keywords        internal
+#' @md
+#'
+print.indexDilemmatic <- function(x, output = "SD")
+{
+  output <- toupper(output)
+  
+  cat("\n#####################")
+  cat("\nDilemmatic Constructs")
+  cat("\n#####################\n")
+  
+  ## I = Info
+  if (str_detect(output, "S")) {
+    cat(bold("\nSUMMARY\n"))
+    cat("\nGrid rating scale:", x$scale["min"], "(left pole) to", x$scale["max"], "(right pole)")
+    cat("\nScale midpoint:", x$midpoint)
+    cat("\nIdeal element:", x$ideal)
+    cat("\nDilemmatic: Constructs with ideal ratings in the interval", x$midpoint_range)
+    cat("\n")
+    cat("\nNo. of dilemmatic constructs:", x$n_dilemmatic)
+    cat("\nPercent dilemmatic constructs: ", scales::percent(x$perc_dilemmatic, .1), 
+        " (", x$n_dilemmatic, "/", x$n_constructs, ")", sep = "")
+  }
+  
+  ## C = Constructs
+  if (str_detect(output, "D")) {
+    cat("\n")
+    cat(bold("\nDETAILS\n\n"))
+    if (x$n_dilemmatic > 0) {
+      x$summary %>% dplyr::filter(Dilemmatic) %>% print
+    } else {
+      cat("  No dilemmatic constructs found.\n")
+    }
+  }
+}
+
+
 #' Calculate intensity index.
 #'
 #' The Intensity index has been suggested by Bannister (1960) as a measure of

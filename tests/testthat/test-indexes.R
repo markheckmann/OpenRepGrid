@@ -48,3 +48,31 @@ test_that("indexSelfConstruction works correctly", {
 
 })
 
+
+test_that("indexDilemmatic works correctly", {
+  
+  # by default, other element are all except self and ideal
+  x <- indexDilemmatic(feixas2004, ideal = 13)
+  expect_true(x$n_dilemmatic == 1)
+  
+  # error is thrown if i is out of range
+  expect_error({
+    x <- indexDilemmatic(feixas2004, ideal = 14)
+  })
+  expect_error({
+    x <- indexDilemmatic(feixas2004, ideal = 0)
+  })
+  
+  # warn for even scale length
+  expect_warning({
+    x <- randomGrid(range = c(1, 6))
+    indexDilemmatic(x, ideal = 1)
+  })
+  # warn for 0 deviation with long scale
+  expect_warning({
+    x <- randomGrid(range = c(0, 100))
+    indexDilemmatic(x, ideal = 1)
+  })
+  
+})
+
