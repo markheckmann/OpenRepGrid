@@ -1873,13 +1873,13 @@ indexDilemmaInternal <- function(x, self, ideal,
   # IID
   # Intensity of the implicative dilemma (IID), quotient of the number of 
   # constructs by the probability of finding implicative dilemmas given the matrix size.
-  iid = sqrt(sum(r^2)) / d * 100  # correct version
-  # iid = sum(r) / d * 100          # incorrect version in Gridcor
+  # iid = sqrt(sum(r^2)) / d * 100    # "correct" version from paper
+  iid = sum(r) / d * 100          # version as in Gridcor (not as in paper)
   
   # PICID
   # proportion of the intensity of constructs of implicative dilemmas
-  picid = sqrt(sum(r^2)) / n_construct_pairs * 100   # correct version
-  # picid = sum(r) / all_construct_combinations * 100  # incorrect version in Gridcor
+  # picid = sqrt(sum(r^2)) / n_construct_pairs * 100   # "correct" version from paper
+  picid = sum(r) / n_construct_pairs * 100  # version in Gridcor (not as in paper)
   
   # gather measures
   measures <- list(

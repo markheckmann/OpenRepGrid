@@ -1,20 +1,22 @@
 # NEWS
 
 # TODO
-  * switch to cli package for console output
+
+  * switch to cli package for console output?
   * make some function generic so they accept repgridlists as well (index functions)
   * Format scripts with RStudio comment headers to make them more readable
-  * Redo printing 
+  * Redo printing wherever necessary
   * move gh-pages to /docs folder
   * add tests
-  * polarization
-  * dilemmatic constructs
   * biplot with others in one function (see email José)
+  * intensity for elements does not yet match
+  * add tests for reorder
   
 # OpenRepGrid 0.1.14 (work in progress)
   
-  * added indexDilemmatic
-  * added indexPolarization 
+  * reorder method to invert construct and/or element order
+  * dilemmatic construct (indexDilemmatic)
+  * polarization measure (indexPolarization)
   * new print option for indexIntensity
   * normalize argument in distance and indexSelfConstruction
   * plot method for indexDilemma to produce network graphs

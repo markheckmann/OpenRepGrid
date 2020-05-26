@@ -1500,6 +1500,46 @@ decouple <- function(x){
 }
 
 
+#' Invert construct and element order
+#' 
+#' @param x  A `repgrid` object.
+#' @param what A string or numeric to indicate if constructs (`"C"`, `1`) or
+#'   elements (`"C"`, `1`), or both (`"CE"`, `12`) shpuld be reversed.
+#' @export
+#' @rdname reorder
+#' @md
+#' @examples 
+#'  
+#' # invert order of constructs
+#' reorder(boeker, "C")
+#' reorder(boeker, 1)
+#' 
+#' # invert order of elements
+#' reorder(boeker, "E")
+#' reorder(boeker, 2)
+#' 
+#' # invert both (default)
+#' reorder(boeker)
+#' reorder(boeker, "CE")
+#' reorder(boeker, 12)
+#' 
+#' # not reordering
+#' reorder(boeker, NA)
+#' 
+reorder.repgrid <- function(x, what = "CE") 
+{
+  if (!is.repgrid(x))
+    stop("Object 'x' must be of class 'repgrid'", call. = FALSE)
+  if (is.null(what) || is.na(what))
+    return(x)
+  what <- toupper(as.character(what))
+  if (str_detect(what, "C|1"))  
+    x <- x[rev(seq_len(nrow(x))), ]
+  if (str_detect(what, "E|2"))  
+    x <- x[, rev(seq_len(ncol(x)))]
+  x
+}
+
 
 
 
