@@ -10,6 +10,18 @@ is.repgrid <- function(x) {
 }
 
 
+#' Raise error if not is repgrid object
+#' @param x Object to test. Raises an error if no `repgrid` object.
+#' @param name Name of tested variable in error message.
+#' @export
+#' @keywords internal
+#' @md
+stop_if_not_is_repgrid <- function(x, name = "x") {
+  if (!is.repgrid(x))
+    stop("Object '", name, "' must have class 'repgrid'", call. = FALSE)
+}
+
+
 ############################# EXTRACT AND SET #################################
 
 ## S4 methods

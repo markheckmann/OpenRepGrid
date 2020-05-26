@@ -28,3 +28,17 @@ test_that("addAvgElement works correctly", {
   })
   
 })
+
+
+test_that("stop_if_not_is_repgrid works correctly", {
+  
+  expect_error(
+    stop_if_not_is_repgrid("a")  
+  )
+  
+  expect_error(
+    stop_if_not_is_repgrid("a", "some_name")  
+  )
+  
+})
+  
