@@ -97,8 +97,13 @@ print_square_matrix <- function(x, names = NA, trim = NA,
 #' 
 #'  * `grid`: The grid used to calculate the matches.
 #'  * `deviation` The deviation parameter.
+#'  * `max_constructs` Maximum possible number of matches across constructs.
+#'  * `max_elements` Maximum possible number of matches across elements.
+#'  * `total_constructs` Total number of matches across constructs.
+#'  * `total_elements` Total number of matches across elements.
 #'  * `constructs`: Matrix with no. of matches for constructs.
 #'  * `elements`: Matrix with no. of matches for elements.
+#'
 #' @export
 #' @md
 #' @example inst/examples/example-matches.R
@@ -124,9 +129,24 @@ matches <- function(x, deviation = 0, diag.na = TRUE)
     diag(M_c) <- NA
     diag(M_e) <- NA
   }
+  
+  # total number of C/E matches 
+  total_constructs <- sum(M_c[upper.tri(M_c)])
+  total_elements <- sum(M_e[upper.tri(M_e)])
+  
+  # maximal number of possible matches
+  nc <- nrow(x)
+  ne <- ncol(x)
+  max_constructs <- unname(ne * nc * (nc - 1) / 2)
+  max_elements <- unname(nc * ne * (ne - 1) / 2)
+  
   l <- list(
     grid = x,
     deviation = deviation,
+    total_constructs = total_constructs,
+    total_elements = total_elements,
+    max_constructs = max_constructs,
+    max_elements = max_elements,
     constructs = unname(M_c),
     elements = unname(M_e)
   )
@@ -175,7 +195,14 @@ print.org.matches <- function(l, output = "ICE", index = TRUE,
   
   ## I = Info
   if (str_detect(output, "I")) {
-    cat("\nMaximal rating difference to count as match: ", l$deviation, "\n")
+    cat("\nMaximal rating difference to count as match: ", l$deviation)
+    cat("\n")
+    cat("\nTotal no. of matches between constructs: ", l$total_constructs)
+    cat("\nMaximum possible no. of matches between constructs: ", l$max_constructs)
+    cat("\n")
+    cat("\nTotal no. of matches between elements: ", l$total_elements)
+    cat("\nMaximum possible no. of matches between elements: ", l$max_elements)
+    cat("\n")
   }
   ## E = Elements
   if (str_detect(output, "E")) {

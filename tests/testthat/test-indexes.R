@@ -93,10 +93,19 @@ test_that("matches works correctly", {
     print(m, width = -1)
   })
   
+  ## check results
   x <- feixas2004
+  
+  # maximal no of matches per C/E correct (infinity case gives max number)
   m <- matches(x, deviation = Inf, diag.na = FALSE)
   expect_true(all(m$elements == nrow(x)))
   expect_true(all(m$constructs == ncol(x)))
+  
+  # maximal possible number of matches is correct  
+  m <- matches(x, deviation = Inf)
+  expect_true(m$max_constructs == sum(m$constructs, na.rm = T) / 2)
+  expect_true(m$max_elements == sum(m$elements, na.rm = T) / 2)
+
 })
 
 

@@ -21,6 +21,10 @@ A list of class \code{org.matches} with:
 \itemize{
 \item \code{grid}: The grid used to calculate the matches.
 \item \code{deviation} The deviation parameter.
+\item \code{max_constructs} Maximum possible number of matches across constructs.
+\item \code{max_elements} Maximum possible number of matches across elements.
+\item \code{total_constructs} Total number of matches across constructs.
+\item \code{total_elements} Total number of matches across elements.
 \item \code{constructs}: Matrix with no. of matches for constructs.
 \item \code{elements}: Matrix with no. of matches for elements.
 }
