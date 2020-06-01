@@ -92,6 +92,7 @@ distance <- function(x, along = 1, dmethod = "euclidean",
 #' 
 #' While the minimal distance will usually be zero,
 #' the maximal distance can be used to normalize arbitrary distances.
+#' @keywords internal
 #' 
 dist_minmax <- function(x, along = 1, dmethod = "euclidean", p = 2, max.only = FALSE) 
 {
