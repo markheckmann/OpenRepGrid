@@ -16,6 +16,8 @@
   
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * reverse as alternative to swapPoles
+  * indexBieri: Bieri index of cognitive complexity
   * matches: count rating matches in pairs of constructs and elements 
   * reorder method to invert construct and/or element order
   * dilemmatic construct (indexDilemmatic)

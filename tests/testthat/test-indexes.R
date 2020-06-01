@@ -109,4 +109,19 @@ test_that("matches works correctly", {
 })
 
 
+test_that("indexBieri works correctly", {
+  
+  x <- feixas2004
+  b <- indexBieri(x)
+  
+  # error is thrown if i is out of range
+  expect_error({
+    b <- matches(x, deviation = -1)
+  })
+  
+  ## check results
+  # maximal no of matches per C correct (infinity case gives max number)
+  b <- indexBieri(x, deviation = Inf)
+  expect_true(all(na.omit(b$constructs) == ncol(x)))
+})
 

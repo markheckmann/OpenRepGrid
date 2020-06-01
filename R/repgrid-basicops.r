@@ -16,9 +16,26 @@ is.repgrid <- function(x) {
 #' @export
 #' @keywords internal
 #' @md
-stop_if_not_is_repgrid <- function(x, name = "x") {
+stop_if_not_is_repgrid <- function(x, name = "x") 
+{
   if (!is.repgrid(x))
     stop("Object '", name, "' must have class 'repgrid'", call. = FALSE)
+}
+
+
+#' Raise error if min or max of rating scale are undefined
+#' @param x Object to test. Raises an error the mina and max of the ratings scale are not defined
+#' @export
+#' @keywords internal
+#' @md
+stop_if_scale_not_defined <- function(x) 
+{
+  stop_if_not_is_repgrid(x, name)
+  
+  if (identical(x@scale$min, NA) | identical(x@scale$min, NULL))
+    stop("No min value for the rating scale defined. To define the scale use setScale().")
+  if (identical(x@scale$max, NA) | identical(x@scale$max, NULL))
+    stop("No max value for the rating scale defined. To define the scale use setScale().")
 }
 
 
@@ -575,34 +592,39 @@ swapConstructs <- function(x, pos1=1, pos2=1){
 #swopConstructs(rg, 1,2)
 
 
-#' Swaps the construct poles.
+#' Reverse constructs / swaps construct poles
 #'
-#' Swaps the constructs poles and re-adjusts ratings accordingly.
+#' Constructs are bipolar. They can be reversed without a change in meaning. The
+#' function swaps the constructs poles and re-adjusts ratings accordingly, i.e.
+#' it revesed selected constructs.
 #'
-#' @param x     \code{repgrid} object.
-#' @param pos   Row number of construct whose poles are swapped
-#' @return      \code{repgrid} object.
-#'
-#' @note    Please note that the scale of the rating grid has to be set in order to
-#'          swap poles. If the scale is unknown no swapping occurs and a warning is 
-#'          issued on the console.
+#' @param x A `repgrid` object.
+#' @param pos Row indexes of constructs to reverse..
+#' @return A `repgrid` object with reversed constructs.
+#' @note Please note that the scale of the rating grid has to be set in order
+#'   to reverse constructs. If the scale is unknown no reversal occurs and an 
+#'   error is raised.
 #' @export
-#' @author Mark Heckmann
+#' @rdname reverse
+#' @md
+#' @examples 
 #'
-#' @examples \dontrun{
+#' x <- boeker
+#' 
+#' reverse(x)        # reverse all constructs
+#' reverse(x, 1)     # reverse construct 1
+#' reverse(x, 1:2)   # reverse constructs 1 and 2
+#' 
+#' # swapPoles will become deprecated, use reverse instead
+#' swapPoles(x, 1)     # swap construct poles of construct
 #'
-#'    x <- randomGrid()
-#'    swapPoles(x, 1)     # swap construct poles of construct
-#'    swapPoles(x, 1:2)   # swap construct poles of construct 1 and 2
-#'    swapPoles(x)        # swap all construct poles
-#' }
-#'
-swapPoles <- function(x, pos){
+swapPoles <- function(x, pos)
+{
   if (!inherits(x, "repgrid")) 							# check if x is repgrid object
   	stop("Object x must be of class 'repgrid'")
   if (missing(pos))  
     pos <- seq_along(x@constructs)
-  if (any(pos<=0 | pos > getNoOfConstructs(x)))
+  if (any(pos <= 0 | pos > getNoOfConstructs(x)))
 	  stop("pos must contains values greater than 0 and equal or less than number of constructs.")
 	if (identical(x@scale$min, NA) | identical(x@scale$min, NULL))
 	  stop("A min value for the scale has to be defined in order to swap poles.",
@@ -611,22 +633,44 @@ swapPoles <- function(x, pos){
  	  stop("A min value for the scale has to be defined in order to swap poles.",
  	       "To define the scale use setScale(). For more info type ?setScale to the console.")
 
+  # swap names of poles  
 	for (i in pos) {
   		tmp <- x@constructs[[i]]$leftpole
   		x@constructs[[i]]$leftpole <- x@constructs[[i]]$rightpole
   		x@constructs[[i]]$rightpole <- tmp	
-  
-  }
+	}
   # reverse ratings
-	nc <- ncol(x@ratings[pos, , ,drop=FALSE])  
-	if(!nc==0) {
-	  x@ratings[pos, , ] <- x@scale$max - x@ratings[pos, , ,drop=FALSE] + x@scale$min   # TODO: maybe swapping not correct for layers 2 and 3???
+	nc <- ncol(x@ratings[pos, , , drop = FALSE])  
+	if (!nc == 0) {
+	  x@ratings[pos, , ] <- x@scale$max - x@ratings[pos, , , drop = FALSE] + x@scale$min   # TODO: maybe swapping not correct for layers 2 and 3???
 	}
 	x
 }
-# @aliases swapp
-# swapp <- swapPoles
 
+
+#' @export
+#' @rdname reverse
+reverse <- function(x, pos = 1L:nrow(x)) 
+{
+  stop_if_not_is_repgrid(x)
+  stop_if_scale_not_defined(x)
+  nc <- nrow(x)
+  if (any(pos <= 0 | pos > nc))
+    stop("all 'pos' must lie in the interval [1, ", nc, "]", call. = FALSE)
+  
+  # swap names of poles  
+  lp <- leftpoles(x)[pos]
+  rp <- rightpoles(x)[pos] 
+  leftpoles(x)[pos] <- rp
+  rightpoles(x)[pos] <- lp
+
+  # reverse ratings
+  sc <- getScale(x)
+  R <- ratings(x)
+  R[pos, ] <- sc["max"] - R[pos, ] + sc["min"]
+  ratings(x) <- R
+  x
+}
 
 
 #' Move construct or element in grid to the left, right, up or down.

@@ -388,6 +388,94 @@ indexPvaff <- function(x, method = 1)
 # }
 
 
+
+#' Bieri's index of cognitive complexity
+#'
+#' The index builds on the number of rating matches
+#' between pairs of constructs. It is the relation between
+#' the total number of matches and the possible number of matches.
+#' 
+#' **CAVEAT**: The Bieri index will change when constructs are reversed.
+#' 
+#' @param x A `repgrid` object.
+#' @param deviation Maximal difference between ratings to be considered a match
+#'   (default `0` = identical scores for a match).
+#' @return List of class `indexBieri`:
+#' 
+#'  * `grid`: The grid used to calculate the index
+#'  * `deviation` The deviation parameter.
+#'  * `matches_max` Maximum possible number of matches across constructs.
+#'  * `matches` Total number of matches across constructs.
+#'  * `constructs`: Matrix with no. of matches for constructs.
+#'  * `bieri`: Bieri index (= matches / matches_max)
+#'  
+#' @example inst/examples/example-indexBieri.R
+#' @export
+#' @md
+#' 
+indexBieri <- function(x, deviation = 0) 
+{
+  stop_if_not_is_repgrid(x)
+  
+  m <- matches(x, deviation = deviation)
+  n_matches <- m$total_constructs
+  n_matches_max <- m$max_constructs 
+  
+  l <- list(
+    grid = x,
+    deviation = deviation,
+    constructs = m$constructs,
+    matches = n_matches,
+    matches_max = n_matches_max,
+    bieri = n_matches / n_matches_max
+  )
+  class(l) <- c("indexBieri", class(l))
+  l
+}
+
+
+#' Print method for class indexBieri
+#'
+#' @param x Object of class `indexBieri`.
+#' @param output  String with each letter indicating which parts of the output
+#'   to print (default is `"IC"`, order does not matter): `I` = Information, `C`
+#'   = Matrix of matches.
+#' @param digits Number of digits to display.
+#' @export
+#' @keywords        internal
+#' @md
+print.indexBieri <- function(x, output = "I", digits = 3) 
+{
+  cat("\n######################")
+  cat("\nBIERI COMPLEXITY INDEX")
+  cat("\n######################\n")
+  
+  M_c <- x$constructs
+  cnames <- constructs(x$grid, collapse = T)
+  index <- TRUE
+  upper <- TRUE
+  width <- NA
+  trim <- 50
+  
+  ## I = Information
+  if (str_detect(output, "I")) {
+    cat("\nBieri:", round(x$bieri, digits))
+    cat("\n")
+    cat("\nMaximal rating difference to count as match: ", x$deviation)
+    cat("\nTotal no. of matches between constructs: ", x$matches)
+    cat("\nMaximum possible no. of matches between constructs: ", x$matches_max)
+    cat("\n")
+  }
+  ## C = Constructs
+  if (str_detect(output, "C")) {
+    cat(bold("\nMATCHES BETWEEN CONSTRUCTS\n\n"))
+    print_square_matrix(M_c, names = cnames, index = index, 
+                        upper = upper, trim = trim, width = width)
+  }
+  
+}
+
+
 #' Dilemmatic constructs
 #'
 #' A Dilemmatic Construct (DC) is one where the ideal element is rated on the

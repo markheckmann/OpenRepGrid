@@ -26,7 +26,6 @@ test_that("addAvgElement works correctly", {
   expect_warning({
     x <- addAvgElement(feixas2004, "AVG", i = c(1,1,2))
   })
-  
 })
 
 
@@ -39,6 +38,14 @@ test_that("stop_if_not_is_repgrid works correctly", {
   expect_error(
     stop_if_not_is_repgrid("a", "some_name")  
   )
-  
 })
   
+
+test_that("reverse works correctly", {
+  expect_equal(swapPoles(boeker), reverse(boeker) )
+  
+  ii <- c(1,4,6)
+  expect_equal(swapPoles(boeker, ii), reverse(boeker, ii) )
+})
+
+
