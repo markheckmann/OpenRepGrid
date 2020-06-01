@@ -76,3 +76,28 @@ test_that("indexDilemmatic works correctly", {
   
 })
 
+
+test_that("matches works correctly", {
+  
+  m <- matches(feixas2004)
+  
+  # error is thrown if i is out of range
+  expect_error({
+    m <- matches(feixas2004, deviation = -1)
+  })
+  expect_error({
+    m <- matches(feixas2004, diag.na = NA)
+  })
+  
+  expect_error({
+    print(m, width = -1)
+  })
+  
+  x <- feixas2004
+  m <- matches(x, deviation = Inf, diag.na = FALSE)
+  expect_true(all(m$elements == nrow(x)))
+  expect_true(all(m$constructs == ncol(x)))
+})
+
+
+

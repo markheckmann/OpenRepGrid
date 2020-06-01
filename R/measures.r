@@ -9,7 +9,190 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 # ___________________ ----
+#//////////////////////////////////////////////////////////////////////////////
+#   						                   HELPERS  							                 ----
+#//////////////////////////////////////////////////////////////////////////////
 
+
+#' Print a square matrix in well readable format
+#' 
+#' Helper function to produce output for square matrices, e.g. distance
+#' matrices etc. Adds a (trimmed) name and index column. Displays
+#' upper triangle only by default. The function is used inside the 
+#' print method of several classes.
+#' 
+#' @param x A square `matrix`.
+#' @param names names A vector of row names.
+#' @param width Column width of output (numeric).
+#' @param trim Trimmed length of names (numeric).
+#' @param index Whether to add an index columns (default `TRUE`).
+#' @param upper Whether to only show the upper triangle (default `TRUE`).
+#' @md
+#' @export
+#' @keywords internal
+print_square_matrix <- function(x, names = NA, trim = NA,  
+                                index = TRUE, width = NA, upper = TRUE)
+{
+  if (!is.matrix(x))
+    stop("'x' muste be a matrix", call. = FALSE)
+  if (dim(x)[1] != dim(x)[2])
+    stop("'x' muste be a square matrix", call. = FALSE)
+  if (!is.null(names) && !is.na(names[1]) && length(names) != nrow(x)) 
+    stop("length of 'names' must be equal to number of rows of 'x'", call. = FALSE)
+  if (!is.na(trim) && !trim >= 0)
+    stop("'trim' must be NA or >= 0", call. = FALSE)
+  
+  # set width of columns
+  if (is.na(width)) {
+    width <- max(
+      nchar(nrow(x)),  # length of column index
+      nchar(max(x, na.rm = T))  # biggest value
+    )
+  }
+  
+  # trim names
+  if (!is.null(names) && !is.na(names[1]) && 
+      !is.null(trim) && !is.na(trim[1])) {
+    names <- substr(names, 1, trim)
+  }
+  
+  # fill lower triangle with blanks of correct length
+  if (upper) {
+    x[lower.tri(x, diag = TRUE)] <- paste0(rep(" ", width), collapse = "")
+  }
+  
+  # add index column for neater colnames  
+  if (index) {
+    x <- addIndexColumnToMatrix(x) 
+  } else {
+    colnames(x) <- seq_len(ncol(x))
+  }   
+  
+  # add names column in first position
+  if (!is.na(names)[1]) {
+    cnms <- c(" ", colnames(x))
+    x <- cbind(names, x)
+    colnames(x) <- cnms
+  }
+  
+  x <- as.data.frame(x, stringsAsFactors = FALSE)
+  rownames(x) <- NULL
+  print(x)
+}
+
+
+#' Number of matches in ratings
+#'
+#' Count the number of matches, i.e. (near) identical ratings between two
+#' elements or constructs. Matches are used as the basis for the calculation of
+#' grid indexes.
+#'
+#' @param x A `repgrid` object.
+#' @param deviation Maximal difference between ratings to be considered a match
+#'   (default `0` = only identical rating scores are a match). Especially useful
+#'   for long rating scale (e.g. 0 to 100).
+#' @param diag.na Whether to set the diagonal of the matrices to `NA` (default
+#'   is `TRUE`).
+#' @return A list of class `org.matches` with:
+#' 
+#'  * `grid`: The grid used to calculate the matches.
+#'  * `deviation` The deviation parameter.
+#'  * `constructs`: Matrix with no. of matches for constructs.
+#'  * `elements`: Matrix with no. of matches for elements.
+#' @export
+#' @md
+#' @example inst/examples/example-matches.R
+#' 
+matches <- function(x, deviation = 0, diag.na = TRUE) 
+{
+  stop_if_not_is_repgrid(x)
+  if (!is.numeric(deviation) || deviation < 0)
+    stop("'deviation' must be >= 0", call. = FALSE)
+  R <- ratings(x, names = FALSE)
+  
+  # constructs  
+  M_c <- apply(t(R), 2, function(x) {
+    colSums(abs(x - t(R)) <= deviation)  # matches per column
+  })
+  # elements
+  M_e <- apply(R, 2, function(x) {
+    colSums(abs(x - R) <= deviation)  # matches per column
+  })
+
+  # set diagonal NA
+  if (diag.na) {
+    diag(M_c) <- NA
+    diag(M_e) <- NA
+  }
+  l <- list(
+    grid = x,
+    deviation = deviation,
+    constructs = unname(M_c),
+    elements = unname(M_e)
+  )
+  class(l) <- c("org.matches", class(l))
+  l
+}
+
+
+#' Print method for class org.matches.
+#' 
+#' @param l Object of class `org.matches`.
+#' @param output    String with each letter indicating which parts of the output to print 
+#'                  (default is `"ICE"`, order does not matter):
+#'                  `I` = Information,
+#'                  `C` = Constructs' matches,
+#'                  `E` = Elements' matches.
+#' @param names names A vector of row names.
+#' @param width Column width of output (numeric).
+#' @param trim Trimmed length of names (default = `50`).
+#' @param index Whether to add an index columns (default `TRUE`).
+#' @param upper Whether to only show the upper triangle (default `TRUE`).
+#' @md
+#' @export
+#' @keywords internal
+#'
+print.org.matches <- function(l, output = "ICE", index = TRUE, 
+                              names = TRUE, trim = 50, upper = TRUE, width = NA)
+{
+  output <- toupper(output)
+  g <- l$grid
+  if (names) {
+    cnames <- constructs(g, collapse = TRUE)
+    enames <- elements(g)  
+  } else {
+    cnames <- NA
+    enames <- NA
+  }
+
+  # matrices with no of matches
+  M_c <- l$constructs
+  M_e <- l$elements
+  
+  cat("\n##############")
+  cat("\nRATING MATCHES")
+  cat("\n##############\n")
+  
+  ## I = Info
+  if (str_detect(output, "I")) {
+    cat("\nMaximal rating difference to count as match: ", l$deviation, "\n")
+  }
+  ## E = Elements
+  if (str_detect(output, "E")) {
+    cat(bold("\nELEMENTS\n\n"))
+    print_square_matrix(M_e, names = enames, index = index, 
+                        upper = upper, trim = trim, width = width)
+  }
+  ## C = Constructs
+  if (str_detect(output, "C")) {
+    cat(bold("\nCONSTRUCTS\n\n"))
+    print_square_matrix(M_c, names = cnames, index = index, 
+                        upper = upper, trim = trim, width = width)
+  }
+}
+
+
+# ___________________ ----
 #//////////////////////////////////////////////////////////////////////////////
 #   						            SLATER MEASURES  							                 ----
 #//////////////////////////////////////////////////////////////////////////////
@@ -608,12 +791,12 @@ print.indexPolarization <- function(x, output = "ITCE")
 #' @param method  The distance or correlation measure: 
 #'   * Distances:  `euclidean`, `manhattan`, `maximum`,  `canberra`, `binary`, `minkowski`
 #'   * Correlations: `pearson`, `kendall`, `spearman`
-#' @param p       The power of the Minkowski distance, in case `minkowski` is used as argument 
-#'                for `method`, otherwise it is ignored.
+#' @param p The power of the Minkowski distance, in case `minkowski` is used as
+#'   argument for `method`, otherwise it is ignored.
 #' @param round   Round average rating scores for 'others' to closest integer?
 #' @author    Mark Heckmann, José Antonio González Del Puerto
-#' @return    List object of class `indexSelfConstruction`, containing
-#'            the results from the calculations:
+#' @return    List object of class `indexSelfConstruction`, containing the
+#'   results from the calculations:
 #'            
 #'  * `grid`: Recuced grid with seld, ideal and others
 #'  * `method_type`: method type (correlation or distance)

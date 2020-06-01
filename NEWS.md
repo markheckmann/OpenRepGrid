@@ -14,6 +14,7 @@
   
 # OpenRepGrid 0.1.14 (work in progress)
   
+  * matches: count rating matches in pairs of constructs and elements 
   * reorder method to invert construct and/or element order
   * dilemmatic construct (indexDilemmatic)
   * polarization measure (indexPolarization)

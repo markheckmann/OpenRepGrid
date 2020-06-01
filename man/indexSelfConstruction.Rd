@@ -30,14 +30,14 @@ indexSelfConstruction(
 \item Correlations: \code{pearson}, \code{kendall}, \code{spearman}
 }}
 
-\item{p}{The power of the Minkowski distance, in case \code{minkowski} is used as argument
-for \code{method}, otherwise it is ignored.}
+\item{p}{The power of the Minkowski distance, in case \code{minkowski} is used as
+argument for \code{method}, otherwise it is ignored.}
 
 \item{round}{Round average rating scores for 'others' to closest integer?}
 }
 \value{
-List object of class \code{indexSelfConstruction}, containing
-the results from the calculations:
+List object of class \code{indexSelfConstruction}, containing the
+results from the calculations:
 \itemize{
 \item \code{grid}: Recuced grid with seld, ideal and others
 \item \code{method_type}: method type (correlation or distance)
