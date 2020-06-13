@@ -151,8 +151,9 @@ make_sep_mat_atomic <- function(sep, nr) {
 #' 
 #' @param m A matrix.
 #' @param colors crayon colors as a string. One of 
-#' black, red, green.yellow, blue, magenta, cyan, white
+#' black, red, green, yellow, blue, magenta, cyan, white,
 #' silver.
+#' @export
 #' @keywords internal
 #' @examples 
 #' m <- as.matrix(mtcars)

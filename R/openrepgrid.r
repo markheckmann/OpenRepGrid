@@ -45,7 +45,7 @@
 #' @docType package
 #' @import methods graphics grid utils stats grDevices plyr stringr abind rgl GPArotation psych XML tcltk pvclust dplyr
 #' @importFrom colorspace HSV diverge_hcl hex hex2RGB
-#' @importFrom crayon bold blue red
+#' @importFrom crayon bold black red green yellow blue magenta cyan white silver
 "_PACKAGE"
 
 

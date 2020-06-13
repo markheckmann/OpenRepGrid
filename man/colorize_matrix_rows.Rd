@@ -10,7 +10,7 @@ colorize_matrix_rows(m, colors = "white", na.val = "white")
 \item{m}{A matrix.}
 
 \item{colors}{crayon colors as a string. One of 
-black, red, green.yellow, blue, magenta, cyan, white
+black, red, green, yellow, blue, magenta, cyan, white,
 silver.}
 }
 \description{
