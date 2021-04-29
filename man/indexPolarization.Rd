@@ -20,8 +20,8 @@ List of class \code{indexPolarization}:
 \item \code{scale}: Minimum and maximum of grid rating scale.
 \item \verb{lower,upper} Lower and upper value to decide which ratings are considered extreme.
 \item \code{polarization_total}: Grid's overall polarization.
-\item \code{polarization_total}: Grid's overall polarization.
-\item \code{polarization_total}: Grid's overall polarization.
+\item \code{polarization_constructs}: Polarization per construct.
+\item \code{polarization_elements}: Polarization per element.
 }
 }
 \description{

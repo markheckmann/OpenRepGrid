@@ -788,12 +788,12 @@ print.indexIntensity <- function(x, digits = 2, output = "TCE")
 #'  * `scale`: Minimum and maximum of grid rating scale.
 #'  * `lower,upper` Lower and upper value to decide which ratings are considered extreme.
 #'  * `polarization_total`: Grid's overall polarization.
-#'  * `polarization_total`: Grid's overall polarization.
-#'  * `polarization_total`: Grid's overall polarization.
+#'  * `polarization_constructs`: Polarization per construct.
+#'  * `polarization_elements`: Polarization per element.
 #'    
 #' @example inst/examples/example-indexPolarization.R
 #' @export
-#' @md  
+#' @md
 indexPolarization <- function(x, deviation = 0) 
 {
   if (!is.repgrid(x))
