@@ -29,8 +29,8 @@ rglDrawStandardAxes <- function(max.dim=1, lwd=1, a.cex=1.1, a.col="black",
     spheres3d(0, 0, max.dim, radius=a.radius, col=a.col)    
   }
 }
-# rgl.open()
-# rgl.points(rnorm(1000), rnorm(1000), rnorm(1000), color=heat.colors(1000))
+# open3d()
+# points3d(rnorm(1000), rnorm(1000), rnorm(1000), color=heat.colors(1000))
 # rglDrawStandardAxes(3)
 
 
@@ -158,7 +158,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
   par3d(params=list(
         windowRect=c(100,100,600,600)))           # enlarge and position 3d device
   view3d(theta = 0, phi = 0, zoom=.6)             # change 3d view angle
-  rgl.bg(color="white")                           # set background color
+  bg3d(color="white")                           # set background color
      
   # select spheres to draw and labels to show
   # select which elements to show
@@ -602,10 +602,10 @@ home <- function(view=1, theta=NULL, phi=NULL){
 
 
 
-# mouseTrackballOrigin <- function(button = 1, dev = rgl.cur(), origin=c(0,0,0) ) {
+# mouseTrackballOrigin <- function(button = 1, dev = cur3d(), origin=c(0,0,0) ) {
 #    width <- height <- rotBase <- NULL
 #    userMatrix <- list()
-#    cur <- rgl.cur()
+#    cur <- cur3d()
 #    offset <- NULL
 #    scale <- NULL
 # 
@@ -629,16 +629,16 @@ home <- function(view=1, theta=NULL, phi=NULL){
 #        vp <- par3d("viewport")
 #        width <<- vp[3]
 #        height <<- vp[4]
-#        cur <<- rgl.cur()
+#        cur <<- cur3d()
 #        bbox <- par3d("bbox")
 #        center <- c(sum(bbox[1:2])/2, sum(bbox[3:4])/2, sum(bbox[5:6])/2)
 #        scale <<- par3d("scale")
 #        offset <<- (center - origin)*scale
 #        for (i in dev) {
-#            if (inherits(try(rgl.set(i, TRUE)), "try-error")) dev <<- dev[dev != i]
+#            if (inherits(try(set3d(i, TRUE)), "try-error")) dev <<- dev[dev != i]
 #            else userMatrix[[i]] <<- par3d("userMatrix")
 #        }
-#        rgl.set(cur, TRUE)
+#        set3d(cur, TRUE)
 #        rotBase <<- screenToVector(x, height - y)
 #    }
 # 
@@ -648,17 +648,17 @@ home <- function(view=1, theta=NULL, phi=NULL){
 #        axis <- xprod(rotBase, rotCurrent)
 #        mouseMatrix <- rotationMatrix(angle, axis[1], axis[2], axis[3])
 #        for (i in dev) {
-#            if (inherits(try(rgl.set(i, TRUE)), "try-error")) dev <<- dev[dev != i]
+#            if (inherits(try(set3d(i, TRUE)), "try-error")) dev <<- dev[dev != i]
 #            else par3d(userMatrix = t(translationMatrix(-offset[1], -offset[2], -offset[3])) %*% mouseMatrix  %*% t(translationMatrix(offset[1], offset[2], offset[3])) %*%userMatrix[[i]])
 #        }
-#        rgl.set(cur, TRUE)
+#        set3d(cur, TRUE)
 #    }
 # 
 #    for (i in dev) {
-#        rgl.set(i, TRUE)
+#        set3d(i, TRUE)
 #        rgl.setMouseCallbacks(button, begin = trackballBegin, update = trackballUpdate, end = NULL)
 #    }
-#    rgl.set(cur, TRUE)
+#    set3d(cur, TRUE)
 # }
 
 # additioally load functions from demo(). see email from Duncan Murdoch 25.04.2011
