@@ -11,13 +11,13 @@ Authors@R: c(
     )
 Description: Analyze repertory grids, a qualitative-quantitative 
     data collection technique devised by George A. Kelly in the 1950s. Today, grids are used across 
-    various domains ranging from clinical psychology to marketing. The package contains
+    various domains ranging from clinical psychology to monflicted arketing. The package contains
     functions to quantitatively analyze and visualize repertory grid data 
     (see e.g. Bell, 2005, <doi:10.1002/0470013370.ch9>; 
     Fransella, Bell, & Bannister, 2004, ISBN: 978-0-470-09080-0). The package is part of the 
     OpenRepGrid project (http://www.openrepgrid.org).
 Version: 0.1.14
-Date: 2021-04-29
+Date: 2023-04-22
 Encoding: UTF-8
 URL: https://github.com/markheckmann/OpenRepGrid
 Imports:
@@ -33,7 +33,6 @@ Imports:
     abind,
     rgl,
     colorspace,
-    GPArotation,
     psych,
     XML,
     tcltk,
@@ -71,7 +70,7 @@ Collate:
     'utils-import.r'
     'utils.r'
     'zzz.r'
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 NeedsCompilation: no
 Author: Mark Heckmann [aut, cre]
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>

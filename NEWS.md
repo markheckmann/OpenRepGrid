@@ -14,8 +14,9 @@
   * add tests for reorder
   * build bipolar variant of construct matches? (similar to IC)
   
-# OpenRepGrid 0.1.14 (work in progress)
+# OpenRepGrid 0.1.14
   
+  * resolve conflicts while loading packages
   * update docs for indexPolarity
   * reverse as alternative to swapPoles
   * indexBieri: Bieri index of cognitive complexity

@@ -870,7 +870,7 @@ print.indexPolarization <- function(x, output = "ITCE")
   if (str_detect(output, "T")) {
     cat("\n\n")
     cat(bold("\nPOLARIZATION OVERALL\n\n"))
-    x$polarization_total %>% mutate(
+    x$polarization_total %>% dplyr::mutate(
       Polarization = scales::percent(Polarization, .1)
     ) %>% print
   }
@@ -879,7 +879,7 @@ print.indexPolarization <- function(x, output = "ITCE")
   if (str_detect(output, "C")) {
     cat("\n")
     cat(bold("\nPOLARIZATION BY CONSTRUCT\n\n"))
-    x$polarization_constructs %>% mutate(
+    x$polarization_constructs %>% dplyr::mutate(
       Polarization = scales::percent(Polarization, .1)
     ) %>% print
   }
@@ -888,7 +888,7 @@ print.indexPolarization <- function(x, output = "ITCE")
   if (str_detect(output, "E")) {
     cat("\n")
     cat(bold("\nPOLARIZATION BY ELEMENT\n\n"))
-    x$polarization_elements %>% mutate(
+    x$polarization_elements %>% dplyr::mutate(
       Polarization = scales::percent(Polarization, .1)
     ) %>% print
   }
@@ -2107,7 +2107,7 @@ indexDilemmaInternal <- function(x, self, ideal,
   colnames(construct_classification) <- c("Construct", "Classification", "Self", "Ideal")
   rownames(construct_classification) <- NULL
   construct_classification <- construct_classification %>% 
-    mutate(
+    dplyr::mutate(
       Difference = abs(Self - Ideal)
     ) %>% 
     select(Construct, Self, Ideal, Difference, Classification)
