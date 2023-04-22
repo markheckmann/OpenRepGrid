@@ -1,12 +1,13 @@
 
 # OpenRepGrid <img src="man/figures/logo.png" align="right" width="175" />
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/OpenRepGrid)](https://cran.r-project.org/package=OpenRepGrid)
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
 [![](https://img.shields.io/badge/devel%20version-0.1.14-success.svg)](https://github.com/markheckmann/OpenRepGrid)
-[![Build Status](https://travis-ci.org/markheckmann/OpenRepGrid.svg?branch=master)](https://travis-ci.org/markheckmann/OpenRepGrid)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/markheckmann/OpenRepGrid?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/OpenRepGrid)
 [![Codecov test coverage](https://codecov.io/gh/markheckmann/OpenRepGrid/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid?branch=master)
-
+[![R-CMD-check](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 ## Overview
 

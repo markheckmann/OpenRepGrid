@@ -16,6 +16,7 @@
   
 # OpenRepGrid 0.1.14
   
+  * move CI/CD from Travis to github actions
   * resolve conflicts while loading packages
   * update docs for indexPolarity
   * reverse as alternative to swapPoles
