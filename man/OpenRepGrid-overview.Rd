@@ -7,7 +7,7 @@
 \description{
 This documentation page contains an overview over the package functions
 ordered by topics. The best place to start learning OpenRepGrid will
-be the package website \href{http://www.openrepgrid.org} though.
+be the package website \url{http://www.openrepgrid.org} though.
 }
 \section{Functions sorted by topic}{
  
@@ -222,10 +222,10 @@ functions for these purposes.
 Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann. 
            Everyone who is interested in developing the package is invited to join.
 
-           The \pkg{OpenRepGrid} package development is hosted on github (\href{http://github.com/markheckmann/OpenRepGrid}).
+           The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
            The github site provides information and allows to file bug reports or feature requests.
            Bug reports can also be emailed to the package maintainer or issued on 
-           \href{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
+           \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
            The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 }
 \keyword{package}

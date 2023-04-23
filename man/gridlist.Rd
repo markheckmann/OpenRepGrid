@@ -12,8 +12,13 @@ is.gridlist(x)
 
 as.gridlist(x)
 }
+\arguments{
+\item{...}{Objects to be converted into `gridlist`}
+
+\item{x}{Any object.}
+}
 \description{
 Add repgrids into a gridlist
 
-Test or create object of class \code{gridlist}
+Test or create object of class `gridlist`
 }

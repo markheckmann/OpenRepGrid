@@ -4,6 +4,8 @@
 ##
 
 #' Add repgrids into a gridlist
+#' @param ... Objects to be converted into `gridlist`
+#' @param x Any object.  
 #' @export
 #' @rdname gridlist
 gridlist <- function(...) {
@@ -12,7 +14,7 @@ gridlist <- function(...) {
 }
 
 
-#' Test or create object of class \code{gridlist}
+#' Test or create object of class `gridlist`
 #' @export
 #' @rdname gridlist
 is.gridlist <- function(x) {
@@ -39,7 +41,7 @@ as.gridlist <- function(x)
 
 #' Number of constructs and elements all repgrids in gridlist
 #' 
-#' @param x A repgridist object.
+#' @param x A gridlist object.
 #' @return A list of length 2.
 #' @export
 #' @keywords internal
@@ -56,14 +58,14 @@ dim.gridlist <- function(x) {
 }
 
 
-#' Print method for gridlist obejcts
+#' Print method for gridlist objects
 #' 
 #' @param x A \code{gridlist} object.
 #' @param all Display all repgrids in console?
 #' @export
 #' @keywords internal
 #' 
-print.gridlist <- function(x, all = FALSE) 
+print.gridlist <- function(x, all = FALSE, ...) 
 {
   if (!is.gridlist(x))
     stop("'x'must be a 'gridlist' object")
@@ -93,7 +95,7 @@ print.gridlist <- function(x, all = FALSE)
 #' @md
 #' @examples 
 #' l <- rep(boeker, 3)   # gridlist with 3 boeker grids
-rep.repgrid <- function(x, n = 1) 
+rep.repgrid <- function(x, n = 1, ...) 
 {
   if (!is.repgrid(x)) 
     stop("'x' must be 'repgrid' objects", call. = FALSE)

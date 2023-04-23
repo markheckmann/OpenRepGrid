@@ -33,6 +33,8 @@ indexSelfConstruction(
 \item{p}{The power of the Minkowski distance, in case \code{minkowski} is used as
 argument for \code{method}, otherwise it is ignored.}
 
+\item{normalize}{Normalize values?}
+
 \item{round}{Round average rating scores for 'others' to closest integer?}
 }
 \value{

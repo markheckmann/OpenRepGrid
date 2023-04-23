@@ -157,7 +157,7 @@ matches <- function(x, deviation = 0, diag.na = TRUE)
 
 #' Print method for class org.matches.
 #' 
-#' @param l Object of class `org.matches`.
+#' @param x Object of class `org.matches`.
 #' @param output    String with each letter indicating which parts of the output to print 
 #'                  (default is `"ICE"`, order does not matter):
 #'                  `I` = Information,
@@ -172,9 +172,10 @@ matches <- function(x, deviation = 0, diag.na = TRUE)
 #' @export
 #' @keywords internal
 #'
-print.org.matches <- function(l, output = "ICE", index = TRUE, 
-                              names = TRUE, trim = 50, upper = TRUE, width = NA)
+print.org.matches <- function(x, output = "ICE", index = TRUE, 
+                              names = TRUE, trim = 50, upper = TRUE, width = NA, ...)
 {
+  l = x  # renamed from 'l' to 'x' to match arg in print generic
   output <- toupper(output)
   g <- l$grid
   if (names) {
@@ -444,7 +445,7 @@ indexBieri <- function(x, deviation = 0)
 #' @export
 #' @keywords        internal
 #' @md
-print.indexBieri <- function(x, output = "I", digits = 3) 
+print.indexBieri <- function(x, output = "I", digits = 3, ...) 
 {
   cat("\n######################")
   cat("\nBIERI COMPLEXITY INDEX")
@@ -492,10 +493,12 @@ print.indexBieri <- function(x, output = "I", digits = 3)
 #' both poles are equally desirable.
 #' 
 #' @param x A `repgrid` object.
+#' @param ideal Index of ideal element.
 #' @param deviation The maximal deviation from the scale midpoint for an ideal
 #'   rating to be considered dilemmatic (default = `0`). For scales larger than
 #'   a 17-point rating scale a warning is raised, if deviation is `0` (see
 #'   details).
+#' @param warn Show warnings?
 #' @return List of class `indexDilemmatic`:
 #' 
 #'  * `ideal`: Name of the ideal element.
@@ -586,7 +589,7 @@ indexDilemmatic <- function(x, ideal, deviation = 0, warn = TRUE)
 #' @keywords        internal
 #' @md
 #'
-print.indexDilemmatic <- function(x, output = "SD")
+print.indexDilemmatic <- function(x, output = "SD", ...)
 {
   output <- toupper(output)
   
@@ -740,7 +743,7 @@ indexIntensity <- function(x, rc = FALSE, trim = 30)
 #' @keywords        internal
 #' @md
 #'
-print.indexIntensity <- function(x, digits = 2, output = "TCE")
+print.indexIntensity <- function(x, digits = 2, output = "TCE", ...)
 {
   output <- toupper(output)
   
@@ -851,7 +854,7 @@ indexPolarization <- function(x, deviation = 0)
 #' @keywords        internal
 #' @md
 #'
-print.indexPolarization <- function(x, output = "ITCE")
+print.indexPolarization <- function(x, output = "ITCE", ...)
 {
   output <- toupper(output)
   
@@ -909,6 +912,7 @@ print.indexPolarization <- function(x, output = "ITCE")
 #' @param p The power of the Minkowski distance, in case `minkowski` is used as
 #'   argument for `method`, otherwise it is ignored.
 #' @param round   Round average rating scores for 'others' to closest integer?
+#' @param normalize Normalize values?
 #' @author    Mark Heckmann, José Antonio González Del Puerto
 #' @return    List object of class `indexSelfConstruction`, containing the
 #'   results from the calculations:
@@ -2499,7 +2503,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
 #'                        simply saves space when displaying the output.
 #' @param digits          Numeric. Number of digits to round to (default is 
 #'                        \code{2}).
-#'
+#' @param output          The type of output to return.
 #' @author                Mark Heckmann, Alejandro García, Diego Vitali
 #' @return                List object of class \code{indexDilemma}, containing
 #'                        the result from the calculations.
@@ -2563,7 +2567,7 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 #' Produces a network graph using of the detected implicative dilemmas using the 
 #'  `igraph` package.
 #'
-#' @param id Object returned by `indexDilemma`.
+#' @param x Object returned by `indexDilemma`.
 #' @param layout Name of layout. One of `rows`, `circle`, `star`, or `nicely` or a 
 #'   `igraph` layout function.
 #' @param both.poles Show both construct poales? (default `TRUE`). If `FALSE`
@@ -2580,7 +2584,7 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 #' @export
 #' @md
 plot.indexDilemma <- function(
-  id, 
+  x, 
   layout = "rows", 
   both.poles = TRUE, 
   node.size = 50,
@@ -2593,9 +2597,12 @@ plot.indexDilemma <- function(
   edge.digits = 2,
   edge.arrow.size = .5, 
   edge.color = grey(.6),
-  edge.lty = 2
+  edge.lty = 2,
+  ...
 ) 
 {
+  id = x  # renamed from 'id' to 'x' to match arg in print generic
+  
   # response in case no dilemmas were found
   if (id$no_ids == 0) {
     plot.new()

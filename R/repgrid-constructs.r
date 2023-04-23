@@ -120,7 +120,8 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
 #' Replaces the older functions `getConstructNames`, `getConstructNames2`,
 #' and `eNames` which are deprecated.
 #' 
-#' @param  x A repgrid object.
+#' @param x A repgrid object.
+#' @param i,j Row and column Index of repgrid matrix.
 #' @param value Character vector of poles.
 #' @param collapse Return vector with both poles instead.
 #' @param sep Seperator if `collapse = TRUE`, default is `" - "`.
@@ -207,6 +208,8 @@ leftpoles <- function(x)
 }
 
 
+#' @param position Index where to insert construct
+#' @param value Character vector of construct poles names.
 #' @rdname constructs
 #' @export
 `leftpoles<-` <- function(x, position, value) 

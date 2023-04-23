@@ -1,6 +1,8 @@
 # NEWS
 
-# TODO
+# OpenRepGrid (development version)
+
+## TODOs
 
   * switch to cli package for console output?
   * make some function generic so they accept repgridlists as well (index functions)
@@ -13,7 +15,7 @@
   * intensity for elements does not yet match
   * add tests for reorder
   * build bipolar variant of construct matches? (similar to IC)
-  
+
 # OpenRepGrid 0.1.14
   
   * move CI/CD from Travis to github actions

@@ -4,7 +4,7 @@
 \alias{print.indexDilemmatic}
 \title{Print method for class indexDilemmatic}
 \usage{
-\method{print}{indexDilemmatic}(x, output = "SD")
+\method{print}{indexDilemmatic}(x, output = "SD", ...)
 }
 \arguments{
 \item{x}{Object of class indexDilemmatic}

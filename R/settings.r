@@ -26,7 +26,7 @@ typecheck <- function(x, type){
 
 # x  object of class openrepgridSettings 
 checkSettingsIntegrity <- function(x, do.print=TRUE){
-  if (class(x) != "openrepgridSettings")
+  if (!methods::is(x, "openrepgridSettings"))
     stop("settings integrity check cannot be performed", 
          "as objects class is not 'openrepgridSettings'") 
   types <- attr(x, "type")
@@ -181,7 +181,7 @@ settingsLoad <- function(file){
     file <- tk_choose.files(filters = Filters, multi=FALSE)    # returns complete path                     
   }
   orgset <- readRDS(file)
-  if (class(orgset) != "openrepgridSettings")
+  if (!methods::is(orgset, "openrepgridSettings"))
     stop("file", file, "is no valid OpenRepGrid settings file")
   .OpenRepGridEnv$settings <- orgset                          # save in environment in namespace
 }

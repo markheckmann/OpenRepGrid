@@ -5,17 +5,18 @@
 \title{Print method for class org.matches.}
 \usage{
 \method{print}{org.matches}(
-  l,
+  x,
   output = "ICE",
   index = TRUE,
   names = TRUE,
   trim = 50,
   upper = TRUE,
-  width = NA
+  width = NA,
+  ...
 )
 }
 \arguments{
-\item{l}{Object of class \code{org.matches}.}
+\item{x}{Object of class \code{org.matches}.}
 
 \item{output}{String with each letter indicating which parts of the output to print
 (default is \code{"ICE"}, order does not matter):

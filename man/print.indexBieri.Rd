@@ -4,7 +4,7 @@
 \alias{print.indexBieri}
 \title{Print method for class indexBieri}
 \usage{
-\method{print}{indexBieri}(x, output = "I", digits = 3)
+\method{print}{indexBieri}(x, output = "I", digits = 3, ...)
 }
 \arguments{
 \item{x}{Object of class \code{indexBieri}.}

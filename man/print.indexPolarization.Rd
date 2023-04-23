@@ -4,7 +4,7 @@
 \alias{print.indexPolarization}
 \title{Print method for class indexPolarization.}
 \usage{
-\method{print}{indexPolarization}(x, output = "ITCE")
+\method{print}{indexPolarization}(x, output = "ITCE", ...)
 }
 \arguments{
 \item{x}{Object of class indexPolarization.}

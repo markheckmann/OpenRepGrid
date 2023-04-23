@@ -7,7 +7,7 @@
 \method{dim}{gridlist}(x)
 }
 \arguments{
-\item{x}{A repgridist object.}
+\item{x}{A gridlist object.}
 }
 \value{
 A list of length 2.

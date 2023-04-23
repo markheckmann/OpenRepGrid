@@ -4,6 +4,7 @@
 
 
 #' Test if object has class repgrid 
+#' @param x Any object.
 #' @export
 is.repgrid <- function(x) {
   inherits(x, "repgrid")
@@ -1561,6 +1562,7 @@ decouple <- function(x){
 #' @param x  A `repgrid` object.
 #' @param what A string or numeric to indicate if constructs (`"C"`, `1`) or
 #'   elements (`"C"`, `1`), or both (`"CE"`, `12`) shpuld be reversed.
+#' @param ... Ignored.
 #' @export
 #' @rdname reorder
 #' @md
@@ -1582,7 +1584,7 @@ decouple <- function(x){
 #' # not reordering
 #' reorder(boeker, NA)
 #' 
-reorder.repgrid <- function(x, what = "CE") 
+reorder.repgrid <- function(x, what = "CE", ...) 
 {
   if (!is.repgrid(x))
     stop("Object 'x' must be of class 'repgrid'", call. = FALSE)

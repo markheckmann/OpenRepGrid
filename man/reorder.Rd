@@ -4,13 +4,15 @@
 \alias{reorder.repgrid}
 \title{Invert construct and element order}
 \usage{
-\method{reorder}{repgrid}(x, what = "CE")
+\method{reorder}{repgrid}(x, what = "CE", ...)
 }
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
 \item{what}{A string or numeric to indicate if constructs (\code{"C"}, \code{1}) or
 elements (\code{"C"}, \code{1}), or both (\code{"CE"}, \code{12}) shpuld be reversed.}
+
+\item{...}{Ignored.}
 }
 \description{
 Invert construct and element order

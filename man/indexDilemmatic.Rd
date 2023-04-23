@@ -9,10 +9,14 @@ indexDilemmatic(x, ideal, deviation = 0, warn = TRUE)
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
+\item{ideal}{Index of ideal element.}
+
 \item{deviation}{The maximal deviation from the scale midpoint for an ideal
 rating to be considered dilemmatic (default = \code{0}). For scales larger than
 a 17-point rating scale a warning is raised, if deviation is \code{0} (see
 details).}
+
+\item{warn}{Show warnings?}
 }
 \value{
 List of class \code{indexDilemmatic}:

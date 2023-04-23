@@ -5,7 +5,7 @@
 \title{Plot method for indexDilemma (network graph)}
 \usage{
 \method{plot}{indexDilemma}(
-  id,
+  x,
   layout = "rows",
   both.poles = TRUE,
   node.size = 50,
@@ -18,11 +18,12 @@
   edge.digits = 2,
   edge.arrow.size = 0.5,
   edge.color = grey(0.6),
-  edge.lty = 2
+  edge.lty = 2,
+  ...
 )
 }
 \arguments{
-\item{id}{Object returned by \code{indexDilemma}.}
+\item{x}{Object returned by \code{indexDilemma}.}
 
 \item{layout}{Name of layout. One of \code{rows}, \code{circle}, \code{star}, or \code{nicely} or a
 \code{igraph} layout function.}

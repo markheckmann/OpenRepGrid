@@ -6,6 +6,9 @@
 \usage{
 is.repgrid(x)
 }
+\arguments{
+\item{x}{Any object.}
+}
 \description{
 Test if object has class repgrid
 }

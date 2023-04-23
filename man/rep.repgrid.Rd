@@ -4,7 +4,7 @@
 \alias{rep.repgrid}
 \title{Replicate repgrid objects}
 \usage{
-\method{rep}{repgrid}(x, n = 1)
+\method{rep}{repgrid}(x, n = 1, ...)
 }
 \arguments{
 \item{x}{A `repgrid`` object.}

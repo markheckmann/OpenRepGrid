@@ -4,7 +4,7 @@
 \alias{print.indexIntensity}
 \title{Print method for class indexIntensity.}
 \usage{
-\method{print}{indexIntensity}(x, digits = 2, output = "TCE")
+\method{print}{indexIntensity}(x, digits = 2, output = "TCE", ...)
 }
 \arguments{
 \item{x}{Object of class indexIntensity.}

@@ -154,6 +154,7 @@ elements <- function(x)
 }
 
 
+#' @param position Index where to insert element.
 #' @param value Character vector of element names.
 #' @rdname elements
 #' @export

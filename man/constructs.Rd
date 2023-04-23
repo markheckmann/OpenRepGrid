@@ -28,7 +28,11 @@ rightpoles(x, position) <- value
 
 \item{sep}{Seperator if \code{collapse = TRUE}, default is \code{" - "}.}
 
-\item{value}{Character vector of poles.}
+\item{i, j}{Row and column Index of repgrid matrix.}
+
+\item{value}{Character vector of construct poles names.}
+
+\item{position}{Index where to insert construct}
 }
 \description{
 Allows to get and set construct poles.

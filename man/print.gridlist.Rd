@@ -2,9 +2,9 @@
 % Please edit documentation in R/gridlist.R
 \name{print.gridlist}
 \alias{print.gridlist}
-\title{Print method for gridlist obejcts}
+\title{Print method for gridlist objects}
 \usage{
-\method{print}{gridlist}(x, all = FALSE)
+\method{print}{gridlist}(x, all = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{gridlist} object.}
@@ -12,6 +12,6 @@
 \item{all}{Display all repgrids in console?}
 }
 \description{
-Print method for gridlist obejcts
+Print method for gridlist objects
 }
 \keyword{internal}

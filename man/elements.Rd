@@ -12,6 +12,8 @@ elements(x, position) <- value
 \arguments{
 \item{x}{A repgrid object.}
 
+\item{position}{Index where to insert element.}
+
 \item{value}{Character vector of element names.}
 }
 \description{

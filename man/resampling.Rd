@@ -10,6 +10,8 @@ grids_leave_n_out(x, n = 0)
 grids_bootstrap(x, n = nrow(x), reps = 100, replace = TRUE)
 }
 \arguments{
+\item{x}{A repgrid object.}
+
 \item{n}{Number of constructs to drop or to sample in each generated grid.}
 
 \item{reps}{Number of grids to generate.}

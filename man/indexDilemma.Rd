@@ -61,6 +61,8 @@ during the calculation of the inter-construct correlations.
 of correlations to help the user assess what level
 is adequate for \code{r.min}.}
 
+\item{output}{The type of output to return.}
+
 \item{index}{Whether to print index numbers in front of each construct 
 (default is \code{TRUE}).}
 
