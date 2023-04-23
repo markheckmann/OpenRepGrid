@@ -70,7 +70,6 @@ add_empty_cols <- function(x, left = 0, right = 0) {
 # @param  anchors   two integers specifying at which columns matrices are aligned
 # @return matrix
 #
-# @author            Mark Heckmann
 # @keywords internal
 # @examples \dontrun{
 #   um <- matrix("u", ncol=10, nrow=5)
@@ -482,7 +481,6 @@ df_out <- function(df,                # data frame
 # @param object a \code{repgrid} object
 # @docType methods
 # @usage \S4method{show}{repgrid}(object)
-# @author            Mark Heckmann
 # @include repgrid.r
 #
 

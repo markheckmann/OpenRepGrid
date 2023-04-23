@@ -71,6 +71,3 @@ Structure of a txt file that can be read by \code{\link{importTxt}}.
 \seealso{
 \code{\link{importTxt}}
 }
-\author{
-Mark Heckmann
-}

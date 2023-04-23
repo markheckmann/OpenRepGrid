@@ -31,7 +31,4 @@ a \code{list}.
 \description{
 Calculate coordinates for biplot.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

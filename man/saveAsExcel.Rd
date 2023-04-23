@@ -33,6 +33,3 @@ Invisibly returns the name of the file.
 \seealso{
 \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}

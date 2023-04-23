@@ -49,6 +49,3 @@ Add an element to an existing grid.
 \seealso{
 \code{\link{addConstruct}}
 }
-\author{
-Mark Heckmann
-}

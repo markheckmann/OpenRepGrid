@@ -32,7 +32,4 @@ it does is create an additional progress bar.
 \seealso{
 \code{\link{lapply}}
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

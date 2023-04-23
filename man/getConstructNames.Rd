@@ -18,7 +18,4 @@ Get construct names
   Instead use \code{constructs()}.
 }
 
-\author{
-Mark Heckmann
-}
 \keyword{internal}

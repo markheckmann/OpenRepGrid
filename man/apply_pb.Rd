@@ -42,7 +42,4 @@ it does is create an additional progress bar.
 \seealso{
 \code{\link{apply}}
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

@@ -12,7 +12,4 @@ decouple(x)
 \description{
 decouple a grid
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

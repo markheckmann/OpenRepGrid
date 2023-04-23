@@ -26,7 +26,6 @@
 #' @note          Note that standard deviation and variance are estimations, 
 #'                i.e. including Bessel's correction. For more info type \code{?describe}.
 #'
-#' @author        Mark Heckmann
 #' @export
 #' @aliases statsElements statsConstructs 
 #' @rdname stats
@@ -96,7 +95,6 @@ print.statsElements <- function(x, digits=2, ...)
 #' @note          Note that standard deviation and variance are estimated ones, 
 #'                i.e. including Bessel's correction. For more info type \code{?describe}.
 #'
-#' @author        Mark Heckmann
 #' @export
 #' @rdname stats
 #'
@@ -210,7 +208,6 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 #'                    basis.
 #' @return  vector.   The angles of each row point with the origin as reference.
 #'
-#' @author       Mark Heckmann
 #' @keywords internal
 #'
 #' @examples \dontrun{
@@ -241,7 +238,6 @@ calcAngles <- function(x, dim=c(1,2), clockwise=TRUE){
 #' @return  A list containing the indexes to reorder the grid. The 
 #'          first list element for the constructs, the second for the elements indexes.
 #'
-#' @author        Mark Heckmann
 #' @keywords internal
 #' @examples \dontrun{
 #'
@@ -297,7 +293,6 @@ angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE){
 #'
 #' @return            Reordered \code{repgrid} object. 
 #'
-#' @author            Mark Heckmann
 #' @export
 #'
 #' @examples \dontrun{
@@ -363,7 +358,6 @@ reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g,
 #'
 #' @return  \code{matrix} of element correlations
 #'
-#' @author        Mark Heckmann
 #' @export
 #' @seealso \code{\link{constructCor}}
 #'
@@ -478,7 +472,6 @@ print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 #'                with long names.
 #' @return        \code{dataframe} of the RMS of inter-element correlations
 #'
-#' @author        Mark Heckmann
 #' @export
 #' @seealso  \code{\link{constructRmsCor}}, \code{\link{elementCor}}
 #'
@@ -534,7 +527,6 @@ elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA)
 #' @param index     Whether to print the number of the construct. 
 #' @return          Returns a matrix of construct correlations.
 #'
-#' @author          Mark Heckmann
 #' @export
 #' @seealso \code{\link{elementCor}}
 #'
@@ -632,8 +624,6 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 #'                simply saves space when displaying correlation of constructs
 #'                with long names.
 #' @return        \code{dataframe} of the RMS of inter-construct correlations
-#'
-#' @author        Mark Heckmann
 #' @export
 #' @seealso    \code{\link{elementRmsCor}}, \code{\link{constructCor}}
 #'
@@ -719,7 +709,6 @@ print.rmsCor <- function(x, digits=2, ...)
 #'                    for Ordinal Variables. \emph{American Sociological Review, 27}(6),
 #'                    799-811.
 #'
-#' @author            Mark Heckmann
 #' @export
 #'
 #' @examples \dontrun{
@@ -833,7 +822,6 @@ print.constructD <- function(x, digits=1, col.index=TRUE, ...)
 #'
 #' @seealso           To extract the PCA loadings for further processing see
 #'                    \code{\link{constructPcaLoadings}}.
-#' @author            Mark Heckmann
 #' @export
 #' 
 #' @references        Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A Manual for Repertory 
@@ -1033,12 +1021,8 @@ print.constructPca <- function(x, digits=2, cutoff=0, ...)
 #'                  and Correlation: Problems in ihe bases of repertory 
 #'                  grid measures. \emph{International Journal of Personal
 #'                  Construct Psychology, 5}(1), 57-75. 
-#'
-#' @author          Mark Heckmann
 #' @export
-#'
 #' @seealso \code{\link{alignByIdeal}}
-#'
 #' @examples 
 #'
 #'   # reproduction of the example in the Bell (2010)
@@ -1167,9 +1151,7 @@ print.alignByLoadings <- function(x, digits=2, col.index=TRUE, ...)
 #'                way? \emph{Journal of Constructivist Psychology, 23}(4), 337-356.
 #'
 #' @export
-#' @author    Mark Heckmann
 #' @seealso \code{\link{alignByLoadings}}
-#'
 #' @examples \dontrun{
 #'
 #'   feixas2004                             # original grid
@@ -1256,7 +1238,6 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #' Repertory Grids in Human Resource Development. \emph{Personnel Review,
 #' 11}(4), 15-22. doi:10.1108/eb055464.
 #' 
-#' @author            Mark Heckmann
 #' @export
 #' @seealso           \code{\link{bertinCluster}}
 #'
@@ -1420,10 +1401,7 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #'                \code{\link{set.seed}}). Usually not needed.
 #' @param ...     Arguments to pass on to \code{\link{pvclust}}.
 #' @return        A pvclust object as returned by the function \code{\link{pvclust}}
-#'  
-#' @author        Mark Heckmann
 #' @export
-#'
 #' @examples \dontrun{
 #'
 #'  # pvclust must be loaded
@@ -1515,10 +1493,7 @@ clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean",
 #'                    (default is \code{0}).
 #' @param ...         Not evaluated.
 #' @return            Not yet definde TODO!
-#'
-#' @author        Mark Heckmann
 #' @export
-#'
 #' @examples \dontrun{
 #'
 #'  x <- matrix(sample(1:5, 20, rep=T), 4)
@@ -1556,10 +1531,7 @@ normalize <- function(x, normalize=0, ...){
 #'        applied simultaneously.
 #'        TODO: After centering the standard representation mode does not work any more as 
 #'         it remains unclear what color values to attach to the centered values.
-#'
-#' @author        Mark Heckmann
 #' @export
-#'
 #' @examples \dontrun{
 #'
 #'  center(bell2010)						      # no centering
@@ -1634,8 +1606,6 @@ center <- function(x, center=1, ...){
 #' @note                    TODO: if g or h is not equal to 1 the SSQ does not measure
 #'                          accuracy of representation as currently the ssq of each point
 #'                          are set in constrast with the pre-transformed matrix.
-#'
-#' @author        Mark Heckmann
 #' @keywords      internal
 #' @export
 #' @examples
@@ -1737,7 +1707,6 @@ ssq <- function(x, along=2, center=1, normalize=0,
 #' @export
 #' @method            print ssq
 #' @keywords          internal
-#'
 #'
 print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...)
 {

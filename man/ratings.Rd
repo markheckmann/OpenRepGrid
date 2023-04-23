@@ -66,6 +66,3 @@ ratings_df(x, long = TRUE)
 \seealso{
 \code{`[<--method`}
 }
-\author{
-Mark Heckmann
-}

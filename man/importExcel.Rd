@@ -75,6 +75,3 @@ rg <- importExcel(files)
                \code{\link{importGridsuite}},
                \code{\link{importTxt}}
 }
-\author{
-Mark Heckmann
-}

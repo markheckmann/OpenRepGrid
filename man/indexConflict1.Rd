@@ -77,6 +77,3 @@ Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992).
 \code{\link{indexConflict2}} for an improved version of this measure;
          see \code{\link{indexConflict3}} for a measure based on distances.
 }
-\author{
-Mark Heckmann
-}

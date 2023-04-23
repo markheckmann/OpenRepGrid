@@ -100,7 +100,4 @@ argument \code{normalize} which is \code{FALSE} as a default which
 rescales the axes so the longest construct and element vector will be 
 set to the length of \code{1}.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

@@ -240,7 +240,6 @@ print.org.matches <- function(x, output = "ICE", index = TRUE,
 #' @references      Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                  by Grid technique}. London: Wiley.
 #' @note STATUS:    Working and checked against example in Slater, 1977, p. 87.
-#' @author          Mark Heckmann
 #' @export
 #' @seealso       \code{\link{indexVariability}} 
 #' @examples indexBias(boeker)
@@ -276,7 +275,6 @@ indexBias <- function(x, min = NULL, max = NULL, digits=2)
 #' @references    Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                by Grid technique}. London: Wiley.
 #' @note          STATUS: working and checked against example in Slater, 1977 , p.88.
-#' @author        Mark Heckmann
 #' @export
 #' @seealso       \code{\link{indexBias}} 
 #' @examples      indexVariability(boeker)
@@ -671,8 +669,6 @@ print.indexDilemmatic <- function(x, output = "SD", ...)
 #'  \item{total.int}{Total intensity score.}
 #'
 #' @export      
-#' @author      Mark Heckmann
-#'
 #' @references    Bannister, D. (1960). Conceptual structure in 
 #'                thought-disordered schizophrenics. \emph{The Journal 
 #'                of mental science}, 106, 1230-49.
@@ -1172,7 +1168,6 @@ print.indexConflict1 <- function(x, digits=1, ...)
 #'                disorder and therapeutic change. \emph{The British Journal of 
 #'                Medical Psychology, 55} (Pt 3), 257-269.
 #' 
-#' @author        Mark Heckmann
 #' @export
 #' @seealso \code{\link{indexConflict2}} for an improved version of this measure;
 #'          see \code{\link{indexConflict3}} for a measure based on distances.
@@ -1269,7 +1264,6 @@ indexConflict1 <- function(x)
 #'                'conflict' in repertory grids. \emph{British Journal 
 #'                of Psychology, 70}(4), 519-524.
 #'
-#' @author        Mark Heckmann
 #' @export
 #' @seealso       See \code{\link{indexConflict1}} for the older version 
 #'                of this measure; see \code{\link{indexConflict3}} 
@@ -1439,7 +1433,6 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...)
 #'                or conflict in grids. Personal Construct Theory & Practice, 
 #'                (1), 53-59.
 #' @section output: For further control over the output see \code{\link{print.indexConflict3}}.
-#' @author        Mark Heckmann
 #' @export
 #' @seealso       See \code{\link{indexConflict1}} and \code{\link{indexConflict2}} 
 #'                for conflict measures based on triads of correlations.
@@ -1828,7 +1821,6 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2)
 #                        simply saves space when displaying the output.
 # @param digits          Numeric. Number of digits to round to (default is 
 #                        \code{2}).
-# @author                Mark Heckmann
 # @export
 # @keywords internal
 # @return                A list with four elements containing different steps of the 

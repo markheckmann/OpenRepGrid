@@ -35,6 +35,3 @@ x[1,1] <- 999
 }
 
 }
-\author{
-Mark Heckmann
-}

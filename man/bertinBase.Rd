@@ -60,7 +60,4 @@ device. It uses the R base graphics system and
 this is very fast. This is useful for working with grids. Not so much for
 producing high-quality output.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

@@ -106,6 +106,3 @@ Repertory Grids in Human Resource Development. \emph{Personnel Review,
 \seealso{
 \code{\link{bertinCluster}}
 }
-\author{
-Mark Heckmann
-}

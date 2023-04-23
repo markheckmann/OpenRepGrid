@@ -55,6 +55,3 @@ simple wrapper around \code{\link{randomGrid}}.
 }
 
 }
-\author{
-Mark Heckmann
-}

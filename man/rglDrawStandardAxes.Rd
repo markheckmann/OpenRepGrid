@@ -35,7 +35,4 @@ rglDrawStandardAxes(
 \description{
 Draw standard axes in the origin in an rgl plot.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

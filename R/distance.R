@@ -28,8 +28,6 @@
 #' @param ...         Additional parameters to be passed to function \code{dist}.
 #'                    Type \code{dist} for further information. 
 #' @return            \code{matrix} object.
-#'
-#' @author            Mark Heckmann
 #' @export
 #' @examples \dontrun{
 #'
@@ -258,8 +256,6 @@ slaterStandardization <- function(x)
 #'
 #'                    Slater, P. (1977). \emph{The measurement of intrapersonal 
 #'                    space by Grid technique.} Vol. II. London: Wiley.
-#'
-#' @author            Mark Heckmann
 #' @export
 #' @seealso \code{\link{distanceHartmann}}
 #' @examples 
@@ -488,7 +484,6 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #'                    Carlo study. \emph{International Journal of Personal 
 #'                    Construct Psychology, 5}(1), 41-56.
 #' @export
-#' @author            Mark Heckmann
 #' @seealso \code{\link{distanceSlater}}
 #' @examples \dontrun{
 #'
@@ -719,9 +714,7 @@ print.hdistance <- function(x, digits=2, col.index=TRUE,
 #'                    Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'                    by Grid technique}. London: Wiley.
 #'
-#'
 #' @export
-#' @author            Mark Heckmann
 #' @seealso           \code{\link{distanceHartmann}} and \code{\link{distanceSlater}}.
 #' @examples \dontrun{
 #'

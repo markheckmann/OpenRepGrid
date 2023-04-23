@@ -62,6 +62,3 @@ Somers, R. H. (1962). A New Asymmetric Measure of Association
                    for Ordinal Variables. \emph{American Sociological Review, 27}(6),
                    799-811.
 }
-\author{
-Mark Heckmann
-}

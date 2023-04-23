@@ -42,7 +42,4 @@ allow to return the kind of format that is needed.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

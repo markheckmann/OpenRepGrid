@@ -8,11 +8,8 @@
 #' @param labels      logical. wether to draw axis labels.
 #' @param spheres     logical. wether to draw axis spheres at the end points.  
 #' @param ...         not evaluated.
-#'
-#' @author  Mark Heckmann
 #' @export
 #' @keywords internal
-#'
 rglDrawStandardAxes <- function(max.dim=1, lwd=1, a.cex=1.1, a.col="black",
                                 a.radius=.05, labels=TRUE, spheres=FALSE, ...){
   lines3d(c(0, max.dim), c(0,0), c(0,0), lwd=lwd, col=a.col)
@@ -39,8 +36,6 @@ rglDrawStandardAxes <- function(max.dim=1, lwd=1, a.cex=1.1, a.col="black",
 #' @param max.dim   soon
 #' @param lwd       soon
 #' @param col       soon
-#'
-#' @author  Mark Heckmann
 #' @export
 #' @keywords internal
 #'
@@ -80,8 +75,6 @@ rglDrawElementLabels <- function(coords, labels=FALSE, dim=1:3, e.radius=.1, e.c
 #' @param c.radius        radius of construct spheres.
 #' @param c.sphere.col    color of construct spheres.
 #' @param ...             not evaluated.
-#'
-#' @author  Mark Heckmann
 #' @export
 #' @keywords internal
 #'
@@ -100,8 +93,6 @@ rglDrawConstructPoints <- function(coords, dim=1:3, c.radius=.02, c.sphere.col=g
 #' @param c.cex       cex for construct text.
 #' @param c.text.col  color for construct text.
 #' @param ...         not evaluated.
-#'
-#' @author  Mark Heckmann
 #' @export
 #' @keywords internal
 #'
@@ -134,8 +125,6 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
 #'                        the plot in and out (default \code{1}). 
 #' @param draw.xyz.axes   Draw standard XYZ axes.                     
 #' @param ...             Parameters to be passed on.  
-#'
-#' @author  Mark Heckmann
 #' @keywords internal
 #' @export
 #'
@@ -338,10 +327,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
 #' @param zoom          Not yet used. Scaling factor for all vectors. Can be used to zoom
 #'                      the plot in and out (default \code{1}).
 #' @param ...           Parameters to be passed on.
-#'
-#' @author  Mark Heckmann
 #' @export
-#'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
 #'            2D biplots:
 #'            \code{\link{biplot2d}},
@@ -485,10 +471,7 @@ biplotSlater3d <- function(x, center=1, g=1, h=1, ...){
 #' @param h             Power of the singular value matrix assigned to the right singular 
 #'                      vectors, i.e. the elements.
 #' @param ...           Additional arguments to be passed to \code{\link{biplot3d}}.
-#'
-#' @author  Mark Heckmann
 #' @export
-#'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
 #'            2D biplots:
 #'            \code{\link{biplot2d}},
@@ -536,10 +519,7 @@ biplotEsa3d <- function(x, center=1, g=1, h=1, ...){
 #' @param phi     Numeric. Euler angle. Overrides view setting.
 #'
 #' return \code{NULL}.
-#'
-#' @author  Mark Heckmann
 #' @export
-#'
 #' @seealso   Interactive 3D biplots:
 #'            \code{\link{biplot3d}},      
 #'            \code{\link{biplotSlater3d}},

@@ -36,7 +36,4 @@ it does is create an additional progress bar.
 \seealso{
 \code{\link{sapply}}
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

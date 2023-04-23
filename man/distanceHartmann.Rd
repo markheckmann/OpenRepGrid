@@ -126,6 +126,3 @@ Hartmann, A. (1992). Element comparisons in repertory
 \seealso{
 \code{\link{distanceSlater}}
 }
-\author{
-Mark Heckmann
-}

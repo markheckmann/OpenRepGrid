@@ -77,6 +77,3 @@ Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}

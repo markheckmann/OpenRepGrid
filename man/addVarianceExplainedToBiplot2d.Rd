@@ -65,7 +65,4 @@ supplementary.}
 \description{
 Adds the percentage of the sum-of-squares explained by each axis to the plot.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

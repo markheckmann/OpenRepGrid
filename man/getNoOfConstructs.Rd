@@ -22,7 +22,4 @@ Get number of constructs
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

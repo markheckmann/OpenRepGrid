@@ -73,6 +73,3 @@ Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A Manual for Repertory
 To extract the PCA loadings for further processing see
                    \code{\link{constructPcaLoadings}}.
 }
-\author{
-Mark Heckmann
-}

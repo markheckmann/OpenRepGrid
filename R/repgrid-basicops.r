@@ -60,7 +60,6 @@ stop_if_scale_not_defined <- function(x)
 #' @param i,j   Row and column indices.
 #' @param ...   Not evaluated.
 #' @param drop  Not used.
-#' @author Mark heckmann
 #' @rdname extract-methods
 #' @aliases [,repgrid-method
 #' @include repgrid.r
@@ -121,7 +120,6 @@ setMethod("[", signature(x = "repgrid", i = "ANY", j="ANY"),
 #' @param i,j     Row and column indices.
 #' @param value   Numeric replacement value(s).
 #' @param ...     Not evaluated.
-#' @author  Mark Heckmann
 #' @rdname subassign
 #' @include repgrid.r
 #' @examples \dontrun{
@@ -203,8 +201,6 @@ setMethod("[<-", signature(x = "repgrid", i = "ANY", j="ANY", value="ANY"),
 #'
 #' @export
 #' @keywords internal
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'      getRatingLayer(bell2010)
@@ -245,7 +241,6 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
 #' @param value   Numeric replacement value(s).
 #' @return A \code{matrix}.#'
 #' @export
-#' @author Mark Heckmann
 #' @rdname ratings
 #' @seealso \code{`[<--method`}
 #' @examples 
@@ -345,8 +340,6 @@ ratings_df <- function(x, long = FALSE, names = TRUE, trim = NA)
 #'
 #' @export
 #' @keywords internal
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'      getNoOfConstructs(bell2010)
@@ -366,8 +359,6 @@ getNoOfConstructs <- function(x){
 #'
 #' @export
 #' @keywords internal
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'      getNoOfElements(bell2010)
@@ -394,8 +385,6 @@ getNoOfElements <- function(x){
 #' 
 #' @return \code{repgrid} object
 #' @export
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    x <- bell2010
@@ -439,8 +428,6 @@ setScale <- function(x, min, max, step, ...){         # ... needes for makeRepgr
 #'                  minimum and maximum scale value.
 #' @keywords        internal
 #' @export
-#' @author          Mark Heckmann
-#'
 getScale <- function(x, output=1){
   if (!inherits(x, "repgrid")) 							# check if x is repgrid object
     stop("Object x must be of class 'repgrid'")
@@ -466,8 +453,6 @@ getScale <- function(x, output=1){
 #' @return \code{repgrid} object
 #' @export
 #' @keywords internal
-#' @author   Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    ####  TODO  ####
@@ -529,8 +514,6 @@ midpoint <- getScaleMidpoint
 #'
 #' @return \code{repgrid} object.
 #' @export
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'    x <- randomGrid()
 #'    swapElements(x, 1, 3)       # swap elements 1 and 3
@@ -563,10 +546,7 @@ swapElements <- function(x, pos1=1, pos2=1){
 #' @param pos1    Row number of first construct to be swapped (default=1).
 #' @param pos2    Row number of second construct to be swapped (default=1).
 #' @return        \code{repgrid} object
-#'
 #' @export
-#' @author Mark Heckmann
-#'
 #' @rdname swapConstructs
 #' @examples \dontrun{
 #'
@@ -682,9 +662,7 @@ reverse <- function(x, pos = 1L:nrow(x))
 #'              The default is \code{0}. For indexes outside the range of
 #'              the grid no moving is done.
 #' @return      \code{repgrid} object.
-#'
 #' @export
-#' @author Mark Heckmann
 #' @aliases left right up down
 #' @examples \dontrun{
 #'    x <- randomGrid()
@@ -777,9 +755,7 @@ down <- function(x, pos=0){
 #' @param c   Index of construct to be shifted to first position.
 #' @param e   Index of element to be shifted to first position.
 #' @return    \code{repgrid} object.
-#'
 #' @export
-#' @author   Mark Heckmann
 #' @examples \dontrun{
 #'
 #'    # shift element 13: 'Ideal self' to first position
@@ -846,8 +822,6 @@ rating <- r.setRatings
 #' @return \code{repgrid} object
 #' @export
 #' @keywords internal
-#' @author    Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    ####  TODO  ####
@@ -872,9 +846,7 @@ clearRatings <- function(x, rows=NA, cols=NA, layer=1) {
 #' @param side            Not yet in use.
 #' @return                \code{repgrid} object
 #' @export
-#' @author                Mark Heckmann
 #' @seealso               \code{\link{addConstruct}}
-#'
 #' @examples \dontrun{
 #'
 #'    bell2010      
@@ -973,9 +945,7 @@ addAvgElement <- function(x, name = "avg", i, digits = Inf)
 #'                        TODO. Does not work properly.
 #' @param side            Not yet in use.
 #' @return                \code{repgrid} object.
-#'
 #' @export
-#' @author                Mark Heckmann
 #' @seealso               \code{\link{addElement}}
 #'
 #' @examples \dontrun{
@@ -1026,9 +996,7 @@ addConstruct <- function(x, l.name = NA, r.name = NA, scores = NA,
 #'
 #' @note            Currently the main purpose is to change element names. 
 #'                  Future implementations will allow to set further attributes.
-#'
 #' @export
-#' @author          Mark Heckmann
 #' @seealso         \code{\link{setConstructAttr}}
 #' @examples \dontrun{
 #'    
@@ -1070,7 +1038,6 @@ setElementAttr <- function(x, pos, name, abb, status){
 #' @return                \code{repgrid} object
 #'
 #' @export
-#' @author Mark Heckmann
 #' @seealso         \code{\link{setElementAttr}}
 #' @examples \dontrun{
 #'
@@ -1195,8 +1162,6 @@ modifyElement <- function(x, pos, name=NA, abbreviation=NA, status=NA,
 #' @return      \code{NULL}.
 #' @export
 #' @keywords internal
-#' @author   Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    showScale(raeithel)
@@ -1246,8 +1211,6 @@ setCoupled <- function(x, coupled=TRUE){
 #' @return \code{NULL} 
 #' @export
 #' @keywords internal
-#' @author   Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    ####  TODO  ####
@@ -1282,10 +1245,7 @@ showMeta <- function(x){
 #'                vector with the right construct poles. \code{scores} followed
 #'                by a vector containing the rating scores row wise.
 #' @return        \code{NULL} 
-#'
 #' @export
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    # make list object containing the arguments
@@ -1352,8 +1312,6 @@ makeRepgrid <- function(args)
 #'
 #' @export
 #' @keywords    internal
-#' @author      Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'    a <- randomGrid()
@@ -1414,10 +1372,7 @@ bind <- function(x, y, match=TRUE, index=TRUE)
 #'
 #' @references  Slater, P. (1977). \emph{The measurement of intrapersonal space 
 #'              by grid technique}. London: Wiley.
-#'
 #' @export
-#' @author  Mark Heckmann
-#'
 #' @examples 
 #'
 #'  a <- randomGrid()
@@ -1448,7 +1403,6 @@ bindConstructs <- function(..., index=FALSE)
 #'
 #' Methods for \code{"+"} function. 
 #' @param e1,e2  A \code{repgrid} object.
-#' @author Mark heckmann
 #' @rdname ops-methods
 #' @include repgrid.r
 #' @export
@@ -1491,8 +1445,6 @@ setMethod("+", signature(e1="repgrid", e2="list"),
 #'
 #' @export
 #' @keywords internal
-#' @author Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'      data(bell2010)
@@ -1515,7 +1467,6 @@ doubleEntry <- function(x){
 #' @export
 #' @keywords    internal
 #' @method      dim repgrid
-#' @author      Mark Heckmann
 #' @seealso     \code{\link{getNoOfConstructs}};   \code{\link{getNoOfElements}}
 #' @examples \dontrun{
 #'
@@ -1546,7 +1497,6 @@ rg.setCoupled <- function(x, coupled=TRUE, ...){
 #' @param x     repgrid object
 #' @export
 #' @keywords internal
-#' @author Mark Heckmann
 #'
 decouple <- function(x){
   if (x@coupled) {

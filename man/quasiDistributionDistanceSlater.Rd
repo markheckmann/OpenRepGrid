@@ -52,7 +52,4 @@ assess the distributions standard deviation.
          \code{\link{distanceSlater}}; 
          \code{\link{distanceHartmann}}.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

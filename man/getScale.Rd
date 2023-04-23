@@ -18,7 +18,4 @@ Vector or list (depends on \code{output} containing
 \description{
 The values are returned either as a vector or a list.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

@@ -70,6 +70,3 @@ rg <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml")
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}

@@ -31,6 +31,3 @@ x + list(x,x)
 list(x,x) + x 
 
 }
-\author{
-Mark heckmann
-}

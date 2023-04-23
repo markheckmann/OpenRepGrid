@@ -231,7 +231,6 @@ bertin2PlusLegend <- function(x, ratings=TRUE, top=unit(40, "mm"),
 #'
 #' @export
 #' @keywords internal
-#' @author Mark Heckmann
 #' 
 bertinBase <- function(nrow, ncol, labels="", labels.elements="", 
                        labels.left="", labels.right="", 
@@ -630,8 +629,6 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'
 #' @return            A list of two \code{\link{hclust}} object, for elements and constructs
 #'                    respectively.
-#'
-#' @author        Mark Heckmann
 #' @export
 #' @seealso  \code{\link{cluster}}
 #'

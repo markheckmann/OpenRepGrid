@@ -41,6 +41,3 @@ Interactive 3D biplots:
            \code{\link{biplotSlater3d}},
            \code{\link{biplotEsa3d}}.
 }
-\author{
-Mark Heckmann
-}

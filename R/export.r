@@ -52,11 +52,8 @@
 #' }
 #' \code{---------------- end of file ----------------}
 #'
-#' @author    Mark Heckmann
 #' @export
-#'
 #' @seealso     \code{\link{importTxt}}
-#'
 #' @examples \dontrun{
 #' 
 #'  x <- randomGrid()
@@ -191,11 +188,8 @@ saveAsTxt <- function(x, file=NA){
 #'              the suffix \code{.xlsx}.
 #' @param sheet Index of the sheet to write to.
 #' @return      Invisibly returns the name of the file.
-#' @author    Mark Heckmann
 #' @export
-#'
 #' @seealso     \code{\link{importExcel}}
-#'
 #' @examples \dontrun{
 #' 
 #'  x <- randomGrid(options=0)

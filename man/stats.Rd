@@ -72,6 +72,3 @@ Note that standard deviation and variance are estimated ones,
 }
 
 }
-\author{
-Mark Heckmann
-}

@@ -89,6 +89,3 @@ Hartmann, A. (1992). Element comparisons in repertory
 \seealso{
 \code{\link{distanceHartmann}}
 }
-\author{
-Mark Heckmann
-}

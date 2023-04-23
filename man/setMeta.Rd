@@ -28,7 +28,4 @@ set meta data of a grid (e.g. id, name of interview partner)
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

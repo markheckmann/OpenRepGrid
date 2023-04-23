@@ -65,6 +65,3 @@ Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}

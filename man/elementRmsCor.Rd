@@ -62,6 +62,3 @@ Fransella, F., Bell, R. C., & Bannister, D. (2003).
 \seealso{
 \code{\link{constructRmsCor}}, \code{\link{elementCor}}
 }
-\author{
-Mark Heckmann
-}

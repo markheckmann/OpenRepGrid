@@ -89,6 +89,3 @@ Bannister, D. (1960). Conceptual structure in
                thought-disordered schizophrenics. \emph{The Journal 
                of mental science}, 106, 1230-49.
 }
-\author{
-Mark Heckmann
-}

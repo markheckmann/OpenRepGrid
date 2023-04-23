@@ -73,6 +73,3 @@ Bell, R. C. (2010). A note on aligning constructs.
 \seealso{
 \code{\link{constructCor}}
 }
-\author{
-Mark Heckmann
-}

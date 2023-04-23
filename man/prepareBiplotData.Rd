@@ -132,7 +132,4 @@ Data frame contains the variables \code{type, show, x, y,
 \note{
 TODO:  How to omit \code{map.dim}?
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

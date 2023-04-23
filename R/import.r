@@ -163,8 +163,6 @@ convertImportObjectToRepGridObject <- function(import){
 #'
 #' @export
 #' @keywords internal
-#' @author  Mark Heckmann
-#'
 #' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
 #'                repertory grid. Melbourne: Author.
 #' @examples \dontrun{
@@ -369,8 +367,6 @@ multigridFileToSinglegridFiles <- function(file)
 #' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
 #'                repertory grid. Melbourne: Author.
 #'
-#' @author  Mark Heckmann
-#'
 #' @seealso       \code{\link{importGridcor}},
 #'                \code{\link{importGridstat}},
 #'                \code{\link{importScivesco}},
@@ -512,8 +508,6 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
 #'
 #' @export
 #' @keywords internal
-#' @author  Mark Heckmann
-#'
 #' @examples \dontrun{
 #' 
 #' # supposing that the data file gridcor.dat is in the current directory
@@ -603,8 +597,6 @@ importGridcorInternal <- function(file, dir=NULL) {
 #'                Also note that both Gridcor and Gridstat data files do have the same
 #'                suffix \code{.dat}. Make sure not to mix themn up.
 #' @export
-#' @author  Mark Heckmann
-#'
 #' @references    Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
 #'                for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
 #'                Retrieved from \url{http://www.terapiacognitiva.net/record/gridcor.htm}.
@@ -687,8 +679,6 @@ importGridcor <- function(file, dir=NULL){
 #'                will cause false assignments.
 #' @export
 #' @keywords internal
-#' @author  Mark Heckmann
-#'
 #' @examples \dontrun{
 #' 
 #' # supposing that the data file gridsuite.xml is in the current directory
@@ -790,8 +780,6 @@ importGridsuiteInternal <- function(file, dir=NULL){
 #'                if the output should be in different order the current mechanism 
 #'                will cause false assignments.
 #' @export
-#' @author  Mark Heckmann
-#'
 #' @seealso       \code{\link{importGridcor}},
 #'                \code{\link{importGridstat}},
 #'                \code{\link{importScivesco}},
@@ -914,8 +902,6 @@ importGridsuite <- function(file, dir=NULL){
 #'
 #' @export
 #' @keywords internal
-#' @author  Mark Heckmann
-#'
 #' @examples \dontrun{
 #' 
 #' # supposing that the data file scivesco.scires is in the current directory
@@ -1055,8 +1041,6 @@ importScivescoInternal <- function(file, dir=NULL){
 #' @return  \code{repgrid} object.
 #' @keywords internal
 #' @export
-#' @author  Mark Heckmann
-#'
 convertScivescoImportObjectToRepGridObject <- function(import){
   # structure of import object:
   # List of 16
@@ -1136,8 +1120,6 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #'                This might cause wrong assignments.
 #'
 #' @export
-#' @author        Mark Heckmann
-#' 
 #' @references    Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
 #'                rationale Konstrukte verstehen. \emph{Personalfuehrung, 4}(7), 91-99.
 #'
@@ -1255,8 +1237,6 @@ importScivesco <- function(file, dir=NULL){
 #'
 #' @export
 #' @keywords internal
-#' @author        Mark Heckmann
-#'
 #' @examples \dontrun{
 #' 
 #' # supposing that the data file sample.txt is in the current directory
@@ -1425,8 +1405,6 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 #' @return        A single \code{repgrid} object in case one file and
 #'                a list of \code{repgrid} objects in case multiple files are imported.
 #' @export
-#' @author        Mark Heckmann
-#'
 #' @seealso       \code{\link{importGridcor}},
 #'                \code{\link{importGridstat}},
 #'                \code{\link{importScivesco}},
@@ -1490,8 +1468,6 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
 #' @inheritParams importExcel
 #' @export
 #' @keywords      internal
-#' @author        Mark Heckmann
-#'
 importExcelInternal <- function(file, dir=NULL, sheetIndex=1, 
                                 min=NULL, max=NULL)
 {
@@ -1587,8 +1563,6 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #' @return        A single \code{repgrid} object in case one file and
 #'                a list of \code{repgrid} objects in case multiple files are imported.
 #' @export
-#' @author        Mark Heckmann
-#'
 #' @seealso       \code{\link{importGridcor}},
 #'                \code{\link{importGridstat}},
 #'                \code{\link{importScivesco}},

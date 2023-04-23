@@ -27,7 +27,4 @@ set certain ratings in grid to NA (unknown)
    ####  TODO  ####
 }
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

@@ -29,7 +29,4 @@ for the heights.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

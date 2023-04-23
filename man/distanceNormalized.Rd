@@ -128,6 +128,3 @@ Box, G. E. P., & Cox, D. R. (1964). An Analysis of Transformations.
 \seealso{
 \code{\link{distanceHartmann}} and \code{\link{distanceSlater}}.
 }
-\author{
-Mark Heckmann
-}

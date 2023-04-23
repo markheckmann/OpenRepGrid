@@ -22,7 +22,4 @@ as they will typically not have knowledge about R object structures (S3, S4).
   Instead use \code{elements()}.
 }
 
-\author{
-Mark Heckmann
-}
 \keyword{internal}

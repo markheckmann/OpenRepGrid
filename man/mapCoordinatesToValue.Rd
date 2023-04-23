@@ -21,7 +21,4 @@ given by \code{val.range}. This
 funtion can be used in order to map arbitrary vectors to a given
 range of values.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

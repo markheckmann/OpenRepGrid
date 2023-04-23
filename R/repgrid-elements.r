@@ -42,7 +42,6 @@ getElements <- function(x){
 #'   Instead use \code{elements()}.
 #' @export
 #' @keywords internal
-#' @author  Mark Heckmann
 #'
 getElementNames <- function(x)
 {
@@ -81,8 +80,6 @@ eNames <- getElementNames
 #' @param pre     String before index number (default \code{(}).
 #' @param post    String after index number (default \code{) }).
 #' @return        Vector with (trimmed) element names.
-#'
-#' @author        Mark Heckmann
 #' @export
 #' @keywords internal
 #' @examples \dontrun{

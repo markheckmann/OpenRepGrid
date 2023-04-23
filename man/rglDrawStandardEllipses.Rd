@@ -16,7 +16,4 @@ rglDrawStandardEllipses(max.dim = 1, lwd = 1, col = "black")
 \description{
 Draw standard ellipses in the origin in an rgl plot.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

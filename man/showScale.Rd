@@ -23,7 +23,4 @@ Print scale range information to the console.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

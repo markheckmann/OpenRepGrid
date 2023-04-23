@@ -30,7 +30,4 @@ get rating layer
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

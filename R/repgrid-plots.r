@@ -17,8 +17,6 @@
 #'                      supplementary.
 #' @param ...           Parameters to be passed on to \code{center()} and \code{normalize}.       
 #' @return              a \code{list}.
-#'
-#' @author        Mark Heckmann
 #' @keywords internal
 #' @export
 #' 
@@ -80,11 +78,8 @@ calcBiplotCoords <- function(x, g=0, h=1-g,
 #' @param  z          numeric vector.
 #' @param  val.range  numeric vector of lengths two (default \code{c(.5, 1)}).
 #' @return numeric vector
-#'
-#' @author  Mark Heckmann
 #' @keywords internal
 #' @export
-#'
 mapCoordinatesToValue <- function(z, val.range=c(.5, 1)) {
 	z.range <- c(min(z, na.rm=T), max(z, na.rm=T))
 	slope <-  diff(val.range) / diff(z.range)
@@ -105,8 +100,6 @@ mapCoordinatesToValue <- function(z, val.range=c(.5, 1)) {
 #' @param  color      vector of length two giving color values \code{c("white", "black")}.
 #' @param  val.range  numeric vector of lengths two (default \code{c(.2, .8)}).
 #' @return numeric vector
-#'
-#' @author  Mark Heckmann
 #' @keywords internal
 #' @export
 #'
@@ -132,11 +125,8 @@ mapCoordinatesToColor <- function(z, colors=c("white", "black"), val.range=c(.2,
 #' 
 #' @return       a \code{dataframe} containing the x and y coordinates for the 
 #'               extended vectors.
-#'
-#' @author    Mark Heckmann
 #' @keywords internal
 #' @export
-#'
 #' @examples \dontrun{
 #'   calcCoordsBorders(1:10, 10:1)
 #' 
@@ -330,10 +320,7 @@ degreesBetweenVectorAndPlane <- function(a, n){
 #' @param c.label.cex   Size of the costruct labels (default is \code{.6}.
 #' @param ...           Parameters to be passed on to \code{center()} and \code{normalize}.       
 #' @return              \code{repgrid} object.
-#'
-#' @author Mark Heckmann
 #' @export
-#' 
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
 #'            2D biplots:
 #'            \code{\link{biplot2d}},
@@ -524,8 +511,6 @@ biplotSimple <- function(x, dim=1:2, center=1, normalize=0,
 #' @return              \code{dataframe} containing the variables \code{type, show, x, y, 
 #'                      z, labels, color, cex}. Usually not of interest to the user.
 #' @note                TODO:  How to omit \code{map.dim}?
-#'
-#' @author  Mark Heckmann
 #' @keywords internal
 #' @export
 #'
@@ -793,8 +778,6 @@ prepareBiplotData <- function(x, dim=c(1,2), map.dim=3,
 #' @param ...                  Not evaluated.
 #' @return                     Invisible return of dataframe used during construction of plot 
 #'                             (useful for developers).
-#'
-#' @author  Mark Heckmann
 #' @export
 #' @keywords internal
 #'
@@ -1126,8 +1109,6 @@ biplotDraw <- function(x,
 #'                        determine the solution. Default is \code{NA}, i.e. no elements are set 
 #'                        supplementary.
 #' @param ...             Not evaluated.
-#'
-#' @author   Mark Heckmann
 #' @keywords internal
 #' @export
 #'
@@ -1417,10 +1398,7 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #' @param var.cex             The cex value for the percentages shown in the plot.
 #' @param var.col             The color value of the percentages shown in the plot.
 #' @param ...                 parameters passed on to  come.
-#'
-#' @author                    Mark Heckmann
 #' @export
-#'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
 #'            2D biplots:
 #'            \code{\link{biplot2d}},
@@ -1635,9 +1613,7 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
 #'                      Usually not important for the user.
 #' @param ...           Additional parameters passed to \code{\link{biplot2d}}.
 #'  
-#' @author              Mark Heckmann
 #' @export
-#'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
 #'            2D biplots:
 #'            \code{\link{biplot2d}},
@@ -1726,8 +1702,6 @@ biplotPseudo3d <- function( x, dim=1:2, map.dim=3,
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements.
 #' @param ...         Additional parameters for be passed to \code{\link{biplot2d}}.
-#'
-#' @author            Mark Heckmann
 #' @export
 #'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
@@ -1777,8 +1751,6 @@ biplotSlater2d <- function(x, center=1, g=1, h=1, ...){
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements.
 #' @param ...         Additional parameters for be passed to \code{\link{biplotPseudo3d}}.
-#'
-#' @author            Mark Heckmann
 #' @export
 #'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
@@ -1838,8 +1810,6 @@ biplotSlaterPseudo3d <- function(x, center=1, g=1, h=1, ...){
 #'                Zeichenprozess. Arbeiten zu einer kulturwissenschaftlichen, 
 #'                anwendungsbezogenen Psychologie (p. 209-254). Opladen: 
 #'                Westdeutscher Verlag.
-#'
-#' @author        Mark Heckmann
 #' @export
 #'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
@@ -1895,10 +1865,7 @@ biplotEsa2d <- function(x, center=4, g=1, h=1, ...){
 #'                    vectors, i.e. the elements. Eigenstructure analyis uses  
 #'                    \code{h=1}.
 #' @param ...         Additional parameters for be passed to \code{\link{biplotPseudo3d}}.
-#'
-#' @author            Mark Heckmann
 #' @export
-#'
 #' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
 #'            2D biplots:
 #'            \code{\link{biplot2d}},

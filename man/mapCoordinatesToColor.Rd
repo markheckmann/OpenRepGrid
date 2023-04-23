@@ -22,7 +22,4 @@ linearly mapped onto the interval given by \code{val.range}. Then
 a color ramp using the colors given by \code{color} is created and 
 the mapped values are transformed into hex color values.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

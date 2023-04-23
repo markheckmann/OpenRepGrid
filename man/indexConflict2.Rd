@@ -92,6 +92,3 @@ See \code{\link{indexConflict1}} for the older version
                of this measure; see \code{\link{indexConflict3}} 
                for a measure based on distances instead of correlations.
 }
-\author{
-Mark Heckmann
-}

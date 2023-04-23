@@ -99,7 +99,4 @@ TODO: if g or h is not equal to 1 the SSQ does not measure
  s$ssq.total
  
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

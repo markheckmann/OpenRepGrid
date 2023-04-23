@@ -24,7 +24,4 @@ for maximum rating value in grid.}
 \description{
 workhiorse function (parser) for importExcel.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

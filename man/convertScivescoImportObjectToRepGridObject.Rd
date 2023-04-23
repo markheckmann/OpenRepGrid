@@ -17,7 +17,4 @@ convertScivescoImportObjectToRepGridObject(import)
 Convert the returned object from the sci:vesco import function into a \code{repgrid} 
 object.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

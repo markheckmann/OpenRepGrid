@@ -28,7 +28,4 @@ column of a matrix seen from the origin are calulated in degrees.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

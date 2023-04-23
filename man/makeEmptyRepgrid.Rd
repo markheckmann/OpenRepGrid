@@ -12,7 +12,4 @@ makeEmptyRepgrid()
 \description{
 Constructor for repgrid class
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

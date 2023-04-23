@@ -81,6 +81,3 @@ Various distance measures between elements or constructs are calculated.
 }
 
 }
-\author{
-Mark Heckmann
-}

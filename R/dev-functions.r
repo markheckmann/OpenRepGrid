@@ -25,8 +25,6 @@
 #' @return \code{repgrid} object.
 #'
 #' @export
-#' @author    Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'      x <- randomGrid()
@@ -79,8 +77,6 @@ randomGrid <- function(nc=10, ne=15, nwc=8, nwe=5, range=c(1,5), prob=NULL, opti
 #' @return          A list of \code{repgrid} objects.
 #'
 #' @export
-#' @author    Mark Heckmann
-#'
 #' @examples \dontrun{
 #'
 #'      x <- randomGrids()
@@ -116,8 +112,6 @@ randomGrids <- function(rep=3, nc=10, ne=15, nwc=8, nwe=5,
 #' @param progress  Whether to show a progress bar.
 #'  
 #' @return          A vector containing Slater distance values.
-#'
-#' @author          Mark Heckmann
 #' @keywords        internal
 #' @export
 #' @seealso \code{\link{randomGrids}};  
@@ -155,7 +149,6 @@ quasiDistributionDistanceSlater <- function(rep, nc, ne, range, prob=NULL, progr
 #' @return            A list of \code{repgrid} objects with all possible permutations
 #'                    of the grid.
 #'
-#' @author            Mark Heckmann
 #' @export
 #' @examples \dontrun{
 #' 
@@ -189,8 +182,6 @@ permuteConstructs <- function(x, progress=TRUE){
 #' @param n       The number of permutations to produce.
 #' @return        A \code{repgrid} object if \code{n=1} or a list of 
 #'                \code{repgrid} objects if \code{n>1}.
-#'
-#' @author        Mark Heckmann
 #' @export      
 #' @keywords       internal
 #'

@@ -55,7 +55,4 @@ imp <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml"
                \emph{Journal of Constructivist Psychology, 17}(3), 247. 
                doi:10.1080/10720530490447167
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

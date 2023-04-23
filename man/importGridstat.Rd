@@ -90,6 +90,3 @@ Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}

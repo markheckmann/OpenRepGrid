@@ -88,7 +88,4 @@ imp <- importGridstatInternal(file, dir, min=1, max=6)
 Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
                repertory grid. Melbourne: Author.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

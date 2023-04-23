@@ -338,7 +338,6 @@ insertAt <- function(index.base, index.insert, side="pre"){
 #' @param ...       see ?apply
 #' @return          see ?apply
 #' @seealso         \code{\link{apply}}
-#' @author          Mark Heckmann
 #' @export
 #' @keywords        internal
 #' @examples \dontrun{
@@ -393,7 +392,6 @@ apply_pb <- function(X, MARGIN, FUN, ...)
 #' @param ...         see ?lapply 
 #' @return list       see ?lapply
 #' @seealso           \code{\link{lapply}}
-#' @author            Mark Heckmann
 #' @export
 #' @keywords          internal
 #' @examples \dontrun{
@@ -437,7 +435,6 @@ lapply_pb <- function(X, FUN, ...)
 #' @param ...         see ?sapply 
 #' @return list       see ?sapply
 #' @seealso           \code{\link{sapply}}
-#' @author            Mark Heckmann
 #' @export
 #' @keywords          internal
 #' @examples \dontrun{
@@ -835,8 +832,6 @@ angle <- function (x, y)
 #' @param diag      Whether to show diagonal.
 #' @param mode      Whether to show upper (mode=1), lower (mode=2) 
 #'                  or both triangles (mode=0) of the matrix.
-#'
-#' @author          Mark Heckmann
 #' @keywords        internal
 #' @export
 #'
@@ -933,7 +928,6 @@ addIndexColumnToMatrix <- function(x){
 #'                  See ?hist parameter \code{breaks} for more information.
 #' @param add       Whether to add the steps to an existing plot (\code{FALSE})
 #'                  or to create a new plot (default \code{add=TRUE}).  
-#' @author          Mark Heckmann
 #' @export
 #' @keywords        internal  
 #' @examples \dontrun{

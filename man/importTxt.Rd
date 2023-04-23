@@ -110,6 +110,3 @@ rg <- importTxt(files)
                \code{\link{importTxt}},
                \code{\link{importExcel}}
 }
-\author{
-Mark Heckmann
-}

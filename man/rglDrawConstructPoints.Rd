@@ -26,7 +26,4 @@ rglDrawConstructPoints(
 \description{
 draw constructs in rgl
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

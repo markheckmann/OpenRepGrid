@@ -36,6 +36,3 @@ Slater, P. (1977). \emph{The measurement of intrapersonal space
 \seealso{
 \code{\link{indexBias}}
 }
-\author{
-Mark Heckmann
-}

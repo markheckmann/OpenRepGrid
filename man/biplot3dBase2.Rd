@@ -53,7 +53,4 @@ the plot in and out (default \code{1}).}
 \description{
 biplot3dBase2 is the workhorse to draw a grid in rgl (3D device).
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

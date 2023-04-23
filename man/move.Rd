@@ -44,6 +44,3 @@ Move element in grid to the right.
    down(x, 1)    # 1st construct downwards
 }
 }
-\author{
-Mark Heckmann
-}

@@ -36,7 +36,4 @@ the rows, the columns or the whole grid matrix.
 }
 
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

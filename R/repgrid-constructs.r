@@ -34,7 +34,6 @@
 #'   Instead use \code{constructs()}.
 #' @export
 #' @keywords internal
-#' @author  Mark Heckmann
 #'
 getConstructNames <- function(x){
 	if (!inherits(x, "repgrid")) 							# check if x is repgrid object
@@ -69,8 +68,6 @@ cNames <- getConstructNames
 #' @param pre     String before index number (default \code{(}).
 #' @param post    String after index number (default \code{) }).
 #' @return        Vector with construct names.
-#'
-#' @author        Mark Heckmann
 #' @export
 #' @keywords internal
 #' @examples \dontrun{

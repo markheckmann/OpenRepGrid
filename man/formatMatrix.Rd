@@ -34,7 +34,4 @@ or both triangles (mode=0) of the matrix.}
 \description{
 Format a matrix and add index column.
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}

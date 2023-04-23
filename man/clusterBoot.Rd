@@ -133,6 +133,3 @@ Zharkikh, A., & Li, W.-H. (1995). Estimation of confidence in phylogeny: the
 complete-and-partial bootstrap technique. \emph{Molecular Phylogenetic Evolution,
 4}(1), 44-63.
 }
-\author{
-Mark Heckmann
-}

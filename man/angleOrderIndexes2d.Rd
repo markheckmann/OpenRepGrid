@@ -33,7 +33,4 @@ using the coordinates of the given dimensions.
 }
                  
 }
-\author{
-Mark Heckmann
-}
 \keyword{internal}
