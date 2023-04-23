@@ -1,5 +1,5 @@
 Package: OpenRepGrid
-License: GPL (>= 2)
+License: GPL (>= 3)
 Title: Tools to Analyze Repertory Grid Data
 LazyData: yes
 Type: Package
@@ -50,6 +50,7 @@ Collate:
     'distance.R'
     'double-entry.R'
     'export.r'
+    'globals.R'
     'gmMain.r'
     'gridlist.R'
     'import.r'
