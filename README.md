@@ -1,5 +1,5 @@
 
-# OpenRepGrid <img src="man/figures/logo.png" style="float: right; padding-left: 10px;" width="175" />
+# OpenRepGrid <img src="man/figures/logo.png" style="float: right; padding-left: 40px;" width="175" />
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
