@@ -9,8 +9,7 @@ importTxt(file, dir = NULL, min = NULL, max = NULL)
 \arguments{
 \item{file}{A vector of filenames including the full path if file is not in current working 
 directory. File can also be a complete URL. The file suffix
-has to be \code{.txt}. If no file is supplied a selection pop up menu is opened to select
-the files.}
+has to be \code{.txt}.}
 
 \item{dir}{Alternative way to supply the directory where the file is located 
 (default \code{NULL}).}
@@ -78,9 +77,6 @@ set the scale range correctly.
 }
 \examples{
 \dontrun{
-
-# using the pop-up selection menu
-rg <- importTxt()   
 
 # supposing that the data file sample.txt is in the current directory
 file <- "sample.txt"

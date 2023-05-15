@@ -151,15 +151,9 @@ print.openrepgridSettings <- function(x, ...){
 #' The current settings of OpenRepGrid can be saved into a file with
 #' the extension \code{.orgset}.
 #'
-#' @param file    Path of the file to be saved to. If a path is not supplied
-#'                an interactive file saver dialog is opened.
+#' @param file    Path of the file to be saved to.
 #' @export
-settingsSave <- function(file){
-  if (missing(file)) {    
-    args <- list("tk_getSaveFile", title="Select files", 
-                 filetypes= "{{setting file} {.orgset}}")                          
-    file <- tclvalue(do.call(tcl, args))
-  }
+settingsSave <- function(file) {
   # TODO: check for orgset extension?
   saveRDS(.OpenRepGridEnv$settings ,file=file)
 }
@@ -171,15 +165,9 @@ settingsSave <- function(file){
 #' the extension \code{.orgset} can be loaded to restore the
 #' settings.
 #'
-#' @param file    Path of the file to be loaded. If a path is not supplied
-#'                an interactive file chooser dialog is opened.  
+#' @param file    Path of the file to be loaded.
 #' @export
-settingsLoad <- function(file){
-  if (missing(file)){  
-    Filters <- matrix(c("setting file", ".orgset"),
-                      ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=FALSE)    # returns complete path                     
-  }
+settingsLoad <- function(file) {
   orgset <- readRDS(file)
   if (!methods::is(orgset, "openrepgridSettings"))
     stop("file", file, "is no valid OpenRepGrid settings file")

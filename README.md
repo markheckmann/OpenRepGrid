@@ -43,6 +43,6 @@ OpenRepGrid is still in alpha phase. Please be aware that API changes may occur
 
 If you use OpenRepGrid in your publications, you can cite it as follows. 
 
-Heckmann, M. (2014). OpenRepGrid: An R package for the analysis of repertory grids. *ZENODO*. doi:10.5281/zenodo.11623
+> Heckmann, M. (2023). OpenRepGrid: An R package for the analysis of repertory grids. *ZENODO*. doi:10.5281/zenodo.11623, R package version 0.0.14.
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11623.svg)](http://dx.doi.org/10.5281/zenodo.11623)

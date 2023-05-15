@@ -9,8 +9,7 @@ importGridstat(file, dir = NULL, min = NULL, max = NULL)
 \arguments{
 \item{file}{Filename including path if file is not in current working 
 directory. File can also be a complete URL. The fileformat
-is \code{.dat}. If no file is supplied a selection pop up menu 
-is opened to select the files.}
+is \code{.dat}.}
 
 \item{dir}{Alternative way to supply the directory where the file is located 
 (default \code{NULL}).}
@@ -55,9 +54,6 @@ Note that the gridstat data format does not contain explicit
 }
 \examples{
 \dontrun{
-
-# using the pop-up selection menu
-rg <- importGridstat()
 
 # supposing that the data file gridstat.dat is in the current working directory
 file <- "gridstat.dat"

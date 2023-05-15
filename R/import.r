@@ -327,8 +327,7 @@ multigridFileToSinglegridFiles <- function(file)
 #'
 #' @param file	  Filename including path if file is not in current working 
 #'                directory. File can also be a complete URL. The fileformat
-#'                is \code{.dat}. If no file is supplied a selection pop up menu 
-#'                is opened to select the files.
+#'                is \code{.dat}.
 #' @param dir	    Alternative way to supply the directory where the file is located 
 #'                (default \code{NULL}).
 #' @param min	    Optional argument (\code{numeric}, default \code{NULL})
@@ -373,9 +372,6 @@ multigridFileToSinglegridFiles <- function(file)
 #'
 #' @examples \dontrun{
 #' 
-#' # using the pop-up selection menu
-#' rg <- importGridstat()
-#'
 #' # supposing that the data file gridstat.dat is in the current working directory
 #' file <- "gridstat.dat"
 #' rg <- importGridstat(file)
@@ -393,11 +389,6 @@ multigridFileToSinglegridFiles <- function(file)
 #'
 importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
 {
-  if (missing(file)) {                                         # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("Gridstat files", ".dat"),
-                      ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=TRUE)     # returns complete path                    
-  }  
   tmp.files <- unlist(lapply(as.list(file),                    # convert multigrid files to single grid files
                              multigridFileToSinglegridFiles))  
   imps <- lapply(as.list(tmp.files), importGridstatInternal,   # make import objects for each .txt file
@@ -410,10 +401,6 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
   }
 }
 
-# file <- "/Users/unimitarbeiter/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/gridstat.dat"
-# file <- "/Users/markheckmann/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/gridstat.dat"
-# tmp <- importGridstat(file)
-# str(tmp)
 
 
 ############################# GRIDCOR #########################################
@@ -567,8 +554,6 @@ importGridcorInternal <- function(file, dir=NULL) {
   l$ratings <- lapply(l$ratings, function(x) as.numeric(unlist(x)))
   l
 }
-#file <- "/Users/markheckmann/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/gridcor.dat"
-#file <- "/Users/unimitarbeiter/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/gridcor.dat"
 
 
 #' Import GRIDCOR data files.
@@ -602,9 +587,6 @@ importGridcorInternal <- function(file, dir=NULL) {
 #'
 #' @examples \dontrun{
 #' 
-#' # using the pop-up selection menu
-#' rg <- importGridcor()
-#'
 #' # supposing that the data file gridcor.dat is in the current directory
 #' file <- "gridcor.dat"
 #' rg <- importGridcor(file)
@@ -620,11 +602,6 @@ importGridcorInternal <- function(file, dir=NULL) {
 #'
 #'
 importGridcor <- function(file, dir=NULL){
-  if (missing(file)){                                       # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("Gridcor files", ".dat"),
-                      ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=TRUE)  # returns complete path                    
-  }
   imps <- lapply(as.list(file), importGridcorInternal,      # make import objects for each .txt file
                  dir=dir)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)   # make repgrid object from import object
@@ -777,9 +754,6 @@ importGridsuiteInternal <- function(file, dir=NULL){
 #'
 #' @examples \dontrun{
 #' 
-#' # using the pop-up selection menu
-#' rg <- importGridsuite()
-#'
 #' # supposing that the data file gridsuite.xml is in the current directory
 #' file <- "gridsuite.xml"
 #' rg <- importGridsuite(file)
@@ -795,11 +769,6 @@ importGridsuiteInternal <- function(file, dir=NULL){
 #'
 #'
 importGridsuite <- function(file, dir=NULL){
-  if (missing(file)){                                         # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("Gridsuite files", ".xml"),
-                      ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
-  }
   imps <- lapply(as.list(file), importGridsuiteInternal,      # make import objects for each .txt file
                  dir=dir)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
@@ -1131,11 +1100,6 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #'
 #'
 importScivesco <- function(file, dir=NULL){
-  if (missing(file)){                                         # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("Sci:Vesco files", ".scires"),
-                        ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
-  }
   imps <- lapply(as.list(file), importScivescoInternal,       # make import objects for each .txt file
                  dir=dir)
   rgs <- lapply(imps, convertScivescoImportObjectToRepGridObject)     # make repgrid object from import object
@@ -1369,8 +1333,7 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 #'
 #' @param file	  A vector of filenames including the full path if file is not in current working 
 #'                directory. File can also be a complete URL. The file suffix
-#'                has to be \code{.txt}. If no file is supplied a selection pop up menu is opened to select
-#'                the files.
+#'                has to be \code{.txt}.
 #' @param dir	    Alternative way to supply the directory where the file is located 
 #'                (default \code{NULL}).
 #' @param min	    Optional argument (\code{numeric}, default \code{NULL})
@@ -1388,9 +1351,6 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 #'                \code{\link{importExcel}}
 #'
 #' @examples \dontrun{
-#' 
-#' # using the pop-up selection menu
-#' rg <- importTxt()   
 #'
 #' # supposing that the data file sample.txt is in the current directory
 #' file <- "sample.txt"
@@ -1409,12 +1369,6 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 #' }
 #'
 importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
-  if (missing(file)){                                         # open file selection menu if no file argument is supplied
-    Filters <- matrix(c("text files", ".txt",
-                        "text files", ".TXT"),
-                        ncol=2, byrow = TRUE)
-    file <- tk_choose.files(filters = Filters, multi=TRUE)    # returns complete path                    
-  }
   imps <- lapply(as.list(file), importTxtInternal,            # make import objects for each .txt file
                  dir=dir, min=min, max=max)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)     # make repgrid object from import object
@@ -1567,29 +1521,7 @@ importExcel <- function(file, dir=NULL, sheetIndex=1, min=NULL, max=NULL)
 
 
 
-############################# IMPORTING GUI ###################################
-
-#' Load repertory grid file using a GUI
-#'
-#' OpenRepGrid will try to guess what data type you are trying to load
-#' by using the data format. Some formats are unique and are clearly 
-#' attributable to a certain grid program (.scires, .grd) while others
-#' are not.
-#'
-#' @export
-#' @keywords internal
-#'
-loadgrid <- function(){
-  Filters <- matrix(c("All files", "*",
-                      "OpenRepGrid", ".org", 
-                      "Sci:Vesco", ".scires",
-                      "gridstat", ".dat",
-                      "gridsuite", ".xml",
-                      "idiogrid", ".grd"),
-                      ncol=2, byrow = TRUE)
-  #choose.files(filters = Filters[c("dat", "scires", "All"),])
-  tk_choose.files(filters = Filters)
-}
+############################# IMPORTING ###################################
 
 
 guessDataSource <- function(file){
@@ -1609,4 +1541,3 @@ guessDataSource <- function(file){
 }
 
 #d <- guessDataSource(loadgrid())
-

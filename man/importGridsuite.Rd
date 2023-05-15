@@ -34,9 +34,6 @@ TODO: The element and construct IDs are not used yet. Thus,
 \examples{
 \dontrun{
 
-# using the pop-up selection menu
-rg <- importGridsuite()
-
 # supposing that the data file gridsuite.xml is in the current directory
 file <- "gridsuite.xml"
 rg <- importGridsuite(file)

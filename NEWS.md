@@ -18,6 +18,7 @@
 
 # OpenRepGrid 0.1.14
   
+  * remove TCLTK import. No interactive windows any more.
   * move CI/CD from Travis to github actions
   * resolve conflicts while loading packages
   * update docs for indexPolarity

@@ -32,9 +32,6 @@ Note that the GRIDCOR data sets the minimum ratings scale range to 1.
 \examples{
 \dontrun{
 
-# using the pop-up selection menu
-rg <- importGridcor()
-
 # supposing that the data file gridcor.dat is in the current directory
 file <- "gridcor.dat"
 rg <- importGridcor(file)

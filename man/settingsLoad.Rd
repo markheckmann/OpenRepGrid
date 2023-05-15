@@ -7,8 +7,7 @@
 settingsLoad(file)
 }
 \arguments{
-\item{file}{Path of the file to be loaded. If a path is not supplied
-an interactive file chooser dialog is opened.}
+\item{file}{Path of the file to be loaded.}
 }
 \description{
 OpenRepGrid settings saved in an a settings file with
