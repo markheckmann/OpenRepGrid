@@ -9,8 +9,8 @@ Archived on 2023-05-05 as check problems were not corrected in time.
 
 - Windows 10 (local desktop), R 4.3.0
 - MacOS 13.3.1, R 4.3.0
-- Microsoft Windows Server 2022, R 4.3.0
-- Ubuntu 20.04.5 LTS, R 4.3.0
+- Microsoft Windows Server 2019, R 4.3.0
+- Ubuntu 20.04.2 LTS, R 4.3.0
 
 ## R CMD check results
 
