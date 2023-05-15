@@ -48,7 +48,7 @@ Useful links:
            Researchers interested in \href{http://docu.openrepgrid.org/contribute.html}{contributing}
            to the package are welcome.
 
-           The \pkg{OpenRepGrid} code is hosted on \href{http://github.com/markheckmann/OpenRepGrid}{GitHub}.
+           The \pkg{OpenRepGrid} code is hosted on \href{https://github.com/markheckmann/OpenRepGrid}{GitHub}.
            The GitHub site provides additional information and allows to file bug reports or feature requests.
            Bug reports can also be emailed to the package maintainer or issued on 
            \href{http://www.openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.

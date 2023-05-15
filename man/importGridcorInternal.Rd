@@ -42,6 +42,6 @@ imp <- importGridcorInternal("http://www.openrepgrid.uni-bremen.de/data/gridcor.
 
 }
 \references{
-\url{http://www.terapiacognitiva.net/record/gridcor.htm}
+\url{https://www.ub.edu/terdep/gridcor.html}
 }
 \keyword{internal}

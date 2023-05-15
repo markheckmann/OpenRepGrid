@@ -504,7 +504,7 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
 #'                (default \code{NULL}).
 #' @note          Note that the GRIDCOR data sets the minimum ratings scale range to 1.
 #'                The maximum value can differ and is defined in the data file. 
-#' @references    \url{http://www.terapiacognitiva.net/record/gridcor.htm}
+#' @references    \url{https://www.ub.edu/terdep/gridcor.html}
 #'
 #' @export
 #' @keywords internal
@@ -599,7 +599,7 @@ importGridcorInternal <- function(file, dir=NULL) {
 #' @export
 #' @references    Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
 #'                for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
-#'                Retrieved from \url{http://www.terapiacognitiva.net/record/gridcor.htm}.
+#'                Retrieved from \url{https://www.ub.edu/terdep/pag/index.html}.
 #'
 #' @seealso       \code{\link{importGridcor}},
 #'                \code{\link{importGridstat}},

@@ -16,7 +16,7 @@
 #'            Researchers interested in \href{http://docu.openrepgrid.org/contribute.html}{contributing}
 #'            to the package are welcome.
 #'
-#'            The \pkg{OpenRepGrid} code is hosted on \href{http://github.com/markheckmann/OpenRepGrid}{GitHub}.
+#'            The \pkg{OpenRepGrid} code is hosted on \href{https://github.com/markheckmann/OpenRepGrid}{GitHub}.
 #'            The GitHub site provides additional information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
 #'            \href{http://www.openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.
@@ -264,7 +264,7 @@
 #' @author    Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann. 
 #'            Everyone who is interested in developing the package is invited to join.
 #'
-#'            The \pkg{OpenRepGrid} package development is hosted on github (\url{http://github.com/markheckmann/OpenRepGrid}).
+#'            The \pkg{OpenRepGrid} package development is hosted on github (\url{https://github.com/markheckmann/OpenRepGrid}).
 #'            The github site provides information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
 #'            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.

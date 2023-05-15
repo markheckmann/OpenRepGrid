@@ -55,7 +55,7 @@ rg <- importGridcor("http://www.openrepgrid.uni-bremen.de/data/gridcor.dat")
 \references{
 Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
                for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
-               Retrieved from \url{http://www.terapiacognitiva.net/record/gridcor.htm}.
+               Retrieved from \url{https://www.ub.edu/terdep/pag/index.html}.
 }
 \seealso{
 \code{\link{importGridcor}},

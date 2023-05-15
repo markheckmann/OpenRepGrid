@@ -644,7 +644,7 @@ print.indexDilemmatic <- function(x, output = "SD", ...)
 #' number of constructs minus one. This process is repeated with each 
 #' element, and the overall Intensity is calculated by averaging the 
 #' intensity scores of constructs and elements."
-#' \url{http://www.terapiacognitiva.net/record/pag/man11.htm}.
+#' \url{https://www.ub.edu/terdep/pag/man11.html}.
 #' Currently the total is calculated as the unweighted average of all 
 #' single scores (for elements and construct).
 #'
