@@ -115,7 +115,7 @@ break_output <- function(mat, ncolkeep = 14, keeprows=TRUE)
      mat.tmp <- mat[ , 1:(availchar - 1)]
      out.tmp <- collapse_matrix(mat.tmp, collapse = "")  # collapse rows
      matrix_to_console(out.tmp)                          # print first part to console
-     cat("\n")           # empty line after print out to seperate prints
+     cat("\n")           # empty line after print out to separate                              prints
     # if (keeprows) {     # rownames after each pagebreak?
    #    mat.residual <- mat[ , c(1:(ncolkeep), availchar:ncol(mat))] 
     # } else {
@@ -192,8 +192,8 @@ df_out <- function(df,                # data frame
                    just.rows="r",     # justification of row names
                    just.main="l",     # justification of body
                    max.char.rows=200, # max no of chars of row names to be printed
-                   sep=" ",           # seperator symbol between columns
-                   sep2="   ",        # seperator between row names and first column
+                   sep=" ",           # separator symbol between columns
+                   sep2="   ",        # separator between row names and first column
                    equal=FALSE,       # equal width for columns (max column width)
                    prefix="",         # optional prefix before printed column name 
                                       # (e.g. "+---"). characters

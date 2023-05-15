@@ -10,7 +10,7 @@ indexConflict2(x, crit = 0.03)
 \item{x}{\code{repgrid} object.}
 
 \item{crit}{Sensitivity criterion with which triads are marked as 
-unbalanced. A bigger values willl lead to less imbalanced 
+unbalanced. A bigger values will lead to less imbalanced 
 triads. The default is \code{0.03}. The value should
 be adjusted with regard to the researchers interest.}
 }
@@ -22,7 +22,7 @@ The function calculates the conflict measure as devised by Bassler et al.
 (1992). It is an improved version of the ideas by Slade and Sheehan (1979)
 that have been implemented in the function \code{\link{indexConflict1}}. The
 new approach also takes into account the magnitude of the correlations in a
-traid to assess whether it is balanced or imbalanced. As a result, small
+trait to assess whether it is balanced or imbalanced. As a result, small
 correlations that are psychologically meaningless are considered accordingly.
 Also, correlations with a  small magnitude, i. e. near zero, which may  be
 positive or negative due to chance alone will no longer distort the measure
@@ -33,7 +33,7 @@ Description of the balance / imbalance assessment:
 \enumerate{
    \item   Order correlations of the triad by absolute magnitude, so that
            \eqn{ r_{max} > r_{mdn} > r_{min} }{r_max > r_mdn > r_min}.
-   \item   Apply Fisher's Z-transformation and devision by 3
+   \item   Apply Fisher's Z-transformation and division by 3
            to yield values between 1 and -1  
    \item   Check whether the triad is balanced by assessing if the 
            following relation holds:
@@ -54,7 +54,7 @@ Description of the balance / imbalance assessment:
        Denoting the value to devide by with \code{a}, the relation for the
        first case translates into \eqn{ a  Z_{max}  Z_{mdn} <= \frac{crit}{a} + Z_{min} }
        { a x Z_max x Z_mdn =< crit/a + Z_min}. This shows that a bigger value of \code{a}
-       will make it more improbabale that the relation will hold.
+       will make it more improbable that the relation will hold.
 }
 
 \examples{

@@ -228,7 +228,7 @@ print.org.matches <- function(x, output = "ICE", index = TRUE,
 
 #' Calculate 'bias' of grid as defined by Slater (1977). 
 #'
-#' "Bias records a tendency for reponses to accumulate at one end of the 
+#' "Bias records a tendency for responses to accumulate at one end of the 
 #' grading scale" (Slater, 1977, p.88). 
 #'
 #' @param  x        \code{repgrid} object.
@@ -504,7 +504,7 @@ print.indexBieri <- function(x, output = "I", digits = 3, ...)
 #'  * `scale`: Minimum and maximum of grid rating scale.
 #'  * `midpoint`: Midpoint of rating scale.
 #'  * `lower,upper`: Lower and upper value to for a rating to be considered in the midpoint range.
-#'  * `midpoint_range`: Mipoint range as interval.
+#'  * `midpoint_range`: Midpoint range as interval.
 #'  * `n_dilemmatic`: Number of dilemmatic constructs.
 #'  * `perc_dilemmatic`: Percentage of constructs which are dilemmatic.
 #'  * `i_dilemmatic`: Index of dilemmatic constructs.
@@ -637,7 +637,7 @@ print.indexDilemmatic <- function(x, output = "SD", ...)
 #' structural measure is thought to reflect this type of system disintegration
 #' (Bannister, 1960).
 #' 
-#' Implementation as in the Gridcor programme and explained on the 
+#' Implementation as in the Gridcor program and explained on the 
 #' correspoding help pages: 
 #' "\ldots the sum of the squared values of the correlations 
 #' of each construct with the rest of the constructs, averaged by the total 
@@ -732,8 +732,8 @@ indexIntensity <- function(x, rc = FALSE, trim = 30)
 #' @param output    String with each letter indicating which parts of the output to print 
 #'                  (default is `"TCE"`, order does not matter):
 #'                  `T` = Total Intensity,
-#'                  `C` = Constructs' itenstities,
-#'                  `E` = Elements' itenstities.
+#'                  `C` = Constructs' intensities,
+#'                  `E` = Elements' intensities.
 #' @export
 #' @method          print indexIntensity
 #' @keywords        internal
@@ -843,8 +843,8 @@ indexPolarization <- function(x, deviation = 0)
 #'                  (default is `"ITCE"`, order does not matter):
 #'                  `I` = Information,
 #'                  `T` = Total Intensity,
-#'                  `C` = Constructs' itenstities,
-#'                  `E` = Elements' itenstities.
+#'                  `C` = Constructs' intensities,
+#'                  `E` = Elements' intensities.
 #' @export
 #' @method          print indexPolarization
 #' @keywords        internal
@@ -913,7 +913,7 @@ print.indexPolarization <- function(x, output = "ITCE", ...)
 #' @return    List object of class `indexSelfConstruction`, containing the
 #'   results from the calculations:
 #'            
-#'  * `grid`: Recuced grid with seld, ideal and others
+#'  * `grid`: Reduced grid with self, ideal and others
 #'  * `method_type`: method type (correlation or distance)
 #'  * `method`: correlation or distance method used
 #'  * `self_element`: name of the self element
@@ -1213,7 +1213,7 @@ indexConflict1 <- function(x)
 #' (1992). It is an improved version of the ideas by Slade and Sheehan (1979)
 #' that have been implemented in the function \code{\link{indexConflict1}}. The
 #' new approach also takes into account the magnitude of the correlations in a
-#' traid to assess whether it is balanced or imbalanced. As a result, small
+#' trait to assess whether it is balanced or imbalanced. As a result, small
 #' correlations that are psychologically meaningless are considered accordingly.
 #' Also, correlations with a  small magnitude, i. e. near zero, which may  be
 #' positive or negative due to chance alone will no longer distort the measure
@@ -1224,7 +1224,7 @@ indexConflict1 <- function(x)
 #' \enumerate{
 #'    \item   Order correlations of the triad by absolute magnitude, so that
 #'            \eqn{ r_{max} > r_{mdn} > r_{min} }{r_max > r_mdn > r_min}.
-#'    \item   Apply Fisher's Z-transformation and devision by 3
+#'    \item   Apply Fisher's Z-transformation and division by 3
 #'            to yield values between 1 and -1  
 ##            (\eqn{ Z_{max} > Z_{mdn} > Z_{min} }{Z_max > Z_mdn > Z_min}).
 #'    \item   Check whether the triad is balanced by assessing if the 
@@ -1245,14 +1245,14 @@ indexConflict1 <- function(x)
 #'        Denoting the value to devide by with \code{a}, the relation for the
 #'        first case translates into \eqn{ a  Z_{max}  Z_{mdn} <= \frac{crit}{a} + Z_{min} }
 #'        { a x Z_max x Z_mdn =< crit/a + Z_min}. This shows that a bigger value of \code{a}
-#'        will make it more improbabale that the relation will hold.
+#'        will make it more improbable that the relation will hold.
 #'
 #'
 #' @title         Conflict measure for grids (Bassler et al., 1992) based on correlations.
 #'
 #' @param x       \code{repgrid} object.
 #' @param crit    Sensitivity criterion with which triads are marked as 
-#'                unbalanced. A bigger values willl lead to less imbalanced 
+#'                unbalanced. A bigger values will lead to less imbalanced 
 #'                triads. The default is \code{0.03}. The value should
 #'                be adjusted with regard to the researchers interest.
 #' @references    Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). 
@@ -1389,7 +1389,7 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...)
 #' TODO:    standardization and z-test for discrepancies; 
 #'          Index of Conflict Variation.
 #'
-#' @title       Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances.
+#' @title       Conflict or inconsistency measure for grids (Bell, 2004) based on distances.
 #'
 #' @param x             \code{repgrid} object.
 #' @param p             The power of the Minkowski distance. \code{p=2} (default) will result
@@ -1397,7 +1397,7 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...)
 #'                      distances.
 #' @param e.out         Numeric. A vector giving the indexes of the elements
 #'                      for which detailed stats (number of conflicts per element,
-#'                      discrepancies for triangles etc.) are promted 
+#'                      discrepancies for triangles etc.) are prompted 
 #'                      (default \code{NA}, i.e. no detailed stats for any element).
 #' @param e.threshold   Numeric. Detailed stats are prompted for those elements with a an 
 #'                      attributable percentage to the overall conflicts 
@@ -1405,7 +1405,7 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...)
 #'                      (default \code{NA}).
 #' @param c.out         Numeric. A vector giving the indexes of the constructs
 #'                      for which detailed stats (discrepancies for triangles etc.) 
-#'                      are promted (default \code{NA}, i. e. no detailed stats).
+#'                      are prompted (default \code{NA}, i. e. no detailed stats).
 #' @param c.threshold   Numeric. Detailed stats are prompted for those constructs with a an 
 #'                      attributable percentage to the overall conflicts 
 #'                      higher than the supplied threshold
@@ -1474,7 +1474,7 @@ indexConflict3 <- function(x, p = 2,
   #
   # Let the distance between element i and a construct j (i.e. d.ij)
   # be the rating of element i on construct j.
-  # The distance between the constucts it the distance (euclidean or city block)
+  # The distance between the constructs it the distance (euclidean or city block)
   # between them without taking into account the element under consideration.
   
   s <- getRatingLayer(x)            # grid scores matrix
@@ -1735,7 +1735,7 @@ indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE)
 
 #' print method for class indexConflict3
 #' 
-#' @param x             Output from funtion indexConflict3
+#' @param x             Output from function indexConflict3
 #' @param output        Type of output. \code{output=1} will print all results
 #'                      to the console, \code{output=2} will only print the
 #'                      detailed statistics for elements and constructs. 
@@ -1994,7 +1994,7 @@ indexDilemmaInternal <- function(x, self, ideal,
     type.c2[i] <- type.construct[c2]
     
     # CORRECTION:
-    # To create a dilemma, the 'self' scores of both contructs must be
+    # To create a dilemma, the 'self' scores of both constructs must be
     # on the same pole. We have to check for that.
     
     # REMOVED HARDCODED MIDPOINT
@@ -2378,7 +2378,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
 #' \itemize{
 #'    \item If the scoring of Self AND Ideal Self are both < 4: construct is "Congruent"
 #'    \item If the scoring of Self AND Ideal Self are both > 4: construct is "Congruent"
-#'    \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR viceversa): construct is "discrepant"
+#'    \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR vice versa): construct is "discrepant"
 #'    \item If scoring Self OR Ideal Self = 4 then the construct is NOT Discrepant and it is "Undifferentiated"
 #' }
 #'
@@ -2404,7 +2404,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
 #' }
 #'
 #' The value mode is determined via the argument \code{diff.mode}.\cr
-#' If no 'a priori' criteria to determine wether the construct
+#' If no 'a priori' criteria to determine whether the construct
 #' is congruent or discrepant is supplied as an argument, the values are chosen
 #' according to the range of the rating scale used. For the following scales
 #' the defaults are chosen as:
@@ -2453,7 +2453,7 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...)
 #' change on the first construct will imply a change on the congruent 
 #' construct as well. Hence, the positive shift from timid to extraverted
 #' is presumed to have a undesired effect in moving from sensitive towards
-#' selflish. This relation is called an implicative dilemma. As the 
+#' selfish. This relation is called an implicative dilemma. As the 
 #' implications of change on a construct cannot be derived from a rating 
 #' grid directly, the correlation between two constructs is used as an 
 #' indicator of implication.
@@ -2562,7 +2562,7 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 #' @param x Object returned by `indexDilemma`.
 #' @param layout Name of layout. One of `rows`, `circle`, `star`, or `nicely` or a 
 #'   `igraph` layout function.
-#' @param both.poles Show both construct poales? (default `TRUE`). If `FALSE`
+#' @param both.poles Show both construct poles? (default `TRUE`). If `FALSE`
 #' only the poles corresponding to the implied undesired changes are shown.
 #' @param digits Number of digits for correlations.
 #' @param node.size Size of nodes (default `50`).

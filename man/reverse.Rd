@@ -20,7 +20,7 @@ A \code{repgrid} object with reversed constructs.
 \description{
 Constructs are bipolar. They can be reversed without a change in meaning. The
 function swaps the constructs poles and re-adjusts ratings accordingly, i.e.
-it revesed selected constructs.
+it reversed selected constructs.
 }
 \note{
 Please note that the scale of the rating grid has to be set in order

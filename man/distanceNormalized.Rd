@@ -30,7 +30,7 @@ The number of values must match the length of the rating scale.}
 May be useful when the distribution is estimated on the basis
 of many quasis.}
 
-\item{distributions}{Wether to additionally return the values of the simulated
+\item{distributions}{Whether to additionally return the values of the simulated
 distributions (Slater etc.) The default is \code{FALSE}
 as it will quickly boost the object size.}
 }
@@ -40,7 +40,7 @@ A matrix containing the standardized distances. \cr
                    \item{\code{"arguments"}}{A list of several parameters 
                           including \code{mean} and \code{sd} of Slater distribution.}
                    \item{\code{"quantiles"}}{Quantiles for Slater, Hartmann 
-                         and power transformed distance distribitions.}
+                         and power transformed distance distributions.}
                    \item{\code{"distributions"}}{List with values of the 
                          simulated distributions, if \code{distributions=TRUE}.}
 }
@@ -61,11 +61,11 @@ size and scale range.  \cr
 
 The function \code{distanceNormalize} can also return
 the quantiles of the sample distribution and only the element distances
-consideres 'significant' according to the quantiles defined.
+considered 'significant' according to the quantiles defined.
 }
 \section{Calculations}{
 
-The 'power tranformed Hartmann distance' are calulated as
+The 'power transformed Hartmann distance' are calculated as
 follows: The simulated Hartmann distribution is added a constant as the
 Box-Cox transformation can only be applied to positive values. Then a range
 of values for lambda in the Box-Cox transformation (Box & Cox, 1964) are

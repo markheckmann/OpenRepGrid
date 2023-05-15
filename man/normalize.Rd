@@ -16,7 +16,7 @@ to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
 \item{...}{Not evaluated.}
 }
 \value{
-Not yet definde TODO!
+Not yet defined TODO!
 }
 \description{
 Normalize rows or columns by its standard deviation.

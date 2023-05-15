@@ -32,9 +32,8 @@ If \code{NULL} (default) the distribution is uniform.}
 A vector containing Slater distance values.
 }
 \description{
-All Slater distances
-are returned as a vector. The valiues can be used e.g. to 
-assess the distributions standard deviation.
+All Slater distances are returned as a vector. The values can be used e.g. to assess the
+distributions standard deviation.
 }
 \examples{
 \dontrun{

@@ -6,7 +6,7 @@
 \alias{feixas2004}
 \title{Grid data from Feixas and Saul (2004).}
 \description{
-A desription by the authors:
+A description by the authors:
 "When Teresa, 22 years old, was seen by the second author (LAS) at the 
 psychological services of the University of Salamanca, she was in the 
 final year of her studies in chemical sciences. Although Teresa proves 

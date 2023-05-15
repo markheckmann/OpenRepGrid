@@ -2,7 +2,7 @@
 % Please edit documentation in R/bertin.r
 \name{bertinCluster}
 \alias{bertinCluster}
-\title{Bertin display with corresponding cluster anaylsis.}
+\title{Bertin display with corresponding cluster analysis.}
 \usage{
 bertinCluster(
   x,

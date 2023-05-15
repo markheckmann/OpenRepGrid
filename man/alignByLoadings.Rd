@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc.r
 \name{alignByLoadings}
 \alias{alignByLoadings}
-\title{Align constructs by loadings on first pricipal component.}
+\title{Align constructs by loadings on first principal component.}
 \usage{
 alignByLoadings(x, trim = 20, index = TRUE)
 }
@@ -13,7 +13,7 @@ alignByLoadings(x, trim = 20, index = TRUE)
 \code{10}). If \code{NA} no trimming is done. Trimming
 simply saves space when displaying the output.}
 
-\item{index}{Whether to print the number of the construct (e.g. for correltion 
+\item{index}{Whether to print the number of the construct (e.g. for correlation 
 matrices). The default is \code{TRUE}.}
 }
 \value{
@@ -30,7 +30,7 @@ An object of class \code{alignByLoadings} containing a list
 In case a construct loads negatively on the first principal
 component, the function \code{\link{alignByLoadings}} will reverse it 
 so that all constructs have positive loadings on the first 
-principal component (see deatil section for more).
+principal component (see detail section for more).
 }
 \details{
 The direction of the constructs in a grid is arbitrary and 
@@ -51,7 +51,7 @@ component of a grid PCA.
 Bell (2010) proposed a solution for the problem of construct 
                  alignment. As construct reversal has an effect on element 
                  correlation and thus on any measure that based on element 
-                 correlation (Mackay, 1992), it is desireable to have a 
+                 correlation (Mackay, 1992), it is desirable to have a 
                  standard method for 
                  construct alignment independently from its semantics (preferred 
                  pole etc.). Bell (2010) proposes to align constructs in a way
@@ -85,7 +85,7 @@ Bell, R. C. (2010). A note on aligning constructs.
                  \emph{Personal Construct Theory & Practice, 7}, 42-48.
 
                  Mackay, N. (1992). Identification, Reflection, 
-                 and Correlation: Problems in ihe bases of repertory 
+                 and Correlation: Problems in the bases of repertory 
                  grid measures. \emph{International Journal of Personal
                  Construct Psychology, 5}(1), 57-75.
 }

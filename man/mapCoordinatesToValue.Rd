@@ -18,7 +18,7 @@ numeric vector
 From a given numeric vector \code{z} the range is determined and 
 the values are linearly mapped onto the interval 
 given by \code{val.range}. This 
-funtion can be used in order to map arbitrary vectors to a given
+function can be used in order to map arbitrary vectors to a given
 range of values.
 }
 \keyword{internal}

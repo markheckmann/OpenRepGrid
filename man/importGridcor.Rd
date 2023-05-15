@@ -27,7 +27,7 @@ Note that the GRIDCOR data sets the minimum ratings scale range to 1.
                The maximum value can differ and is defined in the data file. 
 
                Also note that both Gridcor and Gridstat data files do have the same
-               suffix \code{.dat}. Make sure not to mix themn up.
+               suffix \code{.dat}. Make sure not to mix them up.
 }
 \examples{
 \dontrun{
@@ -46,8 +46,6 @@ rg <- importGridcor(file, dir)
 # using a full path
 rg <- importGridcor("/Users/markheckmann/data/gridcor.dat")
 
-# load GRIDCOR data from URL
-rg <- importGridcor("http://www.openrepgrid.uni-bremen.de/data/gridcor.dat")
 }
 
 

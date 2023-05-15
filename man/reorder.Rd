@@ -10,7 +10,7 @@
 \item{x}{A \code{repgrid} object.}
 
 \item{what}{A string or numeric to indicate if constructs (\code{"C"}, \code{1}) or
-elements (\code{"C"}, \code{1}), or both (\code{"CE"}, \code{12}) shpuld be reversed.}
+elements (\code{"C"}, \code{1}), or both (\code{"CE"}, \code{12}) should be reversed.}
 
 \item{...}{Ignored.}
 }

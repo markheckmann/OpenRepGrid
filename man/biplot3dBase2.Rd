@@ -35,11 +35,11 @@ biplot3dBase2(
 
 \item{lef}{Construct lines extension factor.}
 
-\item{col.frame}{Color of the sourrounding frame.}
+\item{col.frame}{Color of the surrounding frame.}
 
-\item{col.sphere}{Color of sourrouding sphere (default\code{"black"}).}
+\item{col.sphere}{Color of surrounding sphere (default\code{"black"}).}
 
-\item{alpha.sphere}{Numeric. alpha blending of the sourrounding sphere (default\code{".05"}).}
+\item{alpha.sphere}{Numeric. alpha blending of the surrounding sphere (default\code{".05"}).}
 
 \item{zoom}{Not yet used. Scaling factor for all vectors. Can be used to zoom
 the plot in and out (default \code{1}).}

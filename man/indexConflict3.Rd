@@ -2,7 +2,7 @@
 % Please edit documentation in R/measures.r
 \name{indexConflict3}
 \alias{indexConflict3}
-\title{Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances.}
+\title{Conflict or inconsistency measure for grids (Bell, 2004) based on distances.}
 \usage{
 indexConflict3(
   x,
@@ -23,7 +23,7 @@ distances.}
 
 \item{e.out}{Numeric. A vector giving the indexes of the elements
 for which detailed stats (number of conflicts per element,
-discrepancies for triangles etc.) are promted 
+discrepancies for triangles etc.) are prompted 
 (default \code{NA}, i.e. no detailed stats for any element).}
 
 \item{e.threshold}{Numeric. Detailed stats are prompted for those elements with a an 
@@ -33,7 +33,7 @@ higher than the supplied threshold
 
 \item{c.out}{Numeric. A vector giving the indexes of the constructs
 for which detailed stats (discrepancies for triangles etc.) 
-are promted (default \code{NA}, i. e. no detailed stats).}
+are prompted (default \code{NA}, i. e. no detailed stats).}
 
 \item{c.threshold}{Numeric. Detailed stats are prompted for those constructs with a an 
 attributable percentage to the overall conflicts 

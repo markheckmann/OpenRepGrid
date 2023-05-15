@@ -29,7 +29,7 @@ Nonetheless, the direction of a scale has an effect on inter-element
 correlations (Mackay, 1992) and on the spatial representation and clustering
 of the grid (Bell, 2010). Hence, it is desirable to follow a protocol to 
 align constructs that will render unique results. A common approach is
-to align constucts by pole preference, i. e. aligninig all positive and  
+to align constructs by pole preference, i. e. aligning all positive and  
 negative poles. This can e. g. be achieved using \code{\link{swapPoles}}.
 If an ideal element is present, this element can be used to identify
 the positive and negative pole. The function \code{alignByIdeal} will
@@ -56,7 +56,7 @@ Bell, R. C. (2010). A note on aligning constructs.
                \emph{Personal Construct Theory & Practice, 7}, 42-48.
 
                Mackay, N. (1992). Identification, Reflection, 
-               and Correlation: Problems in ihe bases of repertory 
+               and Correlation: Problems in the bases of repertory 
                grid measures. \emph{International Journal of Personal
                Construct Psychology, 5}(1), 57-75. 
          

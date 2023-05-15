@@ -21,7 +21,7 @@ for minimum rating value in grid.}
 for maximum rating value in grid.}
 }
 \value{
-a list with imported paraemeters
+a list with imported parameters
 }
 \description{
 Parse the file format that is used by the latest version of grid program 
@@ -39,11 +39,11 @@ Note that the gridstat data format does not contain explicit
                not set explicitly when using the importing function.
                
                The function only reads data from the latest GridStat version.
-               The latest version allows the seperation of the left and right pole
-               by using on of the following symbols \code{/:-} (hyphene, colon and dash). Older versions may not
-               seperate the left and right pole. This will cause all labels to be assigned to 
+               The latest version allows the separation of the left and right pole
+               by using on of the following symbols \code{/:-} (hyphen, colon and dash). Older versions may not
+               separate                              the left and right pole. This will cause all labels to be assigned to 
                the left pole only when importing. You may fix this by simply entering
-               one of the construct seperator symbols into the GridStat file between each
+               one of the construct separator symbols into the GridStat file between each
                left and right construct pole.
 
                The third line of a GridStat file may contain a no labels statement (i.e. a
@@ -76,16 +76,13 @@ imp <- importGridstatInternal(file, dir)
 # using a full path (example)
 imp <- importGridstatInternal("/Users/markheckmann/data/gridstat.dat")
 
-# load gridstat data from URL
-imp <- importGridstatInternal("http://www.openrepgrid.uni-bremen.de/data/gridstat.dat")
-
 # setting rating scale range
 imp <- importGridstatInternal(file, dir, min=1, max=6)
 }
 
 }
 \references{
-Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
+Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a 
                repertory grid. Melbourne: Author.
 }
 \keyword{internal}

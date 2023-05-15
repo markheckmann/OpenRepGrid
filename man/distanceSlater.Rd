@@ -54,7 +54,7 @@ The expected 'unit of expected distance' results as     \cr
 \deqn{U = (2S/(m-1))^{1/2}}{U = (2S/(m-1))^.5} 
 where \eqn{m}{m} denotes the number of elements of the grid.
 The standardized Slater distances is the matrix of Euclidean distances
-\eqn{E}{E} devided by the expected distance \eqn{U}{U}. 
+\eqn{E}{E} divided by the expected distance \eqn{U}{U}. 
 \deqn{E/U}{E/U}
 }
 

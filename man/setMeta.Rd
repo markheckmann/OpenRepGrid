@@ -9,7 +9,7 @@ setMeta(x, type, id, name)
 \arguments{
 \item{x}{repgrid object}
 
-\item{type}{typemof grid in use (rating, ranked, implication)}
+\item{type}{type of grid in use (rating, ranked, implication)}
 
 \item{id}{id of the interview}
 

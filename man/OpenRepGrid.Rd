@@ -16,7 +16,7 @@ technique see e.g. Fransella, Bell and Bannister (2003).
 }
 \note{
 To get started with \pkg{OpenRepGrid} visit the project's home under
-           \href{http://www.openrepgrid.org}{openrepgrid.org}. On this site you will find tutorials, 
+           \href{https://openrepgrid.org}{openrepgrid.org}. On this site you will find tutorials, 
            explanation about the theory, the analysis methods and the corresponding R code.
 
            To see the preferable citation of the \pkg{OpenRepGrid} package, type 
@@ -51,7 +51,7 @@ Useful links:
            The \pkg{OpenRepGrid} code is hosted on \href{https://github.com/markheckmann/OpenRepGrid}{GitHub}.
            The GitHub site provides additional information and allows to file bug reports or feature requests.
            Bug reports can also be emailed to the package maintainer or issued on 
-           \href{http://www.openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.
+           \href{https://openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.
            The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 }
 \keyword{package}

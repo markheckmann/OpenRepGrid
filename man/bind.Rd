@@ -25,7 +25,7 @@ construct came.}
 }
 \description{
 I.e. the constructs are combined to form one long grid.
-This function can be used in order to analyse multiple grids
+This function can be used in order to analyze multiple grids
 as one 'big grid' (eg. Slater, 1977, chap. 11).
 }
 \examples{

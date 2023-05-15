@@ -16,7 +16,7 @@ formatMatrix(
 )
 }
 \arguments{
-\item{x}{A matrix onbject.}
+\item{x}{A matrix object.}
 
 \item{rnames}{Row names.}
 

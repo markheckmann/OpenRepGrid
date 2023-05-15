@@ -15,32 +15,9 @@ A list of length 2.
 \description{
 Number of constructs and elements all repgrids in gridlist
 }
-\keyword{I}
-\keyword{The}
-\keyword{\code{ncol}}
-\keyword{\code{nrow}}
-\keyword{access}
-\keyword{also}
-\keyword{and}
-\keyword{approach}
-\keyword{are}
-\keyword{as}
-\keyword{avoid.}
-\keyword{by}
-\keyword{covered}
-\keyword{dim}
-\keyword{generic}
+\details{
+\code{nrow} and \code{ncol} are also covered by this approach
+as they access the dim method. The others are not generic
+and making them so introduces warnings, which I try to avoid.
+}
 \keyword{internal}
-\keyword{introduces}
-\keyword{makiong}
-\keyword{method.}
-\keyword{not}
-\keyword{others}
-\keyword{so}
-\keyword{the}
-\keyword{them}
-\keyword{this}
-\keyword{to}
-\keyword{try}
-\keyword{warnings,}
-\keyword{which}

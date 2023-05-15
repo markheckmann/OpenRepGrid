@@ -26,7 +26,7 @@ List of class \code{indexDilemmatic}:
 \item \code{scale}: Minimum and maximum of grid rating scale.
 \item \code{midpoint}: Midpoint of rating scale.
 \item \verb{lower,upper}: Lower and upper value to for a rating to be considered in the midpoint range.
-\item \code{midpoint_range}: Mipoint range as interval.
+\item \code{midpoint_range}: Midpoint range as interval.
 \item \code{n_dilemmatic}: Number of dilemmatic constructs.
 \item \code{perc_dilemmatic}: Percentage of constructs which are dilemmatic.
 \item \code{i_dilemmatic}: Index of dilemmatic constructs.

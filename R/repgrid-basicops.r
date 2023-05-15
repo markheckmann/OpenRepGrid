@@ -447,7 +447,7 @@ getScale <- function(x, output=1){
 #' set meta data of a grid (e.g. id, name of interview partner)
 #'
 #' @param x     repgrid object
-#' @param type  typemof grid in use (rating, ranked, implication)
+#' @param type  type of grid in use (rating, ranked, implication)
 #' @param id    id of the interview
 #' @param name  name of the interview partner
 #' @return \code{repgrid} object
@@ -577,7 +577,7 @@ swapConstructs <- function(x, pos1=1, pos2=1){
 #'
 #' Constructs are bipolar. They can be reversed without a change in meaning. The
 #' function swaps the constructs poles and re-adjusts ratings accordingly, i.e.
-#' it revesed selected constructs.
+#' it reversed selected constructs.
 #'
 #' @param x A `repgrid` object.
 #' @param pos Row indexes of constructs to reverse..
@@ -1129,7 +1129,7 @@ modifyConstruct <- function(x, pos, l.name=NA, l.preferred=NA, l.emerged=NA,
 #' @param name          (optional) new name
 #' @param abbreviation  (optional) abbreviation of element name
 #' @param status        (optional) status of element (e.g. ideal etc.)
-#' @param replace       logical. wether to overwrite cuttent settings if NA provided
+#' @param replace       logical. whether to overwrite current settings if NA provided
 #' @return \code{repgrid} object
 #' @export
 #' @keywords internal
@@ -1187,7 +1187,7 @@ showScale <- function(x){
 
 # the slot coupled can be influenced
 # If a grid is changed from couled to uncoupled, the data is double but 
-# with reflected scales. A sclae range has to be defined for that operations
+# with reflected scales. A scale range has to be defined for that operations
 setCoupled <- function(x, coupled=TRUE){
   if (!inherits(x, "repgrid")) 							# check if x is repgrid object
 	  stop("Object x must be of class 'repgrid'")
@@ -1235,7 +1235,7 @@ showMeta <- function(x){
 #' Make a new repgrid object. 
 #'
 #' The function creates a \code{repgrid}
-#' object from scratch. A number of paramters have to be defined in order to
+#' object from scratch. A number of parameters have to be defined in order to
 #' make a new grid (see parameters).
 #'
 #' @param args    Arguments needed for the construction of the grid (list).
@@ -1292,7 +1292,7 @@ makeRepgrid <- function(args)
 #' Concatenate the constructs of two grids. 
 #' 
 #' I.e. the constructs are combined to form one long grid.
-#' This function can be used in order to analyse multiple grids
+#' This function can be used in order to analyze multiple grids
 #' as one 'big grid' (eg. Slater, 1977, chap. 11).
 #'
 #' @param x       \code{repgrid} object
@@ -1359,7 +1359,7 @@ bind <- function(x, y, match=TRUE, index=TRUE)
 #' The girds must have the same set of elements and an identical 
 #' scale range. The order of the elements may differ.
 #' 
-#' This function can be used in order to analyse multiple grids
+#' This function can be used in order to analyze multiple grids
 #' as one 'big grid' (eg. Slater, 1977, chap. 11).
 #'
 #' @param ...     One or more repgrid objects or a list containing
@@ -1511,7 +1511,7 @@ decouple <- function(x){
 #' 
 #' @param x  A `repgrid` object.
 #' @param what A string or numeric to indicate if constructs (`"C"`, `1`) or
-#'   elements (`"C"`, `1`), or both (`"CE"`, `12`) shpuld be reversed.
+#'   elements (`"C"`, `1`), or both (`"CE"`, `12`) should be reversed.
 #' @param ... Ignored.
 #' @export
 #' @rdname reorder

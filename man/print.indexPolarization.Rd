@@ -13,8 +13,8 @@
 (default is \code{"ITCE"}, order does not matter):
 \code{I} = Information,
 \code{T} = Total Intensity,
-\code{C} = Constructs' itenstities,
-\code{E} = Elements' itenstities.}
+\code{C} = Constructs' intensities,
+\code{E} = Elements' intensities.}
 }
 \description{
 Print method for class indexPolarization.

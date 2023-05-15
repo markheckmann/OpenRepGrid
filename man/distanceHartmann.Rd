@@ -18,9 +18,9 @@ distanceHartmann(
 
 \item{method}{The method used for distance calculation, on of 
 \code{"paper", "simulate", "new"}. \code{"paper"} uses the 
-parameters as given in Hartmann (1992) for caclulation.
+parameters as given in Hartmann (1992) for calculation.
 \code{"simulate"} (default) simulates a Slater distribution
-for the caclulation. In a future version the time consuming
+for the calculation. In a future version the time consuming
 simulation will be replaced by more accurate parameters for
 Hartmann distances than used in Hartmann (1992).}
 
@@ -37,7 +37,7 @@ The number of values must match the length of the rating scale.}
 May be useful when the distribution is estimated on the basis
 of many quasis.}
 
-\item{distributions}{Wether to additionally return the values of the simulated
+\item{distributions}{Whether to additionally return the values of the simulated
 distributions (Slater etc.) The default is \code{FALSE}
 as it will quickly boost the object size.}
 }
@@ -47,7 +47,7 @@ A matrix containing Hartmann distances. \cr
                    \item{\code{"arguments"}}{A list of several parameters 
                           including \code{mean} and \code{sd} of Slater distribution.}
                    \item{\code{"quantiles"}}{Quantiles for Slater and Hartmann 
-                         distance distribition.}
+                         distance distribution.}
                    \item{\code{"distributions"}}{List with values of the 
                          simulated distributions.}
 }
@@ -75,7 +75,7 @@ size for each calculation. The second option will be more accurate when
 a big number of quasis is used in the simulation. \cr
 
 It is also possible to return the quantiles of the sample distribution and
-only the element distances consideres 'significant' according to the
+only the element distances considered 'significant' according to the
 quantiles defined.
 }
 \section{Calculation}{
@@ -85,7 +85,7 @@ The 'Hartmann distance' is calculated as follows (Hartmann 1992, p. 49).  \cr
 \deqn{D = -1 (\frac{D_{slater} - M_c}{sd_c})}{D = -1 (D_slater - M_c / sd_c)}
 Where \eqn{D_{slater}}{D_slater} denotes the Slater distances of the grid,
 \eqn{M_c}{M_c} the sample distribution's mean value and 
-\eqn{sd_c}{sd_c} the sample distributions's standard deviation.
+\eqn{sd_c}{sd_c} the sample distribution's standard deviation.
 }
 
 \examples{

@@ -67,7 +67,7 @@ vectors, i.e. the elements.}
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projecte into the component space afterwards. They do not 
+in the SVD but projected into the component space afterwards. They do not 
 determine the solution. Default is \code{NA}, i.e. no elements are set 
 supplementary.}
 
@@ -83,9 +83,9 @@ supplementary.}
 
 \item{e.text.col}{Color of element labels.}
 
-\item{alpha.sphere}{Numeric. alpha blending of the sourrounding sphere (default\code{".05"}).}
+\item{alpha.sphere}{Numeric. alpha blending of the surrounding sphere (default\code{".05"}).}
 
-\item{col.sphere}{Color of sourrouding sphere (default\code{"black"}).}
+\item{col.sphere}{Color of surrounding sphere (default\code{"black"}).}
 
 \item{unity}{Scale elements and constructs coordinates to unit scale (maximum of 1)
 so they are printed more neatly (default \code{TRUE}).}

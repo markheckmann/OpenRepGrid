@@ -19,7 +19,7 @@ if they are set for the grid.}
 Numeric.
 }
 \description{
-"Bias records a tendency for reponses to accumulate at one end of the 
+"Bias records a tendency for responses to accumulate at one end of the 
 grading scale" (Slater, 1977, p.88).
 }
 \note{

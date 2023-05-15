@@ -12,7 +12,7 @@
 #' @param prop The proportion of ratings to be perturbated.
 #' @param amount The amount set of possible perturbations. Will depend on scale
 #'   range. Usually {-1, 1} are reasonable settings
-#' @param prob Pobability for each amount to occur.
+#' @param prob Probability for each amount to occur.
 #' @export
 #' @example inst/examples/example-perturbate.R
 #' @rdname perturbate

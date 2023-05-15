@@ -17,7 +17,7 @@ A vector containing the paths to the temp files
 The format for a multigrid file resembles the single Gridstat data file. The
 lines of the single files are simply placed below each other without any
 blank lines in between. The function reads in a file and tests if it is a
-multigrid file. Multigrid files are seperated into single Gridstat temp
+multigrid file. Multigrid files are separated into single Gridstat temp
 files. The file path for the temp files is returned. If the file is a single
 grid files the path is left unaltered.
 }

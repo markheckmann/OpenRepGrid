@@ -2,7 +2,7 @@
 % Please edit documentation in R/repgrid-plots.r
 \name{calcCoordsBorders}
 \alias{calcCoordsBorders}
-\title{Coordinates of a sourrounding rectangle in direction of a given vector.}
+\title{Coordinates of a surrounding rectangle in direction of a given vector.}
 \usage{
 calcCoordsBorders(x, y, xmax = 1, ymax = 1, cx = 0, cy = 0)
 }
@@ -11,21 +11,21 @@ calcCoordsBorders(x, y, xmax = 1, ymax = 1, cx = 0, cy = 0)
 
 \item{y}{numeric vector of y coordinates x coordinates.}
 
-\item{xmax}{maximal x value for sourrounding rectangle (default is \code{1}).}
+\item{xmax}{maximal x value for surrounding rectangle (default is \code{1}).}
 
-\item{ymax}{maximal y value for sourrounding rectangle (default is \code{1}).}
+\item{ymax}{maximal y value for surrounding rectangle (default is \code{1}).}
 
-\item{cx}{center of retangle in x direction (not yet supported).}
+\item{cx}{center of rectangle in x direction (not yet supported).}
 
-\item{cy}{center of retangle in x direction (not yet supported).}
+\item{cy}{center of rectangle in x direction (not yet supported).}
 }
 \value{
 a \code{dataframe} containing the x and y coordinates for the 
               extended vectors.
 }
 \description{
-An arbitrary numeric vector in 2D is to be extented so it will 
-end on the borders of a sourrounding rectangle of a given size.
+An arbitrary numeric vector in 2D is to be extended so it will 
+end on the borders of a surrounding rectangle of a given size.
 Currently the vector is supposed to start in the origin \code{c(0,0)}.
 }
 \examples{

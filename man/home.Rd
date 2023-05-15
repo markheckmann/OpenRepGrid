@@ -21,7 +21,7 @@ Rotate the interactive 3D device to a default viewpoint or
 to a position defined by \code{theta} and \code{phi} in Euler angles.
 Three default viewpoints are implemented rendering a view 
 so that two axes span a plane and the third axis is 
-poiting out of the screen.
+pointing out of the screen.
 }
 \examples{
 \dontrun{

@@ -125,7 +125,7 @@ and ideal-self scoring on any given construct and we proceed as follow:
 \itemize{
    \item If the scoring of Self AND Ideal Self are both < 4: construct is "Congruent"
    \item If the scoring of Self AND Ideal Self are both > 4: construct is "Congruent"
-   \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR viceversa): construct is "discrepant"
+   \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR vice versa): construct is "discrepant"
    \item If scoring Self OR Ideal Self = 4 then the construct is NOT Discrepant and it is "Undifferentiated"
 }
 
@@ -151,7 +151,7 @@ or 'discrepant' can be determined in several ways (cf. Bell, 2009):
 }
 
 The value mode is determined via the argument \code{diff.mode}.\cr
-If no 'a priori' criteria to determine wether the construct
+If no 'a priori' criteria to determine whether the construct
 is congruent or discrepant is supplied as an argument, the values are chosen
 according to the range of the rating scale used. For the following scales
 the defaults are chosen as:
@@ -200,7 +200,7 @@ as related and that someone who is extraverted will not be timid, a
 change on the first construct will imply a change on the congruent 
 construct as well. Hence, the positive shift from timid to extraverted
 is presumed to have a undesired effect in moving from sensitive towards
-selflish. This relation is called an implicative dilemma. As the 
+selfish. This relation is called an implicative dilemma. As the 
 implications of change on a construct cannot be derived from a rating 
 grid directly, the correlation between two constructs is used as an 
 indicator of implication.

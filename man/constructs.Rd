@@ -26,7 +26,7 @@ rightpoles(x, position) <- value
 
 \item{collapse}{Return vector with both poles instead.}
 
-\item{sep}{Seperator if \code{collapse = TRUE}, default is \code{" - "}.}
+\item{sep}{Separator if \code{collapse = TRUE}, default is \code{" - "}.}
 
 \item{i, j}{Row and column Index of repgrid matrix.}
 

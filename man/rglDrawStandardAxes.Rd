@@ -26,9 +26,9 @@ rglDrawStandardAxes(
 
 \item{a.radius}{radius of spheres at the end points of the axes.}
 
-\item{labels}{logical. wether to draw axis labels.}
+\item{labels}{logical. whether to draw axis labels.}
 
-\item{spheres}{logical. wether to draw axis spheres at the end points.}
+\item{spheres}{logical. whether to draw axis spheres at the end points.}
 
 \item{...}{not evaluated.}
 }

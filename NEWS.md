@@ -30,7 +30,7 @@
   * new print option for indexIntensity
   * normalize argument in distance and indexSelfConstruction
   * plot method for indexDilemma to produce network graphs
-  * add logo to documetation
+  * add logo to documentation
   * cognitive self construction: self vs. ideal vs. others (indexSelfConstruction)
   * addAvgElement to add an average element
   * rep method for regrid objects creates gridlist 

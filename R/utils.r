@@ -427,7 +427,7 @@ lapply_pb <- function(X, FUN, ...)
 
 #' sapply with a progress bar
 #'
-#' Can be used like standard base:::sapply. The ionly thing 
+#' Can be used like standard base:::sapply. The only thing 
 #' it does is create an additional progress bar.
 #'
 #' @param X           see ?sapply for parameter explanation
@@ -475,8 +475,6 @@ sapply_pb <- function(X, FUN, ...)
 #'
 #' @param x   a string or a vector of strings
 #' @return vector  a string or vector of strings with reversed chars
-#' @references
-#'    \url{http://www.mail-archive.com/r-help@@r-project.org/msg102759.html}
 #' @export
 #' @keywords internal
 #' @examples
@@ -489,15 +487,15 @@ strReverse <- function(x) {
 
 #' trim vector to lower or upper value 
 #'
-#' the range a value may take is resticted to by an upper and 
-#' lower boundary. If it excedd the boundary the value is replaced
+#' the range a value may take is restricted to by an upper and 
+#' lower boundary. If it exceeds the boundary the value is replaced
 #' by the boundary value or alternatively by NA
 #'
 #' @param x         numeric vector
 #' @param minmax    minimal and maximal possible value (default c(-Inf, Inf) 
 #'                  i.e. no trimming occurs)
 #' @param na        Use NAs for replacing values that are out of range
-#' @return vector   vector whose elemenets that are out of range are replaced
+#' @return vector   vector whose elements that are out of range are replaced
 #' @export
 #' @keywords internal
 #' @examples
@@ -824,7 +822,7 @@ angle <- function (x, y)
 
 #' Format a matrix and add index column.
 #'
-#' @param x         A matrix onbject.
+#' @param x         A matrix object.
 #' @param rnames    Row names.
 #' @param cnames    Column names.
 #' @param pre.index Whether to make index prefix for rows and column names.
@@ -921,7 +919,7 @@ addIndexColumnToMatrix <- function(x){
 #' Make a histogram with steps instead of bars. Densities are used
 #' for the heights.
 #'
-#' @title           Density histogram withs steps instead of bars
+#' @title           Density histogram with steps instead of bars
 #'
 #' @param vals      Numeric values to display.
 #' @param breaks    Passed on to \code{hist}. 

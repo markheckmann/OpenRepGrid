@@ -35,7 +35,7 @@ the output (default is \code{TRUE}).}
 printed. For Slater distances \code{c(.8, 1.2)} are common 
 values.}
 
-\item{p}{Quantiles corresponding to probablities are used as cutoffs. 
+\item{p}{Quantiles corresponding to probabilities are used as cutoffs. 
 Currently only works for Hartmann distances. If used 
 \code{cutoffs} is overwritten.}
 

@@ -46,7 +46,7 @@ predictive power of the subject's construct system. The Intensity score as a
 structural measure is thought to reflect this type of system disintegration
 (Bannister, 1960).
 
-Implementation as in the Gridcor programme and explained on the 
+Implementation as in the Gridcor program and explained on the 
 correspoding help pages: 
 "\ldots the sum of the squared values of the correlations 
 of each construct with the rest of the constructs, averaged by the total 

@@ -48,8 +48,6 @@ rg <- importGridsuite(file, dir)
 # using a full path
 rg <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
 
-# load Gridsuite data from URL
-rg <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml")
 }
 
 

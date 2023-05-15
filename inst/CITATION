@@ -1,10 +1,9 @@
-citHeader("To cite the OpenRepGrid R package in publications:")
-
-citEntry(entry = "article",
+bibentry(
+  bibtype = "Manual",
   title = "OpenRepGrid: An R package for the analysis of repertory grids",
-  journal = "ZENODO",
-  author = "Mark Heckmann",
-	year = "2014",
-	note = "doi:10.5281/zenodo.8492",
-  textVersion = "Heckmann, M. (2014). OpenRepGrid: An R package for the analysis of repertory grids. ZENODO. doi:10.5281/zenodo.8492"
+  author = person(given = "Mark", family = "Heckmann"),
+  year = 2023,
+  publisher = "ZENODO",
+  doi = "10.5281/zenodo.8492",
+  url = "https://github.com/markheckmann/OpenRepGrid"
 )

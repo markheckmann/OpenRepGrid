@@ -10,7 +10,7 @@ constructD(x, dependent = "columns", trim = 30, index = TRUE)
 \item{x}{\code{repgrid} object}
 
 \item{dependent}{A string denoting the direction of dependency in the output 
-table (as d is assymetrical). Possible values are \code{"columns"}
+table (as d is asymmetrical). Possible values are \code{"columns"}
 (the default) for setting the columns as dependent, \code{"rows"} 
 for setting the rows as the dependent variable and 
 \code{"symmetric"} for the 
@@ -29,7 +29,7 @@ with long names.}
 \code{matrix} of construct correlations.
 }
 \description{
-Somer'ss d is an  assymetric association measure as it depends on which 
+Somer's d is an  asymmetric association measure as it depends on which 
 variable is set as dependent and independent.
 The direction of dependency needs to be specified.
 }
@@ -44,7 +44,7 @@ Thanks to Marc Schwartz for supplying the code to calculate
    constructD(fbb2003, "c")  # row as dependent
    constructD(fbb2003, "s")  # symmetrical index
  
-   # surpress printing
+   # suppress printing
    d <- constructD(fbb2003, out=0, trim=5)
    d
    

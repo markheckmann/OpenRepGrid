@@ -19,11 +19,11 @@
 #'            The \pkg{OpenRepGrid} code is hosted on \href{https://github.com/markheckmann/OpenRepGrid}{GitHub}.
 #'            The GitHub site provides additional information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
-#'            \href{http://www.openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.
+#'            \href{https://openrepgrid.org}{openrepgrid.org} under section \emph{Suggestions/Issues}.
 #'            The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 #'
 #' @note      To get started with \pkg{OpenRepGrid} visit the project's home under
-#'            \href{http://www.openrepgrid.org}{openrepgrid.org}. On this site you will find tutorials, 
+#'            \href{https://openrepgrid.org}{openrepgrid.org}. On this site you will find tutorials, 
 #'            explanation about the theory, the analysis methods and the corresponding R code.
 #'
 #'            To see the preferable citation of the \pkg{OpenRepGrid} package, type 
@@ -57,7 +57,7 @@
 #'
 #' This documentation page contains an overview over the package functions
 #' ordered by topics. The best place to start learning OpenRepGrid will
-#' be the package website \url{http://www.openrepgrid.org} though.
+#' be the package website \url{https://openrepgrid.org} though.
 #' 
 #' @section Functions sorted by topic: 
 #' 
@@ -100,7 +100,7 @@
 #' \emph{Bertin plots} \tab \cr
 #'   \tab \cr
 #'   \code{\link{bertin}}             \tab  Make Bertin display of grid data \cr
-#'   \code{\link{bertinCluster}}      \tab	Bertin display with corresponding cluster anaylsis \cr
+#'   \code{\link{bertinCluster}}      \tab	Bertin display with corresponding cluster analysis \cr
 #'   \tab \cr
 #'   \tab \cr
 #' \emph{Biplots} \tab \cr
@@ -125,7 +125,7 @@
 #' \tabular{ll}{
 #' \code{\link{indexConflict1}}	  \tab Conflict measure for grids (Slade & Sheehan, 1979) based on correlations \cr
 #' \code{\link{indexConflict2}}	  \tab Conflict measure for grids (Bassler et al., 1992) based on correlations \cr
-#' \code{\link{indexConflict3}}	  \tab Conflict or inconsistenciy measure for grids (Bell, 2004) based on distances \cr
+#' \code{\link{indexConflict3}}	  \tab Conflict or inconsistency measure for grids (Bell, 2004) based on distances \cr
 #' \code{\link{indexDilemma}}	    \tab Detect implicative dilemmas (conflicts) \cr
 #'    \tab \cr
 #' \code{\link{indexIntensity}}	  \tab Intensity index \cr
@@ -139,7 +139,7 @@
 #' 
 #' \tabular{ll}{
 #' \code{\link{alignByIdeal}}     \tab  Align constructs using the ideal element to gain pole preferences \cr
-#' \code{\link{alignByLoadings}}  \tab	Align constructs by loadings on first pricipal component \cr
+#' \code{\link{alignByLoadings}}  \tab	Align constructs by loadings on first principal component \cr
 #' \code{\link{reorder2d}}        \tab Order grid by angles between construct and/or elements in 2D \cr
 #' }
 #' 
@@ -245,7 +245,7 @@
 #' \code{\link{getRatingLayer}}       \tab Retrieve grid scores from grid object. \cr
 #' \code{\link{getNoOfConstructs}}    \tab Get the number of constructs in a grid object.    \cr
 #' \code{\link{getNoOfElements}}      \tab Get the number of elements in a grid object.   \cr
-#' \code{\link{dim}}                  \tab Get grid dimensions, i.e. contructs x elements.    \cr
+#' \code{\link{dim}}                  \tab Get grid dimensions, i.e. constructs x elements.    \cr
 #' \code{\link{getScale}}             \tab Get minimum and maximum scale value used in grid.  \cr
 #' \code{\link{getScaleMidpoint}}     \tab Get midpoint of the grid rating scale.    \cr
 #' \code{\link{getConstructNames}}    \tab Get construct names.                       \cr
@@ -267,7 +267,7 @@
 #'            The \pkg{OpenRepGrid} package development is hosted on github (\url{https://github.com/markheckmann/OpenRepGrid}).
 #'            The github site provides information and allows to file bug reports or feature requests.
 #'            Bug reports can also be emailed to the package maintainer or issued on 
-#'            \url{http://www.openrepgrid.org} under section \emph{Suggestions/Issues}.
+#'            \url{https://openrepgrid.org} under section \emph{Suggestions/Issues}.
 #'            The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 #'
 #' @name OpenRepGrid-overview

@@ -41,15 +41,15 @@ as.gridlist <- function(x)
 
 #' Number of constructs and elements all repgrids in gridlist
 #' 
+#' @details `nrow` and `ncol` are also covered by this approach
+#' as they access the dim method. The others are not generic
+#' and making them so introduces warnings, which I try to avoid.
+#' 
 #' @param x A gridlist object.
 #' @return A list of length 2.
 #' @export
 #' @keywords internal
-#' 
-#' \code{nrow} and \code{ncol} are also covered by this approach
-#' as the access the dim method. The others are not generic
-#' and makiong them so introduces warnings, which I try to avoid.
-#' 
+#' @md
 dim.gridlist <- function(x) {
   list(
     constructs = vapply(x, ncol, numeric(1)),
@@ -85,7 +85,7 @@ print.gridlist <- function(x, all = FALSE, ...)
 
 #' Replicate repgrid objects
 #' 
-#' Impements the `rep` method for `repgrid` objects.
+#' Implements the `rep` method for `repgrid` objects.
 #' 
 #' @param x A `repgrid`` object.
 #' @param n Number of times to replicate the grid.

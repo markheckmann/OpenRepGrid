@@ -10,7 +10,7 @@ getElementNames2(x, trim = 20, index = F, pre = "(", post = ") ")
 \item{x}{\code{repgrid} object.}
 
 \item{trim}{Number of characters to trim the construct names to
-(default \code{NA}). \code{NA} will surpress trimming.
+(default \code{NA}). \code{NA} will suppress trimming.
 The length of \code{index} is not included in the 
 trimming.}
 
@@ -28,7 +28,7 @@ Vector with (trimmed) element names.
 Retrieves the element names from a \code{repgrid}.
 }
 \details{
-Different features like trimming, indexing and choices of seperators
+Different features like trimming, indexing and choices of separators
 allow to return the kind of format that is needed.
 }
 \examples{

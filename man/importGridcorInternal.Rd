@@ -35,8 +35,6 @@ imp <- importGridcorInternal(file, dir)
 # using a full path
 imp <- importGridcorInternal("/Users/markheckmann/data/gridcor.dat")
 
-# load GRIDCOR data from URL
-imp <- importGridcorInternal("http://www.openrepgrid.uni-bremen.de/data/gridcor.dat")
 }
 
 

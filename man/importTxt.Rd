@@ -32,7 +32,7 @@ The \code{.txt} file has to be in a fixed format. There are three mandatory bloc
 with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} 
 and ends with \code{END ELEMENTS} and contains one element in each line.
 The other mandatory blocks contain the constructs and ratings (see below). In the 
-block containing the constructs the left and right pole are seperated by a 
+block containing the constructs the left and right pole are separated by a 
 colon (:). To define missing values use \code{NA} like in the example below.
 One optional block contains the range of the rating scale used defined by two numbers.
 The order of the blocks is arbitrary. All text not contained within the blocks
@@ -92,9 +92,6 @@ rg <- importTxt(file, dir)
 
 # using a full path
 rg <- importTxt("/Users/markheckmann/data/sample.txt")
-
-# load .txt data from URL
-rg <- importTxt("http://www.openrepgrid.uni-bremen.de/data/sample.txt")
 
 # importing more than one .txt file via R code
 files <- c("sample.txt", "sample_2.txt")

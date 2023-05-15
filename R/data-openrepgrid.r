@@ -9,7 +9,7 @@
 
 #' Grid data from Bell (2010).
 #'
-#' Grid data orginated (but is not shown in the paper) from a study by Haritos, 
+#' Grid data originated (but is not shown in the paper) from a study by Haritos, 
 #' Gindinis, Doan and Bell (2004) on element role titles. It was used to 
 #' demonstrate the effects of construct alignment in Bell (2010, p. 46).
 #'
@@ -221,7 +221,7 @@ NULL
 
 #' Grid data from Feixas and Saul (2004). 
 #'
-#'A desription by the authors:
+#'A description by the authors:
 #' "When Teresa, 22 years old, was seen by the second author (LAS) at the 
 #' psychological services of the University of Salamanca, she was in the 
 #' final year of her studies in chemical sciences. Although Teresa proves 
@@ -304,7 +304,7 @@ NULL
 #' group and at 3- and 6-month follow-up." (Leach et al. 2001, p. 230).\cr \cr
 #' 
 #' \code{leach2001a} is the pre-therapy, \code{leach2001b}
-#' is the post-therapy therapy datset. The construct and elements are 
+#' is the post-therapy therapy dataset. The construct and elements are 
 #' identical.
 #'
 #' @title   Pre- and post therapy dataset from Leach et al. (2001).

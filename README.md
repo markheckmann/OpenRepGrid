@@ -1,5 +1,5 @@
 
-# OpenRepGrid <img src="man/figures/logo.png" align="right" width="175" />
+# OpenRepGrid <img src="man/figures/logo.png" style="float: right;" width="175" />
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
@@ -11,7 +11,7 @@
 
 ## Overview
 
-**OpenRepGrid** is an R package for the analysis of repertory grid data. Its home is  [www.openrepgrid.org](http://www.openrepgrid.org/). 
+**OpenRepGrid** is an R package for the analysis of repertory grid data. Its home is  [openrepgrid.org](https://openrepgrid.org/). 
                                                   
 You can install the latest release version from [CRAN](https://cran.r-project.org/web/packages/OpenRepGrid/index.html) by typing
 

@@ -23,7 +23,7 @@ ssq(
 \item{along}{Numeric. Table of sum-of-squares (SSQ) for 1=constructs, 
 2=elements (default). 
 Note that currently these calculations only make sense
-for biplot reperesentations with \code{g=1} and \code{h=1}
+for biplot representations with \code{g=1} and \code{h=1}
 respectively.}
 
 \item{center}{Numeric. The type of centering to be performed. 
@@ -46,7 +46,7 @@ vectors, i.e. the elements.}
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projecte into the component space afterwards. They do not 
+in the SVD but projected into the component space afterwards. They do not 
 determine the solution. Default is \code{NA}, i.e. no elements are set 
 supplementary.}
 }
@@ -73,7 +73,7 @@ explained.
 \note{
 TODO: if g or h is not equal to 1 the SSQ does not measure
                          accuracy of representation as currently the ssq of each point
-                         are set in constrast with the pre-transformed matrix.
+                         are set in contrast with the pre-transformed matrix.
 }
 \examples{
 

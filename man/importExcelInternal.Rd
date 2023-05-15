@@ -2,7 +2,7 @@
 % Please edit documentation in R/import.r
 \name{importExcelInternal}
 \alias{importExcelInternal}
-\title{workhiorse function (parser) for importExcel.}
+\title{workhorse function (parser) for importExcel.}
 \usage{
 importExcelInternal(file, dir = NULL, sheetIndex = 1, min = NULL, max = NULL)
 }
@@ -22,6 +22,6 @@ for minimum rating value in grid.}
 for maximum rating value in grid.}
 }
 \description{
-workhiorse function (parser) for importExcel.
+workhorse function (parser) for importExcel.
 }
 \keyword{internal}

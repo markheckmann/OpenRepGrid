@@ -125,7 +125,7 @@ convertImportObjectToRepGridObject <- function(import){
 #'                for minimum rating value in grid.
 #' @param max	    optional argument (\code{numeric}, default \code{NULL})
 #'                for maximum rating value in grid.
-#' @return        a list with imported paraemeters
+#' @return        a list with imported parameters
 #'
 #' @note          Note that the gridstat data format does not contain explicit 
 #'                information about the range of the rating scale (minimum and 
@@ -138,11 +138,11 @@ convertImportObjectToRepGridObject <- function(import){
 #'                not set explicitly when using the importing function.
 #'                
 #'                The function only reads data from the latest GridStat version.
-#'                The latest version allows the seperation of the left and right pole
-#'                by using on of the following symbols \code{/:-} (hyphene, colon and dash). Older versions may not
-#'                seperate the left and right pole. This will cause all labels to be assigned to 
+#'                The latest version allows the separation of the left and right pole
+#'                by using on of the following symbols \code{/:-} (hyphen, colon and dash). Older versions may not
+#'                separate                              the left and right pole. This will cause all labels to be assigned to 
 #'                the left pole only when importing. You may fix this by simply entering
-#'                one of the construct seperator symbols into the GridStat file between each
+#'                one of the construct separator symbols into the GridStat file between each
 #'                left and right construct pole.
 #'
 #'                The third line of a GridStat file may contain a no labels statement (i.e. a
@@ -163,7 +163,7 @@ convertImportObjectToRepGridObject <- function(import){
 #'
 #' @export
 #' @keywords internal
-#' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
+#' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a 
 #'                repertory grid. Melbourne: Author.
 #' @examples \dontrun{
 #' 
@@ -178,9 +178,6 @@ convertImportObjectToRepGridObject <- function(import){
 #' # using a full path (example)
 #' imp <- importGridstatInternal("/Users/markheckmann/data/gridstat.dat")
 #' 
-#' # load gridstat data from URL
-#' imp <- importGridstatInternal("http://www.openrepgrid.uni-bremen.de/data/gridstat.dat")
-#'
 #' # setting rating scale range
 #' imp <- importGridstatInternal(file, dir, min=1, max=6)
 #' }
@@ -220,9 +217,9 @@ importGridstatInternal <- function(file, dir=NULL, min=NULL, max=NULL){
   		tmp <- scan(file = file, what = "character", 
   		            skip=2+i-1, nlines=1, quiet = TRUE)               # read construct line by line
   		l$constructs[[i]] <- joinString(tmp)											    # make one string
-  		poles <- strsplit(l$constructs[[i]], "[/:-]")									# separate emergent and constrast pole by splitting at hyphene, colon or slash (see email from Richard)
+  		poles <- strsplit(l$constructs[[i]], "[/:-]")									# separate emergent and contrast pole by splitting at hyphen, colon or slash (see email from Richard)
   		l$emergentPoles[[i]] <- trimBlanksInString(poles[[1]][1])			# save emergent pole
-  		l$contrastPoles[[i]] <- trimBlanksInString(poles[[1]][2])			# save constrast pole
+  		l$contrastPoles[[i]] <- trimBlanksInString(poles[[1]][2])			# save contrast pole
   	}
   } else {                          # make default constructs if no labels statement given
     constructs.left <- paste("construct left", seq_len(l$noConstructs))
@@ -292,7 +289,7 @@ importGridstatInternal <- function(file, dir=NULL, min=NULL, max=NULL){
 #' The format for a multigrid file resembles the single Gridstat data file. The
 #' lines of the single files are simply placed below each other without any
 #' blank lines in between. The function reads in a file and tests if it is a
-#' multigrid file. Multigrid files are seperated into single Gridstat temp
+#' multigrid file. Multigrid files are separated into single Gridstat temp
 #' files. The file path for the temp files is returned. If the file is a single
 #' grid files the path is left unaltered.
 #' 
@@ -304,7 +301,7 @@ importGridstatInternal <- function(file, dir=NULL, min=NULL, max=NULL){
 multigridFileToSinglegridFiles <- function(file) 
 {
   l <- readLines(file)
-  r <- grepl("^[ \t]*[0-9]+[ \t]+[0-9]+ *$", l)   # lines with number of c and e, i.e. two digits seperated by space
+  r <- grepl("^[ \t]*[0-9]+[ \t]+[0-9]+ *$", l)   # lines with number of c and e, i.e. two digits separated by space
   is.multigrid.file <- sum(r) > 1                 # check if it is a multi-grid file
   if (is.multigrid.file) {
     pos <- which(r) -1                              # subtract 1 as it is preceeded by an info line, i.e. where the grid starts
@@ -351,11 +348,11 @@ multigridFileToSinglegridFiles <- function(file)
 #'                not set explicitly when using the importing function.
 #'                
 #'                The function only reads data from the latest GridStat version.
-#'                The latest version allows the seperation of the left and right pole
-#'                by using on of the following symbols \code{/:-} (hyphene, colon and dash). Older versions may not
-#'                seperate the left and right pole. This will cause all labels to be assigned to 
+#'                The latest version allows the separation of the left and right pole
+#'                by using on of the following symbols \code{/:-} (hyphen, colon and dash). Older versions may not
+#'                separate                              the left and right pole. This will cause all labels to be assigned to 
 #'                the left pole only when importing. You may fix this by simply entering
-#'                one of the construct seperator symbols into the GridStat file between each
+#'                one of the construct separator symbols into the GridStat file between each
 #'                left and right construct pole.
 #'
 #'                The third line of a GridStat file may contain a no labels statement (i.e. a
@@ -364,7 +361,7 @@ multigridFileToSinglegridFiles <- function(file)
 #'                names are assigned to elements and constructs.
 #'
 #' @export
-#' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analysing the data of a 
+#' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a 
 #'                repertory grid. Melbourne: Author.
 #'
 #' @seealso       \code{\link{importGridcor}},
@@ -390,9 +387,6 @@ multigridFileToSinglegridFiles <- function(file)
 #' # using a full path (example)
 #' rg <- importGridstat("/Users/markheckmann/data/gridstat.dat")
 #' 
-#' # load gridstat data from URL
-#' rg <- importGridstat("http://www.openrepgrid.uni-bremen.de/data/gridstat.dat")
-#'
 #' # setting rating scale range
 #' rg <- importGridstat(file, dir, min=1, max=6)
 #' }
@@ -521,8 +515,6 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
 #' # using a full path
 #' imp <- importGridcorInternal("/Users/markheckmann/data/gridcor.dat")
 #' 
-#' # load GRIDCOR data from URL
-#' imp <- importGridcorInternal("http://www.openrepgrid.uni-bremen.de/data/gridcor.dat")
 #' }
 #'
 #'
@@ -595,7 +587,7 @@ importGridcorInternal <- function(file, dir=NULL) {
 #'                The maximum value can differ and is defined in the data file. 
 #'
 #'                Also note that both Gridcor and Gridstat data files do have the same
-#'                suffix \code{.dat}. Make sure not to mix themn up.
+#'                suffix \code{.dat}. Make sure not to mix them up.
 #' @export
 #' @references    Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
 #'                for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
@@ -624,8 +616,6 @@ importGridcorInternal <- function(file, dir=NULL) {
 #' # using a full path
 #' rg <- importGridcor("/Users/markheckmann/data/gridcor.dat")
 #' 
-#' # load GRIDCOR data from URL
-#' rg <- importGridcor("http://www.openrepgrid.uni-bremen.de/data/gridcor.dat")
 #' }
 #'
 #'
@@ -692,8 +682,6 @@ importGridcor <- function(file, dir=NULL){
 #' # using a full path
 #' imp <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
 #' 
-#' # load Gridsuite data from URL
-#' imp <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml")
 #' }
 #'
 #'
@@ -803,8 +791,6 @@ importGridsuiteInternal <- function(file, dir=NULL){
 #' # using a full path
 #' rg <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
 #' 
-#' # load Gridsuite data from URL
-#' rg <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml")
 #' }
 #'
 #'
@@ -882,16 +868,16 @@ importGridsuite <- function(file, dir=NULL){
 #'                (default \code{NULL}).
 #' @return        a list with extracted parameters.
 #'
-#' @note          Sci:Vesco offers the options to rate the construct poles seperately or using
-#'                a bipolar scale. The seperated rating is done using the "tetralemma" field.
+#' @note          Sci:Vesco offers the options to rate the construct poles separately or using
+#'                a bipolar scale. The separated rating is done using the "tetralemma" field.
 #'                The field is a bivariate plane on which each of the four (tetra) corners  
 #'                has a different meaning in terms of rating. Using this approach also allows ratings
 #'                like: "both poles apply", "none of the poles apply" and all intermediate ratings
 #'                can be chosen. This relaxes the bipolarity assumption often assumed in grid theory and
 #'                allows for deviation from a strict bipolar rating if the constructs are not applied
 #'                in a bipolar way. Using the tetralemma field for rating requires to analyze
-#'                each construct seperately though. This means we get a double entry grid where the 
-#'                emergent and constrast pole ratings might not simply be a reflection of on another.
+#'                each construct separately though. This means we get a double entry grid where the 
+#'                emergent and contrast pole ratings might not simply be a reflection of on another.
 #'                If a tetralemma field has been used for rating, \code{OpenRepGrid} offers the option 
 #'                to transform the scores into "normal" grid ratings (i.e. restricted to bipolarity)
 #'                by projecting the ratings from the bivariate tetralemma field onto the diagonal 
@@ -915,8 +901,6 @@ importGridsuite <- function(file, dir=NULL){
 #' # using a full path
 #' imp <- importScivescoInternal("/Users/markheckmann/data/scivesco.scires")
 #' 
-#' # load Sci:Vesco data from URL
-#' imp <- importScivescoInternal("http://www.openrepgrid.uni-bremen.de/data/scivesco.scires")
 #' }
 #'
 #'
@@ -1096,18 +1080,18 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #'                (default \code{NULL}).
 #' @return        A single \code{repgrid} object in case one file and
 #'                a list of \code{repgrid} objects in case multiple files are imported.
-#' @note          Sci:Vesco offers the options to rate the construct poles seperately or using
-#'                a bipolar scale. The seperated rating is done using the "tetralemma" field.
+#' @note          Sci:Vesco offers the options to rate the construct poles separately or using
+#'                a bipolar scale. The separated rating is done using the "tetralemma" field.
 #'                The field is a bivariate plane on which each of the four (tetra) corners  
 #'                has a different meaning in terms of rating. Using this approach also allows ratings
 #'                like: "both poles apply", "none of the poles apply" and all intermediate ratings
 #'                can be chosen. This relaxes the bipolarity assumption often assumed in grid theory and
 #'                allows for deviation from a strict bipolar rating if the constructs are not applied
 #'                in a bipolar way. Using the tetralemma field for rating requires to analyze
-#'                each construct seperately though. This means we get a double entry grid where the 
-#'                emergent and constrast pole ratings might not simply be a reflection of on another.
+#'                each construct separately though. This means we get a double entry grid where the 
+#'                emergent and contrast pole ratings might not simply be a reflection of on another.
 #'                The tetralemma field is not yet supported and importing will fail. Currently only bipolar
-#'                ratings are suppoerted.
+#'                ratings are supported.
 #'
 #'                If a tetralemma field has been used for rating, \code{OpenRepGrid} will offer the option 
 #'                to transform the scores into "normal" grid ratings (i.e. restricted to bipolarity)
@@ -1143,8 +1127,6 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #' # using a full path
 #' rg <- importScivesco("/Users/markheckmann/data/scivesco.scires")
 #' 
-#' # load Gridsuite data from URL
-#' rg <- importScivesco("http://www.openrepgrid.uni-bremen.de/data/scivesco.scires")
 #' }
 #'
 #'
@@ -1165,11 +1147,6 @@ importScivesco <- function(file, dir=NULL){
   }
 }
 
-# file <- "/Users/unimitarbeiter/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/sample.txt"
-# file <- "/Users/markheckmann/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/sample.txt"
-# tmp <- importTxt(file)
-# str(tmp)
-
 
 ############################# IMPORT .TXT #######################################
 
@@ -1180,7 +1157,7 @@ importScivesco <- function(file, dir=NULL){
 #' with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} 
 #' and ends with \code{END ELEMENTS} and contains one element in each line.
 #' The other mandatory blocks contain the constructs and ratings (see below). In the 
-#' block containing the constructs the left and right pole are seperated by a 
+#' block containing the constructs the left and right pole are separated by a 
 #' colon (:). To define missing values use \code{NA} like in the example below.
 #' One optional block contains the range of the rating scale used defined by two numbers.
 #' The order of the blocks is arbitrary. All text not contained within the blocks
@@ -1250,8 +1227,6 @@ importScivesco <- function(file, dir=NULL){
 #' # using a full path
 #' imp <- importTxtInternal("/Users/markheckmann/data/sample.txt")
 #' 
-#' # load Gridsuite data from URL
-#' imp <- importTxtInternal("http://www.openrepgrid.uni-bremen.de/data/sample.txt")
 #' }
 #'
 importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
@@ -1284,7 +1259,7 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
   l$constructs <- as.list(data[(line.constructs + 1):(line.constructs.end-1)])
   l$constructs <- lapply(l$constructs, function(x) trimBlanksInString(x) )
   tmp <- lapply(l$constructs, function(x) {
-    strsplit(x, ":")[[1]]              # separate emergent and constrast pole by splitting at hyphene, colon or slash (see email from Richard)
+    strsplit(x, ":")[[1]]              # separate emergent and contrast pole by splitting at hyphen, colon or slash (see email from Richard)
   })
   l$emergentPoles <- lapply(tmp, function(x) trimBlanksInString(x[1]) )
   l$contrastPoles <- lapply(tmp, function(x) trimBlanksInString(x[2]) ) 
@@ -1348,7 +1323,7 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 #' with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} 
 #' and ends with \code{END ELEMENTS} and contains one element in each line.
 #' The other mandatory blocks contain the constructs and ratings (see below). In the 
-#' block containing the constructs the left and right pole are seperated by a 
+#' block containing the constructs the left and right pole are separated by a 
 #' colon (:). To define missing values use \code{NA} like in the example below.
 #' One optional block contains the range of the rating scale used defined by two numbers.
 #' The order of the blocks is arbitrary. All text not contained within the blocks
@@ -1428,9 +1403,6 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 #' # using a full path
 #' rg <- importTxt("/Users/markheckmann/data/sample.txt")
 #' 
-#' # load .txt data from URL
-#' rg <- importTxt("http://www.openrepgrid.uni-bremen.de/data/sample.txt")
-#'
 #' # importing more than one .txt file via R code
 #' files <- c("sample.txt", "sample_2.txt")
 #' rg <- importTxt(files)
@@ -1453,17 +1425,12 @@ importTxt <- function(file, dir=NULL, min=NULL, max=NULL){
   }
 }
 
-# file <- "/Users/unimitarbeiter/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/sample.txt"
-# file <- "/Users/markheckmann/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/sample.txt"
-# tmp <- importTxt(file)
-# str(tmp)
-
 
 
 ############################# IMPORT EXCEL ####################################
 
 
-#' workhiorse function (parser) for importExcel.
+#' workhorse function (parser) for importExcel.
 #' 
 #' @inheritParams importExcel
 #' @export

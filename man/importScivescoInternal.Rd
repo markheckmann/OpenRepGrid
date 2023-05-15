@@ -21,16 +21,16 @@ a list with extracted parameters.
 Internal parser for sci:vesco files (suffix \code{scires}).
 }
 \note{
-Sci:Vesco offers the options to rate the construct poles seperately or using
-               a bipolar scale. The seperated rating is done using the "tetralemma" field.
+Sci:Vesco offers the options to rate the construct poles separately or using
+               a bipolar scale. The separated rating is done using the "tetralemma" field.
                The field is a bivariate plane on which each of the four (tetra) corners  
                has a different meaning in terms of rating. Using this approach also allows ratings
                like: "both poles apply", "none of the poles apply" and all intermediate ratings
                can be chosen. This relaxes the bipolarity assumption often assumed in grid theory and
                allows for deviation from a strict bipolar rating if the constructs are not applied
                in a bipolar way. Using the tetralemma field for rating requires to analyze
-               each construct seperately though. This means we get a double entry grid where the 
-               emergent and constrast pole ratings might not simply be a reflection of on another.
+               each construct separately though. This means we get a double entry grid where the 
+               emergent and contrast pole ratings might not simply be a reflection of on another.
                If a tetralemma field has been used for rating, \code{OpenRepGrid} offers the option 
                to transform the scores into "normal" grid ratings (i.e. restricted to bipolarity)
                by projecting the ratings from the bivariate tetralemma field onto the diagonal 
@@ -54,8 +54,6 @@ imp <- importScivescoInternal(file, dir)
 # using a full path
 imp <- importScivescoInternal("/Users/markheckmann/data/scivesco.scires")
 
-# load Sci:Vesco data from URL
-imp <- importScivescoInternal("http://www.openrepgrid.uni-bremen.de/data/scivesco.scires")
 }
 
 

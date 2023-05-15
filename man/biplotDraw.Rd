@@ -69,11 +69,11 @@ label.}
 \item{cex.pos}{Cex parameter used during positioning of labels if prompted. Does
 usually not have to be changed by user.}
 
-\item{xpd}{Logical (default is \code{TRUE}). Wether to extend text labels 
+\item{xpd}{Logical (default is \code{TRUE}). Whether to extend text labels 
 over figure region. Usually not needed by the user.}
 
 \item{c.lines}{Logical. Whether construct lines from the center of the biplot
-to the sourrounding box are drawn (default is \code{FALSE}).}
+to the surrounding box are drawn (default is \code{FALSE}).}
 
 \item{col.c.lines}{The color of the construct lines from the center to the borders 
 of the plot (default is \code{gray(.9)}).}
@@ -93,9 +93,9 @@ absolute values of the coordinates for either constructs or elements
 will be much smaller or greater. This is an inherent property of the biplot.
 In the case it is not necessary to be able to read off the original 
 data entries from the plot, the axes for elements and constructs
-can be scaled seperately. The proportional projection values will 
-stay unaffetced. the absolue will change though. For grid interpretation 
-the absolze values are usually oh no importance. Thus, there is an optional
+can be scaled separately. The proportional projection values will 
+stay unaffected. the absolute will change though. For grid interpretation 
+the absolute values are usually oh no importance. Thus, there is an optional
 argument \code{normalize} which is \code{FALSE} as a default which
 rescales the axes so the longest construct and element vector will be 
 set to the length of \code{1}.

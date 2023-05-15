@@ -58,24 +58,24 @@ A pvclust object as returned by the function \code{\link{pvclust}}
 p-values are calculated for each branch of the cluster dendrogram to indicate
 the stability of a specific partition. \code{clusterBoot} will yield the same
 clusters as the \code{\link{cluster}} function (i.e. standard hierarchical 
-clustering) with additional p-values. Two kindes of p-values are reported: 
+clustering) with additional p-values. Two kinds of p-values are reported: 
 bootstrap probabilities (BP) and approximately unbiased (AU) probabilities
 (see Details section for more information).
 }
 \details{
 In standard (hierarchical) cluster analysis the question arises which of the 
-idientified structures are significant or just emerged by chance. Over the
+identified structures are significant or just emerged by chance. Over the
 last decade several methods have been developed to test structures for
 robustness. One line of research in this area is based on resampling. The
 idea is to resample the rows or columns of the data matrix and to build the
 dendrogram for each bootstrap sample (Felsenstein, 1985). The p-values
-indicates the pecentage of times a specific structure is identified across
+indicates the percentage of times a specific structure is identified across
 the bootstrap samples. It was shown that the p-value is biased (Hillis &
 Bull, 1993; Zharkikh & Li, 1995). In the literature several methods for bias
 correction have been proposed. In \code{clusterBoot} a method based on the
 \emph{multiscale bootstrap} is used to derive corrected (approximately 
 unbiased) p-values (Shimodaira, 2002, 2004). In conventional bootstrap 
-analysis the size of the bootstrap sample is identical to the orginal sample 
+analysis the size of the bootstrap sample is identical to the original sample 
 size. Multiscale bootstrap varies the bootstrap sample size in order to infer
 a correction formula for the biased p-value on the basis of the variation of 
 the results for the different sample sizes (Suzuki & Shimodaira, 2006).

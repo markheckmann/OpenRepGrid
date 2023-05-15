@@ -15,7 +15,7 @@
 A `gridlist`` object.
 }
 \description{
-Impements the \code{rep} method for \code{repgrid} objects.
+Implements the \code{rep} method for \code{repgrid} objects.
 }
 \examples{
 l <- rep(boeker, 3)   # gridlist with 3 boeker grids

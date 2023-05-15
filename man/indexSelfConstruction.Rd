@@ -41,7 +41,7 @@ argument for \code{method}, otherwise it is ignored.}
 List object of class \code{indexSelfConstruction}, containing the
 results from the calculations:
 \itemize{
-\item \code{grid}: Recuced grid with seld, ideal and others
+\item \code{grid}: Reduced grid with self, ideal and others
 \item \code{method_type}: method type (correlation or distance)
 \item \code{method}: correlation or distance method used
 \item \code{self_element}: name of the self element

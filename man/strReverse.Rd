@@ -19,7 +19,4 @@ becomes c("CBA", "cba")
 \examples{
 strReverse(c("ABC", "abc"))
 }
-\references{
-\url{http://www.mail-archive.com/r-help@r-project.org/msg102759.html}
-}
 \keyword{internal}

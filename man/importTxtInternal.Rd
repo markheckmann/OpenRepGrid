@@ -29,7 +29,7 @@ The \code{.txt} file has to be in a fixed format. There are three mandatory bloc
 with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} 
 and ends with \code{END ELEMENTS} and contains one element in each line.
 The other mandatory blocks contain the constructs and ratings (see below). In the 
-block containing the constructs the left and right pole are seperated by a 
+block containing the constructs the left and right pole are separated by a 
 colon (:). To define missing values use \code{NA} like in the example below.
 One optional block contains the range of the rating scale used defined by two numbers.
 The order of the blocks is arbitrary. All text not contained within the blocks
@@ -88,8 +88,6 @@ imp <- importTxtInternal(file, dir)
 # using a full path
 imp <- importTxtInternal("/Users/markheckmann/data/sample.txt")
 
-# load Gridsuite data from URL
-imp <- importTxtInternal("http://www.openrepgrid.uni-bremen.de/data/sample.txt")
 }
 
 }

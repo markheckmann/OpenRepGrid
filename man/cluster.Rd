@@ -60,7 +60,7 @@ function and cluster method.}
 
 \item{cex.main}{Size parameter for the plot title (default is \code{.9}).}
 
-\item{print}{Logical. Wether to print the dendrogram (default is \code{TRUE}).}
+\item{print}{Logical. Whether to print the dendrogram (default is \code{TRUE}).}
 
 \item{...}{Additional parameters to be passed to plotting function from
 \code{as.dendrogram}. Type \code{?as.dendrogram} for further 

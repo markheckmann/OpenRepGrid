@@ -32,7 +32,7 @@ represented beyond the first two dimensions. Also, in a lot of
 cases it may be of interest to explore the grid space from 
 a certain angle, e.g. to gain an optimal view onto the set 
 of elements under investigation (e.g. Raeithel, 1998).
-Note that the eigenstructure analysisis just a special case 
+Note that the eigenstructure analysis just a special case 
 of a biplot that can also be produced using the 
 \code{\link{biplot3d}} function with the arguments 
 \code{center=4, g=1, h=1}.

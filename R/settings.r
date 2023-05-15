@@ -88,7 +88,7 @@ settings <- function (...)
   parnames <- names(generateDefaultSettings())
   cur.settings <- .OpenRepGridEnv$settings
   args <- list(...) 
-  if (length(args) == 0)                              # get all argumnets
+  if (length(args) == 0)                              # get all arguments
     return(cur.settings)
   # get args
   if (is.null(names(args)) & 

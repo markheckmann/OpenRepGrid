@@ -15,11 +15,11 @@ i.e. no trimming occurs)}
 \item{na}{Use NAs for replacing values that are out of range}
 }
 \value{
-vector   vector whose elemenets that are out of range are replaced
+vector   vector whose elements that are out of range are replaced
 }
 \description{
-the range a value may take is resticted to by an upper and 
-lower boundary. If it excedd the boundary the value is replaced
+the range a value may take is restricted to by an upper and 
+lower boundary. If it exceeds the boundary the value is replaced
 by the boundary value or alternatively by NA
 }
 \examples{

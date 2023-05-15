@@ -16,7 +16,7 @@
 #' @param  p          The power of the Minkowski distance, in case \code{"minkowski"}
 #'                    is used as argument for \code{dmethod}.
 #' @param normalize   Use normalized distances. The distances are divided by the 
-#'                    highest possible value given the rating sclae fo the grid, 
+#'                    highest possible value given the rating scale fo the grid, 
 #'                    so all distances are in the interval [0,1].
 #' @param trim        The number of characters a construct or element is trimmed to (default is
 #'                    \code{20}). If \code{NA} no trimming occurs. Trimming
@@ -199,7 +199,7 @@ slaterStandardization <- function(x)
   D <- sweep(x, 1, apply(x, 1, mean))     # row-center data
   S <- sum(diag(t(D) %*% D))
   U <- (2 * S/(m - 1))^0.5
-  E/U                                     # devide by expected distance unit
+  E/U                                     # divide by expected distance unit
 }
 
 
@@ -234,7 +234,7 @@ slaterStandardization <- function(x)
 #' \deqn{U = (2S/(m-1))^{1/2}}{U = (2S/(m-1))^.5} 
 #' where \eqn{m}{m} denotes the number of elements of the grid.
 #' The standardized Slater distances is the matrix of Euclidean distances
-#' \eqn{E}{E} devided by the expected distance \eqn{U}{U}. 
+#' \eqn{E}{E} divided by the expected distance \eqn{U}{U}. 
 #' \deqn{E/U}{E/U}
 #'
 #' 
@@ -436,7 +436,7 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #' a big number of quasis is used in the simulation. \cr
 #' 
 #' It is also possible to return the quantiles of the sample distribution and
-#' only the element distances consideres 'significant' according to the
+#' only the element distances considered 'significant' according to the
 #' quantiles defined.
 #'
 #'
@@ -446,15 +446,15 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #' \deqn{D = -1 (\frac{D_{slater} - M_c}{sd_c})}{D = -1 (D_slater - M_c / sd_c)}
 #' Where \eqn{D_{slater}}{D_slater} denotes the Slater distances of the grid,
 #' \eqn{M_c}{M_c} the sample distribution's mean value and 
-#' \eqn{sd_c}{sd_c} the sample distributions's standard deviation.
+#' \eqn{sd_c}{sd_c} the sample distribution's standard deviation.
 #'
 #' @title 'Hartmann distance' (standardized Slater distances).
 #' @param x           \code{repgrid} object.
 #' @param method      The method used for distance calculation, on of 
 #'                    \code{"paper", "simulate", "new"}. \code{"paper"} uses the 
-#'                    parameters as given in Hartmann (1992) for caclulation.
+#'                    parameters as given in Hartmann (1992) for calculation.
 #'                    \code{"simulate"} (default) simulates a Slater distribution
-#'                    for the caclulation. In a future version the time consuming
+#'                    for the calculation. In a future version the time consuming
 #'                    simulation will be replaced by more accurate parameters for
 #'                    Hartmann distances than used in Hartmann (1992).    
 #' @param reps        Number of random grids to generate sample distribution for 
@@ -467,7 +467,7 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #'                    (default is \code{TRUE}) (for \code{method="simulate"}).
 #'                    May be useful when the distribution is estimated on the basis
 #'                    of many quasis.
-#' @param distributions Wether to additionally return the values of the simulated
+#' @param distributions Whether to additionally return the values of the simulated
 #'                    distributions (Slater etc.) The default is \code{FALSE}
 #'                    as it will quickly boost the object size.
 #' @return            A matrix containing Hartmann distances. \cr
@@ -475,7 +475,7 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #'                    \item{\code{"arguments"}}{A list of several parameters 
 #'                           including \code{mean} and \code{sd} of Slater distribution.}
 #'                    \item{\code{"quantiles"}}{Quantiles for Slater and Hartmann 
-#'                          distance distribition.}
+#'                          distance distribution.}
 #'                    \item{\code{"distributions"}}{List with values of the 
 #'                          simulated distributions.}
 #'                                    
@@ -597,7 +597,7 @@ distanceHartmann <- function(x, method="paper", reps=10000,
 #' 
 #' @param x           Object of class hdistance. 
 #' @inheritParams      print.distance
-#' @param p           Quantiles corresponding to probablities are used as cutoffs. 
+#' @param p           Quantiles corresponding to probabilities are used as cutoffs. 
 #'                    Currently only works for Hartmann distances. If used 
 #'                    \code{cutoffs} is overwritten.
 #' @param ...         Not evaluated.                  
@@ -663,10 +663,10 @@ print.hdistance <- function(x, digits=2, col.index=TRUE,
 #' 
 #' The function \code{distanceNormalize} can also return
 #' the quantiles of the sample distribution and only the element distances
-#' consideres 'significant' according to the quantiles defined.
+#' considered 'significant' according to the quantiles defined.
 #' 
 #' @section Calculations:
-#' The 'power tranformed Hartmann distance' are calulated as
+#' The 'power transformed Hartmann distance' are calculated as
 #' follows: The simulated Hartmann distribution is added a constant as the
 #' Box-Cox transformation can only be applied to positive values. Then a range
 #' of values for lambda in the Box-Cox transformation (Box & Cox, 1964) are
@@ -693,7 +693,7 @@ print.hdistance <- function(x, digits=2, col.index=TRUE,
 #'                    \item{\code{"arguments"}}{A list of several parameters 
 #'                           including \code{mean} and \code{sd} of Slater distribution.}
 #'                    \item{\code{"quantiles"}}{Quantiles for Slater, Hartmann 
-#'                          and power transformed distance distribitions.}
+#'                          and power transformed distance distributions.}
 #'                    \item{\code{"distributions"}}{List with values of the 
 #'                          simulated distributions, if \code{distributions=TRUE}.}
 #'                                    
@@ -772,7 +772,7 @@ distanceNormalized <- function(x, reps=1000, prob=NULL, progress=TRUE,
   }
   
   # make bc transformations for all Hartmann data
-  bc.dist <-  bc.transform(d$hartmann)    # transform simulated Hartmann distribition
+  bc.dist <-  bc.transform(d$hartmann)    # transform simulated Hartmann distribution
   bc.vals <- bc.transform(h)         # transform grid data
   bc.qs <- quantile(bc.dist, ps, na.rm=TRUE)
    

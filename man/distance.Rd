@@ -31,7 +31,7 @@ For additional information on the different types type
 is used as argument for \code{dmethod}.}
 
 \item{normalize}{Use normalized distances. The distances are divided by the 
-highest possible value given the rating sclae fo the grid, 
+highest possible value given the rating scale fo the grid, 
 so all distances are in the interval [0,1].}
 
 \item{trim}{The number of characters a construct or element is trimmed to (default is

@@ -24,7 +24,7 @@ modifyElement(
 
 \item{status}{(optional) status of element (e.g. ideal etc.)}
 
-\item{replace}{logical. wether to overwrite cuttent settings if NA provided}
+\item{replace}{logical. whether to overwrite current settings if NA provided}
 }
 \value{
 \code{repgrid} object

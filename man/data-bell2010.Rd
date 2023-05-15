@@ -6,7 +6,7 @@
 \alias{bell2010}
 \title{Grid data from Bell (2010).}
 \description{
-Grid data orginated (but is not shown in the paper) from a study by Haritos, 
+Grid data originated (but is not shown in the paper) from a study by Haritos, 
 Gindinis, Doan and Bell (2004) on element role titles. It was used to 
 demonstrate the effects of construct alignment in Bell (2010, p. 46).
 }

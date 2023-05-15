@@ -15,8 +15,8 @@
 \item{output}{String with each letter indicating which parts of the output to print
 (default is \code{"TCE"}, order does not matter):
 \code{T} = Total Intensity,
-\code{C} = Constructs' itenstities,
-\code{E} = Elements' itenstities.}
+\code{C} = Constructs' intensities,
+\code{E} = Elements' intensities.}
 }
 \description{
 Print method for class indexIntensity.

@@ -99,9 +99,8 @@ randomGrids <- function(rep=3, nc=10, ne=15, nwc=8, nwe=5,
 #' Generate random grids and calculate 'Slater distances'
 #' for the elements. 
 #'
-#' All Slater distances
-#' are returned as a vector. The valiues can be used e.g. to 
-#' assess the distributions standard deviation.
+#' All Slater distances are returned as a vector. The values can be used e.g. to assess the
+#' distributions standard deviation.
 #'
 #' @param rep       Number of grids to be produced (default is \code{3}).
 #' @param nc        Number of constructs (default 10).

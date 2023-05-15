@@ -17,7 +17,7 @@ dimensions.}
 
 \item{cumulated}{Logical (default is \code{TRUE}). 
 Print a cumulated table of sum-of-squares?
-If \code{FALSE} the uncumulated sum-of-squares are printed.                         
+If \code{FALSE} the non-cumulated sum-of-squares are printed.                         
 (default is \code{TRUE}).}
 
 \item{...}{Not evaluated.}

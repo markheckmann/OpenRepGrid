@@ -5,8 +5,8 @@
 #' @param a.cex       cex for axis labels.
 #' @param a.col       axis color.
 #' @param a.radius      radius of spheres at the end points of the axes.
-#' @param labels      logical. wether to draw axis labels.
-#' @param spheres     logical. wether to draw axis spheres at the end points.  
+#' @param labels      logical. whether to draw axis labels.
+#' @param spheres     logical. whether to draw axis spheres at the end points.  
 #' @param ...         not evaluated.
 #' @export
 #' @keywords internal
@@ -117,10 +117,10 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
 #'                        \code{0 =} no lines, \code{1 =} lines from constructs to outer frame,
 #'                        \code{2 =} lines from the center to outer frame.
 #' @param lef             Construct lines extension factor.
-#' @param alpha.sphere    Numeric. alpha blending of the sourrounding sphere (default\code{".05"}).
-#' @param col.sphere      Color of sourrouding sphere (default\code{"black"}).
+#' @param alpha.sphere    Numeric. alpha blending of the surrounding sphere (default\code{".05"}).
+#' @param col.sphere      Color of surrounding sphere (default\code{"black"}).
 #' @param ext.sphere      Extension factor for sphere
-#' @param col.frame       Color of the sourrounding frame.
+#' @param col.frame       Color of the surrounding frame.
 #' @param zoom            Not yet used. Scaling factor for all vectors. Can be used to zoom
 #'                        the plot in and out (default \code{1}). 
 #' @param draw.xyz.axes   Draw standard XYZ axes.                     
@@ -303,7 +303,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
 #' @param col.active    Columns (elements) that are no supplementary points, i.e. they are used
 #'                      in the SVD to find principal components. default is to use all elements.
 #' @param col.passive   Columns (elements) that are supplementary points, i.e. they are NOT used
-#'                      in the SVD but projecte into the component space afterwards. They do not 
+#'                      in the SVD but projected into the component space afterwards. They do not 
 #'                      determine the solution. Default is \code{NA}, i.e. no elements are set 
 #'                      supplementary.
 #'
@@ -315,8 +315,8 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
 #' @param e.cex         Size of element labels.
 #' @param e.text.col    Color of element labels.
 #'
-#' @param alpha.sphere  Numeric. alpha blending of the sourrounding sphere (default\code{".05"}).
-#' @param col.sphere    Color of sourrouding sphere (default\code{"black"}).
+#' @param alpha.sphere  Numeric. alpha blending of the surrounding sphere (default\code{".05"}).
+#' @param col.sphere    Color of surrounding sphere (default\code{"black"}).
 #'
 #' @param unity         Scale elements and constructs coordinates to unit scale (maximum of 1)
 #'                      so they are printed more neatly (default \code{TRUE}).
@@ -455,7 +455,7 @@ biplotSlater3d <- function(x, center=1, g=1, h=1, ...){
 #' cases it may be of interest to explore the grid space from 
 #' a certain angle, e.g. to gain an optimal view onto the set 
 #' of elements under investigation (e.g. Raeithel, 1998).
-#' Note that the eigenstructure analysisis just a special case 
+#' Note that the eigenstructure analysis just a special case 
 #' of a biplot that can also be produced using the 
 #' \code{\link{biplot3d}} function with the arguments 
 #' \code{center=4, g=1, h=1}.
@@ -511,7 +511,7 @@ biplotEsa3d <- function(x, center=1, g=1, h=1, ...){
 #' to a position defined by \code{theta} and \code{phi} in Euler angles.
 #' Three default viewpoints are implemented rendering a view 
 #' so that two axes span a plane and the third axis is 
-#' poiting out of the screen.
+#' pointing out of the screen.
 #' 
 #' @param view    Numeric. Specifying one of three default views.
 #'                1 = XY, 2=XZ and 3=YZ-plane.

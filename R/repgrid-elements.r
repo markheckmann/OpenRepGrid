@@ -65,14 +65,14 @@ eNames <- getElementNames
 
 #' Retrieves the element names from a \code{repgrid}.
 #' 
-#' Different features like trimming, indexing and choices of seperators
+#' Different features like trimming, indexing and choices of separators
 #' allow to return the kind of format that is needed.
 #'
 #' @title Retrieve element names in needed format.
 #'
 #' @param x       \code{repgrid} object.
 #' @param trim    Number of characters to trim the construct names to
-#'                (default \code{NA}). \code{NA} will surpress trimming.
+#'                (default \code{NA}). \code{NA} will suppress trimming.
 #'                The length of \code{index} is not included in the 
 #'                trimming.
 #' @param index   Logical. Whether to add a index number before the construct

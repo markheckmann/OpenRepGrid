@@ -15,14 +15,14 @@ biplotEsaPseudo3d(x, center = 4, g = 1, h = 1, ...)
 2= column mean centering (elements), 3= double-centering 
 (construct and element means),
 4= midpoint centering of rows (constructs).
-Eigenstructure analyis uses midpoint centering (\code{4}).}
+Eigenstructure analysis uses midpoint centering (\code{4}).}
 
 \item{g}{Power of the singular value matrix assigned to the left singular 
-vectors, i.e. the constructs. Eigenstructure analyis uses  
+vectors, i.e. the constructs. Eigenstructure analysis uses  
 \code{g=1}.}
 
 \item{h}{Power of the singular value matrix assigned to the right singular 
-vectors, i.e. the elements. Eigenstructure analyis uses  
+vectors, i.e. the elements. Eigenstructure analysis uses  
 \code{h=1}.}
 
 \item{...}{Additional parameters for be passed to \code{\link{biplotPseudo3d}}.}

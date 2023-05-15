@@ -86,7 +86,7 @@ vectors, i.e. the elements.}
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projecte into the component space afterwards. They do not 
+in the SVD but projected into the component space afterwards. They do not 
 determine the solution. Default is \code{NA}, i.e. no elements are set 
 supplementary.}
 
@@ -169,22 +169,22 @@ x-y plane will be printed. Set the value to \code{91} (default)
 to show all construct labels.}
 
 \item{c.points.show}{Whether the constructs are printed (default is \code{TRUE}).
-\code{FALSE} will surpress the printing of the constructs.
+\code{FALSE} will suppress the printing of the constructs.
 To only print certain constructs a numeric vector can be 
 provided (e.g. \code{c(1:10)}).}
 
 \item{c.labels.show}{Whether the construct labels are printed (default is \code{TRUE}).
-\code{FALSE} will surpress the printing of the labels.
+\code{FALSE} will suppress the printing of the labels.
 To only print certain construct labels a numeric vector can be 
 provided (e.g. \code{c(1:10)}).}
 
 \item{e.points.show}{Whether the elements are printed (default is \code{TRUE}).
-\code{FALSE} will surpress the printing of the elements.
+\code{FALSE} will suppress the printing of the elements.
 To only print certain elements a numeric vector can be 
 provided (e.g. \code{c(1:10)}).}
 
 \item{e.labels.show}{Whether the element labels are printed (default is \code{TRUE}).
-\code{FALSE} will surpress the printing of the labels.
+\code{FALSE} will suppress the printing of the labels.
 To only print certain element labels a numeric vector can be 
 provided (e.g. \code{c(1:10)}).}
 
@@ -200,7 +200,7 @@ the positioning may slow down the plotting.}
 Can be useful during inspection of the plot (default \code{FALSE}).}
 
 \item{c.lines}{Logical. Whether construct lines from the center of the biplot
-to the sourrounding box are drawn (default is \code{FALSE}).}
+to the surrounding box are drawn (default is \code{FALSE}).}
 
 \item{col.c.lines}{The color of the construct lines from the center to the borders 
 of the plot (default is \code{gray(.9)}).}
@@ -233,7 +233,7 @@ label.}
 \item{cex.pos}{Cex parameter used during positioning of labels if prompted. Does
 usually not have to be changed by user.}
 
-\item{xpd}{Logical (default is \code{TRUE}). Wether to extend text labels 
+\item{xpd}{Logical (default is \code{TRUE}). Whether to extend text labels 
 over figure region. Usually not needed by the user.}
 
 \item{unity}{Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
@@ -260,10 +260,10 @@ the plot in and out (default \code{1}).}
 \description{
 The biplot is the central
 way to create a joint plot of elements and constructs.
-Depending on te parameters chosen it contains information
+Depending on the parameters chosen it contains information
 on the distances between elements and constructs. Also the 
 relative values the elements have on a construct can be read off
-by projetion the element onto the construct vector. 
+by projection the element onto the construct vector. 
 A lot of parameters can be changed rendering
 different types of biplots (ESA, Slater's) and different 
 looks (colors, text size).

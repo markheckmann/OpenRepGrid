@@ -28,7 +28,7 @@
 \item{layout}{Name of layout. One of \code{rows}, \code{circle}, \code{star}, or \code{nicely} or a
 \code{igraph} layout function.}
 
-\item{both.poles}{Show both construct poales? (default \code{TRUE}). If \code{FALSE}
+\item{both.poles}{Show both construct poles? (default \code{TRUE}). If \code{FALSE}
 only the poles corresponding to the implied undesired changes are shown.}
 
 \item{node.size}{Size of nodes (default \code{50}).}

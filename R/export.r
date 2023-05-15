@@ -8,14 +8,14 @@
 #' in format used by \pkg{OpenRepGrid}. This file format can also 
 #' easily be edited by hand (see \code{\link{importTxt}} for a 
 #' description).
-#' The funtion will open an interactive dialog box to let the user 
+#' The function will open an interactive dialog box to let the user 
 #' enter a filename if no \code{file} argument is supplied
 #' in the function call. 
 #'
 #' @param x     \code{repgrid} object.
 #' @param file  Filename to save the grid to. The name should have 
 #'              the suffix .txt. If the function is called without
-#'              specifying this argumnet a dialog box is opened.
+#'              specifying this argument a dialog box is opened.
 #' @return      Invisibly returns the name of the file.
 #'
 #' @note

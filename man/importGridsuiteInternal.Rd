@@ -41,8 +41,6 @@ imp <- importGridsuite(file, dir)
 # using a full path
 imp <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
 
-# load Gridsuite data from URL
-imp <- importGridsuite("http://www.openrepgrid.uni-bremen.de/data/gridsuite.xml")
 }
 
 

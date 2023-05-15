@@ -39,7 +39,7 @@ bertinBase(
 1st element denotes the left, 2nd the upper and 3rd the 
 right margin in npc coordinates (i.e. 0 to zero).}
 
-\item{add}{Logical. Wether to add bertin to existent plot (default is 
+\item{add}{Logical. Whether to add bertin to existent plot (default is 
 \code{FALSE}). If \code{TRUE, plot.new()} will not be called
 \code{par(new=TRUE)}.}
 

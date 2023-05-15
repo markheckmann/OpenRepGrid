@@ -12,7 +12,7 @@
 #' @param col.active    Columns (elements) that are no supplementary points, i.e. they are used
 #'                      in the SVD to find principal components. default is to use all elements.
 #' @param col.passive   Columns (elements) that are supplementary points, i.e. they are NOT used
-#'                      in the SVD but projecte into the component space afterwards. They do not 
+#'                      in the SVD but projected into the component space afterwards. They do not 
 #'                      determine the solution. Default is \code{NA}, i.e. no elements are set 
 #'                      supplementary.
 #' @param ...           Parameters to be passed on to \code{center()} and \code{normalize}.       
@@ -72,7 +72,7 @@ calcBiplotCoords <- function(x, g=0, h=1-g,
 #' From a given numeric vector \code{z} the range is determined and 
 #' the values are linearly mapped onto the interval 
 #' given by \code{val.range}. This 
-#' funtion can be used in order to map arbitrary vectors to a given
+#' function can be used in order to map arbitrary vectors to a given
 #' range of values.
 #'
 #' @param  z          numeric vector.
@@ -110,18 +110,18 @@ mapCoordinatesToColor <- function(z, colors=c("white", "black"), val.range=c(.2,
 }
 
 
-#' Coordinates of a sourrounding rectangle in direction of a given vector. 
+#' Coordinates of a surrounding rectangle in direction of a given vector. 
 #'
-#' An arbitrary numeric vector in 2D is to be extented so it will 
-#' end on the borders of a sourrounding rectangle of a given size.
+#' An arbitrary numeric vector in 2D is to be extended so it will 
+#' end on the borders of a surrounding rectangle of a given size.
 #' Currently the vector is supposed to start in the origin \code{c(0,0)}.
 #'
 #' @param x      numeric vector of x coordinates x coordinates. 
 #' @param y      numeric vector of y coordinates x coordinates. 
-#' @param xmax   maximal x value for sourrounding rectangle (default is \code{1}).
-#' @param ymax   maximal y value for sourrounding rectangle (default is \code{1}).
-#' @param cx     center of retangle in x direction (not yet supported).
-#' @param cy     center of retangle in x direction (not yet supported).
+#' @param xmax   maximal x value for surrounding rectangle (default is \code{1}).
+#' @param ymax   maximal y value for surrounding rectangle (default is \code{1}).
+#' @param cx     center of rectangle in x direction (not yet supported).
+#' @param cy     center of rectangle in x direction (not yet supported).
 #' 
 #' @return       a \code{dataframe} containing the x and y coordinates for the 
 #'               extended vectors.
@@ -302,7 +302,7 @@ degreesBetweenVectorAndPlane <- function(a, n){
 #' @param col.active    Columns (elements) that are no supplementary points, i.e. they are used
 #'                      in the SVD to find principal components. default is to use all elements.
 #' @param col.passive   Columns (elements) that are supplementary points, i.e. they are NOT used
-#'                      in the SVD but projecte into the component space afterwards. They do not 
+#'                      in the SVD but projected into the component space afterwards. They do not 
 #'                      determine the solution. Default is \code{NA}, i.e. no elements are set 
 #'                      supplementary.
 #' @param unity         Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
@@ -317,7 +317,7 @@ degreesBetweenVectorAndPlane <- function(a, n){
 #' @param e.label.cex   Size of the element labels (default is \code{.7}.
 #' @param c.point.col   Color of the construct lines (default is \code{grey(.6)}.
 #' @param c.label.col   Color of the construct labels (default is \code{grey(.6)}.
-#' @param c.label.cex   Size of the costruct labels (default is \code{.6}.
+#' @param c.label.cex   Size of the construct labels (default is \code{.6}.
 #' @param ...           Parameters to be passed on to \code{center()} and \code{normalize}.       
 #' @return              \code{repgrid} object.
 #' @export
@@ -734,9 +734,9 @@ prepareBiplotData <- function(x, dim=c(1,2), map.dim=3,
 #' will be much smaller or greater. This is an inherent property of the biplot.
 #' In the case it is not necessary to be able to read off the original 
 #' data entries from the plot, the axes for elements and constructs
-#' can be scaled seperately. The proportional projection values will 
-#' stay unaffetced. the absolue will change though. For grid interpretation 
-#' the absolze values are usually oh no importance. Thus, there is an optional
+#' can be scaled separately. The proportional projection values will 
+#' stay unaffected. the absolute will change though. For grid interpretation 
+#' the absolute values are usually oh no importance. Thus, there is an optional
 #' argument \code{normalize} which is \code{FALSE} as a default which
 #' rescales the axes so the longest construct and element vector will be 
 #' set to the length of \code{1}.
@@ -767,10 +767,10 @@ prepareBiplotData <- function(x, dim=c(1,2), map.dim=3,
 #' @param srt                  Angle to rotate construct label text. Only used in case \code{offsetting=FALSE}.
 #' @param cex.pos              Cex parameter used during positioning of labels if prompted. Does
 #'                             usually not have to be changed by user.
-#' @param xpd                  Logical (default is \code{TRUE}). Wether to extend text labels 
+#' @param xpd                  Logical (default is \code{TRUE}). Whether to extend text labels 
 #'                             over figure region. Usually not needed by the user.      
 #' @param c.lines              Logical. Whether construct lines from the center of the biplot
-#'                             to the sourrounding box are drawn (default is \code{FALSE}).
+#'                             to the surrounding box are drawn (default is \code{FALSE}).
 #' @param col.c.lines          The color of the construct lines from the center to the borders 
 #'                             of the plot (default is \code{gray(.9)}).
 #' @param zoom                 Scaling factor for all vectors. Can be used to zoom
@@ -849,7 +849,7 @@ biplotDraw <- function(x,
   x <- cbind(x, str.3)
   
   #segments(0,0,x$str.3.x, x$str.3.y)   # debug
-  # calc coordinates for sourrounding rectangles (elements and constructs)
+  # calc coordinates for surrounding rectangles (elements and constructs)
   lb <- calcRectanglesCoordsForLabels(x[, c("str.3.x", "str.3.y")], x$label, 
                                       cex=x$label.cex, x.ext=rect.margins[1], y.ext=rect.margins[2])
   colnames(lb) <- c("str.3.x0", "str.3.y0", "str.3.x1", "str.3.y1")
@@ -858,7 +858,7 @@ biplotDraw <- function(x,
   
     
   # offset labels in y direction if too close together
-  # for labels on the left and on the right seperately
+  # for labels on the left and on the right separately
   x$angle <- atan2(x$y, x$x)      # caveat: first y, then y argument!
   x <- x[order(x$angle), ]        # sort by angles
 
@@ -1015,7 +1015,7 @@ biplotDraw <- function(x,
   }
   
   
-  ### plotting of elements and contructs inside plot ###
+  ### plotting of elements and constructs inside plot ###
   
   #make construct lines if prompted 
   if (c.lines){ 
@@ -1105,7 +1105,7 @@ biplotDraw <- function(x,
 #' @param col.active      Columns (elements) that are no supplementary points, i.e. they are used
 #'                        in the SVD to find principal components. default is to use all elements.
 #' @param col.passive     Columns (elements) that are supplementary points, i.e. they are NOT used
-#'                        in the SVD but projecte into the component space afterwards. They do not 
+#'                        in the SVD but projected into the component space afterwards. They do not 
 #'                        determine the solution. Default is \code{NA}, i.e. no elements are set 
 #'                        supplementary.
 #' @param ...             Not evaluated.
@@ -1228,10 +1228,10 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #'
 #' The biplot is the central
 #' way to create a joint plot of elements and constructs.
-#' Depending on te parameters chosen it contains information
+#' Depending on the parameters chosen it contains information
 #' on the distances between elements and constructs. Also the 
 #' relative values the elements have on a construct can be read off
-#' by projetion the element onto the construct vector. 
+#' by projection the element onto the construct vector. 
 #' A lot of parameters can be changed rendering
 #' different types of biplots (ESA, Slater's) and different 
 #' looks (colors, text size).
@@ -1269,7 +1269,7 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #' @param col.active          Columns (elements) that are no supplementary points, i.e. they are used
 #'                            in the SVD to find principal components. default is to use all elements.
 #' @param col.passive         Columns (elements) that are supplementary points, i.e. they are NOT used
-#'                            in the SVD but projecte into the component space afterwards. They do not 
+#'                            in the SVD but projected into the component space afterwards. They do not 
 #'                            determine the solution. Default is \code{NA}, i.e. no elements are set 
 #'                            supplementary.
 #' @param e.point.col         Color of the element symbols. The default is \code{"black"}.
@@ -1339,19 +1339,19 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #'                            x-y plane will be printed. Set the value to \code{91} (default) 
 #'                            to show all construct labels.
 #' @param c.points.show       Whether the constructs are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will surpress the printing of the constructs.
+#'                            \code{FALSE} will suppress the printing of the constructs.
 #'                            To only print certain constructs a numeric vector can be 
 #'                            provided (e.g. \code{c(1:10)}).
 #' @param c.labels.show       Whether the construct labels are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will surpress the printing of the labels.
+#'                            \code{FALSE} will suppress the printing of the labels.
 #'                            To only print certain construct labels a numeric vector can be 
 #'                            provided (e.g. \code{c(1:10)}).
 #' @param e.points.show       Whether the elements are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will surpress the printing of the elements.
+#'                            \code{FALSE} will suppress the printing of the elements.
 #'                            To only print certain elements a numeric vector can be 
 #'                            provided (e.g. \code{c(1:10)}).
 #' @param e.labels.show       Whether the element labels are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will surpress the printing of the labels.
+#'                            \code{FALSE} will suppress the printing of the labels.
 #'                            To only print certain element labels a numeric vector can be 
 #'                            provided (e.g. \code{c(1:10)}).
 #' @param inner.positioning   Logical. Whether to calculate positions to minimize overplotting of 
@@ -1363,7 +1363,7 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #' @param c.labels.inside     Logical. Whether to print construct labels next to the points.
 #'                            Can be useful during inspection of the plot (default \code{FALSE}).
 #' @param c.lines             Logical. Whether construct lines from the center of the biplot
-#'                            to the sourrounding box are drawn (default is \code{FALSE}).
+#'                            to the surrounding box are drawn (default is \code{FALSE}).
 #' @param col.c.lines         The color of the construct lines from the center to the borders 
 #'                            of the plot (default is \code{gray(.9)}).
 #' @param flipaxes            Logical vector of length two. Whether x and y axes are reversed 
@@ -1383,7 +1383,7 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #' @param srt                 Angle to rotate construct label text. Only used in case \code{offsetting=FALSE}.
 #' @param cex.pos             Cex parameter used during positioning of labels if prompted. Does
 #'                            usually not have to be changed by user.
-#' @param xpd                 Logical (default is \code{TRUE}). Wether to extend text labels 
+#' @param xpd                 Logical (default is \code{TRUE}). Whether to extend text labels 
 #'                            over figure region. Usually not needed by the user.
 #' @param unity               Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
 #'                            so they are printed more neatly (default \code{TRUE}).
@@ -1795,12 +1795,12 @@ biplotSlaterPseudo3d <- function(x, center=1, g=1, h=1, ...){
 #'                    0= no centering, 1= row mean centering (construct), 
 #'                    2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                    4= midpoint centering of rows (constructs).
-#'                    Eigenstructure analyis uses midpoint centering (\code{4}).
+#'                    Eigenstructure analysis uses midpoint centering (\code{4}).
 #' @param g           Power of the singular value matrix assigned to the left singular 
-#'                    vectors, i.e. the constructs. Eigenstructure analyis uses  
+#'                    vectors, i.e. the constructs. Eigenstructure analysis uses  
 #'                    \code{g=1}.
 #' @param h           Power of the singular value matrix assigned to the right singular 
-#'                    vectors, i.e. the elements. Eigenstructure analyis uses  
+#'                    vectors, i.e. the elements. Eigenstructure analysis uses  
 #'                    \code{h=1}.
 #' @param ...         Additional parameters for be passed to \code{\link{biplot2d}}.
 #'
@@ -1857,12 +1857,12 @@ biplotEsa2d <- function(x, center=4, g=1, h=1, ...){
 #'                    2= column mean centering (elements), 3= double-centering 
 #'                    (construct and element means),
 #'                    4= midpoint centering of rows (constructs).
-#'                    Eigenstructure analyis uses midpoint centering (\code{4}).
+#'                    Eigenstructure analysis uses midpoint centering (\code{4}).
 #' @param g           Power of the singular value matrix assigned to the left singular 
-#'                    vectors, i.e. the constructs. Eigenstructure analyis uses  
+#'                    vectors, i.e. the constructs. Eigenstructure analysis uses  
 #'                    \code{g=1}.
 #' @param h           Power of the singular value matrix assigned to the right singular 
-#'                    vectors, i.e. the elements. Eigenstructure analyis uses  
+#'                    vectors, i.e. the elements. Eigenstructure analysis uses  
 #'                    \code{h=1}.
 #' @param ...         Additional parameters for be passed to \code{\link{biplotPseudo3d}}.
 #' @export

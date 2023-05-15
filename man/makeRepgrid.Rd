@@ -19,7 +19,7 @@ by a vector containing the rating scores row wise.}
 }
 \description{
 The function creates a \code{repgrid}
-object from scratch. A number of paramters have to be defined in order to
+object from scratch. A number of parameters have to be defined in order to
 make a new grid (see parameters).
 }
 \examples{

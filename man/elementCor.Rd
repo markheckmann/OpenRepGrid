@@ -10,7 +10,7 @@ elementCor(x, rc = TRUE, method = "pearson", trim = 20, index = TRUE)
 \item{x}{\code{repgrid} object.}
 
 \item{rc}{Use Cohen's rc which is invariant to construct 
-reflection (see desciption above). It is used as the default.}
+reflection (see description above). It is used as the default.}
 
 \item{method}{A character string indicating which correlation coefficient 
 is to be computed. One of \code{"pearson"} (default), 

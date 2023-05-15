@@ -55,7 +55,7 @@ so they are printed more neatly (default \code{TRUE}).}
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projecte into the component space afterwards. They do not 
+in the SVD but projected into the component space afterwards. They do not 
 determine the solution. Default is \code{NA}, i.e. no elements are set 
 supplementary.}
 
@@ -77,7 +77,7 @@ the plot in and out (default \code{1}).}
 
 \item{c.label.col}{Color of the construct labels (default is \code{grey(.6)}.}
 
-\item{c.label.cex}{Size of the costruct labels (default is \code{.6}.}
+\item{c.label.cex}{Size of the construct labels (default is \code{.6}.}
 
 \item{...}{Parameters to be passed on to \code{center()} and \code{normalize}.}
 }
