@@ -6,7 +6,7 @@
 \alias{OpenRepGrid-package}
 \title{\pkg{OpenRepGrid}: an R package for the analysis of repertory grids.}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right; padding-left: 10px;' alt='logo' width='120'}}
 The \pkg{OpenRepGrid} package provides tools for the analysis of repertory grid data.
 The repertory grid is a method devised by George Alexander Kelly
 in his seminal work "The Psychology of Personal Constructs" published in 1955.
