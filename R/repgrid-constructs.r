@@ -289,8 +289,8 @@ nc <- getNoOfConstructs
 
 
 
-# internal. c.makeNewConstruct is the constructor for construct object (simple list)
-c.makeNewConstruct <- function(x=NULL, l.name=NA, l.preferred=NA, l.emerged=NA, 
+# internal. c_makeNewConstruct is the constructor for construct object (simple list)
+c_makeNewConstruct <- function(x=NULL, l.name=NA, l.preferred=NA, l.emerged=NA, 
 									 r.name=NA, r.preferred=NA, r.emerged=NA, ...){
 	list(leftpole=list(name=l.name,
 		 			   preferred=l.preferred,
@@ -299,7 +299,7 @@ c.makeNewConstruct <- function(x=NULL, l.name=NA, l.preferred=NA, l.emerged=NA,
 						preferred=r.preferred,
 						emerged=r.emerged))
 }
-#str(c.makeNewConstruct())
+#str(c_makeNewConstruct())
 
 
 
@@ -317,7 +317,7 @@ c.setConstructs <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 		index <- seq_len(max(c(length(l.name)), c(length(r.name))))
 	}
 	if(!(is.na(l.name[1]) & is.na(r.name[1]))){
-		newConstructs <- mapply(c.makeNewConstruct, NA, 
+		newConstructs <- mapply(c_makeNewConstruct, NA, 
 								l.name=l.name, l.preferred=l.preferred, l.emerged=l.emerged, 
 								r.name=r.name, r.preferred=r.preferred, r.emerged=r.emerged,  
 								SIMPLIFY=FALSE)  												# generate new construct list	
@@ -343,7 +343,7 @@ c.addConstruct <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 		stop("USERINFO: position must be between 1 and number of constructs plus 1.")
 	if(length(position)==1 & is.na(position[1])) position <- length(x@constructs)+1
 	constructs.old <- x@constructs
-	constructs.new <- mapply(c.makeNewConstruct, NA, 												 # generate construct list
+	constructs.new <- mapply(c_makeNewConstruct, NA, 												 # generate construct list
 							l.name=l.name, l.preferred=l.preferred, l.emerged=l.emerged, 
 							r.name=r.name, r.preferred=r.preferred, r.emerged=r.emerged,  
 							SIMPLIFY=FALSE)
@@ -356,15 +356,15 @@ c.addConstruct <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 #x <- makeEmptyRepgrid()
 #x <- c.setConstruct(x, l.name=c("construct left 1"))
 #x <- c.addConstruct(x, l.name="construct added at the end", r.name="test", pos=1)
-#x <- c.addConstructs(x, l.name="construct left inserted at position 1", pos=1)
-#x <- c.addConstructs(x, l.name="construct right inserted at position 1", pos=1)
-#x <- c.addConstructs(x, l.name=c("construct 10", "element 11"), pos=10:11)
+#x <- c_addConstructs(x, l.name="construct left inserted at position 1", pos=1)
+#x <- c_addConstructs(x, l.name="construct right inserted at position 1", pos=1)
+#x <- c_addConstructs(x, l.name=c("construct 10", "element 11"), pos=10:11)
 #str(x@constructs, m=3)
 
 
 
-# internal: c.addConstructs. all elements that do not have a position specified are added at the end
-c.addConstructs <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA, 
+# internal: c_addConstructs. all elements that do not have a position specified are added at the end
+c_addConstructs <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA, 
 						     r.name=NA, r.preferred=NA, r.emerged=NA, 
 							 position=NA, side="pre"){
 	if(!inherits(x, "repgrid")) 							# check if x is repgrid object
@@ -377,7 +377,7 @@ c.addConstructs <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 	}
 	position[is.na(position)] <- seq_along(position[is.na(position)]) + length(x@constructs)
 	constructs.old <- x@constructs
-	constructs.new <- mapply(c.makeNewConstruct, NA, 												 # generate construct list
+	constructs.new <- mapply(c_makeNewConstruct, NA, 												 # generate construct list
 							l.name=l.name, l.preferred=l.preferred, l.emerged=l.emerged, 
 							r.name=r.name, r.preferred=r.preferred, r.emerged=r.emerged,  
 							SIMPLIFY=FALSE)
@@ -389,10 +389,10 @@ c.addConstructs <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 ### NOT RUN
 #x <- makeEmptyRepgrid()
 #x <- c.setConstructs(x, l.name=c("construct left 1", "construct left 2"))
-#x <- c.addConstructs(x, l.name="construct added at the end")
-#x <- c.addConstructs(x, l.name="construct left inserted at position 1", pos=1)
-#x <- c.addConstructs(x, l.name="construct right inserted at position 1", pos=1)
-#x <- c.addConstructs(x, l.name=c("construct 10", "element 11"), pos=10:11)
+#x <- c_addConstructs(x, l.name="construct added at the end")
+#x <- c_addConstructs(x, l.name="construct left inserted at position 1", pos=1)
+#x <- c_addConstructs(x, l.name="construct right inserted at position 1", pos=1)
+#x <- c_addConstructs(x, l.name=c("construct 10", "element 11"), pos=10:11)
 #str(x@constructs, m=3)
 
 

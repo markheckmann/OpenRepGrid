@@ -1102,7 +1102,7 @@ modifyConstruct <- function(x, pos, l.name=NA, l.preferred=NA, l.emerged=NA,
 									             replace=FALSE){
 	if(!inherits(x, "repgrid"))                   # check if x is repgrid object
 		stop("Object x must be of class 'repgrid'")
-	cs <- c.makeNewConstruct(x=NULL , 
+	cs <- c_makeNewConstruct(x=NULL , 
 	                         l.name=l.name, 
 	                         l.preferred=l.preferred, 
 	                         l.emerged=l.emerged, 
@@ -1116,7 +1116,7 @@ modifyConstruct <- function(x, pos, l.name=NA, l.preferred=NA, l.emerged=NA,
 }
 # TODO: error in show method
 #x <- makeEmptyRepgrid()
-#x <- c.addConstructs(x, c("Construct 1", "Construct 2"))
+#x <- c_addConstructs(x, c("Construct 1", "Construct 2"))
 #x <- c.modifyConstruct(x, pos=2, r.name="construct 2 right pole")
 
 
