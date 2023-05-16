@@ -129,7 +129,7 @@ r.makeNewElementColumn <- function(x, pos=NA){
 
 
 
-r.makeNewConstructRow <- function(x, pos=NA){	
+r_makeNewConstructRow <- function(x, pos=NA){	
 	if(is.na(pos[1]&length(pos)==1)) pos <- nrow(x@ratings)+1
 	if(!is.numeric(pos) | pos > nrow(x@ratings)+1 | pos < 1)
 		stop("pos must be between 1 number of constructs plus one.")
@@ -141,7 +141,7 @@ r.makeNewConstructRow <- function(x, pos=NA){
 	x
 }
 #x <- makeEmptyRepgrid()
-#x <- r.makeNewConstructRow(x)
+#x <- r_makeNewConstructRow(x)
 
 
 r.addColumns <- function(x, no, position=NA, side="pre"){

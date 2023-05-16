@@ -331,8 +331,8 @@ c.setConstructs <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 # str(x@constructs, m=3)
 
 
-# internal: c.addConstruct adds constructs at the bottom
-c.addConstruct <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA, 
+# internal: c_addConstruct adds constructs at the bottom
+c_addConstruct <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA, 
 					          r.name=NA, r.preferred=NA, r.emerged=NA, 
 						      position=NA, side="pre"){
 	if(!inherits(x, "repgrid")) 							# check if x is repgrid object
@@ -355,7 +355,7 @@ c.addConstruct <- function(x, l.name=NA, l.preferred=NA, l.emerged=NA,
 
 #x <- makeEmptyRepgrid()
 #x <- c.setConstruct(x, l.name=c("construct left 1"))
-#x <- c.addConstruct(x, l.name="construct added at the end", r.name="test", pos=1)
+#x <- c_addConstruct(x, l.name="construct added at the end", r.name="test", pos=1)
 #x <- c_addConstructs(x, l.name="construct left inserted at position 1", pos=1)
 #x <- c_addConstructs(x, l.name="construct right inserted at position 1", pos=1)
 #x <- c_addConstructs(x, l.name=c("construct 10", "element 11"), pos=10:11)

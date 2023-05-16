@@ -961,10 +961,10 @@ addConstruct <- function(x, l.name = NA, r.name = NA, scores = NA,
 	                        l.emerged = NA, r.emerged = NA,
 						              position = NA, side = "pre"){
 	if (is.na(position)) position <- length(x@constructs) + 1
-	x <- c.addConstruct(x, l.name = l.name, l.preferred = l.preferred, l.emerged = l.emerged, 
+	x <- c_addConstruct(x, l.name = l.name, l.preferred = l.preferred, l.emerged = l.emerged, 
 						   r.name = r.name, r.preferred = r.preferred, r.emerged = r.emerged, 
 						   position = position, side = side)
-	x <- r.makeNewConstructRow(x, pos = position)
+	x <- r_makeNewConstructRow(x, pos = position)
 	# add scores/ratings	
 	if (length(scores) != length(x@elements) & !is.na(scores[1]) & length(scores) != 1) {
 		warning("The number of ratings you entered do not match the number of elements.")
@@ -1114,10 +1114,6 @@ modifyConstruct <- function(x, pos, l.name=NA, l.preferred=NA, l.emerged=NA,
 	} else x@constructs[pos] <- list(modifyListNA(x@constructs[[pos]], cs))
 	x
 }
-# TODO: error in show method
-#x <- makeEmptyRepgrid()
-#x <- c_addConstructs(x, c("Construct 1", "Construct 2"))
-#x <- c.modifyConstruct(x, pos=2, r.name="construct 2 right pole")
 
 
 #' modifyElement

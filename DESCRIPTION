@@ -13,8 +13,7 @@ Authors@R: c(
 Description: Analyze repertory grids, a qualitative-quantitative 
     data collection technique devised by George A. Kelly in the 1950s. Today, grids are used across 
     various domains ranging from clinical psychology to marketing. The package contains
-    functions to quantitatively analyze and visualize repertory grid data. The package is part of the 
-    OpenRepGrid project (<https://openrepgrid.org/>).
+    functions to quantitatively analyze and visualize repertory grid data.
 Version: 0.1.14
 Date: 2023-05-16
 Encoding: UTF-8

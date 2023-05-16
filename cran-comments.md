@@ -15,12 +15,8 @@ Archived on 2023-05-05 as check problems were not corrected in time.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
-Note: 
-  This is NO misspelling in DESCRIPTION:
-  OpenRepGrid (18:5)
-  
 ## Reverse dependencies
 
 There are no reverse dependencies.
