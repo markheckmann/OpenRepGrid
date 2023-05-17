@@ -16,6 +16,8 @@
   * add tests for reorder
   * build bipolar variant of construct matches? (similar to IC)
 
+# OpenRepGrid 0.1.15 (development version)
+
 # OpenRepGrid 0.1.14
   
   * remove TCLTK import. No interactive windows any more.
