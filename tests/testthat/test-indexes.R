@@ -3,7 +3,9 @@
 
 
 test_that("PVAFF returns expected value", {
-  v <- indexPvaff(boeker)
+  suppressMessages({
+    v <- indexPvaff(boeker)  
+  })
   expect_equal(v, 0.42007)
 })
 
@@ -88,10 +90,11 @@ test_that("matches works correctly", {
   expect_error({
     m <- matches(feixas2004, diag.na = NA)
   })
-  
-  expect_error({
-    print(m, width = -1)
-  })
+  expect_output(
+    expect_error({
+      print(m, width = -1)
+    })
+  )
   
   ## check results
   x <- feixas2004
@@ -125,3 +128,49 @@ test_that("indexBieri works correctly", {
   expect_true(all(na.omit(b$constructs) == ncol(x)))
 })
 
+
+
+test_that("indexDDI works correctly", {
+  
+  files <- system.file("extdata", c("dep_grid_walker_1988_1.xlsx", "dep_grid_walker_1988_2.xlsx") , package = "OpenRepGrid")
+  
+  g_1 <- importExcel(files[1])
+  g_2 <- importExcel(files[2])
+  
+  # check results against values from paper (Walker et al. (1988), p. 65 ff.)
+  di <- indexDDI(g_1, 2:5)
+  expected <- c(1.6, 1.8, 2.0, 2.0)   # table 1 
+  expect_equal(round(di, 1), expected)
+  
+  di <- indexDDI(g_2, 2:5)
+  expected <- c(1.9, 2.7, 3.3, 3.9)   # table 2
+  expect_equal(round(di, 1), expected)
+  
+  # negative values for ds are not allowed
+  expect_error({
+    indexDDI(x, ds = -1)
+  })
+  
+  # only 0/1 ratings are allowed
+  expect_error({
+    indexDDI(boeker, ds=2)  
+  })
+})
+
+
+test_that("indexUncertainty works correctly", {
+  
+  file <- system.file("extdata", "dep_grid_bell_2001.xlsx" , package = "OpenRepGrid")
+  g <- importExcel(file)
+  
+  # check results against values from paper (Bell, 2001 p.231, Fig.1)
+  ui <- indexUncertainty(g)
+  given <- round(ui, 2)
+  expected <- c("Uncertainty Index" = .99)
+  expect_equal(given, expected)
+  
+  # only 0/1 ratings are allowed
+  expect_error({
+    indexUncertainty(boeker)
+  })
+})
