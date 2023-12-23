@@ -1,4 +1,3 @@
-
 ##
 ## gridlist object: a list of repgrid objects
 ##
@@ -25,13 +24,16 @@ is.gridlist <- function(x) {
 #' @export
 #' @rdname gridlist
 as.gridlist <- function(x) {
-  if (is.gridlist(x))
+  if (is.gridlist(x)) {
     return(x)
-  if (!is.list(x))
+  }
+  if (!is.list(x)) {
     stop("'x' must be a list.", call. = FALSE)
+  }
   ii <- vapply(x, is.repgrid, logical(1))
-  if (!all(ii))
+  if (!all(ii)) {
     stop("All element of 'x' must be 'repgrid' objects", call. = FALSE)
+  }
 
   class(x) <- c("gridlist", class(x))
   x
@@ -65,15 +67,16 @@ dim.gridlist <- function(x) {
 #' @keywords internal
 #'
 print.gridlist <- function(x, all = FALSE, ...) {
-  if (!is.gridlist(x))
+  if (!is.gridlist(x)) {
     stop("'x'must be a 'gridlist' object")
+  }
   if (all) {
     class(x) <- "list"
     print(x)
     return(invisible(NULL))
   }
   n <- length(x)
-  nc <- nrow(x)[[1]]   # because a list of length 1 is returned
+  nc <- nrow(x)[[1]] # because a list of length 1 is returned
   ne <- ncol(x)[[1]]
   cat("gridlist (list of repgrid objects):")
   cat("\n  length:", n)
@@ -93,10 +96,11 @@ print.gridlist <- function(x, all = FALSE, ...) {
 #' @keywords internal
 #' @md
 #' @examples
-#' l <- rep(boeker, 3)   # gridlist with 3 boeker grids
+#' l <- rep(boeker, 3) # gridlist with 3 boeker grids
 rep.repgrid <- function(x, n = 1, ...) {
-  if (!is.repgrid(x))
+  if (!is.repgrid(x)) {
     stop("'x' must be a 'repgrid' object", call. = FALSE)
+  }
   l <- replicate(n, x)
   as.gridlist(l)
 }
