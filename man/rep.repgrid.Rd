@@ -18,6 +18,6 @@ A `gridlist`` object.
 Implements the \code{rep} method for \code{repgrid} objects.
 }
 \examples{
-l <- rep(boeker, 3)   # gridlist with 3 boeker grids
+l <- rep(boeker, 3) # gridlist with 3 boeker grids
 }
 \keyword{internal}

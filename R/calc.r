@@ -1729,3 +1729,93 @@ print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...)
 }
 
 
+#### __________________ ####
+####  DEPENDENCY GRIDS    ####
+
+
+#' Dispersion of dependency index (DDI)
+#'
+#' A measure for the degree of dispersion of dependency in a situation-resource grid (dependency grid).
+#'
+#' Applicable to dependency (situation-resource) grids (`0`/`1` ratings) only.
+#'
+#' *Caveat*: Value depends on chosen sample size `ds`, and the measurement range is not normalized (see Bell, 2001).
+#' 
+#' @param x A `repgrid` object with `0`/`1` ratings only, where `1` indicates a dependency.
+#' @param ds Predetermined size of sample of dependencies.
+#' @references 
+#' 
+#' Bell, R. C. (2001). Some new Measures of the Dispersion of Dependency in a Situation-Resource Grid. 
+#'  *Journal of Constructivist Psychology, 14*(3), 227-234, \doi{doi:10.1080/713840106}.
+#' 
+#' Walker, B. M., Ramsey, F. L., & Bell, R. (1988). Dispersed and Undispersed Dependency. 
+#'  *International Journal of Personal Construct Psychology, 1*(1), 63-80, \doi{doi:10.1080/10720538808412765}.
+#'  
+#' @example inst/examples/example-indexDDI.R
+#' @seealso [indexUncertainty]
+#' @md
+#' @export
+indexDDI <- function(x, ds) { 
+  stop_if_not_is_repgrid(x)
+  stop_if_not_0_1_ratings_only(x)
+  if (any(ds < 1))
+    stop("'ds' must be a vector of positive integer values", call. = FALSE)
+  .indexDDIvec(x, ds)
+}
+
+
+# DS: predetermined size of sample of dependencies
+# k: number of people (columns) in grid
+# N: total number of dependencies in grid
+# n_i: number of dependencies involving person i (= number of ticks in column)
+.indexDDI <- function(x, DS) { 
+  r <- ratings(x)
+  N <- sum(r == 1) 
+  n_i <- colSums(r)
+  DI <- sum(1 - choose(N - n_i, DS) / choose(N, DS))
+  return(DI)
+}
+
+.indexDDIvec <- Vectorize(.indexDDI, vectorize.args = "DS")
+
+
+#' Uncertainty index
+#'
+#' A measure for the degree of dispersion of dependency in a situation-resource grid (dependency grid).
+#' 
+#' *Note*: Applicable to dependency (situation-resource) grids (`0`/`1` ratings) only.
+#' 
+#' @param x A `repgrid` object with `0`/`1` ratings only, where `1` indicates a dependency.
+#' @references 
+#' 
+#' Bell, R. C. (2001). Some new Measures of the Dispersion of Dependency in a Situation-Resource Grid. 
+#'  *Journal of Constructivist Psychology, 14*(3), 227-234, \doi{doi:10.1080/713840106}.
+#' 
+#' @example inst/examples/example-indexUncertainty.R
+#' @seealso [indexDDI]
+#' @md
+#' @export
+indexUncertainty <- function(x) { 
+  stop_if_not_is_repgrid(x)
+  stop_if_not_0_1_ratings_only(x)
+  #
+  # formula Bell (2001, p. 228):
+  #
+  #   Log(total dependencies) – [Sum (dependencies by resource) × Log (dependencies by resource)] / 
+  #     (total dependencies)
+  # maximum, with k = number of resources (columns):
+  #
+  #   Log(total dependencies) – Log [(total dependencies)/k]
+  #
+  r <- ratings(x)
+  dep_total <- sum(r)
+  dep_per_column <- colSums(r) 
+  value <- log(dep_total) - sum(dep_per_column * log(dep_per_column)) / dep_total
+  
+  k <- ncol(x)
+  maximum <- log(dep_total) - log(dep_total / k)
+  
+  res <- value / maximum
+  names(res) <- "Uncertainty Index"
+  return(res)
+}

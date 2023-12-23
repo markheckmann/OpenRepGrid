@@ -24,6 +24,25 @@ stop_if_not_is_repgrid <- function(x, name = "x")
 }
 
 
+#' Raise error if repgrid object has ratings other than 0/1
+#' @param x A `repgrid` object.
+#' @param name Name of tested variable in error message.
+#' @export
+#' @keywords internal
+#' @md
+stop_if_not_0_1_ratings_only <- function(x, name = "x") 
+{
+  r <- ratings(x)
+  ii <- r %in% 0:1
+  check <- all(ii)
+  if (!check) {
+    other_values <- sort(unique(r[!ii])) 
+    msg <- paste(other_values, collapse = ",")
+    stop("Object '", name, "' must have 0/1 ratings only. Also found: ", msg, call. = FALSE)
+  }
+}
+
+
 #' Raise error if min or max of rating scale are undefined
 #' @param x Object to test. Raises an error the mina and max of the ratings scale are not defined
 #' @export

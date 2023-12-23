@@ -346,8 +346,8 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 #'
 indexPvaff <- function(x, method = 1)
 {
-  cat("Note: As of v0.1.14 PVAFF is derived using PCA of the construct centered ratings by default.", 
-     "Before that the construct correlation matrix was used (see method=2).\n\n")
+  message("Note: As of v0.1.14 PVAFF is derived using PCA of the construct centered ratings by default.", 
+          "Before that the construct correlation matrix was used (see method=2).\n\n")
   if (!inherits(x, "repgrid"))
     stop("Object must be of class 'repgrid'")
   

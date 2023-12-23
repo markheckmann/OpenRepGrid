@@ -1,5 +1,12 @@
 # Variance, standard deviation and covariance without Bessel's correction
 
+
+has_only_0_1_ratings <- function(x) {
+  r <- ratings(x)
+  return(all(r %in% 0:1))
+}
+
+
 covpop <- function(x, y, na.rm=TRUE){
 	x <- unlist(x)
 	y <- unlist(y)
