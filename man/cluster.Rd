@@ -72,14 +72,14 @@ optimal clustering. This approach is akin to the procedure used in FOCUS (Jankow
 }
 \examples{
 
-  cluster(bell2010)
-  cluster(bell2010, main="My cluster analysis")   # new title
-  cluster(bell2010, type="t")                     # different drawing style
-  cluster(bell2010, dmethod="manhattan")          # using manhattan metric
-  cluster(bell2010, cmethod="single")             # do single linkage clustering
-  cluster(bell2010, cex=1, lab.cex=1)             # change appearance
-  cluster(bell2010, lab.cex=.7, edgePar=list(lty=1:2, col=2:1))  # advanced appearance changes
-          
+cluster(bell2010)
+cluster(bell2010, main = "My cluster analysis") # new title
+cluster(bell2010, type = "t") # different drawing style
+cluster(bell2010, dmethod = "manhattan") # using manhattan metric
+cluster(bell2010, cmethod = "single") # do single linkage clustering
+cluster(bell2010, cex = 1, lab.cex = 1) # change appearance
+cluster(bell2010, lab.cex = .7, edgePar = list(lty = 1:2, col = 2:1)) # advanced appearance changes
+
 }
 \references{
 Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of Repertory Grids in Human Resource

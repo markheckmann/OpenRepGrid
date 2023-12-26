@@ -1,4 +1,4 @@
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 #                                                                             #
 #  			  			            GRID INDEX MEASURES     							            #
 #                                                                             #
@@ -6,12 +6,12 @@
 #       e.g. 'iBias' that stand for index followed by the an acronym          #
 #       of what is calculated.                                                #
 #                                                                             #
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 # ___________________ ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 #   						                   HELPERS  							                 ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 
 #' Print a square matrix in well readable format
@@ -28,51 +28,54 @@
 #'
 #' @export
 #' @keywords internal
-print_square_matrix <- function(x, names = NA, trim = NA,  
-                                index = TRUE, width = NA, upper = TRUE)
-{
-  if (!is.matrix(x))
+print_square_matrix <- function(x, names = NA, trim = NA,
+                                index = TRUE, width = NA, upper = TRUE) {
+  if (!is.matrix(x)) {
     stop("'x' muste be a matrix", call. = FALSE)
-  if (dim(x)[1] != dim(x)[2])
+  }
+  if (dim(x)[1] != dim(x)[2]) {
     stop("'x' muste be a square matrix", call. = FALSE)
-  if (!is.null(names) && !is.na(names[1]) && length(names) != nrow(x)) 
+  }
+  if (!is.null(names) && !is.na(names[1]) && length(names) != nrow(x)) {
     stop("length of 'names' must be equal to number of rows of 'x'", call. = FALSE)
-  if (!is.na(trim) && !trim >= 0)
+  }
+  if (!is.na(trim) && !trim >= 0) {
     stop("'trim' must be NA or >= 0", call. = FALSE)
-  
+  }
+
   # set width of columns
   if (is.na(width)) {
     width <- max(
-      nchar(nrow(x)),  # length of column index
-      nchar(max(x, na.rm = T))  # biggest value
+      nchar(nrow(x)), # length of column index
+      nchar(max(x, na.rm = T)) # biggest value
     )
   }
-  
+
   # trim names
-  if (!is.null(names) && !is.na(names[1]) && 
-      !is.null(trim) && !is.na(trim[1])) {
+  if (!is.null(names) && !is.na(names[1]) &&
+    !is.null(trim) && !is.na(trim[1])) {
     names <- substr(names, 1, trim)
   }
-  
+
   # fill lower triangle with blanks of correct length
   if (upper) {
     x[lower.tri(x, diag = TRUE)] <- paste0(rep(" ", width), collapse = "")
   }
-  
-  # add index column for neater colnames  
+
+  # add index column for neater colnames
   if (index) {
-    x <- addIndexColumnToMatrix(x) 
+    x <- addIndexColumnToMatrix(x)
   } else {
     colnames(x) <- seq_len(ncol(x))
-  }   
-  
+  }
+
   # add names column in first position
   if (!is.na(names)[1]) {
     cnms <- c(" ", colnames(x))
     x <- cbind(names, x)
     colnames(x) <- cnms
   }
-  
+
   x <- as.data.frame(x, stringsAsFactors = FALSE)
   rownames(x) <- NULL
   print(x)
@@ -101,20 +104,21 @@ print_square_matrix <- function(x, names = NA, trim = NA,
 #'
 #' @export
 #' @example inst/examples/example-matches.R
-#' 
+#'
 matches <- function(x, deviation = 0, diag.na = TRUE) {
   stop_if_not_is_repgrid(x)
-  if (!is.numeric(deviation) || deviation < 0)
+  if (!is.numeric(deviation) || deviation < 0) {
     stop("'deviation' must be >= 0", call. = FALSE)
+  }
   R <- ratings(x, names = FALSE)
-  
-  # constructs  
+
+  # constructs
   M_c <- apply(t(R), 2, function(x) {
-    colSums(abs(x - t(R)) <= deviation)  # matches per column
+    colSums(abs(x - t(R)) <= deviation) # matches per column
   })
   # elements
   M_e <- apply(R, 2, function(x) {
-    colSums(abs(x - R) <= deviation)  # matches per column
+    colSums(abs(x - R) <= deviation) # matches per column
   })
 
   # set diagonal NA
@@ -122,17 +126,17 @@ matches <- function(x, deviation = 0, diag.na = TRUE) {
     diag(M_c) <- NA
     diag(M_e) <- NA
   }
-  
-  # total number of C/E matches 
+
+  # total number of C/E matches
   total_constructs <- sum(M_c[upper.tri(M_c)])
   total_elements <- sum(M_e[upper.tri(M_e)])
-  
+
   # maximal number of possible matches
   nc <- nrow(x)
   ne <- ncol(x)
   max_constructs <- unname(ne * nc * (nc - 1) / 2)
   max_elements <- unname(nc * ne * (ne - 1) / 2)
-  
+
   l <- list(
     grid = x,
     deviation = deviation,
@@ -160,15 +164,14 @@ matches <- function(x, deviation = 0, diag.na = TRUE) {
 #' @param upper Whether to only show the upper triangle (default `TRUE`).
 #' @export
 #' @keywords internal
-print.org.matches <- function(x, output = "ICE", index = TRUE, 
-                              names = TRUE, trim = 50, upper = TRUE, width = NA, ...)
-{
-  l = x  # renamed from 'l' to 'x' to match arg in print generic
+print.org.matches <- function(x, output = "ICE", index = TRUE,
+                              names = TRUE, trim = 50, upper = TRUE, width = NA, ...) {
+  l <- x # renamed from 'l' to 'x' to match arg in print generic
   output <- toupper(output)
   g <- l$grid
   if (names) {
     cnames <- constructs(g, collapse = TRUE)
-    enames <- elements(g)  
+    enames <- elements(g)
   } else {
     cnames <- NA
     enames <- NA
@@ -177,11 +180,11 @@ print.org.matches <- function(x, output = "ICE", index = TRUE,
   # matrices with no of matches
   M_c <- l$constructs
   M_e <- l$elements
-  
+
   cat("\n##############")
   cat("\nRATING MATCHES")
   cat("\n##############\n")
-  
+
   ## I = Info
   if (str_detect(output, "I")) {
     cat("\nMaximal rating difference to count as match: ", l$deviation)
@@ -196,22 +199,26 @@ print.org.matches <- function(x, output = "ICE", index = TRUE,
   ## E = Elements
   if (str_detect(output, "E")) {
     cat(bold("\nELEMENTS\n\n"))
-    print_square_matrix(M_e, names = enames, index = index, 
-                        upper = upper, trim = trim, width = width)
+    print_square_matrix(M_e,
+      names = enames, index = index,
+      upper = upper, trim = trim, width = width
+    )
   }
   ## C = Constructs
   if (str_detect(output, "C")) {
     cat(bold("\nCONSTRUCTS\n\n"))
-    print_square_matrix(M_c, names = cnames, index = index, 
-                        upper = upper, trim = trim, width = width)
+    print_square_matrix(M_c,
+      names = cnames, index = index,
+      upper = upper, trim = trim, width = width
+    )
   }
 }
 
 
 # ___________________ ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 #   						            SLATER MEASURES  							                 ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 
 #' Calculate 'bias' of grid as defined by Slater (1977).
@@ -226,21 +233,23 @@ print.org.matches <- function(x, output = "ICE", index = TRUE,
 #' @note STATUS: Working and checked against example in Slater, 1977, p. 87.
 #' @export
 #' @seealso [indexVariability()]
-#' @examples 
-#'   indexBias(boeker)
-#'   
-indexBias <- function(x, min = NULL, max = NULL, digits=2) {
+#' @examples
+#' indexBias(boeker)
+#'
+indexBias <- function(x, min = NULL, max = NULL, digits = 2) {
   dat <- getRatingLayer(x)
   sc <- getScale(x)
-  if (is.null(min)) 
+  if (is.null(min)) {
     min <- sc[1]
-  if (is.null(max)) 
+  }
+  if (is.null(max)) {
     max <- sc[2]
-  p <- min + (max - min) / 2 		# scale midpoint
-  q <- max - p									# distance to scale limits
-  n <- nrow(dat)								# number of rows (constructs)
-  row.means <- apply(dat, 1, mean, na.rm = TRUE)		# means of construct rows
-  bias <- (sum((row.means - p)^2) / n)^.5 / q		  # calculation of bias
+  }
+  p <- min + (max - min) / 2 # scale midpoint
+  q <- max - p # distance to scale limits
+  n <- nrow(dat) # number of rows (constructs)
+  row.means <- apply(dat, 1, mean, na.rm = TRUE) # means of construct rows
+  bias <- (sum((row.means - p)^2) / n)^.5 / q # calculation of bias
   round(bias, digits)
 }
 
@@ -258,37 +267,38 @@ indexBias <- function(x, min = NULL, max = NULL, digits=2) {
 #' @note STATUS: working and checked against example in Slater, 1977 , p.88.
 #' @export
 #' @seealso [indexBias()]
-#' @examples      
-#'   indexVariability(boeker)
-#' 
-indexVariability <- function(x, min = NULL, max = NULL, digits = 2) 
-{
+#' @examples
+#' indexVariability(boeker)
+#'
+indexVariability <- function(x, min = NULL, max = NULL, digits = 2) {
   dat <- getRatingLayer(x)
   sc <- getScale(x)
-  if (is.null(min)) 
+  if (is.null(min)) {
     min <- sc[1]
-  if (is.null(max)) 
+  }
+  if (is.null(max)) {
     max <- sc[2]
-  
-  D <- as.matrix(center(x))       # row centered grid matrix
-  W <- D %*% t(D)									# co-variation Matrix W
-  V <- diag(W)										# extract trace (construct variations)
-  V.tot <- sum(V, na.rm = TRUE)   # total variation
-  
-  p <- min + (max - min) / 2 				# scale midpoint
-  q <- max - p								      # distance to scale limits
-  n <- nrow(D)								      # number of rows (constructs)
-  m <- ncol(D)								      # number of columns (elements)
-  res <- (V.tot / (n * (m - 1)))^.5 / q		# calculate variability
+  }
+
+  D <- as.matrix(center(x)) # row centered grid matrix
+  W <- D %*% t(D) # co-variation Matrix W
+  V <- diag(W) # extract trace (construct variations)
+  V.tot <- sum(V, na.rm = TRUE) # total variation
+
+  p <- min + (max - min) / 2 # scale midpoint
+  q <- max - p # distance to scale limits
+  n <- nrow(D) # number of rows (constructs)
+  m <- ncol(D) # number of columns (elements)
+  res <- (V.tot / (n * (m - 1)))^.5 / q # calculate variability
   round(res, digits)
 }
 
 
 # . ----
 # ___________________ ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 #   						                    MISC             							         ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 
 #' Percentage of Variance Accounted for by the First Factor (PVAFF)
@@ -313,39 +323,41 @@ indexVariability <- function(x, min = NULL, max = NULL, digits = 2)
 #'
 #'   James, R. E. (1954). *Identification in terms of personal constructs* (Unpublished doctoral thesis). Ohio State
 #'   University, Columbus, OH.
-#'   
+#'
 #' @export
 #' @examples
 #'
-#'    indexPvaff(bell2010)
-#' 
+#' indexPvaff(bell2010)
+#'
 indexPvaff <- function(x, method = 1) {
-  message("Note: As of v0.1.14 PVAFF is derived using PCA of the construct centered ratings by default.", 
-          "Before that the construct correlation matrix was used (see method=2).\n\n")
-  if (!inherits(x, "repgrid"))
+  message(
+    "Note: As of v0.1.14 PVAFF is derived using PCA of the construct centered ratings by default.",
+    "Before that the construct correlation matrix was used (see method=2).\n\n"
+  )
+  if (!inherits(x, "repgrid")) {
     stop("Object must be of class 'repgrid'")
-  
+  }
+
   if (method == 1) {
-    r <- ratings(x) 
+    r <- ratings(x)
     p <- stats::prcomp(t(r), center = TRUE, scale. = FALSE)
     pvaff <- (p$sdev^2 / sum(p$sdev^2))[1]
-    
   } else if (method == 2) {
     cr <- constructCor(x)
     sv <- svd(cr)$d
-    pvaff <- sv[1] ^ 2 / sum(sv ^ 2)
+    pvaff <- sv[1]^2 / sum(sv^2)
   } else {
     stop("'method' must be 1 or 2.", call. = FALSE)
   }
-  
+
   return(pvaff)
 }
 
 
 # Print method for class indexPvaff.
-# 
+#
 # @param x         Object of class indexPvaff.
-# @param digits    Numeric. Number of digits to round to (default is 
+# @param digits    Numeric. Number of digits to round to (default is
 #                  \code{2}).
 # @param ...       Not evaluated.
 # @export
@@ -384,14 +396,14 @@ indexPvaff <- function(x, method = 1) {
 #' @example inst/examples/example-indexBieri.R
 #' @export
 #'
-#' 
+#'
 indexBieri <- function(x, deviation = 0) {
   stop_if_not_is_repgrid(x)
-  
+
   m <- matches(x, deviation = deviation)
   n_matches <- m$total_constructs
-  n_matches_max <- m$max_constructs 
-  
+  n_matches_max <- m$max_constructs
+
   l <- list(
     grid = x,
     deviation = deviation,
@@ -413,19 +425,19 @@ indexBieri <- function(x, deviation = 0) {
 #' @param digits Number of digits to display.
 #' @export
 #' @keywords internal
-#' 
+#'
 print.indexBieri <- function(x, output = "I", digits = 3, ...) {
   cat("\n######################")
   cat("\nBIERI COMPLEXITY INDEX")
   cat("\n######################\n")
-  
+
   M_c <- x$constructs
   cnames <- constructs(x$grid, collapse = T)
   index <- TRUE
   upper <- TRUE
   width <- NA
   trim <- 50
-  
+
   ## I = Information
   if (str_detect(output, "I")) {
     cat("\nBieri:", round(x$bieri, digits))
@@ -438,10 +450,11 @@ print.indexBieri <- function(x, output = "I", digits = 3, ...) {
   ## C = Constructs
   if (str_detect(output, "C")) {
     cat(bold("\nMATCHES BETWEEN CONSTRUCTS\n\n"))
-    print_square_matrix(M_c, names = cnames, index = index, 
-                        upper = upper, trim = trim, width = width)
+    print_square_matrix(M_c,
+      names = cnames, index = index,
+      upper = upper, trim = trim, width = width
+    )
   }
-  
 }
 
 
@@ -478,39 +491,45 @@ print.indexBieri <- function(x, output = "I", digits = 3, ...) {
 #'
 #' @example inst/examples/example-indexDilemmatic.R
 #' @export
-#' 
+#'
 indexDilemmatic <- function(x, ideal, deviation = 0, warn = TRUE) {
-  if (!is.repgrid(x))
+  if (!is.repgrid(x)) {
     stop("'x' must be 'repgrid' object", call. = FALSE)
+  }
   ne <- ncol(x)
-  if (ideal < 1 || ideal > ncol(x))
+  if (ideal < 1 || ideal > ncol(x)) {
     stop("'ideal' must be in the range from 1 to ", ne, call. = FALSE)
-  
+  }
+
   # warn if uneven number of rating options
   n_options <- diff(getScale(x)) + 1
   if (n_options %% 2 == 0 && warn) {
     warning("The rating scale has an even number of options (", n_options, "). ",
-            "Dilemmatic constructs usually require an uneven rating scale length (see details)", call. = FALSE)
+      "Dilemmatic constructs usually require an uneven rating scale length (see details)",
+      call. = FALSE
+    )
   }
   # warn if uneven number of rating options
   if (n_options >= 16 && deviation == 0 && warn) {
     warning("The rating scale is quite long (", n_options, "). ",
-            "You may want to consider allowing deviations from the midpoint (see details)", call. = FALSE)
+      "You may want to consider allowing deviations from the midpoint (see details)",
+      call. = FALSE
+    )
   }
-  
+
   cnames <- constructs(x, collapse = TRUE)
   R <- ratings(x)
   r_ideal <- R[, ideal]
   m <- midpoint(x)
   sc <- getScale(x)
-  lower <-  m - deviation
+  lower <- m - deviation
   upper <- m + deviation
   i_low <- r_ideal >= lower
   i_high <- r_ideal <= upper
   i_dilemmatic <- i_low & i_high
-  n_dilemmatic <- sum(i_dilemmatic) 
+  n_dilemmatic <- sum(i_dilemmatic)
   midpoint_range <- paste0("[", upper, ", ", lower, "]")
-  
+
   df_dilemmatic <- data.frame(
     Construct = constructs(x, collapse = TRUE),
     Ideal = unname(r_ideal),
@@ -518,7 +537,7 @@ indexDilemmatic <- function(x, ideal, deviation = 0, warn = TRUE) {
     Dilemmatic = i_dilemmatic
   )
   rownames(df_dilemmatic) <- NULL
-  
+
   l <- list(
     ideal = elements(x)[ideal],
     n_constructs = nrow(x),
@@ -547,14 +566,13 @@ indexDilemmatic <- function(x, ideal, deviation = 0, warn = TRUE) {
 #' @export
 #' @method print indexDilemmatic
 #' @keywords internal
-print.indexDilemmatic <- function(x, output = "SD", ...)
-{
+print.indexDilemmatic <- function(x, output = "SD", ...) {
   output <- toupper(output)
-  
+
   cat("\n#####################")
   cat("\nDilemmatic Constructs")
   cat("\n#####################\n")
-  
+
   ## I = Info
   if (str_detect(output, "S")) {
     cat(bold("\nSUMMARY\n"))
@@ -564,16 +582,20 @@ print.indexDilemmatic <- function(x, output = "SD", ...)
     cat("\nDilemmatic: Constructs with ideal ratings in the interval", x$midpoint_range)
     cat("\n")
     cat("\nNo. of dilemmatic constructs:", x$n_dilemmatic)
-    cat("\nPercent dilemmatic constructs: ", scales::percent(x$perc_dilemmatic, .1), 
-        " (", x$n_dilemmatic, "/", x$n_constructs, ")", sep = "")
+    cat("\nPercent dilemmatic constructs: ", scales::percent(x$perc_dilemmatic, .1),
+      " (", x$n_dilemmatic, "/", x$n_constructs, ")",
+      sep = ""
+    )
   }
-  
+
   ## C = Constructs
   if (str_detect(output, "D")) {
     cat("\n")
     cat(bold("\nDETAILS\n\n"))
     if (x$n_dilemmatic > 0) {
-      x$summary %>% dplyr::filter(Dilemmatic) %>% print
+      x$summary %>%
+        dplyr::filter(Dilemmatic) %>%
+        print()
     } else {
       cat("  No dilemmatic constructs found.\n")
     }
@@ -617,50 +639,53 @@ print.indexDilemmatic <- function(x, output = "SD", ...)
 #' science*, 106, 1230-49.
 #' @examples
 #'
-#'  indexIntensity(bell2010)
-#'  indexIntensity(bell2010, trim = NA)
+#' indexIntensity(bell2010)
+#' indexIntensity(bell2010, trim = NA)
 #'
-#'  # using Cohen's rc for element correlations
-#'  indexIntensity(bell2010, rc = TRUE)
+#' # using Cohen's rc for element correlations
+#' indexIntensity(bell2010, rc = TRUE)
 #'
-#'  # save output
-#'  x <- indexIntensity(bell2010)
-#'  x
+#' # save output
+#' x <- indexIntensity(bell2010)
+#' x
 #'
-#'  # printing options
-#'  print(x, digits=4)
+#' # printing options
+#' print(x, digits = 4)
 #'
-#'  # accessing the objects' content
-#'  x$c.int
-#'  x$e.int
-#'  x$c.int.mean
-#'  x$e.int.mean
-#'  x$total.int
-#' 
+#' # accessing the objects' content
+#' x$c.int
+#' x$e.int
+#' x$c.int.mean
+#' x$e.int.mean
+#' x$total.int
+#'
 indexIntensity <- function(x, rc = FALSE, trim = 30) {
-  if (!is.repgrid(x)) 
+  if (!is.repgrid(x)) {
     stop("'x' must be 'repgrid' object", call. = FALSE)
-  
+  }
+
   cr <- constructCor(x, trim = trim)
   nc <- getNoOfConstructs(x)
-  diag(cr) <- 0                                           # out zeros in diagonal (won't have an effect)
-  c.int <- apply(cr^2, 2, function(x) sum(x) / (nc - 1))  # sum of squared correlations / nc -1 
-  
-  er <- elementCor(x, rc = rc, trim = trim) 
+  diag(cr) <- 0 # out zeros in diagonal (won't have an effect)
+  c.int <- apply(cr^2, 2, function(x) sum(x) / (nc - 1)) # sum of squared correlations / nc -1
+
+  er <- elementCor(x, rc = rc, trim = trim)
   ne <- getNoOfElements(x)
-  diag(er) <- 0                                           # out zeros in diagonal (won't have an effect)
-  e.int <- apply(er^2, 2, function(x) sum(x) / (ne - 1))  # sum of squared correlations / (ne - 1) 
-  
-  c.int.mean <- mean(c.int, na.rm = TRUE)       # mean of construct intensity scores
-  e.int.mean <- mean(e.int, na.rm = TRUE)       # mean of element intensity scores
-  
+  diag(er) <- 0 # out zeros in diagonal (won't have an effect)
+  e.int <- apply(er^2, 2, function(x) sum(x) / (ne - 1)) # sum of squared correlations / (ne - 1)
+
+  c.int.mean <- mean(c.int, na.rm = TRUE) # mean of construct intensity scores
+  e.int.mean <- mean(e.int, na.rm = TRUE) # mean of element intensity scores
+
   total.int <- mean(c(c.int, e.int, na.rm = TRUE))
-  
-  res <- list(c.int = c.int,
-              e.int = e.int,
-              c.int.mean = c.int.mean,
-              e.int.mean = e.int.mean,
-              total.int = total.int)	            
+
+  res <- list(
+    c.int = c.int,
+    e.int = e.int,
+    c.int.mean = c.int.mean,
+    e.int.mean = e.int.mean,
+    total.int = total.int
+  )
   class(res) <- "indexIntensity"
   res
 }
@@ -675,19 +700,19 @@ indexIntensity <- function(x, rc = FALSE, trim = 30) {
 #' @export
 #' @method print indexIntensity
 #' @keywords internal
-#' 
+#'
 print.indexIntensity <- function(x, digits = 2, output = "TCE", ...) {
   output <- toupper(output)
-  
+
   cat("\n################")
   cat("\nIntensity index")
   cat("\n################")
-  
+
   ## T = Total
   if (str_detect(output, "T")) {
     cat("\n\nTotal intensity:", round(x$total.int, digits), "\n")
   }
-  
+
   ## C = Constructs
   if (str_detect(output, "C")) {
     cat("\n\nAverage intensity of constructs:", round(x$c.int.mean, digits), "\n")
@@ -696,7 +721,7 @@ print.indexIntensity <- function(x, digits = 2, output = "TCE", ...) {
     rownames(df.c.int) <- paste(seq_along(x$c.int), names(x$c.int))
     print(round(df.c.int, digits))
   }
-  
+
   ## E = Elements
   if (str_detect(output, "E")) {
     cat("\n\nAverage intensity of elements:", round(x$e.int.mean, digits), "\n")
@@ -726,23 +751,23 @@ print.indexIntensity <- function(x, digits = 2, output = "TCE", ...) {
 #'
 #' @example inst/examples/example-indexPolarization.R
 #' @export
-#' 
-indexPolarization <- function(x, deviation = 0) 
-{
-  if (!is.repgrid(x))
+#'
+indexPolarization <- function(x, deviation = 0) {
+  if (!is.repgrid(x)) {
     stop("'x' must be 'repgrid' object", call. = FALSE)
-  
+  }
+
   R <- ratings(x)
   sc <- getScale(x)
-  lower <-  sc["min"] + deviation
+  lower <- sc["min"] + deviation
   upper <- sc["max"] - deviation
   i_low <- R <= lower
   i_high <- R >= upper
   ii <- i_low | i_high
   K <- R
-  K[,] <- ii  # indicator matrix 0/1
+  K[, ] <- ii # indicator matrix 0/1
   R[!ii] <- NA
-  
+
   l <- list(
     scale = sc,
     lower = lower,
@@ -782,43 +807,51 @@ indexPolarization <- function(x, deviation = 0)
 #'
 print.indexPolarization <- function(x, output = "ITCE", ...) {
   output <- toupper(output)
-  
+
   cat("\n##################")
   cat("\nPolarization index")
   cat("\n##################\n")
-  
+
   ## I = Info
   if (str_detect(output, "I")) {
-    cat("\nThe grid is rated on a scale from", 
-        x$scale["min"], "(left pole) to", x$scale["max"], "(right pole)")
+    cat(
+      "\nThe grid is rated on a scale from",
+      x$scale["min"], "(left pole) to", x$scale["max"], "(right pole)"
+    )
     cat("\nExtreme ratings are ratings <=", x$lower, "or >=", x$upper)
   }
-  
+
   ## T = Total
   if (str_detect(output, "T")) {
     cat("\n\n")
     cat(bold("\nPOLARIZATION OVERALL\n\n"))
-    x$polarization_total %>% dplyr::mutate(
-      Polarization = scales::percent(Polarization, .1)
-    ) %>% print
+    x$polarization_total %>%
+      dplyr::mutate(
+        Polarization = scales::percent(Polarization, .1)
+      ) %>%
+      print()
   }
-  
+
   ## C = Constructs
   if (str_detect(output, "C")) {
     cat("\n")
     cat(bold("\nPOLARIZATION BY CONSTRUCT\n\n"))
-    x$polarization_constructs %>% dplyr::mutate(
-      Polarization = scales::percent(Polarization, .1)
-    ) %>% print
+    x$polarization_constructs %>%
+      dplyr::mutate(
+        Polarization = scales::percent(Polarization, .1)
+      ) %>%
+      print()
   }
-  
+
   ## E = Elements
   if (str_detect(output, "E")) {
     cat("\n")
     cat(bold("\nPOLARIZATION BY ELEMENT\n\n"))
-    x$polarization_elements %>% dplyr::mutate(
-      Polarization = scales::percent(Polarization, .1)
-    ) %>% print
+    x$polarization_elements %>%
+      dplyr::mutate(
+        Polarization = scales::percent(Polarization, .1)
+      ) %>%
+      print()
   }
 }
 
@@ -855,41 +888,51 @@ print.indexPolarization <- function(x, output = "ITCE", ...) {
 #' @export
 #' @example inst/examples/example-indexSelfConstruction.R
 #'
-indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal), 
-                                  method = "euclidean", p = 2, normalize = TRUE, 
+indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
+                                  method = "euclidean", p = 2, normalize = TRUE,
                                   round = FALSE) {
   # sanity/arg checks
-  if (!is.repgrid(x))
+  if (!is.repgrid(x)) {
     stop("'x' must be a repgrid object", call. = FALSE)
+  }
   nc <- ncol(x)
-  if (!is.numeric(self) || !length(self) == 1  || !(self >= 1 && self <= nc))  
+  if (!is.numeric(self) || !length(self) == 1 || !(self >= 1 && self <= nc)) {
     stop("'self' must be ONE numeric value in the range from 1 to ", nc, call. = FALSE)
-  if (!is.numeric(ideal) || !length(ideal) == 1  || !(ideal >= 1 && ideal <= nc))  
+  }
+  if (!is.numeric(ideal) || !length(ideal) == 1 || !(ideal >= 1 && ideal <= nc)) {
     stop("'ideal' must be ONE numeric value in the range from 1 to ", nc, call. = FALSE)
-  if (!is.numeric(others) || !length(others) >= 1)  
+  }
+  if (!is.numeric(others) || !length(others) >= 1) {
     stop("'others' must be a numeric vector with at least one entry", call. = FALSE)
-  if (!all(abs(others) >= 1) && all(abs(others) <= nc))  
+  }
+  if (!all(abs(others) >= 1) && all(abs(others) <= nc)) {
     stop("indexes indicating 'others' must range between 1 and ", nc, call. = FALSE)
-  if (any(others < 0) && any(others > 0))
+  }
+  if (any(others < 0) && any(others > 0)) {
     stop("It is not allowed to mix positive and negative indexes", call. = FALSE)
-  if ( sum(duplicated(abs(others))) > 0)
+  }
+  if (sum(duplicated(abs(others))) > 0) {
     stop("duplicated indexes ore not allowed in 'others'", call. = FALSE)
-  
+  }
+
   # treat negative indexes
-  if (all(others < 0))
+  if (all(others < 0)) {
     others <- setdiff(1L:nc, abs(others))
-  
+  }
+
   # warnings for potentially wring input
-  if (self %in% others)
+  if (self %in% others) {
     warning("'self' is also contained in 'others'", call. = FALSE)
-  if (ideal %in% others)
+  }
+  if (ideal %in% others) {
     warning("'ideal' is also contained in 'others'", call. = FALSE)
-  
+  }
+
   # build a new 'others' element as average rating of all others elements
   digits <- ifelse(round, 0, Inf)
   x <- addAvgElement(x, name = "others", i = others, digits = digits)
   i_others <- ncol(x)
-  
+
   # Select method and get measures
   distances <- c("euclidean", "manhattan", "maximum", "canberra", "binary", "minkowski")
   correlations <- c("pearson", "kendall", "spearman")
@@ -899,19 +942,19 @@ indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
   if (method %in% distances) {
     method_type <- "distance"
     S <- distance(x, along = 2, dmethod = method, p = p, normalize = normalize)
-  } 
+  }
   if (method %in% c("pearson", "kendall", "spearman")) {
     method_type <- "correlation"
     S <- elementCor(x, rc = TRUE, method = method)
   }
-  
+
   # extract relevant measures
   s_self_ideal <- S[self, ideal]
   s_self_others <- S[self, i_others]
   s_ideal_others <- S[ideal, i_others]
-  
+
   enames <- elements(x)
-  
+
   # return indexSelfConstruction object
   l <- list(
     grid = x[, c(self, ideal, i_others)],
@@ -934,9 +977,8 @@ indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
 #' Print method for indexSelfConstruction
 #' @export
 #' @keywords internal
-#' 
-print.indexSelfConstruction <- function(x, digits = 2, ...) 
-{
+#'
+print.indexSelfConstruction <- function(x, digits = 2, ...) {
   w <- options()$width
   l <- x
   cat("=================")
@@ -949,13 +991,17 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
   if (l$method_type == "correlation") {
     cat(crayon::blue(
       strwrap("Note: All correlations use Cohen's rc version which is invariant to construct reflections",
-              indent = 2, prefix = "\n", exdent = 8)))
+        indent = 2, prefix = "\n", exdent = 8
+      )
+    ))
   }
   cat("\n")
-  cat("\nCOMPARISONS\n",
-      "\n  * Self - Ideal: ", round(l$self_ideal, digits),
-      "\n  * Self - Others: ", round(l$self_others, digits),
-      "\n  * Ideal - Others: ", round(l$ideal_others, digits))
+  cat(
+    "\nCOMPARISONS\n",
+    "\n  * Self - Ideal: ", round(l$self_ideal, digits),
+    "\n  * Self - Others: ", round(l$self_others, digits),
+    "\n  * Ideal - Others: ", round(l$ideal_others, digits)
+  )
   cat("\n")
   cat("\nELEMENTS\n")
   cat("\n  * self:", l$self_element)
@@ -966,12 +1012,12 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
 
 
 # # Alternative using cli package. I do not like the look
-# print.indexSelfConstruction <- function(x, digits = 2, ...) 
+# print.indexSelfConstruction <- function(x, digits = 2, ...)
 # {
 #   w <- options()$width
 #   l <- x
 #   cli_h1("COGNITIVE PROFILE")
-#   
+#
 #   cli_h3("MEASURE")
 #   cat_line()
 #   cat_line("  ", l$method, " ", l$method_type)
@@ -982,7 +1028,7 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
 #   }
 #   cli_h3("COMPARISONS")
 #   cat_line()
-#   comp <- 
+#   comp <-
 #     c(paste("Self - Ideal: ", round(l$self_ideal, digits)),
 #       paste("Self - Others: ", round(l$self_others, digits)),
 #       paste("Ideal - Others: ", round(l$ideal_others, digits))
@@ -990,21 +1036,21 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
 #   cat_bullet(comp)
 #   cli_h3("ELEMENTS")
 #   cat_line()
-#   elems <- 
+#   elems <-
 #     c(paste("self: ", l$self_element),
 #       paste("ideal: ", l$ideal_element),
 #       paste("others:", strwrap(paste(l$other_elements, collapse = ", "), width = w - 12, exdent = 12, prefix = "\n", initial = ""), collapse = " ")
 #     )
-#   
+#
 #   cat_bullet(elems)
 # }
 
 
 # . ----------
 # ___________________ ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 #      					            CONFLICT MEASURES       							         ----
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 
 # __ Misc ----------------------------------
@@ -1017,20 +1063,24 @@ print.indexSelfConstruction <- function(x, digits = 2, ...)
 #' @export
 #' @method          print indexConflict1
 #' @keywords        internal
-#' 
-print.indexConflict1 <- function(x, digits=1, ...) {
+#'
+print.indexConflict1 <- function(x, digits = 1, ...) {
   cat("\n################################")
   cat("\nConflicts based on correlations")
-  cat("\n################################") 
+  cat("\n################################")
   cat("\n\nAs devised by Slade & Sheehan (1979)")
-  
+
   cat("\n\nTotal number of triads:", x$total)
-  cat("\nNumber of imbalanced triads:",x$imbalanced)
-  
-  cat("\n\nProportion of balanced triads:", 
-      round(x$prop.balanced * 100, digits = digits), "%")
-  cat("\nProportion of imbalanced triads:", 
-      round(x$prop.imbalanced * 100, digits = digits), "%")
+  cat("\nNumber of imbalanced triads:", x$imbalanced)
+
+  cat(
+    "\n\nProportion of balanced triads:",
+    round(x$prop.balanced * 100, digits = digits), "%"
+  )
+  cat(
+    "\nProportion of imbalanced triads:",
+    round(x$prop.imbalanced * 100, digits = digits), "%"
+  )
 }
 
 
@@ -1059,7 +1109,7 @@ print.indexConflict1 <- function(x, digits=1, ...) {
 #' @title Conflict measure for grids (Slade & Sheehan, 1979) based on correlations.
 #' @param x       `repgrid` object.
 #' @return  A list with the following elements:
-#' 
+#'
 #' - `total`: Total number of triads
 #' - `imbalanced`: Number of imbalanced triads
 #' - `prop.balanced`: Proportion of balanced triads
@@ -1079,38 +1129,43 @@ print.indexConflict1 <- function(x, digits=1, ...) {
 #'
 #' Winter, D. A. (1982). Construct relationships, psychological disorder and therapeutic change. *The British Journal
 #' of Medical Psychology, 55* (Pt 3), 257-269.
-#' 
+#'
 #' @export
 #' @seealso [indexConflict2()] for an improved version of this measure; see [indexConflict3()] for a measure based on distances.
-#' @examples 
-#'    
-#'    indexConflict1(feixas2004)
-#'    indexConflict1(boeker)
+#' @examples
+#'
+#' indexConflict1(feixas2004)
+#' indexConflict1(boeker)
 #'
 indexConflict1 <- function(x) {
-  if (!inherits(x, "repgrid")) 
+  if (!inherits(x, "repgrid")) {
     stop("Object must be of class 'repgrid'")
-  
-  r <- constructCor(x)                    # construct correlation matrix
+  }
+
+  r <- constructCor(x) # construct correlation matrix
   z <- fisherz(r)
-  nc <- getNoOfConstructs(x)              # number of constructs
-  comb <- t(combn(nc, 3))                 # all possible correlation triads
-  balanced <- rep(NA, nrow(comb))         # set up result vector
-  
+  nc <- getNoOfConstructs(x) # number of constructs
+  comb <- t(combn(nc, 3)) # all possible correlation triads
+  balanced <- rep(NA, nrow(comb)) # set up result vector
+
   for (i in 1:nrow(comb)) {
-    z.triad <- z[t(combn(comb[i, ], 2))]  # correlations of triad
+    z.triad <- z[t(combn(comb[i, ], 2))] # correlations of triad
     z.prod <- prod(z.triad)
-    if (sign(z.prod) > 0)   # triad is imbalanced if product of correlations is negative
-      balanced[i] <- TRUE else
-        balanced[i] <- FALSE
-  } 
-  prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
-  prop.imbalanced <- 1 - prop.balanced                                # proportion of 
-  
-  res <- list(total = length(balanced),
-              imbalanced = sum(!balanced),
-              prop.balanced = prop.balanced, 
-              prop.imbalanced = prop.imbalanced)
+    if (sign(z.prod) > 0) { # triad is imbalanced if product of correlations is negative
+      balanced[i] <- TRUE
+    } else {
+      balanced[i] <- FALSE
+    }
+  }
+  prop.balanced <- sum(balanced) / length(balanced) # proportion of
+  prop.imbalanced <- 1 - prop.balanced # proportion of
+
+  res <- list(
+    total = length(balanced),
+    imbalanced = sum(!balanced),
+    prop.balanced = prop.balanced,
+    prop.imbalanced = prop.imbalanced
+  )
   class(res) <- "indexConflict1"
   res
 }
@@ -1124,20 +1179,20 @@ indexConflict1 <- function(x) {
 #' As a result, small correlations that are psychologically meaningless are considered accordingly. Also, correlations
 #' with a  small magnitude, i. e. near zero, which may  be positive or negative due to chance alone will no longer
 #' distort the measure (Bassler et al., 1992).
-#' 
+#'
 #' Description of the balance / imbalance assessment:
 #'
 #' 1. Order correlations of the triad by absolute magnitude, so that \eqn{ r_{max} > r_{mdn} > r_{min} }{r_max > r_mdn > r_min}.
 #' 2. Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\eqn{ Z_{max} > Z_{mdn} > Z_{min} }{Z_max > Z_mdn > Z_min}).
 #' 3. Check whether the triad is balanced by assessing if the following relation holds:
-#' 
-#'    - If \eqn{ Z_{max} Z_{mdn} > 0 }{ Z_max x Z_mdn > 0}, 
+#'
+#'    - If \eqn{ Z_{max} Z_{mdn} > 0 }{ Z_max x Z_mdn > 0},
 #'                the triad is balanced if \eqn{ Z_{max} Z_{mdn} - Z_{min} <= crit }
 #'                { Z_max x Z_mdn - Z_min <= crit }.
-#'    - If \eqn{ Z_{max} Z_{mdn} < 0 }{ Z_max x Z_mdn < 0}, 
+#'    - If \eqn{ Z_{max} Z_{mdn} < 0 }{ Z_max x Z_mdn < 0},
 #'                the triad is balanced if \eqn{ Z_{min}  - Z_{max} Z_{mdn} <= crit }
 #'                { Z_min - Z_max x Z_mdn <= crit }.
-#'                
+#'
 #' @section Personal remarks (MH): I am a bit suspicious about step 2 from above. To devide by 3 appears pretty arbitrary.
 #'        The r for a z-values of 3 is 0.9950548 and not 1.
 #'        The r for 4 is 0.9993293. Hence, why not a value of 4, 5, or 6?
@@ -1149,83 +1204,89 @@ indexConflict1 <- function(x) {
 #' @param x A `repgrid` object.
 #' @param crit Sensitivity criterion with which triads are marked as unbalanced. A bigger values will lead to less
 #'   imbalanced triads. The default is `0.03`. The value should be adjusted with regard to the researchers interest.
-#'   
+#'
 #' @references Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). A new approach to the identification of
 #' cognitive conflicts in the repertory grid: An illustrative case study.
 #'  *Journal of Constructivist Psychology, 5*(1), 95-111.
 #'
 #' Slade, P. D., & Sheehan, M. J. (1979). The measurement of 'conflict' in repertory grids. *British Journal of
 #' Psychology, 70*(4), 519-524.
-#' 
+#'
 #' @seealso  See [indexConflict1()] for the older version of this measure; see [indexConflict3()] for a measure based
 #'   on distances instead of correlations.
 #' @examples
 #'
-#'  indexConflict2(bell2010)
-#'   
-#'  x <- indexConflict2(bell2010)  
-#'  print(x)
-#'  
-#'  # show conflictive triads
-#'  print(x, output = 2)
-#'  
-#'  # accessing the calculations for further use
-#'  x$total
-#'  x$imbalanced
-#'  x$prop.balanced
-#'  x$prop.imbalanced
-#'  x$triads.imbalanced
-#' 
+#' indexConflict2(bell2010)
+#'
+#' x <- indexConflict2(bell2010)
+#' print(x)
+#'
+#' # show conflictive triads
+#' print(x, output = 2)
+#'
+#' # accessing the calculations for further use
+#' x$total
+#' x$imbalanced
+#' x$prop.balanced
+#' x$prop.imbalanced
+#' x$triads.imbalanced
+#'
 #' @export
 indexConflict2 <- function(x, crit = .03) {
-  if (!inherits(x, "repgrid")) 
+  if (!inherits(x, "repgrid")) {
     stop("Object must be of class 'repgrid'")
+  }
 
-  r <- constructCor(x)                    # construct correlation matrix
+  r <- constructCor(x) # construct correlation matrix
   z <- fisherz(r)
-  nc <- getNoOfConstructs(x)              # number of constructs
-  comb <- t(combn(nc, 3))                 # all possible correlation triads
-  balanced <- rep(NA, nrow(comb))         # set up result vector
-  
-  for (i in 1:nrow(comb)) {	
-    z.triad <- z[t(combn(comb[i, ], 2))]      # z-values of triad
-    ind <- order(abs(z.triad), decreasing = TRUE)  # order for absolute magnitude
-    z.triad <- z.triad[ind]               # reorder z values by magnitude               
-    z.12 <- prod(z.triad[1:2])            # product of two biggest z values
-    z.3 <- z.triad[3]                     # minimal absolute z value
+  nc <- getNoOfConstructs(x) # number of constructs
+  comb <- t(combn(nc, 3)) # all possible correlation triads
+  balanced <- rep(NA, nrow(comb)) # set up result vector
+
+  for (i in 1:nrow(comb)) {
+    z.triad <- z[t(combn(comb[i, ], 2))] # z-values of triad
+    ind <- order(abs(z.triad), decreasing = TRUE) # order for absolute magnitude
+    z.triad <- z.triad[ind] # reorder z values by magnitude
+    z.12 <- prod(z.triad[1:2]) # product of two biggest z values
+    z.3 <- z.triad[3] # minimal absolute z value
     # select case for inequality relation assessment
     if (sign(z.12) > 0) {
       balanced[i] <- z.12 - z.3 <= crit
     } else {
       balanced[i] <- z.3 - z.12 <= crit
-    }  
-  } 
-  prop.balanced <- sum(balanced) / length(balanced)    # proportion of 
-  prop.imbalanced <- 1 - prop.balanced                 # proportion of 
-  
-  res <- list(total = length(balanced),
-              imbalanced = sum(!balanced),
-              prop.balanced = prop.balanced, 
-              prop.imbalanced = prop.imbalanced,
-              triads.imbalanced = comb[!balanced, ])
+    }
+  }
+  prop.balanced <- sum(balanced) / length(balanced) # proportion of
+  prop.imbalanced <- 1 - prop.balanced # proportion of
+
+  res <- list(
+    total = length(balanced),
+    imbalanced = sum(!balanced),
+    prop.balanced = prop.balanced,
+    prop.imbalanced = prop.imbalanced,
+    triads.imbalanced = comb[!balanced, ]
+  )
   class(res) <- "indexConflict2"
   res
 }
 
 
-indexConflict2Out1 <- function(x, digits=1) 
-{
+indexConflict2Out1 <- function(x, digits = 1) {
   cat("\n###############################")
   cat("\nConflicts based on correlations")
-  cat("\n###############################") 
+  cat("\n###############################")
   cat("\n\nAs devised by Bassler et al. (1992)")
-  
+
   cat("\n\nTotal number of triads:", x$total)
-  cat("\nNumber of imbalanced triads:", x$imbalanced)  
-  cat("\n\nProportion of balanced triads:", 
-      round(x$prop.balanced * 100, digits = digits), "%")
-  cat("\nProportion of imbalanced triads:", 
-      round(x$prop.imbalanced * 100, digits = digits), "%\n")
+  cat("\nNumber of imbalanced triads:", x$imbalanced)
+  cat(
+    "\n\nProportion of balanced triads:",
+    round(x$prop.balanced * 100, digits = digits), "%"
+  )
+  cat(
+    "\nProportion of imbalanced triads:",
+    round(x$prop.imbalanced * 100, digits = digits), "%\n"
+  )
 }
 
 
@@ -1247,12 +1308,13 @@ indexConflict2Out2 <- function(x) {
 #' @export
 #' @method print indexConflict2
 #' @keywords internal
-#' 
+#'
 print.indexConflict2 <- function(x, digits = 1, output = 1, ...) {
-  indexConflict2Out1(x, digits = digits) 
-  if (output == 2) 
+  indexConflict2Out1(x, digits = digits)
+  if (output == 2) {
     indexConflict2Out2(x)
-} 
+  }
+}
 
 
 #' Conflict or inconsistency measure for grids (Bell, 2004) based on distances.
@@ -1268,9 +1330,9 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...) {
 #' element by construct level making it valuable for detailed feedback. Also,
 #' differences in conflict can be submitted to statistical testing procedures.
 #'
-#' Status:  working; output for euclidean and manhattan distance 
+#' Status:  working; output for euclidean and manhattan distance
 #'          checked against Gridstat output. \cr
-#' TODO:    standardization and z-test for discrepancies; 
+#' TODO:    standardization and z-test for discrepancies;
 #'          Index of Conflict Variation.
 #'
 #' @param x             `repgrid` object.
@@ -1279,25 +1341,25 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...) {
 #'                      distances.
 #' @param e.out         Numeric. A vector giving the indexes of the elements
 #'                      for which detailed stats (number of conflicts per element,
-#'                      discrepancies for triangles etc.) are prompted 
+#'                      discrepancies for triangles etc.) are prompted
 #'                      (default `NA`, i.e. no detailed stats for any element).
-#' @param e.threshold   Numeric. Detailed stats are prompted for those elements with a an 
-#'                      attributable percentage to the overall conflicts 
+#' @param e.threshold   Numeric. Detailed stats are prompted for those elements with a an
+#'                      attributable percentage to the overall conflicts
 #'                      higher than the supplied threshold
 #'                      (default `NA`).
 #' @param c.out         Numeric. A vector giving the indexes of the constructs
-#'                      for which detailed stats (discrepancies for triangles etc.) 
+#'                      for which detailed stats (discrepancies for triangles etc.)
 #'                      are prompted (default `NA`, i. e. no detailed stats).
-#' @param c.threshold   Numeric. Detailed stats are prompted for those constructs with a an 
-#'                      attributable percentage to the overall conflicts 
+#' @param c.threshold   Numeric. Detailed stats are prompted for those constructs with a an
+#'                      attributable percentage to the overall conflicts
 #'                      higher than the supplied threshold
 #'                      (default `NA`).
 #' @param trim          The number of characters a construct (element) is trimmed to (default is
 #'                      `10`). If `NA` no trimming is done. Trimming
 #'                      simply saves space when displaying the output.
 #'
-#' @return  A list (invisibly) containing: 
-#' 
+#' @return  A list (invisibly) containing:
+#'
 #' - `potential`: number of potential conflicts
 #' - `actual`: count of actual conflicts
 #' - `overall`: percentage of conflictive relations
@@ -1312,35 +1374,35 @@ print.indexConflict2 <- function(x, digits = 1, output = 1, ...) {
 #' - `enames`: trimmed element names. Used by print method
 #' - `cnames`: trimmed construct names. Used by print method
 #'
-#' @references    Bell, R. C. (2004). A new approach to measuring inconsistency 
+#' @references    Bell, R. C. (2004). A new approach to measuring inconsistency
 #'                or conflict in grids. *Personal Construct Theory & Practice*, (1), 53-59.
-#'                
+#'
 #' @section output: For further control over the output see [print.indexConflict3()].
 #' @export
 #' @seealso    See [indexConflict1()] and [indexConflict2()] for conflict measures based on triads of correlations.
-#' @examples 
-#'  # calculate conflicts
-#'  indexConflict3(bell2010)
-#'  
-#'  # show additional stats for elements 1 to 3
-#'  indexConflict3(bell2010, e.out = 1:3)
-#'  
-#'  # show additional stats for constructs 1 and 5
-#'  indexConflict3(bell2010, c.out = c(1,5))
-#'  
-#'  # finetune output
-#'  ## change number of digits
-#'  x <- indexConflict3(bell2010)
-#'  print(x, digits = 4)
+#' @examples
+#' # calculate conflicts
+#' indexConflict3(bell2010)
 #'
-#'  ## omit discrepancy matrices for constructs
-#'  x <- indexConflict3(bell2010, c.out = 5:6)
-#'  print(x, discrepancies = FALSE)
+#' # show additional stats for elements 1 to 3
+#' indexConflict3(bell2010, e.out = 1:3)
 #'
-indexConflict3 <- function(x, p = 2,  
-                           e.out = NA, 
+#' # show additional stats for constructs 1 and 5
+#' indexConflict3(bell2010, c.out = c(1, 5))
+#'
+#' # finetune output
+#' ## change number of digits
+#' x <- indexConflict3(bell2010)
+#' print(x, digits = 4)
+#'
+#' ## omit discrepancy matrices for constructs
+#' x <- indexConflict3(bell2010, c.out = 5:6)
+#' print(x, discrepancies = FALSE)
+#'
+indexConflict3 <- function(x, p = 2,
+                           e.out = NA,
                            e.threshold = NA,
-                           c.out = NA, 
+                           c.out = NA,
                            c.threshold = NA,
                            trim = 20) {
   # To assess the triangle inequality we need:
@@ -1353,161 +1415,174 @@ indexConflict3 <- function(x, p = 2,
   # be the rating of element i on construct j.
   # The distance between the constructs it the distance (euclidean or city block)
   # between them without taking into account the element under consideration.
-  
-  s <- getRatingLayer(x)            # grid scores matrix
+
+  s <- getRatingLayer(x) # grid scores matrix
   ne <- getNoOfElements(x)
   nc <- getNoOfConstructs(x)
-  enames <- getElementNames2(x, index = T, trim = trim,  pre = "", post = " ")
+  enames <- getElementNames2(x, index = T, trim = trim, pre = "", post = " ")
   cnames <- getConstructNames2(x, index = T, trim = trim, mode = 1, pre = "", post = " ")
-  
+
   # set up result vectors
   # confict.disc      discrepancy for each triangle (indexed e, c1, c2)
   # confict.e         number of conflicts for each element
   # conflict.c        number of conflicts for each construct
   # conflict.total    overall value of conflictive triangles
-  conflict.disc  <- array(NA, dim = c(nc, nc, ne))
-  conflict.e  <- rep(0, ne)
-  conflict.c  <- rep(0, nc)
+  conflict.disc <- array(NA, dim = c(nc, nc, ne))
+  conflict.e <- rep(0, ne)
+  conflict.c <- rep(0, nc)
   conflict.total <- 0
-  conflicts.potential <-  ne * nc * (nc - 1 ) / 2
+  conflicts.potential <- ne * nc * (nc - 1) / 2
   # e is i, c1 is j and c2 is k in Bell's Fortran code
-  
+
   for (e in seq_len(ne)) {
     # average distance between constructs c1 and c2 not taking into account
     # the element under consideration. Generalization for any minkwoski metric
-    dc <- dist(s[, -e], method = "minkowski", p = p) / (ne - 1)^(1 / p)     # Bell averages the unsquared distances (euclidean), 
-    dc <- as.matrix(dc)   # convert dist object to matrix             # i.e. divide euclidean dist by root of n or p in the general case
-    
+    dc <- dist(s[, -e], method = "minkowski", p = p) / (ne - 1)^(1 / p) # Bell averages the unsquared distances (euclidean),
+    dc <- as.matrix(dc) # convert dist object to matrix             # i.e. divide euclidean dist by root of n or p in the general case
+
     for (c1 in seq_len(nc)) {
       for (c2 in seq_len(nc)) {
         if (c1 < c2) {
           d.jk <- dc[c1, c2]
           d.ij <- s[c1, e]
           d.ik <- s[c2, e]
-          
-          # assess if triangle inequality fails., i.e. if one distance is bigger 
+
+          # assess if triangle inequality fails., i.e. if one distance is bigger
           # than the sum of the other two distances. The magnitude it is bigger
           # is recorded in disc (discrepancy)
-          if (d.ij > (d.ik + d.jk))
-            disc <- d.ij - (d.ik + d.jk) else 
-              if (d.ik > (d.ij + d.jk))
-                disc <- d.ik - (d.ij + d.jk) else 
-                  if (d.jk > (d.ij + d.ik))
-                    disc <- d.jk - (d.ij + d.ik) else 
-                      disc <- NA
-          
+          if (d.ij > (d.ik + d.jk)) {
+            disc <- d.ij - (d.ik + d.jk)
+          } else if (d.ik > (d.ij + d.jk)) {
+            disc <- d.ik - (d.ij + d.jk)
+          } else if (d.jk > (d.ij + d.ik)) {
+            disc <- d.jk - (d.ij + d.ik)
+          } else {
+            disc <- NA
+          }
+
           # store size of discrepancy in confict.disc and record discrepancy
           # by element (confict.e) construct (confict.c) and overall (confict.total)
           if (!is.na(disc)) {
-            conflict.disc[c1, c2, e]  <- disc
-            conflict.disc[c2, c1, e]  <- disc
-            conflict.e[e]  <- conflict.e[e] + 1       
-            conflict.c[c1]  <- conflict.c[c1] + 1
-            conflict.c[c2]  <- conflict.c[c2] + 1
+            conflict.disc[c1, c2, e] <- disc
+            conflict.disc[c2, c1, e] <- disc
+            conflict.e[e] <- conflict.e[e] + 1
+            conflict.c[c1] <- conflict.c[c1] + 1
+            conflict.c[c2] <- conflict.c[c2] + 1
             conflict.total <- conflict.total + 1
           }
         }
-      }   
+      }
     }
   }
-  
+
   # add e and c names to results
-  dimnames(conflict.disc)[[3]] <- enames  
+  dimnames(conflict.disc)[[3]] <- enames
   conflict.e.df <- data.frame(percentage = conflict.e)
   rownames(conflict.e.df) <- enames
   conflict.c.df <- data.frame(percentage = conflict.c)
   rownames(conflict.c.df) <- cnames
-  
-  
+
+
   ### Detailed stats for elements ###
-  
-  conflictAttributedByConstructForElement <- function(e){
-    e.disc.0 <- e.disc.na <- conflict.disc[ , , e]          # version with NAs and zeros for no discrepancies
-    e.disc.0[is.na(e.disc.0)] <- 0                          # replace NAs by zeros
-    
-    e.disc.no <- apply(!is.na(e.disc.na), 2, sum)           # number of conflicts per construct   
-    e.disc.perc <- e.disc.no / sum(e.disc.no) * 100         # no conf. per as percentage
-    e.disc.perc.df <- data.frame(percentage = e.disc.perc)  # convert to dataframe
-    rownames(e.disc.perc.df) <- cnames                      # add rownames
-    
-    n.conflict.pairs <-  sum(e.disc.no) / 2                 # number of conflicting construct pairs all elements
-    disc.avg <- mean(e.disc.0)                              # average level of discrepancy
-    disc.sd <- sd(as.vector(e.disc.na), na.rm = TRUE)       # sd of discrepancies
-    
-    disc.stand <- (e.disc.na - disc.avg) / disc.sd          # standardized discrepancy
-    
-    list(e = e, 
-         disc = e.disc.na,
-         pairs = n.conflict.pairs,
-         constructs = e.disc.perc.df,
-         avg = disc.avg,
-         sd = disc.sd)#,
-    #disc.stand=round(disc.stand, digits))
+
+  conflictAttributedByConstructForElement <- function(e) {
+    e.disc.0 <- e.disc.na <- conflict.disc[, , e] # version with NAs and zeros for no discrepancies
+    e.disc.0[is.na(e.disc.0)] <- 0 # replace NAs by zeros
+
+    e.disc.no <- apply(!is.na(e.disc.na), 2, sum) # number of conflicts per construct
+    e.disc.perc <- e.disc.no / sum(e.disc.no) * 100 # no conf. per as percentage
+    e.disc.perc.df <- data.frame(percentage = e.disc.perc) # convert to dataframe
+    rownames(e.disc.perc.df) <- cnames # add rownames
+
+    n.conflict.pairs <- sum(e.disc.no) / 2 # number of conflicting construct pairs all elements
+    disc.avg <- mean(e.disc.0) # average level of discrepancy
+    disc.sd <- sd(as.vector(e.disc.na), na.rm = TRUE) # sd of discrepancies
+
+    disc.stand <- (e.disc.na - disc.avg) / disc.sd # standardized discrepancy
+
+    list(
+      e = e,
+      disc = e.disc.na,
+      pairs = n.conflict.pairs,
+      constructs = e.disc.perc.df,
+      avg = disc.avg,
+      sd = disc.sd
+    ) # ,
+    # disc.stand=round(disc.stand, digits))
   }
-  
-  
+
+
   ### Detailed stats for constructs ###
-  
-  conflictAttributedByElementForConstruct <- function(c1) 
-  {
-    c1.disc.0 <- c1.disc.na <- conflict.disc[c1, , ]     # version with NAs and zeros for no discrepancies
+
+  conflictAttributedByElementForConstruct <- function(c1) {
+    c1.disc.0 <- c1.disc.na <- conflict.disc[c1, , ] # version with NAs and zeros for no discrepancies
     rownames(c1.disc.na) <- paste("c", seq_len(nrow(c1.disc.na)))
     colnames(c1.disc.na) <- paste("e", seq_len(ncol(c1.disc.na)))
-    
-    c1.disc.0[is.na(c1.disc.0)] <- 0                     # replace NAs by zeros
-    
-    disc.avg <- mean(c1.disc.0)                          # average level of discrepancy
-    disc.sd <- sd(as.vector(c1.disc.na), na.rm = TRUE)   # sd of discrepancies
-    list(c1 = c1, 
-         disc = c1.disc.na,
-         avg = disc.avg,
-         sd = disc.sd)#,
-    #disc.stand=round(disc.stand, digits))
+
+    c1.disc.0[is.na(c1.disc.0)] <- 0 # replace NAs by zeros
+
+    disc.avg <- mean(c1.disc.0) # average level of discrepancy
+    disc.sd <- sd(as.vector(c1.disc.na), na.rm = TRUE) # sd of discrepancies
+    list(
+      c1 = c1,
+      disc = c1.disc.na,
+      avg = disc.avg,
+      sd = disc.sd
+    ) # ,
+    # disc.stand=round(disc.stand, digits))
   }
-  
+
   # Select which detailed stats for elements. Either all bigger than
   # a threshold or the ones selected manually.
-  if (!is.na(e.out[1]))
-    e.select <- e.out else 
-      if (!is.na(e.threshold[1]))
-        e.select <- which(conflict.e / conflict.total * 100 > e.threshold) else
-          e.select <- NA
-  
-  e.stats <- list()               # list with detailed results
-  if (!is.na(e.select[1])) {
-    for (e in seq_along(e.select))
-      e.stats[[e]] <- conflictAttributedByConstructForElement(e.select[e]) 
-    names(e.stats) <- enames[e.select]   
+  if (!is.na(e.out[1])) {
+    e.select <- e.out
+  } else if (!is.na(e.threshold[1])) {
+    e.select <- which(conflict.e / conflict.total * 100 > e.threshold)
+  } else {
+    e.select <- NA
   }
-  
+
+  e.stats <- list() # list with detailed results
+  if (!is.na(e.select[1])) {
+    for (e in seq_along(e.select)) {
+      e.stats[[e]] <- conflictAttributedByConstructForElement(e.select[e])
+    }
+    names(e.stats) <- enames[e.select]
+  }
+
   # Select which detailed stats for constructs. Either all bigger than
   # a threshold or the ones selected manually.
-  if (!is.na(c.out[1]))
-    c.select <- c.out else 
-      if (!is.na(c.threshold[1]))
-        c.select <- which(.5 * conflict.c / conflict.total * 100 > c.threshold) else
-          c.select <- NA
-  
-  c.stats <- list()               # list with detailed results
-  if (!is.na(c.select[1])) {
-    for (c in seq_along(c.select))
-      c.stats[[c]] <- conflictAttributedByElementForConstruct(c.select[c])
-    names(c.stats) <- cnames[c.select]   
+  if (!is.na(c.out[1])) {
+    c.select <- c.out
+  } else if (!is.na(c.threshold[1])) {
+    c.select <- which(.5 * conflict.c / conflict.total * 100 > c.threshold)
+  } else {
+    c.select <- NA
   }
-  
-  res <- list(potential = conflicts.potential,
-              actual = conflict.total,  
-              overall = conflict.total/conflicts.potential * 100,
-              e.count = conflict.e,
-              e.perc = conflict.e.df / conflict.total * 100,
-              c.count = conflict.c,
-              c.perc = .5 * conflict.c.df / conflict.total * 100,
-              e.stats = e.stats,
-              c.stats = c.stats,
-              e.threshold = e.threshold,    # threshold for elements
-              c.threshold = c.threshold,
-              enames = enames,                # element names
-              cnames = cnames)
+
+  c.stats <- list() # list with detailed results
+  if (!is.na(c.select[1])) {
+    for (c in seq_along(c.select)) {
+      c.stats[[c]] <- conflictAttributedByElementForConstruct(c.select[c])
+    }
+    names(c.stats) <- cnames[c.select]
+  }
+
+  res <- list(
+    potential = conflicts.potential,
+    actual = conflict.total,
+    overall = conflict.total / conflicts.potential * 100,
+    e.count = conflict.e,
+    e.perc = conflict.e.df / conflict.total * 100,
+    c.count = conflict.c,
+    c.perc = .5 * conflict.c.df / conflict.total * 100,
+    e.stats = e.stats,
+    c.stats = c.stats,
+    e.threshold = e.threshold, # threshold for elements
+    c.threshold = c.threshold,
+    enames = enames, # element names
+    cnames = cnames
+  )
   class(res) <- "indexConflict3"
   res
 }
@@ -1519,41 +1594,45 @@ indexConflict3Out1 <- function(x, digits = 1) {
   cat("\nCONFLICT OR INCONSISTENCIES BASED ON TRIANGLE INEQUALITIES")
   cat("\n##########################################################\n")
   cat("\nPotential conflicts in grid: ", x$potential)
-  cat("\nActual conflicts in grid: ", x$actual) 
-  cat("\nOverall percentage of conflict in grid: ", 
-      round(x$actual / x$potential * 100, digits), "%\n") 
-  
+  cat("\nActual conflicts in grid: ", x$actual)
+  cat(
+    "\nOverall percentage of conflict in grid: ",
+    round(x$actual / x$potential * 100, digits), "%\n"
+  )
+
   cat("\nELEMENTS")
   cat("\n########\n")
   cat("\nPercent of conflict attributable to element:\n\n")
-  print(round(x$e.perc * 100, digits)) 
+  print(round(x$e.perc * 100, digits))
   cat("\nChi-square test of equal count of conflicts for elements.\n")
   print(chisq.test(x$e.count))
-  
+
   cat("\nCONSTRUCTS")
   cat("\n##########\n")
   cat("\nPercent of conflict attributable to construct:\n\n")
-  print(round(x$c.perc , digits))
+  print(round(x$c.perc, digits))
   cat("\nChi-square test of equal count of conflicts for constructs.\n")
   print(chisq.test(x$c.count))
-  #print(sd(conflict.c.perc))
-  #print(var(conflict.c.perc))    
+  # print(sd(conflict.c.perc))
+  # print(var(conflict.c.perc))
 }
 
 
-indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
+indexConflict3Out2 <- function(x, digits = 1, discrepancies = TRUE) {
   e.stats <- x$e.stats
   e.threshold <- x$e.threshold
   enames <- x$enames
-  
-  if (length(e.stats) == 0)     # stop function in case  
+
+  if (length(e.stats) == 0) { # stop function in case
     return(NULL)
-  
+  }
+
   cat("\n\nCONFLICTS BY ELEMENT")
   cat("\n####################\n")
-  if (!is.na(e.threshold))
+  if (!is.na(e.threshold)) {
     cat("(Details for elements with conflict >", e.threshold, "%)\n")
-  
+  }
+
   for (e in seq_along(e.stats)) {
     m <- e.stats[[e]]
     if (!is.null(m)) {
@@ -1562,10 +1641,12 @@ indexConflict3Out2 <- function(x, digits=1, discrepancies=TRUE) {
       if (discrepancies) {
         cat("\nConstruct conflict discrepancies:\n\n")
         disc <- round(m$disc, digits)
-        print(as.data.frame(formatMatrix(disc, rnames = "", 
-                                         mode = 2, diag = FALSE), stringsAsFactors = FALSE))
+        print(as.data.frame(formatMatrix(disc,
+          rnames = "",
+          mode = 2, diag = FALSE
+        ), stringsAsFactors = FALSE))
       }
-      cat("\nPercent of conflict attributable to each construct:\n\n")    
+      cat("\nPercent of conflict attributable to each construct:\n\n")
       print(round(m$constructs, digits))
       cat("\nAv. level of discrepancy:   ", round(m$avg, digits), "\n")
       cat("\nStd. dev. of discrepancies: ", round(m$sd, digits + 1), "\n")
@@ -1578,15 +1659,17 @@ indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE) {
   c.threshold <- x$c.threshold
   c.stats <- x$c.stats
   cnames <- x$cnames
-  
-  if (length(c.stats) == 0)     # stop function in case  
+
+  if (length(c.stats) == 0) { # stop function in case
     return(NULL)
-  
+  }
+
   cat("\n\nCONFLICTS BY CONSTRUCT")
   cat("\n######################\n")
-  if (!is.na(c.threshold))
+  if (!is.na(c.threshold)) {
     cat("(Details for constructs with conflict >", c.threshold, "%)\n")
-  
+  }
+
   for (c in seq_along(c.stats)) {
     x <- c.stats[[c]]
     if (!is.null(x)) {
@@ -1594,11 +1677,12 @@ indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE) {
       if (discrepancies) {
         cat("\nElement-construct conflict discrepancies:\n\n")
         disc <- round(x$disc, digits)
-        print(as.data.frame(formatMatrix(disc, 
-                                         rnames = paste("c", seq_len(nrow(x$disc)), sep = ""), 
-                                         cnames = paste("e", seq_len(ncol(x$disc)), sep = ""),
-                                         pre.index = c(FALSE, FALSE),
-                                         mode = 2, diag = FALSE), stringsAsFactors = FALSE))
+        print(as.data.frame(formatMatrix(disc,
+          rnames = paste("c", seq_len(nrow(x$disc)), sep = ""),
+          cnames = paste("e", seq_len(ncol(x$disc)), sep = ""),
+          pre.index = c(FALSE, FALSE),
+          mode = 2, diag = FALSE
+        ), stringsAsFactors = FALSE))
       }
       cat("\nAv. level of discrepancy:   ", round(x$avg, digits), "\n")
       cat("\nStd. dev. of discrepancies: ", round(x$sd, digits + 1), "\n")
@@ -1619,12 +1703,13 @@ indexConflict3Out3 <- function(x, digits = 1, discrepancies = TRUE) {
 #' @export
 #' @method print indexConflict3
 #' @keywords internal
-#' 
+#'
 print.indexConflict3 <- function(x, digits = 2, output = 1, discrepancies = TRUE, ...) {
-  if (output == 1)
-    indexConflict3Out1(x, digits = digits) 
+  if (output == 1) {
+    indexConflict3Out1(x, digits = digits)
+  }
   indexConflict3Out2(x, digits = digits, discrepancies = discrepancies)
-  indexConflict3Out3(x, digits = digits, discrepancies = discrepancies) 
+  indexConflict3Out3(x, digits = digits, discrepancies = discrepancies)
 }
 
 
@@ -1634,27 +1719,33 @@ print.indexConflict3 <- function(x, digits = 2, output = 1, discrepancies = TRUE
 # plots distribution of construct correlations
 #
 indexDilemmaShowCorrelationDistribution <- function(x, e1, e2) {
-  rc.including <- constructCor(x)  
+  rc.including <- constructCor(x)
   rc.excluding <- constructCor(x[, -c(e1, e2)])
   rc.inc.vals <- abs(rc.including[lower.tri(rc.including)])
   rc.exc.vals <- abs(rc.excluding[lower.tri(rc.excluding)])
-  
+
   histDensity <- function(vals, probs = c(.2, .4, .6, .8, .9), ...) {
-    h <- hist(vals, breaks = seq(0, 1.01, len = 21), freq = FALSE, 
-              xlim = c(0, 1), border = "white", col = grey(.8), ...)
+    h <- hist(vals,
+      breaks = seq(0, 1.01, len = 21), freq = FALSE,
+      xlim = c(0, 1), border = "white", col = grey(.8), ...
+    )
     d <- density(vals)
     lines(d$x, d$y)
     q <- quantile(vals, probs = probs)
     abline(v = q, col = "red")
-    text(q, 0, paste(round(probs * 100, 0), "%"), cex = .8, pos = 2, col = "red")  
+    text(q, 0, paste(round(probs * 100, 0), "%"), cex = .8, pos = 2, col = "red")
   }
-  
-  layout(matrix(c(1,2), ncol = 1))
-  par(mar = c(3,4.2,2.4,2))
-  histDensity(rc.inc.vals, cex.main = .8, cex.axis = .8, cex.lab = .8,
-              main = "Distribution of absolute construct-correlations \n(including 'self' and 'ideal self')")
-  histDensity(rc.exc.vals,  cex.main = .8, cex.axis = .8, cex.lab = .8, 
-              main = "Distribution of absolute construct-correlations \n(excluding 'self' and 'ideal self')")
+
+  layout(matrix(c(1, 2), ncol = 1))
+  par(mar = c(3, 4.2, 2.4, 2))
+  histDensity(rc.inc.vals,
+    cex.main = .8, cex.axis = .8, cex.lab = .8,
+    main = "Distribution of absolute construct-correlations \n(including 'self' and 'ideal self')"
+  )
+  histDensity(rc.exc.vals,
+    cex.main = .8, cex.axis = .8, cex.lab = .8,
+    main = "Distribution of absolute construct-correlations \n(excluding 'self' and 'ideal self')"
+  )
 }
 
 
@@ -1662,9 +1753,9 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2) {
 #
 # @param x               \code{repgrid} object.
 # @param self            Numeric. Index of self element.
-# @param ideal           Numeric. Index of ideal self element. 
-# @param diff.mode       Numeric. Method adopted to classify construct pairs into congruent 
-#                        and discrepant. With \code{diff.mode=1}, the minimal and maximal 
+# @param ideal           Numeric. Index of ideal self element.
+# @param diff.mode       Numeric. Method adopted to classify construct pairs into congruent
+#                        and discrepant. With \code{diff.mode=1}, the minimal and maximal
 #                        score difference criterion is applied. With \code{diff.mode=0} the Mid-point
 #                        rating criterion is applied. Default is \code{diff.mode=1}.
 
@@ -1681,47 +1772,53 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2) {
 # @param diff.poles      Not yet implemented.
 # @param r.min           Minimal correlation to determine implications between
 #                        constructs ([0, 1]).
-# @param exclude         Whether to exclude the elements self and ideal self 
+# @param exclude         Whether to exclude the elements self and ideal self
 #                        during the calculation of the inter-construct correlations.
 #                        (default is \code{FALSE}).
-# @param index           Whether to print index numbers in front of each construct 
+# @param index           Whether to print index numbers in front of each construct
 #                        (default is \code{TRUE}).
 # @param trim            The number of characters a construct (element) is trimmed to (default is
 #                        \code{20}). If \code{NA} no trimming is done. Trimming
 #                        simply saves space when displaying the output.
-# @param digits          Numeric. Number of digits to round to (default is 
+# @param digits          Numeric. Number of digits to round to (default is
 #                        \code{2}).
 # @export
 # @keywords internal
-# @return     A list with four elements containing different steps of the 
+# @return     A list with four elements containing different steps of the
 #                        calculation.
 #
 #
-indexDilemmaInternal <- function(x, self, ideal, 
-                            diff.mode = 1, diff.congruent = 1,
-                            diff.discrepant = 4, diff.poles = 1, 
-                            r.min, exclude = FALSE, digits = 2,
-                            index = T, trim = FALSE) {
+indexDilemmaInternal <- function(x, self, ideal,
+                                 diff.mode = 1, diff.congruent = 1,
+                                 diff.discrepant = 4, diff.poles = 1,
+                                 r.min, exclude = FALSE, digits = 2,
+                                 index = T, trim = FALSE) {
   nc <- nrow(x)
   ne <- ncol(x)
   enames <- elements(x)
   e_ii <- seq_len(ne) # possible element indexes
-  
-  if (!self %in% e_ii) 
+
+  if (!self %in% e_ii) {
     stop("'self' element index must be within interval [", 1, ",", ne, "]", call. = FALSE)
-  if (!ideal %in% e_ii) 
+  }
+  if (!ideal %in% e_ii) {
     stop("'ideal' element index must be within interval [", 1, ",", ne, "]", call. = FALSE)
-  if (diff.congruent < 0)
+  }
+  if (diff.congruent < 0) {
     stop("'diff.congruent' must be non-negative", call. = FALSE)
-  if (diff.discrepant < 0)
+  }
+  if (diff.discrepant < 0) {
     stop("'diff.discrepant' must be non-negative", call. = FALSE)
-  if (diff.congruent >= diff.discrepant)
+  }
+  if (diff.congruent >= diff.discrepant) {
     stop("'diff.congruent' must be smaller than 'diff.discrepant'", call. = FALSE)
-  if (r.min < 0 | r.min > 1 )
+  }
+  if (r.min < 0 | r.min > 1) {
     stop("'r.min' must lie in interval [0, 1]", call. = FALSE)
+  }
 
   # r.min <- abs(r.min)  # direction does not matter the way we process
-  s <- ratings(x)      # grid scores matrix
+  s <- ratings(x) # grid scores matrix
   # create a vector of inverted scores for the 'self' element:
   # invscr = 8 - scr
   # Example: 2 -> 8 - 2 -> 6
@@ -1729,26 +1826,26 @@ indexDilemmaInternal <- function(x, self, ideal,
   s_inverted <- ratings(swapPoles(x)) # grid with inverted scores
   cnames <- getConstructNames2(x, index = index, trim = trim, mode = 1, pre = "", post = " ")
   sc <- getScale(x)
-  midpoint <- getScaleMidpoint(x)   # NEW (DIEGO) get scale midpoint this is importat in
-                                    # when Alejandro's code check whether self/ideal   
-                                    # is == to the midpoint or not (see below "Get Dilemmas" section)
-  
-  # FLAG ALL CONSTRUCTS AS DISCREPANT, CONGRUENT OR NEITHER    
-  
-  diff.between <- abs(s[, self] - s[, ideal])  # self - ideal difference  
+  midpoint <- getScaleMidpoint(x) # NEW (DIEGO) get scale midpoint this is importat in
+  # when Alejandro's code check whether self/ideal
+  # is == to the midpoint or not (see below "Get Dilemmas" section)
+
+  # FLAG ALL CONSTRUCTS AS DISCREPANT, CONGRUENT OR NEITHER
+
+  diff.between <- abs(s[, self] - s[, ideal]) # self - ideal difference
   is.congruent <- logical()
   type.c <- character()
- 
-  # CORRECTION (ALEJANDRO): 
-  # a construct can't be congruent if it's 'self' score is 4 (AKA self-disorientation). 
+
+  # CORRECTION (ALEJANDRO):
+  # a construct can't be congruent if it's 'self' score is 4 (AKA self-disorientation).
   # Neither can be congruent if IDEAL is 4 (i.e. midpoint).
   # CORRECTION (Diego): I have just updated this avoid hardcoding the midpoint!!
   if (diff.mode == 1) {
     for (i in 1L:nc) {
       if (s[, self][i] != midpoint) {
         if (s[, ideal][i] != midpoint) {
-          is.congruent[i] <- diff.between[i] <= diff.congruent        
-        } else{
+          is.congruent[i] <- diff.between[i] <= diff.congruent
+        } else {
           is.congruent[i] <- FALSE
         }
       } else {
@@ -1757,12 +1854,12 @@ indexDilemmaInternal <- function(x, self, ideal,
     }
     is.discrepant <- diff.between >= diff.discrepant
     is.neither <- !is.congruent & !is.discrepant
-    
+
     type.c[is.congruent] <- "congruent"
     type.c[is.discrepant] <- "discrepant"
     type.c[is.neither] <- "neither"
   }
-  
+
   # # difference from poles NOT YET IMPLEMENTED
   # sc <- getScale(x)
   # diff.pole1 <- abs(s[, c(e.self, e.ideal)] - sc[1])
@@ -1772,33 +1869,32 @@ indexDilemmaInternal <- function(x, self, ideal,
   #                   diff.pole2[,1] <= diff.poles & diff.pole2[,2] <= diff.poles
   # is.discrepant.p <- diff.pole1[,1] <= diff.poles & diff.pole2[,2] <= diff.poles |
   #                     diff.pole1[,1] <= diff.poles & diff.pole2[,2] <= diff.poles
-  # 
-  # is.neither.p <- !is.congruent.p & !is.discrepant.p 
+  #
+  # is.neither.p <- !is.congruent.p & !is.discrepant.p
   # type.c.poles[is.congruent.p] <- "congruent"
   # type.c.poles[is.discrepant.p] <- "discrepant"
   # type.c.poles[is.neither.p] <- "neither"
   #
   #
-  #//////////////////////////////////////////////////////////////////////////////
-  ## MIDPOINT-BASED CRITERION TO IDENTIFY CONGRUENT AND DISCREPANT constructs 
-  #//////////////////////////////////////////////////////////////////////////////
+  # //////////////////////////////////////////////////////////////////////////////
+  ## MIDPOINT-BASED CRITERION TO IDENTIFY CONGRUENT AND DISCREPANT constructs
+  # //////////////////////////////////////////////////////////////////////////////
   #### added by DIEGO
-  #   I have tried to implement here the other popular method for the identification of 
+  #   I have tried to implement here the other popular method for the identification of
   #   Congruent and Discrepant constructs. This proposed below is that applied by IDIOGRID
   #   software (V.2.3)
-  #   IDIOGRID uses "the scale midpoint as the 'dividing line' for discrepancies; for example, 
-  #   if the actual self (the Subject Element) is rated above the scale midpoint and the ideal 
-  #   self (the Target Element) is rated below the midpoint, then a discrepancy exists (and 
-  #   vice versa). If the two selves are rated on the same side of the scale or if either 
-  #   the actual self or the ideal self are rated at the midpoint of the scale, then a discre- 
+  #   IDIOGRID uses "the scale midpoint as the 'dividing line' for discrepancies; for example,
+  #   if the actual self (the Subject Element) is rated above the scale midpoint and the ideal
+  #   self (the Target Element) is rated below the midpoint, then a discrepancy exists (and
+  #   vice versa). If the two selves are rated on the same side of the scale or if either
+  #   the actual self or the ideal self are rated at the midpoint of the scale, then a discre-
   #   pancy does not exist." (from IDIOGRID manual)
 
   else if (diff.mode == 0) {
-    
-    is.congruent <- (s[, self] < midpoint  &  s[, ideal] < midpoint) | 
-                    (s[, self] > midpoint  &  s[, ideal] > midpoint)
-    is.discrepant <- (s[, self] < midpoint  &  s[, ideal] > midpoint) | 
-                     (s[, self] > midpoint  &  s[, ideal] < midpoint)
+    is.congruent <- (s[, self] < midpoint & s[, ideal] < midpoint) |
+      (s[, self] > midpoint & s[, ideal] > midpoint)
+    is.discrepant <- (s[, self] < midpoint & s[, ideal] > midpoint) |
+      (s[, self] > midpoint & s[, ideal] < midpoint)
     is.neither <- !is.congruent & !is.discrepant
     type.c[is.congruent] <- "congruent"
     type.c[is.discrepant] <- "discrepant"
@@ -1808,11 +1904,11 @@ indexDilemmaInternal <- function(x, self, ideal,
   }
 
   #--------------- END OF MIDPOINT-BASED CRITERION -----------------------------#
-  
-  #//////////////////////////////////////////////////////////////////////////////
-  # DIEGO: This that I have commented-out is now redundant as the variables are not duplicates 
+
+  # //////////////////////////////////////////////////////////////////////////////
+  # DIEGO: This that I have commented-out is now redundant as the variables are not duplicates
   # anymore and are calculated only in their conditional loop. This is more efficient
-  #//////////////////////////////////////////////////////////////////////////////
+  # //////////////////////////////////////////////////////////////////////////////
   #  if (diff.mode == 1){
   #  is.congruent <- is.congruent.e
   #  is.discrepant <- is.discrepant.e
@@ -1820,194 +1916,205 @@ indexDilemmaInternal <- function(x, self, ideal,
   #  } else if (diff.mode == 0){ ##### ADDED CHOICE "0" for MIDPOINT RATING CRITERION
   #  is.congruent <- is.congruent.p
   #  is.discrepant <- is.discrepant.p
-  #  type.construct <- type.c.poles 
+  #  type.construct <- type.c.poles
   #  }
   # we just need the next line to reconnect with the original indexdilemma routine
-  #//////////////////////////////////////////////////////////////////////////////
-  
+  # //////////////////////////////////////////////////////////////////////////////
+
   type.construct <- type.c
   # GET CORRELATIONS
-  
-  # inter-construct correlations including and excluding 
+
+  # inter-construct correlations including and excluding
   # the elements self and ideal self
-  rc.include <- constructCor(x)                     # TODO digits=digits
-  rc.exclude <- constructCor(x[, -c(self, ideal)])  #digits=digits
-  
+  rc.include <- constructCor(x) # TODO digits=digits
+  rc.exclude <- constructCor(x[, -c(self, ideal)]) # digits=digits
+
   # correlations to use for evaluation
   if (exclude) {
-    rc.use <- rc.exclude 
+    rc.use <- rc.exclude
   } else {
     rc.use <- rc.include
   }
-    
+
   # type.c.poles <- type.c.elem <- rep(NA, nrow(s)) # set up results vectors
   type.c <- rep(NA, nrow(s))
   # GET DILEMMAS
-  
+
   # which pairs of absolute construct correlations are bigger than r.min?
   comb <- t(combn(nc, 2)) # all possible correlation pairs (don't repeat)
-  n_construct_pairs <- nrow(comb)   # = factorial(n) / (2*factorial(n - 2))
+  n_construct_pairs <- nrow(comb) # = factorial(n) / (2*factorial(n - 2))
   needs.to.invert <- logical()
-  
+
   # set up result vectors
   check <- bigger.rmin <- r.include <- r.exclude <- type.c1 <- type.c2 <- rep(NA, nrow(comb))
-  
+
   # check every pair of constructs for characteristics
   for (i in 1L:nrow(comb)) {
-    c1 <- comb[i,1]
-    c2 <- comb[i,2]
+    c1 <- comb[i, 1]
+    c2 <- comb[i, 2]
     r.include[i] <- rc.include[c1, c2]
     r.exclude[i] <- rc.exclude[c1, c2]
     type.c1[i] <- type.construct[c1]
     type.c2[i] <- type.construct[c2]
-    
+
     # CORRECTION:
     # To create a dilemma, the 'self' scores of both constructs must be
     # on the same pole. We have to check for that.
-    
+
     # REMOVED HARDCODED MIDPOINT
     # DIEGO: 4 is the midpoint and it was "hardcoded". This is not good if we have a scoring range
     # that is not 1-7 because in that case the midpoint will NOT be 4!
     #
     # DIEGO: another bug-fix is that in the section where the scripts "reorient" the constructs:
-    # the code to re-orient the constructs is not controlling for self or ideal self to be scored 
-    # as the midpoint. This causes the script break. I have added a condition for those combinations 
+    # the code to re-orient the constructs is not controlling for self or ideal self to be scored
+    # as the midpoint. This causes the script break. I have added a condition for those combinations
     # equivalent to self-score != midpoint
-    
+
     if (s[c1, self] != midpoint & s[c2, self] != midpoint) {
-      if (s[c1, self] > midpoint & s[c2, self] > midpoint) {   
-        if (rc.use[c1, c2] >= r.min) # CORRECTION: don't use ABS values,
+      if (s[c1, self] > midpoint & s[c2, self] > midpoint) {
+        if (rc.use[c1, c2] >= r.min) { # CORRECTION: don't use ABS values,
           # we invert scores to check constructs
           # to find correlations the other way
-          bigger.rmin[i] <- TRUE else
-            bigger.rmin[i] <- FALSE
-          check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
-            (is.discrepant[c1] & is.congruent[c2])
-          needs.to.invert[c1] <- TRUE
-          needs.to.invert[c2] <- TRUE
+          bigger.rmin[i] <- TRUE
+        } else {
+          bigger.rmin[i] <- FALSE
+        }
+        check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
+          (is.discrepant[c1] & is.congruent[c2])
+        needs.to.invert[c1] <- TRUE
+        needs.to.invert[c2] <- TRUE
+      } else if (s[c1, self] < midpoint & s[c2, self] < midpoint) {
+        if (rc.use[c1, c2] >= r.min) {
+          bigger.rmin[i] <- TRUE
+        } else {
+          bigger.rmin[i] <- FALSE
+        }
+        check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
+          (is.discrepant[c1] & is.congruent[c2])
+        needs.to.invert[c1] <- FALSE
+        needs.to.invert[c2] <- FALSE
       }
-      else if (s[c1, self] < midpoint & s[c2, self] < midpoint) {
-        if (rc.use[c1, c2] >= r.min)
-          bigger.rmin[i] <- TRUE else
-            bigger.rmin[i] <- FALSE
-          check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
-            (is.discrepant[c1] & is.congruent[c2])
-          needs.to.invert[c1] <- FALSE
-          needs.to.invert[c2] <- FALSE
-      }
-      
+
       # NEW:
       # Now check for inverted scores.
       # You only need to invert one construct at a time
-      
+
       if (s_inverted[c1, self] > midpoint & s[c2, self] > midpoint) {
-        r.include[i] = cor(s_inverted[c1,], s[c2,])
-        r.exclude[i] = "*Not implemented"
-        if (r.include[i] >= r.min) 
-          bigger.rmin[i] <- TRUE else
-            bigger.rmin[i] <- FALSE
+        r.include[i] <- cor(s_inverted[c1, ], s[c2, ])
+        r.exclude[i] <- "*Not implemented"
+        if (r.include[i] >= r.min) {
+          bigger.rmin[i] <- TRUE
+        } else {
+          bigger.rmin[i] <- FALSE
+        }
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c2] <- TRUE
-      }
-      else if (s_inverted[c1, self] < midpoint & s[c2, self] < midpoint) {
-        r.include[i] = cor(s_inverted[c1,], s[c2,])
-        r.exclude[i] = "*Not implemented"
-        if (r.include[i] >= r.min) 
-          bigger.rmin[i] <- TRUE else
-            bigger.rmin[i] <- FALSE
+      } else if (s_inverted[c1, self] < midpoint & s[c2, self] < midpoint) {
+        r.include[i] <- cor(s_inverted[c1, ], s[c2, ])
+        r.exclude[i] <- "*Not implemented"
+        if (r.include[i] >= r.min) {
+          bigger.rmin[i] <- TRUE
+        } else {
+          bigger.rmin[i] <- FALSE
+        }
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c1] <- TRUE
       }
-      
+
       if (s[c1, self] > midpoint & s_inverted[c2, self] > midpoint) {
-        r.include[i] = cor(s[c1,], s_inverted[c2,])
-        r.exclude[i] = "*Not implemented"
-        if (r.include[i] >= r.min) 
-          bigger.rmin[i] <- TRUE else
-            bigger.rmin[i] <- FALSE
+        r.include[i] <- cor(s[c1, ], s_inverted[c2, ])
+        r.exclude[i] <- "*Not implemented"
+        if (r.include[i] >= r.min) {
+          bigger.rmin[i] <- TRUE
+        } else {
+          bigger.rmin[i] <- FALSE
+        }
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c1] <- TRUE
-      }
-      else if (s[c1, self] < midpoint & s_inverted[c2, self] < midpoint) {
-        r.include[i] = cor(s[c1,], s_inverted[c2,])
-        r.exclude[i] = "*Not implemented"
-        if (r.include[i] >= r.min) 
-          bigger.rmin[i] <- TRUE else
-            bigger.rmin[i] <- FALSE
+      } else if (s[c1, self] < midpoint & s_inverted[c2, self] < midpoint) {
+        r.include[i] <- cor(s[c1, ], s_inverted[c2, ])
+        r.exclude[i] <- "*Not implemented"
+        if (r.include[i] >= r.min) {
+          bigger.rmin[i] <- TRUE
+        } else {
+          bigger.rmin[i] <- FALSE
+        }
         check[i] <- (is.congruent[c1] & is.discrepant[c2]) |
           (is.discrepant[c1] & is.congruent[c2])
         needs.to.invert[c2] <- TRUE
       }
+    } else { # DIEGO: closing of the if() where I put the condition for self to be != to the midpoint score
+      needs.to.invert[c1] <- FALSE
+      needs.to.invert[c2] <- FALSE
     }
-    else {# DIEGO: closing of the if() where I put the condition for self to be != to the midpoint score
-    needs.to.invert[c1] <- FALSE
-    needs.to.invert[c2] <- FALSE
-    }
-    #print(paste(needs.to.invert,s[c1,self],s[c2,self])) # Diego debug printout of variables
+    # print(paste(needs.to.invert,s[c1,self],s[c2,self])) # Diego debug printout of variables
   }
   # New: invert construct label poles if needed
   needs.to.invert[is.na(needs.to.invert)] <- FALSE
-  leftpole <- constructs(x)$leftpole 
+  leftpole <- constructs(x)$leftpole
   rightpole <- constructs(x)$rightpole
 
   for (i in 1L:nc) {
     if (needs.to.invert[i]) {
       s[i, self] <- s_inverted[i, self]
       s[i, ideal] <- s_inverted[i, ideal]
-      cnames[i] = paste(rightpole[i], leftpole[i], sep = ' - ')
+      cnames[i] <- paste(rightpole[i], leftpole[i], sep = " - ")
     } else {
-      cnames[i] = paste(leftpole[i], rightpole[i], sep = ' - ')
+      cnames[i] <- paste(leftpole[i], rightpole[i], sep = " - ")
     }
   }
-  
+
   # GET RESULTS
-  
+
   ## 1: this data frame contains information related to 'self' and 'ideal' elements
-  construct_classification <- data.frame(construct = cnames, a.priori = type.construct, self = s[, self], ideal = s[, ideal], 
-                                         stringsAsFactors = FALSE)
+  construct_classification <- data.frame(
+    construct = cnames, a.priori = type.construct, self = s[, self], ideal = s[, ideal],
+    stringsAsFactors = FALSE
+  )
   colnames(construct_classification) <- c("Construct", "Classification", "Self", "Ideal")
   rownames(construct_classification) <- NULL
-  construct_classification <- construct_classification %>% 
+  construct_classification <- construct_classification %>%
     dplyr::mutate(
       Difference = abs(Self - Ideal)
-    ) %>% 
+    ) %>%
     select(Construct, Self, Ideal, Difference, Classification)
-  
+
   ## 2: This dataframe stores the information for all posible construct combinations
-  all_pairs <- data.frame(c1 = comb[,1], c2 = comb[,2], r.inc = r.include, 
-                     r.exc = r.exclude, bigger.rmin, type.c1, type.c2, check,
-                     name.c1 = cnames[comb[,1]], name.c2 = cnames[comb[,2]], 
-                     stringsAsFactors = FALSE) 
-  
+  all_pairs <- data.frame(
+    c1 = comb[, 1], c2 = comb[, 2], r.inc = r.include,
+    r.exc = r.exclude, bigger.rmin, type.c1, type.c2, check,
+    name.c1 = cnames[comb[, 1]], name.c2 = cnames[comb[, 2]],
+    stringsAsFactors = FALSE
+  )
+
   ## 3: This dataframe contains information for all the dilemmas
-  dilemmas_info <- subset(all_pairs, check == TRUE & bigger.rmin == TRUE)  
-  no_ids <- nrow(dilemmas_info)  # Number of implicative dilemmas
-  cnstr.labels = character()
+  dilemmas_info <- subset(all_pairs, check == TRUE & bigger.rmin == TRUE)
+  no_ids <- nrow(dilemmas_info) # Number of implicative dilemmas
+  cnstr.labels <- character()
   cnstr.labels.left <- cnstr.labels.right <- cnstr.labels
   cnstr.id.left <- cnstr.id.right <- numeric()
-    
+
   # Put all discrepant constructs to the right
   if (no_ids != 0) {
     for (v in seq_len(no_ids)) {
-      if (dilemmas_info$type.c1[v] == 'discrepant') {
-        cnstr.labels.left[v] = dilemmas_info[v, "name.c2"]
-        cnstr.labels.right[v] = dilemmas_info[v, "name.c1"]
-        cnstr.id.left[v] = dilemmas_info[v, "c2"]
-        cnstr.id.right[v] = dilemmas_info[v, "c1"]
-      }
-      else {
-        cnstr.labels.left[v] = dilemmas_info[v, "name.c1"]
-        cnstr.labels.right[v] = dilemmas_info[v, "name.c2"]
-        cnstr.id.left[v] = dilemmas_info[v, "c1"]
-        cnstr.id.right[v] = dilemmas_info[v, "c2"]
+      if (dilemmas_info$type.c1[v] == "discrepant") {
+        cnstr.labels.left[v] <- dilemmas_info[v, "name.c2"]
+        cnstr.labels.right[v] <- dilemmas_info[v, "name.c1"]
+        cnstr.id.left[v] <- dilemmas_info[v, "c2"]
+        cnstr.id.right[v] <- dilemmas_info[v, "c1"]
+      } else {
+        cnstr.labels.left[v] <- dilemmas_info[v, "name.c1"]
+        cnstr.labels.right[v] <- dilemmas_info[v, "name.c2"]
+        cnstr.id.left[v] <- dilemmas_info[v, "c1"]
+        cnstr.id.right[v] <- dilemmas_info[v, "c2"]
       }
     }
   }
 
-  
+
   ## 4: reordered dilemma output
   cnstr.labels.left <- paste0(cnstr.id.left, ". ", cnstr.labels.left)
   cnstr.labels.right <- paste0(cnstr.id.right, ". ", cnstr.labels.right)
@@ -2017,32 +2124,33 @@ indexDilemmaInternal <- function(x, self, ideal,
     cnstr.labels.left <- character()
     cnstr.labels.right <- character()
   }
-  dilemmas_df <- data.frame(cnstr.id.left, cnstr.labels.left, 
-                            cnstr.id.right, cnstr.labels.right, 
-                            Rtot = dilemmas_info[,3], RexSI = dilemmas_info[,4], 
-                            stringsAsFactors = FALSE)                
+  dilemmas_df <- data.frame(cnstr.id.left, cnstr.labels.left,
+    cnstr.id.right, cnstr.labels.right,
+    Rtot = dilemmas_info[, 3], RexSI = dilemmas_info[, 4],
+    stringsAsFactors = FALSE
+  )
   # colnames(dilemmas_df) = c('Self - Not self', 'Rtot', 'Self - Ideal', 'RexSI')
-  colnames(dilemmas_df) = c("id_c", "Congruent", "id_d", "Discrepant", 'R', 'RexSI')
-  
+  colnames(dilemmas_df) <- c("id_c", "Congruent", "id_d", "Discrepant", "R", "RexSI")
+
   ## 5: measures
-  d = no_ids
-  r <- dilemmas_df$R  # correlations between ID pairs
-  
+  d <- no_ids
+  r <- dilemmas_df$R # correlations between ID pairs
+
   # PID
   # percentage of IDs over total number of possible constructs pairs
-  pid = d / nrow(comb) 
-  
+  pid <- d / nrow(comb)
+
   # IID
-  # Intensity of the implicative dilemma (IID), quotient of the number of 
+  # Intensity of the implicative dilemma (IID), quotient of the number of
   # constructs by the probability of finding implicative dilemmas given the matrix size.
   # iid = sqrt(sum(r^2)) / d * 100    # "correct" version from paper
-  iid = sum(r) / d * 100          # version as in Gridcor (not as in paper)
-  
+  iid <- sum(r) / d * 100 # version as in Gridcor (not as in paper)
+
   # PICID
   # proportion of the intensity of constructs of implicative dilemmas
   # picid = sqrt(sum(r^2)) / n_construct_pairs * 100   # "correct" version from paper
-  picid = sum(r) / n_construct_pairs * 100  # version in Gridcor (not as in paper)
-  
+  picid <- sum(r) / n_construct_pairs * 100 # version in Gridcor (not as in paper)
+
   # gather measures
   measures <- list(
     iid = iid,
@@ -2053,46 +2161,47 @@ indexDilemmaInternal <- function(x, self, ideal,
   # REALIGEND GRID
   ii_swap <- which(needs.to.invert)
   x_aligned <- swapPoles(x, pos = ii_swap)
-  
+
   # CONSTRUCTS INVOLVED in IDS
-  i_involved <- union(dilemmas_info$c1, dilemmas_info$c2)  
-  
+  i_involved <- union(dilemmas_info$c1, dilemmas_info$c2)
+
   # indexDilemma object
-  l <- list(no_ids = no_ids,
-            n_construct_pairs = n_construct_pairs,  # = factorial(n) / (2*factorial(n - 2))
-            self = self,
-            reversed = which(needs.to.invert),
-            constructs_involved = i_involved,
-            ideal = ideal, 
-            elements = enames, 
-            diff.discrepant = diff.discrepant, 
-            diff.congruent = diff.congruent,
-            exclude = exclude, 
-            r.min = r.min, 
-            diff.mode = diff.mode,
-            midpoint = midpoint,
-            measures = measures,
-            # dataframes
-            construct_classification = construct_classification,  # discrepant / congruent
-            dilemmas_info = dilemmas_info, 
-            dilemmas_df = dilemmas_df,  # table with dilemmas and correlations
-            grid_aligned = x_aligned
-            )
+  l <- list(
+    no_ids = no_ids,
+    n_construct_pairs = n_construct_pairs, # = factorial(n) / (2*factorial(n - 2))
+    self = self,
+    reversed = which(needs.to.invert),
+    constructs_involved = i_involved,
+    ideal = ideal,
+    elements = enames,
+    diff.discrepant = diff.discrepant,
+    diff.congruent = diff.congruent,
+    exclude = exclude,
+    r.min = r.min,
+    diff.mode = diff.mode,
+    midpoint = midpoint,
+    measures = measures,
+    # dataframes
+    construct_classification = construct_classification, # discrepant / congruent
+    dilemmas_info = dilemmas_info,
+    dilemmas_df = dilemmas_df, # table with dilemmas and correlations
+    grid_aligned = x_aligned
+  )
   class(l) <- c("indexDilemma", class(l))
   l
 }
 
 
 #' Print method for class indexDilemma
-#' 
+#'
 #' @param x         Object of class indexDilemma
 #' @param digits    Numeric. Number of digits to round to (default is `2`).
-#' @param output    String with each letter indicating which parts of the output to print 
+#' @param output    String with each letter indicating which parts of the output to print
 #'                  (default is `"OCD"`, order does not matter):
 #'                  `S` = Summary (Number of IDs, PID, etc.),
 #'                  `P` = Analysis parameters,
-#'                  `C` = Construct classification table, 
-#'                  `D` = Implicative dilemmas table. 
+#'                  `C` = Construct classification table,
+#'                  `D` = Implicative dilemmas table.
 #' @param ...       Not evaluated.
 #' @method          print indexDilemma
 #' @keywords        internal
@@ -2111,16 +2220,16 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
   exclude <- x$exclude
   midpoint <- x$midpoint
   dilemmas_df <- x$dilemmas_df
-  
+
   # measures
   pid <- x$measures$pid
   iid <- x$measures$iid
   picid <- x$measures$picid
-  
+
   cat("\n####################\n")
   cat("Implicative Dilemmas")
   cat("\n####################\n")
-  
+
   ## Summary and Measures
   if (str_detect(output, "S")) {
     cat("\n-------------------------------------------------------------------------------")
@@ -2132,17 +2241,17 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
     cat("\nPercentage of IDs (PID):", pid_perc, pid_no)
     cat("\nIntensity of IDs (IID):", round(iid, 1))
     cat("\nProportion of the intensity of constructs of IDs (PICID):", round(picid, 1))
-  }  
-  
+  }
+
   ## Parameters
   if (str_detect(output, "P")) {
     cat("\n\n-------------------------------------------------------------------------------")
     cat(bold("\n\nPARAMETERS:\n"))
     cat("\nSelf: Element No.", paste0(self, " = ", enames[self]))
-    cat("\nIdeal: Element No.",  paste0(ideal, " = ", enames[ideal]))
+    cat("\nIdeal: Element No.", paste0(ideal, " = ", enames[ideal]))
     cat("\n\nCorrelation Criterion: >=", r.min)
     if (exclude) {
-      cat("\nNote: Correlation calculated excluding elements Self & Ideal") 
+      cat("\nNote: Correlation calculated excluding elements Self & Ideal")
     } else {
       cat("\nNote: Correlation calculated including elements Self & Ideal\n")
     }
@@ -2156,28 +2265,28 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
       cat("\nUsing Midpoint rating criterion")
     }
   }
-  #Extreme Criteria:
-  #Discrepant Difference: Self-Ideal greater than or equal to, Max Other-Self difference
-  #Congruent Difference: Self-Ideal less than or equal to, Min Other-Self difference  
+  # Extreme Criteria:
+  # Discrepant Difference: Self-Ideal greater than or equal to, Max Other-Self difference
+  # Congruent Difference: Self-Ideal less than or equal to, Min Other-Self difference
 
   ## Classification of constructs:
   if (str_detect(output, "C")) {
     cat("\n\n-------------------------------------------------------------------------------")
     cat(bold("\n\nCLASSIFICATION OF CONSTRUCTS:\n"))
     cat(blue("\n   Note: Constructs aligned so 'Self' corresponds to left pole\n\n"))
-    
-    # cat(paste0("\n   Note: 'Self' corresponds to left pole ", 
+
+    # cat(paste0("\n   Note: 'Self' corresponds to left pole ",
     #            "unless score equals the midpoint (", midpoint, " = undecided)\n\n"))
     print(x$construct_classification)
   }
-  
+
   ## Implicative Dilemmas:
   if (str_detect(output, "D")) {
     cat("\n-------------------------------------------------------------------------------")
     cat(bold("\n\nIMPLICATIVE DILEMMAS:\n"))
     cat(blue("\n   Note: Congruent constructs on the left - Discrepant constructs on the right"))
     cat("\n\n")
-    
+
     if (nrow(dilemmas_df) > 0) {
       dilemmas_df <- dilemmas_df %>% select(-id_c, -id_d)
       dilemmas_df$R <- round(dilemmas_df$R, digits)
@@ -2211,16 +2320,16 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #' The detection of implicative dilemmas happens in two steps. First the constructs are classified as being 'congruent'
 #' or 'discrepant'. Secondly, the correlation between a congruent and discrepant construct pair is assessed if it is
 #' big enough to indicate an implication.
-#' 
-#' **Classifying the construct** 
-#' 
+#'
+#' **Classifying the construct**
+#'
 #' To detect implicit dilemmas the construct pairs are first identified as 'congruent' or 'discrepant'. The assessment
 #' is based on the rating differences between the elements 'self' and 'ideal self'. A construct is 'congruent' if the
 #' construction of the 'self' and the preferred state (i.e. ideal self) are the same or similar. A construct is
 #' discrepant if the construction of the 'self' and the 'ideal' is dissimilar.
 #'
 #' There are two popular accepted methods to identify congruent and discrepant constructs:
-#' 
+#'
 #' 1. "Scale Midpoint criterion" (cf. Grice 2008)
 #' 2.  "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
 #'
@@ -2251,13 +2360,13 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #'
 #' The values used to classify the constructs 'congruent' or 'discrepant' can be determined in several ways (cf. Bell,
 #' 2009):
-#' 
+#'
 #' 1. They are set 'a priori'.
 #' 2. They are implicitly derived by taking into account the rating
 #'    differences to the other constructs. (Not yet implemented)
 #'
 #' The value mode is determined via the argument `diff.mode`.
-#' 
+#'
 #' If no 'a priori' criteria to determine whether the construct is congruent or discrepant is supplied as an argument,
 #' the values are chosen according to the range of the rating scale used. For the following scales the defaults are
 #' chosen as:
@@ -2273,9 +2382,9 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #'  | 1 2 3 4 5 6 7 8        | --> con: <=1    disc: >=5 |
 #'  | 1 2 3 4 5 6 7 8 9      | --> con: <=2    disc: >=5 |
 #'  | 1 2 3 4 5 6 7 8 9 10   | --> con: <=2    disc: >=6 |
-#' 
-#' **Defining the correlations** 
-#' 
+#'
+#' **Defining the correlations**
+#'
 #' As the implications between constructs cannot be derived from a rating grid directly, the correlation between two
 #' constructs is used as an indicator for implication. A large correlation means that one construct pole implies the
 #' other. A small correlation indicates a lack of implication. The minimum criterion for a correlation to indicate
@@ -2285,8 +2394,8 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #' e. self and ideal self) can be included (default) or excluded. The options will cause different correlations (see
 #' argument `exclude`).
 #'
-#' **Example of an implicative dilemma** 
-#' 
+#' **Example of an implicative dilemma**
+#'
 #' A depressive person considers herself as 'timid' and wished to change to the opposite pole she defines as
 #' 'extraverted'. This construct is called discrepant as the construction of the 'self' and the desired state (e.g.
 #' described by the 'ideal self') on this construct differ. The person also considers herself as 'sensitive' (preferred
@@ -2322,10 +2431,10 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #'   trimming is done. Trimming simply saves space when displaying the output.
 #' @param digits Numeric. Number of digits to round to (default is `2`).
 #' @param output The type of output to return.
-#' 
+#'
 #' @author Mark Heckmann, Alejandro García, Diego Vitali
 #' @return  List object of class `indexDilemma`, containing the result from the calculations.
-#' @references 
+#' @references
 #'   Bell, R. C. (2009). *Gridstat version 5 - A Program for Analyzing the Data of A Repertory Grid*
 #'   (manual). University of Melbourne, Australia: Department of Psychology.
 #'
@@ -2347,28 +2456,33 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #' @seealso [print.indexDilemma()], [plot.indexDilemma()]
 #' @export
 #' @example inst/examples/example-implicative-dilemmas.R
-#'  
-indexDilemma <- function(x, self = 1, ideal = ncol(x), 
+#'
+indexDilemma <- function(x, self = 1, ideal = ncol(x),
                          diff.mode = 1, diff.congruent = NA,
-                         diff.discrepant = NA, diff.poles = 1, 
+                         diff.discrepant = NA, diff.poles = 1,
                          r.min = .35, exclude = FALSE, digits = 2, show = FALSE,
                          output = 1, index = TRUE, trim = 20) {
   # automatic selection of a priori criteria
   sc <- getScale(x)
-  if (is.na(diff.congruent))
+  if (is.na(diff.congruent)) {
     diff.congruent <- floor(diff(sc) * .25)
-  if (is.na(diff.discrepant))
-    diff.discrepant <-  ceiling(diff(sc) * .6)
-  
+  }
+  if (is.na(diff.discrepant)) {
+    diff.discrepant <- ceiling(diff(sc) * .6)
+  }
+
   # detect dilemmas
-  res <- indexDilemmaInternal(x, self = self, ideal = ideal, 
-                              diff.mode = diff.mode, diff.congruent = diff.congruent,
-                              diff.discrepant = diff.discrepant, diff.poles = diff.poles,
-                              r.min = r.min, exclude = exclude, digits = digits, 
-                              index = index, trim = trim)
-  if (show) 
+  res <- indexDilemmaInternal(x,
+    self = self, ideal = ideal,
+    diff.mode = diff.mode, diff.congruent = diff.congruent,
+    diff.discrepant = diff.discrepant, diff.poles = diff.poles,
+    r.min = r.min, exclude = exclude, digits = digits,
+    index = index, trim = trim
+  )
+  if (show) {
     indexDilemmaShowCorrelationDistribution(x, self, ideal)
-  
+  }
+
   res
 }
 
@@ -2376,11 +2490,11 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 
 #' Plot method for indexDilemma (network graph)
 #'
-#' Produces a network graph using of the detected implicative dilemmas using the 
+#' Produces a network graph using of the detected implicative dilemmas using the
 #'  `igraph` package.
 #'
 #' @param x Object returned by `indexDilemma`.
-#' @param layout Name of layout. One of `rows`, `circle`, `star`, or `nicely` or a 
+#' @param layout Name of layout. One of `rows`, `circle`, `star`, or `nicely` or a
 #'   `igraph` layout function.
 #' @param both.poles Show both construct poles? (default `TRUE`). If `FALSE`
 #' only the poles corresponding to the implied undesired changes are shown.
@@ -2388,7 +2502,7 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 #' @param node.size Size of nodes (default `50`).
 #' @param node.text.cex Text size of construct labels.
 #' @param node.label.color Color of construct labels.
-#' @param node.color.discrepant,node.color.congruent Color of discrepant and congruent constructs nodes. 
+#' @param node.color.discrepant,node.color.congruent Color of discrepant and congruent constructs nodes.
 #' @param edge.label.color,edge.label.cex Color and size of correlation labels.
 #' @param edge.color,edge.arrow.size Color and Size of arrow.
 #' @param edge.lty Linetype of arrow.
@@ -2396,78 +2510,81 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 #' @export
 #'
 plot.indexDilemma <- function(
-  x, 
-  layout = "rows", 
-  both.poles = TRUE, 
-  node.size = 50,
-  node.text.cex = 1,
-  node.label.color = "black",
-  node.color.discrepant = "darkolivegreen3",
-  node.color.congruent = "lightcoral",
-  edge.label.color = grey(.4),
-  edge.label.cex = 1,
-  edge.digits = 2,
-  edge.arrow.size = .5, 
-  edge.color = grey(.6),
-  edge.lty = 2,
-  ...
-) {
-  id = x  # renamed from 'id' to 'x' to match arg in print generic
-  
+    x,
+    layout = "rows",
+    both.poles = TRUE,
+    node.size = 50,
+    node.text.cex = 1,
+    node.label.color = "black",
+    node.color.discrepant = "darkolivegreen3",
+    node.color.congruent = "lightcoral",
+    edge.label.color = grey(.4),
+    edge.label.cex = 1,
+    edge.digits = 2,
+    edge.arrow.size = .5,
+    edge.color = grey(.6),
+    edge.lty = 2,
+    ...) {
+  id <- x # renamed from 'id' to 'x' to match arg in print generic
+
   # response in case no dilemmas were found
   if (id$no_ids == 0) {
     plot.new()
     text(.5, .5, "No implicative dilemmas detected")
     return(invisible(NULL))
   }
-  
+
   # rename args
   vertex.size <- node.size
   vertex.label.cex <- node.text.cex
-  
+
   # get relevant data from indexDilemma object
-  x <- id$grid  
+  x <- id$grid
   r.min <- id$r.min
   dilemmas_df <- id$dilemmas_df
   x <- id$grid_aligned
   i_involved <- id$constructs_involved # constructs involved in IDs
   R <- constructCor(x, trim = NA)
   if (both.poles) {
-    vertex_labels <- rownames(R) 
+    vertex_labels <- rownames(R)
   } else {
     vertex_labels <- constructs(x)$rightpole
   }
   vertex_labels <- vertex_labels[i_involved] %>% str_wrap(width = 15)
-  
+
   # Create directed indicator matrix. Only one direction, i.e. from
   # discrepant to congruent construct = negative implication
   # direction in matrix from row (discrepant) to column (congruent)
   K <- R
-  K[,] <- 0
+  K[, ] <- 0
   for (i in 1L:nrow(dilemmas_df)) {
-    K[ dilemmas_df$id_d[i], dilemmas_df$id_c[i] ] <- 1  # row -> column
+    K[dilemmas_df$id_d[i], dilemmas_df$id_c[i]] <- 1 # row -> column
   }
-  edge_labels <- R[K == 1] %>% round(edge.digits)  # round correlations
-  
+  edge_labels <- R[K == 1] %>% round(edge.digits) # round correlations
+
   # remove non-ID constructs
   W_red <- K[i_involved, i_involved]
-  g <- igraph::graph_from_adjacency_matrix(W_red, diag = FALSE, 
-                                           mode  = "directed", weighted = TRUE)
-  vertex_colors <- dplyr::recode(id$construct_classification$Classification, 
-                                 "congruent" = node.color.congruent, 
-                                 "discrepant" = node.color.discrepant, 
-                                 "neither" = "grey")
+  g <- igraph::graph_from_adjacency_matrix(W_red,
+    diag = FALSE,
+    mode = "directed", weighted = TRUE
+  )
+  vertex_colors <- dplyr::recode(id$construct_classification$Classification,
+    "congruent" = node.color.congruent,
+    "discrepant" = node.color.discrepant,
+    "neither" = "grey"
+  )
   vertex_colors <- vertex_colors[i_involved]
   igraph::V(g)$color <- vertex_colors
-  
+
   # type vector for bipartite layout (boolean)
-  vertex_bipart_type <- dplyr::recode(id$construct_classification$Classification, 
-                                      "congruent" = T, 
-                                      "discrepant" = F, 
-                                      "neither" = NA)
+  vertex_bipart_type <- dplyr::recode(id$construct_classification$Classification,
+    "congruent" = T,
+    "discrepant" = F,
+    "neither" = NA
+  )
   vertex_bipart_type <- vertex_bipart_type[i_involved]
   igraph::V(g)$type <- vertex_bipart_type
-  
+
   # simplified selection among sensible igraph layouts
   if (is.function(layout)) {
     layout <- layout
@@ -2479,80 +2596,77 @@ plot.indexDilemma <- function(
     layout <- igraph::layout_as_bipartite
   } else {
     layout <- igraph::layout_nicely
-  } 
-  
-  old_par <- par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+  }
+
+  old_par <- par(oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
   on.exit(old_par)
-  igraph::plot.igraph(g, frame = FALSE, ylim = c(-1.3, 1),
-                      layout = layout, rescale = TRUE,
-                      edge.curved = FALSE,
-                      edge.arrow.size = edge.arrow.size, 
-                      edge.label.cex = edge.label.cex,
-                      edge.lty = edge.lty, 
-                      edge.width = 1.5,
-                      edge.label = edge_labels,
-                      edge.color = edge.color,
-                      edge.label.color = edge.label.color,
-                      vertex.size = vertex.size,
-                      vertex.size2 = vertex.size,
-                      vertex.label = vertex_labels,
-                      vertex.label.color = node.label.color,
-                      vertex.label.cex = vertex.label.cex,
-                      vertex.label.family = "sans",
-                      vertex.color = vertex_colors,
-                      vertex.frame.color = grey(.5))
-  legend(x = "bottom", 
-         legend = c("a desired change on 'discrepant' construct", "implies an undesired change on 'congruent' construct"), 
-         bty = "n", cex = 1, inset = c(0, 0), 
-         xjust = .5, box.col = FALSE, horiz = FALSE, yjust = 1,
-         fill = c(node.color.discrepant, node.color.congruent))
+  igraph::plot.igraph(g,
+    frame = FALSE, ylim = c(-1.3, 1),
+    layout = layout, rescale = TRUE,
+    edge.curved = FALSE,
+    edge.arrow.size = edge.arrow.size,
+    edge.label.cex = edge.label.cex,
+    edge.lty = edge.lty,
+    edge.width = 1.5,
+    edge.label = edge_labels,
+    edge.color = edge.color,
+    edge.label.color = edge.label.color,
+    vertex.size = vertex.size,
+    vertex.size2 = vertex.size,
+    vertex.label = vertex_labels,
+    vertex.label.color = node.label.color,
+    vertex.label.cex = vertex.label.cex,
+    vertex.label.family = "sans",
+    vertex.color = vertex_colors,
+    vertex.frame.color = grey(.5)
+  )
+  legend(
+    x = "bottom",
+    legend = c("a desired change on 'discrepant' construct", "implies an undesired change on 'congruent' construct"),
+    bty = "n", cex = 1, inset = c(0, 0),
+    xjust = .5, box.col = FALSE, horiz = FALSE, yjust = 1,
+    fill = c(node.color.discrepant, node.color.congruent)
+  )
 }
 
 
-# dilemmaViz <- function(x) 
+# dilemmaViz <- function(x)
 # {
-  # self <- id$self
-  # ideal <- id$ideal
-  # i <- 1
-  # id$dilemmas_info
-  # 
-  # r <- ratings(x)  
-  # r_self <- r[i, self]
-  # r_ideal <- r[i, ideal]
-  # 
-  # r = .39                      1   2   3   4   5   6   7
-  # congruent:  jayn jnay inay  |SI-----------------------| jayn jnay inay
-  # discrepant:  sxknsx kmsx    |S----------I-------------| iisxsxsxsxsx
-  # 
-  # library(crayon)
-  #   
-  # 
+# self <- id$self
+# ideal <- id$ideal
+# i <- 1
+# id$dilemmas_info
+#
+# r <- ratings(x)
+# r_self <- r[i, self]
+# r_ideal <- r[i, ideal]
+#
+# r = .39                      1   2   3   4   5   6   7
+# congruent:  jayn jnay inay  |SI-----------------------| jayn jnay inay
+# discrepant:  sxknsx kmsx    |S----------I-------------| iisxsxsxsxsx
+#
+# library(crayon)
+#
+#
 # }
 
 
 
 
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 # Pemutation test to test if grid is random.
-# "The null hypothesis [is] that a particular grid 
-# is indis- tinguishable from an array of random numbers" 
+# "The null hypothesis [is] that a particular grid
+# is indis- tinguishable from an array of random numbers"
 # (Slater, 1976, p. 129).
 #
 # randomTest <- function(x){
 #   x
 # }
 # permutationTest
-# Hartmann 1992: 
-# To illustrate: If a person decided to produce a nonsense grid, 
-# the most appropriate way to achieve this goal would be to rate 
-#(rank) the elements randomly. The variation of the elements on 
-# the con- structs would lack any psychological sense. Every 
+# Hartmann 1992:
+# To illustrate: If a person decided to produce a nonsense grid,
+# the most appropriate way to achieve this goal would be to rate
+# (rank) the elements randomly. The variation of the elements on
+# the con- structs would lack any psychological sense. Every
 # statistical analysis should then lead to noninterpretable results.
-
-
-
-
-
-
-

@@ -85,23 +85,23 @@ Index of Conflict Variation.
 }
 
 \examples{
- # calculate conflicts
- indexConflict3(bell2010)
- 
- # show additional stats for elements 1 to 3
- indexConflict3(bell2010, e.out = 1:3)
- 
- # show additional stats for constructs 1 and 5
- indexConflict3(bell2010, c.out = c(1,5))
- 
- # finetune output
- ## change number of digits
- x <- indexConflict3(bell2010)
- print(x, digits = 4)
+# calculate conflicts
+indexConflict3(bell2010)
 
- ## omit discrepancy matrices for constructs
- x <- indexConflict3(bell2010, c.out = 5:6)
- print(x, discrepancies = FALSE)
+# show additional stats for elements 1 to 3
+indexConflict3(bell2010, e.out = 1:3)
+
+# show additional stats for constructs 1 and 5
+indexConflict3(bell2010, c.out = c(1, 5))
+
+# finetune output
+## change number of digits
+x <- indexConflict3(bell2010)
+print(x, digits = 4)
+
+## omit discrepancy matrices for constructs
+x <- indexConflict3(bell2010, c.out = 5:6)
+print(x, discrepancies = FALSE)
 
 }
 \references{

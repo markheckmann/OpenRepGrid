@@ -20,7 +20,6 @@ a string with n words (if length is not constrained)
 generate a random sentence with n words
 }
 \examples{
- 
-randomSentence(10)   # one random sentence with 10 words
+randomSentence(10) # one random sentence with 10 words
 }
 \keyword{internal}

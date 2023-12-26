@@ -18,8 +18,8 @@ Join the constructs of a grid with the same reversed constructs.
 \examples{
 \dontrun{
 
-     data(bell2010)
-     doubleEntry(bell2010)
+data(bell2010)
+doubleEntry(bell2010)
 }
 
 }

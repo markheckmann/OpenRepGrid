@@ -37,10 +37,10 @@ Move element in grid to the right.
 }
 \examples{
 \dontrun{
-   x <- randomGrid()
-   left(x, 2)    # 2nd element to the left
-   right(x, 1)   # 1st element to the right
-   up(x, 2)      # 2nd construct upwards
-   down(x, 1)    # 1st construct downwards
+x <- randomGrid()
+left(x, 2) # 2nd element to the left
+right(x, 1) # 1st element to the right
+up(x, 2) # 2nd construct upwards
+down(x, 1) # 1st construct downwards
 }
 }

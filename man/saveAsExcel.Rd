@@ -24,9 +24,8 @@ Invisibly returns the name of the file.
 \examples{
 \dontrun{
 
- x <- randomGrid(options=0)
- saveAsExcel(x, "grid.xlsx")
-
+x <- randomGrid(options = 0)
+saveAsExcel(x, "grid.xlsx")
 }
 
 }

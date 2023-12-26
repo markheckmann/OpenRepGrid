@@ -19,11 +19,11 @@ find the order of a string vector so it will match the order of another
 }
 \examples{
 \dontrun{
-   a <- c("c", "a", "b")
-   b <- c("b", "c", "a")
-   index <- orderByString(a, b)    # to order b like a needs what indexes?
-   index
-   b[index]
+a <- c("c", "a", "b")
+b <- c("b", "c", "a")
+index <- orderByString(a, b) # to order b like a needs what indexes?
+index
+b[index]
 }
 
 }

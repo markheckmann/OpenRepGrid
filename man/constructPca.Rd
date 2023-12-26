@@ -34,25 +34,25 @@ of factors has to be specified. For more information on the PCA function itself 
 }
 \examples{
 
-   constructPca(bell2010)
+constructPca(bell2010)
 
-   # data from grid manual by Fransella et al. (2003, p. 87)
-   # note that the construct order is different
-   constructPca(fbb2003, nfactors=2)
+# data from grid manual by Fransella et al. (2003, p. 87)
+# note that the construct order is different
+constructPca(fbb2003, nfactors = 2)
 
-   # no rotation
-   constructPca(fbb2003, rotate="none")
+# no rotation
+constructPca(fbb2003, rotate = "none")
 
-   # use a different type of correlation (Spearman)
-   constructPca(fbb2003, method="spearman")
+# use a different type of correlation (Spearman)
+constructPca(fbb2003, method = "spearman")
 
-   # save output to object
-   m <- constructPca(fbb2003, nfactors=2)
-   m
+# save output to object
+m <- constructPca(fbb2003, nfactors = 2)
+m
 
-   # different printing options
-   print(m, digits=5)
-   print(m, cutoff=.3)
+# different printing options
+print(m, digits = 5)
+print(m, cutoff = .3)
 
 }
 \references{

@@ -28,11 +28,11 @@ a grid he should make sure that the scale range is set correctly.
 \examples{
 \dontrun{
 
-   x <- bell2010
-   x <- setScale(x, 0, 8)   # not set correctly
-   x
-   x <- setScale(x, 1, 7)   # set correctly
-   x
+x <- bell2010
+x <- setScale(x, 0, 8) # not set correctly
+x
+x <- setScale(x, 1, 7) # set correctly
+x
 }
 
 }

@@ -107,25 +107,25 @@ see \code{\link[=biplot2d]{biplot2d()}}. Here only the arguments special to
 }
 \examples{
 \dontrun{
-   # biplot with 3D impression
-   biplotPseudo3d(boeker)    
-   # Slater's biplot with 3D impression                  
-   biplotPseudo3d(boeker, g=1, h=1, center=1)  
+# biplot with 3D impression
+biplotPseudo3d(boeker)
+# Slater's biplot with 3D impression
+biplotPseudo3d(boeker, g = 1, h = 1, center = 1)
 
-   # show 2nd and 3rd dim. and map 4th 
-   biplotPseudo3d(boeker, dim=2:3, map.dim=4)  
+# show 2nd and 3rd dim. and map 4th
+biplotPseudo3d(boeker, dim = 2:3, map.dim = 4)
 
-   # change elem. colors
-   biplotPseudo3d(boeker, e.color=c("white", "darkgreen"))
-   # change con. colors 
-   biplotPseudo3d(boeker, c.color=c("white", "darkgreen")) 
-   # change color mapping range
-   biplotPseudo3d(boeker, c.colors.map=c(0, 1))            
+# change elem. colors
+biplotPseudo3d(boeker, e.color = c("white", "darkgreen"))
+# change con. colors
+biplotPseudo3d(boeker, c.color = c("white", "darkgreen"))
+# change color mapping range
+biplotPseudo3d(boeker, c.colors.map = c(0, 1))
 
-   # set uniform con. text size
-   biplotPseudo3d(boeker, c.cex=1)     
-   # change text size mapping range        
-   biplotPseudo3d(boeker, c.cex=c(.4, 1.2))    
+# set uniform con. text size
+biplotPseudo3d(boeker, c.cex = 1)
+# change text size mapping range
+biplotPseudo3d(boeker, c.cex = c(.4, 1.2))
 }
 
 }

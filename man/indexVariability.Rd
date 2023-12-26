@@ -24,8 +24,7 @@ p.88).
 STATUS: working and checked against example in Slater, 1977 , p.88.
 }
 \examples{
-     
-  indexVariability(boeker)
+indexVariability(boeker)
 
 }
 \references{

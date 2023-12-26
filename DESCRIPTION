@@ -75,5 +75,6 @@ NeedsCompilation: no
 Suggests: 
     testthat (>= 2.1.0),
     covr,
+    styler,
     vdiffr
 Roxygen: list(markdown = TRUE)

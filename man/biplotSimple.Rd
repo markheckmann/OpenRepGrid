@@ -91,19 +91,21 @@ exploration used during development.
 }
 \examples{
 \dontrun{
-   
-   biplotSimple(boeker)
-   biplotSimple(boeker, unity=F)
 
-   biplotSimple(boeker, g=1, h=1)              # INGRID biplot
-   biplotSimple(boeker, g=1, h=1, center=4)    # ESA biplot
+biplotSimple(boeker)
+biplotSimple(boeker, unity = F)
 
-   biplotSimple(boeker, zoom=.9)               # zooming out
-   biplotSimple(boeker, scale.e=.6)            # scale element vectors
+biplotSimple(boeker, g = 1, h = 1) # INGRID biplot
+biplotSimple(boeker, g = 1, h = 1, center = 4) # ESA biplot
 
-   biplotSimple(boeker, e.point.col="brown")   # change colors
-   biplotSimple(boeker, e.point.col="brown",
-                c.label.col="darkblue")
+biplotSimple(boeker, zoom = .9) # zooming out
+biplotSimple(boeker, scale.e = .6) # scale element vectors
+
+biplotSimple(boeker, e.point.col = "brown") # change colors
+biplotSimple(boeker,
+  e.point.col = "brown",
+  c.label.col = "darkblue"
+)
 }
 
 }

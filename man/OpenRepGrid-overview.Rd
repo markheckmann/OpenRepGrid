@@ -226,7 +226,7 @@ Everyone who is interested in developing the package is invited to join.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{       The \pkg{OpenRepGrid} package development is hosted on github (<https://github.com/markheckmann/OpenRepGrid>).
        The github site provides information and allows to file bug reports or feature requests.
-       Bug reports can also be emailed to the package maintainer or issued on 
+       Bug reports can also be emailed to the package maintainer or issued on
        <https://openrepgrid.org> under section *Suggestions/Issues*.
        The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 }\if{html}{\out{</div>}}

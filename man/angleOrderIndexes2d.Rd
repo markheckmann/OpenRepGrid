@@ -23,11 +23,11 @@ Reorder indexes for constructs and elements are calculated using the coordinates
 \examples{
 \dontrun{
 
-   x <- randomGrid(15,30)      # make random grid
-   i <- angleOrderIndexes2d(x) # make indexes for ordering
-   x <- x[i[[1]], i[[2]]]      # reorder constructs and elements
-   x                           # print grid
+x <- randomGrid(15, 30) # make random grid
+i <- angleOrderIndexes2d(x) # make indexes for ordering
+x <- x[i[[1]], i[[2]]] # reorder constructs and elements
+x # print grid
 }
-                 
+
 }
 \keyword{internal}

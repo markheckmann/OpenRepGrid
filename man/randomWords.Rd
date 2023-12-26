@@ -17,6 +17,6 @@ randomWords generates a vector of random words taken from a small
 set of words
 }
 \examples{
-randomWords(10)  # 10 random words
+randomWords(10) # 10 random words
 }
 \keyword{internal}

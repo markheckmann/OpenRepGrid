@@ -31,7 +31,7 @@ The default value is shown in the brackets at the end of a line.
 \examples{
 \dontrun{
 # get current settings
-settings() 
+settings()
 
 # get some parameters
 settings("show.scale", "show.meta")
@@ -39,10 +39,10 @@ settings("show.scale", "show.meta")
 # change parameters
 bell2010
 
-settings(show.meta=F)
+settings(show.meta = F)
 bell2010
 
-settings(show.scale=F, show.cut=30)  
+settings(show.scale = F, show.cut = 30)
 bell2010
 }
 

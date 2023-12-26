@@ -37,12 +37,11 @@ distributions standard deviation.
 }
 \examples{
 \dontrun{
- 
- vals <- quasiDistributionDistanceSlater(100, 10, 10, c(1,5), pro=T)
- vals
- sd(vals)
- hist(vals, breaks=50)
- 
+
+vals <- quasiDistributionDistanceSlater(100, 10, 10, c(1, 5), pro = T)
+vals
+sd(vals)
+hist(vals, breaks = 50)
 }
 
 }

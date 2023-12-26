@@ -40,14 +40,15 @@ of a biplot that can also be produced using the
 \examples{
 \dontrun{
 
-   biplotEsa3d(boeker)
-   biplotEsa3d(boeker, unity3d=T)
+biplotEsa3d(boeker)
+biplotEsa3d(boeker, unity3d = T)
 
-   biplotEsa3d(boeker, e.sphere.col="red",
-               c.text.col="blue")
-   biplotEsa3d(boeker, e.cex=1)
-   biplotEsa3d(boeker, col.sphere="red")
-
+biplotEsa3d(boeker,
+  e.sphere.col = "red",
+  c.text.col = "blue"
+)
+biplotEsa3d(boeker, e.cex = 1)
+biplotEsa3d(boeker, col.sphere = "red")
 }
 
 }

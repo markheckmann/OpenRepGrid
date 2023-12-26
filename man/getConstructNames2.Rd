@@ -47,12 +47,11 @@ allow to return the kind of format that is needed.
 }
 \examples{
 \dontrun{
- 
-  getConstructNames2(bell2010)
-  getConstructNames2(bell2010, mode=2)
-  getConstructNames2(bell2010, index=T)
-  getConstructNames2(bell2010, index=T, mode=3)
 
+getConstructNames2(bell2010)
+getConstructNames2(bell2010, mode = 2)
+getConstructNames2(bell2010, index = T)
+getConstructNames2(bell2010, index = T, mode = 3)
 }
 
 }

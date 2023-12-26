@@ -49,10 +49,9 @@ Add a new construct to an existing grid object.
 \examples{
 \dontrun{
 
-   # show grid
-   bell2010                                          
-   addConstruct(bell2010, "left pole", "pole right", c(3,1,3,2,5,4,6,3,7,1))
-
+# show grid
+bell2010
+addConstruct(bell2010, "left pole", "pole right", c(3, 1, 3, 2, 5, 4, 6, 3, 7, 1))
 }
 
 }

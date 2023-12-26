@@ -114,17 +114,21 @@ of elements under investigation (e.g. Raeithel, 1998).
 \examples{
 \dontrun{
 
-   biplot3d(boeker)
-   biplot3d(boeker, unity3d=T)
+biplot3d(boeker)
+biplot3d(boeker, unity3d = T)
 
-   biplot3d(boeker, e.sphere.col="red",
-            c.text.col="blue")
-   biplot3d(boeker, e.cex=1)
-   biplot3d(boeker, col.sphere="red")
+biplot3d(boeker,
+  e.sphere.col = "red",
+  c.text.col = "blue"
+)
+biplot3d(boeker, e.cex = 1)
+biplot3d(boeker, col.sphere = "red")
 
-   biplot3d(boeker, g=1, h=1)    # INGRID biplot
-   biplot3d(boeker, g=1, h=1,    # ESA biplot
-            center=4)
+biplot3d(boeker, g = 1, h = 1) # INGRID biplot
+biplot3d(boeker,
+  g = 1, h = 1, # ESA biplot
+  center = 4
+)
 }
 
 }

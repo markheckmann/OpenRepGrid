@@ -23,11 +23,11 @@ the same but the prompted element or construct appears in first position.
 \examples{
 \dontrun{
 
-   # shift element 13: 'Ideal self' to first position
-   shift(feixas2004, 13)    
+# shift element 13: 'Ideal self' to first position
+shift(feixas2004, 13)
 
-   x <- randomGrid(5,10)
-   shift(x, 3, 5)
+x <- randomGrid(5, 10)
+shift(x, 3, 5)
 }
 
 }

@@ -1,8 +1,7 @@
-
 #' Descriptive statistics for constructs and elements
 #'
 #' Several descriptive measures for constructs and elements.
-#'  
+#'
 #' @param x `repgrid` object.
 #' @param index Whether to print the number of the element.
 #' @param trim The number of characters an element or a construct is trimmed to (default is `20`). If `NA` no trimming
@@ -30,37 +29,39 @@
 #' @rdname stats
 #' @examples
 #'
-#'    statsConstructs(fbb2003)
-#'    statsConstructs(fbb2003, trim=10)
-#'    statsConstructs(fbb2003, trim=10, index=FALSE)
+#' statsConstructs(fbb2003)
+#' statsConstructs(fbb2003, trim = 10)
+#' statsConstructs(fbb2003, trim = 10, index = FALSE)
 #'
-#'    statsElements(fbb2003)
-#'    statsElements(fbb2003, trim=10)
-#'    statsElements(fbb2003, trim=10, index=FALSE)
+#' statsElements(fbb2003)
+#' statsElements(fbb2003, trim = 10)
+#' statsElements(fbb2003, trim = 10, index = FALSE)
 #'
-#'    # save the access the results
-#'    d <- statsElements(fbb2003)
-#'    d
-#'    d["mean"]
-#'    d[2, "mean"]  # mean rating of 2nd element
+#' # save the access the results
+#' d <- statsElements(fbb2003)
+#' d
+#' d["mean"]
+#' d[2, "mean"] # mean rating of 2nd element
 #'
-#'    d <- statsConstructs(fbb2003)
-#'    d
-#'    d["sd"]
-#'    d[1, "sd"]   # sd of ratings on first construct
-#' 
-statsElements <- function(x, index=TRUE, trim=20)
-{
-  if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'")
+#' d <- statsConstructs(fbb2003)
+#' d
+#' d["sd"]
+#' d[1, "sd"] # sd of ratings on first construct
+#'
+statsElements <- function(x, index = TRUE, trim = 20) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
   s <- getRatingLayer(x)
-  res <- describe(s)                              # psych function
-  enames <- getElementNames2(x, index=index, trim=trim) 
+  res <- describe(s) # psych function
+  enames <- getElementNames2(x, index = index, trim = trim)
   ne <- getNoOfElements(x)
-  if (length(unique(enames)) != ne){
-    stop("please chose a longer value for 'trim' or set 'index' to TRUE", 
-         "as the current value produces indentical rownames")
-  }  
+  if (length(unique(enames)) != ne) {
+    stop(
+      "please chose a longer value for 'trim' or set 'index' to TRUE",
+      "as the current value produces indentical rownames"
+    )
+  }
   rownames(res) <- enames
   class(res) <- c("statsElements", "data.frame")
   return(res)
@@ -69,17 +70,16 @@ statsElements <- function(x, index=TRUE, trim=20)
 
 
 #' Print method for class statsElements
-#' 
+#'
 #' @param x         Object of class statsElements.
-#' @param digits    Numeric. Number of digits to round to (default is 
+#' @param digits    Numeric. Number of digits to round to (default is
 #'                  `1`).
 #' @param ...       Not evaluated.
 #' @export
 #' @method          print statsElements
 #' @keywords        internal
 #'
-print.statsElements <- function(x, digits=2, ...) 
-{
+print.statsElements <- function(x, digits = 2, ...) {
   cat("\n##################################")
   cat("\nDesriptive statistics for elements")
   cat("\n##################################\n\n")
@@ -90,12 +90,13 @@ print.statsElements <- function(x, digits=2, ...)
 
 #' @export
 #' @rdname stats
-statsConstructs <- function(x, index=T, trim=20){
-  if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
-   	stop("Object x must be of class 'repgrid'")
+statsConstructs <- function(x, index = T, trim = 20) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
   s <- getRatingLayer(x)
   res <- describe(t(s))
-  cnames <- getConstructNames2(x, index=index, trim=trim)
+  cnames <- getConstructNames2(x, index = index, trim = trim)
   rownames(res) <- cnames
   class(res) <- c("statsConstructs", "data.frame")
   return(res)
@@ -104,17 +105,16 @@ statsConstructs <- function(x, index=T, trim=20){
 
 
 #' Print method for class statsConstructs
-#' 
+#'
 #' @param x         Object of class statsConstructs.
-#' @param digits    Numeric. Number of digits to round to (default is 
+#' @param digits    Numeric. Number of digits to round to (default is
 #'                  `1`).
 #' @param ...       Not evaluated.
 #' @export
 #' @method          print statsConstructs
 #' @keywords        internal
 #'
-print.statsConstructs <- function(x, digits=2, ...) 
-{
+print.statsConstructs <- function(x, digits = 2, ...) {
   cat("\n####################################")
   cat("\nDesriptive statistics for constructs")
   cat("\n####################################\n\n")
@@ -123,8 +123,8 @@ print.statsConstructs <- function(x, digits=2, ...)
 }
 
 
-getScoreDataFrame <- function(x){
-  sc <- x@ratings[,,1]
+getScoreDataFrame <- function(x) {
+  sc <- x@ratings[, , 1]
   rownames(sc) <- constructs(x)$l
   colnames(sc) <- elements(x)
   sc
@@ -133,28 +133,32 @@ getScoreDataFrame <- function(x){
 # disc    element to be used as discrepancy
 # remove  logical. remove element that was used as discrepancy
 #
-makeDiscrepancy <- function(x, disc, remove=TRUE){
-  sc <- x@ratings[,,1]
+makeDiscrepancy <- function(x, disc, remove = TRUE) {
+  sc <- x@ratings[, , 1]
   colnames(sc) <- elements(x)
   scDiscElement <- sc[, disc]
-  if (remove)
-    sc[, -disc] - scDiscElement else 
-    sc[,] - scDiscElement
+  if (remove) {
+    sc[, -disc] - scDiscElement
+  } else {
+    sc[, ] - scDiscElement
+  }
 }
 
-statsDiscrepancy <- function(x, disc, sort=TRUE){
+statsDiscrepancy <- function(x, disc, sort = TRUE) {
   a <- describe(makeDiscrepancy(x, disc))
-  if (sort)
-    a[order(a$mean),] else
-    a 
+  if (sort) {
+    a[order(a$mean), ]
+  } else {
+    a
+  }
 }
 
 
 
-#/////////////////////////////////////////////////////////////////////////////
+# /////////////////////////////////////////////////////////////////////////////
 # order elements and constructs by angles in first two dimensions from
 # singular value decomposition approach (cf. Raeithel ???)
-#/////////////////////////////////////////////////////////////////////////////
+# /////////////////////////////////////////////////////////////////////////////
 
 #' Calculate angles for points in first two columns.
 #'
@@ -171,12 +175,13 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 #' m <- matrix(rnorm(9), 3)
 #' calcAngles()
 #' }
-calcAngles <- function(x, dim=c(1,2), clockwise=TRUE){
-  angles <- atan2(x[ ,dim[2]], x[ ,dim[1]]) / (2 * pi / 360)
-  angles <- angles * -1                    # positive angles are counted clockwise atan2 does anticlockwise by default
-  angles[angles < 0] <- 360 + angles[angles < 0]  # map to 0 to 360 degrees i.e. only positive  values for ordering
-  if (!clockwise)
+calcAngles <- function(x, dim = c(1, 2), clockwise = TRUE) {
+  angles <- atan2(x[, dim[2]], x[, dim[1]]) / (2 * pi / 360)
+  angles <- angles * -1 # positive angles are counted clockwise atan2 does anticlockwise by default
+  angles[angles < 0] <- 360 + angles[angles < 0] # map to 0 to 360 degrees i.e. only positive  values for ordering
+  if (!clockwise) {
     angles <- 360 - angles
+  }
   angles
 }
 
@@ -194,21 +199,24 @@ calcAngles <- function(x, dim=c(1,2), clockwise=TRUE){
 #' @keywords internal
 #' @examples \dontrun{
 #'
-#'    x <- randomGrid(15,30)      # make random grid
-#'    i <- angleOrderIndexes2d(x) # make indexes for ordering
-#'    x <- x[i[[1]], i[[2]]]      # reorder constructs and elements
-#'    x                           # print grid
+#' x <- randomGrid(15, 30) # make random grid
+#' i <- angleOrderIndexes2d(x) # make indexes for ordering
+#' x <- x[i[[1]], i[[2]]] # reorder constructs and elements
+#' x # print grid
 #' }
-#'                  
-angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE) {
-  if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'") 
+#'
+angleOrderIndexes2d <- function(x, dim = c(1, 2), clockwise = TRUE) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
   E.mat <- x@calcs$biplot$elem
   C.mat <- x@calcs$biplot$con
-  C.angles <- calcAngles(C.mat, dim=dim, clockwise=clockwise)
-  E.angles <- calcAngles(E.mat, dim=dim, clockwise=clockwise)
-  list(c.order=order(C.angles), 
-       e.order=order(E.angles))
+  C.angles <- calcAngles(C.mat, dim = dim, clockwise = clockwise)
+  E.angles <- calcAngles(E.mat, dim = dim, clockwise = clockwise)
+  list(
+    c.order = order(C.angles),
+    e.order = order(E.angles)
+  )
 }
 
 
@@ -222,47 +230,50 @@ angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE) {
 #' @param x           `repgrid` object.
 #' @param dim         Dimension of 2D solution used to calculate angles
 #'                    (default `c(1,2)`).
-#' @param center		  Numeric. The type of centering to be performed. 
-#'                    `0`= no centering, `1`= row mean centering (construct), 
+#' @param center		  Numeric. The type of centering to be performed.
+#'                    `0`= no centering, `1`= row mean centering (construct),
 #'                    `2`= column mean centering (elements), `3`= double-centering (construct and element means),
 #'                    `4`= midpoint centering of rows (constructs).
 #'                    The default is `1` (row centering).
 #' @param normalize   A numeric value indicating along what direction (rows, columns)
 #'                    to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
 #'                    (default is `0`).
-#' @param g           Power of the singular value matrix assigned to the left singular 
+#' @param g           Power of the singular value matrix assigned to the left singular
 #'                    vectors, i.e. the constructs.
-#' @param h           Power of the singular value matrix assigned to the right singular 
+#' @param h           Power of the singular value matrix assigned to the right singular
 #'                    vectors, i.e. the elements.
 #' @param rc          Logical. Reorder constructs by similarity (default `TRUE`).
 #' @param re          Logical. Reorder elements by similarity (default `TRUE`).
 #' @param ...         Not evaluated.
 #'
-#' @return Reordered `repgrid` object. 
+#' @return Reordered `repgrid` object.
 #'
 #' @export
 #' @examples
 #'
-#' x <- feixas2004  
-#' reorder2d(x)            # reorder grid by angles in first two dimensions
-#' reorder2d(x, rc=FALSE)  # reorder elements only
-#' reorder2d(x, re=FALSE)  # reorder constructs only
-#' 
-reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g, 
-                    rc=TRUE, re=TRUE, ... ) {
-  if (!inherits(x, "repgrid")) 							  # check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'")
-  x <- calcBiplotCoords(x, center=center, normalize=normalize, g=g, h=h, ...)
-  i <- angleOrderIndexes2d(x, dim=dim)        # make indexes for ordering
-  if(rc)
-    x <- x[i[[1]], ,drop=FALSE]
-  if(re)
-    x <- x[ ,i[[2]], drop=FALSE]
+#' x <- feixas2004
+#' reorder2d(x) # reorder grid by angles in first two dimensions
+#' reorder2d(x, rc = FALSE) # reorder elements only
+#' reorder2d(x, re = FALSE) # reorder constructs only
+#'
+reorder2d <- function(x, dim = c(1, 2), center = 1, normalize = 0, g = 0, h = 1 - g,
+                      rc = TRUE, re = TRUE, ...) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
+  x <- calcBiplotCoords(x, center = center, normalize = normalize, g = g, h = h, ...)
+  i <- angleOrderIndexes2d(x, dim = dim) # make indexes for ordering
+  if (rc) {
+    x <- x[i[[1]], , drop = FALSE]
+  }
+  if (re) {
+    x <- x[, i[[2]], drop = FALSE]
+  }
   x
 }
 
 
-  
+
 #### __________________ ####
 ####      ELEMENTS      ####
 
@@ -294,80 +305,84 @@ reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g,
 #' @export
 #' @seealso [constructCor()]
 #' @examples
-#'    elementCor(mackay1992)  # Cohen's rc
-#'    elementCor(mackay1992, rc=FALSE)  # PM correlation
-#'    elementCor(mackay1992, rc=FALSE, method="spearman")  # Spearman correlation
+#' elementCor(mackay1992) # Cohen's rc
+#' elementCor(mackay1992, rc = FALSE) # PM correlation
+#' elementCor(mackay1992, rc = FALSE, method = "spearman") # Spearman correlation
 #'
-#'    # format output
-#'    elementCor(mackay1992, trim=6)
-#'    elementCor(mackay1992, index=FALSE, trim=6)
+#' # format output
+#' elementCor(mackay1992, trim = 6)
+#' elementCor(mackay1992, index = FALSE, trim = 6)
 #'
-#'    # save as object for further processing
-#'    r <- elementCor(mackay1992)
-#'    r
+#' # save as object for further processing
+#' r <- elementCor(mackay1992)
+#' r
 #'
-#'    # change output of object
-#'    print(r, digits=5)
-#'    print(r, col.index=FALSE)
-#'    print(r, upper=FALSE)
+#' # change output of object
+#' print(r, digits = 5)
+#' print(r, col.index = FALSE)
+#' print(r, upper = FALSE)
 #'
-#'    # accessing elements of the correlation matrix
-#'    r[1,3]
-#'    
-elementCor <- function(x, rc=TRUE, method="pearson", 
-                          trim=20, index=TRUE) {
-  method <- match.arg(method,  c("pearson", "kendall", "spearman"))
-  if (!inherits(x, "repgrid")) 							# check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'")
+#' # accessing elements of the correlation matrix
+#' r[1, 3]
+#'
+elementCor <- function(x, rc = TRUE, method = "pearson",
+                       trim = 20, index = TRUE) {
+  method <- match.arg(method, c("pearson", "kendall", "spearman"))
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
   if (rc) {
-    x <- doubleEntry(x)                     # double entry to get rc correlation
-    method <- "pearson"                     # Cohen's rc is only defined for pearson correlation
+    x <- doubleEntry(x) # double entry to get rc correlation
+    method <- "pearson" # Cohen's rc is only defined for pearson correlation
   }
   scores <- getRatingLayer(x)
-  res <- cor(scores, method=method)
-  res <- addNamesToMatrix2(x, res, index=index, trim=trim, along=2)
+  res <- cor(scores, method = method)
+  res <- addNamesToMatrix2(x, res, index = index, trim = trim, along = 2)
   class(res) <- c("elementCor", "matrix")
-  attr(res, "arguments") <- list(method=method, rc=rc)
+  attr(res, "arguments") <- list(method = method, rc = rc)
   res
 }
 
 
 #' Print method for class elementCor.
-#' 
+#'
 #' @param x           Object of class elementCor
-#' @param digits      Numeric. Number of digits to round to (default is 
+#' @param digits      Numeric. Number of digits to round to (default is
 #'                    `2`).
-#' @param col.index   Logical. Whether to add an extra index column so the 
-#'                    column names are indexes instead of construct names. This option 
-#'                    renders a neater output as long construct names will stretch 
+#' @param col.index   Logical. Whether to add an extra index column so the
+#'                    column names are indexes instead of construct names. This option
+#'                    renders a neater output as long construct names will stretch
 #'                    the output (default is `TRUE`).
-#' @param upper       Whether to display upper triangle of correlation matrix only 
+#' @param upper       Whether to display upper triangle of correlation matrix only
 #'                    (default is `TRUE`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print elementCor
 #' @keywords internal
-print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
-{
+print.elementCor <- function(x, digits = 2, col.index = TRUE, upper = TRUE, ...) {
   args <- attr(x, "arguments")
   class(x) <- "matrix"
   x <- round(x, digits)
-  d <- format(x, nsmall=digits)
-  
+  d <- format(x, nsmall = digits)
+
   # console output
-  if (upper)
-    d[lower.tri(d, diag=TRUE)] <- paste(rep(" ", digits + 1), collapse="", sep="")
-  if (col.index)                                   # make index column for neater colnames
-    d <- addIndexColumnToMatrix(d) 
+  if (upper) {
+    d[lower.tri(d, diag = TRUE)] <- paste(rep(" ", digits + 1), collapse = "", sep = "")
+  }
+  if (col.index) { # make index column for neater colnames
+    d <- addIndexColumnToMatrix(d)
+  }
   d <- as.data.frame(d)
   cat("\n############################")
   cat("\nCorrelation between elements")
   cat("\n############################")
-  if (args$rc)
+  if (args$rc) {
     args$method <- "Cohens's rc (invariant to scale reflection)"
+  }
   cat("\n\nType of correlation: ", args$method, "\n")
-  if (!args$rc)
+  if (!args$rc) {
     cat("Note: Standard correlations are not invariant to scale reflection.\n")
+  }
   cat("\n")
   print(d)
 }
@@ -383,12 +398,12 @@ print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 #' Note that simple element correlations as a measure of similarity are flawed as they are not invariant to construct
 #' reflection (Mackay, 1992; Bell, 2010). A correlation index invariant to construct reflection is Cohen's rc measure
 #' (1969), which can be calculated using the argument `rc=TRUE` which is the default option in this function.
-#'                  
+#'
 #' @param x       `repgrid` object.
-#' @param rc      Whether to use Cohen's rc which is invariant to construct 
+#' @param rc      Whether to use Cohen's rc which is invariant to construct
 #'                reflection (see description above). It is used as the default.
-#' @param method  A character string indicating which correlation coefficient 
-#'                to be computed. One of `"pearson"` (default), 
+#' @param method  A character string indicating which correlation coefficient
+#'                to be computed. One of `"pearson"` (default),
 #'                `"kendall"` or `"spearman"`, can be abbreviated.
 #'                The default is `"pearson"`.
 #' @param trim    The number of characters an element is trimmed to (default is
@@ -402,27 +417,29 @@ print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 #'
 #' @references Fransella, F., Bell, R. C., & Bannister, D. (2003).
 #'  *A Manual for Repertory  Grid Technique (2. Ed.)*. Chichester: John Wiley & Sons.
-#' 
-#' @examples 
 #'
-#'    # data from grid manual by Fransella, Bell and Bannister
-#'    elementRmsCor(fbb2003)    
-#'    elementRmsCor(fbb2003, trim=10)
-#'    
-#'    # modify output
-#'    r <- elementRmsCor(fbb2003) 
-#'    print(r, digits=5)
+#' @examples
 #'
-#'    # access second row of calculation results
-#'    r[2, "RMS"]
+#' # data from grid manual by Fransella, Bell and Bannister
+#' elementRmsCor(fbb2003)
+#' elementRmsCor(fbb2003, trim = 10)
+#'
+#' # modify output
+#' r <- elementRmsCor(fbb2003)
+#' print(r, digits = 5)
+#'
+#' # access second row of calculation results
+#' r[2, "RMS"]
 #'
 elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA) {
-  method <- match.arg(method,  c("pearson", "kendall", "spearman"))
-  res <- elementCor(x, rc = rc, method = method, trim = trim,
-             index = TRUE)                              # calc correlations 
-  diag(res) <- NA                                       # remove diagonal 
-  res <- apply(res^2, 1, mean, na.rm=TRUE)              # mean of squared values 
-  res <- data.frame(RMS = res^.5)                       # root of mean squares
+  method <- match.arg(method, c("pearson", "kendall", "spearman"))
+  res <- elementCor(x,
+    rc = rc, method = method, trim = trim,
+    index = TRUE
+  ) # calc correlations
+  diag(res) <- NA # remove diagonal
+  res <- apply(res^2, 1, mean, na.rm = TRUE) # mean of squared values
+  res <- data.frame(RMS = res^.5) # root of mean squares
   class(res) <- c("rmsCor", "data.frame")
   attr(res, "type") <- "elements"
   return(res)
@@ -433,69 +450,70 @@ elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA) {
 ####      CONSTRUCTS    ####
 
 
-#' Calculate correlations between constructs. 
+#' Calculate correlations between constructs.
 #'
-#' Different types of correlations can be requested: 
+#' Different types of correlations can be requested:
 #' PMC, Kendall tau rank correlation, Spearman rank correlation.
 #'
 #' @param x         `repgrid` object.
-#' @param method    A character string indicating which correlation coefficient 
-#'                  is to be computed. One of `"pearson"` (default), 
+#' @param method    A character string indicating which correlation coefficient
+#'                  is to be computed. One of `"pearson"` (default),
 #'                  `"kendall"` or `"spearman"`, can be abbreviated.
 #'                  The default is `"pearson"`.
 #' @param trim      The number of characters a construct is trimmed to (default is
 #'                  `20`). If `NA` no trimming occurs. Trimming
 #'                  simply saves space when displaying correlation of constructs
 #'                  with long names.
-#' @param index     Whether to print the number of the construct. 
+#' @param index     Whether to print the number of the construct.
 #' @return Returns a matrix of construct correlations.
 #'
 #' @export
 #' @seealso [elementCor()]
 #'
-#' @examples 
+#' @examples
 #'
-#'    # three different types of correlations
-#'    constructCor(mackay1992)                
-#'    constructCor(mackay1992, method="kendall")
-#'    constructCor(mackay1992, method="spearman")
+#' # three different types of correlations
+#' constructCor(mackay1992)
+#' constructCor(mackay1992, method = "kendall")
+#' constructCor(mackay1992, method = "spearman")
 #'
-#'    # format output
-#'    constructCor(mackay1992, trim=6)
-#'    constructCor(mackay1992, index=TRUE, trim=6)
-#'    
-#'    # save correlation matrix for further processing
-#'    r <- constructCor(mackay1992)
-#'    r
-#'    print(r, digits=5)
-#'    
-#'    # accessing the correlation matrix
-#'    r[1, 3]
+#' # format output
+#' constructCor(mackay1992, trim = 6)
+#' constructCor(mackay1992, index = TRUE, trim = 6)
 #'
-constructCor <- function(x, method = c("pearson", "kendall", "spearman"), 
-                         trim=20, index=FALSE){
-  if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'")
+#' # save correlation matrix for further processing
+#' r <- constructCor(mackay1992)
+#' r
+#' print(r, digits = 5)
+#'
+#' # accessing the correlation matrix
+#' r[1, 3]
+#'
+constructCor <- function(x, method = c("pearson", "kendall", "spearman"),
+                         trim = 20, index = FALSE) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
   method <- match.arg(method)
   scores <- getRatingLayer(x)
-  res <- cor(t(scores), method=method)
-  res <- addNamesToMatrix2(x, res, index=index, trim=trim)
-  class(res) <- c("constructCor", "matrix") 
-  attr(res, "arguments") <- list(method=method)  
+  res <- cor(t(scores), method = method)
+  res <- addNamesToMatrix2(x, res, index = index, trim = trim)
+  class(res) <- c("constructCor", "matrix")
+  attr(res, "arguments") <- list(method = method)
   return(res)
 }
 
 
 #' Print method for class constructCor.
-#' 
+#'
 #' @param x           Object of class constructCor.
-#' @param digits      Numeric. Number of digits to round to (default is 
+#' @param digits      Numeric. Number of digits to round to (default is
 #'                    `2`).
-#' @param col.index   Logical. Whether to add an extra index column so the 
-#'                    column names are indexes instead of construct names. This option 
-#'                    renders a neater output as long construct names will stretch 
+#' @param col.index   Logical. Whether to add an extra index column so the
+#'                    column names are indexes instead of construct names. This option
+#'                    renders a neater output as long construct names will stretch
 #'                    the output (default is `TRUE`).
-#' @param upper       Whether to display upper triangle of correlation matrix only 
+#' @param upper       Whether to display upper triangle of correlation matrix only
 #'                    (default is `TRUE`).
 #' @param header      Whether to print additional information in header.
 #' @param ...         Not evaluated.
@@ -503,19 +521,21 @@ constructCor <- function(x, method = c("pearson", "kendall", "spearman"),
 #' @method            print constructCor
 #' @keywords          internal
 #'
-print.constructCor <- function(x, digits=2, col.index=TRUE,
-                               upper=TRUE, header=TRUE, ...)
-{
+print.constructCor <- function(x, digits = 2, col.index = TRUE,
+                               upper = TRUE, header = TRUE, ...) {
   args <- attr(x, "arguments")
   d <- x
   class(d) <- "matrix"
-  d <- round(d, digits) 
-  d <- format(d, nsmall=digits)
-  if (upper)
-    d[lower.tri(d, diag=TRUE)] <- paste(rep(" ", digits + 1), collapse="", sep="")
-  if (col.index)                                   # make index column for neater colnames
-    d <- addIndexColumnToMatrix(d) else
-      colnames(d) <- seq_len(ncol(d))
+  d <- round(d, digits)
+  d <- format(d, nsmall = digits)
+  if (upper) {
+    d[lower.tri(d, diag = TRUE)] <- paste(rep(" ", digits + 1), collapse = "", sep = "")
+  }
+  if (col.index) { # make index column for neater colnames
+    d <- addIndexColumnToMatrix(d)
+  } else {
+    colnames(d) <- seq_len(ncol(d))
+  }
   d <- as.data.frame(d)
   if (header) {
     cat("\n##############################")
@@ -530,16 +550,16 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 
 #' Root mean square (RMS) of inter-construct correlations.
 #'
-#' The RMS is also known as 'quadratic mean' of 
-#' the inter-construct correlations. The RMS serves as a simplification of the 
-#' correlation table. It reflects the average relation of one construct to all 
-#' other constructs. Note that as the correlations are squared during its calculation, 
-#' the RMS is not affected by the sign of the correlation (cf. Fransella, 
+#' The RMS is also known as 'quadratic mean' of
+#' the inter-construct correlations. The RMS serves as a simplification of the
+#' correlation table. It reflects the average relation of one construct to all
+#' other constructs. Note that as the correlations are squared during its calculation,
+#' the RMS is not affected by the sign of the correlation (cf. Fransella,
 #' Bell & Bannister, 2003, p. 86).
 #'
 #' @param x       `repgrid` object
-#' @param method  A character string indicating which correlation coefficient 
-#'                is to be computed. One of `"pearson"` (default), 
+#' @param method  A character string indicating which correlation coefficient
+#'                is to be computed. One of `"pearson"` (default),
 #'                `"kendall"` or `"spearman"`, can be abbreviated.
 #'                The default is `"pearson"`.
 #' @param trim    The number of characters a construct is trimmed to (default is
@@ -550,80 +570,81 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 #' @export
 #' @seealso [elementRmsCor()], [constructCor()]
 #'
-#' @references    Fransella, F., Bell, R. C., & Bannister, D. (2003). 
-#'                A Manual for Repertory 
+#' @references    Fransella, F., Bell, R. C., & Bannister, D. (2003).
+#'                A Manual for Repertory
 #'                Grid Technique (2. Ed.). Chichester: John Wiley & Sons.
 #'
-#' @examples 
+#' @examples
 #'
-#'    # data from grid manual by Fransella, Bell and Bannister
-#'    constructRmsCor(fbb2003)    
-#'    constructRmsCor(fbb2003, trim=20)
-#'    
-#'    # modify output
-#'    r <- constructRmsCor(fbb2003) 
-#'    print(r, digits=5)
+#' # data from grid manual by Fransella, Bell and Bannister
+#' constructRmsCor(fbb2003)
+#' constructRmsCor(fbb2003, trim = 20)
+#'
+#' # modify output
+#' r <- constructRmsCor(fbb2003)
+#' print(r, digits = 5)
 
 #'    # access calculation results
 #'    r[2, 1]
 #'
 constructRmsCor <- function(x, method = "pearson", trim = NA) {
-  method <- match.arg(method,  c("pearson", "kendall", "spearman"))
-  res <- constructCor(x, method = method, trim=trim, 
-                      index=TRUE)                       # calc correlations
-  diag(res) <- NA                                       # remove diagonal 
-  res <- apply(res^2, 1, mean, na.rm=TRUE)              # mean of squared values
-  res <- data.frame(RMS = res^.5)                       # root of mean squares
+  method <- match.arg(method, c("pearson", "kendall", "spearman"))
+  res <- constructCor(x,
+    method = method, trim = trim,
+    index = TRUE
+  ) # calc correlations
+  diag(res) <- NA # remove diagonal
+  res <- apply(res^2, 1, mean, na.rm = TRUE) # mean of squared values
+  res <- data.frame(RMS = res^.5) # root of mean squares
   class(res) <- c("rmsCor", "data.frame")
-  attr(res, "type") <- "constructs" 
+  attr(res, "type") <- "constructs"
   return(res)
 }
 
 
 #' Print method for class rmsCor (RMS correlation for constructs or elements)
-#' 
+#'
 #' @param x           Object of class rmsCor.
-#' @param digits      Numeric. Number of digits to round to (default is 
+#' @param digits      Numeric. Number of digits to round to (default is
 #'                    `2`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print rmsCor
 #' @keywords          internal
 #'
-print.rmsCor <- function(x, digits=2, ...)
-{
+print.rmsCor <- function(x, digits = 2, ...) {
   d <- as.data.frame(x)
-  d <- round(d, digits)  
+  d <- round(d, digits)
   type <- attr(x, "type")
   cat("\n##########################################")
   cat("\nRoot-mean-square correlation of", type)
   cat("\n##########################################\n\n")
-  print(d) 
-  cat("\nAverage of statistic", round(mean(unlist(d), na.rm=TRUE), digits), "\n")
-  cat("Standard deviation of statistic", round(sdpop(d, na.rm=TRUE), digits), "\n")
+  print(d)
+  cat("\nAverage of statistic", round(mean(unlist(d), na.rm = TRUE), digits), "\n")
+  cat("Standard deviation of statistic", round(sdpop(d, na.rm = TRUE), digits), "\n")
 }
 
 
-#' Calculate Somers' d for the constructs. 
+#' Calculate Somers' d for the constructs.
 #'
-#' Somer's d is an  asymmetric association measure as it depends on which 
+#' Somer's d is an  asymmetric association measure as it depends on which
 #' variable is set as dependent and independent.
 #' The direction of dependency needs to be specified.
 #'
 #' @param x           `repgrid` object
-#' @param dependent   A string denoting the direction of dependency in the output 
+#' @param dependent   A string denoting the direction of dependency in the output
 #'                    table (as d is asymmetrical). Possible values are `"columns"`
-#'                    (the default) for setting the columns as dependent, `"rows"` 
-#'                    for setting the rows as the dependent variable and 
-#'                    `"symmetric"` for the 
-#'                    symmetrical Somers' d measure (the mean of the two directional 
+#'                    (the default) for setting the columns as dependent, `"rows"`
+#'                    for setting the rows as the dependent variable and
+#'                    `"symmetric"` for the
+#'                    symmetrical Somers' d measure (the mean of the two directional
 #'                    values for code{"columns"} and `"rows"`).
 #' @param trim        The number of characters a construct is trimmed to (default is
 #'                    `30`). If `NA` no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs
 #'                    with long names.
-#' @param index       Whether to print the number of the construct 
-#'                    (default is `TRUE`). 
+#' @param index       Whether to print the number of the construct
+#'                    (default is `TRUE`).
 #' @return  `matrix` of construct correlations.
 #' @note              Thanks to Marc Schwartz for supplying the code to calculate
 #'                    Somers' d.
@@ -635,77 +656,79 @@ print.rmsCor <- function(x, digits=2, ...)
 #'
 #' @examples \dontrun{
 #'
-#'    constructD(fbb2003)       # columns as dependent (default)
-#'    constructD(fbb2003, "c")  # row as dependent
-#'    constructD(fbb2003, "s")  # symmetrical index
-#'  
-#'    # suppress printing
-#'    d <- constructD(fbb2003, out=0, trim=5)
-#'    d
-#'    
-#'    # more digits
-#'    constructD(fbb2003, dig=3)
+#' constructD(fbb2003) # columns as dependent (default)
+#' constructD(fbb2003, "c") # row as dependent
+#' constructD(fbb2003, "s") # symmetrical index
 #'
-#'    # add index column, no trimming
-#'    constructD(fbb2003, col.index=TRUE, index=F, trim=NA)  
+#' # suppress printing
+#' d <- constructD(fbb2003, out = 0, trim = 5)
+#' d
 #'
+#' # more digits
+#' constructD(fbb2003, dig = 3)
+#'
+#' # add index column, no trimming
+#' constructD(fbb2003, col.index = TRUE, index = F, trim = NA)
 #' }
 #'
-constructD <- function(x, dependent = "columns", trim=30, index=TRUE)
-{
-  if (!inherits(x, "repgrid")) 							    # check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'")
-  dependent <- match.arg(dependent, c("columns", "rows", "symmetric")) 
+constructD <- function(x, dependent = "columns", trim = 30, index = TRUE) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
+  dependent <- match.arg(dependent, c("columns", "rows", "symmetric"))
   scores <- getRatingLayer(x)
-  l <- lapply(as.data.frame(t(scores)),  I)     # put each row into a list
-    
-  somersd <- function(x, y, dependent, smin, smax){
+  l <- lapply(as.data.frame(t(scores)), I) # put each row into a list
+
+  somersd <- function(x, y, dependent, smin, smax) {
     na.index <- is.na(x) | is.na(y)
     x <- x[!na.index]
     y <- y[!na.index]
-    x <- factor(unlist(x), levels=seq(smin, smax))
-    y <- factor(unlist(y), levels=seq(smin, smax))
-    m <-  as.matrix(table(x,y))
-    
-    if (dependent == "rows")
-      i <- 1 else 
-    if (dependent == "columns")
-      i <- 2 else 
-    if (dependent == "symmetric")
+    x <- factor(unlist(x), levels = seq(smin, smax))
+    y <- factor(unlist(y), levels = seq(smin, smax))
+    m <- as.matrix(table(x, y))
+
+    if (dependent == "rows") {
+      i <- 1
+    } else if (dependent == "columns") {
+      i <- 2
+    } else if (dependent == "symmetric") {
       i <- 3
+    }
     calc.Sd(m)[[i]]
-  }  
-  
+  }
+
   nc <- length(l)
   smin <- x@scale$min
   smax <- x@scale$max
-  sds <- mapply(somersd, rep(l,each=nc), rep(l, nc), 
-                MoreArgs=list(dependent=dependent, 
-                              smin=smin, smax=smax))
+  sds <- mapply(somersd, rep(l, each = nc), rep(l, nc),
+    MoreArgs = list(
+      dependent = dependent,
+      smin = smin, smax = smax
+    )
+  )
   res <- matrix(sds, nc)
-  res <- addNamesToMatrix2(x, res, index=index, trim=trim, along=1)
+  res <- addNamesToMatrix2(x, res, index = index, trim = trim, along = 1)
   class(res) <- c("constructD", "matrix")
-  attr(res, "arguments") <- list(dependent=dependent)
+  attr(res, "arguments") <- list(dependent = dependent)
   res
 }
 
 
 #' Print method for class constructD.
-#' 
+#'
 #' @param x           Object of class constructD.
-#' @param digits      Numeric. Number of digits to round to (default is 
+#' @param digits      Numeric. Number of digits to round to (default is
 #'                    `2`).
-#' @param col.index   Logical. Whether to add an extra index column so the 
-#'                    column names are indexes instead of construct names. This option 
-#'                    renders a neater output as long construct names will stretch 
+#' @param col.index   Logical. Whether to add an extra index column so the
+#'                    column names are indexes instead of construct names. This option
+#'                    renders a neater output as long construct names will stretch
 #'                    the output (default is `TRUE`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print constructD
 #' @keywords          internal
 #'
-print.constructD <- function(x, digits=1, col.index=TRUE, ...)
-{
+print.constructD <- function(x, digits = 1, col.index = TRUE, ...) {
   class(x) <- "matrix"
   x <- round(x, digits)
   args <- attr(x, "arguments")
@@ -714,9 +737,11 @@ print.constructD <- function(x, digits=1, col.index=TRUE, ...)
   cat("\nSomers' D between constructs")
   cat("\n############################\n\n")
   cat("Direction:", args$dependent, "are set as dependent\n")
-  if (col.index)                                  # make index column for neater colnames
-    x <- addIndexColumnToMatrix(x) else
-      colnames(x) <- seq_len(ncol(x))
+  if (col.index) { # make index column for neater colnames
+    x <- addIndexColumnToMatrix(x)
+  } else {
+    colnames(x) <- seq_len(ncol(x))
+  }
   print(x)
 }
 
@@ -741,74 +766,74 @@ print.constructD <- function(x, digits=1, col.index=TRUE, ...)
 #'
 #' @examples
 #'
-#'    constructPca(bell2010)
+#' constructPca(bell2010)
 #'
-#'    # data from grid manual by Fransella et al. (2003, p. 87)
-#'    # note that the construct order is different
-#'    constructPca(fbb2003, nfactors=2)
+#' # data from grid manual by Fransella et al. (2003, p. 87)
+#' # note that the construct order is different
+#' constructPca(fbb2003, nfactors = 2)
 #'
-#'    # no rotation
-#'    constructPca(fbb2003, rotate="none")
+#' # no rotation
+#' constructPca(fbb2003, rotate = "none")
 #'
-#'    # use a different type of correlation (Spearman)
-#'    constructPca(fbb2003, method="spearman")
+#' # use a different type of correlation (Spearman)
+#' constructPca(fbb2003, method = "spearman")
 #'
-#'    # save output to object
-#'    m <- constructPca(fbb2003, nfactors=2)
-#'    m
+#' # save output to object
+#' m <- constructPca(fbb2003, nfactors = 2)
+#' m
 #'
-#'    # different printing options
-#'    print(m, digits=5)
-#'    print(m, cutoff=.3)
-#' 
-constructPca <- function(x, nfactors=3, rotate="varimax", method = "pearson" , 
-                         trim=NA) {
-  
-  method <- match.arg(method,c("pearson", "kendall", "spearman")) 
+#' # different printing options
+#' print(m, digits = 5)
+#' print(m, cutoff = .3)
+#'
+constructPca <- function(x, nfactors = 3, rotate = "varimax", method = "pearson",
+                         trim = NA) {
+  method <- match.arg(method, c("pearson", "kendall", "spearman"))
   rotate <- match.arg(rotate, c("none", "varimax", "promax", "cluster"))
-  if (!rotate %in% c("none", "varimax", "promax", "cluster"))
+  if (!rotate %in% c("none", "varimax", "promax", "cluster")) {
     stop('only "none", "varimax", "promax" and "cluster" are possible rotations')
-  
-  res <- constructCor(x, method=method, trim=trim)          # calc inter constructs correations                    
-  pc <- principal(res, nfactors = nfactors, rotate=rotate)  # do PCA
+  }
+
+  res <- constructCor(x, method = method, trim = trim) # calc inter constructs correations
+  pc <- principal(res, nfactors = nfactors, rotate = rotate) # do PCA
   class(pc) <- c("constructPca", class(pc))
-  attr(pc, "arguments") <- list(nfactors=nfactors, rotate=rotate, method=method)
+  attr(pc, "arguments") <- list(nfactors = nfactors, rotate = rotate, method = method)
   return(pc)
 }
 
 # TODO
-constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", trim = NA) 
-{
-  method <- match.arg(method,c("raw", "pearson", "kendall", "spearman")) 
-  
-  # PCA of construct centered raw data 
+constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", trim = NA) {
+  method <- match.arg(method, c("raw", "pearson", "kendall", "spearman"))
+
+  # PCA of construct centered raw data
   if (method == "raw") {
     input <- "matrix of construct centered raw data"
-    r <- ratings(x) 
-    p <- stats::prcomp(t(r), center = TRUE, scale. = FALSE)  
+    r <- ratings(x)
+    p <- stats::prcomp(t(r), center = TRUE, scale. = FALSE)
     eigenvalues <- p$sdev^2
     load_mat <- p$rotation
-  } 
-  
+  }
+
   # PCA of construct correlations
   if (method != "raw") {
     input <- "construct correlation matrix"
     rotate <- match.arg(rotate, c("none", "varimax", "promax", "cluster"))
-    if (!rotate %in% c("none", "varimax", "promax", "cluster"))
+    if (!rotate %in% c("none", "varimax", "promax", "cluster")) {
       stop('only "none", "varimax", "promax" and "cluster" are possible rotations')
-    
-    res <- constructCor(x, method = method, trim = trim)          # calc inter constructs correations                    
-    pc <- principal(res, nfactors = nfactors, rotate = rotate)  # do PCA
+    }
+
+    res <- constructCor(x, method = method, trim = trim) # calc inter constructs correations
+    pc <- principal(res, nfactors = nfactors, rotate = rotate) # do PCA
     class(pc) <- c("constructPca", class(pc))
-    
+
     load_mat <- loadings(pc)
     class(load_mat) <- "matrix"
     eigenvalues <- pc$values
   }
-  
+
   # attr(pc, "arguments") <- list(nfactors = nfactors, rotate = rotate, method = method)
   return(pc)
-  # 
+  #
   # # new structure
   # list(
   #   input = input,
@@ -817,12 +842,12 @@ constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", t
   #   rotation = "none",
   #   eigenvalues = eigenvalues,
   #   loadings = load_mat
-  #   
-  #   
+  #
+  #
   # )
   # scale(t(r))^2 %>% sum
-  # 
-  # apply(load_mat, 2, function(x) sum(x^2))  
+  #
+  # apply(load_mat, 2, function(x) sum(x^2))
 }
 
 
@@ -833,18 +858,21 @@ constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", t
 #' @export
 #' @examples
 #'
-#'  p <- constructPca(bell2010)
-#'  l <- constructPcaLoadings(p)
-#'  l[1, ]
-#'  l[, 1]
-#'  l[1,1]
-#'  
+#' p <- constructPca(bell2010)
+#' l <- constructPcaLoadings(p)
+#' l[1, ]
+#' l[, 1]
+#' l[1, 1]
+#'
 constructPcaLoadings <- function(x) {
-  if (!inherits(x, "constructPca"))
-    stop("'x' must be an object of class 'constructPca'",
-         "as returned by the function 'constructPca'")
-  loadings(x)  
-} 
+  if (!inherits(x, "constructPca")) {
+    stop(
+      "'x' must be an object of class 'constructPca'",
+      "as returned by the function 'constructPca'"
+    )
+  }
+  loadings(x)
+}
 
 
 #' Print method for class constructPca.
@@ -856,18 +884,17 @@ constructPcaLoadings <- function(x) {
 #' @export
 #' @method            print constructPca
 #' @keywords          internal
-#' 
-print.constructPca <- function(x, digits=2, cutoff=0, ...)
-{
+#'
+print.constructPca <- function(x, digits = 2, cutoff = 0, ...) {
   args <- attr(x, "arguments")
-  
+
   cat("\n#################")
   cat("\nPCA of constructs")
   cat("\n#################\n")
-  
+
   cat("\nNumber of components extracted:", args$nfactors)
   cat("\nType of rotation:", args$rotate, "\n")
-  print(loadings(x), cutoff=cutoff, digits=digits)  
+  print(loadings(x), cutoff = cutoff, digits = digits)
 }
 
 
@@ -910,86 +937,87 @@ print.constructPca <- function(x, digits=2, cutoff=0, ...)
 #' @seealso [alignByIdeal()]
 #' @examples
 #'
-#'   # reproduction of the example in the Bell (2010)
-#'   # constructs aligned by loadings on PC 1
-#'   bell2010
-#'   alignByLoadings(bell2010)
+#' # reproduction of the example in the Bell (2010)
+#' # constructs aligned by loadings on PC 1
+#' bell2010
+#' alignByLoadings(bell2010)
 #'
-#'   # save results
-#'   a <- alignByLoadings(bell2010)
+#' # save results
+#' a <- alignByLoadings(bell2010)
 #'
-#'   # modify printing of resukts
-#'   print(a, digits=5)
+#' # modify printing of resukts
+#' print(a, digits = 5)
 #'
-#'   # access results for further processing
-#'   names(a)
-#'   a$cor.before
-#'   a$loadings.before
-#'   a$reversed
-#'   a$cor.after
-#'   a$loadings.after
-#' 
-alignByLoadings <- function(x, trim=20, index=TRUE) {
-  options(warn=1)                                      # suppress warnings (TODO sometimes error in SVD due to singularities in grid)
-  ccor.old <- constructCor(x, trim=trim, index=index)  # construct correlation unreversed
-  pc.old <- principal(ccor.old)                        # calc principal component (psych pkg)
-  reverseIndex <- 
-    which(pc.old$loadings[ ,1] < 0)                    # which constructs to reverse
-  x2 <- swapPoles(x, reverseIndex)                     # reverse constructs
-  ccor.new <- constructCor(x2, trim=trim, index=index) # correlation with reversed constructs
-  pc.new <- principal(ccor.new)                        # 2nd principal comps
-  options(warn=0)                                      # reset to do warnings
-  
-  res <- list(cor.before=ccor.old, 
-              loadings.before=pc.old$loadings[ , 1, drop=FALSE],
-              reversed=data.frame(index=reverseIndex),
-              cor.after=ccor.new,
-              loadings.after=pc.new$loadings[ , 1, drop=FALSE])
+#' # access results for further processing
+#' names(a)
+#' a$cor.before
+#' a$loadings.before
+#' a$reversed
+#' a$cor.after
+#' a$loadings.after
+#'
+alignByLoadings <- function(x, trim = 20, index = TRUE) {
+  options(warn = 1) # suppress warnings (TODO sometimes error in SVD due to singularities in grid)
+  ccor.old <- constructCor(x, trim = trim, index = index) # construct correlation unreversed
+  pc.old <- principal(ccor.old) # calc principal component (psych pkg)
+  reverseIndex <-
+    which(pc.old$loadings[, 1] < 0) # which constructs to reverse
+  x2 <- swapPoles(x, reverseIndex) # reverse constructs
+  ccor.new <- constructCor(x2, trim = trim, index = index) # correlation with reversed constructs
+  pc.new <- principal(ccor.new) # 2nd principal comps
+  options(warn = 0) # reset to do warnings
+
+  res <- list(
+    cor.before = ccor.old,
+    loadings.before = pc.old$loadings[, 1, drop = FALSE],
+    reversed = data.frame(index = reverseIndex),
+    cor.after = ccor.new,
+    loadings.after = pc.new$loadings[, 1, drop = FALSE]
+  )
   class(res) <- "alignByLoadings"
   res
 }
 
 
 #' Print method for class alignByLoadings.
-#' 
+#'
 #' @param x           Object of class alignByLoadings.
-#' @param digits      Numeric. Number of digits to round to (default is 
+#' @param digits      Numeric. Number of digits to round to (default is
 #'                    `2`).
-#' @param col.index   Logical. Whether to add an extra index column so the 
-#'                    column names are indexes instead of construct names (e.g. for 
-#'                    the correlation matrices). This option 
-#'                    renders a neater output as long construct names will stretch 
+#' @param col.index   Logical. Whether to add an extra index column so the
+#'                    column names are indexes instead of construct names (e.g. for
+#'                    the correlation matrices). This option
+#'                    renders a neater output as long construct names will stretch
 #'                    the output (default is `TRUE`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print alignByLoadings
 #' @keywords          internal
 #'
-print.alignByLoadings <- function(x, digits=2, col.index=TRUE, ...)
-{
-    cat("\n###################################")
-    cat("\nAlignment of constructs by loadings")
-    cat("\n###################################\n")
-    
-    cat("\nConstruct correlations - before alignment\n\n")
-    print(x$cor.before, digits=digits, col.index=col.index, header=FALSE)
-    
-    cat("\nConstruct factor loadiongs on PC1 - before alignment\n\n")
-    print(x$loadings.before, digits=digits)
-    
-    cat("\nThe following constructs are reversed:\n\n")
-    if (dim(x$reversed)[1] == 0) {
-      cat("None. All constructs are already aligned accordingly.\n")
-    } else {
-      print(x$reversed)
-    }
-    
-    cat("\nConstruct correlations - after alignment\n\n")
-    print(x$cor.after, digits=digits, col.index=col.index, header=FALSE)
-      
-    cat("\nConstruct factor loadings on PC1 - after alignment\n\n")
-    print(x$loadings.after, digits=digits)
-    cat("\n\n")
+print.alignByLoadings <- function(x, digits = 2, col.index = TRUE, ...) {
+  cat("\n###################################")
+  cat("\nAlignment of constructs by loadings")
+  cat("\n###################################\n")
+
+  cat("\nConstruct correlations - before alignment\n\n")
+  print(x$cor.before, digits = digits, col.index = col.index, header = FALSE)
+
+  cat("\nConstruct factor loadiongs on PC1 - before alignment\n\n")
+  print(x$loadings.before, digits = digits)
+
+  cat("\nThe following constructs are reversed:\n\n")
+  if (dim(x$reversed)[1] == 0) {
+    cat("None. All constructs are already aligned accordingly.\n")
+  } else {
+    print(x$reversed)
+  }
+
+  cat("\nConstruct correlations - after alignment\n\n")
+  print(x$cor.after, digits = digits, col.index = col.index, header = FALSE)
+
+  cat("\nConstruct factor loadings on PC1 - after alignment\n\n")
+  print(x$loadings.after, digits = digits)
+  cat("\n\n")
 }
 
 
@@ -1022,30 +1050,36 @@ print.alignByLoadings <- function(x, digits=2, col.index=TRUE, ...)
 #'
 #' @export
 #' @seealso [alignByLoadings()]
-#' @examples 
+#' @examples
 #'
-#'   feixas2004                             # original grid
-#'   alignByIdeal(feixas2004, 13)           # aligned with preference pole on the right
+#' feixas2004 # original grid
+#' alignByIdeal(feixas2004, 13) # aligned with preference pole on the right
 #'
-#'   raeithel                               # original grid
-#'   alignByIdeal(raeithel, 3, high=FALSE)  # aligned with preference pole on the left
-#' 
-alignByIdeal <- function(x, ideal, high=TRUE){
-  if (!inherits(x, "repgrid")) 							  # check if x is repgrid object
-  	stop("Object x must be of class 'repgrid'")
-  	
+#' raeithel # original grid
+#' alignByIdeal(raeithel, 3, high = FALSE) # aligned with preference pole on the left
+#'
+alignByIdeal <- function(x, ideal, high = TRUE) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'")
+  }
+
   idealRatings <- getRatingLayer(x)[, ideal]
   unclear <- which(idealRatings == getScaleMidpoint(x))
   positive <- which(idealRatings > getScaleMidpoint(x))
   negative <- which(idealRatings < getScaleMidpoint(x))
-  
-  if (high)     
-    x <- swapPoles(x, negative) else   # align such that ratings on ideal are high
-    x <- swapPoles(x, positive)        # align such that ratings on ideal are low
 
-  if (length(unclear) != 0)
-    warning("The following constructs do not show a preference for either pole",
-        "and have thus not been aligned: ", paste(unclear, collapse=","))
+  if (high) {
+    x <- swapPoles(x, negative)
+  } else { # align such that ratings on ideal are high
+    x <- swapPoles(x, positive)
+  } # align such that ratings on ideal are low
+
+  if (length(unclear) != 0) {
+    warning(
+      "The following constructs do not show a preference for either pole",
+      "and have thus not been aligned: ", paste(unclear, collapse = ",")
+    )
+  }
   x
 }
 
@@ -1094,78 +1128,90 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #' @seealso  [bertinCluster()]
 #' @examples
 #'
-#'   cluster(bell2010)
-#'   cluster(bell2010, main="My cluster analysis")   # new title
-#'   cluster(bell2010, type="t")                     # different drawing style
-#'   cluster(bell2010, dmethod="manhattan")          # using manhattan metric
-#'   cluster(bell2010, cmethod="single")             # do single linkage clustering
-#'   cluster(bell2010, cex=1, lab.cex=1)             # change appearance
-#'   cluster(bell2010, lab.cex=.7, edgePar=list(lty=1:2, col=2:1))  # advanced appearance changes
-#'           
-cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward.D", p=2, 
-                    align=TRUE, trim=NA, main=NULL,
-                    mar=c(4, 2, 3, 15), cex=0, lab.cex=.8, cex.main=.9, 
-                    print=TRUE, ...) {
+#' cluster(bell2010)
+#' cluster(bell2010, main = "My cluster analysis") # new title
+#' cluster(bell2010, type = "t") # different drawing style
+#' cluster(bell2010, dmethod = "manhattan") # using manhattan metric
+#' cluster(bell2010, cmethod = "single") # do single linkage clustering
+#' cluster(bell2010, cex = 1, lab.cex = 1) # change appearance
+#' cluster(bell2010, lab.cex = .7, edgePar = list(lty = 1:2, col = 2:1)) # advanced appearance changes
+#'
+cluster <- function(x, along = 0, dmethod = "euclidean", cmethod = "ward.D", p = 2,
+                    align = TRUE, trim = NA, main = NULL,
+                    mar = c(4, 2, 3, 15), cex = 0, lab.cex = .8, cex.main = .9,
+                    print = TRUE, ...) {
   dmethods <- c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
   dmethod <- match.arg(dmethod, dmethods)
-  
+
   cmethods <- c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median", "centroid")
   cmethod <- match.arg(cmethod, cmethods)
-  
-  if (is.null(main))
+
+  if (is.null(main)) {
     main <- paste(dmethod, "distance and", cmethod, "clustering")
-  if (! along %in% 0:2)
+  }
+  if (!along %in% 0:2) {
     stop("'along must take the value 0, 1 or 2.")
-  if (align)
-    x <- align(x, along = along, dmethod = dmethod, 
-               cmethod = cmethod, p = p)  
-  r <- getRatingLayer(x, trim=trim)             # get ratings
+  }
+  if (align) {
+    x <- align(x,
+      along = along, dmethod = dmethod,
+      cmethod = cmethod, p = p
+    )
+  }
+  r <- getRatingLayer(x, trim = trim) # get ratings
 
   # dendrogram for constructs
-  if (along %in% 0:1){
-    d <- dist(r, method = dmethod, p=p)           # make distance matrix for constructs
-    fit.constructs <- hclust(d, method=cmethod)   # hclust object for constructs
+  if (along %in% 0:1) {
+    d <- dist(r, method = dmethod, p = p) # make distance matrix for constructs
+    fit.constructs <- hclust(d, method = cmethod) # hclust object for constructs
     dend.con <- as.dendrogram(fit.constructs)
     con.ord <- order.dendrogram(rev(dend.con))
-    x <- x[con.ord, ]                             # reorder repgrid object    
+    x <- x[con.ord, ] # reorder repgrid object
   }
-  
-  if (along %in% c(0,2)){
+
+  if (along %in% c(0, 2)) {
     # dendrogram for elements
-    d <- dist(t(r), method = dmethod, p=p)        # make distance matrix for elements
-    fit.elements <- hclust(d, method=cmethod)     # hclust object for elements
+    d <- dist(t(r), method = dmethod, p = p) # make distance matrix for elements
+    fit.elements <- hclust(d, method = cmethod) # hclust object for elements
     dend.el <- as.dendrogram(fit.elements)
     el.ord <- order.dendrogram(dend.el)
-    x <- x[ , el.ord]                               # reorder repgrid object
+    x <- x[, el.ord] # reorder repgrid object
   }
-   
-  if (print){                                       # print dendrogram?
-    op <- par(mar=mar)                              # change mar settings and save old mar settings
-    if (along == 0)
-      layout(matrix(1:2, ncol=1))  
-    if (along %in% c(0,1)){
-      plot(dend.con, horiz=TRUE, main=main, xlab="",  # print cluster solution
-           nodePar=list(cex=cex, lab.cex=lab.cex), 
-           cex.main=cex.main, ...)
+
+  if (print) { # print dendrogram?
+    op <- par(mar = mar) # change mar settings and save old mar settings
+    if (along == 0) {
+      layout(matrix(1:2, ncol = 1))
     }
-    if (along %in% c(0,2)){
-      plot(dend.el, horiz=TRUE, main=main, xlab="",  # print cluster solution
-           nodePar=list(cex=cex, lab.cex=lab.cex), 
-           cex.main=cex.main, ...)
-    } 
-    par(op)                                         # reset to old mar settings  
+    if (along %in% c(0, 1)) {
+      plot(dend.con,
+        horiz = TRUE, main = main, xlab = "", # print cluster solution
+        nodePar = list(cex = cex, lab.cex = lab.cex),
+        cex.main = cex.main, ...
+      )
+    }
+    if (along %in% c(0, 2)) {
+      plot(dend.el,
+        horiz = TRUE, main = main, xlab = "", # print cluster solution
+        nodePar = list(cex = cex, lab.cex = lab.cex),
+        cex.main = cex.main, ...
+      )
+    }
+    par(op) # reset to old mar settings
   }
-  invisible(x)                                      # return reordered repgrid object
+  invisible(x) # return reordered repgrid object
 }
 
 
 # function calculates cluster dendrogram from doublebind grid matrix
 # and reverses the constructs accoring to the upper big cluster
-align <- function(x, along = 0, dmethod = "euclidean", 
+align <- function(x, along = 0, dmethod = "euclidean",
                   cmethod = "ward.D", p = 2, ...) {
   x2 <- doubleEntry(x)
-  xr <- cluster(x2, dmethod=dmethod, cmethod=cmethod, p=p, 
-                align=FALSE, print=FALSE)
+  xr <- cluster(x2,
+    dmethod = dmethod, cmethod = cmethod, p = p,
+    align = FALSE, print = FALSE
+  )
   nc <- getNoOfConstructs(xr) / 2
   xr[1:nc, ]
 }
@@ -1196,39 +1242,39 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' second step the direction of a construct that yields smaller distances to the adjacent constructs is preserved and
 #' used for the final clustering. As a result, every construct is included once but with an orientation that guarantees
 #' optimal clustering. This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas, 1982).
-#' 
-#' @references 
-#' 
-#' Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using 
+#'
+#' @references
+#'
+#' Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using
 #' the Bootstrap. *Evolution, 39*(4), 783. doi:10.2307/2408678
-#' 
+#'
 #' Hillis, D. M., & Bull, J. J. (1993). An Empirical Test of Bootstrapping as a
 #' Method for Assessing Confidence in Phylogenetic Analysis. *Systematic Biology,
 #' 42*(2), 182-192.
-#' 
-#' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
+#'
+#' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of
 #' Repertory Grids in Human Resource Development. *Personnel Review,
 #' 11*(4), 15-22. doi:10.1108/eb055464.
-#' 
+#'
 #' Shimodaira, H. (2002) An approximately unbiased test of phylogenetic tree
 #' selection. *Syst, Biol., 51*, 492-508.
-#' 
+#'
 #' Shimodaira,H. (2004) Approximately unbiased tests of regions using multistep-
 #' multiscale bootstrap resampling. *Ann. Stat., 32*, 2616-2614.
-#'  
+#'
 #' Suzuki, R., & Shimodaira, H. (2006). Pvclust: an R package for assessing the
 #' uncertainty in hierarchical clustering. *Bioinformatics,
 #' 22*(12), 1540-1542. doi:10.1093/bioinformatics/btl117
-#' 
+#'
 #' Zharkikh, A., & Li, W.-H. (1995). Estimation of confidence in phylogeny: the
 #' complete-and-partial bootstrap technique. *Molecular Phylogenetic Evolution,
-#' 4*(1), 44-63. 
-#' 
+#' 4*(1), 44-63.
+#'
 #' @param x       `grid object`
 #' @param align   Whether the constructs should be aligned before clustering
-#'                (default is `TRUE`). If not, the grid matrix is clustered 
+#'                (default is `TRUE`). If not, the grid matrix is clustered
 #'                as is. See Details section for more information.
-#' @param along   Along which dimension to cluster. 1 = constructs, 2= elements.                 
+#' @param along   Along which dimension to cluster. 1 = constructs, 2= elements.
 #' @inheritParams cluster
 #' @param p       Power of the Minkowski metric. Not yet passed on to pvclust!
 #' @inheritParams pvclust::pvclust
@@ -1239,38 +1285,41 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' @export
 #' @examples \dontrun{
 #'
-#'  # pvclust must be loaded
-#'  library(pvclust)
-#'  
-#'  # p-values for construct dendrogram
-#'  s <- clusterBoot(boeker)
-#'  plot(s)
-#'  pvrect(s, max.only=FALSE)
-#'  
-#'  # p-values for element dendrogram
-#'  s <- clusterBoot(boeker, along=2)
-#'  plot(s)
-#'  pvrect(s, max.only=FALSE)
+#' # pvclust must be loaded
+#' library(pvclust)
+#'
+#' # p-values for construct dendrogram
+#' s <- clusterBoot(boeker)
+#' plot(s)
+#' pvrect(s, max.only = FALSE)
+#'
+#' # p-values for element dendrogram
+#' s <- clusterBoot(boeker, along = 2)
+#' plot(s)
+#' pvrect(s, max.only = FALSE)
 #' }
 #'
-clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean", 
-                        cmethod = "ward.D", p=2, nboot=1000,
-                        r=seq(.8, 1.4, by=.1), seed=NULL, ...)
-{
-  if (! along %in% 1:2)
-    stop("along must either be 1 for constructs (default) or 2 for element clustering", call.=FALSE)
-  if (align)
+clusterBoot <- function(x, along = 1, align = TRUE, dmethod = "euclidean",
+                        cmethod = "ward.D", p = 2, nboot = 1000,
+                        r = seq(.8, 1.4, by = .1), seed = NULL, ...) {
+  if (!along %in% 1:2) {
+    stop("along must either be 1 for constructs (default) or 2 for element clustering", call. = FALSE)
+  }
+  if (align) {
     x <- align(x)
+  }
   xr <- getRatingLayer(x)
-  if (!is.null(seed) & is.numeric(seed))
-    set.seed(seed)  
-  if (along ==1)
-    xr <- t(xr)       
-  pv.e <- pvclust::pvclust(xr, method.hclust=cmethod, method.dist=dmethod, r=r, nboot=nboot, ...)
+  if (!is.null(seed) & is.numeric(seed)) {
+    set.seed(seed)
+  }
+  if (along == 1) {
+    xr <- t(xr)
+  }
+  pv.e <- pvclust::pvclust(xr, method.hclust = cmethod, method.dist = dmethod, r = r, nboot = nboot, ...)
   pv.e
 }
 
-#' Normalize rows or columns by its standard deviation.  
+#' Normalize rows or columns by its standard deviation.
 #'
 #' @param  x          `matrix`
 #' @param  normalize  A numeric value indicating along what direction (rows, columns)
@@ -1279,23 +1328,26 @@ clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean",
 #' @param ...         Not evaluated.
 #' @return  Not yet defined TODO!
 #' @export
-#' @examples 
-#'  x <- matrix(sample(1:5, 20, rep=TRUE), 4)
-#'  normalize(x, 1) # normalizing rows
-#'  normalize(x, 2)	# normalizing columns
+#' @examples
+#' x <- matrix(sample(1:5, 20, rep = TRUE), 4)
+#' normalize(x, 1) # normalizing rows
+#' normalize(x, 2) # normalizing columns
 #'
-normalize <- function(x, normalize=0, ...){
-  if (!normalize %in% 0:2 )
-    stop("along must take a numeric value:\n",
-         "normalize, 0 = none, 1 = rows, 2=columns")
-  if (normalize == 1){
-    x <- t(x) 
-    x <- scale(x, center=FALSE, scale=apply(x, 2, sd, na.rm=TRUE))  # see ? scale   
-    x <- t(x)
-  } else  if (normalize == 2){
-    x <- scale(x, center=FALSE, scale=apply(x, 2, sd, na.rm=TRUE))  # see ? scale   
+normalize <- function(x, normalize = 0, ...) {
+  if (!normalize %in% 0:2) {
+    stop(
+      "along must take a numeric value:\n",
+      "normalize, 0 = none, 1 = rows, 2=columns"
+    )
   }
-  x        
+  if (normalize == 1) {
+    x <- t(x)
+    x <- scale(x, center = FALSE, scale = apply(x, 2, sd, na.rm = TRUE)) # see ? scale
+    x <- t(x)
+  } else if (normalize == 2) {
+    x <- scale(x, center = FALSE, scale = apply(x, 2, sd, na.rm = TRUE)) # see ? scale
+  }
+  x
 }
 
 
@@ -1313,26 +1365,30 @@ normalize <- function(x, normalize=0, ...){
 #'   attach to the centered values.
 #' @export
 #' @examples
-#'  center(bell2010)						      # no centering
-#'  center(bell2010, rows=T)				  # row centering of grid
-#'  center(bell2010, cols=T)				  # column centering of grid
-#'  center(bell2010, rows=T, cols=T)	# row and column centering
-#' 
-center <- function(x, center=1, ...) {
-	dat <- x@ratings[ , ,1]
-	if (center == 0)        # no centering
-	  res <- dat
-	if (center == 1)        # center at row (construct) mean
-	  res <- sweep(dat, 1, apply(dat, 1, mean, na.rm=TRUE))
-	if (center == 2)        # center at column (element) mean
-    res <- sweep(dat, 2, apply(dat, 2, mean, na.rm=TRUE))
-	if (center == 3){       # center at row and column mean
-    res <- sweep(dat, 1, apply(dat, 1, mean, na.rm=TRUE))
-    res <- sweep(res, 2, apply(res, 2, mean, na.rm=TRUE))
+#' center(bell2010) # no centering
+#' center(bell2010, rows = T) # row centering of grid
+#' center(bell2010, cols = T) # column centering of grid
+#' center(bell2010, rows = T, cols = T) # row and column centering
+#'
+center <- function(x, center = 1, ...) {
+  dat <- x@ratings[, , 1]
+  if (center == 0) { # no centering
+    res <- dat
   }
-  if (center == 4)        # center at midpoint i.e. middle of scale
-	  res <- dat - getScaleMidpoint(x)  
-	res
+  if (center == 1) { # center at row (construct) mean
+    res <- sweep(dat, 1, apply(dat, 1, mean, na.rm = TRUE))
+  }
+  if (center == 2) { # center at column (element) mean
+    res <- sweep(dat, 2, apply(dat, 2, mean, na.rm = TRUE))
+  }
+  if (center == 3) { # center at row and column mean
+    res <- sweep(dat, 1, apply(dat, 1, mean, na.rm = TRUE))
+    res <- sweep(res, 2, apply(res, 2, mean, na.rm = TRUE))
+  }
+  if (center == 4) { # center at midpoint i.e. middle of scale
+    res <- dat - getScaleMidpoint(x)
+  }
+  res
 }
 
 
@@ -1372,70 +1428,73 @@ center <- function(x, center=1, ...) {
 #' @export
 #' @examples
 #'
-#'  # explained sum-of-squares for elements
-#'  ssq(bell2010)
+#' # explained sum-of-squares for elements
+#' ssq(bell2010)
 #'
-#'  # explained sum-of-squares for constructs
-#'  ssq(bell2010, along=1)
+#' # explained sum-of-squares for constructs
+#' ssq(bell2010, along = 1)
 #'
-#'  # save results
-#'  s <- ssq(bell2010)
+#' # save results
+#' s <- ssq(bell2010)
 #'
-#'  # printing options
-#'  print(s)
-#'  print(s, digits=4)
-#'  print(s, dim=3)
-#'  print(s, cumulated=FALSE)
+#' # printing options
+#' print(s)
+#' print(s, digits = 4)
+#' print(s, dim = 3)
+#' print(s, cumulated = FALSE)
 #'
-#'  # access results
-#'  names(s)
-#'  s$ssq.table
-#'  s$ssq.table.cumsum
-#'  s$ssq.total
-#'  
-ssq <- function(x, along=2, center=1, normalize=0, 
-                g=0, h=1-g, col.active=NA, col.passive=NA, ...){ 
-  x <- calcBiplotCoords(x, center=center, normalize=normalize, 
-                        g=g, h=h,  col.active= col.active, 
-                        col.passive=col.passive)
-  if (is.null(x@calcs$biplot))
+#' # access results
+#' names(s)
+#' s$ssq.table
+#' s$ssq.table.cumsum
+#' s$ssq.total
+#'
+ssq <- function(x, along = 2, center = 1, normalize = 0,
+                g = 0, h = 1 - g, col.active = NA, col.passive = NA, ...) {
+  x <- calcBiplotCoords(x,
+    center = center, normalize = normalize,
+    g = g, h = h, col.active = col.active,
+    col.passive = col.passive
+  )
+  if (is.null(x@calcs$biplot)) {
     stop("biplot coordinates have not yet been calculated")
-  
+  }
+
   E <- x@calcs$biplot$el
   C <- x@calcs$biplot$con
   X <- x@calcs$biplot$X
-  
+
   enames <- elements(x)
   cnames <- constructs(x)$rightpole
-  
-  ssq.c <- diag(X %*% t(X))         # SSQ for each row (constructs)
-  ssq.e <- diag(t(X) %*% X)         # SSQ for each column(element)
-  ssq.c.prop <- C^2 / ssq.c         # ssq of row and dimension / total ssq element  
-  ssq.e.prop <- E^2 / ssq.e         # ssq of element and dimension / total ssq element  
- 
-  rownames(ssq.c.prop) <- cnames    # add construct names to rows
-  colnames(ssq.c.prop) <-           # add dimension labels to columns
-    paste(1L:ncol(ssq.c.prop), "D", sep="") 
-  rownames(ssq.e.prop) <- enames    # add element names to rows
-  colnames(ssq.e.prop) <-           # add dimension labels to columns
-    paste(1L:ncol(ssq.e.prop), "D", sep="")
 
-  ssq.c.cumsum <- t(apply(ssq.c.prop, 1, cumsum))         # cumulated ssq of construct per dimension / total ssq element 
-  ssq.e.cumsum <- t(apply(ssq.e.prop, 1, cumsum))         # cumulated ssq of elements per dimension / total ssq element 
-  ssq.c.avg <- apply(C^2, 2, sum, na.rm=T) / sum(ssq.c)   # ssq per dimension / ssq total 
-  ssq.e.avg <- apply(E^2, 2, sum, na.rm=T) / sum(ssq.e)   # ssq per dimension / ssq total
-  ssq.c.avg.cumsum <- cumsum(ssq.c.avg)                     # cumulated ssq per dimension / ssq total
-  ssq.e.avg.cumsum <- cumsum(ssq.e.avg)                     # cumulated ssq per dimension / ssq total
-  ssq.c.table <- rbind(ssq.c.prop, TOTAL=ssq.c.avg)         # 
-  ssq.e.table <- rbind(ssq.e.prop, TOTAL=ssq.e.avg)         # 
-  ssq.c.table.cumsum <- rbind(ssq.c.cumsum, TOTAL=ssq.c.avg.cumsum)
-  ssq.e.table.cumsum <- rbind(ssq.e.cumsum, TOTAL=ssq.e.avg.cumsum)
+  ssq.c <- diag(X %*% t(X)) # SSQ for each row (constructs)
+  ssq.e <- diag(t(X) %*% X) # SSQ for each column(element)
+  ssq.c.prop <- C^2 / ssq.c # ssq of row and dimension / total ssq element
+  ssq.e.prop <- E^2 / ssq.e # ssq of element and dimension / total ssq element
+
+  rownames(ssq.c.prop) <- cnames # add construct names to rows
+  colnames(ssq.c.prop) <- # add dimension labels to columns
+    paste(1L:ncol(ssq.c.prop), "D", sep = "")
+  rownames(ssq.e.prop) <- enames # add element names to rows
+  colnames(ssq.e.prop) <- # add dimension labels to columns
+    paste(1L:ncol(ssq.e.prop), "D", sep = "")
+
+  ssq.c.cumsum <- t(apply(ssq.c.prop, 1, cumsum)) # cumulated ssq of construct per dimension / total ssq element
+  ssq.e.cumsum <- t(apply(ssq.e.prop, 1, cumsum)) # cumulated ssq of elements per dimension / total ssq element
+  ssq.c.avg <- apply(C^2, 2, sum, na.rm = T) / sum(ssq.c) # ssq per dimension / ssq total
+  ssq.e.avg <- apply(E^2, 2, sum, na.rm = T) / sum(ssq.e) # ssq per dimension / ssq total
+  ssq.c.avg.cumsum <- cumsum(ssq.c.avg) # cumulated ssq per dimension / ssq total
+  ssq.e.avg.cumsum <- cumsum(ssq.e.avg) # cumulated ssq per dimension / ssq total
+  ssq.c.table <- rbind(ssq.c.prop, TOTAL = ssq.c.avg) #
+  ssq.e.table <- rbind(ssq.e.prop, TOTAL = ssq.e.avg) #
+  ssq.c.table.cumsum <- rbind(ssq.c.cumsum, TOTAL = ssq.c.avg.cumsum)
+  ssq.e.table.cumsum <- rbind(ssq.e.cumsum, TOTAL = ssq.e.avg.cumsum)
   ssq.c.table <- ssq.c.table * 100
   ssq.e.table <- ssq.e.table * 100
   ssq.c.table.cumsum <- ssq.c.table.cumsum * 100
   ssq.e.table.cumsum <- ssq.e.table.cumsum * 100
-  
-  if (along == 1){          # elements or constructs?
+
+  if (along == 1) { # elements or constructs?
     ssq.table <- ssq.c.table
     ssq.table.cumsum <- ssq.c.table.cumsum
     along.text <- "constructs"
@@ -1444,49 +1503,56 @@ ssq <- function(x, along=2, center=1, normalize=0,
     ssq.table.cumsum <- ssq.e.table.cumsum
     along.text <- "elements"
   }
-  
-  l <- list(ssq.table=ssq.table, 
-            ssq.table.cumsum=ssq.table.cumsum, 
-            ssq.total=sum(ssq.e))
-  attr(l, "arguments") <- list(along.text=along.text)
+
+  l <- list(
+    ssq.table = ssq.table,
+    ssq.table.cumsum = ssq.table.cumsum,
+    ssq.total = sum(ssq.e)
+  )
+  attr(l, "arguments") <- list(along.text = along.text)
   class(l) <- "ssq"
-  return(l) 
+  return(l)
 }
 
 
 #' Print method for class ssq.
-#' 
+#'
 #' @param x                 Object of class ssq.
 #' @param digits            Number of digits to round the output to (default is `2`).
 #' @param dim               The number of PCA dimensions to print. Default
-#'                          is `5` dimensions. `NA` will print all 
+#'                          is `5` dimensions. `NA` will print all
 #'                          dimensions.
-#' @param cumulated         Logical (default is `TRUE`). 
+#' @param cumulated         Logical (default is `TRUE`).
 #'                          Print a cumulated table of sum-of-squares?
-#'                          If `FALSE` the non-cumulated sum-of-squares are printed.                         
+#'                          If `FALSE` the non-cumulated sum-of-squares are printed.
 #'                          (default is `TRUE`).
 #' @param ...               Not evaluated.
 #' @export
 #' @method            print ssq
 #' @keywords          internal
 #'
-print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...) {
+print.ssq <- function(x, digits = 2, dim = 5, cumulated = TRUE, ...) {
   # dimensions to print
-  if (is.na(dim[1]))
+  if (is.na(dim[1])) {
     dim <- ncol(x$ssq.table)
+  }
   args <- attr(x, "arguments")
-  if (cumulated) {                 # output cumulated table?
-    ssq.out <- x$ssq.table.cumsum 
+  if (cumulated) { # output cumulated table?
+    ssq.out <- x$ssq.table.cumsum
     cum.text <- "Cumulated proportion"
   } else {
-    ssq.out <- x$ssq.table    
+    ssq.out <- x$ssq.table
     cum.text <- "Proportion"
   }
-  cat("\n", cum.text, "of explained sum-of-squares for ", 
-      args$along.text, "\n\n", sep="")
+  cat("\n", cum.text, "of explained sum-of-squares for ",
+    args$along.text, "\n\n",
+    sep = ""
+  )
   print(round(ssq.out[, 1:dim], digits))
-  cat("\nTotal sum-of-squares of pre-transformed ", 
-      "(i.e. centered and scaled) matrix:", x$ssq.total) 
+  cat(
+    "\nTotal sum-of-squares of pre-transformed ",
+    "(i.e. centered and scaled) matrix:", x$ssq.total
+  )
 }
 
 
@@ -1529,11 +1595,12 @@ print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...) {
 #' @seealso [indexUncertainty]
 #'
 #' @export
-indexDDI <- function(x, ds) { 
+indexDDI <- function(x, ds) {
   stop_if_not_is_repgrid(x)
   stop_if_not_0_1_ratings_only(x)
-  if (any(ds < 1))
+  if (any(ds < 1)) {
     stop("'ds' must be a vector of positive integer values", call. = FALSE)
+  }
   .indexDDIvec(x, ds)
 }
 
@@ -1542,9 +1609,9 @@ indexDDI <- function(x, ds) {
 # k: number of people (columns) in grid
 # N: total number of dependencies in grid
 # n_i: number of dependencies involving person i (= number of ticks in column)
-.indexDDI <- function(x, DS) { 
+.indexDDI <- function(x, DS) {
   r <- ratings(x)
-  N <- sum(r == 1) 
+  N <- sum(r == 1)
   n_i <- colSums(r)
   DI <- sum(1 - choose(N - n_i, DS) / choose(N, DS))
   return(DI)
@@ -1576,13 +1643,13 @@ indexDDI <- function(x, ds) {
 #' @seealso [indexDDI]
 #'
 #' @export
-indexUncertainty <- function(x) { 
+indexUncertainty <- function(x) {
   stop_if_not_is_repgrid(x)
   stop_if_not_0_1_ratings_only(x)
   #
   # formula Bell (2001, p. 228):
   #
-  #   Log(total dependencies) – [Sum (dependencies by resource) × Log (dependencies by resource)] / 
+  #   Log(total dependencies) – [Sum (dependencies by resource) × Log (dependencies by resource)] /
   #     (total dependencies)
   # maximum, with k = number of resources (columns):
   #
@@ -1590,12 +1657,12 @@ indexUncertainty <- function(x) {
   #
   r <- ratings(x)
   dep_total <- sum(r)
-  dep_per_column <- colSums(r) 
+  dep_per_column <- colSums(r)
   value <- log(dep_total) - sum(dep_per_column * log(dep_per_column)) / dep_total
-  
+
   k <- ncol(x)
   maximum <- log(dep_total) - log(dep_total / k)
-  
+
   res <- value / maximum
   names(res) <- "Uncertainty Index"
   return(res)

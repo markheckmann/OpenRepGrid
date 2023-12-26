@@ -24,7 +24,7 @@ by the boundary value or alternatively by NA
 }
 \examples{
 trim_val(30)
-trim_val(30, c(10,20))
+trim_val(30, c(10, 20))
 
 }
 \keyword{internal}

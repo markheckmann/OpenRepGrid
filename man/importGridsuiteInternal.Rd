@@ -19,13 +19,13 @@ Internal parser for Gridsuite data files
 }
 \note{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{     The developers of Gridsuite have proposed to use an XML scheme as
-           a standard exchange format for repertory grid data (Walter, 
-           Bacher & Fromm, 2004). This approach is also embraced by the 
+           a standard exchange format for repertory grid data (Walter,
+           Bacher & Fromm, 2004). This approach is also embraced by the
            `OpenRepGrid` package.
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{     TODO: The element and construct IDs are not used yet. Thus, 
-           if the output should be in different order the current mechanism 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{     TODO: The element and construct IDs are not used yet. Thus,
+           if the output should be in different order the current mechanism
            will cause false assignments.
 }\if{html}{\out{</div>}}
 }
@@ -42,17 +42,15 @@ imp <- importGridsuite(file, dir)
 
 # using a full path
 imp <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
-
 }
-
 
 }
 \references{
 \url{http://www.gridsuite.de/}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{           Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal 
-           for a common data exchange format for repertory grid data. 
-           *Journal of Constructivist Psychology, 17*(3), 247. 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{           Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal
+           for a common data exchange format for repertory grid data.
+           *Journal of Constructivist Psychology, 17*(3), 247.
            doi:10.1080/10720530490447167
 }\if{html}{\out{</div>}}
 }

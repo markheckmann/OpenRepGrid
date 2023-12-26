@@ -122,10 +122,10 @@ the current plane are shown. Set the value to \code{91} (default)
 to show all vectors.}
 }
 \value{
-\code{dataframe} containing the variables \verb{type, show, x, y,  z, labels, color, cex}. Usually not of interest to the user.
+\code{dataframe} containing the variables \verb{type, show, x, y, z, labels, color, cex}. Usually not of interest to the user.
 }
 \description{
-Data frame contains the variables \verb{type, show, x, y,  z, labels, color, cex}.
+Data frame contains the variables \verb{type, show, x, y, z, labels, color, cex}.
 }
 \note{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{           TODO:  How to omit `map.dim`?

@@ -23,10 +23,11 @@
 
 # internal: retrieve element slot. For convenience, so new users do not have to deal with object slots
 # as they will not have knowledge of object structures (S3, S4).
-getElements <- function(x){
-	if(!inherits(x, "repgrid")) 							# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'.")	
-	x@elements
+getElements <- function(x) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'.")
+  }
+  x@elements
 }
 
 
@@ -43,14 +44,14 @@ getElements <- function(x){
 #' @export
 #' @keywords internal
 #'
-getElementNames <- function(x)
-{
-	if(!inherits(x, "repgrid")) 							# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'.")	
-  
+getElementNames <- function(x) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'.")
+  }
+
   .Deprecated("elements")
-  
-	sapply(x@elements, function(x) x$name)
+
+  sapply(x@elements, function(x) x$name)
 }
 eNames <- getElementNames
 
@@ -64,7 +65,7 @@ eNames <- getElementNames
 
 
 #' Retrieves the element names from a `repgrid`.
-#' 
+#'
 #' Different features like trimming, indexing and choices of separators
 #' allow to return the kind of format that is needed.
 #'
@@ -73,7 +74,7 @@ eNames <- getElementNames
 #' @param x       `repgrid` object.
 #' @param trim    Number of characters to trim the construct names to
 #'                (default `NA`). `NA` will suppress trimming.
-#'                The length of `index` is not included in the 
+#'                The length of `index` is not included in the
 #'                trimming.
 #' @param index   Logical. Whether to add a index number before the construct
 #'                names (default `TRUE`).
@@ -83,69 +84,71 @@ eNames <- getElementNames
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
-#'  
-#'  getElementNames2(bell2010)
-#'  getElementNames2(bell2010, mode=2)
-#'  getElementNames2(bell2010, index=T)
-#'  getElementNames2(bell2010, index=T, trim=30)
 #'
+#' getElementNames2(bell2010)
+#' getElementNames2(bell2010, mode = 2)
+#' getElementNames2(bell2010, index = T)
+#' getElementNames2(bell2010, index = T, trim = 30)
 #' }
 #'
-getElementNames2 <- function(x, trim=20, index=F, 
-                             pre="(", post=") " ){
-  if (!inherits(x, "repgrid")) 							
+getElementNames2 <- function(x, trim = 20, index = F,
+                             pre = "(", post = ") ") {
+  if (!inherits(x, "repgrid")) {
     stop("Object x must be of class 'repgrid'")
-  
+  }
+
   enames <- elements(x)
-  
+
   # add numeric index in front of elements
-  if (index)
-    ind <- paste(pre, seq_along(enames), post, sep="") else
-      ind  <- ""
-  
+  if (index) {
+    ind <- paste(pre, seq_along(enames), post, sep = "")
+  } else {
+    ind <- ""
+  }
+
   # trim names if prompted
-  if (!is.na(trim)){                          
+  if (!is.na(trim)) {
     enames <- substr(enames, 1, trim)
   }
-  
-  enames.new <- paste(ind, enames, sep="") 
+
+  enames.new <- paste(ind, enames, sep = "")
   enames.new
 }
 
 
 
 
-#' Get or replace element names 
-#' 
-#' Allows to get and set element names. 
+#' Get or replace element names
+#'
+#' Allows to get and set element names.
 #' Replaces the older functions `getElementNames`, `getElementNames2`,
 #' and `eNames` which are deprecated.
-#' 
+#'
 #' @param  x A repgrid object.
 #' @rdname elements
 #' @export
-#' @examples 
-#' 
+#' @examples
+#'
 #' # copy Boeker grid to x
 #' x <- boeker
-#' 
+#'
 #' ## get element names
 #' e <- elements(x)
 #' e
-#' 
+#'
 #' ## replace element names
-#' elements(x) <- rev(e)       # reverse all element names
-#' elements(x)[1] <- "Hannes"  # replace name of first element
-#' 
+#' elements(x) <- rev(e) # reverse all element names
+#' elements(x)[1] <- "Hannes" # replace name of first element
+#'
 #' # replace names of elements 1 and 3
-#' elements(x)[c(1,3)] <- c("element 1", "element 3")   
-#'  
-elements <- function(x)
-{
+#' elements(x)[c(1, 3)] <- c("element 1", "element 3")
+#'
+elements <- function(x) {
   # check if x is a repgrid object
-  if (!inherits(x, "repgrid")) 
+  if (!inherits(x, "repgrid")) {
     stop("Object x must be of class 'repgrid'.")
-  
+  }
+
   # get name property from each element
   sapply(x@elements, function(x) x$name)
 }
@@ -155,67 +158,75 @@ elements <- function(x)
 #' @param value Character vector of element names.
 #' @rdname elements
 #' @export
-#' 
-`elements<-` <- function(x, position, value) 
-{
+#'
+`elements<-` <- function(x, position, value) {
   # check if x is a repgrid object
-  if (!inherits(x, "repgrid")) 
+  if (!inherits(x, "repgrid")) {
     stop("Object x must be of class 'repgrid'.")
-  
+  }
+
   # get element names and replace one or more
   e.names <- elements(x)
   e.names[position] <- value
-  
+
   # replace name propert of each element
   for (i in seq_along(e.names)) {
     x@elements[[i]]$name <- e.names[i]
   }
-  
+
   x
 }
 
 
-getNoOfElements <- function(x){
-	if(!inherits(x, "repgrid")) 							# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'.")
-	length(x@elements)
+getNoOfElements <- function(x) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'.")
+  }
+  length(x@elements)
 }
 # getNoOfElements(rg1)
 
 
 # internal: e.makeNewElement makes a new element object which is simply list with certain standard
 # entries
-e.makeNewElement <- function(x=NULL, name=NA, abbreviation=NA, status=NA){
-	list(name=name,
-		 abbreviation=abbreviation,
-		 status=status)
+e.makeNewElement <- function(x = NULL, name = NA, abbreviation = NA, status = NA) {
+  list(
+    name = name,
+    abbreviation = abbreviation,
+    status = status
+  )
 }
 
 
 # internal: e.setElements sets one or more elements in the grid. The index defines the column where the
 # element is added.
-e.setElements <- function(x, name=NA, abbreviation=NA, status=NA, index=NULL, ...){
-	if(!inherits(x, "repgrid")) 											# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'.")
-	if(!is.atomic(name) | !is.atomic(abbreviation) | !is.atomic(status))	# if elements comes as a vector
-		stop("arguments name, abbreviation and status must be a vector")
-	if(is.null(index)){
-		index <- seq_len(max(c(length(name), length(abbreviation), length(status))))
-	}
-	if(length(index)!=max(c(length(name), length(abbreviation), length(status))))
-		stop("length of index values differ from number of elements provided.")
-	if(length(unique(index)) != length(index))							# is index unique?
-		stop("index values must be unique.")
-	new.elements <- index[index > length(x@elements)]					# elements that are replaced
-	replaced.elements <- index[index <= length(x@elements)]				# elements that are added
-	if(max(index) > (length(x@elements) + length(new.elements)))		# wholes in element list if added at an index that is not succesive (e.g. 1,2,5)?
-		stop("index has values that will create wholes in the element list.")	
-	if(!(is.na(name[1]) & is.na(abbreviation[1]) & is.na(status[1])) ){
-		newElements <- mapply(e.makeNewElement, "dummy", name=name, abb=abbreviation, status=status, SIMPLIFY=FALSE)  # generate new element list	
-		x@elements[index] <-  newElements
-	}
-	# add no of columns in ratings array if element is added: TODO? -> in higher-order function in repgrid-basicops
-	x
+e.setElements <- function(x, name = NA, abbreviation = NA, status = NA, index = NULL, ...) {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'.")
+  }
+  if (!is.atomic(name) | !is.atomic(abbreviation) | !is.atomic(status)) { # if elements comes as a vector
+    stop("arguments name, abbreviation and status must be a vector")
+  }
+  if (is.null(index)) {
+    index <- seq_len(max(c(length(name), length(abbreviation), length(status))))
+  }
+  if (length(index) != max(c(length(name), length(abbreviation), length(status)))) {
+    stop("length of index values differ from number of elements provided.")
+  }
+  if (length(unique(index)) != length(index)) { # is index unique?
+    stop("index values must be unique.")
+  }
+  new.elements <- index[index > length(x@elements)] # elements that are replaced
+  replaced.elements <- index[index <= length(x@elements)] # elements that are added
+  if (max(index) > (length(x@elements) + length(new.elements))) { # wholes in element list if added at an index that is not succesive (e.g. 1,2,5)?
+    stop("index has values that will create wholes in the element list.")
+  }
+  if (!(is.na(name[1]) & is.na(abbreviation[1]) & is.na(status[1]))) {
+    newElements <- mapply(e.makeNewElement, "dummy", name = name, abb = abbreviation, status = status, SIMPLIFY = FALSE) # generate new element list
+    x@elements[index] <- newElements
+  }
+  # add no of columns in ratings array if element is added: TODO? -> in higher-order function in repgrid-basicops
+  x
 }
 #  x <- makeEmptyRepgrid()
 #  x <- e.setElements(x, name=c("element 1", "element 2"), abb=c("e1","e2"), i=2:1)
@@ -223,44 +234,49 @@ e.setElements <- function(x, name=NA, abbreviation=NA, status=NA, index=NULL, ..
 #  x <- makeEmptyRepgrid()
 #  x <- e.setElements(x, name="test")
 #  x <- e.setElements(x, name="test", index=3)  # error due to wholes in element list
-  
 
 
-# internal: e.addElements adds elements to the grid. All elements that do not have 
+
+# internal: e.addElements adds elements to the grid. All elements that do not have
 # a position specified are added at the end.
-e.addElements <- function(x, name=NA, abbreviation=NA, status=NA, position=NA, side="pre"){
-	if (!inherits(x, "repgrid")) 							# check if x is repgrid object
-		stop("Object x must be of class 'repgrid'.")
-	if (!is.numeric(position) & !(length(position) == 1 & is.na(position[1])))
-		stop("position must be numeric.")
-	len <- max(c(length(name), length(abbreviation), length(status)))
-	if (length(position) == 1 & is.na(position[1]))
-		position <- rep(NA, len)
-	if (length(unique(position)) != length(position) & ! all(is.na(position)))							# is index unique?
-		stop("position values must be unique.")
-	position[is.na(position)] <- seq_along(position[is.na(position)]) + length(x@elements)
-	elements.old <- x@elements
-	elements.new <- mapply(e.makeNewElement, NA, name=name, abb=abbreviation, status=status, SIMPLIFY=FALSE)  # generate new element list	
-	index <- insertAt(seq_along(x@elements), position, side=side)
-	tmp <- c(index$index.base.new, index$index.insert.new)
-	if (max(tmp) > length(tmp))
-		stop("position has values that will create wholes in the element list.")		
-	x@elements[index$index.base.new] <- elements.old[index$index.base]
-	x@elements[index$index.insert.new] <- elements.new
-	x	
+e.addElements <- function(x, name = NA, abbreviation = NA, status = NA, position = NA, side = "pre") {
+  if (!inherits(x, "repgrid")) { # check if x is repgrid object
+    stop("Object x must be of class 'repgrid'.")
+  }
+  if (!is.numeric(position) & !(length(position) == 1 & is.na(position[1]))) {
+    stop("position must be numeric.")
+  }
+  len <- max(c(length(name), length(abbreviation), length(status)))
+  if (length(position) == 1 & is.na(position[1])) {
+    position <- rep(NA, len)
+  }
+  if (length(unique(position)) != length(position) & !all(is.na(position))) { # is index unique?
+    stop("position values must be unique.")
+  }
+  position[is.na(position)] <- seq_along(position[is.na(position)]) + length(x@elements)
+  elements.old <- x@elements
+  elements.new <- mapply(e.makeNewElement, NA, name = name, abb = abbreviation, status = status, SIMPLIFY = FALSE) # generate new element list
+  index <- insertAt(seq_along(x@elements), position, side = side)
+  tmp <- c(index$index.base.new, index$index.insert.new)
+  if (max(tmp) > length(tmp)) {
+    stop("position has values that will create wholes in the element list.")
+  }
+  x@elements[index$index.base.new] <- elements.old[index$index.base]
+  x@elements[index$index.insert.new] <- elements.new
+  x
 }
 ### NOT RUN
 # x <- makeEmptyRepgrid()
 # x <- e.setElements(x, name=c("element 1", "element 2"), abb=c("e1","e2"))
 # x <- e.addElements(x, name="element added at the end")
-#x <- e.addElements(x, name="element inserted at position 1", pos=1)
-#x <- e.addElements(x, name=c("element A", "element B"), abb=c("e1","e2"), pos=5:6)
-#x <- e.addElements(x, name=c("element A", "element B"), abb=c("e1","e2"), pos=10:11)
-#x <- e.addElements(x, name=c("element C", "element D"), abb=c("eA","eB"), pos=c(1,1))  # todo geht nicht
+# x <- e.addElements(x, name="element inserted at position 1", pos=1)
+# x <- e.addElements(x, name=c("element A", "element B"), abb=c("e1","e2"), pos=5:6)
+# x <- e.addElements(x, name=c("element A", "element B"), abb=c("e1","e2"), pos=10:11)
+# x <- e.addElements(x, name=c("element C", "element D"), abb=c("eA","eB"), pos=c(1,1))  # todo geht nicht
 
-#x <- makeEmptyRepgrid()
-#x <- addElements(x, name=c("element 1", "element 2"), abb=c("e1","e2"))
-#insertAt(numeric(0), 1:2)
+# x <- makeEmptyRepgrid()
+# x <- addElements(x, name=c("element 1", "element 2"), abb=c("e1","e2"))
+# insertAt(numeric(0), 1:2)
 
 
 

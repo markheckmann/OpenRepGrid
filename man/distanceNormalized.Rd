@@ -79,28 +79,27 @@ Kosmidis.
 \examples{
 \dontrun{
 
-   ### basics  ###
-   
-   distanceNormalized(bell2010)
-   n <- distanceNormalized(bell2010)
-   n
-   
-   # printing options
-   print(n)
-   print(n, digits=4)
-   # 'significant' distances only
-   print(n, p=c(.05, .95))
+### basics  ###
 
-   # access cells of distance matrix
-   n[1,2]
-   
-   ### advanced  ###
-   
-   # histogram of Slater distances and indifference region
-   n <- distanceNormalized(bell2010, distributions=TRUE)
-   l <- attr(n, "distributions") 
-   hist(l$bc, breaks=100)
- 
+distanceNormalized(bell2010)
+n <- distanceNormalized(bell2010)
+n
+
+# printing options
+print(n)
+print(n, digits = 4)
+# 'significant' distances only
+print(n, p = c(.05, .95))
+
+# access cells of distance matrix
+n[1, 2]
+
+### advanced  ###
+
+# histogram of Slater distances and indifference region
+n <- distanceNormalized(bell2010, distributions = TRUE)
+l <- attr(n, "distributions")
+hist(l$bc, breaks = 100)
 }
 
 }

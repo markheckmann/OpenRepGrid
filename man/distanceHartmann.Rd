@@ -82,29 +82,29 @@ Where \eqn{D_{slater}}{D_slater} denotes the Slater distances of the grid,
 \examples{
 \dontrun{
 
-   ### basics  ###
-   
-   distanceHartmann(bell2010)
-   distanceHartmann(bell2010, method="simulate")
-   h <- distanceHartmann(bell2010, method="simulate")
-   h
-   
-   # printing options
-   print(h)
-   print(h, digits=6)
-   # 'significant' distances only
-   print(h, p=c(.05, .95))
+### basics  ###
 
-   # access cells of distance matrix
-   h[1,2]
-   
-   ### advanced  ###
-   
-   # histogram of Slater distances and indifference region
-   h <- distanceHartmann(bell2010, distributions=TRUE)
-   l <- attr(h, "distributions") 
-   hist(l$slater, breaks=100)
-   hist(l$hartmann, breaks=100)
+distanceHartmann(bell2010)
+distanceHartmann(bell2010, method = "simulate")
+h <- distanceHartmann(bell2010, method = "simulate")
+h
+
+# printing options
+print(h)
+print(h, digits = 6)
+# 'significant' distances only
+print(h, p = c(.05, .95))
+
+# access cells of distance matrix
+h[1, 2]
+
+### advanced  ###
+
+# histogram of Slater distances and indifference region
+h <- distanceHartmann(bell2010, distributions = TRUE)
+l <- attr(h, "distributions")
+hist(l$slater, breaks = 100)
+hist(l$hartmann, breaks = 100)
 }
 
 }

@@ -19,7 +19,7 @@ Parse the file format that is used by the grid program GRIDCOR (Feixas & Cornejo
 }
 \note{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{     Note that the GRIDCOR data sets the minimum ratings scale range to 1.
-           The maximum value can differ and is defined in the data file. 
+           The maximum value can differ and is defined in the data file.
 }\if{html}{\out{</div>}}
 }
 \examples{
@@ -35,9 +35,7 @@ imp <- importGridcorInternal(file, dir)
 
 # using a full path
 imp <- importGridcorInternal("/Users/markheckmann/data/gridcor.dat")
-
 }
-
 
 }
 \references{

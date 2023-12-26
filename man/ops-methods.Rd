@@ -27,7 +27,7 @@ Methods for \code{"+"} function.
 
 x <- bell2010
 x + x
-x + list(x,x)
-list(x,x) + x 
+x + list(x, x)
+list(x, x) + x
 
 }

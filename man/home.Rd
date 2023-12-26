@@ -26,12 +26,11 @@ pointing out of the screen.
 \examples{
 \dontrun{
 
-   biplot3d(boeker)
-   home(2)
-   home(3)
-   home(1)
-   home(theta=45, phi=45)
-
+biplot3d(boeker)
+home(2)
+home(3)
+home(1)
+home(theta = 45, phi = 45)
 }
 
 }

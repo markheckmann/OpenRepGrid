@@ -1,4 +1,3 @@
-
 ############################### Package description ###########################
 
 #' `OpenRepGrid`: an R package for the analysis of repertory grids.
@@ -46,16 +45,16 @@
 
 #############################  Package overview  ##############################
 
-#' \pkg{OpenRepGrid}: Annotated overview of package functions.   
+#' \pkg{OpenRepGrid}: Annotated overview of package functions.
 #'
 #' This documentation page contains an overview over the package functions
 #' ordered by topics. The best place to start learning OpenRepGrid will
 #' be the package website <https://openrepgrid.org> though.
-#' 
-#' @section Functions sorted by topic: 
-#' 
-#' **Manipulating grids** \cr 
-#' 
+#'
+#' @section Functions sorted by topic:
+#'
+#' **Manipulating grids** \cr
+#'
 #' \tabular{ll}{
 #'    [left()]   \tab Move construct(s) to the left  \cr
 #'    [right()]  \tab Move construct(s) to the right \cr
@@ -63,8 +62,8 @@
 #'    [down()]   \tab Move construct(s) downwards \cr
 #' }
 #'
-#' **Loading and saving data** \cr 
-#' 
+#' **Loading and saving data** \cr
+#'
 #' \tabular{ll}{
 #' [importGridcor()]  \tab Import GRIDCOR data files \cr
 #' [importGridstat()]	\tab Import Gridstat data files \cr
@@ -74,21 +73,21 @@
 #'  \tab \cr
 #' [saveAsTxt()] \tab Save grid in a text file (txt) \cr
 #' }
-#' 
-#' **Analyzing constructs** \cr 
-#' 
+#'
+#' **Analyzing constructs** \cr
+#'
 #' Descriptive statistics of constructs
 #' Construct correlations
 #' distance
 #' Root mean square of inter-construct correlations
-#' Somers' D 
-#' Principal component analysis (PCA) of construct correlation matrix 
+#' Somers' D
+#' Principal component analysis (PCA) of construct correlation matrix
 #' Cluster analysis of constructs
-#' 
-#' **Analyzing elements** \cr 
-#' 
-#' **Visual representation** \cr 
-#' 
+#'
+#' **Analyzing elements** \cr
+#'
+#' **Visual representation** \cr
+#'
 #' \tabular{ll}{
 #' *Bertin plots* \tab \cr
 #'   \tab \cr
@@ -111,10 +110,10 @@
 #' [biplotSlater3d()]	      \tab Draw the Slater's INGRID biplot in rgl (3D device) \cr
 #'    \tab \cr
 #' [biplotSimple()]         \tab A graphically unsophisticated version of a biplot \cr
-#' } 
-#' 
+#' }
+#'
 #' **Index measures** \cr
-#'  
+#'
 #' \tabular{ll}{
 #' [indexConflict1()]	  \tab Conflict measure for grids (Slade & Sheehan, 1979) based on correlations \cr
 #' [indexConflict2()]	  \tab Conflict measure for grids (Bassler et al., 1992) based on correlations \cr
@@ -127,92 +126,92 @@
 #' [indexBias()]        \tab Calculate 'bias' of grid as defined by Slater (1977) \cr
 #' [indexVariability()]	\tab Calculate 'variability' of a grid as defined by Slater (1977) \cr
 #' }
-#' 
+#'
 #' **Special features** \cr
-#' 
+#'
 #' \tabular{ll}{
 #' [alignByIdeal()]     \tab  Align constructs using the ideal element to gain pole preferences \cr
 #' [alignByLoadings()]  \tab	Align constructs by loadings on first principal component \cr
 #' [reorder2d()]        \tab Order grid by angles between construct and/or elements in 2D \cr
 #' }
-#' 
+#'
 #' @section Settings:
-#' 
-#' \pkg{OpenRepGrid} uses several default settings e.g. to determine 
+#'
+#' \pkg{OpenRepGrid} uses several default settings e.g. to determine
 #' how many construct characters to display by default when displaying a grid.
 #' The function `settings` can be used to show and change these settings.
 #' Also it is possible to store the settings to a file and load the settings
 #' file to restore the settings.
-#' 
+#'
 #' \tabular{ll}{
 #' [settings()]      \tab Show and modify global settings for OpenRepGrid \cr
 #' [settingsSave()]  \tab Save OpenRepGrid settings to file \cr
 #' [settingsLoad()]  \tab Load OpenRepGrid settings from file\cr
 #' }
-#' 
+#'
 #' @section Grid datasets:
-#' 
-#' \pkg{OpenRepGrid} already contains some ready to use grid data sets. Most of 
-#' the datasets are taken from the literature. To output the data simply type 
+#'
+#' \pkg{OpenRepGrid} already contains some ready to use grid data sets. Most of
+#' the datasets are taken from the literature. To output the data simply type
 #' Type the name of the dataset to the console and press enter. \cr
-#' 
+#'
 #' *Single grids* \cr
-#' 
+#'
 #' \tabular{ll}{
-#' [bell2010()]         \tab Grid data from a study by Haritos et al. (2004) 
-#'                                     on role titles; used for demonstration of 
+#' [bell2010()]         \tab Grid data from a study by Haritos et al. (2004)
+#'                                     on role titles; used for demonstration of
 #'                                     construct alignment in Bell (2010, p. 46). \cr
-#' [bellmcgorry1992()]  \tab Grid from a psychotic patient used in Bell 
-#'                                     (1997, p. 6). Data originated from a study 
+#' [bellmcgorry1992()]  \tab Grid from a psychotic patient used in Bell
+#'                                     (1997, p. 6). Data originated from a study
 #'                                     by Bell and McGorry (1992). \cr
-#' [boeker()]           \tab Grid from seventeen year old female schizophrenic 
-#'                                     patient undergoing last stage of psychoanalytically 
+#' [boeker()]           \tab Grid from seventeen year old female schizophrenic
+#'                                     patient undergoing last stage of psychoanalytically
 #'                                     oriented psychotherapy (Boeker, 1996, p. 163). \cr
-#' [fbb2003()]          \tab Dataset used in *A manual for Repertory Grid 
+#' [fbb2003()]          \tab Dataset used in *A manual for Repertory Grid
 #'                                     Technique* (Fransella, Bell, & Bannister, 2003b, p. 60). \cr
-#' [feixas2004()]       \tab Grid from a 22 year old Spanish girl suffering 
+#' [feixas2004()]       \tab Grid from a 22 year old Spanish girl suffering
 #'                                     self-worth problems (Feixas & Saul, 2004, p. 77). \cr
-#' [mackay1992()]	      \tab Dataset *Grid C* used in Mackay's paper on inter-element 
+#' [mackay1992()]	      \tab Dataset *Grid C* used in Mackay's paper on inter-element
 #'                                     correlation (1992, p. 65). \cr
-#' [leach2001a()], [leach2001b()] \tab	Pre- (a) and post-therapy (b) dataset from 
-#'                                     sexual child abuse survivor (Leach, Freshwater, 
+#' [leach2001a()], [leach2001b()] \tab	Pre- (a) and post-therapy (b) dataset from
+#'                                     sexual child abuse survivor (Leach, Freshwater,
 #'                                     Aldridge, & Sunderland, 2001, p. 227). \cr
-#' [raeithel()]         \tab Grid data to demonstrate the use of Bertin diagrams 
-#'                                     (Raeithel, 1998, p. 223). The context of its 
+#' [raeithel()]         \tab Grid data to demonstrate the use of Bertin diagrams
+#'                                     (Raeithel, 1998, p. 223). The context of its
 #'                                     administration is unknown. \cr
 #' [slater1977a()]      \tab Drug addict grid dataset from (Slater, 1977, p. 32). \cr
-#' [slater1977b()]      \tab Grid dataset (ranked) from a seventeen year old 
-#'                                     female psychiatric patient (Slater, 1977, p. 110) 
-#'                                     showing depression, anxiety and self-mutilation. 
+#' [slater1977b()]      \tab Grid dataset (ranked) from a seventeen year old
+#'                                     female psychiatric patient (Slater, 1977, p. 110)
+#'                                     showing depression, anxiety and self-mutilation.
 #'                                     The data was originally reported by Watson (1970).\cr
 #' }
-#' 
+#'
 #' *Multiple grids* \cr
-#' 
-#' NOT YET AVAILABLE \cr     
-#' 
-#' 
+#'
+#' NOT YET AVAILABLE \cr
+#'
+#'
 #' @section Functions for developers:
-#' 
+#'
 #' \pkg{OpenRepGrid}: internal functions overview for developers. \cr
-#' 
-#' Below you find a guide for developers: these functions are usually 
+#'
+#' Below you find a guide for developers: these functions are usually
 #' not needed by the casual user. The internal functions have a twofold goal
-#' 1) to provide means for advanced numerical grid analysis and 2) 
+#' 1) to provide means for advanced numerical grid analysis and 2)
 #' to facilitate function development. The function for these purposes
 #' are internal, i.e. they are not visible in the package documentation.
 #' Nonetheless they do have a documentation that
 #' can be accesses in the same way as for other functions.
 #' More in the details section.
-#' 
+#'
 #' **Functions for advanced grid analysis** \cr
-#' 
-#' The package provides functions to facilitate numerical research for grids. 
-#' These comprise the generation of random data, permutation of grids etc. 
-#' to facilitate Monte Carlo simulations, batch analysis of grids and other methods. 
-#' With R as an underlying framework, the results of grid analysis easily lend 
-#' themselves to further statistical processing and analysis within R. 
-#' This is one of the central advantages for researchers compared to other 
+#'
+#' The package provides functions to facilitate numerical research for grids.
+#' These comprise the generation of random data, permutation of grids etc.
+#' to facilitate Monte Carlo simulations, batch analysis of grids and other methods.
+#' With R as an underlying framework, the results of grid analysis easily lend
+#' themselves to further statistical processing and analysis within R.
+#' This is one of the central advantages for researchers compared to other
 #' standard grid software. The following table lists several functions for these purposes.
 #'
 #' \tabular{ll}{
@@ -224,14 +223,14 @@
 #' }
 #'
 #' **Modules for function development** \cr
-#' 
-#' Beside the advanced analysis feature the developer's functions comprise 
-#' low-level modules to create new functions for grid analysis. 
-#' Though the internal structure of a repgrid object in R is simple 
-#' (type e.g. `str(bell2010, 2)` to get an impression), it is convenient 
-#' to not have to deal with access on this level. Several function like e.g. 
-#' `getElementNames` are convenient wrappers that perform standard tasks 
-#' needed when implementing new functions. The following table lists several 
+#'
+#' Beside the advanced analysis feature the developer's functions comprise
+#' low-level modules to create new functions for grid analysis.
+#' Though the internal structure of a repgrid object in R is simple
+#' (type e.g. `str(bell2010, 2)` to get an impression), it is convenient
+#' to not have to deal with access on this level. Several function like e.g.
+#' `getElementNames` are convenient wrappers that perform standard tasks
+#' needed when implementing new functions. The following table lists several
 #' functions for these purposes.
 #'
 #' \tabular{ll}{
@@ -254,12 +253,12 @@
 #' [importTxtInternal()]  \tab  \cr
 #' }
 #'
-#' @author    Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann. 
+#' @author    Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann.
 #'            Everyone who is interested in developing the package is invited to join.
 #'
 #'            The \pkg{OpenRepGrid} package development is hosted on github (<https://github.com/markheckmann/OpenRepGrid>).
 #'            The github site provides information and allows to file bug reports or feature requests.
-#'            Bug reports can also be emailed to the package maintainer or issued on 
+#'            Bug reports can also be emailed to the package maintainer or issued on
 #'            <https://openrepgrid.org> under section *Suggestions/Issues*.
 #'            The package maintainer is Mark Heckmann <heckmann(dot)mark(at)gmail(dot)com>.
 #'
@@ -268,5 +267,3 @@
 #' @docType package
 #'
 NULL
-
-

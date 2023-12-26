@@ -93,16 +93,16 @@ values correspond to low, dark to high scores. For an example of how to analyze 
 }
 \examples{
 
-   bertin(feixas2004)
-   bertin(feixas2004, c("white", "darkblue"))
-   bertin(feixas2004, showvalues=FALSE)
-   bertin(feixas2004, border="grey")
-   bertin(feixas2004, cex.text=.9)
-   bertin(feixas2004, id=c(FALSE, FALSE))
-   
-   bertin(feixas2004, cc=3, cr=4)
-   bertin(feixas2004, cc=3, cr=4, col.mark.fill="#e6e6e6")
-                      
+bertin(feixas2004)
+bertin(feixas2004, c("white", "darkblue"))
+bertin(feixas2004, showvalues = FALSE)
+bertin(feixas2004, border = "grey")
+bertin(feixas2004, cex.text = .9)
+bertin(feixas2004, id = c(FALSE, FALSE))
+
+bertin(feixas2004, cc = 3, cr = 4)
+bertin(feixas2004, cc = 3, cr = 4, col.mark.fill = "#e6e6e6")
+
 }
 \references{
 Bertin, J. (1974). \emph{Graphische Semiologie: Diagramme, Netze, Karten}. Berlin, New York: de Gruyter.

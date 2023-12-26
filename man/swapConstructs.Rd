@@ -22,9 +22,9 @@ Swap the position of two constructs in a grid.
 \examples{
 \dontrun{
 
-   x <- randomGrid()
-   swapConstructs(x, 1, 3)       # swap constructs 1 and 3
-   swapConstructs(x, 1:2, 3:4)   # swap construct 1 with 3 and 2 with 4
+x <- randomGrid()
+swapConstructs(x, 1, 3) # swap constructs 1 and 3
+swapConstructs(x, 1:2, 3:4) # swap construct 1 with 3 and 2 with 4
 }
 
 }

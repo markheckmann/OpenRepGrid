@@ -35,8 +35,8 @@ To see all the parameters that can be changed see \code{\link[=biplot2d]{biplot2
 }
 \examples{
 \dontrun{
-   # See examples in [biplot2d()] as the same arguments
-   # can used for this function.
+# See examples in [biplot2d()] as the same arguments
+# can used for this function.
 }
 
 }

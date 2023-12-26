@@ -22,7 +22,7 @@ said to be low. In this case the construct system is regarded as 'simple' (Bell,
 }
 \examples{
 
-   indexPvaff(bell2010)
+indexPvaff(bell2010)
 
 }
 \references{

@@ -38,16 +38,16 @@ reflection (Mackay, 1992; Bell, 2010). A correlation index invariant to construc
 }
 \examples{
 
-   # data from grid manual by Fransella, Bell and Bannister
-   elementRmsCor(fbb2003)    
-   elementRmsCor(fbb2003, trim=10)
-   
-   # modify output
-   r <- elementRmsCor(fbb2003) 
-   print(r, digits=5)
+# data from grid manual by Fransella, Bell and Bannister
+elementRmsCor(fbb2003)
+elementRmsCor(fbb2003, trim = 10)
 
-   # access second row of calculation results
-   r[2, "RMS"]
+# modify output
+r <- elementRmsCor(fbb2003)
+print(r, digits = 5)
+
+# access second row of calculation results
+r[2, "RMS"]
 
 }
 \references{

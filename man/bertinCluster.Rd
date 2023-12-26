@@ -100,53 +100,53 @@ cluster methods are supported.
 }
 \examples{
 
-   # default is euclidean distance and ward clustering 
-   bertinCluster(bell2010)                                     
+# default is euclidean distance and ward clustering
+bertinCluster(bell2010)
 
-   ### applying different distance measures and cluster methods
+### applying different distance measures and cluster methods
 
-   # euclidean distance and single linkage clustering 
-   bertinCluster(bell2010, cmethod="single")
-   # manhattan distance and single linkage clustering             
-   bertinCluster(bell2010, dmethod="manhattan", cm="single") 
-   # minkowksi distance with power of 2 = euclidean distance  
-   bertinCluster(bell2010, dm="mink", p=2)                     
+# euclidean distance and single linkage clustering
+bertinCluster(bell2010, cmethod = "single")
+# manhattan distance and single linkage clustering
+bertinCluster(bell2010, dmethod = "manhattan", cm = "single")
+# minkowksi distance with power of 2 = euclidean distance
+bertinCluster(bell2010, dm = "mink", p = 2)
 
-   ### using different methods for constructs and elements
+### using different methods for constructs and elements
 
-   # ward clustering for constructs, single linkage for elements
-   bertinCluster(bell2010, cmethod=c("ward.D", "single"))        
-   # euclidean distance measure for constructs, manhatten 
-   # distance for elements
-   bertinCluster(bell2010, dmethod=c("euclidean", "man"))
-   # minkowski metric with different powers for constructs and elements    
-   bertinCluster(bell2010, dmethod="mink", p=c(2,1))       
+# ward clustering for constructs, single linkage for elements
+bertinCluster(bell2010, cmethod = c("ward.D", "single"))
+# euclidean distance measure for constructs, manhatten
+# distance for elements
+bertinCluster(bell2010, dmethod = c("euclidean", "man"))
+# minkowski metric with different powers for constructs and elements
+bertinCluster(bell2010, dmethod = "mink", p = c(2, 1))
 
-   ### clustering either constructs or elements only
-   # euclidean distance and ward clustering for constructs no 
-   # clustering for elements
-   bertinCluster(bell2010, cmethod=c("ward.D", NA))  
-   # euclidean distance and single linkage clustering for elements 
-   # no clustering for constructs            
-   bertinCluster(bell2010, cm=c(NA, "single"), align=FALSE)                 
+### clustering either constructs or elements only
+# euclidean distance and ward clustering for constructs no
+# clustering for elements
+bertinCluster(bell2010, cmethod = c("ward.D", NA))
+# euclidean distance and single linkage clustering for elements
+# no clustering for constructs
+bertinCluster(bell2010, cm = c(NA, "single"), align = FALSE)
 
-   ### changing the appearance
-   # different dendrogram type        
-   bertinCluster(bell2010, type="rectangle")  
-   # no axis drawn for dendrogram                 
-   bertinCluster(bell2010, draw.axis=FALSE)                        
+### changing the appearance
+# different dendrogram type
+bertinCluster(bell2010, type = "rectangle")
+# no axis drawn for dendrogram
+bertinCluster(bell2010, draw.axis = FALSE)
 
-   ### passing on arguments to bertin function via ...
-    # grey cell borders in bertin display
-   bertinCluster(bell2010, border="grey")  
-   # omit printing of grid scores, i.e. colors only                  
-   bertinCluster(bell2010, showvalues=FALSE)                   
+### passing on arguments to bertin function via ...
+# grey cell borders in bertin display
+bertinCluster(bell2010, border = "grey")
+# omit printing of grid scores, i.e. colors only
+bertinCluster(bell2010, showvalues = FALSE)
 
-   ### changing the layout
-   # making the vertical dendrogram bigger
-   bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
-   # making the horizontal dendrogram bigger          
-   bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
+### changing the layout
+# making the vertical dendrogram bigger
+bertinCluster(bell2010, xsegs = c(0, .2, .5, .7, 1))
+# making the horizontal dendrogram bigger
+bertinCluster(bell2010, ysegs = c(0, .3, .8, 1))
 
 }
 \seealso{

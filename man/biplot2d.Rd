@@ -279,46 +279,48 @@ the projection property is only given if \eqn{g + h = 1}{g + h = 1}
 \examples{
 \dontrun{
 
-   biplot2d(boeker)                # biplot of boeker data
-   biplot2d(boeker, c.lines=T)     # add construct lines
-   biplot2d(boeker, center=2)      # with column centering
-   biplot2d(boeker, center=4)      # midpoint centering
-   biplot2d(boeker, normalize=1)   # normalization of constructs
+biplot2d(boeker) # biplot of boeker data
+biplot2d(boeker, c.lines = T) # add construct lines
+biplot2d(boeker, center = 2) # with column centering
+biplot2d(boeker, center = 4) # midpoint centering
+biplot2d(boeker, normalize = 1) # normalization of constructs
 
-   biplot2d(boeker, dim=2:3)       # plot 2nd and 3rd dimension
-   biplot2d(boeker, dim=c(1,4))    # plot 1st and 4th dimension
+biplot2d(boeker, dim = 2:3) # plot 2nd and 3rd dimension
+biplot2d(boeker, dim = c(1, 4)) # plot 1st and 4th dimension
 
-   biplot2d(boeker, g=1, h=1)            # assign singular values to con. & elem.
-   biplot2d(boeker, g=1, h=1, center=1)  # row centering (Slater)
-   biplot2d(boeker, g=1, h=1, center=4)  # midpoint centering (ESA)
+biplot2d(boeker, g = 1, h = 1) # assign singular values to con. & elem.
+biplot2d(boeker, g = 1, h = 1, center = 1) # row centering (Slater)
+biplot2d(boeker, g = 1, h = 1, center = 4) # midpoint centering (ESA)
 
-   biplot2d(boeker, e.color="red", c.color="blue")   # change colors
-   biplot2d(boeker, c.color=c("white", "darkred"))   # mapped onto color range
-   
-   biplot2d(boeker, unity=T)                 # scale con. & elem. to equal length
-   biplot2d(boeker, unity=T, scale.e=.5)     # scaling factor for element vectors
+biplot2d(boeker, e.color = "red", c.color = "blue") # change colors
+biplot2d(boeker, c.color = c("white", "darkred")) # mapped onto color range
 
-   biplot2d(boeker, e.labels.show=F)         # do not show element labels
-   biplot2d(boeker, e.labels.show=c(1,2,4))  # show labels for elements 1, 2 and 4
-   biplot2d(boeker, e.points.show=c(1,2,4))  # only show elements 1, 2 and 4
-   biplot2d(boeker, c.labels.show=c(1:4))    # show constructs labels 1 to 4   
-   biplot2d(boeker, c.labels.show=c(1:4))    # show constructs labels except 1 to 4
+biplot2d(boeker, unity = T) # scale con. & elem. to equal length
+biplot2d(boeker, unity = T, scale.e = .5) # scaling factor for element vectors
 
-   biplot2d(boeker, e.cex.map=1)   # change size of texts for elements 
-   biplot2d(boeker, c.cex.map=1)   # change size of texts for constructs 
+biplot2d(boeker, e.labels.show = F) # do not show element labels
+biplot2d(boeker, e.labels.show = c(1, 2, 4)) # show labels for elements 1, 2 and 4
+biplot2d(boeker, e.points.show = c(1, 2, 4)) # only show elements 1, 2 and 4
+biplot2d(boeker, c.labels.show = c(1:4)) # show constructs labels 1 to 4
+biplot2d(boeker, c.labels.show = c(1:4)) # show constructs labels except 1 to 4
 
-   biplot2d(boeker, g=1, h=1, c.labels.inside=T)  # constructs inside the plot
-   biplot2d(boeker, g=1, h=1, c.labels.inside=T,  # different margins and elem. color 
-            mai=c(0,0,0,0), e.color="red") 
- 
-   biplot2d(boeker, strokes.x=.3, strokes.y=.05)  # change length of strokes
+biplot2d(boeker, e.cex.map = 1) # change size of texts for elements
+biplot2d(boeker, c.cex.map = 1) # change size of texts for constructs
 
-   biplot2d(boeker, flipaxes=c(T, F))      # flip x axis
-   biplot2d(boeker, flipaxes=c(T, T))      # flip x and y axis
+biplot2d(boeker, g = 1, h = 1, c.labels.inside = T) # constructs inside the plot
+biplot2d(boeker,
+  g = 1, h = 1, c.labels.inside = T, # different margins and elem. color
+  mai = c(0, 0, 0, 0), e.color = "red"
+)
 
-   biplot2d(boeker, outer.positioning=F)   # no positioning of con.-labels
+biplot2d(boeker, strokes.x = .3, strokes.y = .05) # change length of strokes
 
-   biplot2d(boeker, c.labels.devangle=20)  # only con. within 20 degree angle
+biplot2d(boeker, flipaxes = c(T, F)) # flip x axis
+biplot2d(boeker, flipaxes = c(T, T)) # flip x and y axis
+
+biplot2d(boeker, outer.positioning = F) # no positioning of con.-labels
+
+biplot2d(boeker, c.labels.devangle = 20) # only con. within 20 degree angle
 }
 
 }

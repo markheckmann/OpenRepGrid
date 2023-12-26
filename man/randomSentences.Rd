@@ -23,7 +23,7 @@ a vector with n random sentences
 generate n random sentences with a given or random number of words
 }
 \examples{
-randomSentences(5, 10)     # five random sentences with ten words each
-randomSentences(5, 2:10)   # five random sentences between two and ten words
+randomSentences(5, 10) # five random sentences with ten words each
+randomSentences(5, 2:10) # five random sentences between two and ten words
 }
 \keyword{internal}

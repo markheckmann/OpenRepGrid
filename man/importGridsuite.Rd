@@ -41,9 +41,7 @@ rg <- importGridsuite(file, dir)
 
 # using a full path
 rg <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
-
 }
-
 
 }
 \references{

@@ -62,26 +62,26 @@ each point are set in contrast with the pre-transformed matrix.
 }
 \examples{
 
- # explained sum-of-squares for elements
- ssq(bell2010)
+# explained sum-of-squares for elements
+ssq(bell2010)
 
- # explained sum-of-squares for constructs
- ssq(bell2010, along=1)
+# explained sum-of-squares for constructs
+ssq(bell2010, along = 1)
 
- # save results
- s <- ssq(bell2010)
+# save results
+s <- ssq(bell2010)
 
- # printing options
- print(s)
- print(s, digits=4)
- print(s, dim=3)
- print(s, cumulated=FALSE)
+# printing options
+print(s)
+print(s, digits = 4)
+print(s, dim = 3)
+print(s, cumulated = FALSE)
 
- # access results
- names(s)
- s$ssq.table
- s$ssq.table.cumsum
- s$ssq.total
- 
+# access results
+names(s)
+s$ssq.table
+s$ssq.table.cumsum
+s$ssq.total
+
 }
 \keyword{internal}

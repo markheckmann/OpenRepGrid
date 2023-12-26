@@ -20,8 +20,7 @@ two containing the number of constructs and elements.
 \examples{
 \dontrun{
 
-     dim(bell2010)
-
+dim(bell2010)
 }
 
 }

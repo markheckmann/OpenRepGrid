@@ -14,7 +14,7 @@ herself. The data was originally reported by Watson (1970).
 Slater, P. (1977). \emph{The measurement of intrapersonal space
 by grid technique}. London: Wiley.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{         Watson, J. P. (1970). The relationship between a self-mutilating 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{         Watson, J. P. (1970). The relationship between a self-mutilating
          patient and her doctor. *Psychotherapy and Psychosomatics,
          18*(1), 67-73.
 }\if{html}{\out{</div>}}

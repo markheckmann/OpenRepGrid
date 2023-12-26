@@ -45,23 +45,23 @@ and \code{eNames} which are deprecated.
 x <- boeker
 
 ## get construct poles
-constructs(x)   # both left and right poles
-leftpoles(x)    # left poles only
+constructs(x) # both left and right poles
+leftpoles(x) # left poles only
 rightpoles(x)
 constructs(x, collapse = TRUE)
 
 ## replace construct poles
-constructs(x)[1,1] <- "left pole 1"
-constructs(x)[1,"leftpole"] <- "left pole 1"  # alternative
-constructs(x)[1:3,2] <- paste("right pole", 1:3)
-constructs(x)[1:3,"rightpole"] <- paste("right pole", 1:3) # alternative
-constructs(x)[4,1:2] <- c("left pole 4", "right pole 4")
+constructs(x)[1, 1] <- "left pole 1"
+constructs(x)[1, "leftpole"] <- "left pole 1" # alternative
+constructs(x)[1:3, 2] <- paste("right pole", 1:3)
+constructs(x)[1:3, "rightpole"] <- paste("right pole", 1:3) # alternative
+constructs(x)[4, 1:2] <- c("left pole 4", "right pole 4")
 
 l <- leftpoles(x)
-leftpoles(x) <- sample(l)             # brind poles into random order
-leftpoles(x)[1] <- "new left pole 1"  # replace name of first left pole
+leftpoles(x) <- sample(l) # brind poles into random order
+leftpoles(x)[1] <- "new left pole 1" # replace name of first left pole
 
 # replace left poles of constructs 1 and 3
-leftpoles(x)[c(1,3)] <- c("new left pole 1", "new left pole 3")
- 
+leftpoles(x)[c(1, 3)] <- c("new left pole 1", "new left pole 3")
+
 }

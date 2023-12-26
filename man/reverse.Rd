@@ -31,11 +31,11 @@ error is raised.
 
 x <- boeker
 
-reverse(x)        # reverse all constructs
-reverse(x, 1)     # reverse construct 1
-reverse(x, 1:2)   # reverse constructs 1 and 2
+reverse(x) # reverse all constructs
+reverse(x, 1) # reverse construct 1
+reverse(x, 1:2) # reverse constructs 1 and 2
 
 # swapPoles will become deprecated, use reverse instead
-swapPoles(x, 1)     # swap construct poles of construct
+swapPoles(x, 1) # swap construct poles of construct
 
 }
