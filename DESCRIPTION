@@ -74,5 +74,6 @@ RoxygenNote: 7.2.3
 NeedsCompilation: no
 Suggests: 
     testthat (>= 2.1.0),
-    covr
+    covr,
+    vdiffr
 Roxygen: list(markdown = TRUE)

@@ -1521,7 +1521,7 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
                                  g=g, h=h, col.active=col.active, 
                                  col.passive=col.passive, var.show=var.show,
                                  var.cex=var.cex, var.col=var.col, ...)
-  invisible(x)                                           
+  invisible(NULL)                                           
 }
 
 
