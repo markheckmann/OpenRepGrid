@@ -7,7 +7,7 @@
 bertinCluster(
   x,
   dmethod = c("euclidean", "euclidean"),
-  cmethod = c("ward", "ward"),
+  cmethod = c("ward.D", "ward.D"),
   p = c(2, 2),
   align = TRUE,
   trim = NA,
@@ -39,16 +39,15 @@ For additional information on the different types see
 \code{?dist}.}
 
 \item{cmethod}{The agglomeration method to be used. This should be (an
-unambiguous abbreviation of) one of \code{"ward"},
-\code{"single"}, \code{"complete"}, \code{"average"},
-\code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
-Default is \code{"ward"}.
+unambiguous abbreviation of) one of \code{"ward.D"}, \code{"ward.D2"},
+\code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
+Default is \code{"ward.D"}.
 A vector of length two can be passed if a different cluster method for
-constructs and elements is wanted (e.g.\code{c("ward", "euclidean")}).
+constructs and elements is wanted (e.g.\code{c("ward.D", "euclidean")}).
 This will apply ward clustering to the constructs and
 single linkage clustering to the elements. If only one of either
 constructs or elements is to be clustered the value \code{NA}
-can be supplied. E.g. to cluster elements only use \code{c(NA, "ward")}.}
+can be supplied. E.g. to cluster elements only use \code{c(NA, "ward.D")}.}
 
 \item{p}{The power of the Minkowski distance, in case \code{"minkowski"}
 is used as argument for \code{dmethod}. \code{p} can be a vector
@@ -100,7 +99,6 @@ Element columns and constructs rows are ordered according to cluster criterion. 
 cluster methods are supported.
 }
 \examples{
-\dontrun{
 
    # default is euclidean distance and ward clustering 
    bertinCluster(bell2010)                                     
@@ -117,7 +115,7 @@ cluster methods are supported.
    ### using different methods for constructs and elements
 
    # ward clustering for constructs, single linkage for elements
-   bertinCluster(bell2010, cmethod=c("ward", "single"))        
+   bertinCluster(bell2010, cmethod=c("ward.D", "single"))        
    # euclidean distance measure for constructs, manhatten 
    # distance for elements
    bertinCluster(bell2010, dmethod=c("euclidean", "man"))
@@ -127,10 +125,10 @@ cluster methods are supported.
    ### clustering either constructs or elements only
    # euclidean distance and ward clustering for constructs no 
    # clustering for elements
-   bertinCluster(bell2010, cmethod=c("ward", NA))  
+   bertinCluster(bell2010, cmethod=c("ward.D", NA))  
    # euclidean distance and single linkage clustering for elements 
    # no clustering for constructs            
-   bertinCluster(bell2010, cm=c(NA, "single"))                 
+   bertinCluster(bell2010, cm=c(NA, "single"), align=FALSE)                 
 
    ### changing the appearance
    # different dendrogram type        
@@ -149,7 +147,7 @@ cluster methods are supported.
    bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
    # making the horizontal dendrogram bigger          
    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
-}
+
 }
 \seealso{
 \code{\link[=cluster]{cluster()}}

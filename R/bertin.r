@@ -569,16 +569,15 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'                    For additional information on the different types see
 #'                    `?dist`. 
 #' @param  cmethod    The agglomeration method to be used. This should be (an
-#'                    unambiguous abbreviation of) one of `"ward"`, 
-#'                    `"single"`, `"complete"`, `"average"`, 
-#'                    `"mcquitty"`, `"median"` or `"centroid"`.
-#'                    Default is `"ward"`.
+#'                    unambiguous abbreviation of) one of `"ward.D"`, `"ward.D2"`, 
+#'                    `"single"`, `"complete"`, `"average"`, `"mcquitty"`, `"median"` or `"centroid"`.
+#'                    Default is `"ward.D"`.
 #'                    A vector of length two can be passed if a different cluster method for
-#'                    constructs and elements is wanted (e.g.`c("ward", "euclidean")`).
+#'                    constructs and elements is wanted (e.g.`c("ward.D", "euclidean")`).
 #'                    This will apply ward clustering to the constructs and
 #'                    single linkage clustering to the elements. If only one of either
 #'                    constructs or elements is to be clustered the value `NA`
-#'                    can be supplied. E.g. to cluster elements only use `c(NA, "ward")`.
+#'                    can be supplied. E.g. to cluster elements only use `c(NA, "ward.D")`.
 #' @param  p          The power of the Minkowski distance, in case `"minkowski"`
 #'                    is used as argument for `dmethod`. `p` can be a vector
 #'                    of length two if different powers are wanted for constructs and
@@ -615,7 +614,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'                    respectively.
 #' @export
 #' @seealso  [cluster()]
-#' @examples \dontrun{
+#' @examples
 #'
 #'    # default is euclidean distance and ward clustering 
 #'    bertinCluster(bell2010)                                     
@@ -632,7 +631,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    ### using different methods for constructs and elements
 #'
 #'    # ward clustering for constructs, single linkage for elements
-#'    bertinCluster(bell2010, cmethod=c("ward", "single"))        
+#'    bertinCluster(bell2010, cmethod=c("ward.D", "single"))        
 #'    # euclidean distance measure for constructs, manhatten 
 #'    # distance for elements
 #'    bertinCluster(bell2010, dmethod=c("euclidean", "man"))
@@ -642,10 +641,10 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    ### clustering either constructs or elements only
 #'    # euclidean distance and ward clustering for constructs no 
 #'    # clustering for elements
-#'    bertinCluster(bell2010, cmethod=c("ward", NA))  
+#'    bertinCluster(bell2010, cmethod=c("ward.D", NA))  
 #'    # euclidean distance and single linkage clustering for elements 
 #'    # no clustering for constructs            
-#'    bertinCluster(bell2010, cm=c(NA, "single"))                 
+#'    bertinCluster(bell2010, cm=c(NA, "single"), align=FALSE)                 
 #'
 #'    ### changing the appearance
 #'    # different dendrogram type        
@@ -664,13 +663,14 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
 #'    # making the horizontal dendrogram bigger          
 #'    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
-#' }
+#' 
 bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"), 
-                          cmethod=c("ward", "ward"), p=c(2,2), align=TRUE, 
+                          cmethod=c("ward.D", "ward.D"), p=c(2,2), align=TRUE, 
                           trim=NA, type=c("triangle"), 
                           xsegs = c(0, .2, .7, .9, 1), ysegs = c(0, .1, .7, 1),
                           x.off=0.01, y.off=0.01,
                           cex.axis =.6, col.axis =  grey(.4), draw.axis=TRUE, ...) {
+  
   if (length(dmethod) == 1)       # if only one value is passed
     dmethod <- rep(dmethod, 2)
   if (length(cmethod) == 1)       # if only one value is passed
@@ -691,11 +691,12 @@ bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"),
   xlim.bertin <- xsegs[2:3] / inr.x
   ylim.bertin <- c(0, (ysegs[3] - ysegs[2]) / inr.y)
   
-  if (align)               # align grid if promoted, uses dmethod etc. for constructs, i.e. [1]
+  # align grid if promoted, uses dmethod etc. for constructs, i.e. [1]
+  if (align) {               
     x <- align(x, along = 0, dmethod = dmethod[1], 
                cmethod = cmethod[1], p = p[1])  
-    
-  r <- getRatingLayer(x, trim=trim)    # get ratings
+  }
+  r <- getRatingLayer(x, trim=trim) 
 
   # dendrogram for constructs
   if (is.na(cmethod[1])){
@@ -722,10 +723,10 @@ bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"),
   x <- x[con.ord, el.ord]   # reorder repgrid object
   
   plot.new()
-  par(fig = c(xsegs[c(1,4)], ysegs[c(2,4)]) , new=T)
+  par(fig = c(xsegs[c(1,4)], ysegs[c(2,4)]), new=TRUE)
   #par(fig = c(0, .8, .2, 1), new=T)
   
-  bertin(x, xlim=xlim.bertin, ylim=ylim.bertin, add=T, ...)           # print reordered bertin
+  bertin(x, xlim=xlim.bertin, ylim=ylim.bertin, add=TRUE, ...)           # print reordered bertin
   
   # x dendrogram (horizontal) elements
   if (!is.na(cmethod[2])){
@@ -762,21 +763,3 @@ bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"),
 # bertinCluster(bell2010, type="t", dm="manhattan", cm="single")
 # dev.new()
 # bertinCluster(bell2010, type="t", dm="manhattan", cm="centroid")
-
-
-
-# base graphics for quick clustering
-# # make dendrogram
-#x <- bell2010
-
-# compute new layout of bertin
-
-
-
-
-
-
-
-
-
-

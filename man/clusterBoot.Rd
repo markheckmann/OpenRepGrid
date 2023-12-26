@@ -9,7 +9,7 @@ clusterBoot(
   along = 1,
   align = TRUE,
   dmethod = "euclidean",
-  cmethod = "ward",
+  cmethod = "ward.D",
   p = 2,
   nboot = 1000,
   r = seq(0.8, 1.4, by = 0.1),
@@ -31,7 +31,7 @@ as is. See Details section for more information.}
 type \code{?dist}.}
 
 \item{cmethod}{The agglomeration method to be used. This should be (an unambiguous abbreviation of) one of
-\code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.}
+\code{"ward.D"}, \code{"ward.D2"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.}
 
 \item{p}{Power of the Minkowski metric. Not yet passed on to pvclust!}
 

@@ -151,22 +151,6 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 
 
 
-# Measures comparing Constructs: Intensity, Cognitive Complexity 
-# and other measures of Grid variation.
-
-# Ward Hierarchical Clustering
-# cluster <- function(){
-#   
-#   
-# }
-# a <- doubleEntry(x)
-# sc <- getScoreDataFrame(x)
-# d <- dist(sc, method = "euclidean") # distance matrix
-# fit <- hclust(d, method="ward")
-# plot(as.dendrogram(fit), horiz = F)
-# plot(as.dendrogram(fit), horiz = F)
-
-
 #/////////////////////////////////////////////////////////////////////////////
 # order elements and constructs by angles in first two dimensions from
 # singular value decomposition approach (cf. Raeithel ???)
@@ -1086,7 +1070,7 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'   "binary" or "minkowski". Any unambiguous substring can be given. For additional information on the different types
 #'   type `?dist`.
 #' @param  cmethod The agglomeration method to be used. This should be (an unambiguous abbreviation of) one of
-#'   `"ward"`, `"single"`, `"complete"`, `"average"`, `"mcquitty"`, `"median"` or `"centroid"`.
+#'   `"ward.D"`, `"ward.D2"`, `"single"`, `"complete"`, `"average"`, `"mcquitty"`, `"median"` or `"centroid"`.
 #' @param  p  The power of the Minkowski distance, in case `"minkowski"` is used as argument for `dmethod`.
 #' @param align Whether the constructs should be aligned before clustering (default is `TRUE`). If not, the grid matrix
 #'   is clustered as is. See Details section for more information.
@@ -1116,22 +1100,18 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'   cluster(bell2010, dmethod="manhattan")          # using manhattan metric
 #'   cluster(bell2010, cmethod="single")             # do single linkage clustering
 #'   cluster(bell2010, cex=1, lab.cex=1)             # change appearance
-#'   cluster(bell2010, lab.cex=.7,                   # advanced appearance changes
-#'           edgePar = list(lty=1:2, col=2:1))
+#'   cluster(bell2010, lab.cex=.7, edgePar=list(lty=1:2, col=2:1))  # advanced appearance changes
 #'           
-cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, 
+cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward.D", p=2, 
                     align=TRUE, trim=NA, main=NULL,
                     mar=c(4, 2, 3, 15), cex=0, lab.cex=.8, cex.main=.9, 
                     print=TRUE, ...) {
   dmethods <- c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
   dmethod <- match.arg(dmethod, dmethods)
   
-  cmethods <- c("ward", "single", "complete", "average", "mcquitty", "median", "centroid")
+  cmethods <- c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median", "centroid")
   cmethod <- match.arg(cmethod, cmethods)
   
-  # if (cmethod == "ward")
-  #   cmethod <- "ward.D"  # due to a change in hclust, now two ward methods exist. We use the older one
-  # 
   if (is.null(main))
     main <- paste(dmethod, "distance and", cmethod, "clustering")
   if (! along %in% 0:2)
@@ -1182,8 +1162,7 @@ cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2,
 # function calculates cluster dendrogram from doublebind grid matrix
 # and reverses the constructs accoring to the upper big cluster
 align <- function(x, along = 0, dmethod = "euclidean", 
-                  cmethod = "ward", p = 2, ...) 
-{
+                  cmethod = "ward.D", p = 2, ...) {
   x2 <- doubleEntry(x)
   xr <- cluster(x2, dmethod=dmethod, cmethod=cmethod, p=p, 
                 align=FALSE, print=FALSE)
@@ -1275,7 +1254,7 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' }
 #'
 clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean", 
-                        cmethod = "ward", p=2, nboot=1000,
+                        cmethod = "ward.D", p=2, nboot=1000,
                         r=seq(.8, 1.4, by=.1), seed=NULL, ...)
 {
   if (! along %in% 1:2)

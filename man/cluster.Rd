@@ -8,7 +8,7 @@ cluster(
   x,
   along = 0,
   dmethod = "euclidean",
-  cmethod = "ward",
+  cmethod = "ward.D",
   p = 2,
   align = TRUE,
   trim = NA,
@@ -31,7 +31,7 @@ cluster(
 type \code{?dist}.}
 
 \item{cmethod}{The agglomeration method to be used. This should be (an unambiguous abbreviation of) one of
-\code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.}
+\code{"ward.D"}, \code{"ward.D2"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.}
 
 \item{p}{The power of the Minkowski distance, in case \code{"minkowski"} is used as argument for \code{dmethod}.}
 
@@ -78,8 +78,7 @@ optimal clustering. This approach is akin to the procedure used in FOCUS (Jankow
   cluster(bell2010, dmethod="manhattan")          # using manhattan metric
   cluster(bell2010, cmethod="single")             # do single linkage clustering
   cluster(bell2010, cex=1, lab.cex=1)             # change appearance
-  cluster(bell2010, lab.cex=.7,                   # advanced appearance changes
-          edgePar = list(lty=1:2, col=2:1))
+  cluster(bell2010, lab.cex=.7, edgePar=list(lty=1:2, col=2:1))  # advanced appearance changes
           
 }
 \references{
