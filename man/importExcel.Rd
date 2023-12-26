@@ -7,10 +7,10 @@
 importExcel(file, dir = NULL, sheetIndex = 1, min = NULL, max = NULL)
 }
 \arguments{
-\item{file}{A vector of filenames including the full path if file is not in current working 
+\item{file}{A vector of filenames including the full path if file is not in current working
 directory. The file suffix has to be \code{.xlsx} (used since Excel 2007).}
 
-\item{dir}{Alternative way to supply the directory where the file is located 
+\item{dir}{Alternative way to supply the directory where the file is located
 (default \code{NULL}).}
 
 \item{sheetIndex}{The number of the Excel sheet that contains the grid data.}
@@ -23,11 +23,11 @@ for maximum rating value in grid.}
 }
 \value{
 A single \code{repgrid} object in case one file and
-               a list of \code{repgrid} objects in case multiple files are imported.
+a list of \code{repgrid} objects in case multiple files are imported.
 }
 \description{
 You can define a grid using Microsoft Excel and by saving it as a
-\code{.xlsx} file. The \code{.xlsx} file has to be in a specified fixed 
+\code{.xlsx} file. The \code{.xlsx} file has to be in a specified fixed
 format (see section Details).
 }
 \details{
@@ -38,9 +38,9 @@ pole.
 
 \tabular{lccccr}{
 \code{1}           \tab \code{E1}  \tab \code{E2} \tab \code{E3} \tab \code{E4}  \tab \code{5}        \cr
-\code{left pole 1} \tab \code{1}   \tab \code{5}  \tab \code{3}  \tab \code{4}   \tab \code{right pole 1} \cr
-\code{left pole 2} \tab \code{3}   \tab \code{1}  \tab \code{1}  \tab \code{3}   \tab \code{right pole 2} \cr
-\code{left pole 3} \tab \code{4}   \tab \code{2}  \tab \code{5}  \tab \code{1}   \tab \code{right pole 3} \cr
+\verb{left pole 1} \tab \code{1}   \tab \code{5}  \tab \code{3}  \tab \code{4}   \tab \verb{right pole 1} \cr
+\verb{left pole 2} \tab \code{3}   \tab \code{1}  \tab \code{1}  \tab \code{3}   \tab \verb{right pole 2} \cr
+\verb{left pole 3} \tab \code{4}   \tab \code{2}  \tab \code{5}  \tab \code{1}   \tab \verb{right pole 3} \cr
 }
 
 Note that the maximum and minimum value has to be defined using the
@@ -69,9 +69,9 @@ rg <- importExcel(files)
 
 }
 \seealso{
-\code{\link{importGridcor}},
-               \code{\link{importGridstat}},
-               \code{\link{importScivesco}},
-               \code{\link{importGridsuite}},
-               \code{\link{importTxt}}
+\code{\link[=importGridcor]{importGridcor()}},
+\code{\link[=importGridstat]{importGridstat()}},
+\code{\link[=importScivesco]{importScivesco()}},
+\code{\link[=importGridsuite]{importGridsuite()}},
+\code{\link[=importTxt]{importTxt()}}
 }

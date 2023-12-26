@@ -27,9 +27,7 @@ print_square_matrix(
 \item{upper}{Whether to only show the upper triangle (default \code{TRUE}).}
 }
 \description{
-Helper function to produce output for square matrices, e.g. distance
-matrices etc. Adds a (trimmed) name and index column. Displays
-upper triangle only by default. The function is used inside the
-print method of several classes.
+Helper function to produce output for square matrices, e.g. distance matrices etc. Adds a (trimmed) name and index
+column. Displays upper triangle only by default. The function is used inside the print method of several classes.
 }
 \keyword{internal}

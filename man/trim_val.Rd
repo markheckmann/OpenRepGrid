@@ -9,7 +9,7 @@ trim_val(x, minmax = c(-Inf, Inf), na = FALSE)
 \arguments{
 \item{x}{numeric vector}
 
-\item{minmax}{minimal and maximal possible value (default c(-Inf, Inf) 
+\item{minmax}{minimal and maximal possible value (default c(-Inf, Inf)
 i.e. no trimming occurs)}
 
 \item{na}{Use NAs for replacing values that are out of range}
@@ -18,7 +18,7 @@ i.e. no trimming occurs)}
 vector   vector whose elements that are out of range are replaced
 }
 \description{
-the range a value may take is restricted to by an upper and 
+the range a value may take is restricted to by an upper and
 lower boundary. If it exceeds the boundary the value is replaced
 by the boundary value or alternatively by NA
 }

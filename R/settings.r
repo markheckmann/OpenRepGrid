@@ -50,20 +50,20 @@ setDefaultSettings <- function(){
 
 #' global settings for OpenRepGrid 
 #' 
-#' @param ...       Use parameter value pairs (\code{par1=val1, par2=val2}) to 
+#' @param ...       Use parameter value pairs (`par1=val1, par2=val2`) to 
 #'                  change a parameter. Use parameter names to request  
-#'                  parameter's value (\code{"par1", "par2"}).
+#'                  parameter's value (`"par1", "par2"`).
 #' @note   Currently the following parameters can be changed, ordered by topic.
 #' The default value is shown in the brackets at the end of a line. 
 #'
-#'  \emph{Printing grid to the console}
+#'  *Printing grid to the console*
 #'  \itemize{
-#'    \item{\code{show.scale}} {Show grid scale info? (\code{TRUE}) }
-#'    \item{\code{show.meta}} {Show grid meta data? (\code{TRUE}) } 
-#'    \item{\code{show.trim}} {Number of chars to trim strings to (\code{30}) }                                                                    
-#'    \item{\code{show.cut}} {Maximum number of characters printed on the sides of a grid (\code{20}) } 
-#'    \item{\code{c.no}} {Print construct ID number? (\code{TRUE}) } 
-#'    \item{\code{e.no}} {Print element ID number? (\code{TRUE}) } 
+#'    \item{`show.scale`} {Show grid scale info? (`TRUE`) }
+#'    \item{`show.meta`} {Show grid meta data? (`TRUE`) } 
+#'    \item{`show.trim`} {Number of chars to trim strings to (`30`) }                                                                    
+#'    \item{`show.cut`} {Maximum number of characters printed on the sides of a grid (`20`) } 
+#'    \item{`c.no`} {Print construct ID number? (`TRUE`) } 
+#'    \item{`e.no`} {Print element ID number? (`TRUE`) } 
 #'  } 
 #' @export
 #' @examples \dontrun{
@@ -149,7 +149,7 @@ print.openrepgridSettings <- function(x, ...){
 #' Save OpenRepGrid settings
 #' 
 #' The current settings of OpenRepGrid can be saved into a file with
-#' the extension \code{.orgset}.
+#' the extension `.orgset`.
 #'
 #' @param file    Path of the file to be saved to.
 #' @export
@@ -162,7 +162,7 @@ settingsSave <- function(file) {
 #' Load OpenRepGrid settings
 #' 
 #' OpenRepGrid settings saved in an a settings file with
-#' the extension \code{.orgset} can be loaded to restore the
+#' the extension `.orgset` can be loaded to restore the
 #' settings.
 #'
 #' @param file    Path of the file to be loaded.

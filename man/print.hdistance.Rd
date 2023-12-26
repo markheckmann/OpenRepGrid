@@ -18,33 +18,31 @@
 \arguments{
 \item{x}{Object of class hdistance.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
+\item{digits}{Numeric. Number of digits to round to (default is
 \code{2}).}
 
-\item{col.index}{Logical. Whether to add an extra index column so the 
-column names are indexes instead of construct names. This option 
-renders a neater output as long construct names will stretch 
+\item{col.index}{Logical. Whether to add an extra index column so the
+column names are indexes instead of construct names. This option
+renders a neater output as long construct names will stretch
 the output (default is \code{TRUE}).}
 
-\item{upper}{Whether to display upper triangle of correlation matrix only 
+\item{upper}{Whether to display upper triangle of correlation matrix only
 (default is \code{TRUE}).}
 
 \item{diag}{Whether to show the matrix diagonal.}
 
-\item{cutoffs}{Cutoff values. Values below or above this interval are not 
-printed. For Slater distances \code{c(.8, 1.2)} are common 
+\item{cutoffs}{Cutoff values. Values below or above this interval are not
+printed. For Slater distances \code{c(.8, 1.2)} are common
 values.}
 
-\item{p}{Quantiles corresponding to probabilities are used as cutoffs. 
-Currently only works for Hartmann distances. If used 
-\code{cutoffs} is overwritten.}
+\item{p}{Quantiles corresponding to probabilities are used as cutoffs. Currently only works for Hartmann
+distances. If used \code{cutoffs} is overwritten.}
 
 \item{...}{Not evaluated.}
 }
 \description{
-Additionally allows the specification of p-values. The corresponding 
-quantiles are calculated.  These are contained as attributes in the
-\code{hdistance} object as returned by distanceHartmann. The lowest and
-highest values are used as cutoffs in \code{print.distance}.
+Additionally allows the specification of p-values. The corresponding quantiles are calculated.  These are contained
+as attributes in the \code{hdistance} object as returned by distanceHartmann. The lowest and highest values are used as
+cutoffs in \code{print.distance}.
 }
 \keyword{internal}

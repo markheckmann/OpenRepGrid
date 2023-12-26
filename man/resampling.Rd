@@ -22,9 +22,9 @@ grids_bootstrap(x, n = nrow(x), reps = 100, replace = TRUE)
 List of grids.
 }
 \description{
-The goal of resampling is to build variations of a single grid. 
-Two variants are implemented: The first is the \emph{leave-n-out} approach which 
-builds all possible grids when dropping n constructs. The second is a 
+The goal of resampling is to build variations of a single grid.
+Two variants are implemented: The first is the \emph{leave-n-out} approach which
+builds all possible grids when dropping n constructs. The second is a
 \emph{bootstrap} approach, randomly drawing n constructs from the grid.
 }
 \examples{

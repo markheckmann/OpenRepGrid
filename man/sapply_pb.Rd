@@ -17,7 +17,7 @@ sapply_pb(X, FUN, ...)
 list       see ?sapply
 }
 \description{
-Can be used like standard base:::sapply. The only thing 
+Can be used like standard base:::sapply. The only thing
 it does is create an additional progress bar.
 }
 \examples{
@@ -34,6 +34,6 @@ it does is create an additional progress bar.
 }
 }
 \seealso{
-\code{\link{sapply}}
+\code{\link[=sapply]{sapply()}}
 }
 \keyword{internal}

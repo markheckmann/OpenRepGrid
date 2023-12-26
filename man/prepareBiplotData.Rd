@@ -39,14 +39,14 @@ prepareBiplotData(
 (default is \code{3}).}
 
 \item{e.label.cex}{Size of the element labels. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all element labels
 will have the same size irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{c.label.cex}{Size of the construct labels. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all construct labels
 will have the same size irrespective of their value on the \code{map.dim}
@@ -67,14 +67,14 @@ will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{e.point.cex}{Size of the element symbols. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all elements
 will have the same size irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{c.point.cex}{Size of the construct symbols. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all elements
 will have the same size irrespective of their value on the \code{map.dim}
@@ -94,11 +94,11 @@ is supplied (e.g. \code{"black"}) no mapping occurs and all elements
 will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
 
-\item{e.color.map}{Value range to determine what range of the color ramp defined in 
-\code{e.color} will be used for mapping the colors. 
+\item{e.color.map}{Value range to determine what range of the color ramp defined in
+\code{e.color} will be used for mapping the colors.
 Default is \code{c(.4, ,1)}. Usually not important for the user.}
 
-\item{c.color.map}{Value range to determine what range of the color ramp defined in 
+\item{c.color.map}{Value range to determine what range of the color ramp defined in
 \code{c.color} will be used for mapping. Default is \code{c(.4, ,1)}.
 Usually not important for the user.}
 
@@ -114,22 +114,21 @@ to the center. This argument is for visual appeal only.}
 \item{...}{Not evaluated.}
 
 \item{devangle}{The deviation angle from the x-y plane in degrees. These can only be calculated
-if a third dimension \code{map.dim} is specified. Only the constructs 
-vectors that do not depart 
+if a third dimension \code{map.dim} is specified. Only the constructs
+vectors that do not depart
 more than the specified degrees from the shown x-y plane will be printed.
 This facilitates the visual interpretation, as only vectors represented in
-the current plane are shown. Set the value to \code{91} (default) 
+the current plane are shown. Set the value to \code{91} (default)
 to show all vectors.}
 }
 \value{
-\code{dataframe} containing the variables \code{type, show, x, y, 
-                     z, labels, color, cex}. Usually not of interest to the user.
+\code{dataframe} containing the variables \verb{type, show, x, y,  z, labels, color, cex}. Usually not of interest to the user.
 }
 \description{
-Data frame contains the variables \code{type, show, x, y, 
- z, labels, color, cex}.
+Data frame contains the variables \verb{type, show, x, y,  z, labels, color, cex}.
 }
 \note{
-TODO:  How to omit \code{map.dim}?
+\if{html}{\out{<div class="sourceCode">}}\preformatted{           TODO:  How to omit `map.dim`?
+}\if{html}{\out{</div>}}
 }
 \keyword{internal}

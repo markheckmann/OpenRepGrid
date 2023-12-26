@@ -17,12 +17,12 @@
 #' @aliases bell2010
 #' @docType data
 #' @references  Bell, R. C. (2010).	A note on aligning constructs.
-#'              \emph{Personal Construct Theory and Practice}, 7, 43-48.
+#'              *Personal Construct Theory and Practice*, 7, 43-48.
 #'
 #'              Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004). 
 #'                The effect of element role titles on construct structure 
-#'                and content. \emph{Journal of constructivist 
-#'                psychology, 17}(3), 221-236.
+#'                and content. *Journal of constructivist 
+#'                psychology, 17*(3), 221-236.
 #'
 #' @keywords data
 #'
@@ -69,14 +69,14 @@ NULL
 #' @name data-bellmcgorry1992
 #' @aliases bellmcgorry1992
 #' @docType data
-#' @references  Bell, R. C. (1977). \emph{Using SPSS to 
-#'                Analyse Repertory Grid Data}. Technical Report, 
+#' @references  Bell, R. C. (1977). *Using SPSS to 
+#'                Analyse Repertory Grid Data*. Technical Report, 
 #'                University of Melbourne.
 #' 
 #'              Bell, R. C., & McGorry, P. (1992). The analysis of repertory 
 #'                grids used to monitor the perceptions of recovering psychotic 
-#'                patients. In A. Thomson & P. Cummins (Eds.), \emph{European Perspectives 
-#'                in Personal Construct Psychology} (p. 137-150). 
+#'                patients. In A. Thomson & P. Cummins (Eds.), *European Perspectives 
+#'                in Personal Construct Psychology* (p. 137-150). 
 #'                Lincoln, UK: European Personal Construct Association.
 #'
 #' @keywords data
@@ -134,8 +134,8 @@ NULL
 #' @references    Boeker, H. (1996). The reconstruction of the self in 
 #'                the psychotherapy of chronic schizophrenia: a case study 
 #'                with the Repertory Grid Technique. In: Scheer, J. W., 
-#'                Catina, A. (Eds.): \emph{Empirical Constructivism in Europe - 
-#'                The Personal Construct Approach} (p. 160-167).
+#'                Catina, A. (Eds.): *Empirical Constructivism in Europe - 
+#'                The Personal Construct Approach* (p. 160-167).
 #'                Giessen: Psychosozial-Verlag. 
 #'                
 #' @keywords data
@@ -236,7 +236,7 @@ NULL
 #' @docType data
 #' @references  Feixas, G., & Saul, L. A. (2004). The Multi-Center Dilemma Project: 
 #'              an investigation on the role of cognitive conflicts in health. 
-#'              \emph{The Spanish Journal of Psychology, 7}(1), 69-78.
+#'              *The Spanish Journal of Psychology, 7*(1), 69-78.
 #'
 #' @keywords data
 #'
@@ -303,7 +303,7 @@ NULL
 #' completed repertory grids prior to the group, immediately after the 
 #' group and at 3- and 6-month follow-up." (Leach et al. 2001, p. 230).\cr \cr
 #' 
-#' \code{leach2001a} is the pre-therapy, \code{leach2001b}
+#' `leach2001a` is the pre-therapy, `leach2001b`
 #' is the post-therapy therapy dataset. The construct and elements are 
 #' identical.
 #'
@@ -313,10 +313,10 @@ NULL
 #' @aliases leach2001a leach2001b
 #' @docType data
 #'
-#' @references      Leach, C., Freshwater, K., Aldridge, J., & 
+#' @references   Leach, C., Freshwater, K., Aldridge, J., & 
 #'                  Sunderland, J. (2001). Analysis of repertory grids 
-#'                  in clinical practice. \emph{The British Journal 
-#'                  of Clinical Psychology, 40}, 225-248.
+#'                  in clinical practice. *The British Journal 
+#'                  of Clinical Psychology, 40*, 225-248.
 #'
 #' @keywords data
 #'
@@ -404,8 +404,8 @@ NULL
 #' @docType data
 #' @references  Mackay, N. (1992). Identification, reflection, 
 #'              and correlation: Problems in the bases of repertory 
-#'              grid measures. \emph{International Journal of Personal
-#'              Construct Psychology, 5}(1), 57-75. 
+#'              grid measures. *International Journal of Personal
+#'              Construct Psychology, 5*(1), 57-75. 
 #'
 #' @keywords data
 #'
@@ -491,8 +491,8 @@ NULL
 #' @name data-slater1977a
 #' @aliases slater1977a
 #' @docType data
-#' @references  Slater, P. (1977). \emph{The measurement of intrapersonal space 
-#'              by grid technique}. London: Wiley.
+#' @references  Slater, P. (1977). *The measurement of intrapersonal space 
+#'              by grid technique*. London: Wiley.
 #'
 #' @keywords data
 #'
@@ -548,12 +548,12 @@ NULL
 #' @name data-slater1977b
 #' @aliases slater1977b
 #' @docType data
-#' @references  Slater, P. (1977). \emph{The measurement of intrapersonal space 
-#'              by grid technique}. London: Wiley.
+#' @references  Slater, P. (1977). *The measurement of intrapersonal space 
+#'              by grid technique*. London: Wiley.
 #'
 #'              Watson, J. P. (1970). The relationship between a self-mutilating 
-#'              patient and her doctor. \emph{Psychotherapy and Psychosomatics,
-#'              18}(1), 67-73.
+#'              patient and her doctor. *Psychotherapy and Psychosomatics,
+#'              18*(1), 67-73.
 #'
 #' @keywords data
 #'

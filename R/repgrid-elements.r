@@ -35,11 +35,11 @@ getElements <- function(x){
 #' Function for convenience, so new users do not have to deal with object slots
 #' as they will typically not have knowledge about R object structures (S3, S4).
 #'
-#' @param x \code{repgrid} object.
+#' @param x `repgrid` object.
 #' @return vector Vector containing the names of the elements.
-#' @section Deprecated functions: \code{getElementNames()},
-#'   \code{getElementNames2()}, and \code{eNames()} have been deprecated.
-#'   Instead use \code{elements()}.
+#' @section Deprecated functions: `getElementNames()`,
+#'   `getElementNames2()`, and `eNames()` have been deprecated.
+#'   Instead use `elements()`.
 #' @export
 #' @keywords internal
 #'
@@ -63,23 +63,23 @@ eNames <- getElementNames
 
 
 
-#' Retrieves the element names from a \code{repgrid}.
+#' Retrieves the element names from a `repgrid`.
 #' 
 #' Different features like trimming, indexing and choices of separators
 #' allow to return the kind of format that is needed.
 #'
 #' @title Retrieve element names in needed format.
 #'
-#' @param x       \code{repgrid} object.
+#' @param x       `repgrid` object.
 #' @param trim    Number of characters to trim the construct names to
-#'                (default \code{NA}). \code{NA} will suppress trimming.
-#'                The length of \code{index} is not included in the 
+#'                (default `NA`). `NA` will suppress trimming.
+#'                The length of `index` is not included in the 
 #'                trimming.
 #' @param index   Logical. Whether to add a index number before the construct
-#'                names (default \code{TRUE}).
-#' @param pre     String before index number (default \code{(}).
-#' @param post    String after index number (default \code{) }).
-#' @return        Vector with (trimmed) element names.
+#'                names (default `TRUE`).
+#' @param pre     String before index number (default `(`).
+#' @param post    String after index number (default `) `).
+#' @return  Vector with (trimmed) element names.
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -118,8 +118,8 @@ getElementNames2 <- function(x, trim=20, index=F,
 #' Get or replace element names 
 #' 
 #' Allows to get and set element names. 
-#' Replaces the older functions \code{getElementNames}, \code{getElementNames2},
-#' and \code{eNames} which are deprecated.
+#' Replaces the older functions `getElementNames`, `getElementNames2`,
+#' and `eNames` which are deprecated.
 #' 
 #' @param  x A repgrid object.
 #' @rdname elements

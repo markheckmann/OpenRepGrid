@@ -7,25 +7,27 @@
 importGridsuiteInternal(file, dir = NULL)
 }
 \arguments{
-\item{file}{filename including path if file is not in current working 
+\item{file}{filename including path if file is not in current working
 directory. File can also be a complete URL. The fileformat
 is .dat.}
 
-\item{dir}{alternative way to supply the directory where the file is located 
+\item{dir}{alternative way to supply the directory where the file is located
 (default \code{NULL}).}
 }
 \description{
 Internal parser for Gridsuite data files
 }
 \note{
-The developers of Gridsuite have proposed to use an XML scheme as
-               a standard exchange format for repertory grid data (Walter, 
-               Bacher & Fromm, 2004). This approach is also embraced by the 
-               \code{OpenRepGrid} package.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{     The developers of Gridsuite have proposed to use an XML scheme as
+           a standard exchange format for repertory grid data (Walter, 
+           Bacher & Fromm, 2004). This approach is also embraced by the 
+           `OpenRepGrid` package.
+}\if{html}{\out{</div>}}
 
-TODO: The element and construct IDs are not used yet. Thus, 
-               if the output should be in different order the current mechanism 
-               will cause false assignments.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{     TODO: The element and construct IDs are not used yet. Thus, 
+           if the output should be in different order the current mechanism 
+           will cause false assignments.
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{
@@ -48,9 +50,10 @@ imp <- importGridsuite("/Users/markheckmann/data/gridsuite.xml")
 \references{
 \url{http://www.gridsuite.de/}
 
-               Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal 
-               for a common data exchange format for repertory grid data. 
-               \emph{Journal of Constructivist Psychology, 17}(3), 247. 
-               doi:10.1080/10720530490447167
+\if{html}{\out{<div class="sourceCode">}}\preformatted{           Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal 
+           for a common data exchange format for repertory grid data. 
+           *Journal of Constructivist Psychology, 17*(3), 247. 
+           doi:10.1080/10720530490447167
+}\if{html}{\out{</div>}}
 }
 \keyword{internal}

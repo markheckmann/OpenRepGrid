@@ -18,8 +18,8 @@ as they will typically not have knowledge about R object structures (S3, S4).
 }
 \section{Deprecated functions}{
  \code{getElementNames()},
-  \code{getElementNames2()}, and \code{eNames()} have been deprecated.
-  Instead use \code{elements()}.
+\code{getElementNames2()}, and \code{eNames()} have been deprecated.
+Instead use \code{elements()}.
 }
 
 \keyword{internal}

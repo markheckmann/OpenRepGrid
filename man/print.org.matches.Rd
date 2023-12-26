@@ -18,11 +18,8 @@
 \arguments{
 \item{x}{Object of class \code{org.matches}.}
 
-\item{output}{String with each letter indicating which parts of the output to print
-(default is \code{"ICE"}, order does not matter):
-\code{I} = Information,
-\code{C} = Constructs' matches,
-\code{E} = Elements' matches.}
+\item{output}{String with each letter indicating which parts of the output to print (default is \code{"ICE"}, order
+does not matter): \code{I} = Information, \code{C} = Constructs' matches, \code{E} = Elements' matches.}
 
 \item{index}{Whether to add an index columns (default \code{TRUE}).}
 

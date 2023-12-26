@@ -30,8 +30,8 @@ biplot3dBase2(
 \item{labels.c}{Logical. whether construct labels are displayed.}
 
 \item{lines.c}{Numeric. The way lines are drawn through the construct vectors.
-\code{0 =} no lines, \code{1 =} lines from constructs to outer frame,
-\code{2 =} lines from the center to outer frame.}
+\verb{0 =} no lines, \verb{1 =} lines from constructs to outer frame,
+\verb{2 =} lines from the center to outer frame.}
 
 \item{lef}{Construct lines extension factor.}
 

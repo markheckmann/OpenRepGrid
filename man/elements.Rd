@@ -17,7 +17,7 @@ elements(x, position) <- value
 \item{value}{Character vector of element names.}
 }
 \description{
-Allows to get and set element names. 
+Allows to get and set element names.
 Replaces the older functions \code{getElementNames}, \code{getElementNames2},
 and \code{eNames} which are deprecated.
 }

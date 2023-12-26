@@ -2,8 +2,7 @@
 % Please edit documentation in R/repgrid-plots.r
 \name{biplotPseudo3d}
 \alias{biplotPseudo3d}
-\title{See \code{\link{biplotPseudo3d}} for its use.
-Draws a biplot of the grid in 2D with depth impression (pseudo 3D).}
+\title{Draws a biplot of the grid in 2D with depth impression (pseudo 3D).}
 \usage{
 biplotPseudo3d(
   x,
@@ -25,7 +24,7 @@ biplotPseudo3d(
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{dim}{Dimensions (i.e. principal components) to be used for biplot 
+\item{dim}{Dimensions (i.e. principal components) to be used for biplot
 (default is \code{c(1,2)}).}
 
 \item{map.dim}{Third dimension (depth) used to map aesthetic attributes to
@@ -39,7 +38,7 @@ will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{e.point.cex}{Size of the element symbols. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.6, 1.2)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all elements
 will have the same size irrespective of their value on the \code{map.dim}
@@ -53,14 +52,14 @@ will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{e.label.cex}{Size of the element labels. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.6, .8)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all element labels
 will have the same size irrespective of their value on the \code{map.dim}
 dimension.}
 
-\item{e.color.map}{Value range to determine what range of the color ramp defined in 
-\code{e.color} will be used for mapping the colors. 
+\item{e.color.map}{Value range to determine what range of the color ramp defined in
+\code{e.color} will be used for mapping the colors.
 Default is \code{c(.4, ,1)}. Usually not important for the user.}
 
 \item{c.point.col}{Color(s) of the construct symbols. Two values can be entered that will
@@ -71,7 +70,7 @@ will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{c.point.cex}{Size of the construct symbols. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.6, 1.2)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all elements
 will have the same size irrespective of their value on the \code{map.dim}
@@ -85,25 +84,25 @@ will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
 
 \item{c.label.cex}{Size of the construct labels. Two values can be entered that will
-represents the lower and upper size of a range of cex the values of \code{map.dim} 
+represents the lower and upper size of a range of cex the values of \code{map.dim}
 are mapped onto. The default is \code{c(.6, .9)}. If only one cex value
 is supplied (e.g. \code{.7}) no mapping occurs and all construct labels
 will have the same size irrespective of their value on the \code{map.dim}
 dimension.}
 
-\item{c.color.map}{Value range to determine what range of the color ramp defined in 
+\item{c.color.map}{Value range to determine what range of the color ramp defined in
 \code{c.color} will be used for mapping. Default is \code{c(.4, ,1)}.
 Usually not important for the user.}
 
-\item{...}{Additional parameters passed to \code{\link{biplot2d}}.}
+\item{...}{Additional parameters passed to \code{\link[=biplot2d]{biplot2d()}}.}
 }
 \description{
-This version is basically a 2D biplot. 
+This version is basically a 2D biplot.
 It only modifies color and size of the symbols in order to create a 3D impression
-of the data points. 
-This function will call the standard \code{\link{biplot2d}} function with some 
+of the data points.
+This function will call the standard \code{\link[=biplot2d]{biplot2d()}} function with some
 modified arguments. For the whole set of arguments that can be used
-see \code{\link{biplot2d}}. Here only the arguments special to 
+see \code{\link[=biplot2d]{biplot2d()}}. Here only the arguments special to
 \code{biplotPseudo3d} are outlined.
 }
 \examples{
@@ -131,19 +130,11 @@ see \code{\link{biplot2d}}. Here only the arguments special to
 
 }
 \seealso{
-Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
-           2D biplots:
-           \code{\link{biplot2d}},
-           \code{\link{biplotEsa2d}},
-           \code{\link{biplotSlater2d}};\cr
-           Pseudo 3D biplots:
-           \code{\link{biplotPseudo3d}},  
-           \code{\link{biplotEsaPseudo3d}},
-           \code{\link{biplotSlaterPseudo3d}};\cr
-           Interactive 3D biplots:
-           \code{\link{biplot3d}},
-           \code{\link{biplotEsa3d}},
-           \code{\link{biplotSlater3d}};\cr
-           Function to set view in 3D:
-           \code{\link{home}}.
+\itemize{
+\item Unsophisticated biplot: \code{\link[=biplotSimple]{biplotSimple()}};
+\item 2D biplots:\code{\link[=biplot2d]{biplot2d()}}, \code{\link[=biplotEsa2d]{biplotEsa2d()}}, \code{\link[=biplotSlater2d]{biplotSlater2d()}};
+\item Pseudo 3D biplots: \code{\link[=biplotPseudo3d]{biplotPseudo3d()}}, \code{\link[=biplotEsaPseudo3d]{biplotEsaPseudo3d()}}, \code{\link[=biplotSlaterPseudo3d]{biplotSlaterPseudo3d()}};
+\item Interactive 3D biplots: \code{\link[=biplot3d]{biplot3d()}}, \code{\link[=biplotEsa3d]{biplotEsa3d()}}, \code{\link[=biplotSlater3d]{biplotSlater3d()}};
+\item Function to set view in 3D: \code{\link[=home]{home()}}
+}
 }

@@ -11,21 +11,19 @@ calcAngles(x, dim = c(1, 2), clockwise = TRUE)
 
 \item{dim}{Dimensions used for calculating angles.}
 
-\item{clockwise}{Logical. Positive angles are clockwise with x axis as 
-basis.}
+\item{clockwise}{Logical. Positive angles are clockwise with x axis as basis.}
 }
 \value{
-vector.   The angles of each row point with the origin as reference.
+vector. The angles of each row point with the origin as reference.
 }
 \description{
-The angles of the points given by the values in the first and second
-column of a matrix seen from the origin are calculated in degrees.
+The angles of the points given by the values in the first and second column of a matrix seen from the origin are
+calculated in degrees.
 }
 \examples{
 \dontrun{
-
-   calcAngles(matrix(rnorm(9), 3))
+m <- matrix(rnorm(9), 3)
+calcAngles()
 }
-
 }
 \keyword{internal}

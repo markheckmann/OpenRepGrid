@@ -23,20 +23,20 @@ distances.}
 
 \item{e.out}{Numeric. A vector giving the indexes of the elements
 for which detailed stats (number of conflicts per element,
-discrepancies for triangles etc.) are prompted 
+discrepancies for triangles etc.) are prompted
 (default \code{NA}, i.e. no detailed stats for any element).}
 
-\item{e.threshold}{Numeric. Detailed stats are prompted for those elements with a an 
-attributable percentage to the overall conflicts 
+\item{e.threshold}{Numeric. Detailed stats are prompted for those elements with a an
+attributable percentage to the overall conflicts
 higher than the supplied threshold
 (default \code{NA}).}
 
 \item{c.out}{Numeric. A vector giving the indexes of the constructs
-for which detailed stats (discrepancies for triangles etc.) 
+for which detailed stats (discrepancies for triangles etc.)
 are prompted (default \code{NA}, i. e. no detailed stats).}
 
-\item{c.threshold}{Numeric. Detailed stats are prompted for those constructs with a an 
-attributable percentage to the overall conflicts 
+\item{c.threshold}{Numeric. Detailed stats are prompted for those constructs with a an
+attributable percentage to the overall conflicts
 higher than the supplied threshold
 (default \code{NA}).}
 
@@ -45,48 +45,46 @@ higher than the supplied threshold
 simply saves space when displaying the output.}
 }
 \value{
-A list (invisibly) containing containing: \cr
-                     \item{potential}{number of potential conflicts}
-                     \item{actual}{count of actual conflicts}
-                     \item{overall}{percentage of conflictive relations}
-                     \item{e.count}{number of involvements of each element in conflictive relations}
-                     \item{e.perc}{percentage of involvement of each element in total of conflictive relations}
-                     \item{e.count}{number of involvements of each construct in conflictive relation}
-                     \item{c.perc}{percentage of involvement of each construct in total of conflictive relations}
-                     \item{e.stats}{detailed statistics for prompted elements}
-                     \item{c.stats}{detailed statistics for prompted constructs}                     
-                     \item{e.threshold}{threshold percentage. Used by print method}
-                     \item{c.threshold}{threshold percentage. Used by print method}
-                     \item{enames}{trimmed element names. Used by print method}
-                     \item{cnames}{trimmed construct names. Used by print method}
+A list (invisibly) containing:
+\itemize{
+\item \code{potential}: number of potential conflicts
+\item \code{actual}: count of actual conflicts
+\item \code{overall}: percentage of conflictive relations
+\item \code{e.count}: number of involvements of each element in conflictive relations
+\item \code{e.perc}: percentage of involvement of each element in total of conflictive relations
+\item \code{c.count}: number of involvements of each construct in conflictive relation
+\item \code{c.perc}: percentage of involvement of each construct in total of conflictive relations
+\item \code{e.stats}: detailed statistics for prompted elements
+\item \code{c.stats}: detailed statistics for prompted constructs
+\item \code{e.threshold}: threshold percentage. Used by print method
+\item \code{c.threshold}: threshold percentage. Used by print method
+\item \code{enames}: trimmed element names. Used by print method
+\item \code{cnames}: trimmed construct names. Used by print method
+}
 }
 \description{
-Conflict measure as proposed by Bell (2004).
-}
-\details{
 Measure of conflict or inconsistency as proposed by Bell (2004). The
 identification of conflict is based on distances rather than correlations as
-in other measures of conflict \code{\link{indexConflict1}} and
-\code{\link{indexConflict2}}. It assesses if the distances between all
+in other measures of conflict \code{\link[=indexConflict1]{indexConflict1()}} and
+\code{\link[=indexConflict2]{indexConflict2()}}. It assesses if the distances between all
 components of a triad, made up of one element and two constructs, satisfies
 the "triangle inequality" (cf. Bell, 2004). If not, a triad is regarded as
 conflictive. An advantage of the measure is that it can be interpreted not
 only as a global measure for a grid but also on an element, construct, and
 element by construct level making it valuable for detailed feedback. Also,
 differences in conflict can be submitted to statistical testing procedures.
-
-Status:  working; output for euclidean and manhattan distance 
-         checked against Gridstat output. \cr
-TODO:    standardization and z-test for discrepancies; 
-         Index of Conflict Variation.
+}
+\details{
+Status:  working; output for euclidean and manhattan distance
+checked against Gridstat output. \cr
+TODO:    standardization and z-test for discrepancies;
+Index of Conflict Variation.
 }
 \section{output}{
- For further control over the output see \code{\link{print.indexConflict3}}.
+ For further control over the output see \code{\link[=print.indexConflict3]{print.indexConflict3()}}.
 }
 
 \examples{
-\dontrun{
-
  # calculate conflicts
  indexConflict3(bell2010)
  
@@ -104,17 +102,12 @@ TODO:    standardization and z-test for discrepancies;
  ## omit discrepancy matrices for constructs
  x <- indexConflict3(bell2010, c.out = 5:6)
  print(x, discrepancies = FALSE)
- 
-}
-
 
 }
 \references{
-Bell, R. C. (2004). A new approach to measuring inconsistency 
-               or conflict in grids. Personal Construct Theory & Practice, 
-               (1), 53-59.
+Bell, R. C. (2004). A new approach to measuring inconsistency
+or conflict in grids. \emph{Personal Construct Theory & Practice}, (1), 53-59.
 }
 \seealso{
-See \code{\link{indexConflict1}} and \code{\link{indexConflict2}} 
-               for conflict measures based on triads of correlations.
+See \code{\link[=indexConflict1]{indexConflict1()}} and \code{\link[=indexConflict2]{indexConflict2()}} for conflict measures based on triads of correlations.
 }

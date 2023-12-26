@@ -22,11 +22,11 @@
 
 #' convertImportObjectToRepGridObject.
 #'
-#' Convert the returned object from an import function into a \code{repgrid} 
+#' Convert the returned object from an import function into a `repgrid` 
 #' object. Works for all importXInternal functions (except scivesco).
 #'  
 #' @param x   object returned from an import function.
-#' @return  \code{repgrid} object.
+#' @return  `repgrid` object.
 #' @keywords internal
 #' @export
 #'
@@ -120,26 +120,26 @@ convertImportObjectToRepGridObject <- function(import){
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @param min	    optional argument (\code{numeric}, default \code{NULL})
+#'                (default `NULL`).
+#' @param min	    optional argument (`numeric`, default `NULL`)
 #'                for minimum rating value in grid.
-#' @param max	    optional argument (\code{numeric}, default \code{NULL})
+#' @param max	    optional argument (`numeric`, default `NULL`)
 #'                for maximum rating value in grid.
-#' @return        a list with imported parameters
+#' @return  a list with imported parameters
 #'
 #' @note          Note that the gridstat data format does not contain explicit 
 #'                information about the range of the rating scale (minimum and 
 #'                maximum). By default the range is inferred by scanning
 #'                the ratings and picking the minimal and maximal values as rating
-#'                range. You can set the minimal and maximal value by hand using the \code{min} and 
-#'                \code{max} arguments or by using the \code{setScale()} function.
+#'                range. You can set the minimal and maximal value by hand using the `min` and 
+#'                `max` arguments or by using the `setScale()` function.
 #'                Note that if the rating range is not set, it may cause several
 #'                functions to not work properly. A warning will be issued if the range is
 #'                not set explicitly when using the importing function.
 #'                
 #'                The function only reads data from the latest GridStat version.
 #'                The latest version allows the separation of the left and right pole
-#'                by using on of the following symbols \code{/:-} (hyphen, colon and dash). Older versions may not
+#'                by using on of the following symbols `/:-` (hyphen, colon and dash). Older versions may not
 #'                separate                              the left and right pole. This will cause all labels to be assigned to 
 #'                the left pole only when importing. You may fix this by simply entering
 #'                one of the construct separator symbols into the GridStat file between each
@@ -294,7 +294,7 @@ importGridstatInternal <- function(file, dir=NULL, min=NULL, max=NULL){
 #' grid files the path is left unaltered.
 #' 
 #' @param file    Filenames of Gridstat file
-#' @return        A vector containing the paths to the temp files
+#' @return  A vector containing the paths to the temp files
 #' @export
 #' @keywords internal
 #' 
@@ -327,48 +327,38 @@ multigridFileToSinglegridFiles <- function(file)
 #'
 #' @param file	  Filename including path if file is not in current working 
 #'                directory. File can also be a complete URL. The fileformat
-#'                is \code{.dat}.
+#'                is `.dat`.
 #' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @param min	    Optional argument (\code{numeric}, default \code{NULL})
+#'                (default `NULL`).
+#' @param min	    Optional argument (`numeric`, default `NULL`)
 #'                for minimum rating value in grid.
-#' @param max	    Optional argument (\code{numeric}, default \code{NULL})
+#' @param max	    Optional argument (`numeric`, default `NULL`)
 #'                for maximum rating value in grid.
-#' @return        A single \code{repgrid} object in case one file and
-#'                a list of \code{repgrid} objects in case multiple files are imported.
-#' @note          Note that the gridstat data format does not contain explicit 
-#'                information about the range of the rating scale used (minimum and 
-#'                maximum). By default the range is inferred by scanning
-#'                the ratings and picking the minimal and maximal values as rating
-#'                range. You can set the minimal and maximal value by hand using the \code{min} and 
-#'                \code{max} arguments or by using the \code{setScale()} function.
-#'                Note that if the rating range is not set, it may cause several
-#'                functions to not work properly. A warning will be issued if the range is
-#'                not set explicitly when using the importing function.
+#' @return  A single `repgrid` object in case one file and a list of `repgrid` objects in case multiple files are
+#'   imported.
 #'                
-#'                The function only reads data from the latest GridStat version.
-#'                The latest version allows the separation of the left and right pole
-#'                by using on of the following symbols \code{/:-} (hyphen, colon and dash). Older versions may not
-#'                separate                              the left and right pole. This will cause all labels to be assigned to 
-#'                the left pole only when importing. You may fix this by simply entering
-#'                one of the construct separator symbols into the GridStat file between each
-#'                left and right construct pole.
+#' @note  Note that the gridstat data format does not contain explicit information about the range of the rating scale
+#'   used (minimum and maximum). By default the range is inferred by scanning the ratings and picking the minimal and
+#'   maximal values as rating range. You can set the minimal and maximal value by hand using the `min` and `max`
+#'   arguments or by using the `setScale()` function. Note that if the rating range is not set, it may cause several
+#'   functions to not work properly. A warning will be issued if the range is not set explicitly when using the
+#'   importing function.
 #'
-#'                The third line of a GridStat file may contain a no labels statement (i.e. a
-#'                line containing any string of 'NOLA', 'NO L', 'NoLa', 'No L', 'Nola', 'No l',
-#'                'nola' or 'no l'). In this case only ratings are supplied, hence, default 
-#'                names are assigned to elements and constructs.
+#'   The function only reads data from the latest GridStat version. The latest version allows the separation of the
+#'   left and right pole by using on of the following symbols `/:-` (hyphen, colon and dash). Older versions may not
+#'   separate the left and right pole. This will cause all labels to be assigned to the left pole only when importing.
+#'   You may fix this by simply entering one of the construct separator symbols into the GridStat file between each
+#'   left and right construct pole.
+#'
+#'   The third line of a GridStat file may contain a no labels statement (i.e. a line containing any string of 'NOLA',
+#'   'NO L', 'NoLa', 'No L', 'Nola', 'No l', 'nola' or 'no l'). In this case only ratings are supplied, hence, default
+#'   names are assigned to elements and constructs.
 #'
 #' @export
-#' @references    Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a 
-#'                repertory grid. Melbourne: Author.
+#' @references  Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a repertory grid. Melbourne: Author.
 #'
-#' @seealso       \code{\link{importGridcor}},
-#'                \code{\link{importGridstat}},
-#'                \code{\link{importScivesco}},
-#'                \code{\link{importGridsuite}},
-#'                \code{\link{importTxt}},
-#'                \code{\link{importExcel}}
+#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
+#'   [importExcel()]
 #'
 #' @examples \dontrun{
 #' 
@@ -387,8 +377,7 @@ multigridFileToSinglegridFiles <- function(file)
 #' rg <- importGridstat(file, dir, min=1, max=6)
 #' }
 #'
-importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
-{
+importGridstat <- function(file, dir=NULL, min=NULL, max=NULL) {
   tmp.files <- unlist(lapply(as.list(file),                    # convert multigrid files to single grid files
                              multigridFileToSinglegridFiles))  
   imps <- lapply(as.list(tmp.files), importGridstatInternal,   # make import objects for each .txt file
@@ -482,10 +471,10 @@ importGridstat <- function(file, dir=NULL, min=NULL, max=NULL)
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
+#'                (default `NULL`).
 #' @note          Note that the GRIDCOR data sets the minimum ratings scale range to 1.
 #'                The maximum value can differ and is defined in the data file. 
-#' @references    \url{https://www.ub.edu/terdep/gridcor.html}
+#' @references <https://www.ub.edu/terdep/gridcor.html>
 #'
 #' @export
 #' @keywords internal
@@ -565,25 +554,24 @@ importGridcorInternal <- function(file, dir=NULL) {
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @return        a single \code{repgrid} object in case one file and
-#'                a list of \code{repgrid} objects in case multiple files are imported.
-#' @note          Note that the GRIDCOR data sets the minimum ratings scale range to 1.
-#'                The maximum value can differ and is defined in the data file. 
+#'                (default `NULL`).
+#' @return  a single `repgrid` object in case one file and
+#'                a list of `repgrid` objects in case multiple files are imported.
+#' @note Note that the GRIDCOR data sets the minimum ratings scale range to 1. The maximum value can differ and is
+#'   defined in the data file.
 #'
-#'                Also note that both Gridcor and Gridstat data files do have the same
-#'                suffix \code{.dat}. Make sure not to mix them up.
+#'   Also note that both Gridcor and Gridstat data files do have the same suffix `.dat`. Make sure not to mix them up.
 #' @export
-#' @references    Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
-#'                for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
-#'                Retrieved from \url{https://www.ub.edu/terdep/pag/index.html}.
+#' @references  Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
+#' for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
+#' Retrieved from <https://www.ub.edu/terdep/pag/index.html>.
 #'
-#' @seealso       \code{\link{importGridcor}},
-#'                \code{\link{importGridstat}},
-#'                \code{\link{importScivesco}},
-#'                \code{\link{importGridsuite}},
-#'                \code{\link{importTxt}},
-#'                \code{\link{importExcel}}
+#' @seealso [importGridcor()],
+#'                [importGridstat()],
+#'                [importScivesco()],
+#'                [importGridsuite()],
+#'                [importTxt()],
+#'                [importExcel()]
 #'
 #' @examples \dontrun{
 #' 
@@ -601,7 +589,7 @@ importGridcorInternal <- function(file, dir=NULL) {
 #' }
 #'
 #'
-importGridcor <- function(file, dir=NULL){
+importGridcor <- function(file, dir=NULL) {
   imps <- lapply(as.list(file), importGridcorInternal,      # make import objects for each .txt file
                  dir=dir)
   rgs <- lapply(imps, convertImportObjectToRepGridObject)   # make repgrid object from import object
@@ -629,17 +617,17 @@ importGridcor <- function(file, dir=NULL){
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
+#'                (default `NULL`).
 #' @note          The developers of Gridsuite have proposed to use an XML scheme as
 #'                a standard exchange format for repertory grid data (Walter, 
 #'                Bacher & Fromm, 2004). This approach is also embraced by the 
-#'                \code{OpenRepGrid} package.
+#'                `OpenRepGrid` package.
 #'
-#' @references    \url{http://www.gridsuite.de/}
+#' @references <http://www.gridsuite.de/>
 #'
 #'                Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal 
 #'                for a common data exchange format for repertory grid data. 
-#'                \emph{Journal of Constructivist Psychology, 17}(3), 247. 
+#'                *Journal of Constructivist Psychology, 17*(3), 247. 
 #'                doi:10.1080/10720530490447167
 #' @note          TODO: The element and construct IDs are not used yet. Thus, 
 #'                if the output should be in different order the current mechanism 
@@ -726,31 +714,23 @@ importGridsuiteInternal <- function(file, dir=NULL){
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @return        A single \code{repgrid} object in case one file and
-#'                a list of \code{repgrid} objects in case multiple files are imported.
-#' @note          The developers of Gridsuite have proposed to use an XML scheme as
-#'                a standard exchange format for repertory grid data (Walter, 
-#'                Bacher & Fromm, 2004). This approach is also embraced by the 
-#'                \code{OpenRepGrid} package.
+#'                (default `NULL`).
+#' @return  A single `repgrid` object in case one file and
+#'                a list of `repgrid` objects in case multiple files are imported.
+#' @note The developers of Gridsuite have proposed to use an XML scheme as a standard exchange format for repertory
+#'   grid data (Walter, Bacher & Fromm, 2004). 
 #'
-#' @references    \url{http://www.gridsuite.de/}
+#' @references <http://www.gridsuite.de/>
 #'
-#'                Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal 
-#'                for a common data exchange format for repertory grid data. 
-#'                \emph{Journal of Constructivist Psychology, 17}(3), 247. 
-#'                doi:10.1080/10720530490447167
+#' Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal  for a common data exchange format for repertory grid
+#' data.*Journal of Constructivist Psychology, 17*(3), 247. \doi{doi:10.1080/10720530490447167}
 #'
-#' @note          TODO: The element and construct IDs are not used yet. Thus, 
-#'                if the output should be in different order the current mechanism 
-#'                will cause false assignments.
+#' @note  TODO: The element and construct IDs are not used yet. Thus, if the output should be in different order the
+#'   current mechanism will cause false assignments.
+#'   
 #' @export
-#' @seealso       \code{\link{importGridcor}},
-#'                \code{\link{importGridstat}},
-#'                \code{\link{importScivesco}},
-#'                \code{\link{importGridsuite}},
-#'                \code{\link{importTxt}},
-#'                \code{\link{importExcel}}
+#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
+#'   [importExcel()]
 #'
 #' @examples \dontrun{
 #' 
@@ -828,14 +808,14 @@ importGridsuite <- function(file, dir=NULL){
 #file <- "/Users/unimitarbeiter/Documents/Magic Briefcase/DA openRepgrid/openrepgrid/basic/data/foreign/scivesco.scires"
 #a <- importScivesco(file)
 
-#' Internal parser for sci:vesco files (suffix \code{scires}).
+#' Internal parser for sci:vesco files (suffix `scires`).
 #' 
 #' @param file	  filename including path if file is not in current working 
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @return        a list with extracted parameters.
+#'                (default `NULL`).
+#' @return  a list with extracted parameters.
 #'
 #' @note          Sci:Vesco offers the options to rate the construct poles separately or using
 #'                a bipolar scale. The separated rating is done using the "tetralemma" field.
@@ -847,7 +827,7 @@ importGridsuite <- function(file, dir=NULL){
 #'                in a bipolar way. Using the tetralemma field for rating requires to analyze
 #'                each construct separately though. This means we get a double entry grid where the 
 #'                emergent and contrast pole ratings might not simply be a reflection of on another.
-#'                If a tetralemma field has been used for rating, \code{OpenRepGrid} offers the option 
+#'                If a tetralemma field has been used for rating, `OpenRepGrid` offers the option 
 #'                to transform the scores into "normal" grid ratings (i.e. restricted to bipolarity)
 #'                by projecting the ratings from the bivariate tetralemma field onto the diagonal 
 #'                of the tetralemma field and thus forcing a bipolar rating type. This option is 
@@ -987,11 +967,11 @@ importScivescoInternal <- function(file, dir=NULL){
 }
 
 
-#' Convert the returned object from the sci:vesco import function into a \code{repgrid} 
+#' Convert the returned object from the sci:vesco import function into a `repgrid` 
 #' object.
 #'  
 #' @param x   object returned from an import function.
-#' @return  \code{repgrid} object.
+#' @return  `repgrid` object.
 #' @keywords internal
 #' @export
 convertScivescoImportObjectToRepGridObject <- function(import){
@@ -1046,42 +1026,32 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #'                directory. File can also be a complete URL. The fileformat
 #'                is .dat.
 #' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @return        A single \code{repgrid} object in case one file and
-#'                a list of \code{repgrid} objects in case multiple files are imported.
-#' @note          Sci:Vesco offers the options to rate the construct poles separately or using
-#'                a bipolar scale. The separated rating is done using the "tetralemma" field.
-#'                The field is a bivariate plane on which each of the four (tetra) corners  
-#'                has a different meaning in terms of rating. Using this approach also allows ratings
-#'                like: "both poles apply", "none of the poles apply" and all intermediate ratings
-#'                can be chosen. This relaxes the bipolarity assumption often assumed in grid theory and
-#'                allows for deviation from a strict bipolar rating if the constructs are not applied
-#'                in a bipolar way. Using the tetralemma field for rating requires to analyze
-#'                each construct separately though. This means we get a double entry grid where the 
-#'                emergent and contrast pole ratings might not simply be a reflection of on another.
-#'                The tetralemma field is not yet supported and importing will fail. Currently only bipolar
-#'                ratings are supported.
+#'                (default `NULL`).
+#' @return  A single `repgrid` object in case one file and
+#'                a list of `repgrid` objects in case multiple files are imported.
+#' @note  Sci:Vesco offers the options to rate the construct poles separately or using a bipolar scale. The separated
+#'   rating is done using the "tetralemma" field. The field is a bivariate plane on which each of the four (tetra)
+#'   corners has a different meaning in terms of rating. Using this approach also allows ratings like: "both poles
+#'   apply", "none of the poles apply" and all intermediate ratings can be chosen. This relaxes the bipolarity
+#'   assumption often assumed in grid theory and allows for deviation from a strict bipolar rating if the constructs
+#'   are not applied in a bipolar way. Using the tetralemma field for rating requires to analyze each construct
+#'   separately though. This means we get a double entry grid where the emergent and contrast pole ratings might not
+#'   simply be a reflection of on another. The tetralemma field is not yet supported and importing will fail. Currently
+#'   only bipolar ratings are supported.
 #'
-#'                If a tetralemma field has been used for rating, \code{OpenRepGrid} will offer the option 
-#'                to transform the scores into "normal" grid ratings (i.e. restricted to bipolarity)
-#'                by projecting the ratings from the bivariate tetralemma field onto the diagonal 
-#'                of the tetralemma field and thus forcing a bipolar rating type. This option is 
-#'                not recommended due to the fact that the conversion is susceptible to error
-#'                when both ratings are near to zero.
+#'   If a tetralemma field has been used for rating, `OpenRepGrid` will offer the option to transform the scores into
+#'   "normal" grid ratings (i.e. restricted to bipolarity) by projecting the ratings from the bivariate tetralemma
+#'   field onto the diagonal of the tetralemma field and thus forcing a bipolar rating type. This option is not
+#'   recommended due to the fact that the conversion is susceptible to error when both ratings are near to zero.
 #'
-#' @note          TODO: For developers: The element IDs are not used yet. 
-#'                This might cause wrong assignments.
+#' @note  TODO: For developers: The element IDs are not used yet. This might cause wrong assignments.
 #'
 #' @export
 #' @references    Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und 
-#'                rationale Konstrukte verstehen. \emph{Personalfuehrung, 4}(7), 91-99.
+#'                rationale Konstrukte verstehen. *Personalfuehrung, 4*(7), 91-99.
 #'
-#' @seealso       \code{\link{importGridcor}},
-#'                \code{\link{importGridstat}},
-#'                \code{\link{importScivesco}},
-#'                \code{\link{importGridsuite}},
-#'                \code{\link{importTxt}},
-#'                \code{\link{importExcel}}
+#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
+#'   [importExcel()]
 #'
 #' @examples \dontrun{
 #' 
@@ -1097,8 +1067,6 @@ convertScivescoImportObjectToRepGridObject <- function(import){
 #' rg <- importScivesco("/Users/markheckmann/data/scivesco.scires")
 #' 
 #' }
-#'
-#'
 importScivesco <- function(file, dir=NULL){
   imps <- lapply(as.list(file), importScivescoInternal,       # make import objects for each .txt file
                  dir=dir)
@@ -1116,48 +1084,45 @@ importScivesco <- function(file, dir=NULL){
 
 #' ImportTxtInternal is the parser for importTxt.
 #'
-#' ImportTxtInternal is the parser for importTxt that constructs an import object.
-#' The \code{.txt} file has to be in a fixed format. There are three mandatory blocks each starting and ending
-#' with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} 
-#' and ends with \code{END ELEMENTS} and contains one element in each line.
-#' The other mandatory blocks contain the constructs and ratings (see below). In the 
-#' block containing the constructs the left and right pole are separated by a 
-#' colon (:). To define missing values use \code{NA} like in the example below.
-#' One optional block contains the range of the rating scale used defined by two numbers.
-#' The order of the blocks is arbitrary. All text not contained within the blocks
-#' is discarded and can thus be used for comments.
+#' ImportTxtInternal is the parser for importTxt that constructs an import object. The `.txt` file has to be in a fixed
+#' format. There are three mandatory blocks each starting and ending with a predefined tag in uppercase letters. The
+#' first block starts with `ELEMENTS` and ends with `END ELEMENTS` and contains one element in each line. The other
+#' mandatory blocks contain the constructs and ratings (see below). In the block containing the constructs the left and
+#' right pole are separated by a colon (:). To define missing values use `NA` like in the example below. One optional
+#' block contains the range of the rating scale used defined by two numbers. The order of the blocks is arbitrary. All
+#' text not contained within the blocks is discarded and can thus be used for comments.
 #'
 #' \tabular{l}{
-#' \code{---------------- .txt file -----------------} \cr \cr
-#' \code{anything not contained within the tags will be discarded} \cr
-#' \code{ELEMENTS}         \cr
-#' \code{element 1}        \cr
-#' \code{element 2}        \cr
-#' \code{element 3}        \cr
-#' \code{END ELEMENTS}     \cr
+#' `---------------- .txt file -----------------` \cr \cr
+#' `anything not contained within the tags will be discarded` \cr
+#' `ELEMENTS`         \cr
+#' `element 1`        \cr
+#' `element 2`        \cr
+#' `element 3`        \cr
+#' `END ELEMENTS`     \cr
 #' \cr
-#' \code{CONSTRUCTS}                 \cr
-#' \code{left pole 1 : right pole 1} \cr
-#' \code{left pole 2 : right pole 2} \cr
-#' \code{left pole 3 : right pole 3} \cr
-#' \code{left pole 4 : right pole 4} \cr
-#' \code{END CONSTRUCTS}             \cr
+#' `CONSTRUCTS`                 \cr
+#' `left pole 1 : right pole 1` \cr
+#' `left pole 2 : right pole 2` \cr
+#' `left pole 3 : right pole 3` \cr
+#' `left pole 4 : right pole 4` \cr
+#' `END CONSTRUCTS`             \cr
 #' \cr
-#' \code{RATINGS}        \cr
-#' \code{1 3 2}          \cr
-#' \code{4 1 1}          \cr
-#' \code{1 4 4}          \cr
-#' \code{3 1 1}          \cr
-#' \code{END RATINGS}    \cr
+#' `RATINGS`        \cr
+#' `1 3 2`          \cr
+#' `4 1 1`          \cr
+#' `1 4 4`          \cr
+#' `3 1 1`          \cr
+#' `END RATINGS`    \cr
 #' \cr
-#' \code{RANGE}          \cr
-#' \code{1 4}            \cr
-#' \code{END RANGE}      \cr
-#' \code{---------------- end of file ----------------} \cr
+#' `RANGE`          \cr
+#' `1 4`            \cr
+#' `END RANGE`      \cr
+#' `---------------- end of file ----------------` \cr
 #' }
 #'
-#' Note that the maximum and minimum value has to be defined using the \code{min} and
-#' \code{max} arguments if no \code{RANGE} block is contained in the data file.
+#' Note that the maximum and minimum value has to be defined using the `min` and
+#' `max` arguments if no `RANGE` block is contained in the data file.
 #' Otherwise the scaling range is inferred from the available data and a warning 
 #' is issued as the range may be erroneous. This may effect other functions that 
 #' depend on knowing the correct range and it is thus strongly recommended to 
@@ -1167,14 +1132,14 @@ importScivesco <- function(file, dir=NULL){
 #'
 #' @param file	  Filename including path if file is not in current working 
 #'                directory. File can also be a complete URL. The fileformat
-#'                is \code{.txt}.
+#'                is `.txt`.
 #' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @param min	    Optional argument (\code{numeric}, default \code{NULL})
+#'                (default `NULL`).
+#' @param min	    Optional argument (`numeric`, default `NULL`)
 #'                for minimum rating value in grid.
-#' @param max	    Optional argument (\code{numeric}, default \code{NULL})
+#' @param max	    Optional argument (`numeric`, default `NULL`)
 #'                for maximum rating value in grid.
-#' @return        List of relevant data.
+#' @return  List of relevant data.
 #'
 #' @export
 #' @keywords internal
@@ -1281,75 +1246,63 @@ importTxtInternal <- function(file, dir=NULL, min=NULL, max=NULL)
 
 #' Import grid data from a text file.
 #'
-#' If you do not have a grid program at hand you can define a grid using
-#' a standard text editor and by saving it as a \code{.txt} file.
-#' The \code{.txt} file has to be in a fixed format. There are three mandatory blocks each starting and ending
-#' with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} 
-#' and ends with \code{END ELEMENTS} and contains one element in each line.
-#' The other mandatory blocks contain the constructs and ratings (see below). In the 
-#' block containing the constructs the left and right pole are separated by a 
-#' colon (:). To define missing values use \code{NA} like in the example below.
-#' One optional block contains the range of the rating scale used defined by two numbers.
-#' The order of the blocks is arbitrary. All text not contained within the blocks
-#' is discarded and can thus be used for comments.
+#' If you do not have a grid program at hand you can define a grid using a standard text editor and by saving it as a
+#' `.txt` file. The `.txt` file has to be in a fixed format. There are three mandatory blocks each starting and ending
+#' with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS` and
+#' contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the
+#' block containing the constructs the left and right pole are separated by a colon (:). To define missing values use
+#' `NA` like in the example below. One optional block contains the range of the rating scale used defined by two
+#' numbers. The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be
+#' used for comments.
 #'
-#' 
 #' \tabular{l}{
-#' \code{---------------- .txt file -----------------} \cr \cr
-#' \code{anything not contained within the tags will be discarded} \cr
-#' \code{ELEMENTS}         \cr
-#' \code{element 1}        \cr
-#' \code{element 2}        \cr
-#' \code{element 3}        \cr
-#' \code{END ELEMENTS}     \cr
+#' `---------------- .txt file -----------------` \cr \cr
+#' `anything not contained within the tags will be discarded` \cr
+#' `ELEMENTS`         \cr
+#' `element 1`        \cr
+#' `element 2`        \cr
+#' `element 3`        \cr
+#' `END ELEMENTS`     \cr
 #' \cr
-#' \code{CONSTRUCTS}                 \cr
-#' \code{left pole 1 : right pole 1} \cr
-#' \code{left pole 2 : right pole 2} \cr
-#' \code{left pole 3 : right pole 3} \cr
-#' \code{left pole 4 : right pole 4} \cr
-#' \code{END CONSTRUCTS}             \cr
+#' `CONSTRUCTS`                 \cr
+#' `left pole 1 : right pole 1` \cr
+#' `left pole 2 : right pole 2` \cr
+#' `left pole 3 : right pole 3` \cr
+#' `left pole 4 : right pole 4` \cr
+#' `END CONSTRUCTS`             \cr
 #' \cr
-#' \code{RATINGS}        \cr
-#' \code{1 3 2}          \cr
-#' \code{4 1 1}          \cr
-#' \code{1 4 4}          \cr
-#' \code{3 1 1}          \cr
-#' \code{END RATINGS}    \cr
+#' `RATINGS`        \cr
+#' `1 3 2`          \cr
+#' `4 1 1`          \cr
+#' `1 4 4`          \cr
+#' `3 1 1`          \cr
+#' `END RATINGS`    \cr
 #' \cr
-#' \code{RANGE}          \cr
-#' \code{1 4}            \cr
-#' \code{END RANGE}      \cr
-#' \code{---------------- end of file ----------------} \cr
+#' `RANGE`          \cr
+#' `1 4`            \cr
+#' `END RANGE`      \cr
+#' `---------------- end of file ----------------` \cr
 #' }
 #'
-#'
-#' Note that the maximum and minimum value has to be defined using the \code{min} and
-#' \code{max} arguments if no \code{RANGE} block is contained in the data file.
-#' Otherwise the scaling range is inferred from the available data and a warning 
-#' is issued as the range may be erroneous. This may effect other functions that 
-#' depend on knowing the correct range and it is thus strongly recommended to 
-#' set the scale range correctly.
+#' Note that the maximum and minimum value has to be defined using the `min` and `max` arguments if no `RANGE` block is
+#' contained in the data file. Otherwise the scaling range is inferred from the available data and a warning is issued
+#' as the range may be erroneous. This may effect other functions that depend on knowing the correct range and it is
+#' thus strongly recommended to set the scale range correctly.
 #'
 #' @param file	  A vector of filenames including the full path if file is not in current working 
 #'                directory. File can also be a complete URL. The file suffix
-#'                has to be \code{.txt}.
+#'                has to be `.txt`.
 #' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
-#' @param min	    Optional argument (\code{numeric}, default \code{NULL})
+#'                (default `NULL`).
+#' @param min	    Optional argument (`numeric`, default `NULL`)
 #'                for minimum rating value in grid.
-#' @param max	    Optional argument (\code{numeric}, default \code{NULL})
+#' @param max	    Optional argument (`numeric`, default `NULL`)
 #'                for maximum rating value in grid.
-#' @return        A single \code{repgrid} object in case one file and
-#'                a list of \code{repgrid} objects in case multiple files are imported.
+#' @return  A single `repgrid` object in case one file and
+#'                a list of `repgrid` objects in case multiple files are imported.
 #' @export
-#' @seealso       \code{\link{importGridcor}},
-#'                \code{\link{importGridstat}},
-#'                \code{\link{importScivesco}},
-#'                \code{\link{importGridsuite}},
-#'                \code{\link{importTxt}},
-#'                \code{\link{importExcel}}
-#'
+#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
+#'   [importExcel()]
 #' @examples \dontrun{
 #'
 #' # supposing that the data file sample.txt is in the current directory
@@ -1450,7 +1403,7 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #' Import grid data from an Excel file.
 #' 
 #' You can define a grid using Microsoft Excel and by saving it as a
-#' \code{.xlsx} file. The \code{.xlsx} file has to be in a specified fixed 
+#' `.xlsx` file. The `.xlsx` file has to be in a specified fixed 
 #' format (see section Details).
 #' 
 #' Excel file structure: The first row contains the minimum of the rating scale,
@@ -1459,36 +1412,36 @@ importExcelInternal <- function(file, dir=NULL, sheetIndex=1,
 #' pole.
 #' 
 #' \tabular{lccccr}{
-#' \code{1}           \tab \code{E1}  \tab \code{E2} \tab \code{E3} \tab \code{E4}  \tab \code{5}        \cr
-#' \code{left pole 1} \tab \code{1}   \tab \code{5}  \tab \code{3}  \tab \code{4}   \tab \code{right pole 1} \cr
-#' \code{left pole 2} \tab \code{3}   \tab \code{1}  \tab \code{1}  \tab \code{3}   \tab \code{right pole 2} \cr
-#' \code{left pole 3} \tab \code{4}   \tab \code{2}  \tab \code{5}  \tab \code{1}   \tab \code{right pole 3} \cr
+#' `1`           \tab `E1`  \tab `E2` \tab `E3` \tab `E4`  \tab `5`        \cr
+#' `left pole 1` \tab `1`   \tab `5`  \tab `3`  \tab `4`   \tab `right pole 1` \cr
+#' `left pole 2` \tab `3`   \tab `1`  \tab `1`  \tab `3`   \tab `right pole 2` \cr
+#' `left pole 3` \tab `4`   \tab `2`  \tab `5`  \tab `1`   \tab `right pole 3` \cr
 #' }
 #'
 #' Note that the maximum and minimum value has to be defined using the
-#' \code{min} and \code{max} arguments if no values are supplied at the
+#' `min` and `max` arguments if no values are supplied at the
 #' beginning and end of the first row. Otherwise the scaling range is inferred
 #' from the available data and a warning is issued as the range may be
 #' erroneous. This may effect other functions that depend on knowing the correct
 #' range and it is thus strongly recommended to set the scale range correctly.
 #'
 #' @param file    A vector of filenames including the full path if file is not in current working 
-#'                directory. The file suffix has to be \code{.xlsx} (used since Excel 2007). 
+#'                directory. The file suffix has to be `.xlsx` (used since Excel 2007). 
 #' @param dir	    Alternative way to supply the directory where the file is located 
-#'                (default \code{NULL}).
+#'                (default `NULL`).
 #' @param sheetIndex  The number of the Excel sheet that contains the grid data.
-#' @param min	    Optional argument (\code{numeric}, default \code{NULL})
+#' @param min	    Optional argument (`numeric`, default `NULL`)
 #'                for minimum rating value in grid.
-#' @param max	    Optional argument (\code{numeric}, default \code{NULL})
+#' @param max	    Optional argument (`numeric`, default `NULL`)
 #'                for maximum rating value in grid.
-#' @return        A single \code{repgrid} object in case one file and
-#'                a list of \code{repgrid} objects in case multiple files are imported.
+#' @return  A single `repgrid` object in case one file and
+#'                a list of `repgrid` objects in case multiple files are imported.
 #' @export
-#' @seealso       \code{\link{importGridcor}},
-#'                \code{\link{importGridstat}},
-#'                \code{\link{importScivesco}},
-#'                \code{\link{importGridsuite}},
-#'                \code{\link{importTxt}}
+#' @seealso [importGridcor()],
+#'                [importGridstat()],
+#'                [importScivesco()],
+#'                [importGridsuite()],
+#'                [importTxt()]
 #'
 #' @examples \dontrun{
 #' 

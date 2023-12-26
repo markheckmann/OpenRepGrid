@@ -9,12 +9,12 @@
 \arguments{
 \item{x}{Object of class constructD.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
+\item{digits}{Numeric. Number of digits to round to (default is
 \code{2}).}
 
-\item{col.index}{Logical. Whether to add an extra index column so the 
-column names are indexes instead of construct names. This option 
-renders a neater output as long construct names will stretch 
+\item{col.index}{Logical. Whether to add an extra index column so the
+column names are indexes instead of construct names. This option
+renders a neater output as long construct names will stretch
 the output (default is \code{TRUE}).}
 
 \item{...}{Not evaluated.}

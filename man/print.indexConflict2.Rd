@@ -9,13 +9,10 @@
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{1}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{1}).}
 
-\item{output}{Numeric. The output printed to the console. \code{output=1} (default) 
-will print information about the conflicts to the console.
-\code{output = 2} will additionally print the conflictive
-triads.}
+\item{output}{Numeric. The output printed to the console. \code{output=1} (default) will print information about the
+conflicts to the console. \code{output = 2} will additionally print the conflictive triads.}
 
 \item{...}{Not evaluated.}
 }

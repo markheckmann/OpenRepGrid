@@ -9,9 +9,9 @@ randomSentence(n, maxchar = Inf)
 \arguments{
 \item{n}{number of word in sentence}
 
-\item{maxchar}{maximal number of characters per sentence. Note that whole 
-words (not part of words) are excluded if the maximal number 
- is exceeded.}
+\item{maxchar}{maximal number of characters per sentence. Note that whole
+words (not part of words) are excluded if the maximal number
+is exceeded.}
 }
 \value{
 a string with n words (if length is not constrained)

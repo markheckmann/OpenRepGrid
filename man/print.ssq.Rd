@@ -12,12 +12,12 @@
 \item{digits}{Number of digits to round the output to (default is \code{2}).}
 
 \item{dim}{The number of PCA dimensions to print. Default
-is \code{5} dimensions. \code{NA} will print all 
+is \code{5} dimensions. \code{NA} will print all
 dimensions.}
 
-\item{cumulated}{Logical (default is \code{TRUE}). 
+\item{cumulated}{Logical (default is \code{TRUE}).
 Print a cumulated table of sum-of-squares?
-If \code{FALSE} the non-cumulated sum-of-squares are printed.                         
+If \code{FALSE} the non-cumulated sum-of-squares are printed.
 (default is \code{TRUE}).}
 
 \item{...}{Not evaluated.}

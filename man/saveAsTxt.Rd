@@ -9,7 +9,7 @@ saveAsTxt(x, file = NA)
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{file}{Filename to save the grid to. The name should have 
+\item{file}{Filename to save the grid to. The name should have
 the suffix \code{.txt}.}
 }
 \value{
@@ -17,43 +17,43 @@ Invisibly returns the name of the file.
 }
 \description{
 \code{saveAsTxt} will save the grid as a \code{.txt} file
-in format used by \pkg{OpenRepGrid}. This file format can also 
-easily be edited by hand (see \code{\link{importTxt}} for a 
+in format used by \pkg{OpenRepGrid}. This file format can also
+easily be edited by hand (see \code{\link[=importTxt]{importTxt()}} for a
 description).
 }
 \note{
-Structure of a txt file that can be read by \code{\link{importTxt}}.
+Structure of a txt file that can be read by \code{\link[=importTxt]{importTxt()}}.
 
-\code{---------------- .txt file -----------------}
+\verb{---------------- .txt file -----------------}
 
-\code{anything not contained within the tags will be discarded}
+\verb{anything not contained within the tags will be discarded}
 
 \tabular{l}{
 \code{ELEMENTS}         \cr
-\code{element 1}        \cr
-\code{element 2}        \cr
-\code{element 3}        \cr
-\code{END ELEMENTS}     \cr
+\verb{element 1}        \cr
+\verb{element 2}        \cr
+\verb{element 3}        \cr
+\verb{END ELEMENTS}     \cr
 \cr
 \code{CONSTRUCTS}                 \cr
-\code{left pole 1 : right pole 1} \cr
-\code{left pole 2 : right pole 2} \cr
-\code{left pole 3 : right pole 3} \cr
-\code{left pole 4 : right pole 4} \cr
-\code{END CONSTRUCTS}             \cr
+\verb{left pole 1 : right pole 1} \cr
+\verb{left pole 2 : right pole 2} \cr
+\verb{left pole 3 : right pole 3} \cr
+\verb{left pole 4 : right pole 4} \cr
+\verb{END CONSTRUCTS}             \cr
 \cr
 \code{RATINGS}        \cr
-\code{1 3 2}          \cr
-\code{4 1 1}          \cr
-\code{1 4 4}          \cr
-\code{3 1 1}          \cr
-\code{END RATINGS}    \cr
+\verb{1 3 2}          \cr
+\verb{4 1 1}          \cr
+\verb{1 4 4}          \cr
+\verb{3 1 1}          \cr
+\verb{END RATINGS}    \cr
 \cr
 \code{RANGE}          \cr
-\code{1 4}            \cr
-\code{END RANGE}      \cr
+\verb{1 4}            \cr
+\verb{END RANGE}      \cr
 }
-\code{---------------- end of file ----------------}
+\verb{---------------- end of file ----------------}
 }
 \examples{
 \dontrun{
@@ -65,5 +65,5 @@ Structure of a txt file that can be read by \code{\link{importTxt}}.
 
 }
 \seealso{
-\code{\link{importTxt}}
+\code{\link[=importTxt]{importTxt()}}
 }

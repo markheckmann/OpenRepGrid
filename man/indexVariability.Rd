@@ -9,30 +9,28 @@ indexVariability(x, min = NULL, max = NULL, digits = 2)
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{min, max}{Minimum and maximum grid scale values. Nor needed 
-if they are set for the grid.}
+\item{min, max}{Minimum and maximum grid scale values. Nor needed if they are set for the grid.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{2}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
 }
 \value{
 Numeric.
 }
 \description{
-Variability records a tendency for the responses to gravitate 
-towards both end of the gradings scale. (Slater, 1977, p.88).
+Variability records a tendency for the responses to gravitate towards both end of the gradings scale. (Slater, 1977,
+p.88).
 }
 \note{
 STATUS: working and checked against example in Slater, 1977 , p.88.
 }
 \examples{
-     indexVariability(boeker)
+     
+  indexVariability(boeker)
 
 }
 \references{
-Slater, P. (1977). \emph{The measurement of intrapersonal space 
-               by Grid technique}. London: Wiley.
+Slater, P. (1977). \emph{The measurement of intrapersonal space by Grid technique}. London: Wiley.
 }
 \seealso{
-\code{\link{indexBias}}
+\code{\link[=indexBias]{indexBias()}}
 }

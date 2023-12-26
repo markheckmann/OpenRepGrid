@@ -10,7 +10,7 @@ normalize(x, normalize = 0, ...)
 \item{x}{\code{matrix}}
 
 \item{normalize}{A numeric value indicating along what direction (rows, columns)
-to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
+to normalize by standard deviations. \verb{0 = none, 1= rows, 2 = columns}
 (default is \code{0}).}
 
 \item{...}{Not evaluated.}
@@ -22,11 +22,8 @@ Not yet defined TODO!
 Normalize rows or columns by its standard deviation.
 }
 \examples{
-\dontrun{
-
- x <- matrix(sample(1:5, 20, rep=T), 4)
- normalize(x, 1)						      # normalizing rows
- normalize(x, 2)						      # normalizing columns
-}
+ x <- matrix(sample(1:5, 20, rep=TRUE), 4)
+ normalize(x, 1) # normalizing rows
+ normalize(x, 2)	# normalizing columns
 
 }

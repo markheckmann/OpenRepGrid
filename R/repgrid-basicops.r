@@ -16,7 +16,7 @@ is.repgrid <- function(x) {
 #' @param name Name of tested variable in error message.
 #' @export
 #' @keywords internal
-#' @md
+#'
 stop_if_not_is_repgrid <- function(x, name = "x") 
 {
   if (!is.repgrid(x))
@@ -29,7 +29,7 @@ stop_if_not_is_repgrid <- function(x, name = "x")
 #' @param name Name of tested variable in error message.
 #' @export
 #' @keywords internal
-#' @md
+#'
 stop_if_not_0_1_ratings_only <- function(x, name = "x") 
 {
   r <- ratings(x)
@@ -47,7 +47,7 @@ stop_if_not_0_1_ratings_only <- function(x, name = "x")
 #' @param x Object to test. Raises an error the mina and max of the ratings scale are not defined
 #' @export
 #' @keywords internal
-#' @md
+#'
 stop_if_scale_not_defined <- function(x) 
 {
   stop_if_not_is_repgrid(x, name)
@@ -73,9 +73,9 @@ stop_if_scale_not_defined <- function(x)
 
 #' Extract parts of the repgrid object.
 #'
-#' Methods for \code{"["}, i.e., subsetting of repgrid objects. 
+#' Methods for `"["`, i.e., subsetting of repgrid objects. 
 #' 
-#' @param  x  A \code{repgrid} object.
+#' @param  x  A `repgrid` object.
 #' @param i,j   Row and column indices.
 #' @param ...   Not evaluated.
 #' @param drop  Not used.
@@ -135,7 +135,7 @@ setMethod("[", signature(x = "repgrid", i = "ANY", j="ANY"),
 #'
 #' It should be possible to use it for ratings on all layers.
 #' 
-#' @param x  A \code{repgrid} object.
+#' @param x  A `repgrid` object.
 #' @param i,j     Row and column indices.
 #' @param value   Numeric replacement value(s).
 #' @param ...     Not evaluated.
@@ -210,13 +210,13 @@ setMethod("[<-", signature(x = "repgrid", i = "ANY", j="ANY", value="ANY"),
 
 #' get rating layer
 #'
-#' @param   x       \code{repgrid} object.
+#' @param   x       `repgrid` object.
 #' @param   layer   layer to be returned.
 #' @param   names   extract row and columns names (constructs and elements).
 #' @param trim      the number of characters a row or column name is trimmed to 
-#'                  (default is \code{10}). If \code{NA} no trimming is done. Trimming
+#'                  (default is `10`). If `NA` no trimming is done. Trimming
 #'                  simply saves space when displaying the output.
-#' @return          a \code{matrix} 
+#' @return    a `matrix` 
 #'
 #' @export
 #' @keywords internal
@@ -250,18 +250,18 @@ getRatingLayer <- function(x, layer=1, names=TRUE, trim=10)
 
 #' Extract ratings (wide or long format)
 #'
-#' @param x A \code{repgrid} object.
+#' @param x A `repgrid` object.
 #' @param names Extract row and columns names (constructs and elements).
 #' @param trim The number of characters a row or column name is trimmed to
-#'   (default is \code{10}). If \code{NA} no trimming is done. Trimming simply
+#'   (default is `10`). If `NA` no trimming is done. Trimming simply
 #'   saves space when displaying the output.
-#' @param long Return as long format? (default \code{FALSE})
+#' @param long Return as long format? (default `FALSE`)
 #' @param i,j   Row and column indices.
 #' @param value   Numeric replacement value(s).
-#' @return A \code{matrix}.#'
+#' @return A `matrix`.#'
 #' @export
 #' @rdname ratings
-#' @seealso \code{`[<--method`}
+#' @seealso ``[<--method``
 #' @examples 
 #' 
 #' ## store Bell's dataset in x
@@ -354,8 +354,8 @@ ratings_df <- function(x, long = FALSE, names = TRUE, trim = NA)
 
 #' Get number of constructs
 #'
-#' @param x \code{repgrid} object
-#' @return \code{numeric}
+#' @param x `repgrid` object
+#' @return `numeric`
 #'
 #' @export
 #' @keywords internal
@@ -373,8 +373,8 @@ getNoOfConstructs <- function(x){
 
 #' Get number of elements
 #'
-#' @param x \code{repgrid} object
-#' @return \code{numeric} 
+#' @param x `repgrid` object
+#' @return `numeric` 
 #'
 #' @export
 #' @keywords internal
@@ -396,13 +396,13 @@ getNoOfElements <- function(x){
 #' operations, e.g. to swap the construct poles. If the user construes
 #' a grid he should make sure that the scale range is set correctly.
 #'
-#' @param x       \code{repgrid} object.
+#' @param x       `repgrid` object.
 #' @param min     Minimal possible scale value for ratings.
 #' @param max     Maximal possible scale value for ratings.
 #' @param step    Steps the scales uses (not yet in use).
 #' @param ...     Not evaluated.
 #' 
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @examples \dontrun{
 #'
@@ -441,9 +441,9 @@ setScale <- function(x, min, max, step, ...){         # ... needes for makeRepgr
 #'
 #' The values are returned either as a vector or a list.
 #'
-#' @param x         \code{repgrid} object.
+#' @param x         `repgrid` object.
 #' @param output    Type of output object. 1= named vector, 2 = list.
-#' @return          Vector or list (depends on \code{output} containing 
+#' @return    Vector or list (depends on `output` containing 
 #'                  minimum and maximum scale value.
 #' @keywords        internal
 #' @export
@@ -469,7 +469,7 @@ getScale <- function(x, output=1){
 #' @param type  type of grid in use (rating, ranked, implication)
 #' @param id    id of the interview
 #' @param name  name of the interview partner
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -493,8 +493,8 @@ setMeta <- function(x, type, id, name){
 
 #' Get midpoint of the grid rating scale
 #'
-#' @param x     \code{repgrid} object.
-#' @return      Midpoint of scale.
+#' @param x     `repgrid` object.
+#' @return  Midpoint of scale.
 #'
 #' @export
 #' @keywords    internal
@@ -513,7 +513,7 @@ getScaleMidpoint <- function(x){
 
 #' Midpoint of the grid rating scale
 #'
-#' @param x    \code{repgrid} object.
+#' @param x    `repgrid` object.
 #' @return    Midpoint of scale.
 #'
 #' @export
@@ -527,11 +527,11 @@ midpoint <- getScaleMidpoint
 
 #' Swap the position of two elements in a grid.
 #'
-#' @param x     \code{repgrid} object.
+#' @param x     `repgrid` object.
 #' @param pos1  Column number of first element to be swapped (default=1).
 #' @param pos2  Column number of second element to be swapped (default=1).
 #'
-#' @return \code{repgrid} object.
+#' @return `repgrid` object.
 #' @export
 #' @examples \dontrun{
 #'    x <- randomGrid()
@@ -561,10 +561,10 @@ swapElements <- function(x, pos1=1, pos2=1){
 
 #' Swap the position of two constructs in a grid.
 #'
-#' @param x       \code{repgrid} object.
+#' @param x       `repgrid` object.
 #' @param pos1    Row number of first construct to be swapped (default=1).
 #' @param pos2    Row number of second construct to be swapped (default=1).
-#' @return        \code{repgrid} object
+#' @return  `repgrid` object
 #' @export
 #' @rdname swapConstructs
 #' @examples \dontrun{
@@ -606,7 +606,7 @@ swapConstructs <- function(x, pos1=1, pos2=1){
 #'   error is raised.
 #' @export
 #' @rdname reverse
-#' @md
+#'
 #' @examples 
 #'
 #' x <- boeker
@@ -675,12 +675,12 @@ reverse <- function(x, pos = 1L:nrow(x))
 
 #' Move construct or element in grid to the left, right, up or down.
 #'
-#' @param x     \code{repgrid} object.
+#' @param x     `repgrid` object.
 #' @param pos   Row (column) number of construct (element) to be moved 
 #'              leftwards, rightwards, upwards or downwards.
-#'              The default is \code{0}. For indexes outside the range of
+#'              The default is `0`. For indexes outside the range of
 #'              the grid no moving is done.
-#' @return      \code{repgrid} object.
+#' @return  `repgrid` object.
 #' @export
 #' @aliases left right up down
 #' @examples \dontrun{
@@ -708,7 +708,7 @@ left <- function(x, pos=0){
 #'
 #' Move element in grid to the right.
 #'
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @rdname move
 #'
@@ -729,7 +729,7 @@ right <- function(x, pos=0){
 
 #' Move construct in grid upwards.
 #'
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @rdname move
 #'
@@ -749,7 +749,7 @@ up <- function(x, pos=0){
 
 #' Move construct in grid downwards.
 #'
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @rdname move
 #'
@@ -770,10 +770,10 @@ down <- function(x, pos=0){
 #' Shifts the whole grid vertically or horizontally so that the order remains
 #' the same but the prompted element or construct appears in first position.
 #' 
-#' @param x   \code{repgrid} object.
+#' @param x   `repgrid` object.
 #' @param c   Index of construct to be shifted to first position.
 #' @param e   Index of element to be shifted to first position.
-#' @return    \code{repgrid} object.
+#' @return `repgrid` object.
 #' @export
 #' @examples \dontrun{
 #'
@@ -838,7 +838,7 @@ rating <- r.setRatings
 #' @param rows    rows to be set NA
 #' @param cols    columns to be set NA
 #' @param layer   layer of ratings to be set NA. Usually not important for the user (default = 1).
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -854,7 +854,7 @@ clearRatings <- function(x, rows=NA, cols=NA, layer=1) {
 
 #' Add an element to an existing grid.
 #'
-#' @param x               \code{repgrid} object.
+#' @param x               `repgrid` object.
 #' @param name            Name of the new element (character string).
 #' @param scores          Numerical ratings for the new element column
 #'                        (length must match number of constructs in the grid).
@@ -863,9 +863,9 @@ clearRatings <- function(x, rows=NA, cols=NA, layer=1) {
 #' @param position        An integer at which column the element will be added.
 #'                        TODO: Does not work properly yet.
 #' @param side            Not yet in use.
-#' @return                \code{repgrid} object
+#' @return   `repgrid` object
 #' @export
-#' @seealso               \code{\link{addConstruct}}
+#' @seealso   [addConstruct()]
 #' @examples \dontrun{
 #'
 #'    bell2010      
@@ -912,7 +912,7 @@ addElement <- function(x, name = NA, scores = NA, abbreviation = NA, status = NA
 #'   using original integer rating scores.
 #' @return A `repgrid` object with additional new element.
 #' @export
-#' @md
+#'
 #' @examples
 #' addAvgElement(feixas2004, "others", i = 2:12)
 #' addAvgElement(feixas2004, "others", i = 2:12, digits = 0) # integers
@@ -951,7 +951,7 @@ addAvgElement <- function(x, name = "avg", i, digits = Inf)
 
 #' Add a new construct to an existing grid object.
 #'
-#' @param x               \code{repgrid} object.
+#' @param x               `repgrid` object.
 #' @param l.name          Name of the left pole (character string).
 #' @param r.name          Name of the right pole (character string).
 #' @param scores          Numerical ratings for the new construct row
@@ -963,9 +963,9 @@ addAvgElement <- function(x, name = "avg", i, digits = Inf)
 #' @param position        An integer at which row the construct will be added.
 #'                        TODO. Does not work properly.
 #' @param side            Not yet in use.
-#' @return                \code{repgrid} object.
+#' @return   `repgrid` object.
 #' @export
-#' @seealso               \code{\link{addElement}}
+#' @seealso   [addElement()]
 #'
 #' @examples \dontrun{
 #'
@@ -1005,18 +1005,18 @@ addConstruct <- function(x, l.name = NA, r.name = NA, scores = NA,
 #'
 #' Set the attributes of an element i.e. name, abbreviation, status etc.
 #'
-#' @param x         \code{repgrid} object.
+#' @param x         `repgrid` object.
 #' @param pos       Column number of element in the grid whose attributes 
 #'                  are changed.
 #' @param name      New element name (optional).
 #' @param abb       Abbreviation of element name (optional).
 #' @param status    Status of element (e.g. ideal etc.) (optional).
-#' @return          \code{repgrid} object
+#' @return `repgrid` object
 #'
 #' @note            Currently the main purpose is to change element names. 
 #'                  Future implementations will allow to set further attributes.
 #' @export
-#' @seealso         \code{\link{setConstructAttr}}
+#' @seealso   [setConstructAttr()]
 #' @examples \dontrun{
 #'    
 #'    x <- setElementAttr(boeker, 1, "new name")   # change name of first element
@@ -1046,7 +1046,7 @@ setElementAttr <- function(x, pos, name, abb, status){
 #'
 #' Set the attributes of a construct i.e. name, abbreviation, status etc.
 #'
-#' @param x               \code{repgrid} object.
+#' @param x               `repgrid` object.
 #' @param pos             Row number of construct in the grid to be changed
 #' @param l.name          Name of the left pole (string) (optional).
 #' @param r.name          Name of the right pole (string) (optional).
@@ -1054,10 +1054,10 @@ setElementAttr <- function(x, pos, name, abb, status){
 #' @param r.preferred     Logical. Is the right one the preferred pole? (optional).
 #' @param l.emerged       Logical. Is the left one the emergent pole?  (optional). 
 #' @param r.emerged       Logical. Is the right one the emergent pole? (optional).
-#' @return                \code{repgrid} object
+#' @return   `repgrid` object
 #'
 #' @export
-#' @seealso         \code{\link{setElementAttr}}
+#' @seealso   [setElementAttr()]
 #' @examples \dontrun{
 #'
 #'    x <- setConstructAttr(bell2010, 1, 
@@ -1108,7 +1108,7 @@ setConstructAttr <- function(x, pos, l.name, r.name, l.preferred, r.preferred,
 #' @param l.emerged       (optional) is the left one the emergent pole? (logical)
 #' @param r.emerged       (optional) is the right one the emergent pole? (logical)
 #' @param replace         should the sttributes be replaced if NA is provided?
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -1145,7 +1145,7 @@ modifyConstruct <- function(x, pos, l.name=NA, l.preferred=NA, l.emerged=NA,
 #' @param abbreviation  (optional) abbreviation of element name
 #' @param status        (optional) status of element (e.g. ideal etc.)
 #' @param replace       logical. whether to overwrite current settings if NA provided
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -1173,8 +1173,8 @@ modifyElement <- function(x, pos, name=NA, abbreviation=NA, status=NA,
  
 #' Print scale range information to the console.
 #'
-#' @param x     \code{repgrid} object.
-#' @return      \code{NULL}.
+#' @param x     `repgrid` object.
+#' @return  `NULL`.
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -1223,7 +1223,7 @@ setCoupled <- function(x, coupled=TRUE){
 #' prints meta information about the grid to the console (id, name of interviewee etc.)
 #'
 #' @param x     repgrid object
-#' @return \code{NULL} 
+#' @return `NULL` 
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -1249,17 +1249,17 @@ showMeta <- function(x){
 
 #' Make a new repgrid object. 
 #'
-#' The function creates a \code{repgrid}
+#' The function creates a `repgrid`
 #' object from scratch. A number of parameters have to be defined in order to
 #' make a new grid (see parameters).
 #'
 #' @param args    Arguments needed for the construction of the grid (list).
-#'                These include \code{name} followed by a vector containing 
-#'                the element names. \code{l.name} followed by a vector with 
-#'                the left construct poles. \code{r.name} followed by a 
-#'                vector with the right construct poles. \code{scores} followed
+#'                These include `name` followed by a vector containing 
+#'                the element names. `l.name` followed by a vector with 
+#'                the left construct poles. `r.name` followed by a 
+#'                vector with the right construct poles. `scores` followed
 #'                by a vector containing the rating scores row wise.
-#' @return        \code{NULL} 
+#' @return  `NULL` 
 #' @export
 #' @examples \dontrun{
 #'
@@ -1310,20 +1310,20 @@ makeRepgrid <- function(args)
 #' This function can be used in order to analyze multiple grids
 #' as one 'big grid' (eg. Slater, 1977, chap. 11).
 #'
-#' @param x       \code{repgrid} object
-#' @param y       \code{repgrid} object
+#' @param x       `repgrid` object
+#' @param y       `repgrid` object
 #' @param match   If the elements do not have the same order they
 #'                are reordered to match the element order of the first grid 'x'
-#'                (if \code{test=TRUE}, default). If set to FALSE an error occurs
+#'                (if `test=TRUE`, default). If set to FALSE an error occurs
 #'                if the element order is not identical in both grids.
-#' @param index   TODO. Logical (default \code{TRUE}). Whether to add an index at the end
+#' @param index   TODO. Logical (default `TRUE`). Whether to add an index at the end
 #'                of each construct name so it remains clear from which grid each 
 #'                construct came.                
 #'
-#' @return \code{repgrid} object
+#' @return `repgrid` object
 #'
-#' @references  Slater, P. (1977). \emph{The measurement of intrapersonal space 
-#'              by grid technique}. London: Wiley.
+#' @references  Slater, P. (1977). *The measurement of intrapersonal space 
+#'              by grid technique*. London: Wiley.
 #'
 #' @export
 #' @keywords    internal
@@ -1378,15 +1378,15 @@ bind <- function(x, y, match=TRUE, index=TRUE)
 #' as one 'big grid' (eg. Slater, 1977, chap. 11).
 #'
 #' @param ...     One or more repgrid objects or a list containing
-#'                \code{repgrid} object.
-#' @param index   TODO. Logical (default \code{TRUE}). Whether to add an index at the end
+#'                `repgrid` object.
+#' @param index   TODO. Logical (default `TRUE`). Whether to add an index at the end
 #'                of each construct name so it remains clear from which grid each 
 #'                construct came.                
 #'
-#' @return        \code{repgrid} object with concatenated constructs.
+#' @return  `repgrid` object with concatenated constructs.
 #'
-#' @references  Slater, P. (1977). \emph{The measurement of intrapersonal space 
-#'              by grid technique}. London: Wiley.
+#' @references  Slater, P. (1977). *The measurement of intrapersonal space 
+#'              by grid technique*. London: Wiley.
 #' @export
 #' @examples 
 #'
@@ -1416,8 +1416,8 @@ bindConstructs <- function(..., index=FALSE)
 #' Simple concatenation of repgrid objects or list containing
 #' repgrid objects using the '+' operator.
 #'
-#' Methods for \code{"+"} function. 
-#' @param e1,e2  A \code{repgrid} object.
+#' Methods for `"+"` function. 
+#' @param e1,e2  A `repgrid` object.
 #' @rdname ops-methods
 #' @include repgrid.r
 #' @export
@@ -1455,8 +1455,8 @@ setMethod("+", signature(e1="repgrid", e2="list"),
 #' Join the constructs of a grid with the same reversed constructs.
 #'
 #'
-#' @param x \code{repgrid} object
-#' @return \code{repgrid} object
+#' @param x `repgrid` object
+#' @return `repgrid` object
 #'
 #' @export
 #' @keywords internal
@@ -1473,16 +1473,16 @@ doubleEntry <- function(x){
 
 #' Return size of a grid. 
 #'
-#' \code{dim} returns a numeric vector of length
+#' `dim` returns a numeric vector of length
 #' two containing the number of constructs and elements.
 #'
-#' @param x     \code{repgrid} object.
-#' @return      Numeric vector of length two with the number of 
+#' @param x     `repgrid` object.
+#' @return  Numeric vector of length two with the number of 
 #'              constructs and elements.
 #' @export
 #' @keywords    internal
 #' @method      dim repgrid
-#' @seealso     \code{\link{getNoOfConstructs}};   \code{\link{getNoOfElements}}
+#' @seealso  [getNoOfConstructs()];   [getNoOfElements()]
 #' @examples \dontrun{
 #'
 #'      dim(bell2010)
@@ -1530,7 +1530,7 @@ decouple <- function(x){
 #' @param ... Ignored.
 #' @export
 #' @rdname reorder
-#' @md
+#'
 #' @examples 
 #'  
 #' # invert order of constructs

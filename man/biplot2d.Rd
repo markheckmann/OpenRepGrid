@@ -60,139 +60,139 @@ biplot2d(
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{dim}{Dimensions (i.e. principal components) to be used for biplot 
+\item{dim}{Dimensions (i.e. principal components) to be used for biplot
 (default is \code{c(1,2)}).}
 
 \item{map.dim}{Third dimension (depth) used to map aesthetic attributes to
 (default is \code{3}).}
 
-\item{center}{Numeric. The type of centering to be performed. 
-0= no centering, 1= row mean centering (construct), 
+\item{center}{Numeric. The type of centering to be performed.
+0= no centering, 1= row mean centering (construct),
 2= column mean centering (elements), 3= double-centering (construct and element means),
 4= midpoint centering of rows (constructs).
 The default is \code{1} (row centering).}
 
 \item{normalize}{A numeric value indicating along what direction (rows, columns)
-to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
+to normalize by standard deviations. \verb{0 = none, 1= rows, 2 = columns}
 (default is \code{0}).}
 
-\item{g}{Power of the singular value matrix assigned to the left singular 
+\item{g}{Power of the singular value matrix assigned to the left singular
 vectors, i.e. the constructs.}
 
-\item{h}{Power of the singular value matrix assigned to the right singular 
+\item{h}{Power of the singular value matrix assigned to the right singular
 vectors, i.e. the elements.}
 
 \item{col.active}{Columns (elements) that are no supplementary points, i.e. they are used
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projected into the component space afterwards. They do not 
-determine the solution. Default is \code{NA}, i.e. no elements are set 
+in the SVD but projected into the component space afterwards. They do not
+determine the solution. Default is \code{NA}, i.e. no elements are set
 supplementary.}
 
 \item{e.point.col}{Color of the element symbols. The default is \code{"black"}.
-Two values can be entered that will create a color ramp. The values of 
+Two values can be entered that will create a color ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color color value is supplied (e.g. \code{"black"}) 
-no mapping occurs and all elements will have the same color 
+If only one color color value is supplied (e.g. \code{"black"})
+no mapping occurs and all elements will have the same color
 irrespective of their value on the \code{map.dim} dimension.}
 
 \item{e.point.cex}{Size of the element symbols. The default is \code{.9}.
-Two values can be entered that will create a size ramp. The values of 
+Two values can be entered that will create a size ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color size value is supplied (e.g. \code{.8}) 
-no mapping occurs and all elements will have the same size 
+If only one color size value is supplied (e.g. \code{.8})
+no mapping occurs and all elements will have the same size
 irrespective of their value on the \code{map.dim} dimension.}
 
 \item{e.label.col}{Color of the element label. The default is \code{"black"}.
-Two values can be entered that will create a color ramp. The values of 
+Two values can be entered that will create a color ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color color value is supplied (e.g. \code{"black"}) 
-no mapping occurs and all labels will have the same color 
+If only one color color value is supplied (e.g. \code{"black"})
+no mapping occurs and all labels will have the same color
 irrespective of their value on the \code{map.dim} dimension.}
 
 \item{e.label.cex}{Size of the element labels. The default is \code{.7}.
-Two values can be entered that will create a size ramp. The values of 
+Two values can be entered that will create a size ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color size value is supplied (e.g. \code{.7}) 
-no mapping occurs and all labels will have the same size 
+If only one color size value is supplied (e.g. \code{.7})
+no mapping occurs and all labels will have the same size
 irrespective of their value on the \code{map.dim} dimension.}
 
-\item{e.color.map}{Value range to determine what range of the color ramp defined in 
-\code{e.color} will be used for mapping the colors. 
+\item{e.color.map}{Value range to determine what range of the color ramp defined in
+\code{e.color} will be used for mapping the colors.
 Default is \code{c(.4, ,1)}. Usually not important for the user.}
 
 \item{c.point.col}{Color of the construct symbols. The default is \code{"black"}.
-Two values can be entered that will create a color ramp. The values of 
+Two values can be entered that will create a color ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color color value is supplied (e.g. \code{"black"}) 
-no mapping occurs and all construct will have the same color 
+If only one color color value is supplied (e.g. \code{"black"})
+no mapping occurs and all construct will have the same color
 irrespective of their value on the \code{map.dim} dimension.}
 
 \item{c.point.cex}{Size of the construct symbols. The default is \code{.8}.
-Two values can be entered that will create a size ramp. The values of 
+Two values can be entered that will create a size ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color size value is supplied (e.g. \code{.8}) 
-no mapping occurs and all construct will have the same size 
+If only one color size value is supplied (e.g. \code{.8})
+no mapping occurs and all construct will have the same size
 irrespective of their value on the \code{map.dim} dimension.}
 
 \item{c.label.col}{Color of the construct label. The default is \code{"black"}.
-Two values can be entered that will create a color ramp. The values of 
+Two values can be entered that will create a color ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color color value is supplied (e.g. \code{"black"}) 
-no mapping occurs and all labels will have the same color 
+If only one color color value is supplied (e.g. \code{"black"})
+no mapping occurs and all labels will have the same color
 irrespective of their value on the \code{map.dim} dimension.}
 
 \item{c.label.cex}{Size of the construct labels. The default is \code{.7}.
-Two values can be entered that will create a size ramp. The values of 
+Two values can be entered that will create a size ramp. The values of
 \code{map.dim} are mapped onto the ramp.
-If only one color size value is supplied (e.g. \code{.7}) 
-no mapping occurs and all labels will have the same size 
+If only one color size value is supplied (e.g. \code{.7})
+no mapping occurs and all labels will have the same size
 irrespective of their value on the \code{map.dim} dimension.}
 
-\item{c.color.map}{Value range to determine what range of the color ramp defined in 
+\item{c.color.map}{Value range to determine what range of the color ramp defined in
 \code{c.color} will be used for mapping. Default is \code{c(.4, ,1)}.
 Usually not important for the user.}
 
 \item{c.points.devangle}{The deviation angle from the x-y plane in degrees. These can only be calculated
-if a third dimension \code{map.dim} is specified. Only the constructs 
-that do not depart more than the specified degrees from the 
-x-y plane will be printed. This facilitates the visual 
-interpretation, as only vectors represented near the current plane 
-are shown. Set the value to \code{91} (default) 
+if a third dimension \code{map.dim} is specified. Only the constructs
+that do not depart more than the specified degrees from the
+x-y plane will be printed. This facilitates the visual
+interpretation, as only vectors represented near the current plane
+are shown. Set the value to \code{91} (default)
 to show all vectors.}
 
 \item{c.labels.devangle}{The deviation angle from the x-y plane in degrees. These can only be calculated
-if a third dimension \code{map.dim} is specified. Only the labels of constructs 
-that do not depart more than the specified degrees from the 
-x-y plane will be printed. Set the value to \code{91} (default) 
+if a third dimension \code{map.dim} is specified. Only the labels of constructs
+that do not depart more than the specified degrees from the
+x-y plane will be printed. Set the value to \code{91} (default)
 to show all construct labels.}
 
 \item{c.points.show}{Whether the constructs are printed (default is \code{TRUE}).
 \code{FALSE} will suppress the printing of the constructs.
-To only print certain constructs a numeric vector can be 
+To only print certain constructs a numeric vector can be
 provided (e.g. \code{c(1:10)}).}
 
 \item{c.labels.show}{Whether the construct labels are printed (default is \code{TRUE}).
 \code{FALSE} will suppress the printing of the labels.
-To only print certain construct labels a numeric vector can be 
+To only print certain construct labels a numeric vector can be
 provided (e.g. \code{c(1:10)}).}
 
 \item{e.points.show}{Whether the elements are printed (default is \code{TRUE}).
 \code{FALSE} will suppress the printing of the elements.
-To only print certain elements a numeric vector can be 
+To only print certain elements a numeric vector can be
 provided (e.g. \code{c(1:10)}).}
 
 \item{e.labels.show}{Whether the element labels are printed (default is \code{TRUE}).
 \code{FALSE} will suppress the printing of the labels.
-To only print certain element labels a numeric vector can be 
+To only print certain element labels a numeric vector can be
 provided (e.g. \code{c(1:10)}).}
 
-\item{inner.positioning}{Logical. Whether to calculate positions to minimize overplotting of 
+\item{inner.positioning}{Logical. Whether to calculate positions to minimize overplotting of
 elements and construct labels (default is\code{TRUE}). Note that
 the positioning may slow down the plotting.}
 
-\item{outer.positioning}{Logical. Whether to calculate positions to minimize overplotting of 
+\item{outer.positioning}{Logical. Whether to calculate positions to minimize overplotting of
 of construct labels on the outer borders (default is\code{TRUE}). Note that
 the positioning may slow down the plotting.}
 
@@ -202,10 +202,10 @@ Can be useful during inspection of the plot (default \code{FALSE}).}
 \item{c.lines}{Logical. Whether construct lines from the center of the biplot
 to the surrounding box are drawn (default is \code{FALSE}).}
 
-\item{col.c.lines}{The color of the construct lines from the center to the borders 
+\item{col.c.lines}{The color of the construct lines from the center to the borders
 of the plot (default is \code{gray(.9)}).}
 
-\item{flipaxes}{Logical vector of length two. Whether x and y axes are reversed 
+\item{flipaxes}{Logical vector of length two. Whether x and y axes are reversed
 (default is \code{c(F,F)}).}
 
 \item{strokes.x}{Length of outer strokes in x direction in NDC.}
@@ -218,14 +218,14 @@ of the plot (default is \code{gray(.9)}).}
 
 \item{offset.e}{offsetting parameter for elements (TODO).}
 
-\item{axis.ext}{Axis extension factor (default is \code{.1}). A bigger value will 
+\item{axis.ext}{Axis extension factor (default is \code{.1}). A bigger value will
 zoom out the plot.}
 
-\item{mai}{Margins available for plotting the labels in inch 
+\item{mai}{Margins available for plotting the labels in inch
 (default is \code{c(.2, 1.5, .2, 1.5)}).}
 
 \item{rect.margins}{Vector of length two (default is \code{c(.07, .07)}). Two values
-specifying the additional horizontal and vertical margin around each 
+specifying the additional horizontal and vertical margin around each
 label.}
 
 \item{srt}{Angle to rotate construct label text. Only used in case \code{offsetting=FALSE}.}
@@ -233,7 +233,7 @@ label.}
 \item{cex.pos}{Cex parameter used during positioning of labels if prompted. Does
 usually not have to be changed by user.}
 
-\item{xpd}{Logical (default is \code{TRUE}). Whether to extend text labels 
+\item{xpd}{Logical (default is \code{TRUE}). Whether to extend text labels
 over figure region. Usually not needed by the user.}
 
 \item{unity}{Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
@@ -258,27 +258,22 @@ the plot in and out (default \code{1}).}
 \item{...}{parameters passed on to  come.}
 }
 \description{
-The biplot is the central
-way to create a joint plot of elements and constructs.
-Depending on the parameters chosen it contains information
-on the distances between elements and constructs. Also the 
-relative values the elements have on a construct can be read off
-by projection the element onto the construct vector. 
-A lot of parameters can be changed rendering
-different types of biplots (ESA, Slater's) and different 
-looks (colors, text size).
-See the example section below to get started.
+The biplot is the central way to create a joint plot of elements and constructs. Depending on the parameters chosen
+it contains information on the distances between elements and constructs. Also the relative values the elements have
+on a construct can be read off by projection the element onto the construct vector. A lot of parameters can be
+changed rendering different types of biplots (ESA, Slater's) and different looks (colors, text size). See the
+example section below to get started.
 }
 \details{
-For the construction of a biplot the grid matrix is first
-centered and normalized according to the prompted options.\cr 
+For the construction of a biplot the grid matrix is first centered and normalized according to the prompted options.
+
 Next, the matrix is decomposed by singular value decomposition (SVD)
 into \deqn{X = UDV^T}{X = UDV^T}
-The biplot is made up of two matrices 
+The biplot is made up of two matrices
 \deqn{X = GH^T}{X = GH^T}
 These matrices are construed on the basis of the SVD results.
 \deqn{\hat{X} = UD^gD^hV^T}{X = UD^gD^hV^T}
-Note that the grid matrix values are only recovered and 
+Note that the grid matrix values are only recovered and
 the projection property is only given if \eqn{g + h = 1}{g + h = 1}
 }
 \examples{
@@ -324,23 +319,15 @@ the projection property is only given if \eqn{g + h = 1}{g + h = 1}
    biplot2d(boeker, outer.positioning=F)   # no positioning of con.-labels
 
    biplot2d(boeker, c.labels.devangle=20)  # only con. within 20 degree angle
-} 
+}
 
 }
 \seealso{
-Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
-           2D biplots:
-           \code{\link{biplot2d}},
-           \code{\link{biplotEsa2d}},
-           \code{\link{biplotSlater2d}};\cr
-           Pseudo 3D biplots:
-           \code{\link{biplotPseudo3d}},  
-           \code{\link{biplotEsaPseudo3d}},
-           \code{\link{biplotSlaterPseudo3d}};\cr
-           Interactive 3D biplots:
-           \code{\link{biplot3d}},
-           \code{\link{biplotEsa3d}},
-           \code{\link{biplotSlater3d}};\cr
-           Function to set view in 3D:
-           \code{\link{home}}.
+\itemize{
+\item Unsophisticated biplot: \code{\link[=biplotSimple]{biplotSimple()}};
+\item 2D biplots:\code{\link[=biplot2d]{biplot2d()}}, \code{\link[=biplotEsa2d]{biplotEsa2d()}}, \code{\link[=biplotSlater2d]{biplotSlater2d()}};
+\item Pseudo 3D biplots: \code{\link[=biplotPseudo3d]{biplotPseudo3d()}}, \code{\link[=biplotEsaPseudo3d]{biplotEsaPseudo3d()}}, \code{\link[=biplotSlaterPseudo3d]{biplotSlaterPseudo3d()}};
+\item Interactive 3D biplots: \code{\link[=biplot3d]{biplot3d()}}, \code{\link[=biplotEsa3d]{biplotEsa3d()}}, \code{\link[=biplotSlater3d]{biplotSlater3d()}};
+\item Function to set view in 3D: \code{\link[=home]{home()}}
+}
 }

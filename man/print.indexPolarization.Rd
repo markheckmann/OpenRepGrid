@@ -9,12 +9,9 @@
 \arguments{
 \item{x}{Object of class indexPolarization.}
 
-\item{output}{String with each letter indicating which parts of the output to print
-(default is \code{"ITCE"}, order does not matter):
-\code{I} = Information,
-\code{T} = Total Intensity,
-\code{C} = Constructs' intensities,
-\code{E} = Elements' intensities.}
+\item{output}{String with each letter indicating which parts of the output to print (default is \code{"ITCE"}, order
+does not matter): \code{I} = Information, \code{T} = Total Intensity, \code{C} = Constructs' intensities, \code{E} = Elements'
+intensities.}
 }
 \description{
 Print method for class indexPolarization.

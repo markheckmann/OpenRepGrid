@@ -9,10 +9,9 @@ indexPolarization(x, deviation = 0)
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{deviation}{The maximal deviation from the end of the rating scale for
-values to be considered an 'extreme' rating. By default only values that
-lie directly on ends of the ratings scales are considered 'extreme'
-(default = \code{0}).}
+\item{deviation}{The maximal deviation from the end of the rating scale for values to be considered an 'extreme'
+rating. By default only values that lie directly on ends of the ratings scales are considered 'extreme' (default =
+\code{0}).}
 }
 \value{
 List of class \code{indexPolarization}:
@@ -25,8 +24,7 @@ List of class \code{indexPolarization}:
 }
 }
 \description{
-Polarization is the percentage of extreme ratings, e.g. the values 1 and 7
-for a grid with a 7-point ratings scale.
+Polarization is the percentage of extreme ratings, e.g. the values 1 and 7 for a grid with a 7-point ratings scale.
 }
 \examples{
 p <- indexPolarization(boeker)

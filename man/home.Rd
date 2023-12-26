@@ -19,8 +19,8 @@ return \code{NULL}.}
 \description{
 Rotate the interactive 3D device to a default viewpoint or
 to a position defined by \code{theta} and \code{phi} in Euler angles.
-Three default viewpoints are implemented rendering a view 
-so that two axes span a plane and the third axis is 
+Three default viewpoints are implemented rendering a view
+so that two axes span a plane and the third axis is
 pointing out of the screen.
 }
 \examples{
@@ -37,7 +37,7 @@ pointing out of the screen.
 }
 \seealso{
 Interactive 3D biplots:
-           \code{\link{biplot3d}},      
-           \code{\link{biplotSlater3d}},
-           \code{\link{biplotEsa3d}}.
+\code{\link[=biplot3d]{biplot3d()}},
+\code{\link[=biplotSlater3d]{biplotSlater3d()}},
+\code{\link[=biplotEsa3d]{biplotEsa3d()}}.
 }

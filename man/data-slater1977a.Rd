@@ -9,7 +9,7 @@
 Drug addict's grid data set from Slater (1977, p. 32).
 }
 \references{
-Slater, P. (1977). \emph{The measurement of intrapersonal space 
-             by grid technique}. London: Wiley.
+Slater, P. (1977). \emph{The measurement of intrapersonal space
+by grid technique}. London: Wiley.
 }
 \keyword{data}

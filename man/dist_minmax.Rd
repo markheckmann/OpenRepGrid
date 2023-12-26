@@ -7,7 +7,6 @@
 dist_minmax(x, along = 1, dmethod = "euclidean", p = 2, max.only = FALSE)
 }
 \description{
-While the minimal distance will usually be zero,
-the maximal distance can be used to normalize arbitrary distances.
+While the minimal distance will usually be zero, the maximal distance can be used to normalize arbitrary distances.
 }
 \keyword{internal}

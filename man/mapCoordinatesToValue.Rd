@@ -15,9 +15,9 @@ mapCoordinatesToValue(z, val.range = c(0.5, 1))
 numeric vector
 }
 \description{
-From a given numeric vector \code{z} the range is determined and 
-the values are linearly mapped onto the interval 
-given by \code{val.range}. This 
+From a given numeric vector \code{z} the range is determined and
+the values are linearly mapped onto the interval
+given by \code{val.range}. This
 function can be used in order to map arbitrary vectors to a given
 range of values.
 }

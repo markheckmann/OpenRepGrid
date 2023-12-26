@@ -11,11 +11,11 @@
 
 \item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
 
-\item{output}{String with each letter indicating which parts of the output to print 
+\item{output}{String with each letter indicating which parts of the output to print
 (default is \code{"OCD"}, order does not matter):
 \code{S} = Summary (Number of IDs, PID, etc.),
 \code{P} = Analysis parameters,
-\code{C} = Construct classification table, 
+\code{C} = Construct classification table,
 \code{D} = Implicative dilemmas table.}
 
 \item{...}{Not evaluated.}

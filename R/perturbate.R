@@ -7,7 +7,7 @@
 #' Randomly subtract or add an amount to a proportion of the grid ratings. This
 #' emulates randomness during the rating process, producing a grid which might
 #' also have resulted.
-#' @param x A \code{repgrid} object.
+#' @param x A `repgrid` object.
 #' @param n Number of perturbated grid to generate.
 #' @param prop The proportion of ratings to be perturbated.
 #' @param amount The amount set of possible perturbations. Will depend on scale

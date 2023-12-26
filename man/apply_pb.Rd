@@ -19,7 +19,7 @@ apply_pb(X, MARGIN, FUN, ...)
 see ?apply
 }
 \description{
-Can be used like standard base:::apply. The only thing 
+Can be used like standard base:::apply. The only thing
 it does is create an additional progress bar.
 }
 \examples{
@@ -40,6 +40,6 @@ it does is create an additional progress bar.
 
 }
 \seealso{
-\code{\link{apply}}
+\code{\link[=apply]{apply()}}
 }
 \keyword{internal}

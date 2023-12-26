@@ -7,11 +7,11 @@
 importGridstat(file, dir = NULL, min = NULL, max = NULL)
 }
 \arguments{
-\item{file}{Filename including path if file is not in current working 
+\item{file}{Filename including path if file is not in current working
 directory. File can also be a complete URL. The fileformat
 is \code{.dat}.}
 
-\item{dir}{Alternative way to supply the directory where the file is located 
+\item{dir}{Alternative way to supply the directory where the file is located
 (default \code{NULL}).}
 
 \item{min}{Optional argument (\code{numeric}, default \code{NULL})
@@ -21,36 +21,30 @@ for minimum rating value in grid.}
 for maximum rating value in grid.}
 }
 \value{
-A single \code{repgrid} object in case one file and
-               a list of \code{repgrid} objects in case multiple files are imported.
+A single \code{repgrid} object in case one file and a list of \code{repgrid} objects in case multiple files are
+imported.
 }
 \description{
-Reads the file format that is used by the latest version of the grid 
+Reads the file format that is used by the latest version of the grid
 program gridstat (Bell, 1998).
 }
 \note{
-Note that the gridstat data format does not contain explicit 
-               information about the range of the rating scale used (minimum and 
-               maximum). By default the range is inferred by scanning
-               the ratings and picking the minimal and maximal values as rating
-               range. You can set the minimal and maximal value by hand using the \code{min} and 
-               \code{max} arguments or by using the \code{setScale()} function.
-               Note that if the rating range is not set, it may cause several
-               functions to not work properly. A warning will be issued if the range is
-               not set explicitly when using the importing function.
-               
-               The function only reads data from the latest GridStat version.
-               The latest version allows the separation of the left and right pole
-               by using on of the following symbols \code{/:-} (hyphen, colon and dash). Older versions may not
-               separate                              the left and right pole. This will cause all labels to be assigned to 
-               the left pole only when importing. You may fix this by simply entering
-               one of the construct separator symbols into the GridStat file between each
-               left and right construct pole.
+Note that the gridstat data format does not contain explicit information about the range of the rating scale
+used (minimum and maximum). By default the range is inferred by scanning the ratings and picking the minimal and
+maximal values as rating range. You can set the minimal and maximal value by hand using the \code{min} and \code{max}
+arguments or by using the \code{setScale()} function. Note that if the rating range is not set, it may cause several
+functions to not work properly. A warning will be issued if the range is not set explicitly when using the
+importing function.
 
-               The third line of a GridStat file may contain a no labels statement (i.e. a
-               line containing any string of 'NOLA', 'NO L', 'NoLa', 'No L', 'Nola', 'No l',
-               'nola' or 'no l'). In this case only ratings are supplied, hence, default 
-               names are assigned to elements and constructs.
+The function only reads data from the latest GridStat version. The latest version allows the separation of the
+left and right pole by using on of the following symbols \verb{/:-} (hyphen, colon and dash). Older versions may not
+separate the left and right pole. This will cause all labels to be assigned to the left pole only when importing.
+You may fix this by simply entering one of the construct separator symbols into the GridStat file between each
+left and right construct pole.
+
+The third line of a GridStat file may contain a no labels statement (i.e. a line containing any string of 'NOLA',
+'NO L', 'NoLa', 'No L', 'Nola', 'No l', 'nola' or 'no l'). In this case only ratings are supplied, hence, default
+names are assigned to elements and constructs.
 }
 \examples{
 \dontrun{
@@ -72,14 +66,9 @@ rg <- importGridstat(file, dir, min=1, max=6)
 
 }
 \references{
-Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a 
-               repertory grid. Melbourne: Author.
+Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a repertory grid. Melbourne: Author.
 }
 \seealso{
-\code{\link{importGridcor}},
-               \code{\link{importGridstat}},
-               \code{\link{importScivesco}},
-               \code{\link{importGridsuite}},
-               \code{\link{importTxt}},
-               \code{\link{importExcel}}
+\code{\link[=importGridcor]{importGridcor()}}, \code{\link[=importGridstat]{importGridstat()}}, \code{\link[=importScivesco]{importScivesco()}}, \code{\link[=importGridsuite]{importGridsuite()}}, \code{\link[=importTxt]{importTxt()}},
+\code{\link[=importExcel]{importExcel()}}
 }

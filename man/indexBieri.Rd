@@ -9,8 +9,8 @@ indexBieri(x, deviation = 0)
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{deviation}{Maximal difference between ratings to be considered a match
-(default \code{0} = identical scores for a match).}
+\item{deviation}{Maximal difference between ratings to be considered a match (default \code{0} = identical scores for a
+match).}
 }
 \value{
 List of class \code{indexBieri}:
@@ -24,9 +24,8 @@ List of class \code{indexBieri}:
 }
 }
 \description{
-The index builds on the number of rating matches
-between pairs of constructs. It is the relation between
-the total number of matches and the possible number of matches.
+The index builds on the number of rating matches between pairs of constructs. It is the relation between the total
+number of matches and the possible number of matches.
 }
 \details{
 \strong{CAVEAT}: The Bieri index will change when constructs are reversed.

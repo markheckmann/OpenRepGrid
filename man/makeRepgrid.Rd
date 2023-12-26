@@ -8,9 +8,9 @@ makeRepgrid(args)
 }
 \arguments{
 \item{args}{Arguments needed for the construction of the grid (list).
-These include \code{name} followed by a vector containing 
-the element names. \code{l.name} followed by a vector with 
-the left construct poles. \code{r.name} followed by a 
+These include \code{name} followed by a vector containing
+the element names. \code{l.name} followed by a vector with
+the left construct poles. \code{r.name} followed by a
 vector with the right construct poles. \code{scores} followed
 by a vector containing the rating scores row wise.}
 }

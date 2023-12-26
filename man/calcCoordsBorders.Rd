@@ -20,11 +20,11 @@ calcCoordsBorders(x, y, xmax = 1, ymax = 1, cx = 0, cy = 0)
 \item{cy}{center of rectangle in x direction (not yet supported).}
 }
 \value{
-a \code{dataframe} containing the x and y coordinates for the 
-              extended vectors.
+a \code{dataframe} containing the x and y coordinates for the
+extended vectors.
 }
 \description{
-An arbitrary numeric vector in 2D is to be extended so it will 
+An arbitrary numeric vector in 2D is to be extended so it will
 end on the borders of a surrounding rectangle of a given size.
 Currently the vector is supposed to start in the origin \code{c(0,0)}.
 }

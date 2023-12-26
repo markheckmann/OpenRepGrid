@@ -11,9 +11,8 @@ indexDilemmatic(x, ideal, deviation = 0, warn = TRUE)
 
 \item{ideal}{Index of ideal element.}
 
-\item{deviation}{The maximal deviation from the scale midpoint for an ideal
-rating to be considered dilemmatic (default = \code{0}). For scales larger than
-a 17-point rating scale a warning is raised, if deviation is \code{0} (see
+\item{deviation}{The maximal deviation from the scale midpoint for an ideal rating to be considered dilemmatic
+(default = \code{0}). For scales larger than a 17-point rating scale a warning is raised, if deviation is \code{0} (see
 details).}
 
 \item{warn}{Show warnings?}
@@ -35,18 +34,14 @@ List of class \code{indexDilemmatic}:
 }
 }
 \description{
-A Dilemmatic Construct (DC) is one where the ideal element is rated on the
-scale midpoint. This means, the person cannot decide which of the poles is
-preferable. Such constructs are called "dilemmatic". For example, on a rating
-scale from 1 to 7, a rating of 4 on the ideal element means that the
-construct is dilemmatic. By definition, DCs can only emerge in scales with an
-uneven number of rating options, i.e. 5-point scale, 7-point scale etc.
-However, the function makes it possible to allow for a deviation from the
-midpoint, to still count as dilemmatic. This is useful if the grid uses a
-large rating scale, e.g. from 0 to 100 or a visual analog scale, as some grid
-administration programs do. In this case you may want to set ratings, for
-example, between 45 and 55 as close enough to the midpoint to indicate that
-both poles are equally desirable.
+A Dilemmatic Construct (DC) is one where the ideal element is rated on the scale midpoint. This means, the person
+cannot decide which of the poles is preferable. Such constructs are called "dilemmatic". For example, on a rating
+scale from 1 to 7, a rating of 4 on the ideal element means that the construct is dilemmatic. By definition, DCs can
+only emerge in scales with an uneven number of rating options, i.e. 5-point scale, 7-point scale etc. However, the
+function makes it possible to allow for a deviation from the midpoint, to still count as dilemmatic. This is useful
+if the grid uses a large rating scale, e.g. from 0 to 100 or a visual analog scale, as some grid administration
+programs do. In this case you may want to set ratings, for example, between 45 and 55 as close enough to the
+midpoint to indicate that both poles are equally desirable.
 }
 \examples{
 dc <- indexDilemmatic(feixas2004, ideal = 13)

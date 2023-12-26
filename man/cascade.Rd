@@ -9,7 +9,7 @@ cascade(n, type = 1)
 \arguments{
 \item{n}{\code{integer} The length of the indexes}
 
-\item{type}{(integer, default=1). If 1 the cascade index is returned. 
+\item{type}{(integer, default=1). If 1 the cascade index is returned.
 2 returns the index of left and right side, 3 returns the length
 of the left and right index vector}
 }

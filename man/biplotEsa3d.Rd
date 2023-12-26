@@ -9,33 +9,33 @@ biplotEsa3d(x, center = 1, g = 1, h = 1, ...)
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{center}{Numeric. The type of centering to be performed. 
-0= no centering, 1= row mean centering (construct), 
+\item{center}{Numeric. The type of centering to be performed.
+0= no centering, 1= row mean centering (construct),
 2= column mean centering (elements), 3= double-centering (construct and element means),
 4= midpoint centering of rows (constructs).
 Default is \code{4} (scale midpoint centering).}
 
-\item{g}{Power of the singular value matrix assigned to the left singular 
+\item{g}{Power of the singular value matrix assigned to the left singular
 vectors, i.e. the constructs.}
 
-\item{h}{Power of the singular value matrix assigned to the right singular 
+\item{h}{Power of the singular value matrix assigned to the right singular
 vectors, i.e. the elements.}
 
-\item{...}{Additional arguments to be passed to \code{\link{biplot3d}}.}
+\item{...}{Additional arguments to be passed to \code{\link[=biplot3d]{biplot3d()}}.}
 }
 \description{
-The 3D biplot opens an interactive 
-3D device that can be rotated and zoomed using the mouse. 
-A 3D device facilitates the exploration of grid data as 
-significant proportions of the sum-of-squares are often 
-represented beyond the first two dimensions. Also, in a lot of 
-cases it may be of interest to explore the grid space from 
-a certain angle, e.g. to gain an optimal view onto the set 
+The 3D biplot opens an interactive
+3D device that can be rotated and zoomed using the mouse.
+A 3D device facilitates the exploration of grid data as
+significant proportions of the sum-of-squares are often
+represented beyond the first two dimensions. Also, in a lot of
+cases it may be of interest to explore the grid space from
+a certain angle, e.g. to gain an optimal view onto the set
 of elements under investigation (e.g. Raeithel, 1998).
-Note that the eigenstructure analysis just a special case 
-of a biplot that can also be produced using the 
-\code{\link{biplot3d}} function with the arguments 
-\code{center=4, g=1, h=1}.
+Note that the eigenstructure analysis just a special case
+of a biplot that can also be produced using the
+\code{\link[=biplot3d]{biplot3d()}} function with the arguments
+\verb{center=4, g=1, h=1}.
 }
 \examples{
 \dontrun{
@@ -52,19 +52,19 @@ of a biplot that can also be produced using the
 
 }
 \seealso{
-Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
-           2D biplots:
-           \code{\link{biplot2d}},
-           \code{\link{biplotEsa2d}},
-           \code{\link{biplotSlater2d}};\cr
-           Pseudo 3D biplots:
-           \code{\link{biplotPseudo3d}},  
-           \code{\link{biplotEsaPseudo3d}},
-           \code{\link{biplotSlaterPseudo3d}};\cr
-           Interactive 3D biplots:
-           \code{\link{biplot3d}},
-           \code{\link{biplotEsa3d}},
-           \code{\link{biplotSlater3d}};\cr
-           Function to set view in 3D:
-           \code{\link{home}}.
+Unsophisticated biplot: \code{\link[=biplotSimple]{biplotSimple()}}; \cr
+2D biplots:
+\code{\link[=biplot2d]{biplot2d()}},
+\code{\link[=biplotEsa2d]{biplotEsa2d()}},
+\code{\link[=biplotSlater2d]{biplotSlater2d()}};\cr
+Pseudo 3D biplots:
+\code{\link[=biplotPseudo3d]{biplotPseudo3d()}},
+\code{\link[=biplotEsaPseudo3d]{biplotEsaPseudo3d()}},
+\code{\link[=biplotSlaterPseudo3d]{biplotSlaterPseudo3d()}};\cr
+Interactive 3D biplots:
+\code{\link[=biplot3d]{biplot3d()}},
+\code{\link[=biplotEsa3d]{biplotEsa3d()}},
+\code{\link[=biplotSlater3d]{biplotSlater3d()}};\cr
+Function to set view in 3D:
+\code{\link[=home]{home()}}.
 }

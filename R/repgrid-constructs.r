@@ -28,10 +28,10 @@
 
 #' Get construct names
 #'
-#' @param x \code{repgrid} object.
-#' @section Deprecated functions: \code{getConstructNames()},
-#'   and \code{cNames()} have been deprecated.
-#'   Instead use \code{constructs()}.
+#' @param x `repgrid` object.
+#' @section Deprecated functions: `getConstructNames()`,
+#'   and `cNames()` have been deprecated.
+#'   Instead use `constructs()`.
 #' @export
 #' @keywords internal
 #'
@@ -47,27 +47,27 @@ getConstructNames <- function(x){
 cNames <- getConstructNames
 
 
-#' Retrieves the construct names from a \code{repgrid}.
+#' Retrieves the construct names from a `repgrid`.
 #' 
 #' Different features like trimming, indexing and choices of separators
 #' allow to return the kind of format that is needed.
 #'
 #' @title Retrieve construct names in needed format.
 #'
-#' @param x       \code{repgrid} object.
+#' @param x       `repgrid` object.
 #' @param mode    Type of output. 1= left and right pole 
-#'                separated by \code{sep}), 2= only left pole,
+#'                separated by `sep`), 2= only left pole,
 #'                3 = only right pole.
 #' @param trim    Number of characters to trim the construct names to
-#'                (default \code{NA}). \code{NA} will suppress trimming.
-#'                The length of \code{index} is not included in the 
+#'                (default `NA`). `NA` will suppress trimming.
+#'                The length of `index` is not included in the 
 #'                trimming.
 #' @param index   Logical. Whether to add a index number before the construct
-#'                names (default \code{TRUE}).
+#'                names (default `TRUE`).
 #' @param sep     Separator string between poles.
-#' @param pre     String before index number (default \code{(}).
-#' @param post    String after index number (default \code{) }).
-#' @return        Vector with construct names.
+#' @param pre     String before index number (default `(`).
+#' @param post    String after index number (default `) `).
+#' @return  Vector with construct names.
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -124,7 +124,7 @@ getConstructNames2 <- function(x, mode=1, trim=20, index=F,
 #' @param sep Separator if `collapse = TRUE`, default is `" - "`.
 #' @rdname constructs
 #' @export
-#' @md
+#'
 #' @examples 
 #' 
 #' # shorten object name

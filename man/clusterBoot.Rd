@@ -18,24 +18,20 @@ clusterBoot(
 )
 }
 \arguments{
-\item{x}{\code{grid object}}
+\item{x}{\verb{grid object}}
 
 \item{along}{Along which dimension to cluster. 1 = constructs, 2= elements.}
 
 \item{align}{Whether the constructs should be aligned before clustering
-(default is \code{TRUE}). If not, the grid matrix is clustered 
+(default is \code{TRUE}). If not, the grid matrix is clustered
 as is. See Details section for more information.}
 
-\item{dmethod}{The distance measure to be used. This must be one of 
-"euclidean", "maximum", "manhattan", "canberra", "binary" 
-or "minkowski". Any unambiguous substring can be given. 
-For additional information on the different types type
-\code{?dist}.}
+\item{dmethod}{The distance measure to be used. This must be one of "euclidean", "maximum", "manhattan", "canberra",
+"binary" or "minkowski". Any unambiguous substring can be given. For additional information on the different types
+type \code{?dist}.}
 
-\item{cmethod}{The agglomeration method to be used. This should be (an
-unambiguous abbreviation of) one of \code{"ward"},
-\code{"single"}, \code{"complete"}, \code{"average"}, 
-\code{"mcquitty"}, \code{"median"} or \code{"centroid"}.}
+\item{cmethod}{The agglomeration method to be used. This should be (an unambiguous abbreviation of) one of
+\code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.}
 
 \item{p}{Power of the Minkowski metric. Not yet passed on to pvclust!}
 
@@ -47,47 +43,38 @@ unambiguous abbreviation of) one of \code{"ward"},
     bootstrap sample size \eqn{n'}, this is defined as \eqn{r=n'/n}.}
 
 \item{seed}{Random seed for bootstrapping. Can be set for reproducibility (see
-\code{\link{set.seed}}). Usually not needed.}
+\code{\link[=set.seed]{set.seed()}}). Usually not needed.}
 
-\item{...}{Arguments to pass on to \code{\link{pvclust}}.}
+\item{...}{Arguments to pass on to \code{\link[=pvclust]{pvclust()}}.}
 }
 \value{
-A pvclust object as returned by the function \code{\link{pvclust}}
+A pvclust object as returned by the function \code{\link[=pvclust]{pvclust()}}
 }
 \description{
-p-values are calculated for each branch of the cluster dendrogram to indicate
-the stability of a specific partition. \code{clusterBoot} will yield the same
-clusters as the \code{\link{cluster}} function (i.e. standard hierarchical 
-clustering) with additional p-values. Two kinds of p-values are reported: 
-bootstrap probabilities (BP) and approximately unbiased (AU) probabilities
-(see Details section for more information).
+p-values are calculated for each branch of the cluster dendrogram to indicate the stability of a specific partition.
+\code{clusterBoot} will yield the same clusters as the \code{\link[=cluster]{cluster()}} function (i.e. standard hierarchical clustering) with
+additional p-values. Two kinds of p-values are reported: bootstrap probabilities (BP) and approximately unbiased
+(AU) probabilities (see Details section for more information).
 }
 \details{
-In standard (hierarchical) cluster analysis the question arises which of the 
-identified structures are significant or just emerged by chance. Over the
-last decade several methods have been developed to test structures for
-robustness. One line of research in this area is based on resampling. The
-idea is to resample the rows or columns of the data matrix and to build the
-dendrogram for each bootstrap sample (Felsenstein, 1985). The p-values
-indicates the percentage of times a specific structure is identified across
-the bootstrap samples. It was shown that the p-value is biased (Hillis &
-Bull, 1993; Zharkikh & Li, 1995). In the literature several methods for bias
-correction have been proposed. In \code{clusterBoot} a method based on the
-\emph{multiscale bootstrap} is used to derive corrected (approximately 
-unbiased) p-values (Shimodaira, 2002, 2004). In conventional bootstrap 
-analysis the size of the bootstrap sample is identical to the original sample 
-size. Multiscale bootstrap varies the bootstrap sample size in order to infer
-a correction formula for the biased p-value on the basis of the variation of 
-the results for the different sample sizes (Suzuki & Shimodaira, 2006).
+In standard (hierarchical) cluster analysis the question arises which of the identified structures are significant
+or just emerged by chance. Over the last decade several methods have been developed to test structures for
+robustness. One line of research in this area is based on resampling. The idea is to resample the rows or columns of
+the data matrix and to build the dendrogram for each bootstrap sample (Felsenstein, 1985). The p-values indicates
+the percentage of times a specific structure is identified across the bootstrap samples. It was shown that the
+p-value is biased (Hillis & Bull, 1993; Zharkikh & Li, 1995). In the literature several methods for bias correction
+have been proposed. In \code{clusterBoot} a method based on the
+\emph{multiscale bootstrap} is used to derive corrected (approximately
+unbiased) p-values (Shimodaira, 2002, 2004). In conventional bootstrap analysis the size of the bootstrap sample is
+identical to the original sample size. Multiscale bootstrap varies the bootstrap sample size in order to infer a
+correction formula for the biased p-value on the basis of the variation of the results for the different sample
+sizes (Suzuki & Shimodaira, 2006).
 
-\bold{align}: Aligning will reverse constructs if necessary to yield a
-maximal similarity between constructs. In a first step the constructs are
-clustered including both directions. In a second step the direction of a
-construct that yields smaller distances to the adjacent constructs is
-preserved and used for the final clustering. As a result, every construct is
-included once but with an orientation that guarantees optimal clustering.
-This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
-1982).
+\strong{align}: Aligning will reverse constructs if necessary to yield a
+maximal similarity between constructs. In a first step the constructs are clustered including both directions. In a
+second step the direction of a construct that yields smaller distances to the adjacent constructs is preserved and
+used for the final clustering. As a result, every construct is included once but with an orientation that guarantees
+optimal clustering. This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas, 1982).
 }
 \examples{
 \dontrun{
@@ -108,14 +95,14 @@ This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
 
 }
 \references{
-Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using 
+Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using
 the Bootstrap. \emph{Evolution, 39}(4), 783. doi:10.2307/2408678
 
 Hillis, D. M., & Bull, J. J. (1993). An Empirical Test of Bootstrapping as a
 Method for Assessing Confidence in Phylogenetic Analysis. \emph{Systematic Biology,
 42}(2), 182-192.
 
-Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
+Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of
 Repertory Grids in Human Resource Development. \emph{Personnel Review,
 11}(4), 15-22. doi:10.1108/eb055464.
 
@@ -124,7 +111,7 @@ selection. \emph{Syst, Biol., 51}, 492-508.
 
 Shimodaira,H. (2004) Approximately unbiased tests of regions using multistep-
 multiscale bootstrap resampling. \emph{Ann. Stat., 32}, 2616-2614.
- 
+
 Suzuki, R., & Shimodaira, H. (2006). Pvclust: an R package for assessing the
 uncertainty in hierarchical clustering. \emph{Bioinformatics,
 22}(12), 1540-1542. doi:10.1093/bioinformatics/btl117

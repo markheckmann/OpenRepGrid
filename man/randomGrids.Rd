@@ -28,11 +28,11 @@ randomGrids(
 
 \item{range}{Minimal and maximal scale value (default \code{c(1, 5)}).}
 
-\item{prob}{The probability of each rating value to occur. 
+\item{prob}{The probability of each rating value to occur.
 If \code{NULL} (default) the distribution is uniform.}
 
-\item{options}{Use random sentences as constructs and elements (1) or 
-not (0). If not, the elements and constructs are given 
+\item{options}{Use random sentences as constructs and elements (1) or
+not (0). If not, the elements and constructs are given
 default names and are numbered.}
 }
 \value{
@@ -41,7 +41,7 @@ A list of \code{repgrid} objects.
 \description{
 This feature is useful for research purposes like
 exploring distributions of indexes etc. The function is a
-simple wrapper around \code{\link{randomGrid}}.
+simple wrapper around \code{\link[=randomGrid]{randomGrid()}}.
 }
 \examples{
 \dontrun{

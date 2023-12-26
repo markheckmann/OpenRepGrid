@@ -7,21 +7,18 @@
 angleOrderIndexes2d(x, dim = c(1, 2), clockwise = TRUE)
 }
 \arguments{
-\item{x}{\code{repgrid} object that has been submitted to
-\code{\link{calcBiplotCoords}}.}
-
 \item{dim}{Dimensions used to calculate angles for reordering grid.}
 
-\item{clockwise}{Logical. Positive angles are clockwise with x axis as 
-basis.}
+\item{clockwise}{Logical. Positive angles are clockwise with x axis as basis.}
+
+\item{x`repgrid`}{object that has been submitted to \code{\link[=calcBiplotCoords]{calcBiplotCoords()}}.}
 }
 \value{
-A list containing the indexes to reorder the grid. The 
-         first list element for the constructs, the second for the elements indexes.
+A list containing the indexes to reorder the grid. The first list element for the constructs, the second
+for the elements indexes.
 }
 \description{
-Reorder indexes for constructs and elements are calculated 
-using the coordinates of the given dimensions.
+Reorder indexes for constructs and elements are calculated using the coordinates of the given dimensions.
 }
 \examples{
 \dontrun{

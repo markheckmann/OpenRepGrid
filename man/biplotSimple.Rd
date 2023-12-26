@@ -29,23 +29,23 @@ biplotSimple(
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{dim}{Dimensions (i.e. principal components) to be used for biplot 
+\item{dim}{Dimensions (i.e. principal components) to be used for biplot
 (default is \code{c(1,2)}).}
 
-\item{center}{Numeric. The type of centering to be performed. 
-0= no centering, 1= row mean centering (construct), 
+\item{center}{Numeric. The type of centering to be performed.
+0= no centering, 1= row mean centering (construct),
 2= column mean centering (elements), 3= double-centering (construct and element means),
 4= midpoint centering of rows (constructs).
 The default is \code{1} (row centering).}
 
 \item{normalize}{A numeric value indicating along what direction (rows, columns)
-to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
+to normalize by standard deviations. \verb{0 = none, 1= rows, 2 = columns}
 (default is \code{0}).}
 
-\item{g}{Power of the singular value matrix assigned to the left singular 
+\item{g}{Power of the singular value matrix assigned to the left singular
 vectors, i.e. the constructs.}
 
-\item{h}{Power of the singular value matrix assigned to the right singular 
+\item{h}{Power of the singular value matrix assigned to the right singular
 vectors, i.e. the elements.}
 
 \item{unity}{Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
@@ -55,8 +55,8 @@ so they are printed more neatly (default \code{TRUE}).}
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projected into the component space afterwards. They do not 
-determine the solution. Default is \code{NA}, i.e. no elements are set 
+in the SVD but projected into the component space afterwards. They do not
+determine the solution. Default is \code{NA}, i.e. no elements are set
 supplementary.}
 
 \item{scale.e}{Scaling factor for element vectors. Will cause element points to move a bit more
@@ -86,7 +86,7 @@ the plot in and out (default \code{1}).}
 }
 \description{
 It will draw elements and constructs vectors using similar
-arguments as \code{\link{biplot2d}}. It is a version for quick 
+arguments as \code{\link[=biplot2d]{biplot2d()}}. It is a version for quick
 exploration used during development.
 }
 \examples{
@@ -108,19 +108,19 @@ exploration used during development.
 
 }
 \seealso{
-Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
-           2D biplots:
-           \code{\link{biplot2d}},
-           \code{\link{biplotEsa2d}},
-           \code{\link{biplotSlater2d}};\cr
-           Pseudo 3D biplots:
-           \code{\link{biplotPseudo3d}},  
-           \code{\link{biplotEsaPseudo3d}},
-           \code{\link{biplotSlaterPseudo3d}};\cr
-           Interactive 3D biplots:
-           \code{\link{biplot3d}},
-           \code{\link{biplotEsa3d}},
-           \code{\link{biplotSlater3d}};\cr
-           Function to set view in 3D:
-           \code{\link{home}}.
+Unsophisticated biplot: \code{\link[=biplotSimple]{biplotSimple()}}; \cr
+2D biplots:
+\code{\link[=biplot2d]{biplot2d()}},
+\code{\link[=biplotEsa2d]{biplotEsa2d()}},
+\code{\link[=biplotSlater2d]{biplotSlater2d()}};\cr
+Pseudo 3D biplots:
+\code{\link[=biplotPseudo3d]{biplotPseudo3d()}},
+\code{\link[=biplotEsaPseudo3d]{biplotEsaPseudo3d()}},
+\code{\link[=biplotSlaterPseudo3d]{biplotSlaterPseudo3d()}};\cr
+Interactive 3D biplots:
+\code{\link[=biplot3d]{biplot3d()}},
+\code{\link[=biplotEsa3d]{biplotEsa3d()}},
+\code{\link[=biplotSlater3d]{biplotSlater3d()}};\cr
+Function to set view in 3D:
+\code{\link[=home]{home()}}.
 }

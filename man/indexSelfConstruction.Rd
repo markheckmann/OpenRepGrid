@@ -30,16 +30,15 @@ indexSelfConstruction(
 \item Correlations: \code{pearson}, \code{kendall}, \code{spearman}
 }}
 
-\item{p}{The power of the Minkowski distance, in case \code{minkowski} is used as
-argument for \code{method}, otherwise it is ignored.}
+\item{p}{The power of the Minkowski distance, in case \code{minkowski} is used as argument for \code{method}, otherwise it is
+ignored.}
 
 \item{normalize}{Normalize values?}
 
 \item{round}{Round average rating scores for 'others' to closest integer?}
 }
 \value{
-List object of class \code{indexSelfConstruction}, containing the
-results from the calculations:
+List object of class \code{indexSelfConstruction}, containing the results from the calculations:
 \itemize{
 \item \code{grid}: Reduced grid with self, ideal and others
 \item \code{method_type}: method type (correlation or distance)
@@ -75,7 +74,4 @@ biplot2d(cp$grid, center = 4)  # midopoint centering
 }
 \references{
 TBD
-}
-\author{
-Mark Heckmann, José Antonio González Del Puerto
 }

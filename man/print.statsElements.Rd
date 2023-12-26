@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{Object of class statsElements.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
+\item{digits}{Numeric. Number of digits to round to (default is
 \code{1}).}
 
 \item{...}{Not evaluated.}

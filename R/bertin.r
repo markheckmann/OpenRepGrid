@@ -216,18 +216,18 @@ bertin2PlusLegend <- function(x, ratings=TRUE, top=unit(40, "mm"),
 #' this is very fast. This is useful for working with grids. Not so much for
 #' producing high-quality output.
 #'
-#' @param x         \code{repgrid} object. 
+#' @param x         `repgrid` object. 
 #' @param ratings   Vector. rating scores are printed in the cells
-#' @param margins   Vector of length three (default \code{margins=c(0,1,1)}). 
+#' @param margins   Vector of length three (default `margins=c(0,1,1)`). 
 #'                  1st element denotes the left, 2nd the upper and 3rd the 
 #'                  right margin in npc coordinates (i.e. 0 to zero).
-#' @param trim      Vector (default \code{trim=c(F,F)}).If a number the string
+#' @param trim      Vector (default `trim=c(F,F)`).If a number the string
 #'                  is trimmed to the given number of characters. If set 
 #'                  to TRUE the labels are trimmed to the available space
 #' @param add       Logical. Whether to add bertin to existent plot (default is 
-#'                  \code{FALSE}). If \code{TRUE, plot.new()} will not be called
-#'                  \code{par(new=TRUE)}.
-#' @return \code{NULL} just for printing.
+#'                  `FALSE`). If `TRUE, plot.new()` will not be called
+#'                  `par(new=TRUE)`.
+#' @return `NULL` just for printing.
 #'
 #' @export
 #' @keywords internal
@@ -454,78 +454,69 @@ bertinBase <- function(nrow, ncol, labels="", labels.elements="",
 
 #' Make Bertin display of grid data.
 #'
-#' One of the most popular ways of displaying grid data has been adopted 
-#' from Bertin's (1974) graphical proposals, which have had an immense 
-#' influence onto data visualization. One of the most appealing 
-#' ideas presented by Bertin is the concept of the reorderable matrix. 
-#' It is comprised of graphical displays for each cell, allowing to 
-#' identify structures by eye-balling reordered versions of the data matrix 
-#' (see Bertin, 1974). In the context of repertory grids, 
-#' the display is made up of a simple colored rectangle where the color 
-#' denotes the corresponding score. Bright values correspond to low, dark 
-#' to high scores. For an example of how to analyze a Bertin display see 
-#' e.g. Dick (2000) and Raeithel (1998).
+#' One of the most popular ways of displaying grid data has been adopted from Bertin's (1974) graphical proposals,
+#' which have had an immense influence onto data visualization. One of the most appealing ideas presented by Bertin is
+#' the concept of the reorderable matrix. It is comprised of graphical displays for each cell, allowing to identify
+#' structures by eye-balling reordered versions of the data matrix (see Bertin, 1974). In the context of repertory
+#' grids, the display is made up of a simple colored rectangle where the color denotes the corresponding score. Bright
+#' values correspond to low, dark to high scores. For an example of how to analyze a Bertin display see e.g. Dick
+#' (2000) and Raeithel (1998).
 #'
-#' @param x               \code{repgrid} object.
+#' @param x               `repgrid` object.
 #' @param colors          Vector. Two or more colors defining the color ramp for 
-#'                        the bertin (default \code{c("white", "black")}).
+#'                        the bertin (default `c("white", "black")`).
 #' @param showvalues      Logical. Whether scores are shown in bertin
 #' @param xlim            Vector. Left and right limits inner bertin (default 
-#'                        \code{c(.2, .8)}).
+#'                        `c(.2, .8)`).
 #' @param ylim            Vector. Lower and upper limits of inner bertin
-#'                        default(\code{c(.0, .6)}).
-#' @param margins         Vector of length three (default \code{margins=c(0,1,1)}). 
+#'                        default(`c(.0, .6)`).
+#' @param margins         Vector of length three (default `margins=c(0,1,1)`). 
 #'                        1st element denotes the left, 2nd the upper and 3rd the 
 #'                        right margin in npc coordinates (i.e. 0 to zero).
-#' @param cex.elements    Numeric. Text size of element labels (default \code{.7}).
-#' @param cex.constructs  Numeric. Text size of construct labels (default \code{.7}).
-#' @param cex.text        Numeric. Text size of scores in bertin cells (default \code{.7}).
-#' @param col.text        Color of scores in bertin (default \code{NA}). By default
+#' @param cex.elements    Numeric. Text size of element labels (default `.7`).
+#' @param cex.constructs  Numeric. Text size of construct labels (default `.7`).
+#' @param cex.text        Numeric. Text size of scores in bertin cells (default `.7`).
+#' @param col.text        Color of scores in bertin (default `NA`). By default
 #'                        the color of the text is chosen according to the 
 #'                        background color. If the background ist bright the text 
 #'                        will be black and vice versa. When a color is specified
 #'                        the color is set independent of background.
-#' @param border          Border color of the bertin cells (default \code{white}).
+#' @param border          Border color of the bertin cells (default `white`).
 #' @param lheight         Line height for constructs.
 #' @param id              Logical. Whether to print id number for constructs and elements
-#'                        respectively (default \code{c(T,T)}).
+#'                        respectively (default `c(T,T)`).
 #' @param cc              Numeric. Current column to mark.
 #' @param cr              Numeric. Current row to mark.
 #' @param cc.old          Numeric. Column to unmark.
 #' @param cr.old          Numeric. Row to unmark.
-#' @param col.mark.fill   Color of marked row or column (default \code{"#FCF5A4"}).
-#' @param print           Print whole bertin. If \code{FALSE} only current and old
+#' @param col.mark.fill   Color of marked row or column (default `"#FCF5A4"`).
+#' @param print           Print whole bertin. If `FALSE` only current and old
 #'                        row and column are printed.
-#' @param ...             Optional arguments to be passed on to \code{bertinBase}.
+#' @param ...             Optional arguments to be passed on to `bertinBase`.
 #'
-#' @return \code{NULL} just for the side effects, i.e. printing.
+#' @return `NULL` just for the side effects, i.e. printing.
 #'
 #' @export
-#' @references    Bertin, J. (1974). \emph{Graphische Semiologie: Diagramme, Netze, 
-#'                  Karten}. Berlin, New York: de Gruyter.
+#' @references Bertin, J. (1974). *Graphische Semiologie: Diagramme, Netze, Karten*. Berlin, New York: de Gruyter.
 #'
-#'                Dick, M. (2000). The Use of Narrative Grid Interviews in 
-#'                  Psychological Mobility Research. \emph{Forum Qualitative 
-#'                  Sozialforschung / Forum: Qualitative Social Research, 1}(2). 
-#'                
-#'                Raeithel, A. (1998). Kooperative Modellproduktion von 
-#'                  Professionellen und Klienten - erlauetert am Beispiel des 
-#'                  Repertory Grid. \emph{Selbstorganisation, Kooperation, Zeichenprozess: 
-#'                  Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen 
-#'                  Psychologie} (pp. 209-254). Opladen: Westdeutscher Verlag.
+#' Dick, M. (2000). The Use of Narrative Grid Interviews in Psychological Mobility Research. *Forum Qualitative
+#' Sozialforschung / Forum: Qualitative Social Research, 1*(2).
 #'
-#' @examples \dontrun{
+#' Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen und Klienten - erlauetert am Beispiel des
+#' Repertory Grid. *Selbstorganisation, Kooperation, Zeichenprozess: Arbeiten zu einer kulturwissenschaftlichen,
+#' anwendungsbezogenen Psychologie* (pp. 209-254). Opladen: Westdeutscher Verlag.
+#' 
+#' @examples
 #' 
 #'    bertin(feixas2004)
 #'    bertin(feixas2004, c("white", "darkblue"))
-#'    bertin(feixas2004, showvalues=F)
+#'    bertin(feixas2004, showvalues=FALSE)
 #'    bertin(feixas2004, border="grey")
 #'    bertin(feixas2004, cex.text=.9)
-#'    bertin(feixas2004, id=c(F, F))
+#'    bertin(feixas2004, id=c(FALSE, FALSE))
 #'    
 #'    bertin(feixas2004, cc=3, cr=4)
 #'    bertin(feixas2004, cc=3, cr=4, col.mark.fill="#e6e6e6")
-#' }
 #'                       
 bertin <- function(x, colors=c("white", "black"), showvalues=TRUE, 
                    xlim=c(.2, .8), ylim=c(0,.6), margins=c(0,1,1),
@@ -558,55 +549,48 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
   invisible(NULL)
 }
 
-#x <- randomGrid(10,20)
-#x
 
-
-
-
-
-#' Bertin display with corresponding cluster analysis. 
+#' Bertin display with corresponding cluster analysis.
 #'
-#' Element columns and 
-#' constructs rows are ordered according to cluster criterion. Various 
-#' distance measures as well as cluster methods are supported.
+#' Element columns and constructs rows are ordered according to cluster criterion. Various distance measures as well as
+#' cluster methods are supported.
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param  dmethod    The distance measure to be used. This must be one of 
-#'                    \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, 
-#'                    \code{"canberra"}, \code{"binary"}, or \code{"minkowski"}.
-#'                    Default is \code{"euclidean"}.
-#'                    Any unambiguous substring can be given (e.g. \code{"euc"} 
-#'                    for \code{"euclidean"}). 
+#'                    `"euclidean"`, `"maximum"`, `"manhattan"`, 
+#'                    `"canberra"`, `"binary"`, or `"minkowski"`.
+#'                    Default is `"euclidean"`.
+#'                    Any unambiguous substring can be given (e.g. `"euc"` 
+#'                    for `"euclidean"`). 
 #'                    A vector of length two can be passed if a different distance measure for
-#'                    constructs and elements is wanted (e.g.\code{c("euclidean", "manhattan")}).
+#'                    constructs and elements is wanted (e.g.`c("euclidean", "manhattan")`).
 #'                    This will apply euclidean distance to the constructs and
 #'                    manhattan distance to the elements.
 #'                    For additional information on the different types see
-#'                    \code{?dist}. 
+#'                    `?dist`. 
 #' @param  cmethod    The agglomeration method to be used. This should be (an
-#'                    unambiguous abbreviation of) one of \code{"ward"}, 
-#'                    \code{"single"}, \code{"complete"}, \code{"average"}, 
-#'                    \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
-#'                    Default is \code{"ward"}.
+#'                    unambiguous abbreviation of) one of `"ward"`, 
+#'                    `"single"`, `"complete"`, `"average"`, 
+#'                    `"mcquitty"`, `"median"` or `"centroid"`.
+#'                    Default is `"ward"`.
 #'                    A vector of length two can be passed if a different cluster method for
-#'                    constructs and elements is wanted (e.g.\code{c("ward", "euclidean")}).
+#'                    constructs and elements is wanted (e.g.`c("ward", "euclidean")`).
 #'                    This will apply ward clustering to the constructs and
 #'                    single linkage clustering to the elements. If only one of either
-#'                    constructs or elements is to be clustered the value \code{NA}
-#'                    can be supplied. E.g. to cluster elements only use \code{c(NA, "ward")}.
-#' @param  p          The power of the Minkowski distance, in case \code{"minkowski"}
-#'                    is used as argument for \code{dmethod}. \code{p} can be a vector
+#'                    constructs or elements is to be clustered the value `NA`
+#'                    can be supplied. E.g. to cluster elements only use `c(NA, "ward")`.
+#' @param  p          The power of the Minkowski distance, in case `"minkowski"`
+#'                    is used as argument for `dmethod`. `p` can be a vector
 #'                    of length two if different powers are wanted for constructs and
-#'                    elements respectively (e.g. \code{c(2,1)}).
+#'                    elements respectively (e.g. `c(2,1)`).
 #' @param align       Whether the constructs should be aligned before clustering
-#'                    (default is \code{TRUE}). If not, the grid matrix is clustered 
-#'                    as is. See Details section in function \code{\link{cluster}} for more information.
+#'                    (default is `TRUE`). If not, the grid matrix is clustered 
+#'                    as is. See Details section in function [cluster()] for more information.
 #' @param trim        The number of characters a construct is trimmed to (default is
-#'                    \code{10}). If \code{NA} no trimming is done. Trimming
+#'                    `10`). If `NA` no trimming is done. Trimming
 #'                    simply saves space when displaying the output.
-#' @param type        Type of dendrogram. Either or \code{"triangle"} (default) 
-#'                    or \code{"rectangle"} form.
+#' @param type        Type of dendrogram. Either or `"triangle"` (default) 
+#'                    or `"rectangle"` form.
 #' @param xsegs       Numeric vector of normal device coordinates (ndc i.e. 0 to 1) to mark
 #'                    the widths of the regions for the left labels, for the
 #'                    bertin display, for the right labels and for the 
@@ -617,21 +601,20 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'                    the element names.
 #' @param x.off       Horizontal offset between construct labels and construct dendrogram and 
 #                     between the outer right margin and the dendrogram 
-#'                    (default is \code{0.01} in normal device coordinates).
+#'                    (default is `0.01` in normal device coordinates).
 #' @param y.off       Vertical offset between bertin display and element dendrogram and 
 #                     between the lower margin and the dendrogram
-#'                    (default is \code{0.01} in normal device coordinates).
-#' @param cex.axis    \code{cex} for axis labels, default is \code{.6}.
-#' @param col.axis    Color for axis and axis labels, default is \code{grey(.4)}.
+#'                    (default is `0.01` in normal device coordinates).
+#' @param cex.axis    `cex` for axis labels, default is `.6`.
+#' @param col.axis    Color for axis and axis labels, default is `grey(.4)`.
 #' @param draw.axis   Whether to draw axis showing the distance metric for the dendrograms 
-#'                    (default is \code{TRUE}).
-#' @param ...         additional parameters to be passed to function \code{\link{bertin}}.
+#'                    (default is `TRUE`).
+#' @param ...         additional parameters to be passed to function [bertin()].
 #'
-#' @return            A list of two \code{\link{hclust}} object, for elements and constructs
+#' @return  A list of two [hclust()] object, for elements and constructs
 #'                    respectively.
 #' @export
-#' @seealso  \code{\link{cluster}}
-#'
+#' @seealso  [cluster()]
 #' @examples \dontrun{
 #'
 #'    # default is euclidean distance and ward clustering 
@@ -654,7 +637,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    # distance for elements
 #'    bertinCluster(bell2010, dmethod=c("euclidean", "man"))
 #'    # minkowski metric with different powers for constructs and elements    
-#'    bertinCluster(bell2010, dmethod="mink", p=c(2,1)))          
+#'    bertinCluster(bell2010, dmethod="mink", p=c(2,1))       
 #'
 #'    ### clustering either constructs or elements only
 #'    # euclidean distance and ward clustering for constructs no 
@@ -668,7 +651,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    # different dendrogram type        
 #'    bertinCluster(bell2010, type="rectangle")  
 #'    # no axis drawn for dendrogram                 
-#'    bertinCluster(bell2010, draw.axis=F)                        
+#'    bertinCluster(bell2010, draw.axis=FALSE)                        
 #'
 #'    ### passing on arguments to bertin function via ...
 #'     # grey cell borders in bertin display
@@ -680,16 +663,14 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    # making the vertical dendrogram bigger
 #'    bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
 #'    # making the horizontal dendrogram bigger          
-#'    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))              
+#'    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
 #' }
-#'
 bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"), 
                           cmethod=c("ward", "ward"), p=c(2,2), align=TRUE, 
                           trim=NA, type=c("triangle"), 
                           xsegs = c(0, .2, .7, .9, 1), ysegs = c(0, .1, .7, 1),
                           x.off=0.01, y.off=0.01,
-                          cex.axis =.6, col.axis =  grey(.4), draw.axis=TRUE, ...)
-{
+                          cex.axis =.6, col.axis =  grey(.4), draw.axis=TRUE, ...) {
   if (length(dmethod) == 1)       # if only one value is passed
     dmethod <- rep(dmethod, 2)
   if (length(cmethod) == 1)       # if only one value is passed

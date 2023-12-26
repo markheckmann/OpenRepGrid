@@ -7,12 +7,10 @@
 \method{print}{indexDilemmatic}(x, output = "SD", ...)
 }
 \arguments{
-\item{x}{Object of class indexDilemmatic}
+\item{x}{Object of class \code{indexDilemmatic}}
 
-\item{output}{String with each letter indicating which parts of the output to print
-(default is \code{"SD"}, order does not matter):
-\code{S} = Summary,
-\code{D} = Details (dilemmatic constructs).}
+\item{output}{String with each letter indicating which parts of the output to print (default is \code{"SD"}, order
+does not matter): \code{S} = Summary, \code{D} = Details (dilemmatic constructs).}
 }
 \description{
 Print method for class indexDilemmatic

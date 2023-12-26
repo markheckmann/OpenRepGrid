@@ -12,8 +12,8 @@ getScale(x, output = 1)
 \item{output}{Type of output object. 1= named vector, 2 = list.}
 }
 \value{
-Vector or list (depends on \code{output} containing 
-                 minimum and maximum scale value.
+Vector or list (depends on \code{output} containing
+minimum and maximum scale value.
 }
 \description{
 The values are returned either as a vector or a list.

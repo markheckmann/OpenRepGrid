@@ -49,7 +49,7 @@ setClass( "repgrid",
 
 #' Constructor for repgrid class
 #' 
-#' @return \code{repgrid} object       
+#' @return `repgrid` object       
 #' @export
 #' @keywords internal
 makeEmptyRepgrid <- function(){

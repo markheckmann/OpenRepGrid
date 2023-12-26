@@ -2,7 +2,7 @@
 % Please edit documentation in R/measures.r
 \name{indexDilemma}
 \alias{indexDilemma}
-\title{Detect implicative dilemmas (conflicts).}
+\title{Implicative Dilemmas}
 \usage{
 indexDilemma(
   x,
@@ -22,188 +22,151 @@ indexDilemma(
 )
 }
 \arguments{
-\item{x}{\code{repgrid} object.}
+\item{x}{A \code{repgrid} object.}
 
 \item{self}{Numeric. Index of self element.}
 
 \item{ideal}{Numeric. Index of ideal self element.}
 
-\item{diff.mode}{Numeric. Method adopted to classify construct pairs into congruent 
-and discrepant. With \code{diff.mode=1}, the minimal and maximal 
-score difference criterion is applied. With \code{diff.mode=0} the Mid-point
+\item{diff.mode}{Numeric. Method adopted to classify construct pairs into congruent and discrepant. With
+\code{diff.mode=1}, the minimal and maximal score difference criterion is applied. With \code{diff.mode=0} the Mid-point
 rating criterion is applied. Default is \code{diff.mode=1}.}
 
-\item{diff.congruent}{Is used if \code{diff.mode=1}. Maximal difference between
-element ratings to define construct as congruent (default
-\code{diff.congruent=1}). Note that the value
-needs to be adjusted by the user according to the rating scale
-used.}
+\item{diff.congruent}{Is used if \code{diff.mode=1}. Maximal difference between element ratings to define construct as
+congruent (default \code{diff.congruent=1}). Note that the value needs to be adjusted by the user according to the
+rating scale used.}
 
-\item{diff.discrepant}{Is used if \code{diff.mode=1}. Minimal difference between
-element ratings to define construct as discrepant (default
-\code{diff.discrepant=3}). Note that the value
-needs to be adjusted by the user according to the rating scale
-used.}
+\item{diff.discrepant}{Is used if \code{diff.mode=1}. Minimal difference between element ratings to define construct as
+discrepant (default \code{diff.discrepant=3}). Note that the value needs to be adjusted by the user according to the
+rating scale used.}
 
 \item{diff.poles}{Not yet implemented.}
 
-\item{r.min}{Minimal correlation to determine implications between
-constructs.}
+\item{r.min}{Minimal correlation to determine implications between constructs.}
 
-\item{exclude}{Whether to exclude the elements self and ideal self 
-during the calculation of the inter-construct correlations.
-(default is \code{FALSE}).}
+\item{exclude}{Whether to exclude the elements self and ideal self during the calculation of the
+inter-construct correlations. (default is \code{FALSE}).}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{2}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
 
-\item{show}{Whether to additionally plot the distribution
-of correlations to help the user assess what level
-is adequate for \code{r.min}.}
+\item{show}{Whether to additionally plot the distribution of correlations to help the user assess what
+level is adequate for \code{r.min}.}
 
 \item{output}{The type of output to return.}
 
-\item{index}{Whether to print index numbers in front of each construct 
-(default is \code{TRUE}).}
+\item{index}{Whether to print index numbers in front of each construct (default is \code{TRUE}).}
 
-\item{trim}{The number of characters a construct (element) is trimmed to (default is
-\code{20}). If \code{NA} no trimming is done. Trimming
-simply saves space when displaying the output.}
+\item{trim}{The number of characters a construct (element) is trimmed to (default is \code{20}). If \code{NA} no
+trimming is done. Trimming simply saves space when displaying the output.}
 }
 \value{
-List object of class \code{indexDilemma}, containing
-                       the result from the calculations.
+List object of class \code{indexDilemma}, containing the result from the calculations.
 }
 \description{
-Implicative Dilemmas
+Implicative dilemmas are closely related to the notion of conflict. An implicative dilemma arises when a desired
+change on one construct is associated with an undesired implication on another construct. E. g. a timid subject may
+want to become more socially skilled but associates being socially skilled with different negative characteristics
+(selfish, insensitive etc.). Hence, he may anticipate that becoming less timid will also make him more selfish (cf.
+Winter, 1982). As a consequence, the subject will resist to the change if the negative presumed implications will
+threaten the patients identity and the predictive power of his construct system. From this stance the resistance to
+change is a logical consequence coherent with the subjects construct system (Feixas, Saul, & Sanchez, 2000). The
+investigation of the role of cognitive dilemma in different disorders in the context of PCP is a current field of
+research (e.g. Feixas & Saul, 2004, Dorough et al. 2007).
 }
 \details{
-Implicative dilemmas are closely related to the notion of conflict. An
-implicative dilemma arises when a desired change on one construct is
-associated with an undesired implication on another construct. E. g. a timid
-subject may want to become more socially skilled but associates being
-socially skilled with different negative characteristics (selfish,
-insensitive etc.). Hence, he may anticipate that becoming less timid will
-also make him more selfish (cf. Winter, 1982). As a consequence, the subject
-will resist to the change if the negative presumed implications will threaten
-the patients identity and the predictive power of his construct system. From
-this stance the resistance to change is a logical consequence coherent with
-the subjects construct system (Feixas, Saul, & Sanchez, 2000). The
-investigation of the role of cognitive dilemma in different disorders in the
-context of PCP is a current field of research (e.g. Feixas & Saul, 2004,
-Dorough et al. 2007).
+The detection of implicative dilemmas happens in two steps. First the constructs are classified as being 'congruent'
+or 'discrepant'. Secondly, the correlation between a congruent and discrepant construct pair is assessed if it is
+big enough to indicate an implication.
 
-The detection of implicative dilemmas happens in two steps. First the 
-constructs are classified as being 'congruent' or 'discrepant'. Secondly,
-the correlation between a congruent and discrepant construct pair
-is assessed if it is big enough to indicate an implication.
+\strong{Classifying the construct}
 
-\bold{Classifying the construct} \cr
-To detect implicit dilemmas the construct pairs are first identified as
-'congruent' or 'discrepant'. The assessment is based on the rating
-differences between the elements 'self' and 'ideal self'.
-A construct is 'congruent' if the construction of the 'self' and the
-preferred state (i.e. ideal self) are the same or similar. A construct is
+To detect implicit dilemmas the construct pairs are first identified as 'congruent' or 'discrepant'. The assessment
+is based on the rating differences between the elements 'self' and 'ideal self'. A construct is 'congruent' if the
+construction of the 'self' and the preferred state (i.e. ideal self) are the same or similar. A construct is
 discrepant if the construction of the 'self' and the 'ideal' is dissimilar.
 
 There are two popular accepted methods to identify congruent and discrepant constructs:
 \enumerate{
-   \item  "Scale Midpoint criterion" (cf. Grice 2008)
-   \item  "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
+\item "Scale Midpoint criterion" (cf. Grice 2008)
+\item "Minimal and maximal score difference" (cf. Feixas & Saul, 2004)
 }
 
 \emph{"Scale Midpoint criterion" (cf. Grice 2008)}
 
-As reported in the Idiogrid (v. 2.4) manual: "[..] The Scale Midpoint uses the 
-scales as the 'dividing line' for discrepancies; for example, if the actual 
-element is rated above the midpoint, then the discrepancy exists (and vice versa). 
-If the two selves are the same as the actual side of the scale, then a discrepancy 
-does not exist". As an example:
-Assuming a scoring range of 1-7, the midpoint score will be 4, we then look at self 
-and ideal-self scoring on any given construct and we proceed as follow:
+As reported in the Idiogrid (v. 2.4) manual: "... The Scale Midpoint uses the scales as the 'dividing line' for
+discrepancies; for example, if the actual element is rated above the midpoint, then the discrepancy exists (and vice
+versa). If the two selves are the same as the actual side of the scale, then a discrepancy does not exist". As an
+example:
 
+Assuming a scoring range of 1-7, the midpoint score will be 4, we then look at self and ideal-self scoring on any
+given construct and we proceed as follow:
 \itemize{
-   \item If the scoring of Self AND Ideal Self are both < 4: construct is "Congruent"
-   \item If the scoring of Self AND Ideal Self are both > 4: construct is "Congruent"
-   \item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR vice versa): construct is "discrepant"
-   \item If scoring Self OR Ideal Self = 4 then the construct is NOT Discrepant and it is "Undifferentiated"
+\item If the scoring of Self AND Ideal Self are both < 4: construct is "Congruent"
+\item If the scoring of Self AND Ideal Self are both > 4: construct is "Congruent"
+\item If the scoring of Self is < 4 AND Ideal Self is > 4 (OR vice versa): construct is "discrepant"
+\item If scoring Self OR Ideal Self = 4 then the construct is NOT Discrepant and it is "Undifferentiated"
 }
 
 \emph{Minimal and maximal score difference criterion (cf. Feixas & Saul, 2004)}
 
-This other method is more conservative and it is designed to minimize Type I errors by a) setting
-a default minimum correlation between constructs of \code{r = .34}; b) discarding cases where the 
-ideal Self and self are neither congruent or discrepant; c) discarding cases where ideal self is 
-"not oriented", i.e. scored at the midpoint.
+This other method is more conservative and it is designed to minimize Type I errors by a) setting a default minimum
+correlation between constructs of \code{r=.34}; b) discarding cases where the ideal Self and self are neither congruent
+or discrepant; c) discarding cases where ideal self is "not oriented", i.e. scored at the midpoint.
 
-E.g. suppose the element 'self' is rated 2 and 'ideal self' 5 on 
-a scale from 1 to 6. The ratings differences are 5-2 = 3. If this 
-difference is smaller than e.g. 1 the construct is 'congruent', if it
-is bigger than 3 it is 'discrepant'. \cr
+E.g. suppose the element 'self' is rated 2 and 'ideal self' 5 on a scale from 1 to 6. The ratings differences are
+5-2 = 3. If this difference is smaller than e.g. 1 the construct is 'congruent', if it is bigger than 3 it is
+'discrepant'.
 
-The values used to classify the constructs 'congruent'
-or 'discrepant' can be determined in several ways (cf. Bell, 2009):
+The values used to classify the constructs 'congruent' or 'discrepant' can be determined in several ways (cf. Bell,
+2009):
 \enumerate{
-   \item   They are set 'a priori'.
-   \item   They are implicitly derived by taking into account the rating
-           differences to the other constructs. 
-           (Not yet implemented)
+\item They are set 'a priori'.
+\item They are implicitly derived by taking into account the rating
+differences to the other constructs. (Not yet implemented)
 }
 
-The value mode is determined via the argument \code{diff.mode}.\cr
-If no 'a priori' criteria to determine whether the construct
-is congruent or discrepant is supplied as an argument, the values are chosen
-according to the range of the rating scale used. For the following scales
-the defaults are chosen as:
+The value mode is determined via the argument \code{diff.mode}.
 
-\tabular{ll}{
-Scale                \tab 'A priori' criteria        \cr
-1 2                  \tab --> con: <=0    disc: >=1  \cr
-1 2 3                \tab --> con: <=0    disc: >=2  \cr
-1 2 3 4              \tab --> con: <=0    disc: >=2  \cr
-1 2 3 4 5            \tab --> con: <=1    disc: >=3  \cr
-1 2 3 4 5 6          \tab --> con: <=1    disc: >=3  \cr
-1 2 3 4 5 6 7        \tab --> con: <=1    disc: >=4  \cr
-1 2 3 4 5 6 7 8      \tab --> con: <=1    disc: >=5  \cr
-1 2 3 4 5 6 7 8 9    \tab --> con: <=2    disc: >=5  \cr
-1 2 3 4 5 6 7 8 9 10 \tab --> con: <=2    disc: >=6  \cr
+If no 'a priori' criteria to determine whether the construct is congruent or discrepant is supplied as an argument,
+the values are chosen according to the range of the rating scale used. For the following scales the defaults are
+chosen as:\tabular{ll}{
+   Scale \tab 'A priori' criteria \cr
+   1 2 \tab --> con: <=0    disc: >=1 \cr
+   1 2 3 \tab --> con: <=0    disc: >=2 \cr
+   1 2 3 4 \tab --> con: <=0    disc: >=2 \cr
+   1 2 3 4 5 \tab --> con: <=1    disc: >=3 \cr
+   1 2 3 4 5 6 \tab --> con: <=1    disc: >=3 \cr
+   1 2 3 4 5 6 7 \tab --> con: <=1    disc: >=4 \cr
+   1 2 3 4 5 6 7 8 \tab --> con: <=1    disc: >=5 \cr
+   1 2 3 4 5 6 7 8 9 \tab --> con: <=2    disc: >=5 \cr
+   1 2 3 4 5 6 7 8 9 10 \tab --> con: <=2    disc: >=6 \cr
 }
 
-\bold{Defining the correlations} \cr
-As the implications between constructs cannot be derived from a 
-rating grid directly, the correlation between two constructs 
-is used as an indicator for implication. A large correlation means
-that one construct pole implies the other. A small correlation 
-indicates a lack of implication. The minimum criterion for a correlation
-to indicate implication is set to .35 (cf. Feixas & Saul, 2004).
-The user may also choose another value. To get a an impression
-of the distribution of correlations in the grid, a visualization can 
-be prompted via the argument \code{show}.
-When calculating the correlation used to assess if an implication
-is given or not, the elements under consideration (i. e. self and ideal self)
-can be included (default) or excluded. The options will cause different
-correlations (see argument \code{exclude}). \cr \cr
 
-\bold{Example of an implicative dilemma} \cr
-A depressive person considers herself as 'timid' and 
-wished to change to the opposite pole she defines as 'extraverted'. 
-This construct is called discrepant as the construction of the 'self'
-and the desired state (e.g. described by the 'ideal self') on 
-this construct differ. The person also considers herself as 
-'sensitive' (preferred pole) for which the opposite pole is 'selfish'. 
-This construct is congruent, as the person construes herself as 
-she would like to be. If the person now changed on the discrepant 
-construct from the undesired to the desired pole, i.e. from timid 
-to extraverted, the question can be asked what consequences such a 
-change has. If the person construes being timid and being sensitive 
-as related and that someone who is extraverted will not be timid, a 
-change on the first construct will imply a change on the congruent 
-construct as well. Hence, the positive shift from timid to extraverted
-is presumed to have a undesired effect in moving from sensitive towards
-selfish. This relation is called an implicative dilemma. As the 
-implications of change on a construct cannot be derived from a rating 
-grid directly, the correlation between two constructs is used as an 
-indicator of implication.
+\strong{Defining the correlations}
+
+As the implications between constructs cannot be derived from a rating grid directly, the correlation between two
+constructs is used as an indicator for implication. A large correlation means that one construct pole implies the
+other. A small correlation indicates a lack of implication. The minimum criterion for a correlation to indicate
+implication is set to .35 (cf. Feixas & Saul, 2004). The user may also choose another value. To get a an impression
+of the distribution of correlations in the grid, a visualization can be prompted via the argument \code{show}. When
+calculating the correlation used to assess if an implication is given or not, the elements under consideration (i.
+e. self and ideal self) can be included (default) or excluded. The options will cause different correlations (see
+argument \code{exclude}).
+
+\strong{Example of an implicative dilemma}
+
+A depressive person considers herself as 'timid' and wished to change to the opposite pole she defines as
+'extraverted'. This construct is called discrepant as the construction of the 'self' and the desired state (e.g.
+described by the 'ideal self') on this construct differ. The person also considers herself as 'sensitive' (preferred
+pole) for which the opposite pole is 'selfish'. This construct is congruent, as the person construes herself as she
+would like to be. If the person now changed on the discrepant construct from the undesired to the desired pole, i.e.
+from timid to extraverted, the question can be asked what consequences such a change has. If the person construes
+being timid and being sensitive as related and that someone who is extraverted will not be timid, a change on the
+first construct will imply a change on the congruent construct as well. Hence, the positive shift from timid to
+extraverted is presumed to have a undesired effect in moving from sensitive towards selfish. This relation is called
+an implicative dilemma. As the implications of change on a construct cannot be derived from a rating grid directly,
+the correlation between two constructs is used as an indicator of implication.
 }
 \examples{
 id <- indexDilemma(boeker, self = 1, ideal = 2)
@@ -227,32 +190,27 @@ plot(id, layout = "star")
 
 }
 \references{
-Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing
-                       the Data of A Repertory Grid} (manual). University of Melbourne,
-                       Australia: Department of Psychology.
-                       
-                       Dorough, S., Grice, J. W., & Parker, J. (2007). Implicative 
-                       dilemmas and psychological well-being. \emph{Personal Construct
-                       Theory & Practice}, (4), 83-101.
+Bell, R. C. (2009). \emph{Gridstat version 5 - A Program for Analyzing the Data of A Repertory Grid}
+(manual). University of Melbourne, Australia: Department of Psychology.
 
-                       Feixas, G., & Saul, L. A. (2004). The Multi-Center Dilemma 
-                       Project: an investigation on the role of cognitive conflicts 
-                       in health. \emph{The Spanish Journal of Psychology, 7}(1), 69-78.
+Dorough, S., Grice, J. W., & Parker, J. (2007). Implicative dilemmas and psychological well-being. \emph{Personal
+Construct Theory & Practice}, (4), 83-101.
 
-                       Feixas, G., Saul, L. A., & Sanchez, V. (2000). Detection and 
-                       analysis of implicative dilemmas: implications for the therapeutic
-                       process. In J. W. Scheer (Ed.), \emph{The Person in Society: 
-                       Challenges to a Constructivist Theory}. Giessen: Psychosozial-Verlag.
+Feixas, G., & Saul, L. A. (2004). The Multi-Center Dilemma Project: an investigation on the role of cognitive
+conflicts in health. \emph{The Spanish Journal of Psychology, 7}(1), 69-78.
 
-                       Winter, D. A. (1982). Construct relationships, psychological
-                       disorder and therapeutic change. \emph{British Journal of Medical 
-                       Psychology, 55} (Pt 3), 257-269.
+Feixas, G., Saul, L. A., & Sanchez, V. (2000). Detection and analysis of implicative dilemmas: implications for
+the therapeutic process. In J. W. Scheer (Ed.), \emph{The Person in Society: Challenges to a Constructivist Theory}.
+Giessen: Psychosozial-Verlag.
 
-                       Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory 
-                       Grids (Version 2.4). Oklahoma: Oklahoma State University.
+Winter, D. A. (1982). Construct relationships, psychological disorder and therapeutic change. \emph{British Journal of
+Medical Psychology, 55} (Pt 3), 257-269.
+
+Grice, J. W. (2008). Idiogrid: Idiographic Analysis with Repertory Grids (Version 2.4). Oklahoma: Oklahoma State
+University.
 }
 \seealso{
-\code{\link{print.indexDilemma}}, \code{\link{plot.indexDilemma}}
+\code{\link[=print.indexDilemma]{print.indexDilemma()}}, \code{\link[=plot.indexDilemma]{plot.indexDilemma()}}
 }
 \author{
 Mark Heckmann, Alejandro García, Diego Vitali

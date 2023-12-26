@@ -25,12 +25,12 @@ bertinCluster(
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{dmethod}{The distance measure to be used. This must be one of 
-\code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, 
+\item{dmethod}{The distance measure to be used. This must be one of
+\code{"euclidean"}, \code{"maximum"}, \code{"manhattan"},
 \code{"canberra"}, \code{"binary"}, or \code{"minkowski"}.
 Default is \code{"euclidean"}.
-Any unambiguous substring can be given (e.g. \code{"euc"} 
-for \code{"euclidean"}). 
+Any unambiguous substring can be given (e.g. \code{"euc"}
+for \code{"euclidean"}).
 A vector of length two can be passed if a different distance measure for
 constructs and elements is wanted (e.g.\code{c("euclidean", "manhattan")}).
 This will apply euclidean distance to the constructs and
@@ -39,8 +39,8 @@ For additional information on the different types see
 \code{?dist}.}
 
 \item{cmethod}{The agglomeration method to be used. This should be (an
-unambiguous abbreviation of) one of \code{"ward"}, 
-\code{"single"}, \code{"complete"}, \code{"average"}, 
+unambiguous abbreviation of) one of \code{"ward"},
+\code{"single"}, \code{"complete"}, \code{"average"},
 \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
 Default is \code{"ward"}.
 A vector of length two can be passed if a different cluster method for
@@ -56,49 +56,48 @@ of length two if different powers are wanted for constructs and
 elements respectively (e.g. \code{c(2,1)}).}
 
 \item{align}{Whether the constructs should be aligned before clustering
-(default is \code{TRUE}). If not, the grid matrix is clustered 
-as is. See Details section in function \code{\link{cluster}} for more information.}
+(default is \code{TRUE}). If not, the grid matrix is clustered
+as is. See Details section in function \code{\link[=cluster]{cluster()}} for more information.}
 
 \item{trim}{The number of characters a construct is trimmed to (default is
 \code{10}). If \code{NA} no trimming is done. Trimming
 simply saves space when displaying the output.}
 
-\item{type}{Type of dendrogram. Either or \code{"triangle"} (default) 
+\item{type}{Type of dendrogram. Either or \code{"triangle"} (default)
 or \code{"rectangle"} form.}
 
 \item{xsegs}{Numeric vector of normal device coordinates (ndc i.e. 0 to 1) to mark
 the widths of the regions for the left labels, for the
-bertin display, for the right labels and for the 
+bertin display, for the right labels and for the
 vertical dendrogram (i.e. for the constructs).}
 
 \item{ysegs}{Numeric vector of normal device coordinates (ndc i.e. 0 to 1) to mark
-the heights of the regions for the horizontal dendrogram 
-(i.e. for the elements), for the bertin display and for 
+the heights of the regions for the horizontal dendrogram
+(i.e. for the elements), for the bertin display and for
 the element names.}
 
-\item{x.off}{Horizontal offset between construct labels and construct dendrogram and 
+\item{x.off}{Horizontal offset between construct labels and construct dendrogram and
 (default is \code{0.01} in normal device coordinates).}
 
-\item{y.off}{Vertical offset between bertin display and element dendrogram and 
+\item{y.off}{Vertical offset between bertin display and element dendrogram and
 (default is \code{0.01} in normal device coordinates).}
 
 \item{cex.axis}{\code{cex} for axis labels, default is \code{.6}.}
 
 \item{col.axis}{Color for axis and axis labels, default is \code{grey(.4)}.}
 
-\item{draw.axis}{Whether to draw axis showing the distance metric for the dendrograms 
+\item{draw.axis}{Whether to draw axis showing the distance metric for the dendrograms
 (default is \code{TRUE}).}
 
-\item{...}{additional parameters to be passed to function \code{\link{bertin}}.}
+\item{...}{additional parameters to be passed to function \code{\link[=bertin]{bertin()}}.}
 }
 \value{
-A list of two \code{\link{hclust}} object, for elements and constructs
-                   respectively.
+A list of two \code{\link[=hclust]{hclust()}} object, for elements and constructs
+respectively.
 }
 \description{
-Element columns and 
-constructs rows are ordered according to cluster criterion. Various 
-distance measures as well as cluster methods are supported.
+Element columns and constructs rows are ordered according to cluster criterion. Various distance measures as well as
+cluster methods are supported.
 }
 \examples{
 \dontrun{
@@ -123,7 +122,7 @@ distance measures as well as cluster methods are supported.
    # distance for elements
    bertinCluster(bell2010, dmethod=c("euclidean", "man"))
    # minkowski metric with different powers for constructs and elements    
-   bertinCluster(bell2010, dmethod="mink", p=c(2,1)))          
+   bertinCluster(bell2010, dmethod="mink", p=c(2,1))       
 
    ### clustering either constructs or elements only
    # euclidean distance and ward clustering for constructs no 
@@ -137,7 +136,7 @@ distance measures as well as cluster methods are supported.
    # different dendrogram type        
    bertinCluster(bell2010, type="rectangle")  
    # no axis drawn for dendrogram                 
-   bertinCluster(bell2010, draw.axis=F)                        
+   bertinCluster(bell2010, draw.axis=FALSE)                        
 
    ### passing on arguments to bertin function via ...
     # grey cell borders in bertin display
@@ -149,10 +148,9 @@ distance measures as well as cluster methods are supported.
    # making the vertical dendrogram bigger
    bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
    # making the horizontal dendrogram bigger          
-   bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))              
+   bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
 }
-
 }
 \seealso{
-\code{\link{cluster}}
+\code{\link[=cluster]{cluster()}}
 }

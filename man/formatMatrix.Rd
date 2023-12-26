@@ -28,7 +28,7 @@ formatMatrix(
 
 \item{diag}{Whether to show diagonal.}
 
-\item{mode}{Whether to show upper (mode=1), lower (mode=2) 
+\item{mode}{Whether to show upper (mode=1), lower (mode=2)
 or both triangles (mode=0) of the matrix.}
 }
 \description{
