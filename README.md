@@ -35,14 +35,23 @@ And for a first impression of the package features type
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-OpenRepGrid is still in alpha phase. Please be aware that API changes may occur
-
+`OpenRepGrid` is still in alpha phase. Please be aware that API changes may occur.
 
 
 ## Citation
 
 If you use OpenRepGrid in your publications, you can cite it as follows. 
 
-> Heckmann, M. (2023). OpenRepGrid: An R package for the analysis of repertory grids. *ZENODO*. doi:10.5281/zenodo.11623, R package version 0.0.14.
+> Heckmann, M. (2023). OpenRepGrid: An R package for the analysis of repertory grids. *ZENODO*. doi:10.5281/zenodo.11623, R package version 0.0.15.
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11623.svg)](http://dx.doi.org/10.5281/zenodo.11623)
+
+
+## Contributors
+
+- Mark Heckmann (maintainer)
+- Richard C. Bell
+- Alejandro García Gutiérrez (@j4n7)
+- Diego Vitali (@artoo-git)
+- José Antonio González Del Puerto (@MindCartographer)
+- Jonathan D. Raskin
