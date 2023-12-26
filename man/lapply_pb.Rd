@@ -23,9 +23,8 @@ it does is create an additional progress bar.
 \examples{
 \dontrun{
 
-   l <- sapply(1:20000, function(x) list(rnorm(1000)))
-   lapply_pb(l, mean)
-
+l <- sapply(1:20000, function(x) list(rnorm(1000)))
+lapply_pb(l, mean)
 }
 
 }

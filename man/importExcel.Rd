@@ -62,9 +62,8 @@ rg <- importExcel(file)
 system2("open", file)
 
 # Import more than one Excel file
-files <- system.file("extdata", c("grid_01.xlsx", "grid_02.xlsx") , package = "OpenRepGrid")
+files <- system.file("extdata", c("grid_01.xlsx", "grid_02.xlsx"), package = "OpenRepGrid")
 rg <- importExcel(files)
-
 }
 
 }

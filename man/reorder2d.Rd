@@ -55,9 +55,9 @@ identify circumplex structures in data indicated by the diagonal stripe in the d
 }
 \examples{
 
-x <- feixas2004  
-reorder2d(x)            # reorder grid by angles in first two dimensions
-reorder2d(x, rc=FALSE)  # reorder elements only
-reorder2d(x, re=FALSE)  # reorder constructs only
+x <- feixas2004
+reorder2d(x) # reorder grid by angles in first two dimensions
+reorder2d(x, rc = FALSE) # reorder elements only
+reorder2d(x, re = FALSE) # reorder constructs only
 
 }

@@ -18,8 +18,8 @@ Print scale range information to the console.
 \examples{
 \dontrun{
 
-   showScale(raeithel)
-   showScale(bell2010)
+showScale(raeithel)
+showScale(bell2010)
 }
 
 }

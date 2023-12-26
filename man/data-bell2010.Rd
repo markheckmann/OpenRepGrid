@@ -14,9 +14,9 @@ demonstrate the effects of construct alignment in Bell (2010, p. 46).
 Bell, R. C. (2010).	A note on aligning constructs.
 \emph{Personal Construct Theory and Practice}, 7, 43-48.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{         Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004). 
-           The effect of element role titles on construct structure 
-           and content. *Journal of constructivist 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{         Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004).
+           The effect of element role titles on construct structure
+           and content. *Journal of constructivist
            psychology, 17*(3), 221-236.
 }\if{html}{\out{</div>}}
 }

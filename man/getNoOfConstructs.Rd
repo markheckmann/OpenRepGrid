@@ -18,7 +18,7 @@ Get number of constructs
 \examples{
 \dontrun{
 
-     getNoOfConstructs(bell2010)
+getNoOfConstructs(bell2010)
 }
 
 }

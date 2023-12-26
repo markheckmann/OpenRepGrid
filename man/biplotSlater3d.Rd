@@ -39,14 +39,15 @@ function with the arguments \verb{center=1, g=1, h=1}.
 \examples{
 \dontrun{
 
-   biplotSlater3d(boeker)
-   biplotSlater3d(boeker, unity3d=T)
+biplotSlater3d(boeker)
+biplotSlater3d(boeker, unity3d = T)
 
-   biplotSlater3d(boeker, e.sphere.col="red",
-                  c.text.col="blue")
-   biplotSlater3d(boeker, e.cex=1)
-   biplotSlater3d(boeker, col.sphere="red")
-
+biplotSlater3d(boeker,
+  e.sphere.col = "red",
+  c.text.col = "blue"
+)
+biplotSlater3d(boeker, e.cex = 1)
+biplotSlater3d(boeker, col.sphere = "red")
 }
 
 }

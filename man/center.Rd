@@ -27,9 +27,9 @@ centering the standard representation mode does not work any more as it remains 
 attach to the centered values.
 }
 \examples{
- center(bell2010)						      # no centering
- center(bell2010, rows=T)				  # row centering of grid
- center(bell2010, cols=T)				  # column centering of grid
- center(bell2010, rows=T, cols=T)	# row and column centering
+center(bell2010) # no centering
+center(bell2010, rows = T) # row centering of grid
+center(bell2010, cols = T) # column centering of grid
+center(bell2010, rows = T, cols = T) # row and column centering
 
 }

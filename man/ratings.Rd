@@ -42,19 +42,19 @@ x <- bell2010
 ratings(x)
 
 
-## replace ratings   
-       
-ratings(x)[1,1] <- 1
+## replace ratings
+
+ratings(x)[1, 1] <- 1
 # noet that this is even simpler using the repgrid object directly
-x[1,1] <- 2
+x[1, 1] <- 2
 
-#replace several values
+# replace several values
 
-ratings(x)[1,1:5] <- 1
-x[1,1:5] <- 2   # the same
+ratings(x)[1, 1:5] <- 1
+x[1, 1:5] <- 2 # the same
 
-ratings(x)[1:3,5:6] <- matrix(5, 3, 2)
-x[1:3,5:6] <- matrix(5, 3, 2)   # the same
+ratings(x)[1:3, 5:6] <- matrix(5, 3, 2)
+x[1:3, 5:6] <- matrix(5, 3, 2) # the same
 
 
 ## ratings as dataframe in wide or long format

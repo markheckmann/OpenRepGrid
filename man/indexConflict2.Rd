@@ -48,20 +48,20 @@ will make it more improbable that the relation will hold.
 
 \examples{
 
- indexConflict2(bell2010)
-  
- x <- indexConflict2(bell2010)  
- print(x)
- 
- # show conflictive triads
- print(x, output = 2)
- 
- # accessing the calculations for further use
- x$total
- x$imbalanced
- x$prop.balanced
- x$prop.imbalanced
- x$triads.imbalanced
+indexConflict2(bell2010)
+
+x <- indexConflict2(bell2010)
+print(x)
+
+# show conflictive triads
+print(x, output = 2)
+
+# accessing the calculations for further use
+x$total
+x$imbalanced
+x$prop.balanced
+x$prop.imbalanced
+x$triads.imbalanced
 
 }
 \references{

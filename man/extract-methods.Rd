@@ -20,10 +20,10 @@ Methods for \code{"["}, i.e., subsetting of repgrid objects.
 }
 \examples{
 
-   x <- randomGrid()
-   x[1:4, ] 
-   x[ , 1:3] 
-   x[1:4,1:3] 
-   x[1,1]
+x <- randomGrid()
+x[1:4, ]
+x[, 1:3]
+x[1:4, 1:3]
+x[1, 1]
 
 }

@@ -25,15 +25,14 @@ the rows, the columns or the whole grid matrix.
 }
 \examples{
 \dontrun{
- 
-   # permute grid
-   permuteGrid(bell2010)
-   permuteGrid(bell2010)
-   permuteGrid(bell2010)
 
-   # generate a list of permuted grids
-    permuteGrid(bell2010, n=5)
+# permute grid
+permuteGrid(bell2010)
+permuteGrid(bell2010)
+permuteGrid(bell2010)
 
+# generate a list of permuted grids
+permuteGrid(bell2010, n = 5)
 }
 
 }

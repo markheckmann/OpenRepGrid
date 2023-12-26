@@ -18,8 +18,7 @@ Get midpoint of the grid rating scale
 \examples{
 \dontrun{
 
-     getScaleMidpoint(bell2010)
-
+getScaleMidpoint(bell2010)
 }
 
 }

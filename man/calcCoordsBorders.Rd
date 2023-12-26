@@ -30,14 +30,14 @@ Currently the vector is supposed to start in the origin \code{c(0,0)}.
 }
 \examples{
 \dontrun{
-  calcCoordsBorders(1:10, 10:1)
+calcCoordsBorders(1:10, 10:1)
 
-  x <- c(-100:0, 0:100, 100:0, 0:-100)/10
-  y <- c(0:100, 100:0, -(0:100), -(100:0))/10
-  xy1 <- calcCoordsBorders(x, y)
-  xy2 <- calcCoordsBorders(x, y, xm=1.2, ym=1.2)
-  plot(xy2[,1], xy2[,2], type="n")
-  segments(xy1[,1],xy1[,2],xy2[,1], xy2[,2])
+x <- c(-100:0, 0:100, 100:0, 0:-100) / 10
+y <- c(0:100, 100:0, -(0:100), -(100:0)) / 10
+xy1 <- calcCoordsBorders(x, y)
+xy2 <- calcCoordsBorders(x, y, xm = 1.2, ym = 1.2)
+plot(xy2[, 1], xy2[, 2], type = "n")
+segments(xy1[, 1], xy1[, 2], xy2[, 1], xy2[, 2])
 }
 
 }

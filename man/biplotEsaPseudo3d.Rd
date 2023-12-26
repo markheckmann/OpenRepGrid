@@ -40,8 +40,8 @@ and \code{\link[=biplotPseudo3d]{biplotPseudo3d()}}.
 }
 \examples{
 \dontrun{
-   # See examples in [biplotPseudo3d()] as the same arguments
-   # can used for this function.
+# See examples in [biplotPseudo3d()] as the same arguments
+# can used for this function.
 }
 
 }

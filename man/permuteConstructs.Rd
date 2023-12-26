@@ -22,9 +22,8 @@ Generate a list with all possible construct reflections of a grid.
 \examples{
 \dontrun{
 
-  l <- permuteConstructs(mackay1992)
-  l
-
+l <- permuteConstructs(mackay1992)
+l
 }
 
 }

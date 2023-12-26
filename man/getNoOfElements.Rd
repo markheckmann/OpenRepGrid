@@ -18,7 +18,7 @@ Get number of elements
 \examples{
 \dontrun{
 
-     getNoOfElements(bell2010)
+getNoOfElements(bell2010)
 }
 
 }

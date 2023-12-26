@@ -33,12 +33,11 @@ allow to return the kind of format that is needed.
 }
 \examples{
 \dontrun{
- 
- getElementNames2(bell2010)
- getElementNames2(bell2010, mode=2)
- getElementNames2(bell2010, index=T)
- getElementNames2(bell2010, index=T, trim=30)
 
+getElementNames2(bell2010)
+getElementNames2(bell2010, mode = 2)
+getElementNames2(bell2010, index = T)
+getElementNames2(bell2010, index = T, trim = 30)
 }
 
 }

@@ -18,7 +18,7 @@ elements (\code{"C"}, \code{1}), or both (\code{"CE"}, \code{12}) should be reve
 Invert construct and element order
 }
 \examples{
- 
+
 # invert order of constructs
 reorder(boeker, "C")
 reorder(boeker, 1)

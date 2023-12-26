@@ -79,18 +79,18 @@ optimal clustering. This approach is akin to the procedure used in FOCUS (Jankow
 \examples{
 \dontrun{
 
- # pvclust must be loaded
- library(pvclust)
- 
- # p-values for construct dendrogram
- s <- clusterBoot(boeker)
- plot(s)
- pvrect(s, max.only=FALSE)
- 
- # p-values for element dendrogram
- s <- clusterBoot(boeker, along=2)
- plot(s)
- pvrect(s, max.only=FALSE)
+# pvclust must be loaded
+library(pvclust)
+
+# p-values for construct dendrogram
+s <- clusterBoot(boeker)
+plot(s)
+pvrect(s, max.only = FALSE)
+
+# p-values for element dendrogram
+s <- clusterBoot(boeker, along = 2)
+plot(s)
+pvrect(s, max.only = FALSE)
 }
 
 }

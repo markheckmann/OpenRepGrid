@@ -22,8 +22,9 @@ the midpoint and descend afterwards again.
 }
 \examples{
 \dontrun{
-   for(n in 1:10) 
-       print(cascade(n)) 
+for (n in 1:10) {
+  print(cascade(n))
+}
 }
 }
 \keyword{internal}

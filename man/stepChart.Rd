@@ -23,10 +23,10 @@ for the heights.
 \examples{
 \dontrun{
 
-   x <- rnorm(1000) 
-   y <- rnorm(1000, sd=.6)  
-   stepChart(y, breaks=50)
-   stepChart(x, add=T, breaks=50, col="red")
+x <- rnorm(1000)
+y <- rnorm(1000, sd = .6)
+stepChart(y, breaks = 50)
+stepChart(x, add = T, breaks = 50, col = "red")
 }
 
 }

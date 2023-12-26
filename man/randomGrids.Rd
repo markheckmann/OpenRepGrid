@@ -46,12 +46,12 @@ simple wrapper around \code{\link[=randomGrid]{randomGrid()}}.
 \examples{
 \dontrun{
 
-     x <- randomGrids()
-     x
-     x <- randomGrids(5, 3, 3)
-     x
-     x <- randomGrids(5, 3, 3, options=0)
-     x
+x <- randomGrids()
+x
+x <- randomGrids(5, 3, 3)
+x
+x <- randomGrids(5, 3, 3, options = 0)
+x
 }
 
 }

@@ -21,9 +21,9 @@ Swap the position of two elements in a grid.
 }
 \examples{
 \dontrun{
-   x <- randomGrid()
-   swapElements(x, 1, 3)       # swap elements 1 and 3
-   swapElements(x, 1:2, 3:4)   # swap element 1 with 3 and 2 with 4
+x <- randomGrid()
+swapElements(x, 1, 3) # swap elements 1 and 3
+swapElements(x, 1:2, 3:4) # swap element 1 with 3 and 2 with 4
 }
 
 }

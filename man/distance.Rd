@@ -54,27 +54,27 @@ Various distance measures between elements or constructs are calculated.
 }
 \examples{
 
-   # between constructs
-   distance(bell2010, along = 1)
-   distance(bell2010, along = 1, normalize = TRUE)
-   
-   # between elements
-   distance(bell2010, along = 2)
- 
-   # several distance methods
-   distance(bell2010, dm = "man")           # manhattan distance
-   distance(bell2010, dm = "mink", p = 3)   # minkowski metric to the power of 3
+# between constructs
+distance(bell2010, along = 1)
+distance(bell2010, along = 1, normalize = TRUE)
 
-   # to save the results without printing to the console
-   d <- distance(bell2010, trim = 7)
-   d
-   
-   # some more options when printing the distance matrix
-   print(d, digits = 5)
-   print(d, col.index = FALSE)
-   print(d, upper = FALSE)
-   
-   # accessing entries from the matrix
-   d[1,3]
+# between elements
+distance(bell2010, along = 2)
+
+# several distance methods
+distance(bell2010, dm = "man") # manhattan distance
+distance(bell2010, dm = "mink", p = 3) # minkowski metric to the power of 3
+
+# to save the results without printing to the console
+d <- distance(bell2010, trim = 7)
+d
+
+# some more options when printing the distance matrix
+print(d, digits = 5)
+print(d, col.index = FALSE)
+print(d, upper = FALSE)
+
+# accessing entries from the matrix
+d[1, 3]
 
 }

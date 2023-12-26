@@ -17,10 +17,10 @@ Extract loadings from PCA of constructs.
 }
 \examples{
 
- p <- constructPca(bell2010)
- l <- constructPcaLoadings(p)
- l[1, ]
- l[, 1]
- l[1,1]
- 
+p <- constructPca(bell2010)
+l <- constructPcaLoadings(p)
+l[1, ]
+l[, 1]
+l[1, 1]
+
 }

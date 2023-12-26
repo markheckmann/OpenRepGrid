@@ -43,23 +43,23 @@ type \code{?describe}.
 }
 \examples{
 
-   statsConstructs(fbb2003)
-   statsConstructs(fbb2003, trim=10)
-   statsConstructs(fbb2003, trim=10, index=FALSE)
+statsConstructs(fbb2003)
+statsConstructs(fbb2003, trim = 10)
+statsConstructs(fbb2003, trim = 10, index = FALSE)
 
-   statsElements(fbb2003)
-   statsElements(fbb2003, trim=10)
-   statsElements(fbb2003, trim=10, index=FALSE)
+statsElements(fbb2003)
+statsElements(fbb2003, trim = 10)
+statsElements(fbb2003, trim = 10, index = FALSE)
 
-   # save the access the results
-   d <- statsElements(fbb2003)
-   d
-   d["mean"]
-   d[2, "mean"]  # mean rating of 2nd element
+# save the access the results
+d <- statsElements(fbb2003)
+d
+d["mean"]
+d[2, "mean"] # mean rating of 2nd element
 
-   d <- statsConstructs(fbb2003)
-   d
-   d["sd"]
-   d[1, "sd"]   # sd of ratings on first construct
+d <- statsConstructs(fbb2003)
+d
+d["sd"]
+d[1, "sd"] # sd of ratings on first construct
 
 }

@@ -42,12 +42,12 @@ exploring distributions of indexes etc.
 \examples{
 \dontrun{
 
-     x <- randomGrid()
-     x
-     x <- randomGrid(10, 25)
-     x
-     x <- randomGrid(10, 25, options=0)
-     x
+x <- randomGrid()
+x
+x <- randomGrid(10, 25)
+x
+x <- randomGrid(10, 25, options = 0)
+x
 }
 
 }

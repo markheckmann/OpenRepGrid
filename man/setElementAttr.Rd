@@ -25,15 +25,15 @@ are changed.}
 Set the attributes of an element i.e. name, abbreviation, status etc.
 }
 \note{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{       Currently the main purpose is to change element names. 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{       Currently the main purpose is to change element names.
              Future implementations will allow to set further attributes.
 }\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{
-   
-   x <- setElementAttr(boeker, 1, "new name")   # change name of first element
-   x
+
+x <- setElementAttr(boeker, 1, "new name") # change name of first element
+x
 }
 
 }

@@ -25,7 +25,7 @@ longer one
 \examples{
 recycle2(1:10, 1:3)
 recycle2(1, 1:5)
-recycle2(1, 1:5, na.fill=TRUE)
-recycle2(1:5, 5:1)    # vectors unchanged
+recycle2(1, 1:5, na.fill = TRUE)
+recycle2(1:5, 5:1) # vectors unchanged
 }
 \keyword{internal}

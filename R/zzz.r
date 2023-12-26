@@ -21,17 +21,18 @@
 assign("settings", list(), envir = .OpenRepGridEnv)
 
 
-.onAttach <- function(lib, pkg){
+.onAttach <- function(lib, pkg) {
   packageStartupMessage(
-          "------------------------------------------------",
-        "\n OpenRepGrid Version ", utils::packageDescription("OpenRepGrid", fields = "Version"), 
-        "\n Tools for the analysis of repertory grid data",
-        "\n For an introduction visit: www.openrepgrid.org",
-        "\n CAUTION: The package is in alpha phase.",
-        "\n          Design changes may still occur.", 
-        "\n------------------------------------------------", 
-        appendLF = TRUE)
-  
+    "------------------------------------------------",
+    "\n OpenRepGrid Version ", utils::packageDescription("OpenRepGrid", fields = "Version"),
+    "\n Tools for the analysis of repertory grid data",
+    "\n For an introduction visit: www.openrepgrid.org",
+    "\n CAUTION: The package is in alpha phase.",
+    "\n          Design changes may still occur.",
+    "\n------------------------------------------------",
+    appendLF = TRUE
+  )
+
   # invisible object saved in environment in namespace
   setDefaultSettings()
 }
@@ -40,4 +41,4 @@ assign("settings", list(), envir = .OpenRepGridEnv)
 # clean up workspace
 # .onUnload <- function(lib){
 #
-# } 
+# }

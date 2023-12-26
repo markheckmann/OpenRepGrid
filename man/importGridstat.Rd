@@ -61,7 +61,7 @@ rg <- importGridstat(file, dir)
 rg <- importGridstat("/Users/markheckmann/data/gridstat.dat")
 
 # setting rating scale range
-rg <- importGridstat(file, dir, min=1, max=6)
+rg <- importGridstat(file, dir, min = 1, max = 6)
 }
 
 }

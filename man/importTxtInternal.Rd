@@ -84,7 +84,6 @@ imp <- importTxtInternal(file, dir)
 
 # using a full path
 imp <- importTxtInternal("/Users/markheckmann/data/sample.txt")
-
 }
 
 }

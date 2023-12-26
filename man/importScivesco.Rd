@@ -52,7 +52,6 @@ rg <- importScivesco(file, dir)
 
 # using a full path
 rg <- importScivesco("/Users/markheckmann/data/scivesco.scires")
-
 }
 }
 \references{

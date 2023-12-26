@@ -58,9 +58,8 @@ Structure of a txt file that can be read by \code{\link[=importTxt]{importTxt()}
 \examples{
 \dontrun{
 
- x <- randomGrid()
- saveAsTxt(x, "random.txt")
-
+x <- randomGrid()
+saveAsTxt(x, "random.txt")
 }
 
 }

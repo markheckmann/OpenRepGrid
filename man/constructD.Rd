@@ -41,20 +41,19 @@ The direction of dependency needs to be specified.
 \examples{
 \dontrun{
 
-   constructD(fbb2003)       # columns as dependent (default)
-   constructD(fbb2003, "c")  # row as dependent
-   constructD(fbb2003, "s")  # symmetrical index
- 
-   # suppress printing
-   d <- constructD(fbb2003, out=0, trim=5)
-   d
-   
-   # more digits
-   constructD(fbb2003, dig=3)
+constructD(fbb2003) # columns as dependent (default)
+constructD(fbb2003, "c") # row as dependent
+constructD(fbb2003, "s") # symmetrical index
 
-   # add index column, no trimming
-   constructD(fbb2003, col.index=TRUE, index=F, trim=NA)  
+# suppress printing
+d <- constructD(fbb2003, out = 0, trim = 5)
+d
 
+# more digits
+constructD(fbb2003, dig = 3)
+
+# add index column, no trimming
+constructD(fbb2003, col.index = TRUE, index = F, trim = NA)
 }
 
 }

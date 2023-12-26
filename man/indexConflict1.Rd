@@ -42,9 +42,9 @@ The table below shows when a triad made up of the constructs A, B, and C is bala
 }
 }
 \examples{
-   
-   indexConflict1(feixas2004)
-   indexConflict1(boeker)
+
+indexConflict1(feixas2004)
+indexConflict1(boeker)
 
 }
 \references{

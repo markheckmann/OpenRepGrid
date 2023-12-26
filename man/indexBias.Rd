@@ -23,8 +23,8 @@ Numeric.
 STATUS: Working and checked against example in Slater, 1977, p. 87.
 }
 \examples{
-  indexBias(boeker)
-  
+indexBias(boeker)
+
 }
 \references{
 Slater, P. (1977). \emph{The measurement of intrapersonal space by Grid technique}. London: Wiley.

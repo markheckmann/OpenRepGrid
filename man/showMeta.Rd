@@ -18,7 +18,7 @@ prints meta information about the grid to the console (id, name of interviewee e
 \examples{
 \dontrun{
 
-   ####  TODO  ####
+####  TODO  ####
 }
 
 }

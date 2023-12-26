@@ -50,15 +50,15 @@ The standardized Slater distances is the matrix of Euclidean distances
 
 \examples{
 
-   distanceSlater(bell2010)
-   distanceSlater(bell2010, trim=40)
+distanceSlater(bell2010)
+distanceSlater(bell2010, trim = 40)
 
-   d <- distanceSlater(bell2010)
-   print(d)
-   print(d, digits=4)
-   
-   # using Norris and Makhlouf-Norris (problematic) cutoffs
-   print(d, cutoffs=c(.8, 1.2))
+d <- distanceSlater(bell2010)
+print(d)
+print(d, digits = 4)
+
+# using Norris and Makhlouf-Norris (problematic) cutoffs
+print(d, cutoffs = c(.8, 1.2))
 
 }
 \references{

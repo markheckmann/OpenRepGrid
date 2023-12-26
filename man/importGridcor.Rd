@@ -41,9 +41,7 @@ rg <- importGridcor(file, dir)
 
 # using a full path
 rg <- importGridcor("/Users/markheckmann/data/gridcor.dat")
-
 }
-
 
 }
 \references{

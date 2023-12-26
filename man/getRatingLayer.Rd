@@ -26,7 +26,7 @@ get rating layer
 \examples{
 \dontrun{
 
-     getRatingLayer(bell2010)
+getRatingLayer(bell2010)
 }
 
 }

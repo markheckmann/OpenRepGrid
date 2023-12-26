@@ -31,10 +31,10 @@ e <- elements(x)
 e
 
 ## replace element names
-elements(x) <- rev(e)       # reverse all element names
-elements(x)[1] <- "Hannes"  # replace name of first element
+elements(x) <- rev(e) # reverse all element names
+elements(x)[1] <- "Hannes" # replace name of first element
 
 # replace names of elements 1 and 3
-elements(x)[c(1,3)] <- c("element 1", "element 3")   
- 
+elements(x)[c(1, 3)] <- c("element 1", "element 3")
+
 }
