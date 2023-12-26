@@ -1735,22 +1735,35 @@ print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...)
 
 #' Dispersion of dependency index (DDI)
 #'
-#' A measure for the degree of dispersion of dependency in a situation-resource grid (dependency grid).
+#' Measures the degree of dispersion of dependency in a situation-resource grid (dependency grid), i.e. the degree to
+#' which a person dispersed critical situations over resource persons (Walker et al., 1988, p. 66). The index is a
+#' renamed adoption of the `diversity index` from the field of ecology where it is used to measure the diversity of
+#' species in a sample. Both are computationally identical. The index is applicable to dependency grids (e.g.,
+#' situation-resource) only, i.e., all grid ratings must be `0` or `1`.
 #'
-#' Applicable to dependency (situation-resource) grids (`0`/`1` ratings) only.
+#' *Caveat*: The DDI depends on the chosen sample size `ds`. Also, its measurement range is not normalized between `0` and `1`,
+#' allowing only comparison between similarly sized grids (see Bell, 2001).
 #'
-#' *Caveat*: Value depends on chosen sample size `ds`, and the measurement range is not normalized (see Bell, 2001).
-#' 
+#' **Theoretical Background**:  *Dispersion of Dependency*: Kelly (1969) proposed that it is problematic to view people
+#' as either *independent* or *dependent* because everyone is, to greater or lesser degrees, dependent upon others in
+#' life. What Kelly felt was important was how well people disperse their dependencies across different people. Whereas
+#' young children tend to have their dependencies concentrated on a  small number of people (typically parents), adults
+#' are more likely to spread their dependencies across a variety of others. Dispersing one's dependencies is generally
+#' considered more psychologically adjusted for adults (Walker et al., 1988).
+#'
 #' @param x A `repgrid` object with `0`/`1` ratings only, where `1` indicates a dependency.
 #' @param ds Predetermined size of sample of dependencies.
-#' @references 
-#' 
-#' Bell, R. C. (2001). Some new Measures of the Dispersion of Dependency in a Situation-Resource Grid. 
+#' @references
+#'
+#' Bell, R. C. (2001). Some new Measures of the Dispersion of Dependency in a Situation-Resource Grid.
 #'  *Journal of Constructivist Psychology, 14*(3), 227-234, \doi{doi:10.1080/713840106}.
-#' 
-#' Walker, B. M., Ramsey, F. L., & Bell, R. (1988). Dispersed and Undispersed Dependency. 
+#'
+#' Kelly, G. A. (1962). In whom confide: On whom depend for what. In Maher, B. (Ed.). *Clinical psychology and
+#' personality: The selected papers of George Kelly*, 189-206. New York Krieger.
+#'
+#' Walker, B. M., Ramsey, F. L., & Bell, R. (1988). Dispersed and Undispersed Dependency.
 #'  *International Journal of Personal Construct Psychology, 1*(1), 63-80, \doi{doi:10.1080/10720538808412765}.
-#'  
+#'
 #' @example inst/examples/example-indexDDI.R
 #' @seealso [indexUncertainty]
 #' @md
@@ -1781,16 +1794,23 @@ indexDDI <- function(x, ds) {
 
 #' Uncertainty index
 #'
-#' A measure for the degree of dispersion of dependency in a situation-resource grid (dependency grid).
-#' 
-#' *Note*: Applicable to dependency (situation-resource) grids (`0`/`1` ratings) only.
-#' 
+#' A measure for the degree of dispersion of dependency in a dependency grid (Bell, 2001). It is normalized measure
+#' with a value range between `0` and `1`. The index is applicable to dependency grids (e.g., situation-resource) only,
+#' i.e., all grid ratings must be `0` or `1`.
+#'
+#' **Theoretical Background**: *Dispersion of Dependency*: Kelly (1969) proposed that it is problematic to view people
+#' as either *independent* or *dependent* because everyone is, to greater or lesser degrees, dependent upon others in
+#' life. What Kelly felt was important was how well people disperse their dependencies across different people. Whereas
+#' young children tend to have their dependencies concentrated on a  small number of people (typically parents), adults
+#' are more likely to spread their dependencies across a variety of others. Dispersing one's dependencies is generally
+#' considered more psychologically adjusted for adults (Walker et al., 1988).
+#'
 #' @param x A `repgrid` object with `0`/`1` ratings only, where `1` indicates a dependency.
-#' @references 
-#' 
-#' Bell, R. C. (2001). Some new Measures of the Dispersion of Dependency in a Situation-Resource Grid. 
+#' @references
+#'
+#' Bell, R. C. (2001). Some new Measures of the Dispersion of Dependency in a Situation-Resource Grid.
 #'  *Journal of Constructivist Psychology, 14*(3), 227-234, \doi{doi:10.1080/713840106}.
-#' 
+#'
 #' @example inst/examples/example-indexUncertainty.R
 #' @seealso [indexDDI]
 #' @md

@@ -10,10 +10,17 @@ indexUncertainty(x)
 \item{x}{A \code{repgrid} object with \code{0}/\code{1} ratings only, where \code{1} indicates a dependency.}
 }
 \description{
-A measure for the degree of dispersion of dependency in a situation-resource grid (dependency grid).
+A measure for the degree of dispersion of dependency in a dependency grid (Bell, 2001). It is normalized measure
+with a value range between \code{0} and \code{1}. The index is applicable to dependency grids (e.g., situation-resource) only,
+i.e., all grid ratings must be \code{0} or \code{1}.
 }
 \details{
-\emph{Note}: Applicable to dependency (situation-resource) grids (\code{0}/\code{1} ratings) only.
+\strong{Theoretical Background}: \emph{Dispersion of Dependency}: Kelly (1969) proposed that it is problematic to view people
+as either \emph{independent} or \emph{dependent} because everyone is, to greater or lesser degrees, dependent upon others in
+life. What Kelly felt was important was how well people disperse their dependencies across different people. Whereas
+young children tend to have their dependencies concentrated on a  small number of people (typically parents), adults
+are more likely to spread their dependencies across a variety of others. Dispersing one's dependencies is generally
+considered more psychologically adjusted for adults (Walker et al., 1988).
 }
 \examples{
 # sample grid from Bell (2001, p.231)

@@ -18,7 +18,7 @@
 
 ## OpenRepGrid 0.1.15 (development version)
   
-  * `indexDDI` and `indexUncertainty`, two dispersion indexes for dependency / sitution-resource grids added.
+  * `indexDDI` and `indexUncertainty`, two dispersion indexes for dependency (e.g., situation-resource) grids added. Jon Raskin kindly helped with the documentation.
 
 ## OpenRepGrid 0.1.14
   
