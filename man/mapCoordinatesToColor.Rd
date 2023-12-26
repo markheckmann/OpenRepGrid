@@ -17,9 +17,9 @@ mapCoordinatesToColor(z, colors = c("white", "black"), val.range = c(0.2, 0.8))
 numeric vector
 }
 \description{
-From a given numeric vector z the range is determined and the values are 
-linearly mapped onto the interval given by \code{val.range}. Then 
-a color ramp using the colors given by \code{color} is created and 
+From a given numeric vector z the range is determined and the values are
+linearly mapped onto the interval given by \code{val.range}. Then
+a color ramp using the colors given by \code{color} is created and
 the mapped values are transformed into hex color values.
 }
 \keyword{internal}

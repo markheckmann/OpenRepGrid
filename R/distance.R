@@ -5,31 +5,31 @@
 #'
 #' Various distance measures between elements or constructs are calculated.
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param along       Whether to calculate distance for 1 = constructs (default) 
 #'                    or for 2= elements.
 #' @param dmethod     The distance measure to be used. This must be one of 
 #'                    "euclidean", "maximum", "manhattan", "canberra", "binary" 
 #'                    or "minkowski". Any unambiguous substring can be given. 
 #'                    For additional information on the different types type
-#'                    \code{?dist}. 
-#' @param  p          The power of the Minkowski distance, in case \code{"minkowski"}
-#'                    is used as argument for \code{dmethod}.
+#'                    `?dist`. 
+#' @param  p          The power of the Minkowski distance, in case `"minkowski"`
+#'                    is used as argument for `dmethod`.
 #' @param normalize   Use normalized distances. The distances are divided by the 
 #'                    highest possible value given the rating scale fo the grid, 
 #'                    so all distances are in the interval [0,1].
 #' @param trim        The number of characters a construct or element is trimmed to (default is
-#'                    \code{20}). If \code{NA} no trimming occurs. Trimming
+#'                    `20`). If `NA` no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs
 #'                    with long names.
 #' @param index       Whether to print the number of the construct or element 
-#'                    in front of the name (default is \code{TRUE}). This is useful to avoid
+#'                    in front of the name (default is `TRUE`). This is useful to avoid
 #'                    identical row names, which may cause an error.
-#' @param ...         Additional parameters to be passed to function \code{dist}.
-#'                    Type \code{dist} for further information. 
-#' @return            \code{matrix} object.
+#' @param ...         Additional parameters to be passed to function `dist`.
+#'                    Type `dist` for further information. 
+#' @return  `matrix` object.
 #' @export
-#' @examples \dontrun{
+#' @examples
 #'
 #'    # between constructs
 #'    distance(bell2010, along = 1)
@@ -54,11 +54,8 @@
 #'    # accessing entries from the matrix
 #'    d[1,3]
 #'
-#' }
-#'
 distance <- function(x, along = 1, dmethod = "euclidean", 
-                     p = 2, normalize = FALSE, trim = 20, index = TRUE, ...)
-{  
+                     p = 2, normalize = FALSE, trim = 20, index = TRUE, ...) {  
   dmethods <- c("euclidean", "maximum", "manhattan",    # possible distance methods
                 "canberra", "binary", "minkowski")
   dmethod <- match.arg(dmethod, dmethods)               # match method
@@ -75,7 +72,6 @@ distance <- function(x, along = 1, dmethod = "euclidean",
   attr(d, "arguments") <- list(along = along, dmethod = dmethod, p = p, 
                                notes = NULL, cutoff = NULL,
                                normalize = normalize)
-  
   # normalize distances
   if (normalize) {
     mx <- dist_minmax(x, along = along, dmethod = dmethod, p = p, max.only = TRUE)
@@ -87,13 +83,11 @@ distance <- function(x, along = 1, dmethod = "euclidean",
 
 
 #' Calculate minimal and maximal possible distance
-#' 
-#' While the minimal distance will usually be zero,
-#' the maximal distance can be used to normalize arbitrary distances.
+#'
+#' While the minimal distance will usually be zero, the maximal distance can be used to normalize arbitrary distances.
 #' @keywords internal
 #' 
-dist_minmax <- function(x, along = 1, dmethod = "euclidean", p = 2, max.only = FALSE) 
-{
+dist_minmax <- function(x, along = 1, dmethod = "euclidean", p = 2, max.only = FALSE) {
   R <- ratings(x)
   # constructs = 1, elements = 2
   if (along == 2) {
@@ -117,15 +111,15 @@ dist_minmax <- function(x, along = 1, dmethod = "euclidean", p = 2, max.only = F
 #' 
 #' @param x           Object of class distance.
 #' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'                    `2`).
 #' @param col.index   Logical. Whether to add an extra index column so the 
 #'                    column names are indexes instead of construct names. This option 
 #'                    renders a neater output as long construct names will stretch 
-#'                    the output (default is \code{TRUE}).
+#'                    the output (default is `TRUE`).
 #' @param upper       Whether to display upper triangle of correlation matrix only 
-#'                    (default is \code{TRUE}).
+#'                    (default is `TRUE`).
 #' @param cutoffs     Cutoff values. Values below or above this interval are not 
-#'                    printed. For Slater distances \code{c(.8, 1.2)} are common 
+#'                    printed. For Slater distances `c(.8, 1.2)` are common 
 #'                    values.
 #' @param diag        Whether to show the matrix diagonal.                    
 #' @param ...         Not evaluated.
@@ -185,14 +179,13 @@ print.distance <- function(x, digits = 2, col.index = TRUE,
 #' Internal workhorse for Slater standardization.
 #' 
 #' Function uses a matrix as input. All overhead
-#' of \code{repgrid} class is avoided. Needed for speedy simulations.
+#' of `repgrid` class is avoided. Needed for speedy simulations.
 #'
 #' @param x   A matrix.
 #' @keywords internal
 #' @export
 #' 
-slaterStandardization <- function(x)
-{
+slaterStandardization <- function(x) {
   E <- dist(t(x), diag=TRUE, upper=TRUE)  # euclidean distance
   E <- as.matrix(E)
   m <- ncol(x)                            # number of elements  
@@ -203,27 +196,19 @@ slaterStandardization <- function(x)
 }
 
 
-#' Calculate Slater distance.
+#' Slater distances (standardized Euclidean distances).
 #'
-#' The euclidean distance is often used as a measure of similarity between
-#' elements (see \code{\link{distance}}. A drawback of this measure is that it 
-#' depends on the range of the rating scale and the number of constructs used,
-#' i. e. on the size of a grid. \cr 
-#' An approach to standardize the euclidean distance to make it independent from
-#' size and range of ratings and was proposed by Slater (1977, pp. 94). The
-#' 'Slater distance' is the Euclidean distance divided by the expected distance.
-#' Slater distances bigger than 1 are greater than expected, lesser than 1 are
-#' smaller than expected. The minimum value is 0 and values bigger than 2 are
-#' rarely found. Slater distances have been be used to compare inter-element
-#' distances between different grids, where the grids do not need to have the
-#' same constructs or elements. Hartmann (1992) showed that Slater distance is
-#' not independent of grid size. Also the distribution of the Slater distances
-#' is asymmetric. Hence, the upper and lower limit to infer 'significance' of
-#' distance is not symmetric. The practical relevance of Hartmann's findings
-#' have been demonstrated by Schoeneich and Klapp (1998). To calculate
-#' Hartmann's version of the standardized distances see
-#' \code{\link{distanceHartmann}}
-#' 
+#' The euclidean distance is often used as a measure of similarity between elements (see [distance()]. A drawback of
+#' this measure is that it depends on the range of the rating scale and the number of constructs used, i. e. on the
+#' size of a grid. \cr An approach to standardize the euclidean distance to make it independent from size and range of
+#' ratings and was proposed by Slater (1977, pp. 94). The 'Slater distance' is the Euclidean distance divided by the
+#' expected distance. Slater distances bigger than 1 are greater than expected, lesser than 1 are smaller than
+#' expected. The minimum value is 0 and values bigger than 2 are rarely found. Slater distances have been be used to
+#' compare inter-element distances between different grids, where the grids do not need to have the same constructs or
+#' elements. Hartmann (1992) showed that Slater distance is not independent of grid size. Also the distribution of the
+#' Slater distances is asymmetric. Hence, the upper and lower limit to infer 'significance' of distance is not
+#' symmetric. The practical relevance of Hartmann's findings have been demonstrated by Schoeneich and Klapp (1998). To
+#' calculate Hartmann's version of the standardized distances see [distanceHartmann()]
 #' 
 #' @section Calculation: The Slater distance is calculated as follows. 
 #' For a derivation see Slater (1977, p.94).       \cr
@@ -237,27 +222,19 @@ slaterStandardization <- function(x)
 #' \eqn{E}{E} divided by the expected distance \eqn{U}{U}. 
 #' \deqn{E/U}{E/U}
 #'
-#' 
-#' @title 'Slater distances' (standardized Euclidean distances).
-#'
 #' @inheritParams     distance
-#' @return            A matrix with Slater distances.
+#' @return  A matrix with Slater distances.
 #'
-#' @references        Hartmann, A. (1992). Element comparisons in repertory 
-#'                    grid technique: Results and consequences of a Monte 
-#'                    Carlo study. \emph{International Journal of Personal 
-#'                    Construct Psychology, 5}(1), 41-56.
+#' @references   Hartmann, A. (1992). Element comparisons in repertory grid technique: Results and consequences of a
+#'   Monte Carlo study. *International Journal of Personal Construct Psychology, 5*(1), 41-56.
 #'
-#'                    Schoeneich, F., & Klapp, B. F. (1998). Standardization
-#'                    of interelement distances in repertory grid technique
-#'                    and its consequences for psychological interpretation 
-#'                    of self-identity plots: An empirical study. 
-#'                    \emph{Journal of Constructivist Psychology, 11}(1), 49-58.
+#'   Schoeneich, F., & Klapp, B. F. (1998). Standardization of interelement distances in repertory grid technique and
+#'   its consequences for psychological interpretation of self-identity plots: An empirical study.
+#'  *Journal of Constructivist Psychology, 11*(1), 49-58.
 #'
-#'                    Slater, P. (1977). \emph{The measurement of intrapersonal 
-#'                    space by Grid technique.} Vol. II. London: Wiley.
+#'   Slater, P. (1977). *The measurement of intrapersonal space by Grid technique.* Vol. II. London: Wiley.
 #' @export
-#' @seealso \code{\link{distanceHartmann}}
+#' @seealso [distanceHartmann()]
 #' @examples 
 #'
 #'    distanceSlater(bell2010)
@@ -415,29 +392,22 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 
 
 #' Calculate Hartmann distance
-#' 
-#' Hartmann (1992) showed in a simulation study that Slater distances (see 
-#' \code{\link{distanceSlater}}) based on random grids, for which Slater coined 
-#' the expression quasis, have a skewed distribution, a mean and a standard 
-#' deviation depending on the number of constructs elicited. He suggested a 
-#' linear transformation (z-transformation) which takes into account the 
-#' estimated (or expected) mean and the standard deviation of the derived 
-#' distribution to standardize Slater distance scores across different grid 
-#' sizes. 'Hartmann distances' represent a more accurate version of 'Slater 
-#' distances'. Note that Hartmann distances are multiplied by -1. Hence, 
-#' negative Hartmann values represent dissimilarity, i.e. a big Slater distance.
-#' \cr
-#' 
-#' There are two ways to use this function. Hartmann distances can either be 
-#' calculated based on the reference values (i.e. means and standard deviations 
-#' of Slater distance distributions) as given by Hartmann in his paper. The
-#' second option is to conduct an instant simulation for the supplied grid 
-#' size for each calculation. The second option will be more accurate when
-#' a big number of quasis is used in the simulation. \cr
-#' 
-#' It is also possible to return the quantiles of the sample distribution and
-#' only the element distances considered 'significant' according to the
-#' quantiles defined.
+#'
+#' Hartmann (1992) showed in a simulation study that Slater distances (see [distanceSlater()]) based on random grids,
+#' for which Slater coined the expression quasis, have a skewed distribution, a mean and a standard deviation depending
+#' on the number of constructs elicited. He suggested a linear transformation (z-transformation) which takes into
+#' account the estimated (or expected) mean and the standard deviation of the derived distribution to standardize
+#' Slater distance scores across different grid sizes. 'Hartmann distances' represent a more accurate version of
+#' 'Slater distances'. Note that Hartmann distances are multiplied by -1. Hence, negative Hartmann values represent
+#' dissimilarity, i.e. a big Slater distance. \cr
+#'
+#' There are two ways to use this function. Hartmann distances can either be calculated based on the reference values
+#' (i.e. means and standard deviations of Slater distance distributions) as given by Hartmann in his paper. The second
+#' option is to conduct an instant simulation for the supplied grid size for each calculation. The second option will
+#' be more accurate when a big number of quasis is used in the simulation. \cr
+#'
+#' It is also possible to return the quantiles of the sample distribution and only the element distances considered
+#' 'significant' according to the quantiles defined.
 #'
 #'
 #' @section Calculation:
@@ -449,42 +419,37 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #' \eqn{sd_c}{sd_c} the sample distribution's standard deviation.
 #'
 #' @title 'Hartmann distance' (standardized Slater distances).
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param method      The method used for distance calculation, on of 
-#'                    \code{"paper", "simulate", "new"}. \code{"paper"} uses the 
+#'                    `"paper", "simulate", "new"`. `"paper"` uses the 
 #'                    parameters as given in Hartmann (1992) for calculation.
-#'                    \code{"simulate"} (default) simulates a Slater distribution
+#'                    `"simulate"` (default) simulates a Slater distribution
 #'                    for the calculation. In a future version the time consuming
 #'                    simulation will be replaced by more accurate parameters for
 #'                    Hartmann distances than used in Hartmann (1992).    
 #' @param reps        Number of random grids to generate sample distribution for 
-#'                    Slater distances (default is \code{10000}). Note that
+#'                    Slater distances (default is `10000`). Note that
 #'                    a lot of samples may take a while to calculate.
 #' @param prob        The probability of each rating value to occur. 
-#'                    If \code{NULL} (default) the distribution is uniform.
+#'                    If `NULL` (default) the distribution is uniform.
 #'                    The number of values must match the length of the rating scale.
 #' @param progress    Whether to show a progress bar during simulation
-#'                    (default is \code{TRUE}) (for \code{method="simulate"}).
+#'                    (default is `TRUE`) (for `method="simulate"`).
 #'                    May be useful when the distribution is estimated on the basis
 #'                    of many quasis.
 #' @param distributions Whether to additionally return the values of the simulated
-#'                    distributions (Slater etc.) The default is \code{FALSE}
+#'                    distributions (Slater etc.) The default is `FALSE`
 #'                    as it will quickly boost the object size.
-#' @return            A matrix containing Hartmann distances. \cr
-#'                    In the attributes several additional parameters can be found: \cr
-#'                    \item{\code{"arguments"}}{A list of several parameters 
-#'                           including \code{mean} and \code{sd} of Slater distribution.}
-#'                    \item{\code{"quantiles"}}{Quantiles for Slater and Hartmann 
-#'                          distance distribution.}
-#'                    \item{\code{"distributions"}}{List with values of the 
-#'                          simulated distributions.}
+#' @return  A matrix containing Hartmann distances. In the attributes several additional parameters can be found: 
+#' 
+#' - `arguments`: A list of several parameters including `mean` and `sd` of Slater distribution.
+#' - `quantiles`: Quantiles for Slater and Hartmann distance distribution.
+#' - `distributions`: List with values of the simulated distributions.
 #'                                    
-#' @references        Hartmann, A. (1992). Element comparisons in repertory 
-#'                    grid technique: Results and consequences of a Monte 
-#'                    Carlo study. \emph{International Journal of Personal 
-#'                    Construct Psychology, 5}(1), 41-56.
+#' @references   Hartmann, A. (1992). Element comparisons in repertory  grid technique: Results and consequences of a
+#'   Monte  Carlo study. *International Journal of Personal Construct Psychology, 5*(1), 41-56.
 #' @export
-#' @seealso \code{\link{distanceSlater}}
+#' @seealso [distanceSlater()]
 #' @examples \dontrun{
 #'
 #'    ### basics  ###
@@ -513,8 +478,7 @@ getDistributionParameters <- function(x, probs=c(.01, .025, .05, .1, .9, .95, .9
 #' }
 #' 
 distanceHartmann <- function(x, method="paper", reps=10000,  
-                             prob=NULL, progress=TRUE, distributions=FALSE)
-{
+                             prob=NULL, progress=TRUE, distributions=FALSE) {
   if (distributions == TRUE & method != "simulate") {
     method <- "simulate"
     warning("'method' set to 'simulate' to return distributions", call.=FALSE)
@@ -589,27 +553,23 @@ distanceHartmann <- function(x, method="paper", reps=10000,
 
 
 #' Print method for class hdistance (Hartmann distance objects).
-#' 
-#' Additionally allows the specification of p-values. The corresponding 
-#' quantiles are calculated.  These are contained as attributes in the
-#' \code{hdistance} object as returned by distanceHartmann. The lowest and
-#' highest values are used as cutoffs in \code{print.distance}.
-#' 
-#' @param x           Object of class hdistance. 
-#' @inheritParams      print.distance
-#' @param p           Quantiles corresponding to probabilities are used as cutoffs. 
-#'                    Currently only works for Hartmann distances. If used 
-#'                    \code{cutoffs} is overwritten.
-#' @param ...         Not evaluated.                  
-#' 
+#'
+#' Additionally allows the specification of p-values. The corresponding quantiles are calculated.  These are contained
+#' as attributes in the `hdistance` object as returned by distanceHartmann. The lowest and highest values are used as
+#' cutoffs in `print.distance`.
+#'
+#' @param x Object of class hdistance.
+#' @inheritParams print.distance
+#' @param p Quantiles corresponding to probabilities are used as cutoffs. Currently only works for Hartmann
+#'   distances. If used `cutoffs` is overwritten.
+#' @param ... Not evaluated.
+#'
 #' @export
-#' @method            print hdistance
-#' @keywords          internal
-#' 
+#' @method print hdistance
+#' @keywords internal
 print.hdistance <- function(x, digits=2, col.index=TRUE,
                             upper=TRUE, diag=FALSE, cutoffs=NA, 
-                            p=NA, ...)
-{ 
+                            p=NA, ...) { 
   # only calculate quantiles when they are supplied in the object.
   # this is currently only the case for method="simulate". Will change
   # when bigger simulations are finished.
@@ -655,13 +615,13 @@ print.hdistance <- function(x, digits=2, col.index=TRUE,
 #' yield stable cutoff values used to determine 'significance' of inter-element 
 #' distances. It can be shown that Hartmann distances are still affected by grid
 #' parameters like size and the range of the rating scale used (Heckmann, 2012).
-#' The function \code{distanceNormalize} applies a Box-Cox (1964) transformation to the
+#' The function `distanceNormalize` applies a Box-Cox (1964) transformation to the
 #' Hartmann distances in order to remove the skew of the Hartmann distance
 #' distribution. The normalized values show to have more stable cutoffs
 #' (quantiles) and better properties for comparison across grids of different
 #' size and scale range.  \cr
 #' 
-#' The function \code{distanceNormalize} can also return
+#' The function `distanceNormalize` can also return
 #' the quantiles of the sample distribution and only the element distances
 #' considered 'significant' according to the quantiles defined.
 #' 
@@ -678,44 +638,37 @@ print.hdistance <- function(x, digits=2, col.index=TRUE,
 #' 
 #' The code for the calculation of the optimal lambda was written by Ioannis 
 #' Kosmidis.
-#' 
-#' @title             Standardized inter-element distances' (power transformed 
-#'                    Hartmann distances).
-#' @param x           \code{repgrid} object.
+#'
+#' @param x           `repgrid` object.
 #' @param reps        Number of random grids to generate to produce
 #'                    sample distribution for Hartmann distances
-#'                    (default is \code{1000}). Note that
+#'                    (default is `1000`). Note that
 #'                    a lot of samples may take a while to calculate. 
 #' @inheritParams     distanceHartmann
 #'
-#' @return            A matrix containing the standardized distances. \cr
+#' @return  A matrix containing the standardized distances. \cr
 #'                    Further data is contained in the object's attributes: \cr             
-#'                    \item{\code{"arguments"}}{A list of several parameters 
-#'                           including \code{mean} and \code{sd} of Slater distribution.}
-#'                    \item{\code{"quantiles"}}{Quantiles for Slater, Hartmann 
+#'                    \item{`"arguments"`}{A list of several parameters 
+#'                           including `mean` and `sd` of Slater distribution.}
+#'                    \item{`"quantiles"`}{Quantiles for Slater, Hartmann 
 #'                          and power transformed distance distributions.}
-#'                    \item{\code{"distributions"}}{List with values of the 
-#'                          simulated distributions, if \code{distributions=TRUE}.}
+#'                    \item{`"distributions"`}{List with values of the 
+#'                          simulated distributions, if `distributions=TRUE`.}
 #'                                    
-#' @references        Box, G. E. P., & Cox, D. R. (1964). An Analysis of Transformations. 
-#'                    \emph{Journal of the Royal Statistical Society. 
-#'                    Series B (Methodological), 26}(2), 211-252.
+#' @references   Box, G. E. P., & Cox, D. R. (1964). An Analysis of Transformations.
+#'  *Journal of the Royal Statistical Society. Series B (Methodological), 26*(2), 211-252.
 #'
-#'                    Hartmann, A. (1992). Element comparisons in repertory 
-#'                    grid technique: Results and consequences of a Monte 
-#'                    Carlo study. \emph{International Journal of Personal 
-#'                    Construct Psychology, 5}(1), 41-56.
-#'                    
-#'                    Heckmann, M. (2012). Standardizing inter-element distances 
-#'                    in grids - A revision of Hartmann's distances, 11th Biennal
-#'                    Conference of the European Personal Construct Association 
-#'                    (EPCA), Dublin, Ireland, Paper presentation, July 2012.
+#'   Hartmann, A. (1992). Element comparisons in repertory grid technique: Results and consequences of a Monte Carlo
+#'   study. *International Journal of Personal Construct Psychology, 5*(1), 41-56.
+#'
+#'   Heckmann, M. (2012). *Standardizing inter-element distances in grids - A revision of Hartmann's distances*, 11th
+#'   Biennal Conference of the European Personal Construct Association (EPCA), Dublin, Ireland, Paper presentation,
+#'   July 2012.
+#'
+#'   Slater, P. (1977). *The measurement of intrapersonal space by Grid technique*. London: Wiley.
 #' 
-#'                    Slater, P. (1977). \emph{The measurement of intrapersonal space 
-#'                    by Grid technique}. London: Wiley.
-#'
 #' @export
-#' @seealso           \code{\link{distanceHartmann}} and \code{\link{distanceSlater}}.
+#' @seealso  [distanceHartmann()] and [distanceSlater()].
 #' @examples \dontrun{
 #'
 #'    ### basics  ###

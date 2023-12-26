@@ -21,7 +21,7 @@ quasiDistributionDistanceSlater(
 
 \item{range}{Minimal and maximal scale value (default \code{c(1, 5)}).}
 
-\item{prob}{The probability of each rating value to occur. 
+\item{prob}{The probability of each rating value to occur.
 If \code{NULL} (default) the distribution is uniform.}
 
 \item{progress}{Whether to show a progress bar.}
@@ -47,8 +47,8 @@ distributions standard deviation.
 
 }
 \seealso{
-\code{\link{randomGrids}};  
-         \code{\link{distanceSlater}}; 
-         \code{\link{distanceHartmann}}.
+\code{\link[=randomGrids]{randomGrids()}};
+\code{\link[=distanceSlater]{distanceSlater()}};
+\code{\link[=distanceHartmann]{distanceHartmann()}}.
 }
 \keyword{internal}

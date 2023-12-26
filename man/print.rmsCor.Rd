@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{Object of class rmsCor.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
+\item{digits}{Numeric. Number of digits to round to (default is
 \code{2}).}
 
 \item{...}{Not evaluated.}

@@ -6,17 +6,18 @@
 \alias{bell2010}
 \title{Grid data from Bell (2010).}
 \description{
-Grid data originated (but is not shown in the paper) from a study by Haritos, 
-Gindinis, Doan and Bell (2004) on element role titles. It was used to 
+Grid data originated (but is not shown in the paper) from a study by Haritos,
+Gindinis, Doan and Bell (2004) on element role titles. It was used to
 demonstrate the effects of construct alignment in Bell (2010, p. 46).
 }
 \references{
 Bell, R. C. (2010).	A note on aligning constructs.
-             \emph{Personal Construct Theory and Practice}, 7, 43-48.
+\emph{Personal Construct Theory and Practice}, 7, 43-48.
 
-             Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004). 
-               The effect of element role titles on construct structure 
-               and content. \emph{Journal of constructivist 
-               psychology, 17}(3), 221-236.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{         Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004). 
+           The effect of element role titles on construct structure 
+           and content. *Journal of constructivist 
+           psychology, 17*(3), 221-236.
+}\if{html}{\out{</div>}}
 }
 \keyword{data}

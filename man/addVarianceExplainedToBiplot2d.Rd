@@ -21,9 +21,9 @@ addVarianceExplainedToBiplot2d(
 )
 }
 \arguments{
-\item{x}{\code{repgrid} object containing the biplot coords, i.e. after 
-having called \code{\link{calcBiplotCoords}} and 
-\code{\link{prepareBiplotData}}.}
+\item{x}{\code{repgrid} object containing the biplot coords, i.e. after
+having called \code{\link[=calcBiplotCoords]{calcBiplotCoords()}} and
+\code{\link[=prepareBiplotData]{prepareBiplotData()}}.}
 
 \item{dim}{The dimensions to be printed.}
 
@@ -33,31 +33,31 @@ having called \code{\link{calcBiplotCoords}} and
 
 \item{var.col}{The color value of the percentages shown in the plot.}
 
-\item{axis.ext}{Axis extension factor (default is \code{.1}). A bigger value will 
+\item{axis.ext}{Axis extension factor (default is \code{.1}). A bigger value will
 zoom out the plot.}
 
-\item{center}{Numeric. The type of centering to be performed. 
-0= no centering, 1= row mean centering (construct), 
+\item{center}{Numeric. The type of centering to be performed.
+0= no centering, 1= row mean centering (construct),
 2= column mean centering (elements), 3= double-centering (construct and element means),
 4= midpoint centering of rows (constructs).
 The default is \code{1} (row centering).}
 
 \item{normalize}{A numeric value indicating along what direction (rows, columns)
-to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
+to normalize by standard deviations. \verb{0 = none, 1= rows, 2 = columns}
 (default is \code{0}).}
 
-\item{g}{Power of the singular value matrix assigned to the left singular 
+\item{g}{Power of the singular value matrix assigned to the left singular
 vectors, i.e. the constructs.}
 
-\item{h}{Power of the singular value matrix assigned to the right singular 
+\item{h}{Power of the singular value matrix assigned to the right singular
 vectors, i.e. the elements.}
 
 \item{col.active}{Columns (elements) that are no supplementary points, i.e. they are used
 in the SVD to find principal components. default is to use all elements.}
 
 \item{col.passive}{Columns (elements) that are supplementary points, i.e. they are NOT used
-in the SVD but projected into the component space afterwards. They do not 
-determine the solution. Default is \code{NA}, i.e. no elements are set 
+in the SVD but projected into the component space afterwards. They do not
+determine the solution. Default is \code{NA}, i.e. no elements are set
 supplementary.}
 
 \item{...}{Not evaluated.}

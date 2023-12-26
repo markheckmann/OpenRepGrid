@@ -109,20 +109,20 @@ rglDrawConstructLabels <- function(coords, labels=FALSE, dim=1:3,
 
 #' biplot3dBase2 is the workhorse to draw a grid in rgl (3D device).
 #'
-#' @param x               \code{repgrid} object.
+#' @param x               `repgrid` object.
 #' @param dim             Dimensions to display.
 #' @param labels.e        Logical. whether element labels are displayed.
 #' @param labels.c        Logical. whether construct labels are displayed.
 #' @param lines.c         Numeric. The way lines are drawn through the construct vectors.
-#'                        \code{0 =} no lines, \code{1 =} lines from constructs to outer frame,
-#'                        \code{2 =} lines from the center to outer frame.
+#'                        `0 =` no lines, `1 =` lines from constructs to outer frame,
+#'                        `2 =` lines from the center to outer frame.
 #' @param lef             Construct lines extension factor.
-#' @param alpha.sphere    Numeric. alpha blending of the surrounding sphere (default\code{".05"}).
-#' @param col.sphere      Color of surrounding sphere (default\code{"black"}).
+#' @param alpha.sphere    Numeric. alpha blending of the surrounding sphere (default`".05"`).
+#' @param col.sphere      Color of surrounding sphere (default`"black"`).
 #' @param ext.sphere      Extension factor for sphere
 #' @param col.frame       Color of the surrounding frame.
 #' @param zoom            Not yet used. Scaling factor for all vectors. Can be used to zoom
-#'                        the plot in and out (default \code{1}). 
+#'                        the plot in and out (default `1`). 
 #' @param draw.xyz.axes   Draw standard XYZ axes.                     
 #' @param ...             Parameters to be passed on.  
 #' @keywords internal
@@ -278,24 +278,24 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
 #' a certain angle, e.g. to gain an optimal view onto the set 
 #' of elements under investigation (e.g. Raeithel, 1998). 
 #'
-#' @param x             \code{repgrid} object.
+#' @param x             `repgrid` object.
 #' @param dim           Dimensions to display.
 #' @param labels.e      Logical. whether element labels are displayed.
 #' @param labels.c      Logical. whether construct labels are displayed.
 #' @param lines.c       Numeric. The way lines are drawn through the construct vectors.
-#'                      \code{0 =} no lines, \code{1 =} lines from constructs to outer frame,
-#'                      \code{2 =} lines from the center to outer frame.
+#'                      `0 =` no lines, `1 =` lines from constructs to outer frame,
+#'                      `2 =` lines from the center to outer frame.
 #' @param lef           Construct lines extension factor
 #' 
 #' @param  center		    Numeric. The type of centering to be performed. 
 #'                      0= no centering, 1= row mean centering (construct), 
 #'                      2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                      4= midpoint centering of rows (constructs).
-#'                      Default is \code{1} (row centering).
+#'                      Default is `1` (row centering).
 #'
 #' @param  normalize    A numeric value indicating along what direction (rows, columns)
-#'                      to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                      (default is \code{0}). 
+#'                      to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
+#'                      (default is `0`). 
 #' @param g             Power of the singular value matrix assigned to the left singular 
 #'                      vectors, i.e. the constructs.
 #' @param h             Power of the singular value matrix assigned to the right singular 
@@ -304,7 +304,7 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
 #'                      in the SVD to find principal components. default is to use all elements.
 #' @param col.passive   Columns (elements) that are supplementary points, i.e. they are NOT used
 #'                      in the SVD but projected into the component space afterwards. They do not 
-#'                      determine the solution. Default is \code{NA}, i.e. no elements are set 
+#'                      determine the solution. Default is `NA`, i.e. no elements are set 
 #'                      supplementary.
 #'
 #' @param c.sphere.col  Color of construct spheres.
@@ -315,40 +315,40 @@ biplot3dBase2 <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=1,
 #' @param e.cex         Size of element labels.
 #' @param e.text.col    Color of element labels.
 #'
-#' @param alpha.sphere  Numeric. alpha blending of the surrounding sphere (default\code{".05"}).
-#' @param col.sphere    Color of surrounding sphere (default\code{"black"}).
+#' @param alpha.sphere  Numeric. alpha blending of the surrounding sphere (default`".05"`).
+#' @param col.sphere    Color of surrounding sphere (default`"black"`).
 #'
 #' @param unity         Scale elements and constructs coordinates to unit scale (maximum of 1)
-#'                      so they are printed more neatly (default \code{TRUE}).
+#'                      so they are printed more neatly (default `TRUE`).
 #' @param unity3d       To come.
 #' @param scale.e       Scaling factor for element vectors. Will cause element points to move a bit more
-#'                      to the center (but only if \code{unity} or \code{unity3d} is \code{TRUE}).
+#'                      to the center (but only if `unity` or `unity3d` is `TRUE`).
 #'                      This argument is for visual appeal only.
 #' @param zoom          Not yet used. Scaling factor for all vectors. Can be used to zoom
-#'                      the plot in and out (default \code{1}).
+#'                      the plot in and out (default `1`).
 #' @param ...           Parameters to be passed on.
 #' @export
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
-#' @references      Raeithel, A. (1998). Kooperative Modellproduktion von 
+#' @references   Raeithel, A. (1998). Kooperative Modellproduktion von 
 #'                  Professionellen und Klienten - erlauetert am Beispiel des 
-#'                  Repertory Grid. \emph{Selbstorganisation, Kooperation, Zeichenprozess: 
+#'                  Repertory Grid. *Selbstorganisation, Kooperation, Zeichenprozess: 
 #'                  Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen 
-#'                  Psychologie} (pp. 209-254). Opladen: Westdeutscher Verlag.
+#'                  Psychologie* (pp. 209-254). Opladen: Westdeutscher Verlag.
 #'
 #' @examples \dontrun{
 #'
@@ -396,15 +396,15 @@ biplot3d <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=TRUE,
 #' a certain angle, e.g. to gain an optimal view onto the set 
 #' of elements under investigation (e.g. Raeithel, 1998).
 #' Note that Slater's biplot is just a special case of a biplot
-#' that can be produced using the \code{\link{biplot3d}} 
-#' function with the arguments \code{center=1, g=1, h=1}.
+#' that can be produced using the [biplot3d()] 
+#' function with the arguments `center=1, g=1, h=1`.
 #'
-#' @param x             \code{repgrid} object.
+#' @param x             `repgrid` object.
 #' @param  center		    Numeric. The type of centering to be performed. 
 #'                      0= no centering, 1= row mean centering (construct), 
 #'                      2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                      4= midpoint centering of rows (constructs).
-#'                      Default is \code{1} (row i.e. construct centering).
+#'                      Default is `1` (row i.e. construct centering).
 #' @param g             Power of the singular value matrix assigned to the left singular 
 #'                      vectors, i.e. the constructs.
 #' @param h             Power of the singular value matrix assigned to the right singular 
@@ -412,21 +412,21 @@ biplot3d <- function(x, dim=1:3, labels.e=TRUE, labels.c=TRUE, lines.c=TRUE,
 #' @param ...           Additional arguments to be passed to biplot3d.
 #' @export
 #'
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
 #'
@@ -457,36 +457,36 @@ biplotSlater3d <- function(x, center=1, g=1, h=1, ...){
 #' of elements under investigation (e.g. Raeithel, 1998).
 #' Note that the eigenstructure analysis just a special case 
 #' of a biplot that can also be produced using the 
-#' \code{\link{biplot3d}} function with the arguments 
-#' \code{center=4, g=1, h=1}.
+#' [biplot3d()] function with the arguments 
+#' `center=4, g=1, h=1`.
 #'
-#' @param x             \code{repgrid} object.
+#' @param x             `repgrid` object.
 #' @param  center		    Numeric. The type of centering to be performed. 
 #'                      0= no centering, 1= row mean centering (construct), 
 #'                      2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                      4= midpoint centering of rows (constructs).
-#'                      Default is \code{4} (scale midpoint centering).
+#'                      Default is `4` (scale midpoint centering).
 #' @param g             Power of the singular value matrix assigned to the left singular 
 #'                      vectors, i.e. the constructs.
 #' @param h             Power of the singular value matrix assigned to the right singular 
 #'                      vectors, i.e. the elements.
-#' @param ...           Additional arguments to be passed to \code{\link{biplot3d}}.
+#' @param ...           Additional arguments to be passed to [biplot3d()].
 #' @export
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
 #'
@@ -508,7 +508,7 @@ biplotEsa3d <- function(x, center=1, g=1, h=1, ...){
 #' Rotate the interactive 3D device to default views.
 #'
 #' Rotate the interactive 3D device to a default viewpoint or
-#' to a position defined by \code{theta} and \code{phi} in Euler angles.
+#' to a position defined by `theta` and `phi` in Euler angles.
 #' Three default viewpoints are implemented rendering a view 
 #' so that two axes span a plane and the third axis is 
 #' pointing out of the screen.
@@ -518,12 +518,12 @@ biplotEsa3d <- function(x, center=1, g=1, h=1, ...){
 #' @param theta   Numeric. Euler angle. Overrides view setting.
 #' @param phi     Numeric. Euler angle. Overrides view setting.
 #'
-#' return \code{NULL}.
+#' return `NULL`.
 #' @export
 #' @seealso   Interactive 3D biplots:
-#'            \code{\link{biplot3d}},      
-#'            \code{\link{biplotSlater3d}},
-#'            \code{\link{biplotEsa3d}}.
+#'            [biplot3d()],      
+#'            [biplotSlater3d()],
+#'            [biplotEsa3d()].
 #'
 #' @examples \dontrun{
 #'

@@ -18,7 +18,7 @@ down(x, pos = 0)
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{pos}{Row (column) number of construct (element) to be moved 
+\item{pos}{Row (column) number of construct (element) to be moved
 leftwards, rightwards, upwards or downwards.
 The default is \code{0}. For indexes outside the range of
 the grid no moving is done.}

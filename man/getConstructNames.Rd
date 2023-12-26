@@ -14,8 +14,8 @@ Get construct names
 }
 \section{Deprecated functions}{
  \code{getConstructNames()},
-  and \code{cNames()} have been deprecated.
-  Instead use \code{constructs()}.
+and \code{cNames()} have been deprecated.
+Instead use \code{constructs()}.
 }
 
 \keyword{internal}

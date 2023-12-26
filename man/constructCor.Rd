@@ -14,8 +14,8 @@ constructCor(
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{method}{A character string indicating which correlation coefficient 
-is to be computed. One of \code{"pearson"} (default), 
+\item{method}{A character string indicating which correlation coefficient
+is to be computed. One of \code{"pearson"} (default),
 \code{"kendall"} or \code{"spearman"}, can be abbreviated.
 The default is \code{"pearson"}.}
 
@@ -30,7 +30,7 @@ with long names.}
 Returns a matrix of construct correlations.
 }
 \description{
-Different types of correlations can be requested: 
+Different types of correlations can be requested:
 PMC, Kendall tau rank correlation, Spearman rank correlation.
 }
 \examples{
@@ -54,5 +54,5 @@ PMC, Kendall tau rank correlation, Spearman rank correlation.
 
 }
 \seealso{
-\code{\link{elementCor}}
+\code{\link[=elementCor]{elementCor()}}
 }

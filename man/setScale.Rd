@@ -21,7 +21,7 @@ setScale(x, min, max, step, ...)
 \code{repgrid} object
 }
 \description{
-The scale must be known for certain 
+The scale must be known for certain
 operations, e.g. to swap the construct poles. If the user construes
 a grid he should make sure that the scale range is set correctly.
 }

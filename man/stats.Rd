@@ -3,7 +3,7 @@
 \name{statsElements}
 \alias{statsElements}
 \alias{statsConstructs}
-\title{Descriptive statistics for constructs and elements of a grid.}
+\title{Descriptive statistics for constructs and elements}
 \usage{
 statsElements(x, index = TRUE, trim = 20)
 
@@ -14,61 +14,52 @@ statsConstructs(x, index = T, trim = 20)
 
 \item{index}{Whether to print the number of the element.}
 
-\item{trim}{The number of characters an element or a construct
-is trimmed to (default is
-\code{20}). If \code{NA} no trimming occurs. Trimming
-simply saves space when displaying correlation of constructs
-or elements with long names.}
+\item{trim}{The number of characters an element or a construct is trimmed to (default is \code{20}). If \code{NA} no trimming
+occurs. Trimming simply saves space when displaying correlation of constructs or elements with long names.}
 }
 \value{
-A dataframe containing the following measures is returned invisibly 
-               (see \code{\link{describe}}): \cr
-               item name \cr
-               item number \cr 
-               number of valid cases \cr  
-               mean standard deviation \cr
-               trimmed mean (with trim defaulting to .1) \cr
-               median (standard or interpolated) \cr
-               mad: median absolute deviation (from the median) \cr
-               minimum \cr
-               maximum \cr
-               skew \cr
-               kurtosis \cr
-               standard error \cr
+A dataframe containing the following measures is returned invisibly (see \code{\link[=describe]{describe()}}):
+\itemize{
+\item item name
+\item item number
+\item number of valid cases
+\item mean standard deviation
+\item trimmed mean (default \code{.1})
+\item median (standard or interpolated)
+\item mad: median absolute deviation (from the median)
+\item minimum
+\item maximum
+\item skew
+\item kurtosis
+\item standard error
+}
 }
 \description{
-Descriptive statistics for constructs and elements of a grid.
-
-Descriptive statistics for constructs and elements of a grid.
+Several descriptive measures for constructs and elements.
 }
 \note{
-Note that standard deviation and variance are estimations, 
-               i.e. including Bessel's correction. For more info type \code{?describe}.
-
-Note that standard deviation and variance are estimated ones, 
-               i.e. including Bessel's correction. For more info type \code{?describe}.
+Note that standard deviation and variance are estimations, i.e. including Bessel's correction. For more info
+type \code{?describe}.
 }
 \examples{
-\dontrun{
 
    statsConstructs(fbb2003)
    statsConstructs(fbb2003, trim=10)
-   statsConstructs(fbb2003, trim=10, index=F)
+   statsConstructs(fbb2003, trim=10, index=FALSE)
 
    statsElements(fbb2003)
    statsElements(fbb2003, trim=10)
-   statsElements(fbb2003, trim=10, index=F)
+   statsElements(fbb2003, trim=10, index=FALSE)
 
    # save the access the results
    d <- statsElements(fbb2003)
    d
    d["mean"]
    d[2, "mean"]  # mean rating of 2nd element
- 
+
    d <- statsConstructs(fbb2003)
    d
    d["sd"]
    d[1, "sd"]   # sd of ratings on first construct
-}
 
 }

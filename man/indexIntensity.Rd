@@ -7,55 +7,39 @@
 indexIntensity(x, rc = FALSE, trim = 30)
 }
 \arguments{
-\item{x}{\code{repgrid} object.}
+\item{x}{A \code{repgrid} object.}
 
-\item{rc}{Whether to use Cohen's rc for the calculation of
-inter-element correlations. See \code{\link{elementCor}}
-for further explanations of this measure.}
+\item{rc}{Whether to use Cohen's rc for the calculation of inter-element correlations. See \code{\link[=elementCor]{elementCor()}} for
+further explanations of this measure.}
 
-\item{trim}{The number of characters a construct is trimmed to (default is
-\code{30}). If \code{NA} no trimming occurs. Trimming
-simply saves space when displaying correlation of constructs
-or elements with long names.}
+\item{trim}{The number of characters a construct is trimmed to (default is \code{30}). If \code{NA} no trimming occurs.
+Trimming simply saves space when displaying correlation of constructs or elements with long names.}
 }
 \value{
-An object of class \code{indexIntensity} containing a list 
-               with the following elements: \cr
-               
- \item{c.int}{Intensity scores by construct.}
- \item{e.int}{Intensity scores by element.}
- \item{c.int.mean}{Average intensity score for constructs.}
- \item{e.int.mean}{Average intensity score for elements.}
- \item{total.int}{Total intensity score.}
+An object of class \code{indexIntensity} containing a list with the following elements: \cr
+
+\code{c.int}: Intensity scores by construct. \code{e.int}: Intensity scores by element. \code{c.int.mean}: Average intensity
+score for constructs. \code{e.int.mean}: Average intensity score for elements. \code{total.int}: Total intensity score.
 }
 \description{
 Calculate intensity index.
 }
 \details{
-The Intensity index has been suggested by Bannister (1960) as a measure of
-the amount of construct linkage. Bannister suggested that the score reflects
-the degree of organization of the construct system under investigation
-(Bannister & Mair, 1968). The index resulted from his and his colleagues work
-on construction systems of patient suffering schizophrenic thought disorder.
-The concept of intensity has a theoretical connection to the notion of
-"tight" and "loose" construing as proposed by Kelly (1991). While tight
-constructs lead to unvarying prediction, loose constructs allow for varying
-predictions. Bannister hypothesized that schizophrenic thought disorder is
-liked to a process of extremely loose construing leading to a loss of
-predictive power of the subject's construct system. The Intensity score as a
-structural measure is thought to reflect this type of system disintegration
-(Bannister, 1960).
+The Intensity index has been suggested by Bannister (1960) as a measure of the amount of construct linkage.
+Bannister suggested that the score reflects the degree of organization of the construct system under investigation
+(Bannister & Mair, 1968). The index resulted from his and his colleagues work on construction systems of patient
+suffering schizophrenic thought disorder. The concept of intensity has a theoretical connection to the notion of
+"tight" and "loose" construing as proposed by Kelly (1991). While tight constructs lead to unvarying prediction,
+loose constructs allow for varying predictions. Bannister hypothesized that schizophrenic thought disorder is liked
+to a process of extremely loose construing leading to a loss of predictive power of the subject's construct system.
+The Intensity score as a structural measure is thought to reflect this type of system disintegration (Bannister,
+1960).
 
-Implementation as in the Gridcor program and explained on the 
-correspoding help pages: 
-"\ldots the sum of the squared values of the correlations 
-of each construct with the rest of the constructs, averaged by the total 
-number of constructs minus one. This process is repeated with each 
-element, and the overall Intensity is calculated by averaging the 
-intensity scores of constructs and elements."
-\url{https://www.ub.edu/terdep/pag/man11.html}.
-Currently the total is calculated as the unweighted average of all 
-single scores (for elements and construct).
+Implementation as in the Gridcor program and explained on the correspoding help pages: "\ldots the sum of the
+squared values of the correlations of each construct with the rest of the constructs, averaged by the total number
+of constructs minus one. This process is repeated with each element, and the overall Intensity is calculated by
+averaging the intensity scores of constructs and elements." \url{https://www.ub.edu/terdep/pag/man11.html}. Currently
+the total is calculated as the unweighted average of all single scores (for elements and construct).
 }
 \section{Development}{
  TODO: Results have not been tested against other programs' results.
@@ -69,13 +53,13 @@ single scores (for elements and construct).
  # using Cohen's rc for element correlations
  indexIntensity(bell2010, rc = TRUE)
 
- # save output 
+ # save output
  x <- indexIntensity(bell2010)
  x
- 
+
  # printing options
  print(x, digits=4)
- 
+
  # accessing the objects' content
  x$c.int
  x$e.int
@@ -85,7 +69,6 @@ single scores (for elements and construct).
 
 }
 \references{
-Bannister, D. (1960). Conceptual structure in 
-               thought-disordered schizophrenics. \emph{The Journal 
-               of mental science}, 106, 1230-49.
+Bannister, D. (1960). Conceptual structure in thought-disordered schizophrenics. \emph{The Journal of mental
+science}, 106, 1230-49.
 }

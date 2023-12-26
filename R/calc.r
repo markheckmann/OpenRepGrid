@@ -1,56 +1,54 @@
 
-#' Descriptive statistics for constructs and elements of a grid.
+#' Descriptive statistics for constructs and elements
 #'
-#' @param x       \code{repgrid} object.
-#' @param index   Whether to print the number of the element. 
-#' @param trim    The number of characters an element or a construct
-#'                is trimmed to (default is
-#'                \code{20}). If \code{NA} no trimming occurs. Trimming
-#'                simply saves space when displaying correlation of constructs
-#'                or elements with long names.
-#' @return        A dataframe containing the following measures is returned invisibly 
-#'                (see \code{\link{describe}}): \cr
-#'                item name \cr
-#'                item number \cr 
-#'                number of valid cases \cr  
-#'                mean standard deviation \cr
-#'                trimmed mean (with trim defaulting to .1) \cr
-#'                median (standard or interpolated) \cr
-#'                mad: median absolute deviation (from the median) \cr
-#'                minimum \cr
-#'                maximum \cr
-#'                skew \cr
-#'                kurtosis \cr
-#'                standard error \cr
+#' Several descriptive measures for constructs and elements.
+#'  
+#' @param x `repgrid` object.
+#' @param index Whether to print the number of the element.
+#' @param trim The number of characters an element or a construct is trimmed to (default is `20`). If `NA` no trimming
+#'   occurs. Trimming simply saves space when displaying correlation of constructs or elements with long names.
+#' @return  A dataframe containing the following measures is returned invisibly (see [describe()]):
 #'
-#' @note          Note that standard deviation and variance are estimations, 
-#'                i.e. including Bessel's correction. For more info type \code{?describe}.
+#'  - item name
+#'  - item number
+#'  - number of valid cases
+#'  - mean standard deviation
+#'  - trimmed mean (default `.1`)
+#'  - median (standard or interpolated)
+#'  - mad: median absolute deviation (from the median)
+#'  - minimum
+#'  - maximum
+#'  - skew
+#'  - kurtosis
+#'  - standard error
+#'
+#' @note Note that standard deviation and variance are estimations, i.e. including Bessel's correction. For more info
+#'   type `?describe`.
 #'
 #' @export
-#' @aliases statsElements statsConstructs 
+#' @aliases statsElements statsConstructs
 #' @rdname stats
-#' @examples \dontrun{
+#' @examples
 #'
 #'    statsConstructs(fbb2003)
 #'    statsConstructs(fbb2003, trim=10)
-#'    statsConstructs(fbb2003, trim=10, index=F)
+#'    statsConstructs(fbb2003, trim=10, index=FALSE)
 #'
 #'    statsElements(fbb2003)
 #'    statsElements(fbb2003, trim=10)
-#'    statsElements(fbb2003, trim=10, index=F)
+#'    statsElements(fbb2003, trim=10, index=FALSE)
 #'
 #'    # save the access the results
 #'    d <- statsElements(fbb2003)
 #'    d
 #'    d["mean"]
 #'    d[2, "mean"]  # mean rating of 2nd element
-#'  
+#'
 #'    d <- statsConstructs(fbb2003)
 #'    d
 #'    d["sd"]
 #'    d[1, "sd"]   # sd of ratings on first construct
-#' }
-#'
+#' 
 statsElements <- function(x, index=TRUE, trim=20)
 {
   if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
@@ -74,7 +72,7 @@ statsElements <- function(x, index=TRUE, trim=20)
 #' 
 #' @param x         Object of class statsElements.
 #' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{1}).
+#'                  `1`).
 #' @param ...       Not evaluated.
 #' @export
 #' @method          print statsElements
@@ -90,14 +88,8 @@ print.statsElements <- function(x, digits=2, ...)
 }
 
 
-#' Descriptive statistics for constructs and elements of a grid.
-#'
-#' @note          Note that standard deviation and variance are estimated ones, 
-#'                i.e. including Bessel's correction. For more info type \code{?describe}.
-#'
 #' @export
 #' @rdname stats
-#'
 statsConstructs <- function(x, index=T, trim=20){
   if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
    	stop("Object x must be of class 'repgrid'")
@@ -115,7 +107,7 @@ statsConstructs <- function(x, index=T, trim=20){
 #' 
 #' @param x         Object of class statsConstructs.
 #' @param digits    Numeric. Number of digits to round to (default is 
-#'                  \code{1}).
+#'                  `1`).
 #' @param ...       Not evaluated.
 #' @export
 #' @method          print statsConstructs
@@ -129,23 +121,6 @@ print.statsConstructs <- function(x, digits=2, ...)
   x <- as.data.frame(x)
   print(round(x, 2))
 }
-
-
-# TODO:
-# Golden Section Statistics, p. 10
-# Adams-Webber (1990) for dichotmous data
-# Bell & McGorry for rating grids
-#
-# Adams-Webber, J.R. (1990) Some fundamental asymmetries in the structure of personal
-# constructs. Advances in Personal Constructs, 1, 49-55.
-#
-# Bell, R. C., & McGorry P. (1992) The analysis of repertory 
-# grids used to monitor the perceptions of recovering psychotic 
-# patients. In A. Thomson & P. Cummins (Eds) European 
-# Perspectives in Personal Construct Psychology. Lincoln UK: 
-# European Personal Construct Association.
-# --> ask Richard for paper
-# statsGoldenSection
 
 
 getScoreDataFrame <- function(x){
@@ -199,22 +174,19 @@ statsDiscrepancy <- function(x, disc, sort=TRUE){
 
 #' Calculate angles for points in first two columns.
 #'
-#' The angles of the points given by the values in the first and second
-#' column of a matrix seen from the origin are calculated in degrees.
+#' The angles of the points given by the values in the first and second column of a matrix seen from the origin are
+#' calculated in degrees.
 #'
-#' @param x           A matrix.
-#' @param dim         Dimensions used for calculating angles.
-#' @param clockwise   Logical. Positive angles are clockwise with x axis as 
-#'                    basis.
-#' @return  vector.   The angles of each row point with the origin as reference.
-#'
+#' @param x A matrix.
+#' @param dim Dimensions used for calculating angles.
+#' @param clockwise Logical. Positive angles are clockwise with x axis as basis.
+#' @return  vector. The angles of each row point with the origin as reference.
 #' @keywords internal
-#'
-#' @examples \dontrun{
-#'
-#'    calcAngles(matrix(rnorm(9), 3))
+#' @examples
+#' \dontrun{
+#' m <- matrix(rnorm(9), 3)
+#' calcAngles()
 #' }
-#'
 calcAngles <- function(x, dim=c(1,2), clockwise=TRUE){
   angles <- atan2(x[ ,dim[2]], x[ ,dim[1]]) / (2 * pi / 360)
   angles <- angles * -1                    # positive angles are counted clockwise atan2 does anticlockwise by default
@@ -227,16 +199,13 @@ calcAngles <- function(x, dim=c(1,2), clockwise=TRUE){
 
 #' Make indexes to order grid by angles in given dimensions.
 #'
-#' Reorder indexes for constructs and elements are calculated 
-#' using the coordinates of the given dimensions.
+#' Reorder indexes for constructs and elements are calculated using the coordinates of the given dimensions.
 #'
-#' @param x           \code{repgrid} object that has been submitted to
-#'                    \code{\link{calcBiplotCoords}}.
-#' @param dim         Dimensions used to calculate angles for reordering grid.
-#' @param clockwise   Logical. Positive angles are clockwise with x axis as 
-#'                    basis.
-#' @return  A list containing the indexes to reorder the grid. The 
-#'          first list element for the constructs, the second for the elements indexes.
+#' @param x`repgrid` object that has been submitted to [calcBiplotCoords()].
+#' @param dim Dimensions used to calculate angles for reordering grid.
+#' @param clockwise Logical. Positive angles are clockwise with x axis as basis.
+#' @return  A list containing the indexes to reorder the grid. The first list element for the constructs, the second
+#'   for the elements indexes.
 #'
 #' @keywords internal
 #' @examples \dontrun{
@@ -247,7 +216,7 @@ calcAngles <- function(x, dim=c(1,2), clockwise=TRUE){
 #'    x                           # print grid
 #' }
 #'                  
-angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE){
+angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE) {
   if (!inherits(x, "repgrid")) 							      # check if x is repgrid object
   	stop("Object x must be of class 'repgrid'") 
   E.mat <- x@calcs$biplot$elem
@@ -261,50 +230,42 @@ angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE){
 
 #' Order grid by angles between construct and/or elements in 2D.
 #'
-#' The approach is to reorder 
-#' the grid matrix by their polar angles on the first two principal 
-#' components from a data reduction technique 
-#' (here the biplot, i.e. SVD). The function 
-#' \code{reorder2d} reorders the grid according to the angles 
-#' between the x-axis and the element (construct) 
-#' vectors derived from a 2D biplot solution.
-#' This approach is apt to identify circumplex 
-#' structures in data indicated by the diagonal stripe 
-#' in the display (see examples).
+#' The approach is to reorder the grid matrix by their polar angles on the first two principal components from a data
+#' reduction technique (here the biplot, i.e. SVD). The function `reorder2d` reorders the grid according to the angles
+#' between the x-axis and the element (construct) vectors derived from a 2D biplot solution. This approach is apt to
+#' identify circumplex structures in data indicated by the diagonal stripe in the display (see examples).
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param dim         Dimension of 2D solution used to calculate angles
-#'                    (default \code{c(1,2)}).
+#'                    (default `c(1,2)`).
 #' @param center		  Numeric. The type of centering to be performed. 
-#'                    0= no centering, 1= row mean centering (construct), 
-#'                    2= column mean centering (elements), 3= double-centering (construct and element means),
-#'                    4= midpoint centering of rows (constructs).
-#'                    The default is \code{1} (row centering).
+#'                    `0`= no centering, `1`= row mean centering (construct), 
+#'                    `2`= column mean centering (elements), `3`= double-centering (construct and element means),
+#'                    `4`= midpoint centering of rows (constructs).
+#'                    The default is `1` (row centering).
 #' @param normalize   A numeric value indicating along what direction (rows, columns)
-#'                    to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                    (default is \code{0}).
+#'                    to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
+#'                    (default is `0`).
 #' @param g           Power of the singular value matrix assigned to the left singular 
 #'                    vectors, i.e. the constructs.
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements.
-#' @param rc          Logical. Reorder constructs by similarity (default \code{TRUE}).
-#' @param re          Logical. Reorder elements by similarity (default \code{TRUE}).
+#' @param rc          Logical. Reorder constructs by similarity (default `TRUE`).
+#' @param re          Logical. Reorder elements by similarity (default `TRUE`).
 #' @param ...         Not evaluated.
 #'
-#' @return            Reordered \code{repgrid} object. 
+#' @return Reordered `repgrid` object. 
 #'
 #' @export
+#' @examples
 #'
-#' @examples \dontrun{
-#'
-#'    x <- feixas2004  
-#'    reorder2d(x)            # reorder grid by angles in first two dimensions
-#'    reorder2d(x, rc=F)      # reorder elements only
-#'    reorder2d(x, re=F)      # reorder constructs only
-#' }
-#'
+#' x <- feixas2004  
+#' reorder2d(x)            # reorder grid by angles in first two dimensions
+#' reorder2d(x, rc=F)      # reorder elements only
+#' reorder2d(x, re=F)      # reorder constructs only
+#' 
 reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g, 
-                    rc=TRUE, re=TRUE, ... ){
+                    rc=TRUE, re=TRUE, ... ) {
   if (!inherits(x, "repgrid")) 							  # check if x is repgrid object
   	stop("Object x must be of class 'repgrid'")
   x <- calcBiplotCoords(x, center=center, normalize=normalize, g=g, h=h, ...)
@@ -317,54 +278,40 @@ reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g,
 }
 
 
-
   
 #### __________________ ####
 ####      ELEMENTS      ####
 
 
 #' Calculate the correlations between elements.
-#' 
-#' Note that simple element correlations as a measure of similarity
-#' are flawed as they are not invariant to construct reflection (Mackay, 1992; 
-#' Bell, 2010). A correlation index invariant to construct reflection is 
-#' Cohen's rc measure (1969), which can be calculated using the argument 
-#' \code{rc=TRUE} which is the default option.
 #'
-#' @param x         \code{repgrid} object.
-#' @param rc        Use Cohen's rc which is invariant to construct 
-#'                  reflection (see description above). It is used as the default.
-#' @param method    A character string indicating which correlation coefficient 
-#'                  is to be computed. One of \code{"pearson"} (default), 
-#'                  \code{"kendall"} or \code{"spearman"}, can be abbreviated.
-#'                  The default is \code{"pearson"}.
-#' @param trim      The number of characters a construct is trimmed to (default is
-#'                  \code{20}). If \code{NA} no trimming occurs. Trimming
-#'                  simply saves space when displaying correlation of constructs
-#'                  with long names.
-#' @param index     Whether to print the number of the construct. 
+#' Note that simple element correlations as a measure of similarity are flawed as they are not invariant to construct
+#' reflection (Mackay, 1992; Bell, 2010). A correlation index invariant to construct reflection is Cohen's rc measure
+#' (1969), which can be calculated using the argument `rc=TRUE` which is the default option.
 #'
-#' @references      Bell, R. C. (2010). A note on aligning constructs. 
-#'                  \emph{Personal Construct Theory & Practice}, (7), 42-48.
+#' @param x `repgrid` object.
+#' @param rc Use Cohen's rc which is invariant to construct reflection (see description above). It is used as the
+#'   default.
+#' @param method A character string indicating which correlation coefficient is to be computed. One of `"pearson"`
+#'   (default), `"kendall"` or `"spearman"`, can be abbreviated. The default is `"pearson"`.
+#' @param trim The number of characters a construct is trimmed to (default is `20`). If `NA` no trimming occurs.
+#'   Trimming simply saves space when displaying correlation of constructs with long names.
+#' @param index Whether to print the number of the construct.
+#' @references Bell, R. C. (2010). A note on aligning constructs.
+#' *Personal Construct Theory & Practice*, (7), 42-48.
 #'
-#'                  Cohen, J. (1969). rc: A profile similarity coefficient 
-#'                  invariant over variable reflection. \emph{Psychological 
-#'                  Bulletin, 71}(4), 281-284.
+#' Cohen, J. (1969). rc: A profile similarity coefficient invariant over variable reflection. *Psychological Bulletin,
+#' 71*(4), 281-284.
 #'
-#'                  Mackay, N. (1992). Identification, Reflection, 
-#'                  and Correlation: Problems In The Bases Of Repertory 
-#'                  Grid Measures. \emph{International Journal of Personal
-#'                  Construct Psychology, 5}(1), 57-75. 
+#' Mackay, N. (1992). Identification, Reflection, and Correlation: Problems In The Bases Of Repertory Grid Measures.
+#' *International Journal of Personal Construct Psychology, 5*(1), 57-75.
 #'
-#' @return  \code{matrix} of element correlations
-#'
+#' @return  `matrix` of element correlations
 #' @export
-#' @seealso \code{\link{constructCor}}
-#'
+#' @seealso [constructCor()]
 #' @examples
-#'
-#'    elementCor(mackay1992)                      # Cohen's rc
-#'    elementCor(mackay1992, rc=FALSE)            # PM correlation
+#'    elementCor(mackay1992)  # Cohen's rc
+#'    elementCor(mackay1992, rc=FALSE)  # PM correlation
 #'    elementCor(mackay1992, rc=FALSE, method="spearman")  # Spearman correlation
 #'
 #'    # format output
@@ -374,18 +321,17 @@ reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g,
 #'    # save as object for further processing
 #'    r <- elementCor(mackay1992)
 #'    r
-#'    
+#'
 #'    # change output of object
 #'    print(r, digits=5)
 #'    print(r, col.index=FALSE)
 #'    print(r, upper=FALSE)
-#'    
+#'
 #'    # accessing elements of the correlation matrix
 #'    r[1,3]
 #'    
 elementCor <- function(x, rc=TRUE, method="pearson", 
-                          trim=20, index=TRUE)
-{
+                          trim=20, index=TRUE) {
   method <- match.arg(method,  c("pearson", "kendall", "spearman"))
   if (!inherits(x, "repgrid")) 							# check if x is repgrid object
   	stop("Object x must be of class 'repgrid'")
@@ -406,18 +352,17 @@ elementCor <- function(x, rc=TRUE, method="pearson",
 #' 
 #' @param x           Object of class elementCor
 #' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'                    `2`).
 #' @param col.index   Logical. Whether to add an extra index column so the 
 #'                    column names are indexes instead of construct names. This option 
 #'                    renders a neater output as long construct names will stretch 
-#'                    the output (default is \code{TRUE}).
+#'                    the output (default is `TRUE`).
 #' @param upper       Whether to display upper triangle of correlation matrix only 
-#'                    (default is \code{TRUE}).
+#'                    (default is `TRUE`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print elementCor
-#' @keywords          internal
-#'
+#' @keywords internal
 print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 {
   args <- attr(x, "arguments")
@@ -446,39 +391,34 @@ print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 
 #' Root mean square (RMS) of inter-element correlations.
 #'
-#' The RMS is also known as 'quadratic mean' of 
-#' the inter-element correlations. The RMS serves as a simplification of the 
-#' correlation table. It reflects the average relation of one element with all 
-#' other elements. Note that as the correlations are squared during its calculation, 
-#' the RMS is not affected by the sign of the correlation (cf. Fransella, 
-#' Bell & Bannister, 2003, p. 86).
-#' 
-#' Note that simple element correlations as a measure of similarity
-#' are flawed as they are not invariant to construct reflection (Mackay, 1992; 
-#' Bell, 2010). A correlation index invariant to construct reflection is 
-#' Cohen's rc measure (1969), which can be calculated using the argument 
-#' \code{rc=TRUE} which is the default option in this function.
+#' The RMS is also known as 'quadratic mean' of the inter-element correlations. The RMS serves as a simplification of
+#' the correlation table. It reflects the average relation of one element with all other elements. Note that as the
+#' correlations are squared during its calculation, the RMS is not affected by the sign of the correlation (cf.
+#' Fransella, Bell & Bannister, 2003, p. 86).
+#'
+#' Note that simple element correlations as a measure of similarity are flawed as they are not invariant to construct
+#' reflection (Mackay, 1992; Bell, 2010). A correlation index invariant to construct reflection is Cohen's rc measure
+#' (1969), which can be calculated using the argument `rc=TRUE` which is the default option in this function.
 #'                  
-#' @param x       \code{repgrid} object.
+#' @param x       `repgrid` object.
 #' @param rc      Whether to use Cohen's rc which is invariant to construct 
 #'                reflection (see description above). It is used as the default.
 #' @param method  A character string indicating which correlation coefficient 
-#'                to be computed. One of \code{"pearson"} (default), 
-#'                \code{"kendall"} or \code{"spearman"}, can be abbreviated.
-#'                The default is \code{"pearson"}.
+#'                to be computed. One of `"pearson"` (default), 
+#'                `"kendall"` or `"spearman"`, can be abbreviated.
+#'                The default is `"pearson"`.
 #' @param trim    The number of characters an element is trimmed to (default is
-#'                \code{NA}). If \code{NA} no trimming occurs. Trimming
+#'                `NA`). If `NA` no trimming occurs. Trimming
 #'                simply saves space when displaying correlation of constructs
 #'                with long names.
-#' @return        \code{dataframe} of the RMS of inter-element correlations
+#' @return `dataframe` of the RMS of inter-element correlations.
 #'
 #' @export
-#' @seealso  \code{\link{constructRmsCor}}, \code{\link{elementCor}}
+#' @seealso  [constructRmsCor()], [elementCor()]
 #'
-#' @references    Fransella, F., Bell, R. C., & Bannister, D. (2003). 
-#'                A Manual for Repertory 
-#'                Grid Technique (2. Ed.). Chichester: John Wiley & Sons.
-#'
+#' @references Fransella, F., Bell, R. C., & Bannister, D. (2003).
+#'  *A Manual for Repertory  Grid Technique (2. Ed.)*. Chichester: John Wiley & Sons.
+#' 
 #' @examples 
 #'
 #'    # data from grid manual by Fransella, Bell and Bannister
@@ -492,8 +432,7 @@ print.elementCor <- function(x, digits=2, col.index=TRUE, upper=TRUE, ...)
 #'    # access second row of calculation results
 #'    r[2, "RMS"]
 #'
-elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA)
-{
+elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA) {
   method <- match.arg(method,  c("pearson", "kendall", "spearman"))
   res <- elementCor(x, rc = rc, method = method, trim = trim,
              index = TRUE)                              # calc correlations 
@@ -515,20 +454,20 @@ elementRmsCor <- function(x, rc = TRUE, method = "pearson", trim = NA)
 #' Different types of correlations can be requested: 
 #' PMC, Kendall tau rank correlation, Spearman rank correlation.
 #'
-#' @param x         \code{repgrid} object.
+#' @param x         `repgrid` object.
 #' @param method    A character string indicating which correlation coefficient 
-#'                  is to be computed. One of \code{"pearson"} (default), 
-#'                  \code{"kendall"} or \code{"spearman"}, can be abbreviated.
-#'                  The default is \code{"pearson"}.
+#'                  is to be computed. One of `"pearson"` (default), 
+#'                  `"kendall"` or `"spearman"`, can be abbreviated.
+#'                  The default is `"pearson"`.
 #' @param trim      The number of characters a construct is trimmed to (default is
-#'                  \code{20}). If \code{NA} no trimming occurs. Trimming
+#'                  `20`). If `NA` no trimming occurs. Trimming
 #'                  simply saves space when displaying correlation of constructs
 #'                  with long names.
 #' @param index     Whether to print the number of the construct. 
-#' @return          Returns a matrix of construct correlations.
+#' @return Returns a matrix of construct correlations.
 #'
 #' @export
-#' @seealso \code{\link{elementCor}}
+#' @seealso [elementCor()]
 #'
 #' @examples 
 #'
@@ -567,13 +506,13 @@ constructCor <- function(x, method = c("pearson", "kendall", "spearman"),
 #' 
 #' @param x           Object of class constructCor.
 #' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'                    `2`).
 #' @param col.index   Logical. Whether to add an extra index column so the 
 #'                    column names are indexes instead of construct names. This option 
 #'                    renders a neater output as long construct names will stretch 
-#'                    the output (default is \code{TRUE}).
+#'                    the output (default is `TRUE`).
 #' @param upper       Whether to display upper triangle of correlation matrix only 
-#'                    (default is \code{TRUE}).
+#'                    (default is `TRUE`).
 #' @param header      Whether to print additional information in header.
 #' @param ...         Not evaluated.
 #' @export
@@ -614,18 +553,18 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 #' the RMS is not affected by the sign of the correlation (cf. Fransella, 
 #' Bell & Bannister, 2003, p. 86).
 #'
-#' @param x       \code{repgrid} object
+#' @param x       `repgrid` object
 #' @param method  A character string indicating which correlation coefficient 
-#'                is to be computed. One of \code{"pearson"} (default), 
-#'                \code{"kendall"} or \code{"spearman"}, can be abbreviated.
-#'                The default is \code{"pearson"}.
+#'                is to be computed. One of `"pearson"` (default), 
+#'                `"kendall"` or `"spearman"`, can be abbreviated.
+#'                The default is `"pearson"`.
 #' @param trim    The number of characters a construct is trimmed to (default is
-#'                \code{NA}). If \code{NA} no trimming occurs. Trimming
+#'                `NA`). If `NA` no trimming occurs. Trimming
 #'                simply saves space when displaying correlation of constructs
 #'                with long names.
-#' @return        \code{dataframe} of the RMS of inter-construct correlations
+#' @return  `dataframe` of the RMS of inter-construct correlations
 #' @export
-#' @seealso    \code{\link{elementRmsCor}}, \code{\link{constructCor}}
+#' @seealso [elementRmsCor()], [constructCor()]
 #'
 #' @references    Fransella, F., Bell, R. C., & Bannister, D. (2003). 
 #'                A Manual for Repertory 
@@ -644,8 +583,7 @@ print.constructCor <- function(x, digits=2, col.index=TRUE,
 #'    # access calculation results
 #'    r[2, 1]
 #'
-constructRmsCor <- function(x, method = "pearson", trim = NA)
-{
+constructRmsCor <- function(x, method = "pearson", trim = NA) {
   method <- match.arg(method,  c("pearson", "kendall", "spearman"))
   res <- constructCor(x, method = method, trim=trim, 
                       index=TRUE)                       # calc correlations
@@ -662,7 +600,7 @@ constructRmsCor <- function(x, method = "pearson", trim = NA)
 #' 
 #' @param x           Object of class rmsCor.
 #' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'                    `2`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print rmsCor
@@ -688,25 +626,25 @@ print.rmsCor <- function(x, digits=2, ...)
 #' variable is set as dependent and independent.
 #' The direction of dependency needs to be specified.
 #'
-#' @param x           \code{repgrid} object
+#' @param x           `repgrid` object
 #' @param dependent   A string denoting the direction of dependency in the output 
-#'                    table (as d is asymmetrical). Possible values are \code{"columns"}
-#'                    (the default) for setting the columns as dependent, \code{"rows"} 
+#'                    table (as d is asymmetrical). Possible values are `"columns"`
+#'                    (the default) for setting the columns as dependent, `"rows"` 
 #'                    for setting the rows as the dependent variable and 
-#'                    \code{"symmetric"} for the 
+#'                    `"symmetric"` for the 
 #'                    symmetrical Somers' d measure (the mean of the two directional 
-#'                    values for code{"columns"} and \code{"rows"}).
+#'                    values for code{"columns"} and `"rows"`).
 #' @param trim        The number of characters a construct is trimmed to (default is
-#'                    \code{30}). If \code{NA} no trimming occurs. Trimming
+#'                    `30`). If `NA` no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs
 #'                    with long names.
 #' @param index       Whether to print the number of the construct 
-#'                    (default is \code{TRUE}). 
-#' @return            \code{matrix} of construct correlations.
+#'                    (default is `TRUE`). 
+#' @return  `matrix` of construct correlations.
 #' @note              Thanks to Marc Schwartz for supplying the code to calculate
 #'                    Somers' d.
-#' @references        Somers, R. H. (1962). A New Asymmetric Measure of Association
-#'                    for Ordinal Variables. \emph{American Sociological Review, 27}(6),
+#' @references   Somers, R. H. (1962). A New Asymmetric Measure of Association
+#'                    for Ordinal Variables. *American Sociological Review, 27*(6),
 #'                    799-811.
 #'
 #' @export
@@ -772,11 +710,11 @@ constructD <- function(x, dependent = "columns", trim=30, index=TRUE)
 #' 
 #' @param x           Object of class constructD.
 #' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'                    `2`).
 #' @param col.index   Logical. Whether to add an extra index column so the 
 #'                    column names are indexes instead of construct names. This option 
 #'                    renders a neater output as long construct names will stretch 
-#'                    the output (default is \code{TRUE}).
+#'                    the output (default is `TRUE`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print constructD
@@ -801,56 +739,44 @@ print.constructD <- function(x, digits=1, col.index=TRUE, ...)
 
 #' Principal component analysis (PCA) of inter-construct correlations.
 #'
-#' Various methods for rotation and methods for the calculation of the 
-#' correlations are available. Note that the number of factors
-#' has to be specified. For more information on the PCA function itself type 
-#' \code{?principal}. 
+#' Various methods for rotation and methods for the calculation of the correlations are available. Note that the number
+#' of factors has to be specified. For more information on the PCA function itself type `?principal`.
 #'
-#' @param x           \code{repgrid} object.
-#' @param nfactors    Number of components to extract (default is \code{3}).
-#' @param rotate      \code{"none"}, \code{"varimax"}, \code{"promax"} and \code{"cluster"} 
-#'                    are possible rotations (default is \code{none}).
-#' @param method      A character string indicating which correlation coefficient 
-#'                    is to be computed. One of \code{"pearson"} (default), 
-#'                    \code{"kendall"} or \code{"spearman"}, can be abbreviated.
-#'                    The default is \code{"pearson"}.
-#' @param trim        The number of characters a construct is trimmed to (default is
-#'                    \code{7}). If \code{NA} no trimming occurs. Trimming
-#'                    simply saves space when displaying correlation of constructs
-#'                    with long names.
-#' @return            Returns an object of class \code{constructPca}.
-#'
-#' @seealso           To extract the PCA loadings for further processing see
-#'                    \code{\link{constructPcaLoadings}}.
+#' @param x `repgrid` object.
+#' @param nfactors Number of components to extract (default is `3`).
+#' @param rotate `"none"`, `"varimax"`, `"promax"` and `"cluster"` are possible rotations (default is `none`).
+#' @param method A character string indicating which correlation coefficient is to be computed. One of `"pearson"`
+#'   (default), `"kendall"` or `"spearman"`, can be abbreviated. The default is `"pearson"`.
+#' @param trim        The number of characters a construct is trimmed to (default is `7`). If `NA` no trimming occurs.
+#'   Trimming simply saves space when displaying correlation of constructs with long names.
+#' @return  Returns an object of class `constructPca`.
+#' @seealso  To extract the PCA loadings for further processing see [constructPcaLoadings()].
 #' @export
-#' 
-#' @references        Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A Manual for Repertory 
-#'                    Grid Technique} (2. Ed.). Chichester: John Wiley & Sons.
+#' @references   Fransella, F., Bell, R. & Bannister, D. (2003). *A Manual for Repertory Grid Technique* (2. Ed.).
+#'   Chichester: John Wiley & Sons.
 #'
-#' @examples \dontrun{
+#' @examples
 #'
 #'    constructPca(bell2010)
-#'    
+#'
 #'    # data from grid manual by Fransella et al. (2003, p. 87)
 #'    # note that the construct order is different
 #'    constructPca(fbb2003, nfactors=2)
 #'
 #'    # no rotation
 #'    constructPca(fbb2003, rotate="none")
-#'    
+#'
 #'    # use a different type of correlation (Spearman)
 #'    constructPca(fbb2003, method="spearman")
-#'    
-#'    # save output to object           
+#'
+#'    # save output to object
 #'    m <- constructPca(fbb2003, nfactors=2)
 #'    m
-#'    
+#'
 #'    # different printing options
 #'    print(m, digits=5)
 #'    print(m, cutoff=.3)
-#'    
-#' }
-#'
+#' 
 constructPca <- function(x, nfactors=3, rotate="varimax", method = "pearson" , 
                          trim=NA) {
   
@@ -880,7 +806,6 @@ constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", t
     load_mat <- p$rotation
   } 
   
-  
   # PCA of construct correlations
   if (method != "raw") {
     input <- "construct correlation matrix"
@@ -897,45 +822,40 @@ constructPca_new <- function(x, nfactors = 3, method = "raw", rotate = "none", t
     eigenvalues <- pc$values
   }
   
-  
-  
   # attr(pc, "arguments") <- list(nfactors = nfactors, rotate = rotate, method = method)
   return(pc)
-  
-  # new structure
-  list(
-    input = input,
-    method = method,
-    nfactors = nfactors,
-    rotation = "none",
-    eigenvalues = eigenvalues,
-    loadings = load_mat
-    
-    
-  )
-  scale(t(r))^2 %>% sum
-  
-  apply(load_mat, 2, function(x) sum(x^2))  
-  
+  # 
+  # # new structure
+  # list(
+  #   input = input,
+  #   method = method,
+  #   nfactors = nfactors,
+  #   rotation = "none",
+  #   eigenvalues = eigenvalues,
+  #   loadings = load_mat
+  #   
+  #   
+  # )
+  # scale(t(r))^2 %>% sum
+  # 
+  # apply(load_mat, 2, function(x) sum(x^2))  
 }
 
 
 #' Extract loadings from PCA of constructs.
-#' 
-#' @param x       \code{repgrid} object. This object is returned by the 
-#'                function \code{\link{constructPca}}.
-#' @return        A matrix containing the factor loadings.
+#'
+#' @param x `repgrid` object. This object is returned by the function [constructPca()].
+#' @return  A matrix containing the factor loadings.
 #' @export
-#' @examples 
-#'  
+#' @examples
+#'
 #'  p <- constructPca(bell2010)
 #'  l <- constructPcaLoadings(p)
 #'  l[1, ]
 #'  l[, 1]
 #'  l[1,1]
 #'  
-constructPcaLoadings <- function(x)
-{
+constructPcaLoadings <- function(x) {
   if (!inherits(x, "constructPca"))
     stop("'x' must be an object of class 'constructPca'",
          "as returned by the function 'constructPca'")
@@ -944,16 +864,15 @@ constructPcaLoadings <- function(x)
 
 
 #' Print method for class constructPca.
-#' 
-#' @param x           Object of class constructPca.
-#' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'
+#' @param x           Object of class `constructPca`.
+#' @param digits      Numeric. Number of digits to round to (default is `2`).
 #' @param cutoff      Loadings smaller than cutoff are not printed.
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print constructPca
 #' @keywords          internal
-#'
+#' 
 print.constructPca <- function(x, digits=2, cutoff=0, ...)
 {
   args <- attr(x, "arguments")
@@ -968,83 +887,65 @@ print.constructPca <- function(x, digits=2, cutoff=0, ...)
 }
 
 
-#' Align constructs by loadings on first principal component. 
+#' Align constructs by loadings on first principal component.
 #'
-#' In case a construct loads negatively on the first principal
-#' component, the function \code{\link{alignByLoadings}} will reverse it 
-#' so that all constructs have positive loadings on the first 
-#' principal component (see detail section for more).
+#' In case a construct loads negatively on the first principal component, the function [alignByLoadings()] will reverse
+#' it so that all constructs have positive loadings on the first principal component (see detail section for more).
 #'
-#' The direction of the constructs in a grid is arbitrary and 
-#' a reflection of a scale does not affect the information 
-#' contained in the grid. Nonetheless, the direction of a scale 
-#' has an effect on inter-element correlations (Mackay, 1992) 
-#' and on the spatial representation and clustering of the grid 
-#' (Bell, 2010). Hence, it is desirable to follow a protocol to align 
-#' constructs that will render unique results. A common approach 
-#' is to align constructs by pole preference, but this information 
-#' is not always accessible. Bell (2010) proposed another solution for
-#'  the problem of construct 
-#' alignment. As a unique protocol he suggests to align constructs 
-#' in a way so they all have positive loadings on the first 
-#' component of a grid PCA.
+#' The direction of the constructs in a grid is arbitrary and a reflection of a scale does not affect the information
+#' contained in the grid. Nonetheless, the direction of a scale has an effect on inter-element correlations (Mackay,
+#' 1992) and on the spatial representation and clustering of the grid (Bell, 2010). Hence, it is desirable to follow a
+#' protocol to align constructs that will render unique results. A common approach is to align constructs by pole
+#' preference, but this information is not always accessible. Bell (2010) proposed another solution for the problem of
+#' construct alignment. As a unique protocol he suggests to align constructs in a way so they all have positive
+#' loadings on the first component of a grid PCA.
 #'
-#' @param x         \code{repgrid} object.
-#' @param trim      The number of characters a construct is trimmed to (default is
-#'                  \code{10}). If \code{NA} no trimming is done. Trimming
-#'                  simply saves space when displaying the output.
-#' @param index     Whether to print the number of the construct (e.g. for correlation 
-#'                  matrices). The default is \code{TRUE}.
-#' @return          An object of class \code{alignByLoadings} containing a list 
-#'                  of calculations with the following entries:
-#'                  
-#'                   \item{cor.before}{Construct correlation matrix before reversal}
-#'                   \item{loadings.before}{Loadings on PCs before reversal}
-#'                   \item{reversed}{Constructs that have been reversed}
-#'                   \item{cor.after}{Construct correlation matrix after reversal}
-#'                   \item{loadings.after}{Loadings on PCs after reversal}
-#' 
-#' @note            Bell (2010) proposed a solution for the problem of construct 
-#'                  alignment. As construct reversal has an effect on element 
-#'                  correlation and thus on any measure that based on element 
-#'                  correlation (Mackay, 1992), it is desirable to have a 
-#'                  standard method for 
-#'                  construct alignment independently from its semantics (preferred 
-#'                  pole etc.). Bell (2010) proposes to align constructs in a way
-#'                  so they all have positive loadings on the first component of a 
-#'                  grid PCA.
-#' 
-#' @references      Bell, R. C. (2010). A note on aligning constructs.
-#'                  \emph{Personal Construct Theory & Practice, 7}, 42-48.
-#' 
-#'                  Mackay, N. (1992). Identification, Reflection, 
-#'                  and Correlation: Problems in the bases of repertory 
-#'                  grid measures. \emph{International Journal of Personal
-#'                  Construct Psychology, 5}(1), 57-75. 
+#' @param x `repgrid` object.
+#' @param trim The number of characters a construct is trimmed to (default is `10`). If `NA` no trimming is done.
+#'   Trimming simply saves space when displaying the output.
+#' @param index Whether to print the number of the construct (e.g. for correlation matrices). The default is `TRUE`.
+#' @return An object of class `alignByLoadings` containing a list of calculations with the following entries:
+#'
+#'  - `cor.before`: Construct correlation matrix before reversal
+#'  - `loadings.before`: Loadings on PCs before reversal
+#'  - `reversed`: Constructs that have been reversed
+#'  - `cor.after`: Construct correlation matrix after reversal
+#'  - `loadings.after`: Loadings on PCs after reversal
+#'
+#' @note Bell (2010) proposed a solution for the problem of construct alignment. As construct reversal has an effect on
+#'   element correlation and thus on any measure that based on element correlation (Mackay, 1992), it is desirable to
+#'   have a standard method for construct alignment independently from its semantics (preferred pole etc.). Bell (2010)
+#'   proposes to align constructs in a way so they all have positive loadings on the first component of a grid PCA.
+#'
+#' @references Bell, R. C. (2010). A note on aligning constructs. *Personal Construct Theory & Practice, 7*, 42-48.
+#'
+#'   Mackay, N. (1992). Identification, Reflection, and Correlation: Problems in the bases of repertory grid measures.
+#' *International Journal of Personal Construct Psychology, 5*(1), 57-75.
+#'
 #' @export
-#' @seealso \code{\link{alignByIdeal}}
-#' @examples 
+#' @seealso [alignByIdeal()]
+#' @examples
 #'
 #'   # reproduction of the example in the Bell (2010)
 #'   # constructs aligned by loadings on PC 1
-#'   bell2010                    
-#'   alignByLoadings(bell2010)   
+#'   bell2010
+#'   alignByLoadings(bell2010)
 #'
 #'   # save results
 #'   a <- alignByLoadings(bell2010)
-#'   
+#'
 #'   # modify printing of resukts
 #'   print(a, digits=5)
-#'   
-#'   # access results for further processing  
+#'
+#'   # access results for further processing
 #'   names(a)
 #'   a$cor.before
 #'   a$loadings.before
 #'   a$reversed
 #'   a$cor.after
 #'   a$loadings.after
-#'
-alignByLoadings <- function(x, trim=20, index=TRUE){
+#' 
+alignByLoadings <- function(x, trim=20, index=TRUE) {
   options(warn=1)                                      # suppress warnings (TODO sometimes error in SVD due to singularities in grid)
   ccor.old <- constructCor(x, trim=trim, index=index)  # construct correlation unreversed
   pc.old <- principal(ccor.old)                        # calc principal component (psych pkg)
@@ -1069,12 +970,12 @@ alignByLoadings <- function(x, trim=20, index=TRUE){
 #' 
 #' @param x           Object of class alignByLoadings.
 #' @param digits      Numeric. Number of digits to round to (default is 
-#'                    \code{2}).
+#'                    `2`).
 #' @param col.index   Logical. Whether to add an extra index column so the 
 #'                    column names are indexes instead of construct names (e.g. for 
 #'                    the correlation matrices). This option 
 #'                    renders a neater output as long construct names will stretch 
-#'                    the output (default is \code{TRUE}).
+#'                    the output (default is `TRUE`).
 #' @param ...         Not evaluated.
 #' @export
 #' @method            print alignByLoadings
@@ -1110,58 +1011,41 @@ print.alignByLoadings <- function(x, digits=2, col.index=TRUE, ...)
 
 #' Align constructs using the ideal element to gain pole preferences.
 #'
-#' The direction of the constructs in a grid is arbitrary and a reflection of 
-#' a scale does not affect the information contained in the grid. 
-#' Nonetheless, the direction of a scale has an effect on inter-element 
-#' correlations (Mackay, 1992) and on the spatial representation and clustering
-#' of the grid (Bell, 2010). Hence, it is desirable to follow a protocol to 
-#' align constructs that will render unique results. A common approach is
-#' to align constructs by pole preference, i. e. aligning all positive and  
-#' negative poles. This can e. g. be achieved using \code{\link{swapPoles}}.
-#' If an ideal element is present, this element can be used to identify
-#' the positive and negative pole. The function \code{alignByIdeal} will
-#' align the constructs accordingly. Note that this approach does not always 
-#' yield definite results as sometimes ratings do not show a clear 
-#' preference for one pole (Winter, Bell & Watson, 2010).
-#' If a preference cannot be determined definitely,
-#' the construct direction remains unchanged (a warning is issued in that case).
-#' 
-#' @param x       \code{repgrid} object
-#' @param ideal   Number of the element that is used for alignment 
-#'                (the ideal).
-#' @param high    Logical. Whether to align the constructs so the ideal 
-#'                will have high
-#'                ratings on the constructs (i.e. \code{TRUE}, default) or low
-#'                ratings (\code{FALSE}). High scores will lead to the preference pole
-#'                on the right side, low scores will align the preference pole
-#'                on the left side.
+#' The direction of the constructs in a grid is arbitrary and a reflection of a scale does not affect the information
+#' contained in the grid. Nonetheless, the direction of a scale has an effect on inter-element correlations (Mackay,
+#' 1992) and on the spatial representation and clustering of the grid (Bell, 2010). Hence, it is desirable to follow a
+#' protocol to align constructs that will render unique results. A common approach is to align constructs by pole
+#' preference, i. e. aligning all positive and negative poles. This can e. g. be achieved using [swapPoles()]. If an
+#' ideal element is present, this element can be used to identify the positive and negative pole. The function
+#' `alignByIdeal` will align the constructs accordingly. Note that this approach does not always yield definite results
+#' as sometimes ratings do not show a clear preference for one pole (Winter, Bell & Watson, 2010). If a preference
+#' cannot be determined definitely, the construct direction remains unchanged (a warning is issued in that case).
 #'
-#' @return        \code{repgrid} object with aligned constructs.
+#' @param x `repgrid` object
+#' @param ideal Number of the element that is used for alignment (the ideal).
+#' @param high Logical. Whether to align the constructs so the ideal will have high ratings on the constructs (i.e.
+#'   `TRUE`, default) or low ratings (`FALSE`). High scores will lead to the preference pole on the right side, low
+#'   scores will align the preference pole on the left side.
 #'
-#' @references    Bell, R. C. (2010). A note on aligning constructs.
-#'                \emph{Personal Construct Theory & Practice, 7}, 42-48.
-#' 
-#'                Mackay, N. (1992). Identification, Reflection, 
-#'                and Correlation: Problems in the bases of repertory 
-#'                grid measures. \emph{International Journal of Personal
-#'                Construct Psychology, 5}(1), 57-75. 
-#'          
-#'                Winter, D. A., Bell, R. C., & Watson, S. (2010). Midpoint 
-#'                ratings on personal constructs: Constriction or the middle 
-#'                way? \emph{Journal of Constructivist Psychology, 23}(4), 337-356.
+#' @return  `repgrid` object with aligned constructs.
+#' @references Bell, R. C. (2010). A note on aligning constructs. *Personal Construct Theory & Practice, 7*, 42-48.
+#'
+#'   Mackay, N. (1992). Identification, Reflection, and Correlation: Problems in the bases of repertory grid measures.
+#'   *International Journal of Personal Construct Psychology, 5*(1), 57-75.
+#'
+#'   Winter, D. A., Bell, R. C., & Watson, S. (2010). Midpoint ratings on personal constructs: Constriction or the
+#'   middle way? *Journal of Constructivist Psychology, 23*(4), 337-356.
 #'
 #' @export
-#' @seealso \code{\link{alignByLoadings}}
-#' @examples \dontrun{
+#' @seealso [alignByLoadings()]
+#' @examples 
 #'
 #'   feixas2004                             # original grid
 #'   alignByIdeal(feixas2004, 13)           # aligned with preference pole on the right
 #'
 #'   raeithel                               # original grid
 #'   alignByIdeal(raeithel, 3, high=FALSE)  # aligned with preference pole on the left
-#'
-#' }
-#'
+#' 
 alignByIdeal <- function(x, ideal, high=TRUE){
   if (!inherits(x, "repgrid")) 							  # check if x is repgrid object
   	stop("Object x must be of class 'repgrid'")
@@ -1187,61 +1071,44 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 
 #' Cluster analysis (of constructs or elements).
 #'
-#' \code{cluster} is a preliminary implementation of a cluster function. 
-#' It supports
-#' various distance measures as well as cluster methods. More is to come.
-#'  
-#' \bold{align}: Aligning will reverse constructs if necessary to yield a
-#' maximal similarity between constructs. In a first step the constructs are
-#' clustered including both directions. In a second step the direction of a
-#' construct that yields smaller distances to the adjacent constructs is
-#' preserved and used for the final clustering. As a result, every construct is
-#' included once but with an orientation that guarantees optimal clustering.
-#' This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
-#' 1982).
-#' 
-#' @param x          \code{repgrid} object.
-#' @param along      Along which dimension to cluster. 1 = constructs only, 
-#'                   2= elements only, 0=both (default).
-#' @param dmethod    The distance measure to be used. This must be one of 
-#'                   "euclidean", "maximum", "manhattan", "canberra", "binary" 
-#'                   or "minkowski". Any unambiguous substring can be given. 
-#'                   For additional information on the different types type
-#'                   \code{?dist}. 
-#' @param  cmethod   The agglomeration method to be used. This should be (an
-#'                   unambiguous abbreviation of) one of \code{"ward"},
-#'                   \code{"single"}, \code{"complete"}, \code{"average"}, 
-#'                   \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
-#' @param  p         The power of the Minkowski distance, in case \code{"minkowski"}
-#'                   is used as argument for \code{dmethod}.
-#' @param align      Whether the constructs should be aligned before clustering
-#'                   (default is \code{TRUE}). If not, the grid matrix is clustered 
-#'                   as is. See Details section for more information.
-#' @param trim       the number of characters a construct is trimmed to (default is
-#'                   \code{10}). If \code{NA} no trimming is done. Trimming
-#'                   simply saves space when displaying the output.
-#' @param main       Title of plot. The default is a name indicating the distance 
-#'                   function and cluster method.
-#' @param mar        Define the plot region (bottom, left, upper, right).
-#' @param cex        Size parameter for the nodes. Usually not needed.              
-#' @param lab.cex    Size parameter for the constructs on the right side.
-#' @param cex.main   Size parameter for the plot title (default is \code{.9}).
-#' @param print      Logical. Whether to print the dendrogram (default is \code{TRUE}).
-#' @param ...        Additional parameters to be passed to plotting function from
-#'                   \code{as.dendrogram}. Type \code{?as.dendrogram} for further 
-#'                   information. This option is usually not needed, except if special
-#'                   designs are needed.
-#' @return           Reordered \code{repgrid} object.
-#' @references 
-#' 
-#' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
-#' Repertory Grids in Human Resource Development. \emph{Personnel Review,
-#' 11}(4), 15-22. doi:10.1108/eb055464.
-#' 
-#' @export
-#' @seealso           \code{\link{bertinCluster}}
+#' `cluster` is a preliminary implementation of a cluster function. It supports various distance measures as well as
+#' cluster methods. More is to come.
 #'
-#' @examples \dontrun{
+#' **align**: Aligning will reverse constructs if necessary to yield a
+#' maximal similarity between constructs. In a first step the constructs are clustered including both directions. In a
+#' second step the direction of a construct that yields smaller distances to the adjacent constructs is preserved and
+#' used for the final clustering. As a result, every construct is included once but with an orientation that guarantees
+#' optimal clustering. This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas, 1982).
+#'
+#' @param x `repgrid` object.
+#' @param along Along which dimension to cluster. 1 = constructs only, 2= elements only, 0=both (default).
+#' @param dmethod The distance measure to be used. This must be one of "euclidean", "maximum", "manhattan", "canberra",
+#'   "binary" or "minkowski". Any unambiguous substring can be given. For additional information on the different types
+#'   type `?dist`.
+#' @param  cmethod The agglomeration method to be used. This should be (an unambiguous abbreviation of) one of
+#'   `"ward"`, `"single"`, `"complete"`, `"average"`, `"mcquitty"`, `"median"` or `"centroid"`.
+#' @param  p  The power of the Minkowski distance, in case `"minkowski"` is used as argument for `dmethod`.
+#' @param align Whether the constructs should be aligned before clustering (default is `TRUE`). If not, the grid matrix
+#'   is clustered as is. See Details section for more information.
+#' @param trim the number of characters a construct is trimmed to (default is `10`). If `NA` no trimming is done.
+#'   Trimming simply saves space when displaying the output.
+#' @param main Title of plot. The default is a name indicating the distance function and cluster method.
+#' @param mar Define the plot region (bottom, left, upper, right).
+#' @param cex Size parameter for the nodes. Usually not needed.
+#' @param lab.cex Size parameter for the constructs on the right side.
+#' @param cex.main Size parameter for the plot title (default is `.9`).
+#' @param print Logical. Whether to print the dendrogram (default is `TRUE`).
+#' @param ... Additional parameters to be passed to plotting function from `as.dendrogram`. Type `?as.dendrogram` for
+#'   further information. This option is usually not needed, except if special designs are needed.
+#' @return Reordered `repgrid` object.
+#' @references
+#'
+#' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of Repertory Grids in Human Resource
+#' Development. *Personnel Review, 11*(4), 15-22. doi:10.1108/eb055464.
+#'
+#' @export
+#' @seealso  [bertinCluster()]
+#' @examples
 #'
 #'   cluster(bell2010)
 #'   cluster(bell2010, main="My cluster analysis")   # new title
@@ -1251,13 +1118,11 @@ alignByIdeal <- function(x, ideal, high=TRUE){
 #'   cluster(bell2010, cex=1, lab.cex=1)             # change appearance
 #'   cluster(bell2010, lab.cex=.7,                   # advanced appearance changes
 #'           edgePar = list(lty=1:2, col=2:1))
-#' }
-#'
+#'           
 cluster <- function(x, along=0, dmethod="euclidean", cmethod="ward", p=2, 
                     align=TRUE, trim=NA, main=NULL,
                     mar=c(4, 2, 3, 15), cex=0, lab.cex=.8, cex.main=.9, 
-                    print=TRUE, ...)
-{
+                    print=TRUE, ...) {
   dmethods <- c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
   dmethod <- match.arg(dmethod, dmethods)
   
@@ -1328,79 +1193,70 @@ align <- function(x, along = 0, dmethod = "euclidean",
 
 
 #' Multiscale bootstrap cluster analysis.
-#' 
-#' p-values are calculated for each branch of the cluster dendrogram to indicate
-#' the stability of a specific partition. \code{clusterBoot} will yield the same
-#' clusters as the \code{\link{cluster}} function (i.e. standard hierarchical 
-#' clustering) with additional p-values. Two kinds of p-values are reported: 
-#' bootstrap probabilities (BP) and approximately unbiased (AU) probabilities
-#' (see Details section for more information).
-#' 
-#' In standard (hierarchical) cluster analysis the question arises which of the 
-#' identified structures are significant or just emerged by chance. Over the
-#' last decade several methods have been developed to test structures for
-#' robustness. One line of research in this area is based on resampling. The
-#' idea is to resample the rows or columns of the data matrix and to build the
-#' dendrogram for each bootstrap sample (Felsenstein, 1985). The p-values
-#' indicates the percentage of times a specific structure is identified across
-#' the bootstrap samples. It was shown that the p-value is biased (Hillis &
-#' Bull, 1993; Zharkikh & Li, 1995). In the literature several methods for bias
-#' correction have been proposed. In \code{clusterBoot} a method based on the
-#' \emph{multiscale bootstrap} is used to derive corrected (approximately 
-#' unbiased) p-values (Shimodaira, 2002, 2004). In conventional bootstrap 
-#' analysis the size of the bootstrap sample is identical to the original sample 
-#' size. Multiscale bootstrap varies the bootstrap sample size in order to infer
-#' a correction formula for the biased p-value on the basis of the variation of 
-#' the results for the different sample sizes (Suzuki & Shimodaira, 2006).
 #'
-#' \bold{align}: Aligning will reverse constructs if necessary to yield a
-#' maximal similarity between constructs. In a first step the constructs are
-#' clustered including both directions. In a second step the direction of a
-#' construct that yields smaller distances to the adjacent constructs is
-#' preserved and used for the final clustering. As a result, every construct is
-#' included once but with an orientation that guarantees optimal clustering.
-#' This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas,
-#' 1982).
+#' p-values are calculated for each branch of the cluster dendrogram to indicate the stability of a specific partition.
+#' `clusterBoot` will yield the same clusters as the [cluster()] function (i.e. standard hierarchical clustering) with
+#' additional p-values. Two kinds of p-values are reported: bootstrap probabilities (BP) and approximately unbiased
+#' (AU) probabilities (see Details section for more information).
+#'
+#' In standard (hierarchical) cluster analysis the question arises which of the identified structures are significant
+#' or just emerged by chance. Over the last decade several methods have been developed to test structures for
+#' robustness. One line of research in this area is based on resampling. The idea is to resample the rows or columns of
+#' the data matrix and to build the dendrogram for each bootstrap sample (Felsenstein, 1985). The p-values indicates
+#' the percentage of times a specific structure is identified across the bootstrap samples. It was shown that the
+#' p-value is biased (Hillis & Bull, 1993; Zharkikh & Li, 1995). In the literature several methods for bias correction
+#' have been proposed. In `clusterBoot` a method based on the
+#' *multiscale bootstrap* is used to derive corrected (approximately
+#' unbiased) p-values (Shimodaira, 2002, 2004). In conventional bootstrap analysis the size of the bootstrap sample is
+#' identical to the original sample size. Multiscale bootstrap varies the bootstrap sample size in order to infer a
+#' correction formula for the biased p-value on the basis of the variation of the results for the different sample
+#' sizes (Suzuki & Shimodaira, 2006).
+#'
+#' **align**: Aligning will reverse constructs if necessary to yield a
+#' maximal similarity between constructs. In a first step the constructs are clustered including both directions. In a
+#' second step the direction of a construct that yields smaller distances to the adjacent constructs is preserved and
+#' used for the final clustering. As a result, every construct is included once but with an orientation that guarantees
+#' optimal clustering. This approach is akin to the procedure used in FOCUS (Jankowicz & Thomas, 1982).
 #' 
 #' @references 
 #' 
 #' Felsenstein, J. (1985). Confidence Limits on Phylogenies: An Approach Using 
-#' the Bootstrap. \emph{Evolution, 39}(4), 783. doi:10.2307/2408678
+#' the Bootstrap. *Evolution, 39*(4), 783. doi:10.2307/2408678
 #' 
 #' Hillis, D. M., & Bull, J. J. (1993). An Empirical Test of Bootstrapping as a
-#' Method for Assessing Confidence in Phylogenetic Analysis. \emph{Systematic Biology,
-#' 42}(2), 182-192.
+#' Method for Assessing Confidence in Phylogenetic Analysis. *Systematic Biology,
+#' 42*(2), 182-192.
 #' 
 #' Jankowicz, D., & Thomas, L. (1982). An Algorithm for the Cluster Analysis of 
-#' Repertory Grids in Human Resource Development. \emph{Personnel Review,
-#' 11}(4), 15-22. doi:10.1108/eb055464.
+#' Repertory Grids in Human Resource Development. *Personnel Review,
+#' 11*(4), 15-22. doi:10.1108/eb055464.
 #' 
 #' Shimodaira, H. (2002) An approximately unbiased test of phylogenetic tree
-#' selection. \emph{Syst, Biol., 51}, 492-508.
+#' selection. *Syst, Biol., 51*, 492-508.
 #' 
 #' Shimodaira,H. (2004) Approximately unbiased tests of regions using multistep-
-#' multiscale bootstrap resampling. \emph{Ann. Stat., 32}, 2616-2614.
+#' multiscale bootstrap resampling. *Ann. Stat., 32*, 2616-2614.
 #'  
 #' Suzuki, R., & Shimodaira, H. (2006). Pvclust: an R package for assessing the
-#' uncertainty in hierarchical clustering. \emph{Bioinformatics,
-#' 22}(12), 1540-1542. doi:10.1093/bioinformatics/btl117
+#' uncertainty in hierarchical clustering. *Bioinformatics,
+#' 22*(12), 1540-1542. doi:10.1093/bioinformatics/btl117
 #' 
 #' Zharkikh, A., & Li, W.-H. (1995). Estimation of confidence in phylogeny: the
-#' complete-and-partial bootstrap technique. \emph{Molecular Phylogenetic Evolution,
-#' 4}(1), 44-63. 
+#' complete-and-partial bootstrap technique. *Molecular Phylogenetic Evolution,
+#' 4*(1), 44-63. 
 #' 
-#' @param x       \code{grid object}
+#' @param x       `grid object`
 #' @param align   Whether the constructs should be aligned before clustering
-#'                (default is \code{TRUE}). If not, the grid matrix is clustered 
+#'                (default is `TRUE`). If not, the grid matrix is clustered 
 #'                as is. See Details section for more information.
 #' @param along   Along which dimension to cluster. 1 = constructs, 2= elements.                 
 #' @inheritParams cluster
 #' @param p       Power of the Minkowski metric. Not yet passed on to pvclust!
 #' @inheritParams pvclust::pvclust
 #' @param seed    Random seed for bootstrapping. Can be set for reproducibility (see
-#'                \code{\link{set.seed}}). Usually not needed.
-#' @param ...     Arguments to pass on to \code{\link{pvclust}}.
-#' @return        A pvclust object as returned by the function \code{\link{pvclust}}
+#'                [set.seed()]). Usually not needed.
+#' @param ...     Arguments to pass on to [pvclust()].
+#' @return  A pvclust object as returned by the function [pvclust()]
 #' @export
 #' @examples \dontrun{
 #'
@@ -1435,71 +1291,19 @@ clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean",
   pv.e
 }
 
-
-
-
-
-
-
-### using gridn graphics
-# data(mtcars)
-# x  <- t(as.matrix(scale(mtcars)))
-# dd.row <- as.dendrogram(hclust(dist(x)))
-# row.ord <- order.dendrogram(dd.row)
-# 
-# dd.col <- as.dendrogram(hclust(dist(t(x))))
-# col.ord <- order.dendrogram(dd.col)
-# library(latticeExtra)
-# dendrogramGrob(dd.col)
-
-
-# data(mtcars)
-# x  <- t(as.matrix(scale(mtcars)))
-# dd.row <- as.dendrogram(hclust(dist(x)))
-# row.ord <- order.dendrogram(dd.row)
-# 
-# dd.col <- as.dendrogram(hclust(dist(t(x))))
-# col.ord <- order.dendrogram(dd.col)
-# 
-# library(lattice)
-# 
-# levelplot(x[row.ord, col.ord],
-#           aspect = "fill",
-#           scales = list(x = list(rot = 90)),
-#           colorkey = list(space = "left"),
-#           legend =
-#           list(right =
-#                list(fun = dendrogramGrob,
-#                     args =
-#                     list(x = dd.col, ord = col.ord,
-#                          side = "right",
-#                          size = 10)),
-#                top =
-#                list(fun = dendrogramGrob,
-#                     args =
-#                     list(x = dd.row, 
-#                          side = "top",
-#                          type = "triangle"))))
-
-
-
-
-
 #' Normalize rows or columns by its standard deviation.  
 #'
-#' @param  x          \code{matrix}
+#' @param  x          `matrix`
 #' @param  normalize  A numeric value indicating along what direction (rows, columns)
-#'                    to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                    (default is \code{0}).
+#'                    to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
+#'                    (default is `0`).
 #' @param ...         Not evaluated.
-#' @return            Not yet defined TODO!
+#' @return  Not yet defined TODO!
 #' @export
-#' @examples \dontrun{
-#'
+#' @examples 
 #'  x <- matrix(sample(1:5, 20, rep=T), 4)
-#'  normalize(x, 1)						      # normalizing rows
-#'  normalize(x, 2)						      # normalizing columns
-#' }
+#'  normalize(x, 1) # normalizing rows
+#'  normalize(x, 2)	# normalizing columns
 #'
 normalize <- function(x, normalize=0, ...){
   if (!normalize %in% 0:2 )
@@ -1518,29 +1322,24 @@ normalize <- function(x, normalize=0, ...){
 
 #' Centering of rows (constructs) and/or columns (elements).
 #'
-#' @param  x          \code{repgrid} object.
-#' @param  center		  Numeric. The type of centering to be performed. 
-#'                    0= no centering, 1= row mean centering (construct), 
-#'                    2= column mean centering (elements), 3= double-centering (construct and element means),
-#'                    4= midpoint centering of rows (constructs).
-#'                    of the scale(default \code{FALSE}). Default is \code{1} (row centering).
-#' @param  ...		    Not evaluated.
-#' @return  \code{matrix} containing the transformed values.
+#' @param  x `repgrid` object.
+#' @param  center Numeric. The type of centering to be performed. `0`= no centering, `1`= row mean centering
+#'   (construct), `2`= column mean centering (elements), `3`= double-centering (construct and element means), `4`=
+#'   midpoint centering of rows (constructs). of the scale(default `FALSE`). Default is `1` (row centering).
+#' @param  ... Not evaluated.
+#' @return  `matrix` containing the transformed values.
 #'
-#' @note  If scale midpoint centering is applied no row or column centering can be 
-#'        applied simultaneously.
-#'        TODO: After centering the standard representation mode does not work any more as 
-#'         it remains unclear what color values to attach to the centered values.
+#' @note  If scale midpoint centering is applied no row or column centering can be applied simultaneously. TODO: After
+#'   centering the standard representation mode does not work any more as it remains unclear what color values to
+#'   attach to the centered values.
 #' @export
-#' @examples \dontrun{
-#'
+#' @examples
 #'  center(bell2010)						      # no centering
-#'  center(bell2010, rows=T)				  # row centering of grid 
+#'  center(bell2010, rows=T)				  # row centering of grid
 #'  center(bell2010, cols=T)				  # column centering of grid
 #'  center(bell2010, rows=T, cols=T)	# row and column centering
-#' }
-#'
-center <- function(x, center=1, ...){
+#' 
+center <- function(x, center=1, ...) {
 	dat <- x@ratings[ , ,1]
 	if (center == 0)        # no centering
 	  res <- dat
@@ -1558,73 +1357,57 @@ center <- function(x, center=1, ...){
 }
 
 
-#' Calculate SSQ (accuracy) of biplot representation for elements 
-#' and constructs. 
+#' Calculate SSQ (accuracy) of biplot representation for elements and constructs.
 #'
-#' Each construct and element are vectors in a 
-#' multidimensional space. When reducing the representation 
-#' to a lower dimensional space, a loss
-#' of information (sum-of-squares) will usually occur. The output of the function
-#' shows the proportion of sum-of-squares (SSQ) explained for the elements 
-#' (constructs) and the amount explained by each principal component. This 
-#' allows to assess which elements (construct) are represented how well in the 
-#' current representation. Also it shows how much of the total variation is
-#' explained.
+#' Each construct and element are vectors in a multidimensional space. When reducing the representation to a lower
+#' dimensional space, a loss of information (sum-of-squares) will usually occur. The output of the function shows the
+#' proportion of sum-of-squares (SSQ) explained for the elements (constructs) and the amount explained by each
+#' principal component. This allows to assess which elements (construct) are represented how well in the current
+#' representation. Also it shows how much of the total variation is explained.
 #'
-#' @param x                 \code{repgrid} object.
-#' @param along             Numeric. Table of sum-of-squares (SSQ) for 1=constructs, 
-#'                          2=elements (default). 
-#'                          Note that currently these calculations only make sense
-#'                          for biplot representations with \code{g=1} and \code{h=1}
-#'                          respectively.
-#' @param  center		        Numeric. The type of centering to be performed. 
-#'                          0= no centering, 1= row mean centering (construct), 
-#'                          2= column mean centering (elements), 3= double-centering (construct and element means),
-#'                          4= midpoint centering of rows (constructs).
-#'                          The default is \code{1} (row centering).
-#' @param normalize         A numeric value indicating along what direction (rows, columns)
-#'                          to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                          (default is \code{0}).
-#' @param g                 Power of the singular value matrix assigned to the left singular 
-#'                          vectors, i.e. the constructs.
-#' @param h                 Power of the singular value matrix assigned to the right singular 
-#'                          vectors, i.e. the elements.
-#' @param col.active        Columns (elements) that are no supplementary points, i.e. they are used
-#'                          in the SVD to find principal components. default is to use all elements.
-#' @param col.passive       Columns (elements) that are supplementary points, i.e. they are NOT used
-#'                          in the SVD but projected into the component space afterwards. They do not 
-#'                          determine the solution. Default is \code{NA}, i.e. no elements are set 
-#'                          supplementary.
-#' @return                  A list containing three wo elements \cr
-#'                          \item{ssq.table}{dataframe with sum-of-squares explained for 
-#'                                           element/construct by each dimension}
-#'                          \item{ssq.table.cumsum}{dataframe with cumulated 
-#'                                                  sum-of-squares explained for 
-#'                                                  element/construct number of dimensions}                          
-#'                          \item{ssq.total}{total sum-of-squares after pre-transforming grid matrix}
-#'                          
-#' @note                    TODO: if g or h is not equal to 1 the SSQ does not measure
-#'                          accuracy of representation as currently the ssq of each point
-#'                          are set in contrast with the pre-transformed matrix.
-#' @keywords      internal
+#' @param x `repgrid` object.
+#' @param along Numeric. Table of sum-of-squares (SSQ) for 1=constructs, 2=elements (default). Note that currently
+#'   these calculations only make sense for biplot representations with `g=1` and `h=1` respectively.
+#' @param center Numeric. The type of centering to be performed. `0`= no centering, 1= row mean centering (construct),
+#'   `2`= column mean centering (elements), `3`= double-centering (construct and element means), `4`= midpoint
+#'   centering of rows (constructs). The default is `1` (row centering).
+#' @param normalize A numeric value indicating along what direction (rows, columns) to normalize by standard
+#'   deviations. `0 = none, 1= rows, 2 = columns` (default is `0`).
+#' @param g Power of the singular value matrix assigned to the left singular vectors, i.e. the constructs.
+#' @param h Power of the singular value matrix assigned to the right singular vectors, i.e. the elements.
+#' @param col.active Columns (elements) that are no supplementary points, i.e. they are used in the SVD to find
+#'   principal components. default is to use all elements.
+#' @param col.passive Columns (elements) that are supplementary points, i.e. they are NOT used in the SVD but projected
+#'   into the component space afterwards. They do not determine the solution. Default is `NA`, i.e. no elements are set
+#'   supplementary.
+#' @return A list containing three elements:
+#'
+#' - `ssq.table`: dataframe with sum-of-squares explained for element/construct by each dimension
+#' - `ssq.table.cumsum`: dataframe with cumulated sum-of-squares explained for element/construct number of
+#'   dimensions
+#' - `ssq.total`: total sum-of-squares after pre-transforming grid matrix
+#'
+#' @note TODO: if g or h is not equal to 1 the SSQ does not measure accuracy of representation as currently the ssq of
+#'   each point are set in contrast with the pre-transformed matrix.
+#' @keywords internal
 #' @export
 #' @examples
-#' 
+#'
 #'  # explained sum-of-squares for elements
 #'  ssq(bell2010)
-#'  
+#'
 #'  # explained sum-of-squares for constructs
 #'  ssq(bell2010, along=1)
-#'  
+#'
 #'  # save results
 #'  s <- ssq(bell2010)
-#'  
+#'
 #'  # printing options
 #'  print(s)
 #'  print(s, digits=4)
 #'  print(s, dim=3)
 #'  print(s, cumulated=FALSE)
-#'  
+#'
 #'  # access results
 #'  names(s)
 #'  s$ssq.table
@@ -1695,21 +1478,20 @@ ssq <- function(x, along=2, center=1, normalize=0,
 #' Print method for class ssq.
 #' 
 #' @param x                 Object of class ssq.
-#' @param digits            Number of digits to round the output to (default is \code{2}).
+#' @param digits            Number of digits to round the output to (default is `2`).
 #' @param dim               The number of PCA dimensions to print. Default
-#'                          is \code{5} dimensions. \code{NA} will print all 
+#'                          is `5` dimensions. `NA` will print all 
 #'                          dimensions.
-#' @param cumulated         Logical (default is \code{TRUE}). 
+#' @param cumulated         Logical (default is `TRUE`). 
 #'                          Print a cumulated table of sum-of-squares?
-#'                          If \code{FALSE} the non-cumulated sum-of-squares are printed.                         
-#'                          (default is \code{TRUE}).
+#'                          If `FALSE` the non-cumulated sum-of-squares are printed.                         
+#'                          (default is `TRUE`).
 #' @param ...               Not evaluated.
 #' @export
 #' @method            print ssq
 #' @keywords          internal
 #'
-print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...)
-{
+print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...) {
   # dimensions to print
   if (is.na(dim[1]))
     dim <- ncol(x$ssq.table)
@@ -1766,7 +1548,7 @@ print.ssq <- function(x, digits=2, dim=5, cumulated=TRUE, ...)
 #'
 #' @example inst/examples/example-indexDDI.R
 #' @seealso [indexUncertainty]
-#' @md
+#'
 #' @export
 indexDDI <- function(x, ds) { 
   stop_if_not_is_repgrid(x)
@@ -1813,7 +1595,7 @@ indexDDI <- function(x, ds) {
 #'
 #' @example inst/examples/example-indexUncertainty.R
 #' @seealso [indexDDI]
-#' @md
+#'
 #' @export
 indexUncertainty <- function(x) { 
   stop_if_not_is_repgrid(x)

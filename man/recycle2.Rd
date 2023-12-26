@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{recycle2}
 \alias{recycle2}
-\title{variation of recycle that recycles one vector x or y to the length of the 
+\title{variation of recycle that recycles one vector x or y to the length of the
 longer one}
 \usage{
 recycle2(x, y, na.fill = FALSE)
@@ -15,11 +15,11 @@ recycle2(x, y, na.fill = FALSE)
 \item{na.fill}{Use NAs for filling up to given length (default=FALSE)}
 }
 \value{
-list     a list containing the recycled x vector as first and 
-                 the recycled y vector as second element
+list     a list containing the recycled x vector as first and
+the recycled y vector as second element
 }
 \description{
-variation of recycle that recycles one vector x or y to the length of the 
+variation of recycle that recycles one vector x or y to the length of the
 longer one
 }
 \examples{

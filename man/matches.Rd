@@ -9,12 +9,10 @@ matches(x, deviation = 0, diag.na = TRUE)
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{deviation}{Maximal difference between ratings to be considered a match
-(default \code{0} = only identical rating scores are a match). Especially useful
-for long rating scale (e.g. 0 to 100).}
+\item{deviation}{Maximal difference between ratings to be considered a match (default \code{0} = only identical rating
+scores are a match). Especially useful for long rating scale (e.g. 0 to 100).}
 
-\item{diag.na}{Whether to set the diagonal of the matrices to \code{NA} (default
-is \code{TRUE}).}
+\item{diag.na}{Whether to set the diagonal of the matrices to \code{NA} (default is \code{TRUE}).}
 }
 \value{
 A list of class \code{org.matches} with:
@@ -30,9 +28,8 @@ A list of class \code{org.matches} with:
 }
 }
 \description{
-Count the number of matches, i.e. (near) identical ratings between two
-elements or constructs. Matches are used as the basis for the calculation of
-grid indexes.
+Count the number of matches, i.e. (near) identical ratings between two elements or constructs. Matches are used as
+the basis for the calculation of grid indexes.
 }
 \examples{
 m <- matches(boeker)

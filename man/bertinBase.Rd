@@ -35,12 +35,12 @@ bertinBase(
 )
 }
 \arguments{
-\item{margins}{Vector of length three (default \code{margins=c(0,1,1)}). 
-1st element denotes the left, 2nd the upper and 3rd the 
+\item{margins}{Vector of length three (default \code{margins=c(0,1,1)}).
+1st element denotes the left, 2nd the upper and 3rd the
 right margin in npc coordinates (i.e. 0 to zero).}
 
-\item{add}{Logical. Whether to add bertin to existent plot (default is 
-\code{FALSE}). If \code{TRUE, plot.new()} will not be called
+\item{add}{Logical. Whether to add bertin to existent plot (default is
+\code{FALSE}). If \verb{TRUE, plot.new()} will not be called
 \code{par(new=TRUE)}.}
 
 \item{x}{\code{repgrid} object.}
@@ -48,15 +48,15 @@ right margin in npc coordinates (i.e. 0 to zero).}
 \item{ratings}{Vector. rating scores are printed in the cells}
 
 \item{trim}{Vector (default \code{trim=c(F,F)}).If a number the string
-is trimmed to the given number of characters. If set 
+is trimmed to the given number of characters. If set
 to TRUE the labels are trimmed to the available space}
 }
 \value{
 \code{NULL} just for printing.
 }
 \description{
-Prints a bertin to the output 
-device. It uses the R base graphics system and 
+Prints a bertin to the output
+device. It uses the R base graphics system and
 this is very fast. This is useful for working with grids. Not so much for
 producing high-quality output.
 }

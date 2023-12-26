@@ -7,8 +7,7 @@
 constructPcaLoadings(x)
 }
 \arguments{
-\item{x}{\code{repgrid} object. This object is returned by the 
-function \code{\link{constructPca}}.}
+\item{x}{\code{repgrid} object. This object is returned by the function \code{\link[=constructPca]{constructPca()}}.}
 }
 \value{
 A matrix containing the factor loadings.
@@ -17,7 +16,7 @@ A matrix containing the factor loadings.
 Extract loadings from PCA of constructs.
 }
 \examples{
- 
+
  p <- constructPca(bell2010)
  l <- constructPcaLoadings(p)
  l[1, ]

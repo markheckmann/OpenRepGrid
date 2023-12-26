@@ -30,19 +30,19 @@ bertin(
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{colors}{Vector. Two or more colors defining the color ramp for 
+\item{colors}{Vector. Two or more colors defining the color ramp for
 the bertin (default \code{c("white", "black")}).}
 
 \item{showvalues}{Logical. Whether scores are shown in bertin}
 
-\item{xlim}{Vector. Left and right limits inner bertin (default 
+\item{xlim}{Vector. Left and right limits inner bertin (default
 \code{c(.2, .8)}).}
 
 \item{ylim}{Vector. Lower and upper limits of inner bertin
 default(\code{c(.0, .6)}).}
 
-\item{margins}{Vector of length three (default \code{margins=c(0,1,1)}). 
-1st element denotes the left, 2nd the upper and 3rd the 
+\item{margins}{Vector of length three (default \code{margins=c(0,1,1)}).
+1st element denotes the left, 2nd the upper and 3rd the
 right margin in npc coordinates (i.e. 0 to zero).}
 
 \item{cex.elements}{Numeric. Text size of element labels (default \code{.7}).}
@@ -52,8 +52,8 @@ right margin in npc coordinates (i.e. 0 to zero).}
 \item{cex.text}{Numeric. Text size of scores in bertin cells (default \code{.7}).}
 
 \item{col.text}{Color of scores in bertin (default \code{NA}). By default
-the color of the text is chosen according to the 
-background color. If the background ist bright the text 
+the color of the text is chosen according to the
+background color. If the background ist bright the text
 will be black and vice versa. When a color is specified
 the color is set independent of background.}
 
@@ -83,20 +83,15 @@ row and column are printed.}
 \code{NULL} just for the side effects, i.e. printing.
 }
 \description{
-One of the most popular ways of displaying grid data has been adopted 
-from Bertin's (1974) graphical proposals, which have had an immense 
-influence onto data visualization. One of the most appealing 
-ideas presented by Bertin is the concept of the reorderable matrix. 
-It is comprised of graphical displays for each cell, allowing to 
-identify structures by eye-balling reordered versions of the data matrix 
-(see Bertin, 1974). In the context of repertory grids, 
-the display is made up of a simple colored rectangle where the color 
-denotes the corresponding score. Bright values correspond to low, dark 
-to high scores. For an example of how to analyze a Bertin display see 
-e.g. Dick (2000) and Raeithel (1998).
+One of the most popular ways of displaying grid data has been adopted from Bertin's (1974) graphical proposals,
+which have had an immense influence onto data visualization. One of the most appealing ideas presented by Bertin is
+the concept of the reorderable matrix. It is comprised of graphical displays for each cell, allowing to identify
+structures by eye-balling reordered versions of the data matrix (see Bertin, 1974). In the context of repertory
+grids, the display is made up of a simple colored rectangle where the color denotes the corresponding score. Bright
+values correspond to low, dark to high scores. For an example of how to analyze a Bertin display see e.g. Dick
+(2000) and Raeithel (1998).
 }
 \examples{
-\dontrun{
 
    bertin(feixas2004)
    bertin(feixas2004, c("white", "darkblue"))
@@ -107,20 +102,15 @@ e.g. Dick (2000) and Raeithel (1998).
    
    bertin(feixas2004, cc=3, cr=4)
    bertin(feixas2004, cc=3, cr=4, col.mark.fill="#e6e6e6")
-}
                       
 }
 \references{
-Bertin, J. (1974). \emph{Graphische Semiologie: Diagramme, Netze, 
-                 Karten}. Berlin, New York: de Gruyter.
+Bertin, J. (1974). \emph{Graphische Semiologie: Diagramme, Netze, Karten}. Berlin, New York: de Gruyter.
 
-               Dick, M. (2000). The Use of Narrative Grid Interviews in 
-                 Psychological Mobility Research. \emph{Forum Qualitative 
-                 Sozialforschung / Forum: Qualitative Social Research, 1}(2). 
-               
-               Raeithel, A. (1998). Kooperative Modellproduktion von 
-                 Professionellen und Klienten - erlauetert am Beispiel des 
-                 Repertory Grid. \emph{Selbstorganisation, Kooperation, Zeichenprozess: 
-                 Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen 
-                 Psychologie} (pp. 209-254). Opladen: Westdeutscher Verlag.
+Dick, M. (2000). The Use of Narrative Grid Interviews in Psychological Mobility Research. \emph{Forum Qualitative
+Sozialforschung / Forum: Qualitative Social Research, 1}(2).
+
+Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen und Klienten - erlauetert am Beispiel des
+Repertory Grid. \emph{Selbstorganisation, Kooperation, Zeichenprozess: Arbeiten zu einer kulturwissenschaftlichen,
+anwendungsbezogenen Psychologie} (pp. 209-254). Opladen: Westdeutscher Verlag.
 }

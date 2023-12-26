@@ -230,11 +230,11 @@ orderBy <- function(x,y) y[order(x)]
 #' along a given length n make ascending indices until reaching
 #' the midpoint and descend afterwards again.
 #' 
-#' @param n       \code{integer} The length of the indexes
+#' @param n       `integer` The length of the indexes
 #' @param type    (integer, default=1). If 1 the cascade index is returned. 
 #'                2 returns the index of left and right side, 3 returns the length
 #'                of the left and right index vector
-#' @return        vector (type 1 or 3) or list (type 2)
+#' @return  vector (type 1 or 3) or list (type 2)
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -343,8 +343,8 @@ insertAt <- function(index.base, index.insert, side="pre"){
 #' @param MARGIN    see ?apply
 #' @param FUN       see ?apply
 #' @param ...       see ?apply
-#' @return          see ?apply
-#' @seealso         \code{\link{apply}}
+#' @return    see ?apply
+#' @seealso   [apply()]
 #' @export
 #' @keywords        internal
 #' @examples \dontrun{
@@ -398,7 +398,7 @@ apply_pb <- function(X, MARGIN, FUN, ...)
 #' @param FUN         see ?lapply 
 #' @param ...         see ?lapply 
 #' @return list       see ?lapply
-#' @seealso           \code{\link{lapply}}
+#' @seealso  [lapply()]
 #' @export
 #' @keywords          internal
 #' @examples \dontrun{
@@ -441,7 +441,7 @@ lapply_pb <- function(X, FUN, ...)
 #' @param FUN         see ?sapply 
 #' @param ...         see ?sapply 
 #' @return list       see ?sapply
-#' @seealso           \code{\link{sapply}}
+#' @seealso  [sapply()]
 #' @export
 #' @keywords          internal
 #' @examples \dontrun{
@@ -903,7 +903,7 @@ addNamesToMatrix2 <- function(x, m, index=F, trim=7, along=1){
 #' add index column for neater colnames
 #'
 #'
-#' @param x   \code{matrix} object 
+#' @param x   `matrix` object 
 #' @export
 #' @keywords internal
 #' @examples \dontrun{
@@ -929,10 +929,10 @@ addIndexColumnToMatrix <- function(x){
 #' @title           Density histogram with steps instead of bars
 #'
 #' @param vals      Numeric values to display.
-#' @param breaks    Passed on to \code{hist}. 
-#'                  See ?hist parameter \code{breaks} for more information.
-#' @param add       Whether to add the steps to an existing plot (\code{FALSE})
-#'                  or to create a new plot (default \code{add=TRUE}).  
+#' @param breaks    Passed on to `hist`. 
+#'                  See ?hist parameter `breaks` for more information.
+#' @param add       Whether to add the steps to an existing plot (`FALSE`)
+#'                  or to create a new plot (default `add=TRUE`).  
 #' @export
 #' @keywords        internal  
 #' @examples \dontrun{

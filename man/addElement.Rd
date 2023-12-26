@@ -47,5 +47,5 @@ Add an element to an existing grid.
 
 }
 \seealso{
-\code{\link{addConstruct}}
+\code{\link[=addConstruct]{addConstruct()}}
 }

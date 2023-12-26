@@ -16,13 +16,13 @@
 #' @param ne        Number of elements (default 15).
 #' @param nwc       Number of random words per construct.
 #' @param nwe       Number of random words per element.
-#' @param range     Minimal and maximal scale value (default \code{c(1, 5)}).
+#' @param range     Minimal and maximal scale value (default `c(1, 5)`).
 #' @param prob      The probability of each rating value to occur. 
-#'                  If \code{NULL} (default) the distribution is uniform.
+#'                  If `NULL` (default) the distribution is uniform.
 #' @param options   Use random sentences as constructs and elements (1) or 
 #'                  not (0). If not, the elements and constructs are given 
 #'                  default names and are numbered.
-#' @return \code{repgrid} object.
+#' @return `repgrid` object.
 #'
 #' @export
 #' @examples \dontrun{
@@ -61,20 +61,20 @@ randomGrid <- function(nc=10, ne=15, nwc=8, nwe=5, range=c(1,5), prob=NULL, opti
 #'
 #' This feature is useful for research purposes like
 #' exploring distributions of indexes etc. The function is a
-#' simple wrapper around \code{\link{randomGrid}}.
+#' simple wrapper around [randomGrid()].
 #' 
-#' @param rep       Number of grids to be produced (default is \code{3}).
+#' @param rep       Number of grids to be produced (default is `3`).
 #' @param nc        Number of constructs (default 10).
 #' @param ne        Number of elements (default 15).
 #' @param nwc       Number of random words per construct.
 #' @param nwe       Number of random words per element.
-#' @param range     Minimal and maximal scale value (default \code{c(1, 5)}).
+#' @param range     Minimal and maximal scale value (default `c(1, 5)`).
 #' @param prob      The probability of each rating value to occur. 
-#'                  If \code{NULL} (default) the distribution is uniform.
+#'                  If `NULL` (default) the distribution is uniform.
 #' @param options   Use random sentences as constructs and elements (1) or 
 #'                  not (0). If not, the elements and constructs are given 
 #'                  default names and are numbered.
-#' @return          A list of \code{repgrid} objects.
+#' @return    A list of `repgrid` objects.
 #'
 #' @export
 #' @examples \dontrun{
@@ -102,20 +102,20 @@ randomGrids <- function(rep=3, nc=10, ne=15, nwc=8, nwe=5,
 #' All Slater distances are returned as a vector. The values can be used e.g. to assess the
 #' distributions standard deviation.
 #'
-#' @param rep       Number of grids to be produced (default is \code{3}).
+#' @param rep       Number of grids to be produced (default is `3`).
 #' @param nc        Number of constructs (default 10).
 #' @param ne        Number of elements (default 15).
-#' @param range     Minimal and maximal scale value (default \code{c(1, 5)}).
+#' @param range     Minimal and maximal scale value (default `c(1, 5)`).
 #' @param prob      The probability of each rating value to occur. 
-#'                  If \code{NULL} (default) the distribution is uniform.
+#'                  If `NULL` (default) the distribution is uniform.
 #' @param progress  Whether to show a progress bar.
 #'  
-#' @return          A vector containing Slater distance values.
+#' @return    A vector containing Slater distance values.
 #' @keywords        internal
 #' @export
-#' @seealso \code{\link{randomGrids}};  
-#'          \code{\link{distanceSlater}}; 
-#'          \code{\link{distanceHartmann}}.
+#' @seealso [randomGrids()];  
+#'          [distanceSlater()]; 
+#'          [distanceHartmann()].
 #'
 #' @examples \dontrun{
 #'  
@@ -142,10 +142,10 @@ quasiDistributionDistanceSlater <- function(rep, nc, ne, range, prob=NULL, progr
 
 #' Generate a list with all possible construct reflections of a grid.
 #' 
-#' @param x           \code{repgrid} object.
-#' @param progress    Whether to show a progress bar (default is \code{TRUE}).
+#' @param x           `repgrid` object.
+#' @param progress    Whether to show a progress bar (default is `TRUE`).
 #'                    This may be sensible for a larger number of elements.
-#' @return            A list of \code{repgrid} objects with all possible permutations
+#' @return  A list of `repgrid` objects with all possible permutations
 #'                    of the grid.
 #'
 #' @export
@@ -175,12 +175,12 @@ permuteConstructs <- function(x, progress=TRUE){
 #' the rows, the columns or the whole grid matrix.
 #'
 #' @title         Permute rows, columns or whole grid matrix.
-#' @param x       \code{repgrid} object.
-#' @param along   What to permute. \code{along=1} (default) will permute the rows
-#'                \code{along=2} the columns, \code{along=3} the whole matrix.
+#' @param x       `repgrid` object.
+#' @param along   What to permute. `along=1` (default) will permute the rows
+#'                `along=2` the columns, `along=3` the whole matrix.
 #' @param n       The number of permutations to produce.
-#' @return        A \code{repgrid} object if \code{n=1} or a list of 
-#'                \code{repgrid} objects if \code{n>1}.
+#' @return  A `repgrid` object if `n=1` or a list of 
+#'                `repgrid` objects if `n>1`.
 #' @export      
 #' @keywords       internal
 #'

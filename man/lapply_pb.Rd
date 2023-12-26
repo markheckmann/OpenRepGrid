@@ -17,7 +17,7 @@ lapply_pb(X, FUN, ...)
 list       see ?lapply
 }
 \description{
-Can be used like standard base:::lapply. The only thing 
+Can be used like standard base:::lapply. The only thing
 it does is create an additional progress bar.
 }
 \examples{
@@ -30,6 +30,6 @@ it does is create an additional progress bar.
 
 }
 \seealso{
-\code{\link{lapply}}
+\code{\link[=lapply]{lapply()}}
 }
 \keyword{internal}

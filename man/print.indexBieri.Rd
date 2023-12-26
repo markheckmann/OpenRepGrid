@@ -9,9 +9,8 @@
 \arguments{
 \item{x}{Object of class \code{indexBieri}.}
 
-\item{output}{String with each letter indicating which parts of the output
-to print (default is \code{"IC"}, order does not matter): \code{I} = Information, \code{C}
-= Matrix of matches.}
+\item{output}{String with each letter indicating which parts of the output to print (default is \code{"IC"}, order does
+not matter): \code{I} = Information, \code{C} = Matrix of matches.}
 
 \item{digits}{Number of digits to display.}
 }

@@ -13,7 +13,7 @@ convertImportObjectToRepGridObject(import)
 \code{repgrid} object.
 }
 \description{
-Convert the returned object from an import function into a \code{repgrid} 
+Convert the returned object from an import function into a \code{repgrid}
 object. Works for all importXInternal functions (except scivesco).
 }
 \keyword{internal}

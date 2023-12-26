@@ -9,15 +9,13 @@
 \arguments{
 \item{x}{Output from function indexConflict3}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{2}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
 
-\item{output}{Type of output. \code{output=1} will print all results
-to the console, \code{output=2} will only print the
-detailed statistics for elements and constructs.}
+\item{output}{Type of output. \code{output=1} will print all results to the console, \code{output=2} will only print
+the detailed statistics for elements and constructs.}
 
-\item{discrepancies}{Logical. Whether to show matrices of discrepancies in 
-detailed element and construct stats (default \code{TRUE}).}
+\item{discrepancies}{Logical. Whether to show matrices of discrepancies in detailed element and construct stats
+(default \code{TRUE}).}
 
 \item{...}{Not evaluated.}
 }

@@ -50,7 +50,7 @@ as.gridlist <- function(x) {
 #' @return A list of length 2.
 #' @export
 #' @keywords internal
-#' @md
+#'
 dim.gridlist <- function(x) {
   list(
     constructs = vapply(x, ncol, numeric(1)),
@@ -61,7 +61,7 @@ dim.gridlist <- function(x) {
 
 #' Print method for gridlist objects
 #'
-#' @param x A \code{gridlist} object.
+#' @param x A `gridlist` object.
 #' @param all Display all repgrids in console?
 #' @export
 #' @keywords internal
@@ -94,7 +94,7 @@ print.gridlist <- function(x, all = FALSE, ...) {
 #' @return A `gridlist`` object.
 #' @export
 #' @keywords internal
-#' @md
+#'
 #' @examples
 #' l <- rep(boeker, 3) # gridlist with 3 boeker grids
 rep.repgrid <- function(x, n = 1, ...) {

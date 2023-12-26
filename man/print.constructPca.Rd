@@ -7,10 +7,9 @@
 \method{print}{constructPca}(x, digits = 2, cutoff = 0, ...)
 }
 \arguments{
-\item{x}{Object of class constructPca.}
+\item{x}{Object of class \code{constructPca}.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
-\code{2}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
 
 \item{cutoff}{Loadings smaller than cutoff are not printed.}
 

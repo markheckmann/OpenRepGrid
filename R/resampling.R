@@ -5,9 +5,9 @@
 #' Resample constructs
 #' 
 #' The goal of resampling is to build variations of a single grid. 
-#' Two variants are implemented: The first is the \emph{leave-n-out} approach which 
+#' Two variants are implemented: The first is the *leave-n-out* approach which 
 #' builds all possible grids when dropping n constructs. The second is a 
-#' \emph{bootstrap} approach, randomly drawing n constructs from the grid.
+#' *bootstrap* approach, randomly drawing n constructs from the grid.
 #' @param x A repgrid object.
 #' @param n Number of constructs to drop or to sample in each generated grid.
 #' @return List of grids.

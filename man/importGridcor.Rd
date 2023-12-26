@@ -7,27 +7,26 @@
 importGridcor(file, dir = NULL)
 }
 \arguments{
-\item{file}{filename including path if file is not in current working 
+\item{file}{filename including path if file is not in current working
 directory. File can also be a complete URL. The fileformat
 is .dat.}
 
-\item{dir}{alternative way to supply the directory where the file is located 
+\item{dir}{alternative way to supply the directory where the file is located
 (default \code{NULL}).}
 }
 \value{
 a single \code{repgrid} object in case one file and
-               a list of \code{repgrid} objects in case multiple files are imported.
+a list of \code{repgrid} objects in case multiple files are imported.
 }
 \description{
-Reads the file format that is used by the grid program 
+Reads the file format that is used by the grid program
 GRIDCOR (Feixas & Cornejo, 2002).
 }
 \note{
-Note that the GRIDCOR data sets the minimum ratings scale range to 1.
-               The maximum value can differ and is defined in the data file. 
+Note that the GRIDCOR data sets the minimum ratings scale range to 1. The maximum value can differ and is
+defined in the data file.
 
-               Also note that both Gridcor and Gridstat data files do have the same
-               suffix \code{.dat}. Make sure not to mix them up.
+Also note that both Gridcor and Gridstat data files do have the same suffix \code{.dat}. Make sure not to mix them up.
 }
 \examples{
 \dontrun{
@@ -48,15 +47,15 @@ rg <- importGridcor("/Users/markheckmann/data/gridcor.dat")
 
 }
 \references{
-Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis 
-               for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. 
-               Retrieved from \url{https://www.ub.edu/terdep/pag/index.html}.
+Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis
+for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva.
+Retrieved from \url{https://www.ub.edu/terdep/pag/index.html}.
 }
 \seealso{
-\code{\link{importGridcor}},
-               \code{\link{importGridstat}},
-               \code{\link{importScivesco}},
-               \code{\link{importGridsuite}},
-               \code{\link{importTxt}},
-               \code{\link{importExcel}}
+\code{\link[=importGridcor]{importGridcor()}},
+\code{\link[=importGridstat]{importGridstat()}},
+\code{\link[=importScivesco]{importScivesco()}},
+\code{\link[=importGridsuite]{importGridsuite()}},
+\code{\link[=importTxt]{importTxt()}},
+\code{\link[=importExcel]{importExcel()}}
 }

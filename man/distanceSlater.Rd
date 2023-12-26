@@ -2,7 +2,7 @@
 % Please edit documentation in R/distance.R
 \name{distanceSlater}
 \alias{distanceSlater}
-\title{'Slater distances' (standardized Euclidean distances).}
+\title{Slater distances (standardized Euclidean distances).}
 \usage{
 distanceSlater(x, trim = 20, index = TRUE)
 }
@@ -14,7 +14,7 @@ distanceSlater(x, trim = 20, index = TRUE)
 simply saves space when displaying correlation of constructs
 with long names.}
 
-\item{index}{Whether to print the number of the construct or element 
+\item{index}{Whether to print the number of the construct or element
 in front of the name (default is \code{TRUE}). This is useful to avoid
 identical row names, which may cause an error.}
 }
@@ -22,39 +22,29 @@ identical row names, which may cause an error.}
 A matrix with Slater distances.
 }
 \description{
-Calculate Slater distance.
-}
-\details{
-The euclidean distance is often used as a measure of similarity between
-elements (see \code{\link{distance}}. A drawback of this measure is that it 
-depends on the range of the rating scale and the number of constructs used,
-i. e. on the size of a grid. \cr 
-An approach to standardize the euclidean distance to make it independent from
-size and range of ratings and was proposed by Slater (1977, pp. 94). The
-'Slater distance' is the Euclidean distance divided by the expected distance.
-Slater distances bigger than 1 are greater than expected, lesser than 1 are
-smaller than expected. The minimum value is 0 and values bigger than 2 are
-rarely found. Slater distances have been be used to compare inter-element
-distances between different grids, where the grids do not need to have the
-same constructs or elements. Hartmann (1992) showed that Slater distance is
-not independent of grid size. Also the distribution of the Slater distances
-is asymmetric. Hence, the upper and lower limit to infer 'significance' of
-distance is not symmetric. The practical relevance of Hartmann's findings
-have been demonstrated by Schoeneich and Klapp (1998). To calculate
-Hartmann's version of the standardized distances see
-\code{\link{distanceHartmann}}
+The euclidean distance is often used as a measure of similarity between elements (see \code{\link[=distance]{distance()}}. A drawback of
+this measure is that it depends on the range of the rating scale and the number of constructs used, i. e. on the
+size of a grid. \cr An approach to standardize the euclidean distance to make it independent from size and range of
+ratings and was proposed by Slater (1977, pp. 94). The 'Slater distance' is the Euclidean distance divided by the
+expected distance. Slater distances bigger than 1 are greater than expected, lesser than 1 are smaller than
+expected. The minimum value is 0 and values bigger than 2 are rarely found. Slater distances have been be used to
+compare inter-element distances between different grids, where the grids do not need to have the same constructs or
+elements. Hartmann (1992) showed that Slater distance is not independent of grid size. Also the distribution of the
+Slater distances is asymmetric. Hence, the upper and lower limit to infer 'significance' of distance is not
+symmetric. The practical relevance of Hartmann's findings have been demonstrated by Schoeneich and Klapp (1998). To
+calculate Hartmann's version of the standardized distances see \code{\link[=distanceHartmann]{distanceHartmann()}}
 }
 \section{Calculation}{
- The Slater distance is calculated as follows. 
+ The Slater distance is calculated as follows.
 For a derivation see Slater (1977, p.94).       \cr
 Let matrix \eqn{D}{D} contain the row centered ratings. Then
-   \deqn{P = D^TD}{P = D^TD} and
-   \deqn{S = tr(P)}{S = tr(P)}
+\deqn{P = D^TD}{P = D^TD} and
+\deqn{S = tr(P)}{S = tr(P)}
 The expected 'unit of expected distance' results as     \cr
-\deqn{U = (2S/(m-1))^{1/2}}{U = (2S/(m-1))^.5} 
+\deqn{U = (2S/(m-1))^{1/2}}{U = (2S/(m-1))^.5}
 where \eqn{m}{m} denotes the number of elements of the grid.
 The standardized Slater distances is the matrix of Euclidean distances
-\eqn{E}{E} divided by the expected distance \eqn{U}{U}. 
+\eqn{E}{E} divided by the expected distance \eqn{U}{U}.
 \deqn{E/U}{E/U}
 }
 
@@ -72,20 +62,15 @@ The standardized Slater distances is the matrix of Euclidean distances
 
 }
 \references{
-Hartmann, A. (1992). Element comparisons in repertory 
-                   grid technique: Results and consequences of a Monte 
-                   Carlo study. \emph{International Journal of Personal 
-                   Construct Psychology, 5}(1), 41-56.
+Hartmann, A. (1992). Element comparisons in repertory grid technique: Results and consequences of a
+Monte Carlo study. \emph{International Journal of Personal Construct Psychology, 5}(1), 41-56.
 
-                   Schoeneich, F., & Klapp, B. F. (1998). Standardization
-                   of interelement distances in repertory grid technique
-                   and its consequences for psychological interpretation 
-                   of self-identity plots: An empirical study. 
-                   \emph{Journal of Constructivist Psychology, 11}(1), 49-58.
+Schoeneich, F., & Klapp, B. F. (1998). Standardization of interelement distances in repertory grid technique and
+its consequences for psychological interpretation of self-identity plots: An empirical study.
+\emph{Journal of Constructivist Psychology, 11}(1), 49-58.
 
-                   Slater, P. (1977). \emph{The measurement of intrapersonal 
-                   space by Grid technique.} Vol. II. London: Wiley.
+Slater, P. (1977). \emph{The measurement of intrapersonal space by Grid technique.} Vol. II. London: Wiley.
 }
 \seealso{
-\code{\link{distanceHartmann}}
+\code{\link[=distanceHartmann]{distanceHartmann()}}
 }

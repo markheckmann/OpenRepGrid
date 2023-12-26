@@ -4,7 +4,7 @@
 
 #' Calculate coordinates for biplot.
 #'
-#' @param x             \code{repgrid} object.
+#' @param x             `repgrid` object.
 #' @param g             Power of the singular value matrix assigned to the left singular 
 #'                      vectors, i.e. the constructs.
 #' @param h             Power of the singular value matrix assigned to the right singular 
@@ -13,10 +13,10 @@
 #'                      in the SVD to find principal components. default is to use all elements.
 #' @param col.passive   Columns (elements) that are supplementary points, i.e. they are NOT used
 #'                      in the SVD but projected into the component space afterwards. They do not 
-#'                      determine the solution. Default is \code{NA}, i.e. no elements are set 
+#'                      determine the solution. Default is `NA`, i.e. no elements are set 
 #'                      supplementary.
-#' @param ...           Parameters to be passed on to \code{center()} and \code{normalize}.       
-#' @return              a \code{list}.
+#' @param ...           Parameters to be passed on to `center()` and `normalize`.       
+#' @return    a `list`.
 #' @keywords internal
 #' @export
 #' 
@@ -69,14 +69,14 @@ calcBiplotCoords <- function(x, g=0, h=1-g,
 
 #' Map arbitrary numeric vector to a given range of values. 
 #'
-#' From a given numeric vector \code{z} the range is determined and 
+#' From a given numeric vector `z` the range is determined and 
 #' the values are linearly mapped onto the interval 
-#' given by \code{val.range}. This 
+#' given by `val.range`. This 
 #' function can be used in order to map arbitrary vectors to a given
 #' range of values.
 #'
 #' @param  z          numeric vector.
-#' @param  val.range  numeric vector of lengths two (default \code{c(.5, 1)}).
+#' @param  val.range  numeric vector of lengths two (default `c(.5, 1)`).
 #' @return numeric vector
 #' @keywords internal
 #' @export
@@ -92,13 +92,13 @@ mapCoordinatesToValue <- function(z, val.range=c(.5, 1)) {
 #' Determine color values according to a given range of values. 
 #'
 #' From a given numeric vector z the range is determined and the values are 
-#' linearly mapped onto the interval given by \code{val.range}. Then 
-#' a color ramp using the colors given by \code{color} is created and 
+#' linearly mapped onto the interval given by `val.range`. Then 
+#' a color ramp using the colors given by `color` is created and 
 #' the mapped values are transformed into hex color values. 
 #'
 #' @param  z          numeric vector.
-#' @param  color      vector of length two giving color values \code{c("white", "black")}.
-#' @param  val.range  numeric vector of lengths two (default \code{c(.2, .8)}).
+#' @param  color      vector of length two giving color values `c("white", "black")`.
+#' @param  val.range  numeric vector of lengths two (default `c(.2, .8)`).
 #' @return numeric vector
 #' @keywords internal
 #' @export
@@ -114,16 +114,16 @@ mapCoordinatesToColor <- function(z, colors=c("white", "black"), val.range=c(.2,
 #'
 #' An arbitrary numeric vector in 2D is to be extended so it will 
 #' end on the borders of a surrounding rectangle of a given size.
-#' Currently the vector is supposed to start in the origin \code{c(0,0)}.
+#' Currently the vector is supposed to start in the origin `c(0,0)`.
 #'
 #' @param x      numeric vector of x coordinates x coordinates. 
 #' @param y      numeric vector of y coordinates x coordinates. 
-#' @param xmax   maximal x value for surrounding rectangle (default is \code{1}).
-#' @param ymax   maximal y value for surrounding rectangle (default is \code{1}).
+#' @param xmax   maximal x value for surrounding rectangle (default is `1`).
+#' @param ymax   maximal y value for surrounding rectangle (default is `1`).
 #' @param cx     center of rectangle in x direction (not yet supported).
 #' @param cy     center of rectangle in x direction (not yet supported).
 #' 
-#' @return       a \code{dataframe} containing the x and y coordinates for the 
+#' @return a `dataframe` containing the x and y coordinates for the 
 #'               extended vectors.
 #' @keywords internal
 #' @export
@@ -222,9 +222,9 @@ calcRectanglesCoordsForLabels <- function(xy, labels, cex=.7,
 #'
 #' The overlap is assessed in x AND y.
 #'
-#' @param  a   vector with four coordinates \code{c(x0,y0,x1,y1)}.
-#' @param  b   vector with four coordinates \code{c(x0,y0,x1,y1)}.
-#' @return     \code{logical}. TRUE if rectangles overlap.
+#' @param  a   vector with four coordinates `c(x0,y0,x1,y1)`.
+#' @param  b   vector with four coordinates `c(x0,y0,x1,y1)`.
+#' @return `logical`. TRUE if rectangles overlap.
 #'
 #' @keywords internal
 #' @export
@@ -281,20 +281,20 @@ degreesBetweenVectorAndPlane <- function(a, n){
 #' A graphically unsophisticated version of a biplot.
 #'
 #' It will draw elements and constructs vectors using similar
-#' arguments as \code{\link{biplot2d}}. It is a version for quick 
+#' arguments as [biplot2d()]. It is a version for quick 
 #' exploration used during development.
 #' 
-#' @param x             \code{repgrid} object.
+#' @param x             `repgrid` object.
 #' @param dim           Dimensions (i.e. principal components) to be used for biplot 
-#'                      (default is \code{c(1,2)}).
+#'                      (default is `c(1,2)`).
 #' @param  center		    Numeric. The type of centering to be performed. 
 #'                      0= no centering, 1= row mean centering (construct), 
 #'                      2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                      4= midpoint centering of rows (constructs).
-#'                      The default is \code{1} (row centering).
+#'                      The default is `1` (row centering).
 #' @param normalize     A numeric value indicating along what direction (rows, columns)
-#'                      to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                      (default is \code{0}).
+#'                      to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
+#'                      (default is `0`).
 #' @param g             Power of the singular value matrix assigned to the left singular 
 #'                      vectors, i.e. the constructs.
 #' @param h             Power of the singular value matrix assigned to the right singular 
@@ -303,39 +303,39 @@ degreesBetweenVectorAndPlane <- function(a, n){
 #'                      in the SVD to find principal components. default is to use all elements.
 #' @param col.passive   Columns (elements) that are supplementary points, i.e. they are NOT used
 #'                      in the SVD but projected into the component space afterwards. They do not 
-#'                      determine the solution. Default is \code{NA}, i.e. no elements are set 
+#'                      determine the solution. Default is `NA`, i.e. no elements are set 
 #'                      supplementary.
 #' @param unity         Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
-#'                      so they are printed more neatly (default \code{TRUE}).
+#'                      so they are printed more neatly (default `TRUE`).
 #' @param zoom          Scaling factor for all vectors. Can be used to zoom
-#'                      the plot in and out (default \code{1}).
+#'                      the plot in and out (default `1`).
 #' @param scale.e       Scaling factor for element vectors. Will cause element points to move a bit more
 #'                      to the center. This argument is for visual appeal only.
-#' @param e.point.col   Color of the element symbols (default is \code{"black"}.
-#' @param e.point.cex   Size of the element symbol (default is \code{1}.
-#' @param e.label.col   Color of the element labels (default is \code{"black"}.
-#' @param e.label.cex   Size of the element labels (default is \code{.7}.
-#' @param c.point.col   Color of the construct lines (default is \code{grey(.6)}.
-#' @param c.label.col   Color of the construct labels (default is \code{grey(.6)}.
-#' @param c.label.cex   Size of the construct labels (default is \code{.6}.
-#' @param ...           Parameters to be passed on to \code{center()} and \code{normalize}.       
-#' @return              \code{repgrid} object.
+#' @param e.point.col   Color of the element symbols (default is `"black"`.
+#' @param e.point.cex   Size of the element symbol (default is `1`.
+#' @param e.label.col   Color of the element labels (default is `"black"`.
+#' @param e.label.cex   Size of the element labels (default is `.7`.
+#' @param c.point.col   Color of the construct lines (default is `grey(.6)`.
+#' @param c.label.col   Color of the construct labels (default is `grey(.6)`.
+#' @param c.label.cex   Size of the construct labels (default is `.6`.
+#' @param ...           Parameters to be passed on to `center()` and `normalize`.       
+#' @return `repgrid` object.
 #' @export
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
 #'    
@@ -432,85 +432,85 @@ biplotSimple <- function(x, dim=1:2, center=1, normalize=0,
 
 #' Prepare dataframe passed to drawing functions for biplots.
 #'
-#' Data frame contains the variables \code{type, show, x, y, 
-#'  z, labels, color, cex}.
+#' Data frame contains the variables `type, show, x, y, 
+#'  z, labels, color, cex`.
 #'
-#' @param x             \code{repgrid} object.
-#' @param dim           Dimensions to be used for biplot (default is \code{c(1,2)}).
+#' @param x             `repgrid` object.
+#' @param dim           Dimensions to be used for biplot (default is `c(1,2)`).
 #' @param map.dim       Third dimension used to map aesthetic attributes (depth)
-#'                      (default is \code{3}).
+#'                      (default is `3`).
 #' @param e.point.col   Color(s) of the element symbols. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "black")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all elements
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "black")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all elements
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.point.cex   Size of the element symbols. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all elements
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.4, .8)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all elements
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.label.col   Color(s) of the element labels. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "black")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all element labels
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "black")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all element labels
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.label.cex   Size of the element labels. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all element labels
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.4, .8)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all element labels
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.color.map   Value range to determine what range of the color ramp defined in 
-#'                      \code{e.color} will be used for mapping the colors. 
-#'                      Default is \code{c(.4, ,1)}. Usually not important for the user. 
+#'                      `e.color` will be used for mapping the colors. 
+#'                      Default is `c(.4, ,1)`. Usually not important for the user. 
 #' @param c.point.col   Color(s) of the construct symbols. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "darkred")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all elements
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "darkred")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all elements
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.point.cex   Size of the construct symbols. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all elements
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.4, .8)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all elements
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.label.col   Color(s) of the construct labels. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "black")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all construct labels
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "black")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all construct labels
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.label.cex   Size of the construct labels. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.4, .8)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all construct labels
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.4, .8)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all construct labels
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.color.map   Value range to determine what range of the color ramp defined in 
-#'                      \code{c.color} will be used for mapping. Default is \code{c(.4, ,1)}.
+#'                      `c.color` will be used for mapping. Default is `c(.4, ,1)`.
 #'                      Usually not important for the user. 
 #' @param devangle      The deviation angle from the x-y plane in degrees. These can only be calculated
-#'                      if a third dimension \code{map.dim} is specified. Only the constructs 
+#'                      if a third dimension `map.dim` is specified. Only the constructs 
 #'                      vectors that do not depart 
 #'                      more than the specified degrees from the shown x-y plane will be printed.
 #'                      This facilitates the visual interpretation, as only vectors represented in
-#'                      the current plane are shown. Set the value to \code{91} (default) 
+#'                      the current plane are shown. Set the value to `91` (default) 
 #'                      to show all vectors.
 #' @param unity         Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
-#'                      so they are printed more neatly (default \code{TRUE}).
+#'                      so they are printed more neatly (default `TRUE`).
 #' @param unity3d       Scale elements and constructs coordinates to unit scale in 3D (maximum of 1)
-#'                      so they are printed more neatly (default \code{TRUE}).
+#'                      so they are printed more neatly (default `TRUE`).
 #' @param scale.e       Scaling factor for element vectors. Will cause element points to move a bit more
 #'                      to the center. This argument is for visual appeal only.
 #' @param ...           Not evaluated. 
 #'
-#' @return              \code{dataframe} containing the variables \code{type, show, x, y, 
-#'                      z, labels, color, cex}. Usually not of interest to the user.
-#' @note                TODO:  How to omit \code{map.dim}?
+#' @return `dataframe` containing the variables `type, show, x, y, 
+#'                      z, labels, color, cex`. Usually not of interest to the user.
+#' @note                TODO:  How to omit `map.dim`?
 #' @keywords internal
 #' @export
 #'
@@ -737,46 +737,46 @@ prepareBiplotData <- function(x, dim=c(1,2), map.dim=3,
 #' can be scaled separately. The proportional projection values will 
 #' stay unaffected. the absolute will change though. For grid interpretation 
 #' the absolute values are usually oh no importance. Thus, there is an optional
-#' argument \code{normalize} which is \code{FALSE} as a default which
+#' argument `normalize` which is `FALSE` as a default which
 #' rescales the axes so the longest construct and element vector will be 
-#' set to the length of \code{1}.
+#' set to the length of `1`.
 #' 
-#' @param x                    \code{repgrid} object.
+#' @param x                    `repgrid` object.
 #' @param inner.positioning    Logical. Whether to calculate positions to minimize overplotting of 
-#'                             elements and construct labels (default is\code{TRUE}). Note that
+#'                             elements and construct labels (default is`TRUE`). Note that
 #'                             the positioning may slow down the plotting.
 #' @param outer.positioning    Logical. Whether to calculate positions to minimize overplotting of 
-#'                             of construct labels on the outer borders (default is\code{TRUE}). Note that
+#'                             of construct labels on the outer borders (default is`TRUE`). Note that
 #'                             the positioning may slow down the plotting.
 #' @param c.labels.inside      Logical. Whether to print construct labels next to the points.
-#'                             Can be useful during inspection of the plot (default \code{FALSE}).
+#'                             Can be useful during inspection of the plot (default `FALSE`).
 #' @param flipaxes             Logical vector of length two. Whether x and y axes are reversed 
-#'                             (default is \code{c(F,F)}).
+#'                             (default is `c(F,F)`).
 #' @param strokes.x            Length of outer strokes in x direction in NDC.  
 #' @param strokes.y            Length of outer strokes in y direction in NDC.
 #' @param offsetting           Do offsetting? (TODO)
 #' @param offset.labels        Offsetting parameter for labels (TODO).
 #' @param offset.e             offsetting parameter for elements (TODO).
-#' @param axis.ext             Axis extension factor (default is \code{.1}). A bigger value will 
+#' @param axis.ext             Axis extension factor (default is `.1`). A bigger value will 
 #'                             zoom out the plot.
 #' @param mai                  Margins available for plotting the labels in inch 
-#'                             (default is \code{c(.2, 1.5, .2, 1.5)}).
-#' @param rect.margins         Vector of length two (default is \code{c(.07, .07)}). Two values
+#'                             (default is `c(.2, 1.5, .2, 1.5)`).
+#' @param rect.margins         Vector of length two (default is `c(.07, .07)`). Two values
 #'                             specifying the additional horizontal and vertical margin around each 
 #'                             label.      
-#' @param srt                  Angle to rotate construct label text. Only used in case \code{offsetting=FALSE}.
+#' @param srt                  Angle to rotate construct label text. Only used in case `offsetting=FALSE`.
 #' @param cex.pos              Cex parameter used during positioning of labels if prompted. Does
 #'                             usually not have to be changed by user.
-#' @param xpd                  Logical (default is \code{TRUE}). Whether to extend text labels 
+#' @param xpd                  Logical (default is `TRUE`). Whether to extend text labels 
 #'                             over figure region. Usually not needed by the user.      
 #' @param c.lines              Logical. Whether construct lines from the center of the biplot
-#'                             to the surrounding box are drawn (default is \code{FALSE}).
+#'                             to the surrounding box are drawn (default is `FALSE`).
 #' @param col.c.lines          The color of the construct lines from the center to the borders 
-#'                             of the plot (default is \code{gray(.9)}).
+#'                             of the plot (default is `gray(.9)`).
 #' @param zoom                 Scaling factor for all vectors. Can be used to zoom
-#'                             the plot in and out (default \code{1}).
+#'                             the plot in and out (default `1`).
 #' @param ...                  Not evaluated.
-#' @return                     Invisible return of dataframe used during construction of plot 
+#' @return    Invisible return of dataframe used during construction of plot 
 #'                             (useful for developers).
 #' @export
 #' @keywords internal
@@ -1081,23 +1081,23 @@ biplotDraw <- function(x,
 
 #' Adds the percentage of the sum-of-squares explained by each axis to the plot.
 #' 
-#' @param x               \code{repgrid} object containing the biplot coords, i.e. after 
-#'                        having called \code{\link{calcBiplotCoords}} and 
-#'                        \code{\link{prepareBiplotData}}.
+#' @param x               `repgrid` object containing the biplot coords, i.e. after 
+#'                        having called [calcBiplotCoords()] and 
+#'                        [prepareBiplotData()].
 #' @param dim             The dimensions to be printed.
-#' @param var.show        Show explained sum-of-squares in biplot? (default \code{TRUE}). 
+#' @param var.show        Show explained sum-of-squares in biplot? (default `TRUE`). 
 #' @param var.cex         The cex value for the percentages shown in the plot.
 #' @param var.col         The color value of the percentages shown in the plot.
-#' @param axis.ext        Axis extension factor (default is \code{.1}). A bigger value will 
+#' @param axis.ext        Axis extension factor (default is `.1`). A bigger value will 
 #'                        zoom out the plot.
 #' @param  center		      Numeric. The type of centering to be performed. 
 #'                        0= no centering, 1= row mean centering (construct), 
 #'                        2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                        4= midpoint centering of rows (constructs).
-#'                        The default is \code{1} (row centering).
+#'                        The default is `1` (row centering).
 #' @param normalize       A numeric value indicating along what direction (rows, columns)
-#'                        to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                        (default is \code{0}).
+#'                        to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
+#'                        (default is `0`).
 #' @param g               Power of the singular value matrix assigned to the left singular 
 #'                        vectors, i.e. the constructs.
 #' @param h               Power of the singular value matrix assigned to the right singular 
@@ -1106,7 +1106,7 @@ biplotDraw <- function(x,
 #'                        in the SVD to find principal components. default is to use all elements.
 #' @param col.passive     Columns (elements) that are supplementary points, i.e. they are NOT used
 #'                        in the SVD but projected into the component space afterwards. They do not 
-#'                        determine the solution. Default is \code{NA}, i.e. no elements are set 
+#'                        determine the solution. Default is `NA`, i.e. no elements are set 
 #'                        supplementary.
 #' @param ...             Not evaluated.
 #' @keywords internal
@@ -1224,21 +1224,16 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 
 
 
-#' Draw a two-dimensional biplot. 
+#' Draw a two-dimensional biplot.
 #'
-#' The biplot is the central
-#' way to create a joint plot of elements and constructs.
-#' Depending on the parameters chosen it contains information
-#' on the distances between elements and constructs. Also the 
-#' relative values the elements have on a construct can be read off
-#' by projection the element onto the construct vector. 
-#' A lot of parameters can be changed rendering
-#' different types of biplots (ESA, Slater's) and different 
-#' looks (colors, text size).
-#' See the example section below to get started.
+#' The biplot is the central way to create a joint plot of elements and constructs. Depending on the parameters chosen
+#' it contains information on the distances between elements and constructs. Also the relative values the elements have
+#' on a construct can be read off by projection the element onto the construct vector. A lot of parameters can be
+#' changed rendering different types of biplots (ESA, Slater's) and different looks (colors, text size). See the
+#' example section below to get started.
 #'
-#' For the construction of a biplot the grid matrix is first
-#' centered and normalized according to the prompted options.\cr 
+#' For the construction of a biplot the grid matrix is first centered and normalized according to the prompted options.
+#' 
 #' Next, the matrix is decomposed by singular value decomposition (SVD)
 #' into \deqn{X = UDV^T}{X = UDV^T}
 #' The biplot is made up of two matrices 
@@ -1249,19 +1244,19 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #' the projection property is only given if \eqn{g + h = 1}{g + h = 1}
 #' 
 #'
-#' @param x                   \code{repgrid} object.
+#' @param x                   `repgrid` object.
 #' @param dim                 Dimensions (i.e. principal components) to be used for biplot 
-#'                            (default is \code{c(1,2)}).
+#'                            (default is `c(1,2)`).
 #' @param map.dim             Third dimension (depth) used to map aesthetic attributes to
-#'                            (default is \code{3}).
+#'                            (default is `3`).
 #' @param  center		          Numeric. The type of centering to be performed. 
 #'                            0= no centering, 1= row mean centering (construct), 
 #'                            2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                            4= midpoint centering of rows (constructs).
-#'                            The default is \code{1} (row centering).
+#'                            The default is `1` (row centering).
 #' @param normalize           A numeric value indicating along what direction (rows, columns)
-#'                            to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
-#'                            (default is \code{0}).
+#'                            to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
+#'                            (default is `0`).
 #' @param g                   Power of the singular value matrix assigned to the left singular 
 #'                            vectors, i.e. the constructs.
 #' @param h                   Power of the singular value matrix assigned to the right singular 
@@ -1270,150 +1265,141 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #'                            in the SVD to find principal components. default is to use all elements.
 #' @param col.passive         Columns (elements) that are supplementary points, i.e. they are NOT used
 #'                            in the SVD but projected into the component space afterwards. They do not 
-#'                            determine the solution. Default is \code{NA}, i.e. no elements are set 
+#'                            determine the solution. Default is `NA`, i.e. no elements are set 
 #'                            supplementary.
-#' @param e.point.col         Color of the element symbols. The default is \code{"black"}.
+#' @param e.point.col         Color of the element symbols. The default is `"black"`.
 #'                            Two values can be entered that will create a color ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color color value is supplied (e.g. \code{"black"}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color color value is supplied (e.g. `"black"`) 
 #'                            no mapping occurs and all elements will have the same color 
-#'                            irrespective of their value on the \code{map.dim} dimension.
-#' @param e.point.cex         Size of the element symbols. The default is \code{.9}.
+#'                            irrespective of their value on the `map.dim` dimension.
+#' @param e.point.cex         Size of the element symbols. The default is `.9`.
 #'                            Two values can be entered that will create a size ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color size value is supplied (e.g. \code{.8}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color size value is supplied (e.g. `.8`) 
 #'                            no mapping occurs and all elements will have the same size 
-#'                            irrespective of their value on the \code{map.dim} dimension.
-#' @param e.label.col         Color of the element label. The default is \code{"black"}.
+#'                            irrespective of their value on the `map.dim` dimension.
+#' @param e.label.col         Color of the element label. The default is `"black"`.
 #'                            Two values can be entered that will create a color ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color color value is supplied (e.g. \code{"black"}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color color value is supplied (e.g. `"black"`) 
 #'                            no mapping occurs and all labels will have the same color 
-#'                            irrespective of their value on the \code{map.dim} dimension.
-#' @param e.label.cex         Size of the element labels. The default is \code{.7}.
+#'                            irrespective of their value on the `map.dim` dimension.
+#' @param e.label.cex         Size of the element labels. The default is `.7`.
 #'                            Two values can be entered that will create a size ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color size value is supplied (e.g. \code{.7}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color size value is supplied (e.g. `.7`) 
 #'                            no mapping occurs and all labels will have the same size 
-#'                            irrespective of their value on the \code{map.dim} dimension.
+#'                            irrespective of their value on the `map.dim` dimension.
 #' @param e.color.map         Value range to determine what range of the color ramp defined in 
-#'                            \code{e.color} will be used for mapping the colors. 
-#'                            Default is \code{c(.4, ,1)}. Usually not important for the user. 
-#' @param c.point.col         Color of the construct symbols. The default is \code{"black"}.
+#'                            `e.color` will be used for mapping the colors. 
+#'                            Default is `c(.4, ,1)`. Usually not important for the user. 
+#' @param c.point.col         Color of the construct symbols. The default is `"black"`.
 #'                            Two values can be entered that will create a color ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color color value is supplied (e.g. \code{"black"}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color color value is supplied (e.g. `"black"`) 
 #'                            no mapping occurs and all construct will have the same color 
-#'                            irrespective of their value on the \code{map.dim} dimension.
-#' @param c.point.cex         Size of the construct symbols. The default is \code{.8}.
+#'                            irrespective of their value on the `map.dim` dimension.
+#' @param c.point.cex         Size of the construct symbols. The default is `.8`.
 #'                            Two values can be entered that will create a size ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color size value is supplied (e.g. \code{.8}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color size value is supplied (e.g. `.8`) 
 #'                            no mapping occurs and all construct will have the same size 
-#'                            irrespective of their value on the \code{map.dim} dimension.
-#' @param c.label.col         Color of the construct label. The default is \code{"black"}.
+#'                            irrespective of their value on the `map.dim` dimension.
+#' @param c.label.col         Color of the construct label. The default is `"black"`.
 #'                            Two values can be entered that will create a color ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color color value is supplied (e.g. \code{"black"}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color color value is supplied (e.g. `"black"`) 
 #'                            no mapping occurs and all labels will have the same color 
-#'                            irrespective of their value on the \code{map.dim} dimension.
-#' @param c.label.cex         Size of the construct labels. The default is \code{.7}.
+#'                            irrespective of their value on the `map.dim` dimension.
+#' @param c.label.cex         Size of the construct labels. The default is `.7`.
 #'                            Two values can be entered that will create a size ramp. The values of 
-#'                            \code{map.dim} are mapped onto the ramp.
-#'                            If only one color size value is supplied (e.g. \code{.7}) 
+#'                            `map.dim` are mapped onto the ramp.
+#'                            If only one color size value is supplied (e.g. `.7`) 
 #'                            no mapping occurs and all labels will have the same size 
-#'                            irrespective of their value on the \code{map.dim} dimension.
+#'                            irrespective of their value on the `map.dim` dimension.
 #' @param c.color.map         Value range to determine what range of the color ramp defined in 
-#'                            \code{c.color} will be used for mapping. Default is \code{c(.4, ,1)}.
+#'                            `c.color` will be used for mapping. Default is `c(.4, ,1)`.
 #'                            Usually not important for the user.
 #' @param c.points.devangle   The deviation angle from the x-y plane in degrees. These can only be calculated
-#'                            if a third dimension \code{map.dim} is specified. Only the constructs 
+#'                            if a third dimension `map.dim` is specified. Only the constructs 
 #'                            that do not depart more than the specified degrees from the 
 #'                            x-y plane will be printed. This facilitates the visual 
 #'                            interpretation, as only vectors represented near the current plane 
-#'                            are shown. Set the value to \code{91} (default) 
+#'                            are shown. Set the value to `91` (default) 
 #'                            to show all vectors.
 #' @param c.labels.devangle   The deviation angle from the x-y plane in degrees. These can only be calculated
-#'                            if a third dimension \code{map.dim} is specified. Only the labels of constructs 
+#'                            if a third dimension `map.dim` is specified. Only the labels of constructs 
 #'                            that do not depart more than the specified degrees from the 
-#'                            x-y plane will be printed. Set the value to \code{91} (default) 
+#'                            x-y plane will be printed. Set the value to `91` (default) 
 #'                            to show all construct labels.
-#' @param c.points.show       Whether the constructs are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will suppress the printing of the constructs.
+#' @param c.points.show       Whether the constructs are printed (default is `TRUE`).
+#'                            `FALSE` will suppress the printing of the constructs.
 #'                            To only print certain constructs a numeric vector can be 
-#'                            provided (e.g. \code{c(1:10)}).
-#' @param c.labels.show       Whether the construct labels are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will suppress the printing of the labels.
+#'                            provided (e.g. `c(1:10)`).
+#' @param c.labels.show       Whether the construct labels are printed (default is `TRUE`).
+#'                            `FALSE` will suppress the printing of the labels.
 #'                            To only print certain construct labels a numeric vector can be 
-#'                            provided (e.g. \code{c(1:10)}).
-#' @param e.points.show       Whether the elements are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will suppress the printing of the elements.
+#'                            provided (e.g. `c(1:10)`).
+#' @param e.points.show       Whether the elements are printed (default is `TRUE`).
+#'                            `FALSE` will suppress the printing of the elements.
 #'                            To only print certain elements a numeric vector can be 
-#'                            provided (e.g. \code{c(1:10)}).
-#' @param e.labels.show       Whether the element labels are printed (default is \code{TRUE}).
-#'                            \code{FALSE} will suppress the printing of the labels.
+#'                            provided (e.g. `c(1:10)`).
+#' @param e.labels.show       Whether the element labels are printed (default is `TRUE`).
+#'                            `FALSE` will suppress the printing of the labels.
 #'                            To only print certain element labels a numeric vector can be 
-#'                            provided (e.g. \code{c(1:10)}).
+#'                            provided (e.g. `c(1:10)`).
 #' @param inner.positioning   Logical. Whether to calculate positions to minimize overplotting of 
-#'                            elements and construct labels (default is\code{TRUE}). Note that
+#'                            elements and construct labels (default is`TRUE`). Note that
 #'                            the positioning may slow down the plotting.
 #' @param outer.positioning   Logical. Whether to calculate positions to minimize overplotting of 
-#'                            of construct labels on the outer borders (default is\code{TRUE}). Note that
+#'                            of construct labels on the outer borders (default is`TRUE`). Note that
 #'                            the positioning may slow down the plotting.
 #' @param c.labels.inside     Logical. Whether to print construct labels next to the points.
-#'                            Can be useful during inspection of the plot (default \code{FALSE}).
+#'                            Can be useful during inspection of the plot (default `FALSE`).
 #' @param c.lines             Logical. Whether construct lines from the center of the biplot
-#'                            to the surrounding box are drawn (default is \code{FALSE}).
+#'                            to the surrounding box are drawn (default is `FALSE`).
 #' @param col.c.lines         The color of the construct lines from the center to the borders 
-#'                            of the plot (default is \code{gray(.9)}).
+#'                            of the plot (default is `gray(.9)`).
 #' @param flipaxes            Logical vector of length two. Whether x and y axes are reversed 
-#'                            (default is \code{c(F,F)}).
+#'                            (default is `c(F,F)`).
 #' @param strokes.x           Length of outer strokes in x direction in NDC.  
 #' @param strokes.y           Length of outer strokes in y direction in NDC.
 #' @param offsetting          Do offsetting? (TODO)
 #' @param offset.labels       Offsetting parameter for labels (TODO).
 #' @param offset.e            offsetting parameter for elements (TODO).
-#' @param axis.ext            Axis extension factor (default is \code{.1}). A bigger value will 
+#' @param axis.ext            Axis extension factor (default is `.1`). A bigger value will 
 #'                            zoom out the plot.
 #' @param mai                 Margins available for plotting the labels in inch 
-#'                            (default is \code{c(.2, 1.5, .2, 1.5)}).
-#' @param rect.margins        Vector of length two (default is \code{c(.07, .07)}). Two values
+#'                            (default is `c(.2, 1.5, .2, 1.5)`).
+#' @param rect.margins        Vector of length two (default is `c(.07, .07)`). Two values
 #'                            specifying the additional horizontal and vertical margin around each 
 #'                            label.      
-#' @param srt                 Angle to rotate construct label text. Only used in case \code{offsetting=FALSE}.
+#' @param srt                 Angle to rotate construct label text. Only used in case `offsetting=FALSE`.
 #' @param cex.pos             Cex parameter used during positioning of labels if prompted. Does
 #'                            usually not have to be changed by user.
-#' @param xpd                 Logical (default is \code{TRUE}). Whether to extend text labels 
+#' @param xpd                 Logical (default is `TRUE`). Whether to extend text labels 
 #'                            over figure region. Usually not needed by the user.
 #' @param unity               Scale elements and constructs coordinates to unit scale in 2D (maximum of 1)
-#'                            so they are printed more neatly (default \code{TRUE}).
+#'                            so they are printed more neatly (default `TRUE`).
 #' @param unity3d             Scale elements and constructs coordinates to unit scale in 3D (maximum of 1)
-#'                            so they are printed more neatly (default \code{TRUE}).
+#'                            so they are printed more neatly (default `TRUE`).
 #' @param scale.e             Scaling factor for element vectors. Will cause element points to move a bit more
-#'                            to the center. (but only if \code{unity} or \code{unity3d} is \code{TRUE}).
+#'                            to the center. (but only if `unity` or `unity3d` is `TRUE`).
 #'                            This argument is for visual appeal only.
 #' @param zoom                Scaling factor for all vectors. Can be used to zoom
-#'                            the plot in and out (default \code{1}).
-#' @param var.show            Show explained sum-of-squares in biplot? (default \code{TRUE}). 
+#'                            the plot in and out (default `1`).
+#' @param var.show            Show explained sum-of-squares in biplot? (default `TRUE`). 
 #' @param var.cex             The cex value for the percentages shown in the plot.
 #' @param var.col             The color value of the percentages shown in the plot.
 #' @param ...                 parameters passed on to  come.
 #' @export
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
-#'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
-#'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
-#'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
-#'            Function to set view in 3D:
-#'            \code{\link{home}}.  
+#' @seealso
+#' - Unsophisticated biplot: [biplotSimple()]
+#' - 2D biplots: [biplot2d(), biplotEsa2d(), biplotSlater2d()]
+#' - Pseudo 3D biplots: [biplotPseudo3d(), biplotEsaPseudo3d(), biplotSlaterPseudo3d()]
+#' - Interactive 3D biplots: [biplot3d(), biplotEsa3d(), biplotSlater3d()]
+#' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
 #'
@@ -1457,8 +1443,8 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #'    biplot2d(boeker, outer.positioning=F)   # no positioning of con.-labels
 #'
 #'    biplot2d(boeker, c.labels.devangle=20)  # only con. within 20 degree angle
-#' } 
-#'
+#' }
+#' 
 biplot2d <- function(x, dim=c(1,2), map.dim=3, 
                     center=1,
                     normalize=0, 
@@ -1540,95 +1526,95 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
 }
 
 
-#' See \code{\link{biplotPseudo3d}} for its use.
+#' See [biplotPseudo3d()] for its use.
 
 #' Draws a biplot of the grid in 2D with depth impression (pseudo 3D).
 #'
 #' This version is basically a 2D biplot. 
 #' It only modifies color and size of the symbols in order to create a 3D impression
 #' of the data points. 
-#' This function will call the standard \code{\link{biplot2d}} function with some 
+#' This function will call the standard [biplot2d()] function with some 
 #' modified arguments. For the whole set of arguments that can be used
-#' see \code{\link{biplot2d}}. Here only the arguments special to 
-#' \code{biplotPseudo3d} are outlined.
+#' see [biplot2d()]. Here only the arguments special to 
+#' `biplotPseudo3d` are outlined.
 #'
-#' @param x             \code{repgrid} object.
+#' @param x             `repgrid` object.
 #' @param dim           Dimensions (i.e. principal components) to be used for biplot 
-#'                      (default is \code{c(1,2)}).
+#'                      (default is `c(1,2)`).
 #' @param map.dim       Third dimension (depth) used to map aesthetic attributes to
-#'                      (default is \code{3}).
+#'                      (default is `3`).
 #' @param e.point.col   Color(s) of the element symbols. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "black")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all elements
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "black")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all elements
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.point.cex   Size of the element symbols. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.6, 1.2)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all elements
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.6, 1.2)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all elements
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.label.col   Color(s) of the element labels. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "black")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all element labels
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "black")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all element labels
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.label.cex   Size of the element labels. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.6, .8)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all element labels
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.6, .8)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all element labels
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param e.color.map   Value range to determine what range of the color ramp defined in 
-#'                      \code{e.color} will be used for mapping the colors. 
-#'                      Default is \code{c(.4, ,1)}. Usually not important for the user. 
+#'                      `e.color` will be used for mapping the colors. 
+#'                      Default is `c(.4, ,1)`. Usually not important for the user. 
 #' @param c.point.col   Color(s) of the construct symbols. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "darkred")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all elements
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "darkred")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all elements
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.point.cex   Size of the construct symbols. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.6, 1.2)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all elements
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.6, 1.2)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all elements
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.label.col   Color(s) of the construct labels. Two values can be entered that will
-#'                      create a color ramp. The values of \code{map.dim} are mapped onto the ramp.
-#'                      The default is \code{c("white", "black")}. If only one color color value
-#'                      is supplied (e.g. \code{"black"}) no mapping occurs and all construct labels
-#'                      will have the same color irrespective of their value on the \code{map.dim}
+#'                      create a color ramp. The values of `map.dim` are mapped onto the ramp.
+#'                      The default is `c("white", "black")`. If only one color color value
+#'                      is supplied (e.g. `"black"`) no mapping occurs and all construct labels
+#'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.label.cex   Size of the construct labels. Two values can be entered that will
-#'                      represents the lower and upper size of a range of cex the values of \code{map.dim} 
-#'                      are mapped onto. The default is \code{c(.6, .9)}. If only one cex value
-#'                      is supplied (e.g. \code{.7}) no mapping occurs and all construct labels
-#'                      will have the same size irrespective of their value on the \code{map.dim}
+#'                      represents the lower and upper size of a range of cex the values of `map.dim` 
+#'                      are mapped onto. The default is `c(.6, .9)`. If only one cex value
+#'                      is supplied (e.g. `.7`) no mapping occurs and all construct labels
+#'                      will have the same size irrespective of their value on the `map.dim`
 #'                      dimension.
 #' @param c.color.map   Value range to determine what range of the color ramp defined in 
-#'                      \code{c.color} will be used for mapping. Default is \code{c(.4, ,1)}.
+#'                      `c.color` will be used for mapping. Default is `c(.4, ,1)`.
 #'                      Usually not important for the user.
-#' @param ...           Additional parameters passed to \code{\link{biplot2d}}.
+#' @param ...           Additional parameters passed to [biplot2d()].
 #'  
 #' @export
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
 #'    # biplot with 3D impression
@@ -1685,43 +1671,43 @@ biplotPseudo3d <- function( x, dim=1:2, map.dim=3,
 #' The default is to use row centering 
 #' and no normalization. Note that Slater's biplot is just a 
 #' special case of a biplot
-#' that can be produced using the \code{\link{biplot2d}} function with the arguments
-#' \code{center=1, g=1, h=1}. The arguments that can be used in this function
-#' are the same as in \code{\link{biplot2d}}. 
+#' that can be produced using the [biplot2d()] function with the arguments
+#' `center=1, g=1, h=1`. The arguments that can be used in this function
+#' are the same as in [biplot2d()]. 
 #' Here, only the arguments that are set for Slater's biplot are described.
-#' To see all the parameters that can be changed see \code{\link{biplot2d}}.
+#' To see all the parameters that can be changed see [biplot2d()].
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param  center		  Numeric. The type of centering to be performed. 
 #'                    0= no centering, 1= row mean centering (construct), 
 #'                    2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                    4= midpoint centering of rows (constructs).
-#'                    Slater's biplot uses \code{1} (row centering).
+#'                    Slater's biplot uses `1` (row centering).
 #' @param g           Power of the singular value matrix assigned to the left singular 
 #'                    vectors, i.e. the constructs.
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements.
-#' @param ...         Additional parameters for be passed to \code{\link{biplot2d}}.
+#' @param ...         Additional parameters for be passed to [biplot2d()].
 #' @export
 #'
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
-#'    # See examples in \code{\link{biplot2d}} as the same arguments
+#'    # See examples in [biplot2d()] as the same arguments
 #'    # can used for this function.
 #' }
 #'
@@ -1734,43 +1720,43 @@ biplotSlater2d <- function(x, center=1, g=1, h=1, ...){
 #'
 #' The default is to use row centering 
 #' and no normalization. Note that Slater's biplot is just a special 
-#' case of a biplot that can be produced using the \code{\link{biplotPseudo3d}} 
-#' function with the arguments \code{center=1, g=1, h=1}.
+#' case of a biplot that can be produced using the [biplotPseudo3d()] 
+#' function with the arguments `center=1, g=1, h=1`.
 #' Here, only the arguments that are modified for Slater's biplot are described.
-#' To see all the parameters that can be changed see \code{\link{biplot2d}}
-#' and \code{\link{biplotPseudo3d}}.
+#' To see all the parameters that can be changed see [biplot2d()]
+#' and [biplotPseudo3d()].
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param  center		  Numeric. The type of centering to be performed. 
 #'                    0= no centering, 1= row mean centering (construct), 
 #'                    2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                    4= midpoint centering of rows (constructs).
-#'                    Slater's biplot uses \code{1} (row centering).
+#'                    Slater's biplot uses `1` (row centering).
 #' @param g           Power of the singular value matrix assigned to the left singular 
 #'                    vectors, i.e. the constructs.
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements.
-#' @param ...         Additional parameters for be passed to \code{\link{biplotPseudo3d}}.
+#' @param ...         Additional parameters for be passed to [biplotPseudo3d()].
 #' @export
 #'
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
-#'    # See examples in \code{\link{biplotPseudo3d}} as the same arguments
+#'    # See examples in [biplotPseudo3d()] as the same arguments
 #'    # can used for this function.
 #' }
 #'
@@ -1785,24 +1771,24 @@ biplotSlaterPseudo3d <- function(x, center=1, g=1, h=1, ...){
 #' The ESA is a special type of biplot suggested by Raeithel (e.g. 1998).
 #' It uses midpoint centering as a default. Note that the eigenstructure analysis
 #' is just a special case of a biplot that can also be produced using the 
-#' \code{\link{biplot2d}} function with the arguments 
-#' \code{center=4, g=1, h=1}.
+#' [biplot2d()] function with the arguments 
+#' `center=4, g=1, h=1`.
 #' Here, only the arguments that are modified for the ESA biplot are described.
-#' To see all the parameters that can be changed see \code{\link{biplot2d}}.
+#' To see all the parameters that can be changed see [biplot2d()].
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param  center		  Numeric. The type of centering to be performed. 
 #'                    0= no centering, 1= row mean centering (construct), 
 #'                    2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                    4= midpoint centering of rows (constructs).
-#'                    Eigenstructure analysis uses midpoint centering (\code{4}).
+#'                    Eigenstructure analysis uses midpoint centering (`4`).
 #' @param g           Power of the singular value matrix assigned to the left singular 
 #'                    vectors, i.e. the constructs. Eigenstructure analysis uses  
-#'                    \code{g=1}.
+#'                    `g=1`.
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements. Eigenstructure analysis uses  
-#'                    \code{h=1}.
-#' @param ...         Additional parameters for be passed to \code{\link{biplot2d}}.
+#'                    `h=1`.
+#' @param ...         Additional parameters for be passed to [biplot2d()].
 #'
 #' @references   Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen 
 #'                und Klienten. Erlaeutert am Beispiel des Repertory Grid.
@@ -1812,24 +1798,24 @@ biplotSlaterPseudo3d <- function(x, center=1, g=1, h=1, ...){
 #'                Westdeutscher Verlag.
 #' @export
 #'
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
-#'    # See examples in \code{\link{biplot2d}} as the same arguments
+#'    # See examples in [biplot2d()] as the same arguments
 #'    # can used for this function.
 #' }
 #'
@@ -1845,45 +1831,45 @@ biplotEsa2d <- function(x, center=4, g=1, h=1, ...){
 #' a special type of biplot suggested by Raeithel (e.g. 1998).
 #' It uses midpoint centering as a default. Note that the eigenstructure analysis
 #' is just a special case of a biplot that can also be produced using the 
-#' \code{\link{biplot2d}} function with the arguments 
-#' \code{center=4, g=1, h=1}.
+#' [biplot2d()] function with the arguments 
+#' `center=4, g=1, h=1`.
 #' Here, only the arguments that are modified for the ESA biplot are described.
-#' To see all the parameters that can be changed see \code{\link{biplot2d}}
-#' and \code{\link{biplotPseudo3d}}.
+#' To see all the parameters that can be changed see [biplot2d()]
+#' and [biplotPseudo3d()].
 #'
-#' @param x           \code{repgrid} object.
+#' @param x           `repgrid` object.
 #' @param  center		  Numeric. The type of centering to be performed. 
 #'                    0= no centering, 1= row mean centering (construct), 
 #'                    2= column mean centering (elements), 3= double-centering 
 #'                    (construct and element means),
 #'                    4= midpoint centering of rows (constructs).
-#'                    Eigenstructure analysis uses midpoint centering (\code{4}).
+#'                    Eigenstructure analysis uses midpoint centering (`4`).
 #' @param g           Power of the singular value matrix assigned to the left singular 
 #'                    vectors, i.e. the constructs. Eigenstructure analysis uses  
-#'                    \code{g=1}.
+#'                    `g=1`.
 #' @param h           Power of the singular value matrix assigned to the right singular 
 #'                    vectors, i.e. the elements. Eigenstructure analysis uses  
-#'                    \code{h=1}.
-#' @param ...         Additional parameters for be passed to \code{\link{biplotPseudo3d}}.
+#'                    `h=1`.
+#' @param ...         Additional parameters for be passed to [biplotPseudo3d()].
 #' @export
-#' @seealso   Unsophisticated biplot: \code{\link{biplotSimple}}; \cr
+#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
-#'            \code{\link{biplot2d}},
-#'            \code{\link{biplotEsa2d}},
-#'            \code{\link{biplotSlater2d}};\cr
+#'            [biplot2d()],
+#'            [biplotEsa2d()],
+#'            [biplotSlater2d()];\cr
 #'            Pseudo 3D biplots:
-#'            \code{\link{biplotPseudo3d}},  
-#'            \code{\link{biplotEsaPseudo3d}},
-#'            \code{\link{biplotSlaterPseudo3d}};\cr
+#'            [biplotPseudo3d()],  
+#'            [biplotEsaPseudo3d()],
+#'            [biplotSlaterPseudo3d()];\cr
 #'            Interactive 3D biplots:
-#'            \code{\link{biplot3d}},
-#'            \code{\link{biplotEsa3d}},
-#'            \code{\link{biplotSlater3d}};\cr
+#'            [biplot3d()],
+#'            [biplotEsa3d()],
+#'            [biplotSlater3d()];\cr
 #'            Function to set view in 3D:
-#'            \code{\link{home}}.
+#'            [home()].
 #'
 #' @examples \dontrun{
-#'    # See examples in \code{\link{biplotPseudo3d}} as the same arguments
+#'    # See examples in [biplotPseudo3d()] as the same arguments
 #'    # can used for this function.
 #' }
 #'

@@ -64,5 +64,5 @@ ratings_df(x, long = TRUE)
 
 }
 \seealso{
-\code{`[<--method`}
+\verb{[<--method}
 }

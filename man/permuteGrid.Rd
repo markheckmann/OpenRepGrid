@@ -2,7 +2,8 @@
 % Please edit documentation in R/dev-functions.r
 \name{permuteGrid}
 \alias{permuteGrid}
-\title{Permute rows, columns or whole grid matrix.}
+\title{\if{html}{\out{<div class="sourceCode">}}\preformatted{    Permute rows, columns or whole grid matrix.
+}\if{html}{\out{</div>}}}
 \usage{
 permuteGrid(x, along = 1, n = 1)
 }
@@ -15,8 +16,8 @@ permuteGrid(x, along = 1, n = 1)
 \item{n}{The number of permutations to produce.}
 }
 \value{
-A \code{repgrid} object if \code{n=1} or a list of 
-               \code{repgrid} objects if \code{n>1}.
+A \code{repgrid} object if \code{n=1} or a list of
+\code{repgrid} objects if \code{n>1}.
 }
 \description{
 Generate one or many permutations of the grid by shuffling

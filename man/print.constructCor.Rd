@@ -9,15 +9,15 @@
 \arguments{
 \item{x}{Object of class constructCor.}
 
-\item{digits}{Numeric. Number of digits to round to (default is 
+\item{digits}{Numeric. Number of digits to round to (default is
 \code{2}).}
 
-\item{col.index}{Logical. Whether to add an extra index column so the 
-column names are indexes instead of construct names. This option 
-renders a neater output as long construct names will stretch 
+\item{col.index}{Logical. Whether to add an extra index column so the
+column names are indexes instead of construct names. This option
+renders a neater output as long construct names will stretch
 the output (default is \code{TRUE}).}
 
-\item{upper}{Whether to display upper triangle of correlation matrix only 
+\item{upper}{Whether to display upper triangle of correlation matrix only
 (default is \code{TRUE}).}
 
 \item{header}{Whether to print additional information in header.}

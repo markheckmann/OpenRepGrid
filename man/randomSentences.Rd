@@ -12,8 +12,8 @@ randomSentences(n, nwords, maxchar = Inf)
 \item{nwords}{number of words per sentence. If vector each sentence
 lengths is randomly drawn from the vector}
 
-\item{maxchar}{maximal number of characters per sentence. Note that whole 
- words (not part of words) are excluded if the maximal number 
+\item{maxchar}{maximal number of characters per sentence. Note that whole
+words (not part of words) are excluded if the maximal number
 is exceeded.}
 }
 \value{

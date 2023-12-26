@@ -9,69 +9,54 @@ alignByLoadings(x, trim = 20, index = TRUE)
 \arguments{
 \item{x}{\code{repgrid} object.}
 
-\item{trim}{The number of characters a construct is trimmed to (default is
-\code{10}). If \code{NA} no trimming is done. Trimming
-simply saves space when displaying the output.}
+\item{trim}{The number of characters a construct is trimmed to (default is \code{10}). If \code{NA} no trimming is done.
+Trimming simply saves space when displaying the output.}
 
-\item{index}{Whether to print the number of the construct (e.g. for correlation 
-matrices). The default is \code{TRUE}.}
+\item{index}{Whether to print the number of the construct (e.g. for correlation matrices). The default is \code{TRUE}.}
 }
 \value{
-An object of class \code{alignByLoadings} containing a list 
-                 of calculations with the following entries:
-                 
-                  \item{cor.before}{Construct correlation matrix before reversal}
-                  \item{loadings.before}{Loadings on PCs before reversal}
-                  \item{reversed}{Constructs that have been reversed}
-                  \item{cor.after}{Construct correlation matrix after reversal}
-                  \item{loadings.after}{Loadings on PCs after reversal}
+An object of class \code{alignByLoadings} containing a list of calculations with the following entries:
+\itemize{
+\item \code{cor.before}: Construct correlation matrix before reversal
+\item \code{loadings.before}: Loadings on PCs before reversal
+\item \code{reversed}: Constructs that have been reversed
+\item \code{cor.after}: Construct correlation matrix after reversal
+\item \code{loadings.after}: Loadings on PCs after reversal
+}
 }
 \description{
-In case a construct loads negatively on the first principal
-component, the function \code{\link{alignByLoadings}} will reverse it 
-so that all constructs have positive loadings on the first 
-principal component (see detail section for more).
+In case a construct loads negatively on the first principal component, the function \code{\link[=alignByLoadings]{alignByLoadings()}} will reverse
+it so that all constructs have positive loadings on the first principal component (see detail section for more).
 }
 \details{
-The direction of the constructs in a grid is arbitrary and 
-a reflection of a scale does not affect the information 
-contained in the grid. Nonetheless, the direction of a scale 
-has an effect on inter-element correlations (Mackay, 1992) 
-and on the spatial representation and clustering of the grid 
-(Bell, 2010). Hence, it is desirable to follow a protocol to align 
-constructs that will render unique results. A common approach 
-is to align constructs by pole preference, but this information 
-is not always accessible. Bell (2010) proposed another solution for
- the problem of construct 
-alignment. As a unique protocol he suggests to align constructs 
-in a way so they all have positive loadings on the first 
-component of a grid PCA.
+The direction of the constructs in a grid is arbitrary and a reflection of a scale does not affect the information
+contained in the grid. Nonetheless, the direction of a scale has an effect on inter-element correlations (Mackay,
+1992) and on the spatial representation and clustering of the grid (Bell, 2010). Hence, it is desirable to follow a
+protocol to align constructs that will render unique results. A common approach is to align constructs by pole
+preference, but this information is not always accessible. Bell (2010) proposed another solution for the problem of
+construct alignment. As a unique protocol he suggests to align constructs in a way so they all have positive
+loadings on the first component of a grid PCA.
 }
 \note{
-Bell (2010) proposed a solution for the problem of construct 
-                 alignment. As construct reversal has an effect on element 
-                 correlation and thus on any measure that based on element 
-                 correlation (Mackay, 1992), it is desirable to have a 
-                 standard method for 
-                 construct alignment independently from its semantics (preferred 
-                 pole etc.). Bell (2010) proposes to align constructs in a way
-                 so they all have positive loadings on the first component of a 
-                 grid PCA.
+Bell (2010) proposed a solution for the problem of construct alignment. As construct reversal has an effect on
+element correlation and thus on any measure that based on element correlation (Mackay, 1992), it is desirable to
+have a standard method for construct alignment independently from its semantics (preferred pole etc.). Bell (2010)
+proposes to align constructs in a way so they all have positive loadings on the first component of a grid PCA.
 }
 \examples{
 
   # reproduction of the example in the Bell (2010)
   # constructs aligned by loadings on PC 1
-  bell2010                    
-  alignByLoadings(bell2010)   
+  bell2010
+  alignByLoadings(bell2010)
 
   # save results
   a <- alignByLoadings(bell2010)
-  
+
   # modify printing of resukts
   print(a, digits=5)
-  
-  # access results for further processing  
+
+  # access results for further processing
   names(a)
   a$cor.before
   a$loadings.before
@@ -81,14 +66,11 @@ Bell (2010) proposed a solution for the problem of construct
 
 }
 \references{
-Bell, R. C. (2010). A note on aligning constructs.
-                 \emph{Personal Construct Theory & Practice, 7}, 42-48.
+Bell, R. C. (2010). A note on aligning constructs. \emph{Personal Construct Theory & Practice, 7}, 42-48.
 
-                 Mackay, N. (1992). Identification, Reflection, 
-                 and Correlation: Problems in the bases of repertory 
-                 grid measures. \emph{International Journal of Personal
-                 Construct Psychology, 5}(1), 57-75.
+Mackay, N. (1992). Identification, Reflection, and Correlation: Problems in the bases of repertory grid measures.
+\emph{International Journal of Personal Construct Psychology, 5}(1), 57-75.
 }
 \seealso{
-\code{\link{alignByIdeal}}
+\code{\link[=alignByIdeal]{alignByIdeal()}}
 }

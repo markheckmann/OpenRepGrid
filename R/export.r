@@ -4,52 +4,52 @@
 
 #' Save grid in a text file (txt).
 #'
-#' \code{saveAsTxt} will save the grid as a \code{.txt} file
+#' `saveAsTxt` will save the grid as a `.txt` file
 #' in format used by \pkg{OpenRepGrid}. This file format can also 
-#' easily be edited by hand (see \code{\link{importTxt}} for a 
+#' easily be edited by hand (see [importTxt()] for a 
 #' description).
 #'
-#' @param x     \code{repgrid} object.
+#' @param x     `repgrid` object.
 #' @param file  Filename to save the grid to. The name should have 
-#'              the suffix \code{.txt}.
-#' @return      Invisibly returns the name of the file.
+#'              the suffix `.txt`.
+#' @return  Invisibly returns the name of the file.
 #'
 #' @note
-#' Structure of a txt file that can be read by \code{\link{importTxt}}.
+#' Structure of a txt file that can be read by [importTxt()].
 #'
-#' \code{---------------- .txt file -----------------}
+#' `---------------- .txt file -----------------`
 #'
-#' \code{anything not contained within the tags will be discarded}
+#' `anything not contained within the tags will be discarded`
 #'
 #' \tabular{l}{
-#' \code{ELEMENTS}         \cr
-#' \code{element 1}        \cr
-#' \code{element 2}        \cr
-#' \code{element 3}        \cr
-#' \code{END ELEMENTS}     \cr
+#' `ELEMENTS`         \cr
+#' `element 1`        \cr
+#' `element 2`        \cr
+#' `element 3`        \cr
+#' `END ELEMENTS`     \cr
 #' \cr
-#' \code{CONSTRUCTS}                 \cr
-#' \code{left pole 1 : right pole 1} \cr
-#' \code{left pole 2 : right pole 2} \cr
-#' \code{left pole 3 : right pole 3} \cr
-#' \code{left pole 4 : right pole 4} \cr
-#' \code{END CONSTRUCTS}             \cr
+#' `CONSTRUCTS`                 \cr
+#' `left pole 1 : right pole 1` \cr
+#' `left pole 2 : right pole 2` \cr
+#' `left pole 3 : right pole 3` \cr
+#' `left pole 4 : right pole 4` \cr
+#' `END CONSTRUCTS`             \cr
 #' \cr
-#' \code{RATINGS}        \cr
-#' \code{1 3 2}          \cr
-#' \code{4 1 1}          \cr
-#' \code{1 4 4}          \cr
-#' \code{3 1 1}          \cr
-#' \code{END RATINGS}    \cr
+#' `RATINGS`        \cr
+#' `1 3 2`          \cr
+#' `4 1 1`          \cr
+#' `1 4 4`          \cr
+#' `3 1 1`          \cr
+#' `END RATINGS`    \cr
 #' \cr
-#' \code{RANGE}          \cr
-#' \code{1 4}            \cr
-#' \code{END RANGE}      \cr
+#' `RANGE`          \cr
+#' `1 4`            \cr
+#' `END RANGE`      \cr
 #' }
-#' \code{---------------- end of file ----------------}
+#' `---------------- end of file ----------------`
 #'
 #' @export
-#' @seealso     \code{\link{importTxt}}
+#' @seealso  [importTxt()]
 #' @examples \dontrun{
 #' 
 #'  x <- randomGrid()
@@ -171,16 +171,16 @@ saveAsTxt <- function(x, file = NA) {
 
 #' Save grid in a Microsoft Excel file (.xlsx)
 #'
-#' \code{saveAsExcel} will save the grid as a Microsoft Excel file 
-#' (\code{.xlsx}).  
+#' `saveAsExcel` will save the grid as a Microsoft Excel file 
+#' (`.xlsx`).  
 #'
-#' @param x     A \code{repgrid} object.
+#' @param x     A `repgrid` object.
 #' @param file  Filename to save the grid to. The name should have 
-#'              the suffix \code{.xlsx}.
+#'              the suffix `.xlsx`.
 #' @param sheet Index of the sheet to write to.
-#' @return      Invisibly returns the name of the file.
+#' @return  Invisibly returns the name of the file.
 #' @export
-#' @seealso     \code{\link{importExcel}}
+#' @seealso  [importExcel()]
 #' @examples \dontrun{
 #' 
 #'  x <- randomGrid(options=0)

@@ -2,14 +2,15 @@
 % Please edit documentation in R/utils.r
 \name{stepChart}
 \alias{stepChart}
-\title{Density histogram with steps instead of bars}
+\title{\if{html}{\out{<div class="sourceCode">}}\preformatted{      Density histogram with steps instead of bars
+}\if{html}{\out{</div>}}}
 \usage{
 stepChart(vals, breaks = "Sturges", add = FALSE, ...)
 }
 \arguments{
 \item{vals}{Numeric values to display.}
 
-\item{breaks}{Passed on to \code{hist}. 
+\item{breaks}{Passed on to \code{hist}.
 See ?hist parameter \code{breaks} for more information.}
 
 \item{add}{Whether to add the steps to an existing plot (\code{FALSE})

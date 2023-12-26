@@ -9,14 +9,10 @@
 \arguments{
 \item{x}{Object of class indexIntensity.}
 
-\item{digits}{Numeric. Number of digits to round to (default is
-\code{2}).}
+\item{digits}{Numeric. Number of digits to round to (default is \code{2}).}
 
-\item{output}{String with each letter indicating which parts of the output to print
-(default is \code{"TCE"}, order does not matter):
-\code{T} = Total Intensity,
-\code{C} = Constructs' intensities,
-\code{E} = Elements' intensities.}
+\item{output}{String with each letter indicating which parts of the output to print (default is \code{"TCE"}, order
+does not matter): \code{T} = Total Intensity, \code{C} = Constructs' intensities, \code{E} = Elements' intensities.}
 }
 \description{
 Print method for class indexIntensity.

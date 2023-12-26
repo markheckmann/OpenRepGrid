@@ -22,20 +22,20 @@ reorder2d(
 \item{dim}{Dimension of 2D solution used to calculate angles
 (default \code{c(1,2)}).}
 
-\item{center}{Numeric. The type of centering to be performed. 
-0= no centering, 1= row mean centering (construct), 
-2= column mean centering (elements), 3= double-centering (construct and element means),
-4= midpoint centering of rows (constructs).
+\item{center}{Numeric. The type of centering to be performed.
+\code{0}= no centering, \code{1}= row mean centering (construct),
+\code{2}= column mean centering (elements), \code{3}= double-centering (construct and element means),
+\code{4}= midpoint centering of rows (constructs).
 The default is \code{1} (row centering).}
 
 \item{normalize}{A numeric value indicating along what direction (rows, columns)
-to normalize by standard deviations. \code{0 = none, 1= rows, 2 = columns}
+to normalize by standard deviations. \verb{0 = none, 1= rows, 2 = columns}
 (default is \code{0}).}
 
-\item{g}{Power of the singular value matrix assigned to the left singular 
+\item{g}{Power of the singular value matrix assigned to the left singular
 vectors, i.e. the constructs.}
 
-\item{h}{Power of the singular value matrix assigned to the right singular 
+\item{h}{Power of the singular value matrix assigned to the right singular
 vectors, i.e. the elements.}
 
 \item{rc}{Logical. Reorder constructs by similarity (default \code{TRUE}).}
@@ -48,24 +48,16 @@ vectors, i.e. the elements.}
 Reordered \code{repgrid} object.
 }
 \description{
-The approach is to reorder 
-the grid matrix by their polar angles on the first two principal 
-components from a data reduction technique 
-(here the biplot, i.e. SVD). The function 
-\code{reorder2d} reorders the grid according to the angles 
-between the x-axis and the element (construct) 
-vectors derived from a 2D biplot solution.
-This approach is apt to identify circumplex 
-structures in data indicated by the diagonal stripe 
-in the display (see examples).
+The approach is to reorder the grid matrix by their polar angles on the first two principal components from a data
+reduction technique (here the biplot, i.e. SVD). The function \code{reorder2d} reorders the grid according to the angles
+between the x-axis and the element (construct) vectors derived from a 2D biplot solution. This approach is apt to
+identify circumplex structures in data indicated by the diagonal stripe in the display (see examples).
 }
 \examples{
-\dontrun{
 
-   x <- feixas2004  
-   reorder2d(x)            # reorder grid by angles in first two dimensions
-   reorder2d(x, rc=F)      # reorder elements only
-   reorder2d(x, re=F)      # reorder constructs only
-}
+x <- feixas2004  
+reorder2d(x)            # reorder grid by angles in first two dimensions
+reorder2d(x, rc=F)      # reorder elements only
+reorder2d(x, re=F)      # reorder constructs only
 
 }

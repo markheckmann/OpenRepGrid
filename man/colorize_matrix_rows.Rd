@@ -9,13 +9,13 @@ colorize_matrix_rows(m, colors = "white", na.val = "white")
 \arguments{
 \item{m}{A matrix.}
 
-\item{colors}{crayon colors as a string. One of 
+\item{colors}{crayon colors as a string. One of
 black, red, green, yellow, blue, magenta, cyan, white,
 silver.}
 }
 \description{
-Atomic matrices can be wrapped into crayon color codes without 
-destroying the structure or alignment. Used to indicate 
+Atomic matrices can be wrapped into crayon color codes without
+destroying the structure or alignment. Used to indicate
 preferred poles.
 }
 \examples{
