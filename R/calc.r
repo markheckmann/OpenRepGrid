@@ -261,8 +261,8 @@ angleOrderIndexes2d <- function(x, dim=c(1,2), clockwise=TRUE) {
 #'
 #' x <- feixas2004  
 #' reorder2d(x)            # reorder grid by angles in first two dimensions
-#' reorder2d(x, rc=F)      # reorder elements only
-#' reorder2d(x, re=F)      # reorder constructs only
+#' reorder2d(x, rc=FALSE)  # reorder elements only
+#' reorder2d(x, re=FALSE)  # reorder constructs only
 #' 
 reorder2d <- function(x, dim=c(1,2), center=1, normalize=0, g=0, h=1-g, 
                     rc=TRUE, re=TRUE, ... ) {
@@ -1301,7 +1301,7 @@ clusterBoot <- function(x, along=1, align=TRUE, dmethod = "euclidean",
 #' @return  Not yet defined TODO!
 #' @export
 #' @examples 
-#'  x <- matrix(sample(1:5, 20, rep=T), 4)
+#'  x <- matrix(sample(1:5, 20, rep=TRUE), 4)
 #'  normalize(x, 1) # normalizing rows
 #'  normalize(x, 2)	# normalizing columns
 #'

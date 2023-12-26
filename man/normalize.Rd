@@ -22,7 +22,7 @@ Not yet defined TODO!
 Normalize rows or columns by its standard deviation.
 }
 \examples{
- x <- matrix(sample(1:5, 20, rep=T), 4)
+ x <- matrix(sample(1:5, 20, rep=TRUE), 4)
  normalize(x, 1) # normalizing rows
  normalize(x, 2)	# normalizing columns
 

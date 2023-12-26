@@ -1395,10 +1395,10 @@ addVarianceExplainedToBiplot2d <- function(x, dim=c(1,2,3), var.cex=.7,
 #' @param ...                 parameters passed on to  come.
 #' @export
 #' @seealso
-#' - Unsophisticated biplot: [biplotSimple()]
-#' - 2D biplots: [biplot2d(), biplotEsa2d(), biplotSlater2d()]
-#' - Pseudo 3D biplots: [biplotPseudo3d(), biplotEsaPseudo3d(), biplotSlaterPseudo3d()]
-#' - Interactive 3D biplots: [biplot3d(), biplotEsa3d(), biplotSlater3d()]
+#' - Unsophisticated biplot: [biplotSimple()];
+#' - 2D biplots:[biplot2d()], [biplotEsa2d()], [biplotSlater2d()]; 
+#' - Pseudo 3D biplots: [biplotPseudo3d()], [biplotEsaPseudo3d()], [biplotSlaterPseudo3d()]; 
+#' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()]; 
 #' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
@@ -1492,8 +1492,7 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
                     var.show=TRUE, 
                     var.cex=.7, 
                     var.col=grey(.1),  
-                    ...)
-{
+                    ...) {
   x <- calcBiplotCoords(x, center=center, normalize=normalize, 
                         g=g, h=h, 
                         col.active=col.active, col.passive=col.passive, ...)
@@ -1525,8 +1524,6 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
   invisible(x)                                           
 }
 
-
-#' See [biplotPseudo3d()] for its use.
 
 #' Draws a biplot of the grid in 2D with depth impression (pseudo 3D).
 #'
@@ -1600,21 +1597,12 @@ biplot2d <- function(x, dim=c(1,2), map.dim=3,
 #' @param ...           Additional parameters passed to [biplot2d()].
 #'  
 #' @export
-#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
-#'            2D biplots:
-#'            [biplot2d()],
-#'            [biplotEsa2d()],
-#'            [biplotSlater2d()];\cr
-#'            Pseudo 3D biplots:
-#'            [biplotPseudo3d()],  
-#'            [biplotEsaPseudo3d()],
-#'            [biplotSlaterPseudo3d()];\cr
-#'            Interactive 3D biplots:
-#'            [biplot3d()],
-#'            [biplotEsa3d()],
-#'            [biplotSlater3d()];\cr
-#'            Function to set view in 3D:
-#'            [home()].
+#' @seealso
+#' - Unsophisticated biplot: [biplotSimple()];
+#' - 2D biplots:[biplot2d()], [biplotEsa2d()], [biplotSlater2d()]; 
+#' - Pseudo 3D biplots: [biplotPseudo3d()], [biplotEsaPseudo3d()], [biplotSlaterPseudo3d()]; 
+#' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()]; 
+#' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
 #'    # biplot with 3D impression
@@ -1649,8 +1637,7 @@ biplotPseudo3d <- function( x, dim=1:2, map.dim=3,
                             c.label.col=c("white", "darkred"),
                             c.label.cex=c(.6, .8),
                             c.color.map=c(.4, 1),
-                            ...)
-{            
+                            ...) {            
   biplot2d(x=x, dim=dim, map.dim=map.dim, 
             e.point.col=e.point.col,
             e.point.cex=e.point.cex,
@@ -1689,22 +1676,12 @@ biplotPseudo3d <- function( x, dim=1:2, map.dim=3,
 #'                    vectors, i.e. the elements.
 #' @param ...         Additional parameters for be passed to [biplot2d()].
 #' @export
-#'
-#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
-#'            2D biplots:
-#'            [biplot2d()],
-#'            [biplotEsa2d()],
-#'            [biplotSlater2d()];\cr
-#'            Pseudo 3D biplots:
-#'            [biplotPseudo3d()],  
-#'            [biplotEsaPseudo3d()],
-#'            [biplotSlaterPseudo3d()];\cr
-#'            Interactive 3D biplots:
-#'            [biplot3d()],
-#'            [biplotEsa3d()],
-#'            [biplotSlater3d()];\cr
-#'            Function to set view in 3D:
-#'            [home()].
+#' @seealso
+#' - Unsophisticated biplot: [biplotSimple()];
+#' - 2D biplots:[biplot2d()], [biplotEsa2d()], [biplotSlater2d()]; 
+#' - Pseudo 3D biplots: [biplotPseudo3d()], [biplotEsaPseudo3d()], [biplotSlaterPseudo3d()]; 
+#' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()]; 
+#' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
 #'    # See examples in [biplot2d()] as the same arguments
@@ -1738,22 +1715,12 @@ biplotSlater2d <- function(x, center=1, g=1, h=1, ...){
 #'                    vectors, i.e. the elements.
 #' @param ...         Additional parameters for be passed to [biplotPseudo3d()].
 #' @export
-#'
-#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
-#'            2D biplots:
-#'            [biplot2d()],
-#'            [biplotEsa2d()],
-#'            [biplotSlater2d()];\cr
-#'            Pseudo 3D biplots:
-#'            [biplotPseudo3d()],  
-#'            [biplotEsaPseudo3d()],
-#'            [biplotSlaterPseudo3d()];\cr
-#'            Interactive 3D biplots:
-#'            [biplot3d()],
-#'            [biplotEsa3d()],
-#'            [biplotSlater3d()];\cr
-#'            Function to set view in 3D:
-#'            [home()].
+#' @seealso
+#' - Unsophisticated biplot: [biplotSimple()];
+#' - 2D biplots:[biplot2d()], [biplotEsa2d()], [biplotSlater2d()]; 
+#' - Pseudo 3D biplots: [biplotPseudo3d()], [biplotEsaPseudo3d()], [biplotSlaterPseudo3d()]; 
+#' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()]; 
+#' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
 #'    # See examples in [biplotPseudo3d()] as the same arguments
@@ -1798,21 +1765,12 @@ biplotSlaterPseudo3d <- function(x, center=1, g=1, h=1, ...){
 #'                Westdeutscher Verlag.
 #' @export
 #'
-#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
-#'            2D biplots:
-#'            [biplot2d()],
-#'            [biplotEsa2d()],
-#'            [biplotSlater2d()];\cr
-#'            Pseudo 3D biplots:
-#'            [biplotPseudo3d()],  
-#'            [biplotEsaPseudo3d()],
-#'            [biplotSlaterPseudo3d()];\cr
-#'            Interactive 3D biplots:
-#'            [biplot3d()],
-#'            [biplotEsa3d()],
-#'            [biplotSlater3d()];\cr
-#'            Function to set view in 3D:
-#'            [home()].
+#' @seealso
+#' - Unsophisticated biplot: [biplotSimple()];
+#' - 2D biplots:[biplot2d()], [biplotEsa2d()], [biplotSlater2d()]; 
+#' - Pseudo 3D biplots: [biplotPseudo3d()], [biplotEsaPseudo3d()], [biplotSlaterPseudo3d()]; 
+#' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()]; 
+#' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
 #'    # See examples in [biplot2d()] as the same arguments
@@ -1852,21 +1810,12 @@ biplotEsa2d <- function(x, center=4, g=1, h=1, ...){
 #'                    `h=1`.
 #' @param ...         Additional parameters for be passed to [biplotPseudo3d()].
 #' @export
-#' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
-#'            2D biplots:
-#'            [biplot2d()],
-#'            [biplotEsa2d()],
-#'            [biplotSlater2d()];\cr
-#'            Pseudo 3D biplots:
-#'            [biplotPseudo3d()],  
-#'            [biplotEsaPseudo3d()],
-#'            [biplotSlaterPseudo3d()];\cr
-#'            Interactive 3D biplots:
-#'            [biplot3d()],
-#'            [biplotEsa3d()],
-#'            [biplotSlater3d()];\cr
-#'            Function to set view in 3D:
-#'            [home()].
+#' @seealso
+#' - Unsophisticated biplot: [biplotSimple()];
+#' - 2D biplots:[biplot2d()], [biplotEsa2d()], [biplotSlater2d()]; 
+#' - Pseudo 3D biplots: [biplotPseudo3d()], [biplotEsaPseudo3d()], [biplotSlaterPseudo3d()]; 
+#' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()]; 
+#' - Function to set view in 3D: [home()]
 #'
 #' @examples \dontrun{
 #'    # See examples in [biplotPseudo3d()] as the same arguments

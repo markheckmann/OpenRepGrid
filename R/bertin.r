@@ -510,10 +510,10 @@ bertinBase <- function(nrow, ncol, labels="", labels.elements="",
 #' 
 #'    bertin(feixas2004)
 #'    bertin(feixas2004, c("white", "darkblue"))
-#'    bertin(feixas2004, showvalues=F)
+#'    bertin(feixas2004, showvalues=FALSE)
 #'    bertin(feixas2004, border="grey")
 #'    bertin(feixas2004, cex.text=.9)
-#'    bertin(feixas2004, id=c(F, F))
+#'    bertin(feixas2004, id=c(FALSE, FALSE))
 #'    
 #'    bertin(feixas2004, cc=3, cr=4)
 #'    bertin(feixas2004, cc=3, cr=4, col.mark.fill="#e6e6e6")
@@ -615,7 +615,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'                    respectively.
 #' @export
 #' @seealso  [cluster()]
-#' @examples 
+#' @examples \dontrun{
 #'
 #'    # default is euclidean distance and ward clustering 
 #'    bertinCluster(bell2010)                                     
@@ -651,7 +651,7 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    # different dendrogram type        
 #'    bertinCluster(bell2010, type="rectangle")  
 #'    # no axis drawn for dendrogram                 
-#'    bertinCluster(bell2010, draw.axis=F)                        
+#'    bertinCluster(bell2010, draw.axis=FALSE)                        
 #'
 #'    ### passing on arguments to bertin function via ...
 #'     # grey cell borders in bertin display
@@ -664,14 +664,13 @@ bertin <- function(x, colors=c("white", "black"), showvalues=TRUE,
 #'    bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
 #'    # making the horizontal dendrogram bigger          
 #'    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
-#'
+#' }
 bertinCluster <- function(x, dmethod=c("euclidean", "euclidean"), 
                           cmethod=c("ward", "ward"), p=c(2,2), align=TRUE, 
                           trim=NA, type=c("triangle"), 
                           xsegs = c(0, .2, .7, .9, 1), ysegs = c(0, .1, .7, 1),
                           x.off=0.01, y.off=0.01,
-                          cex.axis =.6, col.axis =  grey(.4), draw.axis=TRUE, ...)
-{
+                          cex.axis =.6, col.axis =  grey(.4), draw.axis=TRUE, ...) {
   if (length(dmethod) == 1)       # if only one value is passed
     dmethod <- rep(dmethod, 2)
   if (length(cmethod) == 1)       # if only one value is passed

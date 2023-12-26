@@ -46,19 +46,11 @@ and \code{\link[=biplotPseudo3d]{biplotPseudo3d()}}.
 
 }
 \seealso{
-Unsophisticated biplot: \code{\link[=biplotSimple]{biplotSimple()}}; \cr
-2D biplots:
-\code{\link[=biplot2d]{biplot2d()}},
-\code{\link[=biplotEsa2d]{biplotEsa2d()}},
-\code{\link[=biplotSlater2d]{biplotSlater2d()}};\cr
-Pseudo 3D biplots:
-\code{\link[=biplotPseudo3d]{biplotPseudo3d()}},
-\code{\link[=biplotEsaPseudo3d]{biplotEsaPseudo3d()}},
-\code{\link[=biplotSlaterPseudo3d]{biplotSlaterPseudo3d()}};\cr
-Interactive 3D biplots:
-\code{\link[=biplot3d]{biplot3d()}},
-\code{\link[=biplotEsa3d]{biplotEsa3d()}},
-\code{\link[=biplotSlater3d]{biplotSlater3d()}};\cr
-Function to set view in 3D:
-\code{\link[=home]{home()}}.
+\itemize{
+\item Unsophisticated biplot: \code{\link[=biplotSimple]{biplotSimple()}};
+\item 2D biplots:\code{\link[=biplot2d]{biplot2d()}}, \code{\link[=biplotEsa2d]{biplotEsa2d()}}, \code{\link[=biplotSlater2d]{biplotSlater2d()}};
+\item Pseudo 3D biplots: \code{\link[=biplotPseudo3d]{biplotPseudo3d()}}, \code{\link[=biplotEsaPseudo3d]{biplotEsaPseudo3d()}}, \code{\link[=biplotSlaterPseudo3d]{biplotSlaterPseudo3d()}};
+\item Interactive 3D biplots: \code{\link[=biplot3d]{biplot3d()}}, \code{\link[=biplotEsa3d]{biplotEsa3d()}}, \code{\link[=biplotSlater3d]{biplotSlater3d()}};
+\item Function to set view in 3D: \code{\link[=home]{home()}}
+}
 }

@@ -93,7 +93,7 @@ There are two popular accepted methods to identify congruent and discrepant cons
 
 \emph{"Scale Midpoint criterion" (cf. Grice 2008)}
 
-As reported in the Idiogrid (v. 2.4) manual: "\link{..} The Scale Midpoint uses the scales as the 'dividing line' for
+As reported in the Idiogrid (v. 2.4) manual: "... The Scale Midpoint uses the scales as the 'dividing line' for
 discrepancies; for example, if the actual element is rated above the midpoint, then the discrepancy exists (and vice
 versa). If the two selves are the same as the actual side of the scale, then a discrepancy does not exist". As an
 example:

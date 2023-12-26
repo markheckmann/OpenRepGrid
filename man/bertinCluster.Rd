@@ -100,6 +100,7 @@ Element columns and constructs rows are ordered according to cluster criterion. 
 cluster methods are supported.
 }
 \examples{
+\dontrun{
 
    # default is euclidean distance and ward clustering 
    bertinCluster(bell2010)                                     
@@ -135,7 +136,7 @@ cluster methods are supported.
    # different dendrogram type        
    bertinCluster(bell2010, type="rectangle")  
    # no axis drawn for dendrogram                 
-   bertinCluster(bell2010, draw.axis=F)                        
+   bertinCluster(bell2010, draw.axis=FALSE)                        
 
    ### passing on arguments to bertin function via ...
     # grey cell borders in bertin display
@@ -148,7 +149,7 @@ cluster methods are supported.
    bertinCluster(bell2010, xsegs=c(0, .2, .5, .7, 1))
    # making the horizontal dendrogram bigger          
    bertinCluster(bell2010, ysegs=c(0, .3, .8, 1))
-
+}
 }
 \seealso{
 \code{\link[=cluster]{cluster()}}

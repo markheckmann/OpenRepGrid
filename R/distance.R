@@ -17,7 +17,7 @@
 #'                    is used as argument for `dmethod`.
 #' @param normalize   Use normalized distances. The distances are divided by the 
 #'                    highest possible value given the rating scale fo the grid, 
-#'                    so all distances are in the interval [0,1].
+#'                    so all distances are in the interval `[0,1]`.
 #' @param trim        The number of characters a construct or element is trimmed to (default is
 #'                    `20`). If `NA` no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs

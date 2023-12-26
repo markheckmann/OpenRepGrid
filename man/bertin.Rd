@@ -95,10 +95,10 @@ values correspond to low, dark to high scores. For an example of how to analyze 
 
    bertin(feixas2004)
    bertin(feixas2004, c("white", "darkblue"))
-   bertin(feixas2004, showvalues=F)
+   bertin(feixas2004, showvalues=FALSE)
    bertin(feixas2004, border="grey")
    bertin(feixas2004, cex.text=.9)
-   bertin(feixas2004, id=c(F, F))
+   bertin(feixas2004, id=c(FALSE, FALSE))
    
    bertin(feixas2004, cc=3, cr=4)
    bertin(feixas2004, cc=3, cr=4, col.mark.fill="#e6e6e6")
