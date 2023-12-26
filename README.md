@@ -1,5 +1,5 @@
 
-# OpenRepGrid <img src="man/figures/logo.png" style="float: right; padding-left: 40px;" width="175" />
+# OpenRepGrid <a href="https://docu.openrepgrid.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
@@ -49,7 +49,7 @@ If you use OpenRepGrid in your publications, you can cite it as follows.
 
 ## Contributors
 
-- Mark Heckmann (maintainer)
+- [Mark Heckmann](https://markheckmann.de) (maintainer)
 - Richard C. Bell
 - Alejandro García Gutiérrez (@j4n7)
 - Diego Vitali (@artoo-git)
