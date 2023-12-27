@@ -39,3 +39,4 @@ reverse(x, 1:2) # reverse constructs 1 and 2
 swapPoles(x, 1) # swap construct poles of construct
 
 }
+\keyword{internal}

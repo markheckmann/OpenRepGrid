@@ -101,7 +101,8 @@ print_square_matrix <- function(x, names = NA, trim = NA,
 #'  * `total_elements` Total number of matches across elements.
 #'  * `constructs`: Matrix with no. of matches for constructs.
 #'  * `elements`: Matrix with no. of matches for elements.
-#'
+#' 
+#' @keywords internal
 #' @export
 #' @example inst/examples/example-matches.R
 #'

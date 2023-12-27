@@ -1,0 +1,135 @@
+
+template:
+  bootstrap: 5
+
+development:
+  mode: auto
+
+home:
+  links:
+  - text: External data sets
+    href: http://github.com/markheckmann/OpenRepGrid
+
+reference:
+
+  - title: Elements
+    contents: 
+    - elementCor
+    - elementRmsCor
+    - elements
+    - statsElements
+    
+  - title: Constructs
+    contents: 
+    - constructCor
+    - constructD
+    - constructPca
+    - constructPcaLoadings
+    - constructRmsCor
+    - constructs
+    - alignByIdeal
+    - alignByLoadings
+    - permuteConstructs
+
+  - title: Distances
+    contents: 
+    - distance
+    - distanceHartmann
+    - distanceNormalized
+    - distanceSlater
+   
+  - title: Clustering
+    contents: 
+    - cluster
+    - clusterBoot
+    
+  - title: Grids
+    contents:
+    - midpoint
+    - setScale
+    - center
+    - normalize
+    - perturbate
+    - randomGrid
+    - randomGrids
+    - ratings
+    - reorder.repgrid
+    - reorder2d
+    - gridlist
+    - grids_leave_n_out
+    
+  - title: Data Sets
+    contents:
+    - data-bell2010
+    - data-bellmcgorry1992
+    - data-boeker
+    - data-fbb2003
+    - data-feixas2004
+    - data-leach2001
+    - data-mackay1992
+    - data-raeithel
+    - data-slater1977a
+    - data-slater1977b
+  
+  - title: Settings
+    contents: 
+    - settings
+    - settingsLoad
+    - settingsSave
+    
+  - title: Import and Export Data
+    contents: 
+    - importExcel
+    - importGridcor
+    - importGridstat
+    - importGridsuite
+    - importScivesco
+    - importTxt
+    - saveAsExcel
+    - saveAsTxt
+  
+  - title: Plots
+    contents:
+    - bertin
+    - bertinCluster
+    - biplot2d
+    - biplot3d
+    - home
+    - biplotEsa2d
+    - biplotEsa3d
+    - biplotEsaPseudo3d
+    - biplotPseudo3d
+    - biplotSimple
+    - biplotSlater2d
+    - biplotSlater3d
+    - biplotSlaterPseudo3d
+    
+  - title: Indexes
+    contents:
+    - indexBias
+    - indexBieri
+    - indexConflict1
+    - indexConflict2
+    - indexConflict3
+    - indexDilemma
+    - indexDilemmatic
+    - indexIntensity
+    - indexPolarization
+    - indexPvaff
+    - indexSelfConstruction
+    - indexVariability
+    - indexDDI
+    - indexUncertainty
+    
+  - title: General
+    contents:
+    - OpenRepGrid
+    - OpenRepGrid-overview
+    - is.repgrid
+    - +,repgrid,repgrid-method
+    - "show,repgrid-method"
+    - "[,repgrid-method"
+    - "[<-,repgrid-method"
+  
+    
+    

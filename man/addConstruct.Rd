@@ -58,3 +58,4 @@ addConstruct(bell2010, "left pole", "pole right", c(3, 1, 3, 2, 5, 4, 6, 3, 7, 1
 \seealso{
 \code{\link[=addElement]{addElement()}}
 }
+\keyword{internal}

@@ -575,6 +575,7 @@ midpoint <- getScaleMidpoint
 #'
 #' @return `repgrid` object.
 #' @export
+#' @keywords internal
 #' @examples \dontrun{
 #' x <- randomGrid()
 #' swapElements(x, 1, 3) # swap elements 1 and 3
@@ -611,6 +612,7 @@ swapElements <- function(x, pos1 = 1, pos2 = 1) {
 #' @param pos2    Row number of second construct to be swapped (default=1).
 #' @return  `repgrid` object
 #' @export
+#' @keywords internal
 #' @rdname swapConstructs
 #' @examples \dontrun{
 #'
@@ -652,8 +654,8 @@ swapConstructs <- function(x, pos1 = 1, pos2 = 1) {
 #'   to reverse constructs. If the scale is unknown no reversal occurs and an
 #'   error is raised.
 #' @export
+#' @keywords internal
 #' @rdname reverse
-#'
 #' @examples
 #'
 #' x <- boeker
@@ -746,7 +748,7 @@ reverse <- function(x, pos = 1L:nrow(x)) {
 #' down(x, 1) # 1st construct downwards
 #' }
 #' @rdname move
-#'
+#' @keywords internal
 left <- function(x, pos = 0) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'.")
@@ -767,7 +769,7 @@ left <- function(x, pos = 0) {
 #' @return `repgrid` object
 #' @export
 #' @rdname move
-#'
+#' @keywords internal
 right <- function(x, pos = 0) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'.")
@@ -789,7 +791,7 @@ right <- function(x, pos = 0) {
 #' @return `repgrid` object
 #' @export
 #' @rdname move
-#'
+#' @keywords internal
 up <- function(x, pos = 0) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'")
@@ -810,7 +812,7 @@ up <- function(x, pos = 0) {
 #' @return `repgrid` object
 #' @export
 #' @rdname move
-#'
+#' @keywords internal
 down <- function(x, pos = 0) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'")
@@ -834,6 +836,7 @@ down <- function(x, pos = 0) {
 #' @param e   Index of element to be shifted to first position.
 #' @return `repgrid` object.
 #' @export
+#' @keywords internal
 #' @examples \dontrun{
 #'
 #' # shift element 13: 'Ideal self' to first position
@@ -934,6 +937,7 @@ clearRatings <- function(x, rows = NA, cols = NA, layer = 1) {
 #' @param side            Not yet in use.
 #' @return   `repgrid` object
 #' @export
+#' @keywords internal
 #' @seealso   [addConstruct()]
 #' @examples \dontrun{
 #'
@@ -984,7 +988,7 @@ addElement <- function(x, name = NA, scores = NA, abbreviation = NA, status = NA
 #'   using original integer rating scores.
 #' @return A `repgrid` object with additional new element.
 #' @export
-#'
+#' @keywords internal
 #' @examples
 #' addAvgElement(feixas2004, "others", i = 2:12)
 #' addAvgElement(feixas2004, "others", i = 2:12, digits = 0) # integers
@@ -1042,6 +1046,7 @@ addAvgElement <- function(x, name = "avg", i, digits = Inf) {
 #' @param side            Not yet in use.
 #' @return   `repgrid` object.
 #' @export
+#' @keywords internal
 #' @seealso   [addElement()]
 #'
 #' @examples \dontrun{
@@ -1095,6 +1100,7 @@ addConstruct <- function(x, l.name = NA, r.name = NA, scores = NA,
 #' @note            Currently the main purpose is to change element names.
 #'                  Future implementations will allow to set further attributes.
 #' @export
+#' @keywords internal
 #' @seealso   [setConstructAttr()]
 #' @examples \dontrun{
 #'
@@ -1139,6 +1145,7 @@ setElementAttr <- function(x, pos, name, abb, status) {
 #' @return   `repgrid` object
 #'
 #' @export
+#' @keywords internal
 #' @seealso   [setElementAttr()]
 #' @examples \dontrun{
 #'
@@ -1369,6 +1376,7 @@ showMeta <- function(x) {
 #'                by a vector containing the rating scores row wise.
 #' @return  `NULL`
 #' @export
+#' @keywords internal
 #' @examples \dontrun{
 #'
 #' # make list object containing the arguments
@@ -1506,6 +1514,7 @@ bind <- function(x, y, match = TRUE, index = TRUE) {
 #' @references  Slater, P. (1977). *The measurement of intrapersonal space
 #'              by grid technique*. London: Wiley.
 #' @export
+#' @keywords internal
 #' @examples
 #'
 #' a <- randomGrid()

@@ -34,3 +34,4 @@ addAvgElement(feixas2004, "others", i = 2:12, digits = 0) # integers
 addAvgElement(feixas2004, "others", i = c(-1, -13))
 
 }
+\keyword{internal}

@@ -1,31 +1,27 @@
-# //////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////////////////////////////////////////////////////
 #
-#  		       data that comes along with the OpenRepGrid package
+#  		       Data that comes along with the OpenRepGrid package
 #
-# //////////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Bell (2010) ----
 
 #' Grid data from Bell (2010).
 #'
-#' Grid data originated (but is not shown in the paper) from a study by Haritos,
-#' Gindinis, Doan and Bell (2004) on element role titles. It was used to
-#' demonstrate the effects of construct alignment in Bell (2010, p. 46).
+#' Grid data originated (but is not shown in the paper) from a study by Haritos, Gindinis, Doan and Bell (2004) on
+#' element role titles. It was used to demonstrate the effects of construct alignment in Bell (2010, p. 46).
 #'
 #' @name data-bell2010
 #' @aliases bell2010
 #' @docType data
-#' @references  Bell, R. C. (2010).	A note on aligning constructs.
-#'              *Personal Construct Theory and Practice*, 7, 43-48.
+#' @references Bell, R. C. (2010).	A note on aligning constructs. *Personal Construct Theory and Practice*, 7, 43-48.
 #'
-#'              Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004).
-#'                The effect of element role titles on construct structure
-#'                and content. *Journal of constructivist
-#'                psychology, 17*(3), 221-236.
+#' Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004). The effect of element role titles on construct structure
+#' and content. *Journal of constructivist psychology, 17*(3), 221-236.
 #'
 #' @keywords data
-#'
+#' @examples bell2010
 NULL
 
 # args <- list(
@@ -58,29 +54,26 @@ NULL
 # save("bell2010", file="../data/bell2010.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Bell and McGorry (1992) ----
 
 #' Grid data from Bell and McGorry (1992).
 #'
-#' The grid data set is used in Bell's technical report "Using SPSS to Analyse
-#' Repertory Grid Data" (1997, p. 6). Originally, the data comes from a study
-#' by Bell and McGorry (1992).
+#' The grid data set is used in Bell's technical report "Using SPSS to Analyse Repertory Grid Data" (1997, p. 6).
+#' Originally, the data comes from a study by Bell and McGorry (1992).
 #'
 #' @name data-bellmcgorry1992
 #' @aliases bellmcgorry1992
 #' @docType data
-#' @references  Bell, R. C. (1977). *Using SPSS to
-#'                Analyse Repertory Grid Data*. Technical Report,
-#'                University of Melbourne.
+#' @references Bell, R. C. (1977). *Using SPSS to Analyse Repertory Grid Data*. Technical Report, University of
+#' Melbourne.
 #'
-#'              Bell, R. C., & McGorry, P. (1992). The analysis of repertory
-#'                grids used to monitor the perceptions of recovering psychotic
-#'                patients. In A. Thomson & P. Cummins (Eds.), *European Perspectives
-#'                in Personal Construct Psychology* (p. 137-150).
-#'                Lincoln, UK: European Personal Construct Association.
+#' Bell, R. C., & McGorry, P. (1992). The analysis of repertory grids used to monitor the perceptions of recovering
+#' psychotic patients. In A. Thomson & P. Cummins (Eds.), *European Perspectives in Personal Construct Psychology* (p.
+#' 137-150). Lincoln, UK: European Personal Construct Association.
 #'
 #' @keywords data
-#'
+#' @examples bellmcgorry1992
+#' 
 NULL
 
 
@@ -120,25 +113,21 @@ NULL
 # save("bellmcgorry1992", file="../data/bellmcgorry1992.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Boeker (1996) ----
 
 #' Grid data from Boeker (1996).
 #'
-#' Grid data from a schizophrenic patient undergoing psychoanalytically
-#' oriented psychotherapy. The data was taken during the last stage of
-#' therapy (Boeker, 1996, p. 163).
+#' Grid data from a schizophrenic patient undergoing psychoanalytically oriented psychotherapy. The data was taken
+#' during the last stage of therapy (Boeker, 1996, p. 163).
 #'
 #' @name data-boeker
 #' @aliases boeker
 #' @docType data
-#' @references    Boeker, H. (1996). The reconstruction of the self in
-#'                the psychotherapy of chronic schizophrenia: a case study
-#'                with the Repertory Grid Technique. In: Scheer, J. W.,
-#'                Catina, A. (Eds.): *Empirical Constructivism in Europe -
-#'                The Personal Construct Approach* (p. 160-167).
-#'                Giessen: Psychosozial-Verlag.
-#'
+#' @references Boeker, H. (1996). The reconstruction of the self in the psychotherapy of chronic schizophrenia: a case
+#' study with the Repertory Grid Technique. In: Scheer, J. W., Catina, A. (Eds.): *Empirical Constructivism in Europe -
+#' The Personal Construct Approach* (p. 160-167). Giessen: Psychosozial-Verlag.
 #' @keywords data
+#' @examples boeker
 NULL
 
 # Heinz Boeker in Scheer & Catina (1996, p.163)
@@ -177,20 +166,20 @@ NULL
 # save("boeker", file="../data/boeker.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Fransella, Bell & Bannister (2003) ----
 
 #' Grid data from Fransella, Bell and Bannister (2003).
 #'
-#' A dataset used throughout the book "A Manual for Repertory Grid Technique"
-#' (Fransella, Bell and Bannister, 2003, p. 60).
+#' A dataset used throughout the book "A Manual for Repertory Grid Technique" (Fransella, Bell and Bannister, 2003, p.
+#' 60).
 #'
 #' @name data-fbb2003
 #' @aliases fbb2003
 #' @docType data
-#' @references  Fransella, F., Bell, R. & Bannister, D. (2003). A Manual for Repertory
-#'              Grid Technique (2. Ed.). Chichester: John Wiley & Sons.
+#' @references  Fransella, F., Bell, R. & Bannister, D. (2003). *A Manual for Repertory Grid Technique (2. Ed.)*.
+#'   Chichester: John Wiley & Sons.
 #' @keywords data
-#'
+#' @examples fbb2003
 NULL
 
 
@@ -217,29 +206,26 @@ NULL
 # save("fbb2003", file="../data/fbb2003.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Feixas and Saul (2004) ----
 
 #' Grid data from Feixas and Saul (2004).
 #'
-#' A description by the authors:
-#' "When Teresa, 22 years old, was seen by the second author (LAS) at the
-#' psychological services of the University of Salamanca, she was in the
-#' final year of her studies in chemical sciences. Although Teresa proves
-#' to be an excellent student, she reveals serious doubts about her self worth.
-#' She cries frequently, and has great difficulty in meeting others,
-#' even though she has a boyfriend who is extremely supportive. Teresa
-#' is anxiously hesitant about accepting a new job which would involve moving
-#' to another city 600 Km away from home." (Feixas & Saul, 2004, p. 77).
+#' A description by the authors: "When Teresa, 22 years old, was seen by the second author (LAS) at the psychological
+#' services of the University of Salamanca, she was in the final year of her studies in chemical sciences. Although
+#' Teresa proves to be an excellent student, she reveals serious doubts about her self worth. She cries frequently, and
+#' has great difficulty in meeting others, even though she has a boyfriend who is extremely supportive. Teresa is
+#' anxiously hesitant about accepting a new job which would involve moving to another city 600 Km away from home."
+#' (Feixas & Saul, 2004, p. 77).
 #'
 #' @name data-feixas2004
 #' @aliases feixas2004
 #' @docType data
-#' @references  Feixas, G., & Saul, L. A. (2004). The Multi-Center Dilemma Project:
-#'              an investigation on the role of cognitive conflicts in health.
-#'              *The Spanish Journal of Psychology, 7*(1), 69-78.
+#' @references  Feixas, G., & Saul, L. A. (2004). The Multi-Center Dilemma Project: an investigation on the role of
+#'   cognitive conflicts in health.
+#' *The Spanish Journal of Psychology, 7*(1), 69-78.
 #'
 #' @keywords data
-#'
+#' @examples feixas2004
 NULL
 
 # args <- list(
@@ -286,40 +272,28 @@ NULL
 
 
 
+# Leach et al. (2001) ----
 
-
-
-
-
-
-# //////////////////////////////////////////////////////////////////////////////
-
-#' Case as described by the authors:
-#' "Sarah, aged 32, was referred with problems of depression and sexual
-#' difficulties relating to childhood sexual abuse. She had three
-#' children and was living with her male partner.
-#' From the age of 9, her brother, an adult, had sexually abused Sarah.
-#' She attended a group for survivors of child sexual abuse and
-#' completed repertory grids prior to the group, immediately after the
-#' group and at 3- and 6-month follow-up." (Leach et al. 2001, p. 230).\cr \cr
+#' Pre- and post therapy dataset from Leach et al. (2001).
+#' 
+#' Case as described by the authors: "Sarah, aged 32, was referred with problems of depression and sexual difficulties
+#' relating to childhood sexual abuse. She had three children and was living with her male partner. From the age of 9,
+#' her brother, an adult, had sexually abused Sarah. She attended a group for survivors of child sexual abuse and
+#' completed repertory grids prior to the group, immediately after the group and at 3- and 6-month follow-up." (Leach
+#' et al. 2001, p. 230).\cr \cr
 #'
-#' `leach2001a` is the pre-therapy, `leach2001b`
-#' is the post-therapy therapy dataset. The construct and elements are
+#' `leach2001a` is the pre-therapy, `leach2001b` is the post-therapy therapy dataset. The construct and elements are
 #' identical.
-#'
-#' @title   Pre- and post therapy dataset from Leach et al. (2001).
 #'
 #' @name data-leach2001
 #' @aliases leach2001a leach2001b
 #' @docType data
-#'
-#' @references   Leach, C., Freshwater, K., Aldridge, J., &
-#'                  Sunderland, J. (2001). Analysis of repertory grids
-#'                  in clinical practice. *The British Journal
-#'                  of Clinical Psychology, 40*, 225-248.
-#'
+#' @references   Leach, C., Freshwater, K., Aldridge, J., & Sunderland, J. (2001). Analysis of repertory grids in
+#'   clinical practice. *The British Journalof Clinical Psychology, 40*, 225-248.
 #' @keywords data
-#'
+#' @examples 
+#' leach2001a
+#' leach2001b
 NULL
 
 # name.abb <- c("CS", "SN", "WG", "MG", "Fa", "Pa", "IS", "Mo", "AC") # not included yet
@@ -353,8 +327,6 @@ NULL
 # leach2001a <- setScale(leach2001a, 1, 7)
 # save("leach2001a", file="../data/leach2001a.RData")
 
-
-# //////////////////////////////////////////////////////////////////////////////
 
 
 # name.abb <- c("CS", "SN", "WG", "MG", "Fa", "Pa", "IS", "Mo", "AC") # not included yet
@@ -391,24 +363,20 @@ NULL
 
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Mackay (1992) ----
 
-#' Grid data from Mackay (1992). Data set 'Grid C'-
+#' Grid data from Mackay (1992).
 #'
-#'
-#' used in Mackay's paper on inter-element correlation
-#' (1992, p. 65).
+#' Data set 'Grid C' used in Mackay's paper on inter-element correlation (1992, p. 65).
 #'
 #' @name data-mackay1992
 #' @aliases mackay1992
 #' @docType data
-#' @references  Mackay, N. (1992). Identification, reflection,
-#'              and correlation: Problems in the bases of repertory
-#'              grid measures. *International Journal of Personal
-#'              Construct Psychology, 5*(1), 57-75.
-#'
+#' @references  Mackay, N. (1992). Identification, reflection, and correlation: Problems in the bases of repertory grid
+#'   measures. *International Journal of Personal Construct Psychology, 5*(1), 57-75.
 #' @keywords data
-#'
+#' @examples mackay1992
+#' 
 NULL
 
 
@@ -432,24 +400,23 @@ NULL
 # save("mackay1992", file="../data/mackay1992.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Raeithel (1998) ----
 
 #' Grid data from Raeithel (1998).
 #'
-#' Grid data to demonstrate the use of Bertin diagrams (Raeithel, 1998, p. 223).
-#' The context of its administration is unknown.
+#' Grid data to demonstrate the use of Bertin diagrams (Raeithel, 1998, p. 223). The context of its administration is
+#' unknown.
 #'
 #' @name data-raeithel
 #' @aliases raeithel
 #' @docType data
-#' @references   Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen
-#'          und Klienten. Erlaeutert am Beispiel des Repertory Grid.
-#'          In A. Raeithel (1998). Selbstorganisation, Kooperation,
-#'          Zeichenprozess. Arbeiten zu einer kulturwissenschaftlichen,
-#'          anwendungsbezogenen Psychologie (p. 209-254). Opladen:
-#'          Westdeutscher Verlag.
+#' @references   Raeithel, A. (1998). Kooperative Modellproduktion von Professionellen und Klienten. Erlaeutert am
+#'   Beispiel des Repertory Grid. In A. Raeithel (1998). *Selbstorganisation, Kooperation, Zeichenprozess. Arbeiten zu
+#'   einer kulturwissenschaftlichen, anwendungsbezogenen Psychologie* (p. 209-254). Opladen: Westdeutscher Verlag.
 #'
 #' @keywords data
+#' @examples
+#' raeithel
 NULL
 
 # args <- list(
@@ -484,18 +451,18 @@ NULL
 # save("raeithel", file="../data/raeithel.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+
+# Slater (1977a) ----
 
 #' Drug addict's grid data set from Slater (1977, p. 32).
 #'
 #' @name data-slater1977a
 #' @aliases slater1977a
 #' @docType data
-#' @references  Slater, P. (1977). *The measurement of intrapersonal space
-#'              by grid technique*. London: Wiley.
-#'
+#' @references  Slater, P. (1977). *The measurement of intrapersonal space by grid technique*. London: Wiley.
 #' @keywords data
-#'
+#' @examples
+#' slater1977a
 NULL
 
 # args <- list(
@@ -537,26 +504,25 @@ NULL
 # save("slater1977a", file="../data/slater1977a.RData")
 
 
-# //////////////////////////////////////////////////////////////////////////////
+# Slater (1977b) ----
 
 #' Grid data from Slater (1977).
 #'
-#' Grid data (ranked) from a seventeen year old female psychiatric patient
-#' (Slater, 1977, p. 110). She was depressed, anxious and took to cutting
-#' herself. The data was originally reported by Watson (1970).
+#' Grid data (ranked) from a seventeen year old female psychiatric patient (Slater, 1977, p. 110). She was depressed,
+#' anxious and took to cutting herself. The data was originally reported by Watson (1970).
 #'
 #' @name data-slater1977b
 #' @aliases slater1977b
 #' @docType data
-#' @references  Slater, P. (1977). *The measurement of intrapersonal space
-#'              by grid technique*. London: Wiley.
+#' @references  Slater, P. (1977). *The measurement of intrapersonal space by grid technique*. London: Wiley.
 #'
-#'              Watson, J. P. (1970). The relationship between a self-mutilating
-#'              patient and her doctor. *Psychotherapy and Psychosomatics,
-#'              18*(1), 67-73.
+#'   Watson, J. P. (1970). The relationship between a self-mutilating patient and her doctor. *Psychotherapy and
+#'   Psychosomatics, 18*(1), 67-73.
 #'
 #' @keywords data
-#'
+#' @examples
+#' slater1977b
+#' 
 NULL
 
 # args <- list(
@@ -585,5 +551,3 @@ NULL
 # slater1977b <- setScale(slater1977b, 1, 10)
 # save("slater1977b", file="../data/slater1977b.RData")
 
-
-# //////////////////////////////////////////////////////////////////////////////

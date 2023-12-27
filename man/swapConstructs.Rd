@@ -28,3 +28,4 @@ swapConstructs(x, 1:2, 3:4) # swap construct 1 with 3 and 2 with 4
 }
 
 }
+\keyword{internal}

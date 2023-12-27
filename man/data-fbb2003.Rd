@@ -6,11 +6,14 @@
 \alias{fbb2003}
 \title{Grid data from Fransella, Bell and Bannister (2003).}
 \description{
-A dataset used throughout the book "A Manual for Repertory Grid Technique"
-(Fransella, Bell and Bannister, 2003, p. 60).
+A dataset used throughout the book "A Manual for Repertory Grid Technique" (Fransella, Bell and Bannister, 2003, p.
+60).
+}
+\examples{
+fbb2003
 }
 \references{
-Fransella, F., Bell, R. & Bannister, D. (2003). A Manual for Repertory
-Grid Technique (2. Ed.). Chichester: John Wiley & Sons.
+Fransella, F., Bell, R. & Bannister, D. (2003). \emph{A Manual for Repertory Grid Technique (2. Ed.)}.
+Chichester: John Wiley & Sons.
 }
 \keyword{data}

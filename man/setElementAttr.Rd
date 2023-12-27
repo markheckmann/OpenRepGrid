@@ -40,3 +40,4 @@ x
 \seealso{
 \code{\link[=setConstructAttr]{setConstructAttr()}}
 }
+\keyword{internal}

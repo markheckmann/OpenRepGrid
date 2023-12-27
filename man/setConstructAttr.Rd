@@ -52,3 +52,4 @@ x
 \seealso{
 \code{\link[=setElementAttr]{setElementAttr()}}
 }
+\keyword{internal}

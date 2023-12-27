@@ -44,3 +44,4 @@ up(x, 2) # 2nd construct upwards
 down(x, 1) # 1st construct downwards
 }
 }
+\keyword{internal}

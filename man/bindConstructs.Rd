@@ -42,3 +42,4 @@ bindConstructs(a, list(a, b))
 Slater, P. (1977). \emph{The measurement of intrapersonal space
 by grid technique}. London: Wiley.
 }
+\keyword{internal}
