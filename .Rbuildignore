@@ -14,3 +14,6 @@ cran-comments.md
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^doc$
+^Meta$
+^vignettes/OpenRepGrid\.Rmd$

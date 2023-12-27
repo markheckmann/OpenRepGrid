@@ -1,0 +1,92 @@
+---
+title: "Automatic reordering"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Automatic reordering}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+```
+
+### Description
+
+The direction of the constructs in a grid is arbitrary and a reflection of a scale does not affect the information contained in the grid. Nonetheless, the direction of a scale has an effect on inter-element correlations [@mackay_identification_1992] and on the spatial representation and clustering of the grid [@bell_note_2010]. Hence, it is desirable to follow a protocol to align constructs that will render unique results. A common approach is to align constructs by pole preference, i.e. aligning all positive and negative poles. This can e. g. be achieved using the function `swapPoles`. If an ideal element is present the function `alignByIdeal` will align the constructs accordingly. Note that this approach does not always yield definite results as sometimes ratings do not show a clear preference for one pole [@winter_midpoint_2010]. If a preference cannot be determined definitely, the construct direction remains unchanged (a warning is issued in that case).
+
+@bell_note_2010 proposed another solution for the problem of construct alignment. As a unique protocol he suggests to align constructs in a way so they all have positive loadings on the first component of a grid PCA.
+
+### R-Code
+
+#### Align by ideal/preference
+
+To align a construct by preference, an ideal element has to be defined. For the following example it is element 13 (*ideal self*).
+
+```{r}
+alignByIdeal(feixas2004, 13) 
+```
+
+Note that when midpoint ratings are present no preferred pole can be identified, as it is the case for one construct in the example above.
+
+As a default the preferred poles are assigned to the right side. You can use the argument `high=FALSE` to indicate that high ratings will correspond to the negative pole. Hence, the preferred pole will be in the left side of the grid.
+
+```{r}
+alignByIdeal(feixas2004, 13, high=F) 
+```
+
+To save the assigned grid into a new object:
+
+```{r}
+x <- alignByIdeal(feixas2004, 13) 
+```
+
+
+#### Align by loadings
+
+The alignment operation using `OpenRepgrid` is performed by the function `alignByLoadings`. 
+
+```{r}
+alignByLoadings(bell2010)
+```
+
+To save the alignment information in an object:
+
+```{r}
+x <- alignByLoadings(bell2010)
+```
+
+To get more information about the function type: `?alignByLoadings` to the console to open the help menu for the function. As a default the function will return a list containing:
+
+Name of list element | Content
+----- | -------
+`cor.before`  |  Construct correlation matrix before reversal
+`loadings.before`   |  Loadings on PCs before reversal
+`reversed` | Constructs that have been reversed
+`cor.after` | Construct correlation matrix after reversal
+`loadings.after`  | Loadings on PCs after reversal
+
+```{r}
+names(x)
+```
+
+To extract the indices that need reversal and use them to swap the poles you may do:
+
+```{r}
+swapPoles(bell2010, x$reversed$index)
+```
+
+This is clumsy though and will be subject to change in later versions of `OpenRepGrid`.
+
+
+### Literature
+
+

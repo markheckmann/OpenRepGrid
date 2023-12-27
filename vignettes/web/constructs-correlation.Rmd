@@ -1,0 +1,94 @@
+---
+title: "Construct correlations"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Construct correlations}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+
+### Description
+
+#### Correlation measures
+
+The correlations between constructs are used in a lot of occasions, indices etc, and present a standard statistic. Several types of correlations can be requested via the function `constructCor`.
+
+* **Pearson** or Product-moment correlation (PMC) 
+* **Kendall**'s tau rank correlation
+* **Spearman**'s rank correlation
+
+#### Root mean square correlation
+
+Also, the Root mean square (RMS) correlation, also known as 'quadratic mean' of the inter-construct correlations, can be calculated using the function `constructRmsCor`. The RMS serves as a simplification of the correlation table. It reflects the average relation of one construct with all other constructs. Note that as the correlations are squared during its calculation, the RMS is not affected by the sign of the correlation (cf. Fransella, Bell & Bannister, 2003, p. 86).
+
+#### Somers' D
+
+As suggested by Hinkle (1965) the relationships between constructs may take several different forms (reciprocal, hierarchical etc.). Several authors have suggested the use of asymmetric measures of association as an indicator for the type of relationship present (cf. Fransella et al., 2003). Currently only the software *Gridstat* (Bell, 2009) allows to calculate the asymmetric measure Somers’ D (Somers, 1962). The calculation of Somers' D in `OpenRepGrid` is prompted via the function `constructD`.
+
+
+### R-Code
+
+#### Correlation measures
+
+```{r}
+constructCor(mackay1992) 
+```
+
+you can select between the different types of correlation by setting the argument `method` to `"pearson"`, `"kendall"` or `"spearman"`. To request a Spearman rank correlation type
+
+```{r}
+constructCor(mackay1992, method="spearman") 
+```
+                     
+To format the output several arguments are available. See `?print.constructCor` for more printing options.
+
+```{r}
+r <- constructCor(mackay1992)
+print(r, digits=5, col.index=F)
+```
+
+
+#### Root mean square correlation 
+
+To calulate the RMS correlation
+
+```{r}
+constructRmsCor(fbb2003)  
+```
+
+#### Somers' D
+
+Somers' D is an asymmetric measure. As a default the columns are the dependent the rows the independent variables.
+
+```{r}
+constructD(fbb2003)
+```
+
+To set the rows as dependent, type
+
+```{r eval=FALSE}
+constructD(fbb2003, dep="r")
+```
+
+
+The returned data is in all cases a `matrix` or a `data.frame`, so you can easily extract the data you need for further calculations.
+
+
+### Literature
+
+* Bell, R. C. (2009). Gridstat version 5 - A Program for Analyzing the Data of A Repertory Grid (manual). University of Melbourne, Australia: Department of Psychology.
+* Fransella, F., Bell, R. C., & Bannister, D. (2003). A Manual for Repertory Grid Technique (2. ed.). Chichester: John Wiley & Sons.
+* Hinkle, D. (1965). The Change of Personal Constructs from the Viewpoint of a Theory of Construct Implications (Unpublished Ph.D. thesis). Ohio State University, Ohio.
+* Somers, R. H. (1962). A New Asymmetric Measure of Association for Ordinal Variables. American Sociological Review, 27(6), 799-811.
+

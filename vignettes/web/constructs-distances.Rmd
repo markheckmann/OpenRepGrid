@@ -1,0 +1,85 @@
+---
+title: "Distances between constructs and elements"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Distances between constructs and elements}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+
+### Description
+
+Distances between constructs are used as a measure of similarity. They have the disadvantage that they are not invariant to construct reflection. The following distance measures are available:
+
+* `euclidean`: Squared distance between the two vectors (L2 norm)
+* `manhattan`: Also called city-block-distance, absolute distance between the two vectors (L1 norm).
+* `minkowski`: The p norm, the pth root of the sum of the pth powers of the differences of the components.
+* `maximum`: Maximum distance between two components of x and y (supremum norm)
+* `canberra`: $\sum(|x_i - y_i| / |x_i + y_i|)$ Terms with zero numerator and denominator are omitted from the sum and treated as if the values were missing. This is intended for non-negative values (e.g. counts).
+* `binary`: The vectors are regarded as binary bits, so non-zero elements are on and zero elements are off. The distance is the proportion of bits in which only one is on amongst those in which at least one is on.
+
+For most grid purposes, the first two options will suffice.
+
+
+### R-Code
+
+In `OpenRepGrid` the function `distance` calculates various types of distances for constructs and for elements (the default is `euclidean`). The argument `along` determines if distances for 1) constructs or 2) elements are calculated. The default is to calculate distances for constructs:
+
+```{r}
+distance(fbb2003)
+```
+
+Distance for elements:
+
+```{r}
+distance(fbb2003, along=2)
+```
+
+To change the distance measure supply any unambigous string of the available distance methods to the argument dmethod. E.g. for the manhattan distance bewteen constructs:
+
+```{r}
+distance(fbb2003, dmethod="manhattan")
+```
+
+For other distance metrics:
+
+```{r results='hide'}
+distance(fbb2003, dm="canb")            # canberra distance for constructs
+distance(fbb2003, dm="mink", p=3)       # minkowski metric to the power of 3  for constructs
+```
+
+If the distances are calculated for further processing, the printing to the console can be surpressed distance and the results can be saved into an object (here d).
+
+```{r}
+d <- distance(fbb2003)
+```
+
+The object is a matrix. So we can look at the distances for the first construct only by
+
+```{r}
+d[1, ]
+```
+
+**Lack of invariance to construct reflection**
+
+Note that when you inverse a construct the distance measure will change. Reversing the frist consstruct of `fbb2003` will yield different values than before.
+
+```{r}
+x <- swapPoles(fbb2003, 1)
+d <- distance(x)
+d[1, ]
+```
+
+Make sure you are aware of this fact when using distance measures and constructs.
+

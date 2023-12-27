@@ -1,0 +1,178 @@
+---
+title: "Distances between elements (standardized)"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Distances between elements (standardized)}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+```{r calc-data, echo=FALSE}
+do.calc <- FALSE              # do longer calculations? FALSE = use saved values
+if (!do.calc)
+  load("data/distances.Rdata") # load objects that take long time to calculate
+```
+
+
+### Introduction
+
+As a similarity measure in grids different types of Minkowski metrics, especially the Euclidean and city-block metric are frequently used. The Euclidean distance is the sum of squared differences between the ratings on two different elements. They are, however, no standardized measure. The distances strongly depend on the number of constructs and the rating range. The figure below demonstrates this fact. Note how the distance changes although the rating pattern remains identical.
+
+![](images/elements_distances.png)
+
+In order to be able to compare distances across grids of different size and rating range a standardization is desireable. Also, the notion of *significance of a distance*, i.e. a distance which is unusually big, is easier with a standard reference measure. Different suggestions have been made in the literature of how to standardize Euclidean interelement distances [@slater_measurement_1977; @hartmann_element_1992; @heckmann_standardizing_2012].
+The three variants will be briefly discussed and the corresponing R-Code is demonstrated.
+
+
+### Slater distances (1977)
+
+#### Description
+
+The first suggestion to standardization was made by Slater [-@slater_measurement_1977]. He essentially calculated an expected average Euclidean distance $U$ for the case if the ratings are randomly distributed. To standardize the grids he suggested to divide the matrix of Euclidean distances $E$ by this *unit of expected distance* $U$. The Slater standardization thus is the division of the Euclidean distances by the distance expected on average. Hence, distances bigger than 1 are greater than expected, distances smaller than 1 are smaller than expected. 
+
+
+#### R-Code
+
+The function `distanceSlater` calculates Slater distances for a grid.
+
+```{r}
+distanceSlater(boeker)
+```
+
+You can save the results and define the way they are displayed using the `print` method. For example we could display distances only within certain boundaries, using the `cutoff` values `.8` and `1.2` to indicate very big or small distances as suggested by Norris and Makhlouf-Norris [-@norris_measurement_1976].
+   
+```{r}
+d <- distanceSlater(boeker)
+print(d, cutoffs=c(.8, 1.2))
+```
+
+
+#### Calculation
+
+Let $G$ be the raw grid matrix and $D$ be the grid matrix centered around the construct means, with $d_{ij} =g_{..} - g_{ij}$, where $g_{..}$ is the mean of the construct. Further, let
+
+$$P=D^TD \qquad \text{and} \qquad S=tr\;P$$
+
+The Euclidean distances results in: 
+
+$$(\sum{ (d_{ij} - d_{ik} )^2})^{1/2}$$
+
+$$\Leftrightarrow (\sum{ (d_{ij}^2 + d_{ik}^2 - 2d_{ij}d_{ik})})^{1/2}$$
+
+$$\Leftrightarrow (\sum{ d_{ij}^2 } + \sum{d_{ik}^2} - 2\sum{d_{ij}d_{ik} })^{1/2}$$
+
+$$\Leftrightarrow (S_j + S_k - 2P_{jk})^{1/2}$$
+
+For the standardization, Slater proposes to use the expected Euclidean distance between a random pair of elements taken from the grid. The average for $S_j$ and $S_k$ would then be $S_{avg} = S/m$ where $m$ is the number of elements in the grid. The average of the off-line diagonals of $P$ is $S/m(m-1)$ [see @slater_transformation_1951, for a proof]. Inserted into the formula above it gives the following expected average euclidean distance $U$ which is outputted as *unit of expected distance* in Slater's INGRID program. 
+
+$$U = (2S/(m-1))^{1/2}$$
+
+The calculated euclidean distances are then divided by $U$, the *unit of expected distance* to form the matrix of standardized element distances $E_{std}$, with
+
+$$E_{std} = E/U$$
+
+
+### Hartmann distances (1992)
+
+#### Description
+
+Hartmann [-@hartmann_element_1992] showed in a Monte Carlo study that Slater distances (see above) based on random grids, for which Slater coined the expression *quasis*, have a skewed distribution, a mean and a standard deviation depending on the number of constructs elicited. Hence, the distances cannot be compared across grids with a different number of constructs. As a remedy he suggested a linear transformation (z-transformation) of the Slater distance values which take into account their estimated (or alternatively expected) mean and their standard deviation to standardize them. Hartmann distances represent a more accurate version of Slater distances. Note that Hartmann distances are multiplied by -1 to allow an interpretation similar to correlation coefficients: negative Hartmann values represent an above average dissimilarity (i.e. a big Slater distance) and positive values represent an above average similarity (i.e. a small Slater distance).
+
+The *Hartmann distance* is calculated as follows [@hartmann_element_1992, p. 49]. 
+
+$$D = -1 \frac{D_{slater} - M_c}{sd_c}$$
+
+Where $D_{slater}$ denotes the Slater distances of the grid, $M_c$ the sample distribution's mean value and $sd_c$ the sample distributions's standard deviation.
+
+
+#### R-Code
+
+The function `distanceHartmann` calculates Hartmann distances. The function can be operated in two ways. The default option (`method="paper"`) uses precalculated mean and standard deviations  (as e.g. given in @hartmann_element_1992) for the standardization. 
+
+```{r}
+distanceHartmann(boeker)
+```
+
+The second option (`method="simulate"`) is to simulate the distribution of distances based on the size and scale range of the grid under investigation. A distribution of Slater distances is derived using quasis and used for the Hartmann standardization instead of the precalculated values. The following simulation is based on `reps=1000` quasis.
+
+```{r eval=do.calc, echo=FALSE, results='hide'}
+h <- distanceHartmann(boeker, method="simulate", reps=1000)
+```
+
+```{r eval=FALSE}
+h <- distanceHartmann(boeker, method="simulate", reps=1000)
+h
+```
+
+```{r echo=FALSE}
+h
+```
+
+If the results are saved, there are a couple of options for printing the object (see `?print.hdistance`).
+
+```{r}
+print(d, p=c(.05, .95))
+```
+
+
+### Heckmann's approach (2012)
+
+#### Description
+
+Hartmann (1992) suggested a transformation of Slater (1977) distances to make them independent from the size of a grid. Hartmann distances are supposed to yield stable cutoff values used to determine 'significance' of inter-element distances. It can be shown that Hartmann distances are still affected by grid parameters like size and the range of the rating scale used [@heckmann_standardizing_2012]. The function `distanceNormalize` applies a Box-Cox [-@box_analysis_1964] transformation to the Hartmann distances in order to remove the skew of the Hartmann distance distribution. The normalized values show to have more stable and nearly symmetric cutoffs (quantiles) and better properties for comparison across grids of different size and scale range.
+
+#### R-Code
+
+The function `distanceNormalize` will return Slater, Hartmann or power transformed Hartmann distances [@heckmann_standardizing_2012] if prompted. It is also possible to return the quantiles of the sample distribution and only the element distances consideres 'significant' according to the quantiles defined.
+
+```{r eval=do.calc, echo=FALSE, results='hide'}
+n <- distanceNormalized(boeker)
+```
+
+```{r eval=FALSE}
+n <- distanceNormalized(boeker)
+n
+```
+
+```{r echo=FALSE}
+n
+```
+
+
+#### Calculation
+
+The form of normalization applied by Hartmann [-@hartmann_element_1992] does not account for skewness or kurtosis. Here, a form of normalization - a power transformation - is explored that takes into account these higher moments of the distribution. For this purpose Hartmann values are transformed using the ''Box-Cox'' family of transformations [@box_analysis_1964]. The transformation is defined as
+
+$$
+  Y_i^{\lambda}= \left\{ 
+  \begin{matrix} 
+    \frac{(Y_i + c)^\lambda - 1}{\lambda} & \mbox{for }\lambda \neq 0 \\ 
+    ln(Y_i + c) & \mbox{for }\lambda = 0
+  \end{matrix} \right.
+$$
+
+As the transformation requires values $\ge 0$ a constant $c$ is added to derive positive values only. For the present transformation $c$ is defined as the minimum Hartmann distances from the quasis distribution.
+In order to derive at a transformation that resembles the normal distribution as close as possible, an optimal $\lambda$ is searched by selecting a $\lambda$ that maximizes the correlation between the quantiles of the transformed values $Y_i^\lambda$ and the standard normal distribution. As a last step, the power transformed values $Y_i^\lambda$ are z-transformed to remove the arbitrary scaling resulting from the Box-Cox transformation yielding $Y_i^P$.
+
+$Y_{i}^P = \frac{Y^{\lambda}_i - \overline Y^{\lambda}}{\sigma_{Y^{\lambda}}}$
+
+
+### Literature
+
+```{r save-data, echo=FALSE, eval=do.calc}
+save(n, h, file="data/distances.Rdata")
+```
+
+

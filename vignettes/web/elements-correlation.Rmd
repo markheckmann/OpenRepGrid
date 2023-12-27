@@ -1,0 +1,75 @@
+---
+title: "Elements correlations"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Elements correlations}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+### Description
+
+As a measure for element similarity correlations between elements are frequently used. Note that product moment correlations as a measure of similarity are flawed as they are not invariant to construct reflection
+[@mackay_identification_1992; @bell_note_2010]. A correlation index invariant to construct reflection is Cohen's rc measure [-@cohen_rc:_1969], which can be calculated using the argument `rc=TRUE` which is the default option.
+
+### R-Code
+
+As a default the construct reflection invariant correlation Cohen's rc is calculated. 
+                                       
+Note how the values change when the simple product-moment correlation is used instaed of Cohen's rc. Make sure you know what you are doing when setting `rc=FALSE`.
+
+```{r}
+elementCor(mackay1992, rc=F)
+```
+
+Although nor recommended different measures, not invariant to construct relfection, can be prompoted, when setting `rc=FALSE`. 
+
+* **Pearson** or Product-moment correlation (PMC) 
+* **Kendall**'s tau rank correlation
+* **Spearman**'s rank correlation
+
+To request these types of correlations use the `method` argument plus `rc=FALSE`.
+
+```{r results='hide'}
+elementCor(mackay1992, rc=FALSE, meth="kendall")    # Kendalls tau correlation
+elementCor(mackay1992, rc=FALSE, meth="spearman")   # Spearman rank correlation
+```
+
+Several arguments to format the output are available.
+
+```{r}
+elementCor(mackay1992, index=F, trim=6)
+```
+
+If the correlations are calculated for further processing, the correlations can be saved.
+
+```{r}
+r <- elementCor(mackay1992)
+```
+
+The object is matrix, so you can eassily acces the results. E.g. all correlations with the element `Self`.
+
+```{r}
+r[1, ]
+```
+
+
+### Literature
+
+<!-- 
+* Bell, R. C. (2010). A note on aligning constructs. Personal Construct Theory & Practice, (7), 42-48.
+* Cohen, J. (1969). rc: A profile similarity coefficient invariant over variable reflection. Psychological Bulletin, 71(4), 281-284.
+* Mackay, N. (1992). Identification, Reflection, and Correlation: Problems in the bases of Repertory Grid measures. International Journal of Personal Construct Psychology, 5(1), 57-75.
+-->

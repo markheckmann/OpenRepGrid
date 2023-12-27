@@ -1,0 +1,99 @@
+---
+title: "Conflict measures"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 5
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Conflict measures}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+
+### Conflict measures bases on correlations
+
+#### Description
+
+The first approach to mathematically derive a conflict measure based on grid data was presented by [-@slade_measurement_1979]. They based their operationalization on an approach by @lauterbach_assessing_1975 who applied Heider's [-@heider_attitudes_1946] balance theory for a quantitative assessment of psychological conflict. The measure uses inter-construct correlation as a basis. It assess via the sign of the correlations of a triad of constructs if the constructs triad is balanced or imbalanced. A triad is imbalanced if one or three of the correlations are negative, i. e. when they leading to contrary implications [@slade_measurement_1979]. The function `indexConflict1` in `OpenRepGrid` calculates the proportion of conflictive triads in the grid as devised by Slade and Sheehan.
+
+Slade and Sheehan’s approach has several drawbacks, as it does not take into account the magnitude of the inter-construct correlations. As a consequence significant and insignificant correlations are not differentiated. Also, correlations of small magnitude, i.e. near zero, which may have a positive or negative signe due to chance alone distort the measure [@winter_construct_1982; @bassler_new_1992]. An improved version of the index that overcomes these shortcomings was proposed by [-@bassler_new_1992] and incorporated into the program *CT* (correlation test). The index enhances the identification of imbalanced triads by using a criterion that incorporates the magnitudes of correlations. From a psychological viewpoint, it remains unclear though what is measured. Connections to the concept of cognitive differentiation have been presumed [@krauthauser_new_1994]. The function `indexConflict2` in `OpenRepGrid` calculates the proportion of conflictive triads in the grid as devised by [-@bassler_new_1992].
+
+
+#### Calculation 
+
+##### @slade_measurement_1979 approach 
+
+Multiply all correlations from a triad (formed by the constructs A, B and C) $r_{AB} r_{AC} r_{BC}$. If the sign of the result is negative, the triad is imbalanced. 
+
+The table below shows when a triad made up of the constructs A, B, and C is balanced and imbalanced.
+ 
+$r_{AB}$  | $r_{AC}$ | $r_{BC}$ | Triad characteristic
+--------- | --------- | ---- | -----
++ | + | + | balanced
++ | + | - | imbalanced
++ | - | + | imbalanced
++ | - | - | balanced
+- | + | + | imbalanced
+- | + | - | balanced
+- | - | + | balanced
+- | - | - | imbalanced
+
+
+##### @bassler_new_1992 approach 
+
+Order correlations of the triad by absolute magnitude, so that $r_{max} > r_{mdn} > r_{min}$.
+
+Apply Fisher's Z-transformation and devision by 3 to yield values between 1 and -1
+Check whether the triad is balanced by assessing if the following relation holds:
+
+* If $Z_{max} Z_{mdn} > 0$, the triad is balanced if $Z_{max} Z_{mdn} - Z_{min} <= crit$
+* If $Z_{max} Z_{mdn} < 0$, the triad is balanced if $Z_{min} - Z_{max} Z_{mdn} <= crit$
+
+#### R-Code
+
+To use the Slade and Sheehan approach use
+
+```{r}
+indexConflict1(boeker)
+```
+
+For the Bassler et al. approach use
+
+```{r}
+indexConflict2(boeker)
+indexConflict2(boeker, crit =.05)   # change critical value
+```
+
+
+### Conflict measures based on distances
+
+#### Description
+
+Measure of conflict or inconsistency as proposed by @bell_new_2004. The identification of conflict is based on distances rather than correlations as in other measures of conflict indexConflict1 and indexConflict2. It assesses if the distances between all components of a triad, made up of one element and two constructs, satisfies the "triangle inequality" [cf. @bell_new_2004]. If not, a triad is regarded as conflictive. An advantage of the measure is that it can be interpreted not only as a global measure for a grid but also on an element, construct, and element by construct level making it valuable for detailed feedback. Also, differences in conflict can be submitted to statistical testing procedures.
+
+#### R-Code
+
+```{r}
+indexConflict3(leach2001a)
+```
+
+### Literature
+
+<!-- LITERATURE VERBOSE BACKUP
+Bassler, M., Krauthauser, H., & Hoffmann, S. O. (1992). A new approach to the identification of cognitive conflicts in the repertory grid: An illustrative case study. Journal of Constructivist Psychology, 5(1), 95-111.
+Heider, F. (1958). The Psychology of Interpersonal Relation. John Wiley & Sons.
+Krauthauser, H., Bassler, M., & Potratz, B. (1994). A New Approach to the Identification of Cognitive Conflicts in the Repertory Grid: A Nomothetic Study. Journal of Constructivist Psychology, 7(4), 283-299.
+Lauterbach, W. (1975). Assessing psychological conflict. The British Journal of Social and Clinical Psychology, 14(1), 43-47.
+Slade, P. D., & Sheehan, M. J. (1979). The measurement of 'conflict' in repertory grids. The British Journal of Psychology, 70(4), 519-524.
+Winter, D. A. (1982). Construct relationships, psychological disorder and therapeutic change. The British Journal of Medical Psychology, 55 (Pt 3), 257-269.
+-->

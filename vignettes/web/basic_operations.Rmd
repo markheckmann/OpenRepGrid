@@ -1,0 +1,180 @@
+---
+title: "Basis operations"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Basis operations}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r include = FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+```
+
+
+### Displaying a grid
+
+Whenever the name of the variable containing a grid object is typed to the console it is printed. Several datasets are already included in the `OpenRepGrid` package and are available once the package is loaded. Two of them are `bell2010` and `fbb2003`.
+Type one of these variable names to the console andthe grid will be printed.
+
+```{r}
+bell2010
+```
+
+Usually it is convenient to name an object the way you like to. You can save the grids in any variable you like. To save the grid in the variable x type
+
+```{r}
+x <- bell2010
+```
+
+If you now type x to the console the same grid will be printed.
+
+```{r}
+x
+```
+
+
+### Extract a subset of the grid
+
+One of the most powerful operators for repgrid objects is the `[` (extract) function. It can be used to access parts of the data and reorder rows and columns. It is applied in the same way as for other R objects (cf. R docu, or type `?Extract` to the console). Within the squared brackets the index of the rows (constructs) and/or columns (elements) is supplied determining the order or subset of a grid. E.g. in order to extract the first three rows and first four elements of the bell2010 data use. This will produce a 3x4 subset of the grid you may save to a new object.
+
+```{r}
+bell2010[1:3, 1:4]
+```
+
+
+### Delete elements and/or constructs
+
+Negative indexes indicate that a row and/or column is to be deleted. In order to delete the first construct row (line 1) and the first two elements (line 2) respectively type
+
+```{r eval=FALSE}
+bell2010[-1, ]
+bell2010[ , -c(1,2)]
+```
+
+
+### Reorder a grid
+
+The brackets function can also be used to reorder a grid. To reverse the order of the constructs type
+
+```{r}
+bell2010[9:1, ]
+```
+
+Likewise we can rearrange the order of the elements. In order to facilitate a comparison between the elements self, unhappiest person you know and mother (elements 1, 3 and 6) we may want to rearrange them next to each other.
+
+```{r}
+bell2010[ , c(1,3,6,2,4,5, 7:10)]
+```
+
+
+### Moving elements and constructs
+
+Several tasks concerning reordering will be used repeatedly, like e. g. moving a construct upwards. While the extract function can fulfill this task, the code quickly becomes tedious. Hence, specialized functions are available for standard actions. E.g. to move construct 2 upwards the following two lines of code are equivalent.
+
+```{r eval=FALSE}
+bell2010[c(2,1, 3:9), ]
+up(bell2010, 2)
+```
+
+The following table lists several functions that provide a shortcut for standard operations.
+
+Function  | Description | Usage example
+------------- | -------------
+`up()`             |  Move construct upwards     |  `up(fbb2003, 2)`
+`down()`           |  Move construct downwards	 | `down(fbb2003, 1)`
+`left()`           |  Move element to the left	 | `left(fbb2003, 2)`
+`right()`          |  Move element to the right	 | `right(fbb2003, 1)`
+`swapConstructs()` |  Swap two constructs        | `swapConstructs(fbb2003, 1, 5)`
+`swapElements()`   |  Swap two elements          |  `swapElements(fbb2003, 1, 5)`
+`shift()`	         |  Move all constructs (elements) a number of rows (columns)	| `shift(fbb2003, c=3)`
+
+
+### Swapping poles
+
+Due to the bipolar nature of constructs the direction of a construct is arbitrary. Hence, the poles can also be swapped without affecting the grid information itself. To reflect one or more constructs the function swapPoles can be used. The following code will reflect the constructs one to three.
+
+```{r eval=FALSE}
+swapPoles(bell2010, 1:3)
+```
+
+
+### Change Ratings
+
+To change single ratings of elements on constructs also the extract function can be used. In this context, the square brackets are used to determine the part of the grid that is assigned new scores. To change the rating in cell `(1,1)` of the dataset `bell2010` to `1` type
+
+```{r}
+bell2010[1,1] <- 1
+```
+
+Likewise, new scores can be assigned to a number of cells in the grid, to whole rows, to whole columns or to the entire grid. The following code gives some examples.
+
+```{r}
+x <- bell2010[1:4, 1:5]         # subset of the Bell2010 data set with four rows and five columns
+x[1:3, 1] <- c(1,4,3)     # rows 1 to 3 in column 1
+x[1, c(1,4)] <- c(2,2)   	# columns 1 and 4 in row 1
+x[1, ] <- c(2,2,1,4,3)		# all columns in row one
+x[ ,1] <- c(2,2,1,4)		# all rows in column one
+x[ , ] <- c(1,2,3,4,		# whole grid column wise
+            1,2,3,4,
+            1,2,3,4,
+            1,2,3,4,
+            1,2,3,4)
+```
+
+
+### Modify element and construct names
+
+A grid object contains information about the element and construct labels, their abbreviations, their status (e.g. ideal element or preferred pole). All the information contained in a grid object can be manipulated via the functions setConstructAttr and setElelemntAttr. To e.g. change the construct labels provide the row and the new pole labels to the function.
+
+```{r}
+setConstructAttr(boeker, 1, "new left pole", "new right pole")
+```
+
+To change element the label of the first element, proceed likewise.
+
+```{r}
+setElementAttr(boeker, 1, "new name")  
+```
+ 
+
+### Add elements and constructs
+
+Sometimes it is necessary to add an element or a construct. This can be achieved by modifying the input file itself. Another option is to use the functions addConstruct and addElement. The following call will add a construct and the corresponding ratings to the bell2010 dataset. The left and right pole are labeled “left pole” and “right pole” respectively.
+
+```{r}
+addConstruct(bell2010, "left pole", "pole right", c(3,1,3,2,5,4,6,3,7,1))
+```
+
+The following code will add an element with the label “new element” to the dataset.
+
+```{r}
+addElement(bell2010, "new element", c(1,2,5,4,3,6,5,2,7))
+```
+
+
+### Defining a grid manually
+
+The import functions make use of internal functions to construct a grid from scratch using the imported data. It is also possible to call these functions manually, an option advanced users may consider. The most convenient way is to use the function makeRepGrid. First a list of arguments (args) containing the elements and constructs names and the rating scores is created. This list is supplied to the function makeRepGrid. Note that the scale range has to be set using setScale, in order to draw the grid properly. Usually it will be more convenient to create a grid via the .txt import function.
+
+```{r}
+args <- list(
+  name= c("element 1", "element 2", "element 3", "element 4", "element 5"),
+  l.name= c("left pole 1", "left pole 2", "left pole 3", "left pole 4"),
+  r.name= c("right pole 1", "right pole 2", "right pole3 ", "right pole 4"),
+  scores= c(4,4,6,5,1,
+            2,7,6,5,2,
+            6,3,1,6,4,
+            6,7,5,6,3))
+newGrid <- makeRepgrid(args)
+newGrid <- setScale(newGrid, 1, 7)
+newGrid
+```
+

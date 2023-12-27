@@ -1,0 +1,44 @@
+---
+title: "Intensity"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Intensity}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+
+### Description
+
+The Intensity index has been suggested by @bannister_conceptual_1960 as a measure of the amount of construct linkage. Bannister suggested that the score reflects the degree of organization of the construct system under investigation [@bannister_evaluation_1968]. The index resulted from his and his colleagues work on construction systems of patient suffering schizophrenic thought disorder. The concept of intensity has a theoretical connection to the notion of "tight" and "loose" construing as proposed by @kelly_psychology_1991. While tight constructs lead to unvarying prediction, loose constructs allow for varying predictions. Bannister hypothesized that schizophrenic thought disorder is liked to a process of extremely loose construing leading to a loss of predictive power of the subject’s construct system. The Intensity score as a structural measure is thought to reflect this type of system disintegration [@bannister_conceptual_1960].
+
+
+### R-Code
+
+The index can be prompted in `OpenRepGrid` as follows. It calculates an intensity score for each construct and each element, an average score for both types and an overall intensity value [cf. @feixas_gridcor:_2002].
+
+```{r}
+indexIntensity(bell2010)
+```
+
+
+### Literature 
+
+<!-- OLD LITERATURE
+Bannister, D. (1960). Conceptual structure in thought-disordered schizophrenics. The Journal of mental science, 106, 1230-49.
+Bannister, D., & Mair, J. M. M. (1968). The evaluation of personal constructs. London: Academic Press.
+Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva. Retrieved from www.terapiacognitiva.net/record.
+Kelly, G. A. (1991). The Psychology of Personal Constructs. Volume One: Theory and Personality. Routledge.
+-->

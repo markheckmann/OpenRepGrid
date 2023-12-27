@@ -1,0 +1,59 @@
+---
+title: "Installation"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Installation}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+```
+
+### Installing R and RStudio
+
+-   The prerequisite for installing the `OpenRepGrid` package is that R has been installed on your computer. R can be downloaded from [here](http://cran.rstudio.com/) for Windows, MacOS or Linux.
+
+-   **RStudio** is a program that makes it easier to handle R. You can download it from [here](http://www.rstudio.com/products/RStudio/).
+
+For both programs please follow the installation instructions on the websites.
+
+### Installing the OpenRepGrid package
+
+The easiest way to install the `OpenRepGrid` package is from within RStudio. Select the tab `Packages` -\> `Install` and type in `OpenRepGrid`.
+
+![](images/install_openrepgrid_indicators.png)
+
+Alternatively you may also use the R command line to install the package. Just type in the following code:
+
+```{r eval=FALSE}
+install.packages("OpenRepGrid")
+```
+
+### Video tutorial
+
+<iframe src="//player.vimeo.com/video/27903566" width="600" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+
+</iframe>
+
+### Development version
+
+The version of the package hosted on CRAN is a checked release. The latest development version is hosted at github. To install the latest version with the features currently under development you need to follow three steps:
+
+1.  Make sure you have the latest version of R installed.
+2.  Make sure the following packages are installed. If not install them by typing
+
+```{r eval=FALSE}
+install.packages(c("colorspace", "plyr", "abind", "rgl", "psych", "XML"))
+```
+
+3.  To download and install the OpenRepGrid development version from github you can use a function from the `devtools` package.
+
+```{r eval=FALSE}
+library(devtools)
+install_github("OpenRepGrid", "markheckmann") 
+```

@@ -76,5 +76,8 @@ Suggests:
     testthat (>= 2.1.0),
     covr,
     styler,
-    vdiffr
+    vdiffr,
+    knitr,
+    rmarkdown
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr

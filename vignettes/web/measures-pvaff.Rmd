@@ -1,0 +1,43 @@
+---
+title: "PVAFF"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{PVAFF}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+
+### Description
+
+Percentage of *Variance Accounted for by the First Factor* (PVAFF) is used as a measure of cognitive complexity. The idea was introduced in an unpublished PhD thesis by Jones [-@jones_identification_1954, cit. @bonarius_research_1965]. To calculate it, the first factor is extracted from the construct correlation matrix by principal component analysis. The PVAFF reflects the amount of variation that is accounted for by a single latent linear component. If a single component is able to explain a lot of variation in the grid, the cognitive complexity is said to be low and the construct system is attributed the term *simple* [@bell_evaluation_2003]. It is argued, that as a consequence of a simple constructs system, less differentiation in anticipated events can be generated [cf. @adams-webber_analysis_1970].
+
+
+### R-Code
+
+```{r}
+indexPvaff(bell2010)
+```
+
+Note that the value returned is the proportion not the percentage.
+
+### Literature
+
+<!-- OLD LITERATURE
+Adams-Webber, J. R. (1970). An analysis of the discriminant validity of several repertory grid indices. British Journal of Psychology, 61(1), 83-90.
+Bell, R. C. (2003). An evaluation of indices used to represent construct structure. In G. Chiari & M. L. Nuzzo (Eds.), Psychological Constructivism and the Social World (pp. 297-305). Milan: FrancoAngeli.
+Bonarius, J. C. J. (1965). Research in the personal construct theory of George A. Kelly: role construct repertory test and basic theory. In B. A. Maher (Ed.), Progress in experimental personality research (Vol. 2). New York: Academic Press.
+James, R. E. (1954). Identification in terms of personal constructs (Unpublished doctoral thesis). Ohio State University, Columbus, OH.
+-->

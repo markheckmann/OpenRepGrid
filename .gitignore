@@ -7,3 +7,6 @@
 .Rapp.history
 OpenRepGrid.Rproj
 docs
+inst/doc
+/doc/
+/Meta/

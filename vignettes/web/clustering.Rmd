@@ -1,0 +1,123 @@
+---
+title: "Clustering constructs and elements"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Clustering constructs and elements}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+### Description
+
+A method for identifying structures in construct system is *cluster analysis*. Any distance or similarity measure accounting for a certain type of association could be used as a cluster criterion. Traditionally mostly Euclidean and Manhattan distances have been used. The earliest implementation of a cluster algorithm for repertory grids was incorporated in the program FOCUS (Shaw & Thomas, 1978). 
+
+ Several distance measure can be selected (explanations from `?dist` dcoumentation):
+
+* `euclidean`: Squared distance between the two vectors (L2 norm)
+* `manhattan`: Also called city-block-distance, absolute distance between the two vectors (L1 norm).
+* `minkowski`: The p norm, the pth root of the sum of the pth powers of the differences of the components.
+* `maximum`: Maximum distance between two components of x and y (supremum norm)
+* `canberra`: $\sum(|x_i - y_i| / |x_i + y_i|)$ Terms with zero numerator and denominator are omitted from the sum and treated as if the values were missing. This is intended for non-negative values (e.g. counts).
+* `binary`: The vectors are regarded as binary bits, so non-zero elements are on and zero elements are off. The distance is the proportion of bits in which only one is on amongst those in which at least one is on.
+
+Also several cluster methods can be selected (explanations from ?hclust documentation).
+
+* `ward.D`, `ward.D2`: Ward's minimum variance method aims at finding compact, spherical clusters.
+* `complete`: The complete linkage method finds similar clusters.
+* `single`: The single linkage method (which is closely related to the minimal spanning tree) adopts a ‘friends of friends’ clustering strategy.
+
+The other methods can be regarded as aiming for clusters with characteristics somewhere between the single and complete link methods:
+
+* `average`
+* `mcquitty`
+* `median`
+* `centroid`
+
+The distance and cluster methods can be combined as wished.
+
+
+### R-Code
+
+#### Clustering
+
+When the function `cluster` is called dendrograms of the construct and element clustering are drawn.
+
+```{r cluster-simple, message=FALSE, warning=FALSE, fig.height=10}
+cluster(bell2010)
+```
+
+The function also returns the reordered matrix invisibly. To see the reordered grid save it into a new object. To oppress the creation of a graphic set `print = FALSE`. 
+
+```{r message=FALSE, warning=FALSE}
+x <- cluster(bell2010, print=FALSE)
+x
+```
+
+The function also allows to only cluster constructs or elements. To only cluster the constructs us the following code. Again a dendrogram is drawn and a grid with reordered constructs is returned.
+
+```{r message=FALSE, warning=FALSE}
+x <- cluster(bell2010, along=1, print=FALSE)
+x
+```
+
+To only cluster the elements set `along=2`.
+
+```{r message=FALSE, warning=FALSE}
+x <- cluster(bell2010, along=2, print=FALSE)
+x
+```
+
+To apply different distance measures and cluster methods us the arguments `dmethod` and `cmethod` (here `manhattan` distance and `single` linkage clustering).
+
+```{r message=FALSE, warning=FALSE}
+x <- cluster(bell2010, dmethod="manh", cmethod="single", print=FALSE)
+x
+```
+
+To apply different methods to the constructs and the rows, use a two-step approach.
+
+```{r message=FALSE, warning=FALSE}
+# cluster constructs using default methods
+x <- cluster(bell2010, along=1, print=FALSE)       
+# cluster elements using manhattan distance and single linkage clustering
+x <- cluster(x, along=2, dm="manh", cm="single", print=FALSE)  
+x
+```
+
+Some other options can be set. Paste the code into the R console to try it out. See `?cluster` for more information.
+
+```{r eval=FALSE}
+cluster(bell2010, main="My cluster analysis")   # new title
+cluster(bell2010, type="t")                     # different drawing style
+cluster(bell2010, dmethod="manhattan")          # using manhattan metric
+cluster(bell2010, cmethod="single")             # do single linkage clustering
+cluster(bell2010, cex=1, lab.cex=1)             # change appearance
+cluster(bell2010, lab.cex=.7,                   # advanced appearance changes
+        edgePar = list(lty=1:2, col=2:1))
+```
+
+#### Bootsrapped clustering
+
+TODO
+
+#### Clustered Bertin
+
+The following figure shows a clustered Bertin matrix. The full explanation is found under the section [Bertin display]().
+
+```{r cluster-bertin, message=FALSE, warning=FALSE}
+bertinCluster(bell2010)
+```
+
+
+### Literature
+
+* Shaw, M. L., & Thomas, L. F. (1978). FOCUS on education - an interactive computer system for the development and analysis of repertory grids. International Journal of Man-Machine Studies, 10(2), 139-173.

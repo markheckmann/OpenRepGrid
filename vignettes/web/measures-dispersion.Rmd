@@ -1,0 +1,148 @@
+---
+title: "Dispersion of Dependency"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Dispersion of Dependency}
+  %\VignetteEncoding{UTF-8}
+csl: apa.csl
+bibliography: literature.bib
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+```
+
+
+### Background
+
+Personal Construct Psychology's (PCP) founder, George Kelly, proposed that it is problematic to view people as either *independent* or *dependent* because everyone is, to greater or lesser degrees, dependent upon others in life (Kelly, 1969). What Kelly felt was important was how well people disperse their dependencies across different people. Whereas young children tend to have their dependencies concentrated on a small number of people (typically parents), adults are more likely to spread their dependencies across a variety of others. Dispersing one’s dependencies is generally considered more psychologically adjusted for adults (Walker et al., 1988).
+
+#### Being Helped Grid
+
+Walker et al. (1988) developed the *Being Helped Grid* to measure dispersion of dependency. When completing such a grid, research participants are encouraged to choose at least 10 people from these role titles: 
+
+Suggested Role Titles for Being Helped Grid:
+
+1. Mother 
+2. Father 
+3. Grandmother 
+4. Grandfather
+5. Sister
+6. Brother
+7. Daughter
+8. Son
+9. Spouse 
+10. Friend of same sex
+11. Friend of opposite sex
+12. Boss
+13. Minister/priest/rabbi
+14. Neighbor
+15. Doctor
+16. Advisor/counselor
+17. Teacher
+18. Relative
+19. Other
+
+After writing the names of their selected people on the Being Helped Grid, research participants are asked to "think of a time when you had the most problem with X. If these people had been around at that time, to whom would you have gone for help." Participants then place a tick next to each person they would seek help from for each of the problems in the grid. The problem situations used in the grid are listed below.
+
+Problem Situations Included in Being Helped Grids:
+
+1. The time when you were most perplexed about what kind of job or vocation you ought to go into.
+2. The time when you had the greatest difficulty understanding how to get along with the opposite sex.
+3. The time when things seemed to be going against you, when your luck was particularly bad.
+4. The time when you were most hard up financially. 
+5. The time when you were in poorest health or had a long period of illness. 
+6. The time when someone took advantage of you because you did not know what you were doing.
+7. The time when you made one of the most serious mistakes in your life. 
+8. The time when you failed to accomplish something you tried very hard to do. 
+9. The time when you were lonely.
+10. The time when you felt discouraged about the future. 
+11. The time when you wondered if you would not feel better off dead or when you came nearest to feeling that way.
+12. The time when you felt misunderstood by others. 
+13. The time when you got very angry. 
+14. The time when you hurt someone's feelings. 
+15. The time when you felt ashamed. 
+16. The time when you felt frightened. 
+17. The time when you acted childishly. 
+18. The time when you felt jealous. 
+19. The time when you felt most mixed up or confused about things in general. 
+20. The time when you had serious trouble with your parents, or came nearest to having trouble with them.
+21. The time when you had trouble with your brother, sister, or a close relative, or the time when you came nearest to having trouble with one of them.
+22. The time when you had trouble with your wife/husband or girl/boyfriend, the time when you came nearest to having trouble with one of them.
+23. The time when you had trouble with your children, or the time when you came nearest to having trouble with one of them.
+
+
+### Measures
+
+#### Dispersion of Dependency (DDI)
+
+Walker et al. (1988, p. 66) developed the *Dispersion of Dependency Index (DDI)* to measure the degree of dispersion of dependency in a situation-resource grid (dependency grid), i.e. the degree to which a person dispersed critical situations over resource persons. The index is a renamed adoption of the *diversity index* from the field of ecology where it is used to measure the diversity of species in a sample. Both are computationally identical. The index is applicable to dependency grids (e.g., situation-resource) only, i.e., all grid ratings must be $0$ or $1$.
+
+The index is calculated as follows (Walker et al., 1988, p. 66):
+
+$$\mathrm{DI}=\sum_{i=1}^k\left[1.0-\frac{C\left(N-n_i, \mathrm{DS}\right)}{C(N, \mathrm{DS})}\right]$$
+
+where:
+
+- $DS$: predetermined size of sample of dependencies
+- $k$: number of people (columns) in grid
+- $N$: total number of dependencies in grid
+- $n_i$: number of dependencies involving person $i$ (= number of ticks in column)
+- $C(p,q)$: number of ways of choosing q objects from a set of $p$ objects, i.e., $p!/(q!(p- q)!)$
+
+
+```{r}
+# sample grid from Walker et al. (1988), p. 67
+file <- system.file("extdata", "dep_grid_walker_1988_2.xlsx" , package = "OpenRepGrid")
+x <- importExcel(file)
+x
+```
+
+```{r}
+indexDDI(x, ds = 2:5) 
+```
+
+#### Uncertainty Index (UI)
+
+Bell (2001) proposed another information-theory based measure for calculating dispersion of dependency, which he called the *Uncertainty Index (UI)*. Different from the *DDI*, it is a normalized measure with a value range between $0$ and $1$.
+
+$$
+UI = \frac{\log D_{tot} – (\sum_i^k D_{i} × \log D_{i} ) / D_{tot}}{\log D_{tot} – \log (D_{tot}/k)}
+$$
+where:
+
+- $k$: number of ressources
+- $D_{tot}$: number of total dependencies in grid
+- $D_{i}$: number of dependencies for resource $i$
+
+
+```{r}
+# sample grid from Bell (2001, p.231)
+file <- system.file("extdata", "dep_grid_bell_2001.xlsx" , package = "OpenRepGrid")
+x <- importExcel(file)
+x
+```
+
+```{r}
+indexUncertainty(x) 
+```
+
+### Literature
+
+Bell, R. C. (2001). Some new measures of the dispersion of dependency in a situation—Resource grid. *Journal of Constructivist Psychology, 14*(3), 227–234. https://doi.org/10.1080/10720530151143566
+
+Kelly, G. A. (1962). In whom confide: On whom depend for what. In Maher, B. (Ed.), *Clinical psychology and personality: The selected papers of George Kelly*, p. 189-206. New York Krieger.
+
+Walker, B. M., Ramsey, F. L., & Bell, R. C. (1988). Dispersed and undispersed dependency. *International Journal of Personal Construct Psychology, 1*(1), 63–80. https://doi.org/10.1080/10720538808412765
+
+
+
+
+

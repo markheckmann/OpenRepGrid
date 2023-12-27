@@ -1,0 +1,69 @@
+---
+title: "Distances between elements"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+csl: apa.csl
+bibliography: literature.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Distances between elements}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+
+### Description
+
+Distances between elements are used as a measure of similarity. For elements, distance measure have the advantage that they are not affected by construct reflection as it is the case for correlations between elements (see `elementCor`). The following distance measures are available:
+
+* `euclidean`: Squared distance between the two vectors (L2 norm)
+* `manhattan`: Also called city-block-distance, absolute distance between the two vectors (L1 norm).
+* `minkowski`: The p norm, the pth root of the sum of the pth powers of the differences of the components.
+* `maximum`: Maximum distance between two components of x and y (supremum norm)
+* `canberra`: $\sum(|x_i - y_i| / |x_i + y_i|)$ Terms with zero numerator and denominator are omitted from the sum and treated as if the values were missing. This is intended for non-negative values (e.g. counts).
+* `binary`: The vectors are regarded as binary bits, so non-zero elements are on and zero elements are off. The distance is the proportion of bits in which only one is on amongst those in which at least one is on.
+
+For most grid purposes, the first two options will suffice.
+
+
+### R-Code
+
+In `OpenRepGrid` the function `distance` calculates various types of distances for constructs and for elements (the default is `euclidean`). The argument `along` determines if distances for 1) constructs or 2) elements are calculated. The default is to calculate distances for constructs, so we always need to set `along=2` to prompt element distances.
+
+```{r}
+distance(fbb2003, along=2)          # along = 2 for elements
+```
+
+To change the distance measure supply any unambigous string of the available distance methods to the argument dmethod. E.g. for the manhattan distance bewteen constructs:
+
+```{r}
+distance(fbb2003, along=2, dmethod="man")
+```
+
+For other distance metrics:
+
+```{r results='hide'}
+distance(fbb2003, along=2, dm="canb")            # canberra distance for constructs
+distance(fbb2003, along=2, dm="mink", p=3)       # minkowski metric to the power of 3  for constructs
+```
+
+If the distances are calculated for further processing, the printing to the console can be surpressed distance and the results can be saved into an object (here d).
+
+```{r}
+d <- distance(fbb2003)
+```
+
+The object is a matrix. So we can look at the distances for the first element by
+
+```{r}
+d[1, ]
+```
+

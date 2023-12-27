@@ -1,0 +1,53 @@
+---
+title: "Overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Overview}
+  %\VignetteEncoding{UTF-8}
+---
+
+This page gives an overview over the features currently implemented in the OpenRepGrid R package. Note that the most accurate list of features in always found in the documentation of the R package itself. We try to keep this list up-to-date though. 
+
+As the package development is an ongoing process there might be forms of analysis that have not yet been implemented. If you miss any features please [make a suggestion](contribute.html) for a new feature or for an enhancement or modification of an old features here.
+
+
+#### Basics
+
+* [Installation](web/installation.html)
+* [Basic package handling](web/basic_operations.html)
+* [Settings](web/settings.html)
+* [Loading and saving grids](web/loading.html)
+
+#### Analyzing constructs
+
+* [Descriptive statistics](web/descriptives.html)
+* [Construct correlations](web/constructs-correlation.html)
+* [Distances between constructs](web/constructs-distances.html)
+* [PCA of construct correlations](web/constructs-pca.html)
+* [Cluster analysis of constructs](web/clustering.html)
+
+#### Analyzing elements
+
+* [Descriptive statistics of elements](web/descriptives.html)
+* [Element correlations](web/elements-correlation.html)
+* [Distances between elements](web/elements-distances.html)
+* [Standardized elements distances](web/elements-distances-standardized.html)
+* [Cluster analysis of elements](web/clustering.html)
+
+#### Visualization
+
+* [Bertin plots](web/visualization-bertin.html)
+* [Biplots](web/visualization-biplot.html)
+
+#### Index measures
+
+* [Intensity index](web/measures-intensity.html)
+* [PVAFF](web/measures-pvaff.html)
+* [Conflicts: based on correlations or distances](web/measures-conflict.html)
+* [Implicative dilemmas](web/measures-implicative.html)
+* [Dispersion of dependency](web/measures-dispersion.html)
+
+#### Reordering 
+
+* [Reorder and align constructs](web/reordering.html)

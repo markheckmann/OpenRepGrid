@@ -1,0 +1,70 @@
+---
+title: "PCA of constructs"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{PCA of constructs}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+### Description
+
+Principal component analysis (PCA) is a method to identify structures in data. It is a well known method of data reduction which can also be applied to any squared matrix. It is applied to the inter-construct correlations in order to explore structures in the relations between constructs in the case of grids. The default type of rotation used is Varimax. Other methods can be chosen (see `?constructPca`). In comparison to the Root-mean-square statistic, a PCA accounts for the sign of the correlation thus allowing the .
+
+### R-Code
+
+The following codes calculates a PCA with three factors (default) and `varimax` rotation (default).
+
+```{r message=FALSE, warning=FALSE}
+constructPca(fbb2003)
+```
+
+You can specify the number of components to extract. The following code yields the examples from Fransella et al. (2003, p.87). Two components are extracted using varimax rotation.
+
+```{r message=FALSE, warning=FALSE}
+constructPca(fbb2003, nf=2)
+```
+
+In case the results are needed for further processing you can save the ouput.
+
+```{r message=FALSE, warning=FALSE}
+r <- constructPca(fbb2003, nf=2)
+```
+
+To gain an easier overview of the data, a cutoff level can be set to surpress the printing of small loadings.
+
+```{r}
+print(r, cut=.3)
+```
+
+Different methods of rotation can be chosen: `none`, `varimax`, `promax`, `cluster`.
+
+```{r eval=FALSE}
+constructPca(fbb2003, rotate="none")
+constructPca(fbb2003, rotate="varimax")
+constructPca(fbb2003, rotate="promax")
+constructPca(fbb2003, rotate="cluster")
+```
+
+As a default, the correlation matrix is calculated using product-moment correlation. The methods that can be selected are `pearson`, `kendall`, `spearman`.
+
+```{r eval=FALSE}
+constructPca(fbb2003, method="pearson")    # default setting
+constructPca(fbb2003, method="kendall")   
+constructPca(fbb2003, method="spearman")  
+```
+
+
+### Literature
+
+Fransella, F., Bell, R. C., & Bannister, D. (2003). A Manual for Repertory Grid Technique (2. ed.). Chichester: John Wiley & Sons.

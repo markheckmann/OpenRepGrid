@@ -1,0 +1,56 @@
+---
+title: "Settings"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Settings}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+```
+
+You can change several global settings for OpenRepGrid which will influence the way grids are displyed. You can promt the available settings by calling `settings()`.
+
+```{r}
+settings()
+```
+
+By default information about the scale and grid meta data is displayed.
+
+```{r}
+fbb2003
+```
+
+To change the settings enter the new parameters as `name=value` pairs. To turn off the display of the scale and meta information type in
+
+```{r}
+settings(show.scale=FALSE, show.meta=FALSE)
+```
+
+Now all grids are displayed without this information:
+
+```{r}
+fbb2003
+```
+
+Other settings that can be modified are maximal length of the construct that is displayed. Changing `show.cut`to `40` will prevent that the names of the constructs are cut off.
+
+```{r}
+settings(show.cut=40)
+fbb2003
+```
+
+In order to not print the number of constructs and elements you can turn off this options by 
+
+```{r}
+settings(c.no=FALSE, e.no=FALSE)
+fbb2003
+```

@@ -9,6 +9,12 @@
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
+
+
+>You love repertory grids? So do we! 
+>Find out about a powerful tool to analyze your grids!
+
+
 ## Overview
 
 **OpenRepGrid** is an R package for the analysis of repertory grid data. Its home is  [openrepgrid.org](https://openrepgrid.org/). 

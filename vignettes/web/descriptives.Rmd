@@ -1,0 +1,56 @@
+---
+title: "Descriptive stats for constructs and elements"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Descriptive stats for constructs and elements}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+options(width=120)
+library(OpenRepGrid)
+```
+
+Sometimes basic descriptive measures for constructs and elements, e.g. mean, standard deviation, are neeeded. To prompt descriptive statistics for the constructs and elements of a grid use the function `statsConstructs` and `statsElements`. The following measures are returned:
+
+* item name
+* item number
+* number of valid cases
+* mean
+* standard deviation
+* trimmed mean (with trim defaulting to `.1`)
+* median (standard or interpolated)
+* mad: median absolute deviation (from the median)
+* minimum
+* maximum
+* skew
+* kurtosis
+* standard error
+
+
+# R-Code
+
+The following examples are identical for `statsElements`. Just replace `statsConstructs` by `statsElements` in order to analyze elements.
+
+```{r}
+d <- statsConstructs(fbb2003)
+d
+```
+
+The returned object is a dataframe, so you may access them as usual. E.g. to retrieve the means of the constructs, type
+
+```{r}
+d$mean
+```
+
+
+```{r}
+statsConstructs(fbb2003, trim = 10)
+```
+
+```{r}
+statsConstructs(fbb2003, index=F)
+```
