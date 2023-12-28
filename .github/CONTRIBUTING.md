@@ -1,22 +1,28 @@
 # Contributing to OpenRepGrid
 
-This outlines how to propose a change to OpenRepGrid.
-For a detailed discussion on contributing to this and other tidyverse packages, please see the [development contributing guide](https://rstd.io/tidy-contrib) and our [code review principles](https://code-review.tidyverse.org/).
+> Everybody can contribute! No need to be an R programmer to do so.
 
-## Fixing typos
+### Make suggestions
 
-You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
-This generally means you'll need to edit [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
-You can find the `.R` file that generates the `.Rd` by reading the comment in the first line.
+To make `OpenRepGrid` suit the communitie's needs, we need to know what features you need, what you miss and what you feel needs improvement. You can suggest improvements and new features [here](https://github.com/markheckmann/OpenRepGrid/issues) or send us an <a href="mailto:heckmann.mark@gmail.com">email</a>.
 
-## Bigger changes
+### Report bugs
 
-If you want to make a bigger change, it's a good idea to first file an issue and make sure someone from the team agrees that it’s needed. 
-If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
-[reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
-See our guide on [how to create a great issue](https://code-review.tidyverse.org/issues/) for more advice.
+If you discover bugs in the software (incorrect results, crashes etc.), please let us know. You may file bug reports as a  [github issue](https://github.com/markheckmann/OpenRepGrid/issues) or send us an <a href="mailto:heckmann.mark@gmail.com">email</a>.
 
-### Pull request process
+### Write documentation
+
+If you feel the documentation needs improvement or you have a use case or tutorial you would like to see in the documentation, just get in touch via <a href="mailto:heckmann.mark@gmail.com">email</a>. Also, if you already have a draft you would like to add, send it to us.
+
+### Supply code snippets
+
+If have some basic R knowledge and come up with some code snippets just send them to us and we will take care to integrate your ideas into the package.
+
+### Join the dev team
+
+If you have solid R knowledge, just hammer out some code and send it to us. Or, if you are familiar with `git`, fork the `OpenRepGrid` repo, make some changes and submit a pull request.
+
+#### Pull request process
 
 *   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("markheckmann/OpenRepGrid", fork = TRUE)`.
 
@@ -30,18 +36,11 @@ See our guide on [how to create a great issue](https://code-review.tidyverse.org
 
 *  For user-facing changes, add a bullet to the top of `NEWS.md` (i.e. just below the first header). Follow the style described in <https://style.tidyverse.org/news.html>.
 
-### Code style
+#### Code style
 
-*   New code should follow the tidyverse [style guide](https://style.tidyverse.org). 
-    You can use the [styler](https://CRAN.R-project.org/package=styler) package to apply these styles, but please don't restyle code that has nothing to do with your PR.  
+*   You should run [styler](https://CRAN.R-project.org/package=styler) to make sure your R code is formatted correctly. But please don't restyle code that has nothing to do with your PR.  
 
 *  We use [roxygen2](https://cran.r-project.org/package=roxygen2), with [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd-formatting.html), for documentation.  
 
 *  We use [testthat](https://cran.r-project.org/package=testthat) for unit tests. 
    Contributions with test cases included are easier to accept.  
-
-## Code of Conduct
-
-Please note that the OpenRepGrid project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
-project you agree to abide by its terms.

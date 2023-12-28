@@ -9,7 +9,6 @@ footer:
   structure: 
     left: developed_by
     right: legal 
-    #built_with
   components:
     legal: Provided without **any warranty**
    
@@ -17,9 +16,17 @@ authors:
   Mark Heckmann:
     href: https://markheckmann.de
 
+home:
+  sidebar:
+    structure: [toc, links, license, community, citation, authors, dev]
+  # components:
+  #   custom:
+  #     title: Funding
+  #     text: We are *grateful* for funding!
+      
 navbar:
   structure:
-    left: [overview, functions, news, search]
+    left: [intro_custom, features, functions, news, search]
     right: [newsletter, github]
 
   components:
@@ -35,9 +42,12 @@ navbar:
     #   href: mailto:heckmann.mark@gmail.com
     #   aria-label: E-mail
     #   text: E-mail
-    overview:
-      text: "Overview"
-      href: articles/OpenRepGrid.html 
+    intro_custom:
+      text: "Intro"
+      href: articles/web/intro.html 
+    features:
+      text: "Features"
+      href: articles/web/features.html 
     functions:
       text: "Functions"
       href: reference/index.html

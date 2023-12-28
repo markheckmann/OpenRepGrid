@@ -1,0 +1,54 @@
+---
+title: "Features"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Features}
+  %\VignetteEncoding{UTF-8}
+---
+
+This page gives an overview over the features currently implemented in the OpenRepGrid R package. Note that the most accurate list of features in always found in the documentation of the R package itself. We try to keep this list up-to-date though. 
+
+As the package development is an ongoing process there might be forms of analysis that have not yet been implemented. If you miss any features please [make a suggestion](../../CONTRIBUTING.html) for a new feature or for an enhancement or modification of an old features here.
+
+
+#### Basics
+
+* [Installation](installation.html)
+* [Basic package handling](basic_operations.html)
+* [Settings](settings.html)
+* [Loading and saving grids](loading.html)
+* [Data sets](datasets.html)
+
+#### Analyzing constructs
+
+* [Descriptive statistics](descriptives.html)
+* [Construct correlations](constructs-correlation.html)
+* [Distances between constructs](constructs-distances.html)
+* [PCA of construct correlations](constructs-pca.html)
+* [Cluster analysis of constructs](clustering.html)
+
+#### Analyzing elements
+
+* [Descriptive statistics of elements](descriptives.html)
+* [Element correlations](elements-correlation.html)
+* [Distances between elements](elements-distances.html)
+* [Standardized elements distances](elements-distances-standardized.html)
+* [Cluster analysis of elements](clustering.html)
+
+#### Visualization
+
+* [Bertin plots](visualization-bertin.html)
+* [Biplots](visualization-biplot.html)
+
+#### Index measures
+
+* [Intensity index](measures-intensity.html)
+* [PVAFF](measures-pvaff.html)
+* [Conflicts: based on correlations or distances](measures-conflict.html)
+* [Implicative dilemmas](measures-implicative.html)
+* [Dispersion of dependency](measures-dispersion.html)
+
+#### Reordering 
+
+* [Reorder and align constructs](reordering.html)
