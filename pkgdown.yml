@@ -25,8 +25,8 @@ articles:
   settings: web/settings.html
   visualization-bertin: web/visualization-bertin.html
   visualization-biplot: web/visualization-biplot.html
-last_built: 2023-12-28T22:26Z
+last_built: 2023-12-28T23:45Z
 urls:
-  reference: https://markheckmann.github.io/openrepgrid/reference
-  article: https://markheckmann.github.io/openrepgrid/articles
+  reference: https://docs.openrepgrid.org/reference
+  article: https://docs.openrepgrid.org/articles
 
