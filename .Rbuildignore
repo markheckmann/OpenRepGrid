@@ -16,4 +16,5 @@ cran-comments.md
 ^pkgdown$
 ^doc$
 ^Meta$
-^vignettes/OpenRepGrid\.Rmd$
+^vignettes/web$
+TODO.md
