@@ -1,4 +1,172 @@
-url: http://markheckmann.github.io/OpenRepGrid/
+url: https://markheckmann.github.io/openrepgrid/
+# url: https://docs.openrepgrid.org
+
 template:
   bootstrap: 5
+
+development:
+  mode: auto
+
+authors:
+  Mark Heckmann:
+    href: https://markheckmann.de
+
+home:
+  sidebar:
+    structure: [toc, links, license, community, citation, authors, dev]
+
+navbar:
+  structure:
+    left: [intro_custom, features, functions, news, search]
+    right: [newsletter, github]
+  components:
+    newsletter:
+      icon: fa-envelope fa-light
+      href: https://eepurl.com/4h0t9
+      aria-label: Newsletter
+      text: Newsletter
+      target: _blank
+    intro_custom:
+      text: "Intro"
+      href: articles/web/intro.html 
+    features:
+      text: "Features"
+      href: articles/web/features.html 
+    functions:
+      text: "Functions"
+      href: reference/index.html
+    # more:
+    #   text: "More"
+    #   menu:
+    #   - text: TBD
+    #   - text: "TBD"
+      #   href: http://xxx.pdf
+      #   icon: fa-file-pdf fa-lg
+
+footer:
+  structure: 
+    left: developed_by
+    right: legal 
+  components:
+    legal: Provided without **any warranty**
+   
+reference:
+  - title: Elements
+    contents: 
+    - elementCor
+    - elementRmsCor
+    - elements
+    - statsElements
+    
+  - title: Constructs
+    contents: 
+    - constructCor
+    - constructD
+    - constructPca
+    - constructPcaLoadings
+    - constructRmsCor
+    - constructs
+    - alignByIdeal
+    - alignByLoadings
+    - permuteConstructs
+
+  - title: Distances
+    contents: 
+    - distance
+    - distanceHartmann
+    - distanceNormalized
+    - distanceSlater
+   
+  - title: Clustering
+    contents: 
+    - cluster
+    - clusterBoot
+    
+  - title: Grids
+    contents:
+    - midpoint
+    - setScale
+    - center
+    - normalize
+    - perturbate
+    - randomGrid
+    - randomGrids
+    - ratings
+    - reorder.repgrid
+    - reorder2d
+    - gridlist
+    - grids_leave_n_out
+    
+  - title: Data Sets
+    contents:
+    - data-bell2010
+    - data-bellmcgorry1992
+    - data-boeker
+    - data-fbb2003
+    - data-feixas2004
+    - data-leach2001
+    - data-mackay1992
+    - data-raeithel
+    - data-slater1977a
+    - data-slater1977b
+  
+  - title: Settings
+    contents: 
+    - settings
+    - settingsLoad
+    - settingsSave
+    
+  - title: Import and Export Data
+    contents: 
+    - importExcel
+    - importGridcor
+    - importGridstat
+    - importGridsuite
+    - importScivesco
+    - importTxt
+    - saveAsExcel
+    - saveAsTxt
+  
+  - title: Plots
+    contents:
+    - bertin
+    - bertinCluster
+    - biplot2d
+    - biplot3d
+    - home
+    - biplotEsa2d
+    - biplotEsa3d
+    - biplotEsaPseudo3d
+    - biplotPseudo3d
+    - biplotSimple
+    - biplotSlater2d
+    - biplotSlater3d
+    - biplotSlaterPseudo3d
+    
+  - title: Indexes
+    contents:
+    - indexBias
+    - indexBieri
+    - indexConflict1
+    - indexConflict2
+    - indexConflict3
+    - indexDilemma
+    - indexDilemmatic
+    - indexIntensity
+    - indexPolarization
+    - indexPvaff
+    - indexSelfConstruction
+    - indexVariability
+    - indexDDI
+    - indexUncertainty
+    
+  - title: General
+    contents:
+    - OpenRepGrid
+    - OpenRepGrid-overview
+    - is.repgrid
+    - +,repgrid,repgrid-method
+    - "show,repgrid-method"
+    - "[,repgrid-method"
+    - "[<-,repgrid-method"
 
