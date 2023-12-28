@@ -21,6 +21,7 @@ options(width = 200)
 library(OpenRepGrid)
 ```
 
+<br>
 
 The [OpenRepGrid R package](https://cran.r-project.org/web/packages/OpenRepGrid/index.html) is a software to analyze and visualize [repertory grid](https://en.wikipedia.org/wiki/Repertory_grid) (often abbreviated *grid* or *repgrid*) data. The software is open source and available on all major operating systems. The package presented here is the workhorse on which other packages of the [OpenRepgrid project](http://openrepgrid.org/), for example [gridsampler](https://openresearchsoftware.metajnl.com/articles/10.5334/jors.150/) [@heckmann_gridsampler_2017] or *multigrid one* [@heckmann_using_2016] partially build upon.
 

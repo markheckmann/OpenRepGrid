@@ -1,3 +1,4 @@
+url: https://docs.openrepgrid.org
 
 template:
   bootstrap: 5
@@ -5,13 +6,6 @@ template:
 development:
   mode: auto
 
-footer:
-  structure: 
-    left: developed_by
-    right: legal 
-  components:
-    legal: Provided without **any warranty**
-   
 authors:
   Mark Heckmann:
     href: https://markheckmann.de
@@ -19,29 +13,18 @@ authors:
 home:
   sidebar:
     structure: [toc, links, license, community, citation, authors, dev]
-  # components:
-  #   custom:
-  #     title: Funding
-  #     text: We are *grateful* for funding!
-      
+
 navbar:
   structure:
     left: [intro_custom, features, functions, news, search]
     right: [newsletter, github]
-
   components:
     newsletter:
-      # icon: fa-code fa-light
       icon: fa-envelope fa-light
       href: https://eepurl.com/4h0t9
       aria-label: Newsletter
       text: Newsletter
       target: _blank
-    # email:
-    #   icon: fa-envelope fa-light
-    #   href: mailto:heckmann.mark@gmail.com
-    #   aria-label: E-mail
-    #   text: E-mail
     intro_custom:
       text: "Intro"
       href: articles/web/intro.html 
@@ -51,44 +34,21 @@ navbar:
     functions:
       text: "Functions"
       href: reference/index.html
-    # news:
-    #   text: News
-    #   href: news/index.html
     # more:
     #   text: "More"
     #   menu:
-    #   - text: Learning materials
-    #   - text: "xplain Cheat Sheet (PDF)"
+    #   - text: TBD
+    #   - text: "TBD"
       #   href: http://xxx.pdf
       #   icon: fa-file-pdf fa-lg
 
+footer:
+  structure: 
+    left: developed_by
+    right: legal 
+  components:
+    legal: Provided without **any warranty**
    
-# articles:
-# - title: Articles
-#   navbar: ~
-#   contents:
-#   - web/installation
-#   - web/settings
-#   - web/basic_operations
-#   - web/loading
-#   - web/descriptives
-#   - web/constructs-correlation
-#   - web/constructs-distances
-#   - web/constructs-pca
-#   - web/clustering
-#   - web/elements-correlation
-#   - web/elements-distances
-#   - web/elements-distances-standardized
-#   - web/visualization-bertin
-#   - web/visualization-biplot
-#   - web/measures-intensity
-#   - web/measures-pvaff
-#   - web/measures-conflict
-#   - web/measures-implicative
-#   - web/measures-dispersion
-#   - web/reordering
-#   - web/measures-dispersion
-  
 reference:
   - title: Elements
     contents: 
@@ -208,6 +168,4 @@ reference:
     - "show,repgrid-method"
     - "[,repgrid-method"
     - "[<-,repgrid-method"
-  
-    
-    
+
