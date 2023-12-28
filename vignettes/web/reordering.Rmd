@@ -52,7 +52,7 @@ x <- alignByIdeal(feixas2004, 13)
 
 #### Align by loadings
 
-The alignment operation using `OpenRepgrid` is performed by the function `alignByLoadings`. 
+The alignment operation using `OpenRepGrid` is performed by the function `alignByLoadings`. 
 
 ```{r}
 alignByLoadings(bell2010)
