@@ -4,7 +4,7 @@ bibentry(
   author = person(given = "Mark", family = "Heckmann"),
   year = 2023,
   publisher = "ZENODO",
-  note = " R package version 0.0.14",
+  note = " R package version 0.1.15",
   doi = "10.5281/zenodo.8492",
   url = "https://github.com/markheckmann/OpenRepGrid"
 )

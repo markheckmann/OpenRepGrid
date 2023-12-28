@@ -5,93 +5,80 @@ template:
 development:
   mode: auto
 
-# authors:
-#   Mark Heckmann:
-#     href: https://markheckmann.de
-#   Contributors:
-#     href: https://www.posit.co
-#     html: >-
-#       <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' height='16' style="margin-bottom: 3px;" />
-#       
-# home:
-#   links:
-#   - text: External data sets
-#     href: http://github.com/markheckmann/OpenRepGrid
-
-# navbar:
-#   right:
-#     - text: Newsletter
-#       icon: fa-code fa-lg
-#       href: https://eepurl.com/4h0t9
-#       target: _blank
-#     - text: E-mail
-#       icon: fa-envelope fa-lg
-#       href: mailto:heckmann.mark@gmail.com
+footer:
+  structure: 
+    left: developed_by
+    right: legal 
+    #built_with
+  components:
+    legal: Provided without **any warranty**
+   
+authors:
+  Mark Heckmann:
+    href: https://markheckmann.de
 
 navbar:
   structure:
-    right: [newsletter, email, github]
+    left: [overview, functions, news, search]
+    right: [newsletter, github]
+
   components:
     newsletter:
-      icon: fa-code fa-lg
+      # icon: fa-code fa-light
+      icon: fa-envelope fa-light
       href: https://eepurl.com/4h0t9
       aria-label: Newsletter
       text: Newsletter
       target: _blank
-    email:
-      icon: fa-envelope fa-lg
-      href: mailto:heckmann.mark@gmail.com
-      aria-label: E-mail
-      text: E-mail
-      
-  # left:
-  #   - text: "Getting Started"
-  #     href: articles/tutorial/tutorial.html
-  #   - text: "Package Reference"
-  #     href: reference/index.html
-  #   - text: "Materials & Tools"
-  #     menu:
-  #     - text: Learning materials
-  #     - text: "xplain Cheat Sheet (PDF)"
-  #       href: http://www.zuckarelli.de/xplain/xplain_cheatsheet.pdf
-  #       icon: fa-file-pdf fa-lg
-  #     - text: Examples
-  #     - text: Example xplain XML file 1
-  #       href: http://www.zuckarelli.de/xplain/example_lm.xml
-  #     - text: Example xplain XML file 2
-  #       href: http://www.zuckarelli.de/xplain/example_lm_foreach.xml
-  #     - text: Tools
-  #     - text: "xplain syntax highlighting scheme for Notepad++"
-  #       href: http://www.zuckarelli.de/xplain/xplain.xml
-  #       
-articles:
-- title: Articles
-  navbar: ~
-  contents:
-  - web/installation
-  - web/settings
-  - web/basic_operations
-  - web/loading
-  - web/descriptives
-  - web/constructs-correlation
-  - web/constructs-distances
-  - web/constructs-pca
-  - web/clustering
-  - web/elements-correlation
-  - web/elements-distances
-  - web/elements-distances-standardized
-  - web/visualization-bertin
-  - web/visualization-biplot
-  - web/measures-intensity
-  - web/measures-pvaff
-  - web/measures-conflict
-  - web/measures-implicative
-  - web/measures-dispersion
-  - web/reordering
-  - web/measures-dispersion
-  
-news:
+    # email:
+    #   icon: fa-envelope fa-light
+    #   href: mailto:heckmann.mark@gmail.com
+    #   aria-label: E-mail
+    #   text: E-mail
+    overview:
+      text: "Overview"
+      href: articles/OpenRepGrid.html 
+    functions:
+      text: "Functions"
+      href: reference/index.html
+    # news:
+    #   text: News
+    #   href: news/index.html
+    # more:
+    #   text: "More"
+    #   menu:
+    #   - text: Learning materials
+    #   - text: "xplain Cheat Sheet (PDF)"
+      #   href: http://xxx.pdf
+      #   icon: fa-file-pdf fa-lg
 
+   
+# articles:
+# - title: Articles
+#   navbar: ~
+#   contents:
+#   - web/installation
+#   - web/settings
+#   - web/basic_operations
+#   - web/loading
+#   - web/descriptives
+#   - web/constructs-correlation
+#   - web/constructs-distances
+#   - web/constructs-pca
+#   - web/clustering
+#   - web/elements-correlation
+#   - web/elements-distances
+#   - web/elements-distances-standardized
+#   - web/visualization-bertin
+#   - web/visualization-biplot
+#   - web/measures-intensity
+#   - web/measures-pvaff
+#   - web/measures-conflict
+#   - web/measures-implicative
+#   - web/measures-dispersion
+#   - web/reordering
+#   - web/measures-dispersion
+  
 reference:
   - title: Elements
     contents: 

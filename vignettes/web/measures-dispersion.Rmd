@@ -116,6 +116,7 @@ Bell (2001) proposed another information-theory based measure for calculating di
 $$
 UI = \frac{\log D_{tot} – (\sum_i^k D_{i} × \log D_{i} ) / D_{tot}}{\log D_{tot} – \log (D_{tot}/k)}
 $$
+
 where:
 
 - $k$: number of ressources

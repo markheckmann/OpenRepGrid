@@ -1,0 +1,61 @@
+---
+title: "Data Sets"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Data Sets}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#")
+library(OpenRepGrid)
+options(width=120)
+settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+```
+
+`OpenRepGrid` comes with several datsets already included. The data can serve as a starting point to make your first steps using the software. The following table contains the names of the datasets and a short description where the grid comes from.
+
+data set name   | description and source
+------------- | -------------------------------------------------------------------
+`bell2010`	|  grid data from a study by Haritos et al. (2004) on role titles; used for demonstration of construct alignment in Bell (2010, p. 46).
+`bellmcgorry1992`   | 	grid from a psychotic patient used in Bell (1997, p. 6). Data originated from a study by Bell and McGorry (1992).
+`boeker`  | 	grid from seventeen year old female schizophrenic patient undergoing last stage of psychoanalytically oriented psychotherapy (Böker, 1996, p. 163).
+`fbb2003`  |  	dataset used in *A manual for Repertory Grid Technique* (Fransella, Bell, & Bannister, 2003b, p. 60).
+`feixas2004`  | 	grid from a 22 year old Spanish girl suffering self-worth problems (Feixas & Saúl, 2004, p. 77).
+`mackay1992`  | 	dataset *Grid C* used in Mackay's paper on inter-element correlation (1992, p. 65).
+`leach2001a`, `leach2001b` |  pre- (a) and post-therapy (b) dataset from sexual child abuse survivor (Leach, Freshwater, Aldridge, & Sunderland, 2001, p. 227).
+`raeithel` |	grid data to demonstrate the use of Bertin diagrams (Raeithel, 1998, p. 223). The context of its administration is unknown.
+`slater1977a`  | 	drug addict’s grid dataset from (Slater, 1977, p. 32).
+`slater1977b`   | 	grid dataset (ranked) from a seventeen year old female psychiatric patient (Slater, 1977, p. 110) showing depression, anxiety and self-mutilation. The data was originally reported by Watson (1970).
+
+### R-Code
+
+To display one of the grid just type the grid's name into the R console.
+
+```{r}
+boeker
+```
+
+
+### Making data available to public
+
+If you like to make your grid data available to the public you can use [ZENODO](https://zenodo.org/). ZENODO is an archive allowing researchers to publish data and receive a digital object identifier (DOI), so your data will be citable like any other publication. This will help to make grid research reproducible. You can define the terms of use for your data by any licensing model.
+
+
+### Literature
+
+* Bell, R. C. (1997). *Using SPSS to analyse repertory grid data* (Unpublished report). University of Melbourne, Australia: School of Behavioural Science.
+* Bell, R. C. (2010). A note on aligning constructs. *Personal Construct Theory & Practice*, (7), 42-48.
+* Bell, R. C., & McGorry, P. (1992). *The analysis of repertory grids used to monitor the perceptions of recovering psychotic patients*. In A. Thomson & P. Cummins (Eds.), European Perspectives in Personal Construct Psychology (pp. 137–150). Lincoln, UK: European Personal Construct Association.
+* Böker, H. (1996). *The reconstruction of the self in the psychotherapy of chronic schizophrenia: A case study with the repertory grid technique*. In J. W. Scheer & A. Catina (Eds.), Empirical Constructivism in Europe: The Personal Construct Approach (pp. 160-167). Giessen: Psychosozial-Verlag.
+* Feixas, G., & Saúl, L. A. (2004). The Multi-Center Dilemma Project: an investigation on the role of cognitive conflicts in health. *The Spanish Journal of Psychology, 7*(1), 69-78.
+* Fransella, F., Bell, R. C., & Bannister, D. (2003). *A Manual for Repertory Grid Technique* (2. ed.). Chichester: John Wiley & Sons.
+* Haritos, A., Gindidis, A., Doan, C., & Bell, R. C. (2004). The effect of element role titles on construct structure and content. *Journal of constructivist psychology, 17*(3), 221-236.
+* Leach, C., Freshwater, K., Aldridge, J., & Sunderland, J. (2001). Analysis of repertory grids in clinical practice. *British journal of clinical psychology, 40*, 225-48.
+* Raeithel, A. (1998). *Kooperative Modellproduktion von Professionellen und Klienten – erläutert am Beispiel des Repertory Grid*. In Selbstorganisation, Kooperation, Zeichenprozeß : Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen Psychologie (pp. 209-254). Opladen: Westdeutscher Verlag.
+* Slater, P. (1977). *The measurement of intrapersonal space by Grid technique*. London: Wiley.
+* Watson, J. P. (1970). The relationship between a self-mutilating patient and her doctor. *Psychotherapy and Psychosomatics, 18*(1), 67-73.

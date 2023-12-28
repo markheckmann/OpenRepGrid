@@ -18,6 +18,7 @@ As the package development is an ongoing process there might be forms of analysi
 * [Basic package handling](web/basic_operations.html)
 * [Settings](web/settings.html)
 * [Loading and saving grids](web/loading.html)
+* [Data sets](web/datasets.html)
 
 #### Analyzing constructs
 
