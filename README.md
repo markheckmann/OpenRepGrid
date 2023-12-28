@@ -74,13 +74,5 @@ And for a first impression of the package features type
 
 ## References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-kelly_psychology_1955" class="csl-entry">
-
 Kelly, George Alexander. 1955. *The Psychology of Personal Constructs*.
 New York: Norton.
-
-</div>
-
-</div>
