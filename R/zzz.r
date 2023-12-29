@@ -20,11 +20,6 @@
 .OpenRepGridEnv <- new.env()
 assign("settings", list(), envir = .OpenRepGridEnv)
 
-.onLoad <- function(libname, pkgname) {
-  if (Sys.getenv("CI") == "true") {
-    options(rgl.useNULL = TRUE)
-  }
-}
 
 .onAttach <- function(lib, pkg) {
   packageStartupMessage(
