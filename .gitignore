@@ -2,10 +2,9 @@
 .Rhistory
 .Rproj.user
 .Rproj.user/
-.Rproj.user/*  
+.Rproj.user/*
 .RData
 .Rapp.history
-OpenRepGrid.Rproj
 inst/doc
 /doc/
 /Meta/
