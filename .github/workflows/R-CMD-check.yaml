@@ -18,16 +18,16 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {os: macos-latest,   r: 'release'}
-          # - {os: windows-latest, r: 'release'}
-          # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          - {os: macos-latest,   r: 'release'}
+          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
-          # - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
-      RGL_USE_NULL: TRUE
+      RGL_USE_NULL: TRUE  # needed to avaoid rgl.init failed warning
 
     steps:
       - uses: actions/checkout@v3
@@ -45,15 +45,6 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      # - name: Install libcurl on Linux
-      #   if: runner.os == 'Linux'
-      #   run: sudo apt-get update -y && sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev
-
-      # # extra lines to use null device in rgl when
-      # - name: Configure RGL for headless testing
-      #   run: |
-      #     echo 'options(rgl.useNULL = TRUE)' > ~/.Rprofile
-          
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
