@@ -11,7 +11,7 @@ authors:
 affiliations:
 - name: DB InfraGO AG, Germany
   index: 1
-date: 29 December 2023
+date: 01 January 2024
 bibliography: paper.bib
 output:
   html_document:
@@ -74,7 +74,7 @@ An up-to-date overview of all features implemented in the OpenRepGrid package ca
 * *Analyzing constructs*: Descriptive statistics, correlations, distances, PCA of construct correlations, cluster analysis, aligning constructs
 * *Analyzing elements*: Descriptive statistics, correlations, distances, standardized element distances, cluster analysis
 * *Visualization*: (Clustered) Bertin plots (i.e. heatmaps), biplots, clustering dendrograms
-* *Indexes*: Intensity, complexity, PVAFF, measures of cognitive conflict, implicative dilemmas
+* *Indexes*: Intensity, complexity, PVAFF, measures of cognitive conflict, implicative dilemmas, etc.
 
 In the remainder, three repgrid visualizations which are frequently used in publications and two types of statistical grid analyses are briefly outlined as feature examples. Figure 1 shows a Bertin diagram (i.e. heatmap) of a grid administered to a schizophrenic patient undergoing psychoanalytically oriented psychotherapy [@boker_reconstruction_1996]. The data was taken during the last stage of therapy. The data for this example is already included in the package. The ratings in the grid are color-coded allowing to spot similar rating patterns. Also, the grid was submitted to hierarchical cluster analysis, thereby reordering the constructs and elements by similarity as indicated by the dendrograms printed alongside the diagram. The following code creates the diagram shown in Figure 1.
 
