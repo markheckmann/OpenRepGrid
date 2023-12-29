@@ -31,8 +31,6 @@ pre {
 
 
 
-Burr, V., King, N., & Heckmann, M. (2020). The qualitative analysis of repertory grid data: Interpretive Clustering. Qualitative Research in Psychology. https://doi.org/10.1080/14780887.2020.1794088
-
 # Introduction
 
 The [OpenRepGrid R package](https://cran.r-project.org/web/packages/OpenRepGrid/index.html) is a software to analyze and visualize [repertory grid](https://en.wikipedia.org/wiki/Repertory_grid) (often abbreviated *grid* or *repgrid*) data. The software is open source and available on all major operating systems. The package is also the workhorse on which other packages of the [OpenRepGrid project](http://openrepgrid.org/), for example, [gridsampler](https://openresearchsoftware.metajnl.com/articles/10.5334/jors.150/) [@heckmann_gridsampler_2017] or [OpenRepGrid.ic](https://joss.theoj.org/papers/10.21105/joss.03292) [@heckmann_openrepgridic_2023], partially build upon. 
