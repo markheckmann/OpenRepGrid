@@ -27,6 +27,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      RGL_USE_NULL: TRUE
 
     steps:
       - uses: actions/checkout@v3
@@ -44,9 +45,9 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - name: Install libcurl on Linux
-        if: runner.os == 'Linux'
-        run: sudo apt-get update -y && sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev
+      # - name: Install libcurl on Linux
+      #   if: runner.os == 'Linux'
+      #   run: sudo apt-get update -y && sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev
 
       # # extra lines to use null device in rgl when
       # - name: Configure RGL for headless testing
