@@ -94,21 +94,21 @@ to normalize by standard deviations. <code>0 = none, 1= rows, 2 = columns</code>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">20</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">normalize</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># normalizing rows</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]     [,2]     [,3]     [,4]     [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 3.000000 2.000000 4.000000 2.000000 4.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2.300895 0.766965 1.533930 0.766965 3.067860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 1.118034 1.118034 2.236068 3.354102 1.118034</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 2.300895 3.067860 1.533930 3.834825 3.834825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]      [,2]      [,3]     [,4]     [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.533930 1.5339300 3.0678600 3.834825 2.300895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2.201928 0.5504819 0.5504819 1.100964 2.752409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3.370999 2.0225996 0.6741999 2.022600 2.696799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 3.296902 2.6375219 3.2969024 1.318761 1.318761</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"scaled:scale")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.0000000 1.3038405 0.8944272 1.3038405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.303840 1.816590 1.483240 1.516575</span>
 <span class="r-in"><span><span class="fu">normalize</span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># normalizing columns</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]      [,2] [,3]    [,4]      [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    3 1.4142136    4 1.17108 2.3094011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    3 0.7071068    2 0.58554 2.3094011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1 0.7071068    2 1.75662 0.5773503</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    3 2.8284271    2 2.92770 2.8867513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]      [,2]      [,3]     [,4]     [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.414214 1.5491933 1.9402850 3.535534 2.323790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2.828427 0.7745967 0.4850713 1.414214 3.872983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3.535534 2.3237900 0.4850713 2.121320 3.098387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 3.535534 3.0983867 2.4253563 1.414214 1.549193</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"scaled:scale")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.000000 1.414214 1.000000 1.707825 1.732051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.414214 1.290994 2.061553 1.414214 1.290994</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
