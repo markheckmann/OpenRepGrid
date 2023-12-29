@@ -25,7 +25,7 @@ articles:
   settings: web/settings.html
   visualization-bertin: web/visualization-bertin.html
   visualization-biplot: web/visualization-biplot.html
-last_built: 2023-12-29T01:42Z
+last_built: 2023-12-29T01:50Z
 urls:
   reference: https://docs.openrepgrid.org/reference
   article: https://docs.openrepgrid.org/articles
