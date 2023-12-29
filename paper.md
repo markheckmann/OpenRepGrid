@@ -106,8 +106,7 @@ Inter-element distances are a commonly applied measure in the statistical analys
 
 
 ```r
-ss <- boeker[, 1:8]  # show only subset of elements, to fit PDF page
-distanceHartmann(ss)
+distanceHartmann(boeker[, 1:8])  # here only subset of elements, to fit PDF page
 ```
 
 ```
