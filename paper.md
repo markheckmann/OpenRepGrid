@@ -106,7 +106,8 @@ Inter-element distances are a commonly applied measure in the statistical analys
 
 
 ```r
-distanceHartmann(boeker)
+ss <- boeker[, 1:8]  # show only subset of elements, to fit PDF page
+distanceHartmann(ss)
 ```
 
 ```
@@ -117,22 +118,15 @@ Distances between elements
 
 Distance method:  Hartmann (standardized Slater distances)
 Normalized:
-                                1     2     3     4     5     6     7     8     9    10    11    12    13    14    15
-(1) self                  1       -0.28  1.58  1.92  0.80 -1.33  1.20 -0.29 -0.04  2.62 -5.24  2.66  2.87  2.28  2.89
-(2) ideal self            2             -0.78  1.36 -0.47 -2.09 -0.56  0.12 -1.02  0.12 -3.69 -1.50 -1.45 -1.63 -1.71
-(3) mother                3                    1.70  2.99  0.22  2.82  1.15  2.27  2.09 -3.84  1.91  1.06  1.44  1.92
-(4) father                4                          2.31 -1.04  2.23  0.55  1.00  1.92 -4.39  0.96  0.50  0.08  0.63
-(5) kurt                  5                                0.63  2.72  1.27  2.69  1.74 -3.37  1.30  0.35  0.79  1.01
-(6) karl                  6                                      0.29  1.63  2.14 -0.66  0.10 -1.21 -1.53 -0.60 -1.04
-(7) george                7                                            0.45  2.19  1.17 -3.39  1.70  0.54  0.42  1.35
-(8) martin                8                                                  2.03  1.22 -1.85 -0.67 -0.73 -0.13 -0.53
-(9) elizabeth             9                                                        0.76 -2.07 -0.08 -0.91 -0.29  0.05
-(10) therapist           10                                                             -4.91  2.20  2.35  1.97  2.22
-(11) irene               11                                                                   -5.47 -5.65 -4.79 -5.52
-(12) childhood self      12                                                                          3.66  3.16  4.22
-(13) self before illness 13                                                                                3.60  3.79
-(14) self with delusion  14                                                                                      3.52
-(15) self as dreamer     15                                                                                          
+                     1     2     3     4     5     6     7     8
+(1) self       1       -0.32  0.86  1.49  0.14 -1.48  0.69 -0.78
+(2) ideal self 2             -1.32  0.73 -1.00 -3.01 -1.27 -0.75
+(3) mother     3                    0.89  2.23 -0.49  2.14  0.38
+(4) father     4                          1.72 -2.03  1.51 -0.56
+(5) kurt       5                               -0.25  1.97  0.31
+(6) karl       6                                     -0.58  0.85
+(7) george     7                                           -0.62
+(8) martin     8                                                
 
 For calculation the parameters from Hartmann (1992) were used. Use 'method=new' or method='simulate' for a more accurate version.
 ```
