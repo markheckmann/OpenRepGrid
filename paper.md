@@ -106,7 +106,7 @@ Inter-element distances are a commonly applied measure in the statistical analys
 
 
 ```r
-distanceHartmann(boeker[, 1:8])  # here only subset of elements, to fit PDF page
+distanceHartmann(boeker[, 1:9])  # here only subset of elements, to fit PDF page
 ```
 
 ```
@@ -117,15 +117,16 @@ Distances between elements
 
 Distance method:  Hartmann (standardized Slater distances)
 Normalized:
-                     1     2     3     4     5     6     7     8
-(1) self       1       -0.32  0.86  1.49  0.14 -1.48  0.69 -0.78
-(2) ideal self 2             -1.32  0.73 -1.00 -3.01 -1.27 -0.75
-(3) mother     3                    0.89  2.23 -0.49  2.14  0.38
-(4) father     4                          1.72 -2.03  1.51 -0.56
-(5) kurt       5                               -0.25  1.97  0.31
-(6) karl       6                                     -0.58  0.85
-(7) george     7                                           -0.62
-(8) martin     8                                                
+                     1     2     3     4     5     6     7     8     9
+(1) self       1       -0.44  0.67  1.40 -0.08 -1.69  0.51 -0.93 -0.39
+(2) ideal self 2             -1.63  0.54 -1.35 -3.34 -1.57 -1.01 -2.06
+(3) mother     3                    0.77  2.17 -0.58  2.08  0.29  1.81
+(4) father     4                          1.58 -2.19  1.40 -0.67  0.23
+(5) kurt       5                               -0.34  1.90  0.21  2.05
+(6) karl       6                                     -0.68  0.76  1.15
+(7) george     7                                           -0.72  1.52
+(8) martin     8                                                  1.10
+(9) elizabeth  9                                                      
 
 For calculation the parameters from Hartmann (1992) were used. Use 'method=new' or method='simulate' for a more accurate version.
 ```
