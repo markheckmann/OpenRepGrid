@@ -31,9 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Prepare for system dependencies
+        run: |
+          sudo sed -i 's/^deb /deb-src /' /etc/apt/sources.list
+          sudo apt-get update
+    
       - name: Install system dependencies
         run: |
-          sudo apt-get update
           sudo apt-get build-dep mesa
       
       - uses: r-lib/actions/setup-pandoc@v2
