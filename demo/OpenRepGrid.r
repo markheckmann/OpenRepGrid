@@ -22,9 +22,9 @@ biplotEsa2d(feixas2004)
 #### Pseudo 3D biplot #####
 biplotPseudo3d(feixas2004)
 
-#### 3D biplot #####
-x <- scan(n = 1)
-biplot3d(boeker)
+# #### 3D biplot #####
+# x <- scan(n = 1)
+# biplot3d(boeker)
 
 #### Bertin displays ####
 plot(0, type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
