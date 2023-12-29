@@ -44,6 +44,11 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      # extra lines to use null device in rgl when
+      - name: Configure RGL for headless testing
+        run: |
+          echo 'options(rgl.useNULL = TRUE)' > ~/.Rprofile
+          
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true

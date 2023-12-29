@@ -18,9 +18,6 @@ settings(show.scale=FALSE, show.meta=FALSE)
 library(knitr)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#", fig.height=6)
 knit_hooks$set(webgl = hook_webgl)
-if (!interactive()) {
-  options(rgl.useNULL = TRUE)  # disable on headless device
-}
 ```
 
 
