@@ -34,7 +34,8 @@ Theory](https://en.wikipedia.org/wiki/Personal_construct_theory) (Kelly
 1955). It was originally designed as an instrument for psychotherapy.
 Nowadays, it is used in many other fields, including market,
 organizational, political, educational and sensory research. See tab
-[Intro](articles/web/intro.html) for a brief introduction.
+[Intro](https://docs.openrepgrid.org/articles/web/intro) for a brief
+introduction.
 
 <figure>
 <img src="man/figures/bertin-clustered.png"
