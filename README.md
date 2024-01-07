@@ -17,6 +17,7 @@ coverage](https://codecov.io/gh/markheckmann/OpenRepGrid/branch/master/graph/bad
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![status](https://joss.theoj.org/papers/88b1ba29095623f416d9fe944afe5cd8/status.svg)](https://joss.theoj.org/papers/88b1ba29095623f416d9fe944afe5cd8)
 <!-- badges: end -->
 
 <br>
