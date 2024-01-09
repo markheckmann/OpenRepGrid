@@ -34,8 +34,8 @@ which originated from [Personal Construct
 Theory](https://en.wikipedia.org/wiki/Personal_construct_theory) (Kelly
 1955). It was originally designed as an instrument for psychotherapy.
 Nowadays, it is used in many other fields, including market,
-organizational, political, educational and sensory research. See tab
-[Intro](https://docs.openrepgrid.org/articles/web/intro) for a brief
+organizational, political, educational and sensory research. See
+[here](https://docs.openrepgrid.org/articles/web/intro) for a brief
 introduction.
 
 <figure>

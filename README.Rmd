@@ -34,7 +34,7 @@ library(OpenRepGrid)
 
 ## About
 
-**OpenRepGrid** is an R package to analyze and visualize [repertory grid](https://en.wikipedia.org/wiki/Repertory_grid)  data. The repertory grid (often abbreviated *grid* or *repgrid*) is a data collection method which originated from [Personal Construct Theory](https://en.wikipedia.org/wiki/Personal_construct_theory) (Kelly 1955). It was originally designed as an instrument for psychotherapy. Nowadays, it is used in many other fields, including market, organizational, political, educational and sensory research. See tab [Intro](https://docs.openrepgrid.org/articles/web/intro) for a brief introduction. 
+**OpenRepGrid** is an R package to analyze and visualize [repertory grid](https://en.wikipedia.org/wiki/Repertory_grid)  data. The repertory grid (often abbreviated *grid* or *repgrid*) is a data collection method which originated from [Personal Construct Theory](https://en.wikipedia.org/wiki/Personal_construct_theory) (Kelly 1955). It was originally designed as an instrument for psychotherapy. Nowadays, it is used in many other fields, including market, organizational, political, educational and sensory research. See [here](https://docs.openrepgrid.org/articles/web/intro) for a brief introduction. 
 
 ![**Figure 1.** Example of a repertory grid dataset (with rows and columns clustered by similarity).](man/figures/bertin-clustered.png)
 
