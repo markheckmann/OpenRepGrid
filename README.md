@@ -8,6 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
 [![](https://cranlogs.r-pkg.org/badges/OpenRepGrid)](https://cran.rstudio.com/web/packages/OpenRepGrid/index.html)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/OpenRepGrid)](https://cran.r-project.org/package=OpenRepGrid)
 [![](https://img.shields.io/badge/devel-v0.1.15-blue.svg)](https://github.com/markheckmann/OpenRepGrid)
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml)
 [![AppVeyor build
