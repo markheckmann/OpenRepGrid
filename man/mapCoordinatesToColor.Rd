@@ -9,9 +9,9 @@ mapCoordinatesToColor(z, colors = c("white", "black"), val.range = c(0.2, 0.8))
 \arguments{
 \item{z}{numeric vector.}
 
-\item{val.range}{numeric vector of lengths two (default \code{c(.2, .8)}).}
+\item{colors}{vector of length two giving color values \code{c("white", "black")}.}
 
-\item{color}{vector of length two giving color values \code{c("white", "black")}.}
+\item{val.range}{numeric vector of lengths two (default \code{c(.2, .8)}).}
 }
 \value{
 numeric vector

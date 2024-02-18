@@ -1,17 +1,13 @@
 ## Submission info
 
-New submission: Package was archived on CRAN
-
-Archived on 2023-05-05 as check problems were not corrected in time.
-
+Fix CRAN check comment.
 
 ## Test environments
 
-- Windows 10 (local), R 4.3.0
-- MacOS 13.3.1, R 4.3.0
-- Windows Server 2022, R 4.3.0, R 4.4.0
-- Ubuntu 20.04.1 LTS, R-release
-- Fedora Linux, R-devel
+* MacOS 14.3.1 (local desktop), R 4.3.1
+* MacOS 12.7.3, R 4.3.2
+* Microsoft Windows Server 2022, R 4.3.2
+* Ubuntu 20.04.3 LTS, R 4.3.2
 
 ## R CMD check results
 

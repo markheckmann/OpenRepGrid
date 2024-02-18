@@ -941,20 +941,19 @@ addIndexColumnToMatrix <- function(x) {
 }
 
 
+#' Density histogram with steps instead of bars.
+#'
 #' Make a histogram with steps instead of bars. Densities are used
 #' for the heights.
 #'
-#' @title           Density histogram with steps instead of bars
-#'
 #' @param vals      Numeric values to display.
 #' @param breaks    Passed on to `hist`.
-#'                  See ?hist parameter `breaks` for more information.
+#'                  See `?hist` parameter `breaks` for more information.
 #' @param add       Whether to add the steps to an existing plot (`FALSE`)
-#'                  or to create a new plot (default `add=TRUE`).
+#'                  or to create a new plot (default `add = TRUE`).
 #' @export
 #' @keywords        internal
 #' @examples \dontrun{
-#'
 #' x <- rnorm(1000)
 #' y <- rnorm(1000, sd = .6)
 #' stepChart(y, breaks = 50)

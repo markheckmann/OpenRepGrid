@@ -99,7 +99,7 @@ mapCoordinatesToValue <- function(z, val.range = c(.5, 1)) {
 #' the mapped values are transformed into hex color values.
 #'
 #' @param  z          numeric vector.
-#' @param  color      vector of length two giving color values `c("white", "black")`.
+#' @param  colors     vector of length two giving color values `c("white", "black")`.
 #' @param  val.range  numeric vector of lengths two (default `c(.2, .8)`).
 #' @return numeric vector
 #' @keywords internal
@@ -179,17 +179,17 @@ calcCoordsBorders <- function(x, y, xmax = 1, ymax = 1, cx = 0, cy = 0) {
 #
 # TODO: supply x.ext in mm and convert to usr coords
 #
-# @param  xy        \code{dataframe} with x and y coords.
+# @param  xy        `dataframe` with x and y coords.
 # @param  labels    vector of strings.
-# @param  cex       vector of cex values (default is \code{.7}).
+# @param  cex       vector of cex values (default is `.7`).
 # @param  x.ext     scalar giving the horizontal margin
 #                   of the rectangle in NDC coordinates
-#                   (default is \code{.02}).
+#                   (default is `.02`).
 # @param  y.ext     scalar giving the vertical margin
 #                   of the rectangle in NDC coordinates
-#                   (default is \code{.02}).
-# @return \code{dataframe} with coordinates for the lower left and
-#         upper right rectangle borders (\code{x0, y0, x1, y1}).
+#                   (default is `.02`).
+# @return `dataframe` with coordinates for the lower left and
+#         upper right rectangle borders (`x0, y0, x1, y1`).
 #
 calcRectanglesCoordsForLabels <- function(xy, labels, cex = .7,
                                           x.ext = .02, y.ext = .02) {

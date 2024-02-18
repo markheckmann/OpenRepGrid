@@ -112,27 +112,27 @@ rglDrawConstructLabels <- function(coords, labels = FALSE, dim = 1:3,
 }
 
 
-#' biplot3dBase2 is the workhorse to draw a grid in rgl (3D device).
-#'
-#' @param x               `repgrid` object.
-#' @param dim             Dimensions to display.
-#' @param labels.e        Logical. whether element labels are displayed.
-#' @param labels.c        Logical. whether construct labels are displayed.
-#' @param lines.c         Numeric. The way lines are drawn through the construct vectors.
-#'                        `0 =` no lines, `1 =` lines from constructs to outer frame,
-#'                        `2 =` lines from the center to outer frame.
-#' @param lef             Construct lines extension factor.
-#' @param alpha.sphere    Numeric. alpha blending of the surrounding sphere (default`".05"`).
-#' @param col.sphere      Color of surrounding sphere (default`"black"`).
-#' @param ext.sphere      Extension factor for sphere
-#' @param col.frame       Color of the surrounding frame.
-#' @param zoom            Not yet used. Scaling factor for all vectors. Can be used to zoom
-#'                        the plot in and out (default `1`).
-#' @param draw.xyz.axes   Draw standard XYZ axes.
-#' @param ...             Parameters to be passed on.
-#' @keywords internal
-#' @export
-#'
+# biplot3dBase2 is the workhorse to draw a grid in rgl (3D device).
+#
+# @param x               `repgrid` object.
+# @param dim             Dimensions to display.
+# @param labels.e        Logical. whether element labels are displayed.
+# @param labels.c        Logical. whether construct labels are displayed.
+# @param lines.c         Numeric. The way lines are drawn through the construct vectors.
+#                        `0 =` no lines, `1 =` lines from constructs to outer frame,
+#                        `2 =` lines from the center to outer frame.
+# @param lef             Construct lines extension factor.
+# @param alpha.sphere    Numeric. alpha blending of the surrounding sphere (default`".05"`).
+# @param col.sphere      Color of surrounding sphere (default`"black"`).
+# @param ext.sphere      Extension factor for sphere
+# @param col.frame       Color of the surrounding frame.
+# @param zoom            Not yet used. Scaling factor for all vectors. Can be used to zoom
+#                        the plot in and out (default `1`).
+# @param draw.xyz.axes   Draw standard XYZ axes.
+# @param ...             Parameters to be passed on.
+# @keywords internal
+# @export
+#
 biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = 1,
                           lef = 1.1, frame = 1, col.frame = grey(.6),
                           col.sphere = "black", alpha.sphere = .05, zoom = 1,

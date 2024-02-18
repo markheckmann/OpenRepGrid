@@ -106,7 +106,7 @@ randomGrids <- function(rep = 3, nc = 10, ne = 15, nwc = 8, nwe = 5,
 #' All Slater distances are returned as a vector. The values can be used e.g. to assess the
 #' distributions standard deviation.
 #'
-#' @param rep       Number of grids to be produced (default is `3`).
+#' @param reps      Number of grids to be produced (default is `3`).
 #' @param nc        Number of constructs (default 10).
 #' @param ne        Number of elements (default 15).
 #' @param range     Minimal and maximal scale value (default `c(1, 5)`).
@@ -129,7 +129,7 @@ randomGrids <- function(rep = 3, nc = 10, ne = 15, nwc = 8, nwe = 5,
 #' hist(vals, breaks = 50)
 #' }
 #'
-quasiDistributionDistanceSlater <- function(rep, nc, ne, range, prob = NULL, progress = TRUE) {
+quasiDistributionDistanceSlater <- function(reps, nc, ne, range, prob = NULL, progress = TRUE) {
   quasis <- randomGrids(rep, nc = nc, ne = ne, range = range, prob = prob, options = 0)
   if (progress) { # whether to show progress bar
     lapply_fun <- lapply_pb
@@ -176,19 +176,18 @@ permuteConstructs <- function(x, progress = TRUE) {
 }
 
 
+#' Permute rows, columns or whole grid matrix.
+#'
 #' Generate one or many permutations of the grid by shuffling
 #' the rows, the columns or the whole grid matrix.
 #'
-#' @title         Permute rows, columns or whole grid matrix.
-#' @param x       `repgrid` object.
-#' @param along   What to permute. `along=1` (default) will permute the rows
-#'                `along=2` the columns, `along=3` the whole matrix.
-#' @param n       The number of permutations to produce.
-#' @return  A `repgrid` object if `n=1` or a list of
-#'                `repgrid` objects if `n>1`.
+#' @param x A `repgrid` object.
+#' @param along What to permute. `along=1` (default) will permute the rows
+#'  `along=2` the columns, `along=3` the whole matrix.
+#' @param n The number of permutations to produce.
+#' @returns  A `repgrid` object if `n = 1` or a list of `repgrid` objects if `n > 1`.
 #' @export
-#' @keywords       internal
-#'
+#' @keywords internal
 #' @examples \dontrun{
 #'
 #' # permute grid
@@ -227,10 +226,3 @@ permuteGrid <- function(x, along = 1, n = 1) {
   }
   res
 }
-
-
-
-### TODO ###
-# Permutation test
-
-# Slater writes:

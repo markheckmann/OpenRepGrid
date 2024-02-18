@@ -15,6 +15,8 @@ quasiDistributionDistanceSlater(
 )
 }
 \arguments{
+\item{reps}{Number of grids to be produced (default is \code{3}).}
+
 \item{nc}{Number of constructs (default 10).}
 
 \item{ne}{Number of elements (default 15).}
@@ -25,8 +27,6 @@ quasiDistributionDistanceSlater(
 If \code{NULL} (default) the distribution is uniform.}
 
 \item{progress}{Whether to show a progress bar.}
-
-\item{rep}{Number of grids to be produced (default is \code{3}).}
 }
 \value{
 A vector containing Slater distance values.

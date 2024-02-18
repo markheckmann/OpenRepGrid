@@ -38,7 +38,7 @@ The Intensity score as a structural measure is thought to reflect this type of s
 Implementation as in the Gridcor program and explained on the correspoding help pages: "\ldots the sum of the
 squared values of the correlations of each construct with the rest of the constructs, averaged by the total number
 of constructs minus one. This process is repeated with each element, and the overall Intensity is calculated by
-averaging the intensity scores of constructs and elements." \url{https://www.ub.edu/terdep/pag/man11.html}. Currently
+averaging the intensity scores of constructs and elements." (Gridcor manual). Currently
 the total is calculated as the unweighted average of all single scores (for elements and construct).
 }
 \section{Development}{

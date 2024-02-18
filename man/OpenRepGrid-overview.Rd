@@ -224,7 +224,6 @@ functions for these purposes.
 Useful links:
 \itemize{
   \item \url{https://github.com/markheckmann/OpenRepGrid}
-  \item \url{http://markheckmann.github.io/OpenRepGrid/}
 }
 
 }

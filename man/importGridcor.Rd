@@ -47,7 +47,7 @@ rg <- importGridcor("/Users/markheckmann/data/gridcor.dat")
 \references{
 Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis
 for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva.
-Retrieved from \url{https://www.ub.edu/terdep/pag/index.html}.
+Retrieved from \url{https://repertorygrid.net/en/}.
 }
 \seealso{
 \code{\link[=importGridcor]{importGridcor()}},

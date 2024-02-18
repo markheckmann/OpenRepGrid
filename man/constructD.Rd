@@ -7,7 +7,7 @@
 constructD(x, dependent = "columns", trim = 30, index = TRUE)
 }
 \arguments{
-\item{x}{\code{repgrid} object}
+\item{x}{\code{repgrid} object.}
 
 \item{dependent}{A string denoting the direction of dependency in the output
 table (as d is asymmetrical). Possible values are \code{"columns"}
@@ -15,7 +15,7 @@ table (as d is asymmetrical). Possible values are \code{"columns"}
 for setting the rows as the dependent variable and
 \code{"symmetric"} for the
 symmetrical Somers' d measure (the mean of the two directional
-values for code{"columns"} and \code{"rows"}).}
+values for \code{"columns"} and \code{"rows"}).}
 
 \item{trim}{The number of characters a construct is trimmed to (default is
 \code{30}). If \code{NA} no trimming occurs. Trimming

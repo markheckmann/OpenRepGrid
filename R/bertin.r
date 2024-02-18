@@ -222,29 +222,29 @@ bertin2PlusLegend <- function(x, ratings = TRUE, top = unit(40, "mm"),
 #       -splitString has a bug, breaks too late
 #       -trimming of elements and constructs
 #
-#' Workhorse for the biplot printing.
-#'
-#' Prints a bertin to the output
-#' device. It uses the R base graphics system and
-#' this is very fast. This is useful for working with grids. Not so much for
-#' producing high-quality output.
-#'
-#' @param x         `repgrid` object.
-#' @param ratings   Vector. rating scores are printed in the cells
-#' @param margins   Vector of length three (default `margins=c(0,1,1)`).
-#'                  1st element denotes the left, 2nd the upper and 3rd the
-#'                  right margin in npc coordinates (i.e. 0 to zero).
-#' @param trim      Vector (default `trim=c(F,F)`).If a number the string
-#'                  is trimmed to the given number of characters. If set
-#'                  to TRUE the labels are trimmed to the available space
-#' @param add       Logical. Whether to add bertin to existent plot (default is
-#'                  `FALSE`). If `TRUE, plot.new()` will not be called
-#'                  `par(new=TRUE)`.
-#' @return `NULL` just for printing.
-#'
-#' @export
-#' @keywords internal
-#'
+# Workhorse for the biplot printing.
+#
+# Prints a bertin to the output
+# device. It uses the R base graphics system and
+# this is very fast. This is useful for working with grids. Not so much for
+# producing high-quality output.
+#
+# @param x         `repgrid` object.
+# @param ratings   Vector. rating scores are printed in the cells
+# @param margins   Vector of length three (default `margins=c(0,1,1)`).
+#                  1st element denotes the left, 2nd the upper and 3rd the
+#                  right margin in npc coordinates (i.e. 0 to zero).
+# @param trim      Vector (default `trim=c(F,F)`).If a number the string
+#                  is trimmed to the given number of characters. If set
+#                  to TRUE the labels are trimmed to the available space
+# @param add       Logical. Whether to add bertin to existent plot (default is
+#                  `FALSE`). If `TRUE, plot.new()` will not be called
+#                  `par(new=TRUE)`.
+# @return `NULL` just for printing.
+#
+# @export
+# @keywords internal
+#
 bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
                        labels.left = "", labels.right = "",
                        col.text = NA, cex.text = .6, cex.elements = .7,

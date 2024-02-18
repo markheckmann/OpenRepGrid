@@ -2,8 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{stepChart}
 \alias{stepChart}
-\title{\if{html}{\out{<div class="sourceCode">}}\preformatted{      Density histogram with steps instead of bars
-}\if{html}{\out{</div>}}}
+\title{Density histogram with steps instead of bars.}
 \usage{
 stepChart(vals, breaks = "Sturges", add = FALSE, ...)
 }
@@ -11,10 +10,10 @@ stepChart(vals, breaks = "Sturges", add = FALSE, ...)
 \item{vals}{Numeric values to display.}
 
 \item{breaks}{Passed on to \code{hist}.
-See ?hist parameter \code{breaks} for more information.}
+See \code{?hist} parameter \code{breaks} for more information.}
 
 \item{add}{Whether to add the steps to an existing plot (\code{FALSE})
-or to create a new plot (default \code{add=TRUE}).}
+or to create a new plot (default \code{add = TRUE}).}
 }
 \description{
 Make a histogram with steps instead of bars. Densities are used
@@ -22,7 +21,6 @@ for the heights.
 }
 \examples{
 \dontrun{
-
 x <- rnorm(1000)
 y <- rnorm(1000, sd = .6)
 stepChart(y, breaks = 50)

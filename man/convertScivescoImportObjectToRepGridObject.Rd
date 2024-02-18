@@ -8,10 +8,7 @@ object.}
 convertScivescoImportObjectToRepGridObject(import)
 }
 \arguments{
-\item{x}{object returned from an import function.}
-}
-\value{
-\code{repgrid} object.
+\item{import}{List with relevant entries.}
 }
 \description{
 Convert the returned object from the sci:vesco import function into a \code{repgrid}

@@ -39,6 +39,6 @@ imp <- importGridcorInternal("/Users/markheckmann/data/gridcor.dat")
 
 }
 \references{
-\url{https://www.ub.edu/terdep/gridcor.html}
+\url{https://repertorygrid.net/en/}
 }
 \keyword{internal}

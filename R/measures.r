@@ -101,7 +101,7 @@ print_square_matrix <- function(x, names = NA, trim = NA,
 #'  * `total_elements` Total number of matches across elements.
 #'  * `constructs`: Matrix with no. of matches for constructs.
 #'  * `elements`: Matrix with no. of matches for elements.
-#' 
+#'
 #' @keywords internal
 #' @export
 #' @example inst/examples/example-matches.R
@@ -359,7 +359,7 @@ indexPvaff <- function(x, method = 1) {
 #
 # @param x         Object of class indexPvaff.
 # @param digits    Numeric. Number of digits to round to (default is
-#                  \code{2}).
+#                  `2`).
 # @param ...       Not evaluated.
 # @export
 # @method          print indexPvaff
@@ -619,7 +619,7 @@ print.indexDilemmatic <- function(x, output = "SD", ...) {
 #' Implementation as in the Gridcor program and explained on the correspoding help pages: "\ldots the sum of the
 #' squared values of the correlations of each construct with the rest of the constructs, averaged by the total number
 #' of constructs minus one. This process is repeated with each element, and the overall Intensity is calculated by
-#' averaging the intensity scores of constructs and elements." <https://www.ub.edu/terdep/pag/man11.html>. Currently
+#' averaging the intensity scores of constructs and elements." (Gridcor manual). Currently
 #' the total is calculated as the unweighted average of all single scores (for elements and construct).
 #'
 #' @title Intensity index
@@ -1183,23 +1183,23 @@ indexConflict1 <- function(x) {
 #'
 #' Description of the balance / imbalance assessment:
 #'
-#' 1. Order correlations of the triad by absolute magnitude, so that \eqn{ r_{max} > r_{mdn} > r_{min} }{r_max > r_mdn > r_min}.
-#' 2. Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\eqn{ Z_{max} > Z_{mdn} > Z_{min} }{Z_max > Z_mdn > Z_min}).
+#' 1. Order correlations of the triad by absolute magnitude, so that \eqn{ r_{max} > r_{mdn} > r_{min}}, \eqn{r_{max} > r_{mdn} > r_{min}}.
+#' 2. Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\eqn{ Z_{max} > Z_{mdn} > Z_{min}, Z_{max} > Z_{mdn} > Z_{min}}).
 #' 3. Check whether the triad is balanced by assessing if the following relation holds:
 #'
-#'    - If \eqn{ Z_{max} Z_{mdn} > 0 }{ Z_max x Z_mdn > 0},
-#'                the triad is balanced if \eqn{ Z_{max} Z_{mdn} - Z_{min} <= crit }
-#'                { Z_max x Z_mdn - Z_min <= crit }.
-#'    - If \eqn{ Z_{max} Z_{mdn} < 0 }{ Z_max x Z_mdn < 0},
-#'                the triad is balanced if \eqn{ Z_{min}  - Z_{max} Z_{mdn} <= crit }
-#'                { Z_min - Z_max x Z_mdn <= crit }.
+#'    - If \eqn{Z_{max} Z_{mdn} > 0, Z_{max} x Z_{mdn} > 0},
+#'      the triad is balanced if \eqn{Z_{max} Z_{mdn} - Z_{min} <= crit},
+#'      \eqn{Z_{max} x Z_{mdn} - Z_{min} <= crit}.
+#'    - If \eqn{Z_{max} Z_{mdn} < 0,  Z_{max} x Z_{mdn} < 0},
+#'      the triad is balanced if \eqn{Z_{min} - Z_{max} Z_{mdn} <= crit},
+#'      \eqn{Z_{min} - Z_{max} x Z_{mdn} <= crit}.
 #'
 #' @section Personal remarks (MH): I am a bit suspicious about step 2 from above. To devide by 3 appears pretty arbitrary.
 #'        The r for a z-values of 3 is 0.9950548 and not 1.
 #'        The r for 4 is 0.9993293. Hence, why not a value of 4, 5, or 6?
 #'        Denoting the value to devide by with `a`, the relation for the
-#'        first case translates into \eqn{ a  Z_{max}  Z_{mdn} <= \frac{crit}{a} + Z_{min} }
-#'        { a x Z_max x Z_mdn =< crit/a + Z_min}. This shows that a bigger value of `a`
+#'        first case translates into \eqn{a  Z_{max}  Z_{mdn} <= \frac{crit}{a} + Z_{min}},
+#'        \eqn{a x Z_{max} x Z_{mdn} =< crit/a + Z_{min}}. This shows that a bigger value of `a`
 #'        will make it more improbable that the relation will hold.
 #'
 #' @param x A `repgrid` object.
@@ -1752,22 +1752,22 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2) {
 
 # internal workhorse for indexDilemma
 #
-# @param x               \code{repgrid} object.
+# @param x               `repgrid` object.
 # @param self            Numeric. Index of self element.
 # @param ideal           Numeric. Index of ideal self element.
 # @param diff.mode       Numeric. Method adopted to classify construct pairs into congruent
-#                        and discrepant. With \code{diff.mode=1}, the minimal and maximal
-#                        score difference criterion is applied. With \code{diff.mode=0} the Mid-point
-#                        rating criterion is applied. Default is \code{diff.mode=1}.
+#                        and discrepant. With `diff.mode=1`, the minimal and maximal
+#                        score difference criterion is applied. With `diff.mode=0` the Mid-point
+#                        rating criterion is applied. Default is `diff.mode=1`.
 
-# @param diff.congruent  Is used if \code{diff.mode=1}. Maximal difference between
+# @param diff.congruent  Is used if `diff.mode=1`. Maximal difference between
 #                        element ratings to define construct as congruent (default
-#                        \code{diff.congruent=1}). Note that the value
+#                        `diff.congruent=1`). Note that the value
 #                        needs to be adjusted by the user according to the rating scale
 #                        used.
-# @param diff.discrepant Is used if \code{diff.mode=1}. Minimal difference between
+# @param diff.discrepant Is used if `diff.mode=1`. Minimal difference between
 #                        element ratings to define construct as discrepant (default
-#                        \code{diff.discrepant=4}). Note that the value
+#                        `diff.discrepant=4`). Note that the value
 #                        needs to be adjusted by the user according to the rating scale
 #                        used.
 # @param diff.poles      Not yet implemented.
@@ -1775,14 +1775,14 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2) {
 #                        constructs ([0, 1]).
 # @param exclude         Whether to exclude the elements self and ideal self
 #                        during the calculation of the inter-construct correlations.
-#                        (default is \code{FALSE}).
+#                        (default is `FALSE`).
 # @param index           Whether to print index numbers in front of each construct
-#                        (default is \code{TRUE}).
+#                        (default is `TRUE`).
 # @param trim            The number of characters a construct (element) is trimmed to (default is
-#                        \code{20}). If \code{NA} no trimming is done. Trimming
+#                        `20`). If `NA` no trimming is done. Trimming
 #                        simply saves space when displaying the output.
 # @param digits          Numeric. Number of digits to round to (default is
-#                        \code{2}).
+#                        `2`).
 # @export
 # @keywords internal
 # @return     A list with four elements containing different steps of the

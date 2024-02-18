@@ -15,7 +15,7 @@
 #'   - Contributors: Richard C. Bell, Alejandro García Gutiérrez (@j4n7), Diego Vitali (@artoo-git), José Antonio
 #' González Del Puerto (@MindCartographer), Jonathan D. Raskin
 #'
-#'   - How to contribute: You can [contribute in various ways](http://docu.openrepgrid.org/contribute.html).
+#'   - How to contribute: You can [contribute in various ways](https://docs.openrepgrid.org/CONTRIBUTING.html).
 #' The `OpenRepGrid` code is hosted on [GitHub](https://github.com/markheckmann/OpenRepGrid), where you can issue bug
 #' reports or feature requests. You may email your request to the package maintainer.
 #'

@@ -23,16 +23,16 @@ distort the measure (Bassler et al., 1992).
 \details{
 Description of the balance / imbalance assessment:
 \enumerate{
-\item Order correlations of the triad by absolute magnitude, so that \eqn{ r_{max} > r_{mdn} > r_{min} }{r_max > r_mdn > r_min}.
-\item Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\eqn{ Z_{max} > Z_{mdn} > Z_{min} }{Z_max > Z_mdn > Z_min}).
+\item Order correlations of the triad by absolute magnitude, so that \eqn{ r_{max} > r_{mdn} > r_{min}}, \eqn{r_{max} > r_{mdn} > r_{min}}.
+\item Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\eqn{ Z_{max} > Z_{mdn} > Z_{min}, Z_{max} > Z_{mdn} > Z_{min}}).
 \item Check whether the triad is balanced by assessing if the following relation holds:
 \itemize{
-\item If \eqn{ Z_{max} Z_{mdn} > 0 }{ Z_max x Z_mdn > 0},
-the triad is balanced if \eqn{ Z_{max} Z_{mdn} - Z_{min} <= crit }
-{ Z_max x Z_mdn - Z_min <= crit }.
-\item If \eqn{ Z_{max} Z_{mdn} < 0 }{ Z_max x Z_mdn < 0},
-the triad is balanced if \eqn{ Z_{min}  - Z_{max} Z_{mdn} <= crit }
-{ Z_min - Z_max x Z_mdn <= crit }.
+\item If \eqn{Z_{max} Z_{mdn} > 0, Z_{max} x Z_{mdn} > 0},
+the triad is balanced if \eqn{Z_{max} Z_{mdn} - Z_{min} <= crit},
+\eqn{Z_{max} x Z_{mdn} - Z_{min} <= crit}.
+\item If \eqn{Z_{max} Z_{mdn} < 0,  Z_{max} x Z_{mdn} < 0},
+the triad is balanced if \eqn{Z_{min} - Z_{max} Z_{mdn} <= crit},
+\eqn{Z_{min} - Z_{max} x Z_{mdn} <= crit}.
 }
 }
 }
@@ -41,8 +41,8 @@ the triad is balanced if \eqn{ Z_{min}  - Z_{max} Z_{mdn} <= crit }
 The r for a z-values of 3 is 0.9950548 and not 1.
 The r for 4 is 0.9993293. Hence, why not a value of 4, 5, or 6?
 Denoting the value to devide by with \code{a}, the relation for the
-first case translates into \eqn{ a  Z_{max}  Z_{mdn} <= \frac{crit}{a} + Z_{min} }
-{ a x Z_max x Z_mdn =< crit/a + Z_min}. This shows that a bigger value of \code{a}
+first case translates into \eqn{a  Z_{max}  Z_{mdn} <= \frac{crit}{a} + Z_{min}},
+\eqn{a x Z_{max} x Z_{mdn} =< crit/a + Z_{min}}. This shows that a bigger value of \code{a}
 will make it more improbable that the relation will hold.
 }
 

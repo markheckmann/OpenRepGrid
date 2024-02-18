@@ -517,7 +517,7 @@ df_out <- function(df, # data frame
 
 # Show method for repgrid
 #
-# @param object a \code{repgrid} object
+# @param object a `repgrid` object
 # @docType methods
 # @usage \S4method{show}{repgrid}(object)
 # @include repgrid.r

@@ -30,7 +30,6 @@ Routledge, London, New York).
 Useful links:
 \itemize{
   \item \url{https://github.com/markheckmann/OpenRepGrid}
-  \item \url{http://markheckmann.github.io/OpenRepGrid/}
 }
 
 }
@@ -39,7 +38,7 @@ Useful links:
 \item Maintainer: Mark Heckmann (\href{https://markheckmann.de}{@markheckmann})
 \item Contributors: Richard C. Bell, Alejandro García Gutiérrez (@j4n7), Diego Vitali (@artoo-git), José Antonio
 González Del Puerto (@MindCartographer), Jonathan D. Raskin
-\item How to contribute: You can \href{http://docu.openrepgrid.org/contribute.html}{contribute in various ways}.
+\item How to contribute: You can \href{https://docs.openrepgrid.org/CONTRIBUTING.html}{contribute in various ways}.
 The \code{OpenRepGrid} code is hosted on \href{https://github.com/markheckmann/OpenRepGrid}{GitHub}, where you can issue bug
 reports or feature requests. You may email your request to the package maintainer.
 }

@@ -190,7 +190,7 @@ calcAngles <- function(x, dim = c(1, 2), clockwise = TRUE) {
 #'
 #' Reorder indexes for constructs and elements are calculated using the coordinates of the given dimensions.
 #'
-#' @param x`repgrid` object that has been submitted to [calcBiplotCoords()].
+#' @param x A `repgrid` object that has been submitted to [calcBiplotCoords()].
 #' @param dim Dimensions used to calculate angles for reordering grid.
 #' @param clockwise Logical. Positive angles are clockwise with x axis as basis.
 #' @return  A list containing the indexes to reorder the grid. The first list element for the constructs, the second
@@ -631,14 +631,14 @@ print.rmsCor <- function(x, digits = 2, ...) {
 #' variable is set as dependent and independent.
 #' The direction of dependency needs to be specified.
 #'
-#' @param x           `repgrid` object
+#' @param x           `repgrid` object.
 #' @param dependent   A string denoting the direction of dependency in the output
 #'                    table (as d is asymmetrical). Possible values are `"columns"`
 #'                    (the default) for setting the columns as dependent, `"rows"`
 #'                    for setting the rows as the dependent variable and
 #'                    `"symmetric"` for the
 #'                    symmetrical Somers' d measure (the mean of the two directional
-#'                    values for code{"columns"} and `"rows"`).
+#'                    values for `"columns"` and `"rows"`).
 #' @param trim        The number of characters a construct is trimmed to (default is
 #'                    `30`). If `NA` no trimming occurs. Trimming
 #'                    simply saves space when displaying correlation of constructs

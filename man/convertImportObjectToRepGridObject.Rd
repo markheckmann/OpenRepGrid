@@ -7,10 +7,7 @@
 convertImportObjectToRepGridObject(import)
 }
 \arguments{
-\item{x}{object returned from an import function.}
-}
-\value{
-\code{repgrid} object.
+\item{import}{List with relevant entries.}
 }
 \description{
 Convert the returned object from an import function into a \code{repgrid}

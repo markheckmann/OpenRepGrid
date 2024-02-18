@@ -24,8 +24,7 @@
 #' Convert the returned object from an import function into a `repgrid`
 #' object. Works for all importXInternal functions (except scivesco).
 #'
-#' @param x   object returned from an import function.
-#' @return  `repgrid` object.
+#' @param import List with relevant entries.
 #' @keywords internal
 #' @export
 #'
@@ -499,7 +498,7 @@ importGridstat <- function(file, dir = NULL, min = NULL, max = NULL) {
 #'                (default `NULL`).
 #' @note          Note that the GRIDCOR data sets the minimum ratings scale range to 1.
 #'                The maximum value can differ and is defined in the data file.
-#' @references <https://www.ub.edu/terdep/gridcor.html>
+#' @references <https://repertorygrid.net/en/>
 #'
 #' @export
 #' @keywords internal
@@ -598,7 +597,7 @@ importGridcorInternal <- function(file, dir = NULL) {
 #' @export
 #' @references  Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis
 #' for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva.
-#' Retrieved from <https://www.ub.edu/terdep/pag/index.html>.
+#' Retrieved from <https://repertorygrid.net/en/>.
 #'
 #' @seealso [importGridcor()],
 #'                [importGridstat()],
@@ -1016,8 +1015,7 @@ importScivescoInternal <- function(file, dir = NULL) {
 #' Convert the returned object from the sci:vesco import function into a `repgrid`
 #' object.
 #'
-#' @param x   object returned from an import function.
-#' @return  `repgrid` object.
+#' @param import List with relevant entries.
 #' @keywords internal
 #' @export
 convertScivescoImportObjectToRepGridObject <- function(import) {

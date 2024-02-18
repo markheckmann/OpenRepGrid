@@ -70,15 +70,13 @@ setDefaultSettings <- function() {
 #' @note   Currently the following parameters can be changed, ordered by topic.
 #' The default value is shown in the brackets at the end of a line.
 #'
-#'  *Printing grid to the console*
-#'  \itemize{
-#'    \item{`show.scale`} {Show grid scale info? (`TRUE`) }
-#'    \item{`show.meta`} {Show grid meta data? (`TRUE`) }
-#'    \item{`show.trim`} {Number of chars to trim strings to (`30`) }
-#'    \item{`show.cut`} {Maximum number of characters printed on the sides of a grid (`20`) }
-#'    \item{`c.no`} {Print construct ID number? (`TRUE`) }
-#'    \item{`e.no`} {Print element ID number? (`TRUE`) }
-#'  }
+#'  - `show.scale`: Show grid scale info? (`TRUE`)
+#'  - `show.meta`: Show grid meta data? (`TRUE`)
+#'  - `show.trim`: Number of chars to trim strings to (`30`)
+#'  - `show.cut`: Maximum number of characters printed on the sides of a grid (`20`)
+#'  - `c.no`: Print construct ID number? (`TRUE`)
+#'  - `e.no`: Print element ID number? (`TRUE`)
+#'
 #' @export
 #' @examples \dontrun{
 #' # get current settings

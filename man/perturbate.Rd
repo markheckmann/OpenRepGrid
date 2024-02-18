@@ -15,7 +15,7 @@ grids_perturbate(x, n = 10, prop = 0.1, amount = c(-1, 1), prob = c(0.5, 0.5))
 \item{prop}{The proportion of ratings to be perturbated.}
 
 \item{amount}{The amount set of possible perturbations. Will depend on scale
-range. Usually {-1, 1} are reasonable settings}
+range. Usually \verb{\{-1, 1\}} are reasonable settings.}
 
 \item{prob}{Probability for each amount to occur.}
 
