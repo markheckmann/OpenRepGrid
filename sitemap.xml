@@ -130,9 +130,6 @@
     <loc>https://docs.openrepgrid.org/reference/bertin.html</loc>
   </url>
   <url>
-    <loc>https://docs.openrepgrid.org/reference/bertinBase.html</loc>
-  </url>
-  <url>
     <loc>https://docs.openrepgrid.org/reference/bertinCluster.html</loc>
   </url>
   <url>
@@ -146,9 +143,6 @@
   </url>
   <url>
     <loc>https://docs.openrepgrid.org/reference/biplot3d.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.openrepgrid.org/reference/biplot3dBase2.html</loc>
   </url>
   <url>
     <loc>https://docs.openrepgrid.org/reference/biplotDraw.html</loc>

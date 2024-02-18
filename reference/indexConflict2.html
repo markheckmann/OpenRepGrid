@@ -95,14 +95,14 @@ imbalanced triads. The default is <code>0.03</code>. The value should be adjuste
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Description of the balance / imbalance assessment:</p><ol><li><p>Order correlations of the triad by absolute magnitude, so that \( r_{max} &gt; r_{mdn} &gt; r_{min} \).</p></li>
-<li><p>Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\( Z_{max} &gt; Z_{mdn} &gt; Z_{min} \)).</p></li>
-<li><p>Check whether the triad is balanced by assessing if the following relation holds:</p><ul><li><p>If \( Z_{max} Z_{mdn} &gt; 0 \),
-the triad is balanced if \( Z_{max} Z_{mdn} - Z_{min} &lt;= crit \)
- Z_max x Z_mdn - Z_min &lt;= crit .</p></li>
-<li><p>If \( Z_{max} Z_{mdn} &lt; 0 \),
-the triad is balanced if \( Z_{min}  - Z_{max} Z_{mdn} &lt;= crit \)
- Z_min - Z_max x Z_mdn &lt;= crit .</p></li>
+    <p>Description of the balance / imbalance assessment:</p><ol><li><p>Order correlations of the triad by absolute magnitude, so that \( r_{max} &gt; r_{mdn} &gt; r_{min}\), \(r_{max} &gt; r_{mdn} &gt; r_{min}\).</p></li>
+<li><p>Apply Fisher's Z-transformation and division by 3 to yield values between 1 and -1  (\( Z_{max} &gt; Z_{mdn} &gt; Z_{min}, Z_{max} &gt; Z_{mdn} &gt; Z_{min}\)).</p></li>
+<li><p>Check whether the triad is balanced by assessing if the following relation holds:</p><ul><li><p>If \(Z_{max} Z_{mdn} &gt; 0, Z_{max} x Z_{mdn} &gt; 0\),
+the triad is balanced if \(Z_{max} Z_{mdn} - Z_{min} &lt;= crit\),
+\(Z_{max} x Z_{mdn} - Z_{min} &lt;= crit\).</p></li>
+<li><p>If \(Z_{max} Z_{mdn} &lt; 0,  Z_{max} x Z_{mdn} &lt; 0\),
+the triad is balanced if \(Z_{min} - Z_{max} Z_{mdn} &lt;= crit\),
+\(Z_{min} - Z_{max} x Z_{mdn} &lt;= crit\).</p></li>
 </ul></li>
 </ol></div>
     <div class="section level2">
@@ -111,8 +111,8 @@ the triad is balanced if \( Z_{min}  - Z_{max} Z_{mdn} &lt;= crit \)
 The r for a z-values of 3 is 0.9950548 and not 1.
 The r for 4 is 0.9993293. Hence, why not a value of 4, 5, or 6?
 Denoting the value to devide by with <code>a</code>, the relation for the
-first case translates into \( a  Z_{max}  Z_{mdn} &lt;= \frac{crit}{a} + Z_{min} \)
- a x Z_max x Z_mdn =&lt; crit/a + Z_min. This shows that a bigger value of <code>a</code>
+first case translates into \(a  Z_{max}  Z_{mdn} &lt;= \frac{crit}{a} + Z_{min}\),
+\(a x Z_{max} x Z_{mdn} =&lt; crit/a + Z_{min}\). This shows that a bigger value of <code>a</code>
 will make it more improbable that the relation will hold.</p>
     </div>
     <div class="section level2">
