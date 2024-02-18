@@ -2,8 +2,8 @@
 % Please edit documentation in R/openrepgrid.r
 \docType{package}
 \name{OpenRepGrid}
-\alias{OpenRepGrid}
 \alias{OpenRepGrid-package}
+\alias{OpenRepGrid}
 \title{\code{OpenRepGrid}: an R package for the analysis of repertory grids.}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right; padding-left: 10px;' alt='logo' width='120'}} The
@@ -30,6 +30,7 @@ Routledge, London, New York).
 Useful links:
 \itemize{
   \item \url{https://github.com/markheckmann/OpenRepGrid}
+  \item \url{http://markheckmann.github.io/OpenRepGrid/}
 }
 
 }

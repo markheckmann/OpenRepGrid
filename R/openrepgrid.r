@@ -264,6 +264,5 @@
 #'
 #' @name OpenRepGrid-overview
 #' @keywords package
-#' @docType package
 #'
-NULL
+"_PACKAGE"

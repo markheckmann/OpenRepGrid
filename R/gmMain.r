@@ -298,6 +298,8 @@ gmSplitTextGrob <- function(text, x = unit(0.5, "npc"), y = unit(0.5, "npc"), ju
 
 
 # variation to explore
+#' @export
+#' @keywords internal
 drawDetails.gmSplitTextGrob <- function(x, recording) # drawdetails method is called when resizing window
 {
   # str(x);

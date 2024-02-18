@@ -328,8 +328,8 @@ c_makeNewConstruct <- function(x = NULL, l.name = NA, l.preferred = NA, l.emerge
 
 
 
-# internal: c.setConstructs sets constructs by index
-c.setConstructs <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
+# internal: c_setConstructs sets constructs by index
+c_setConstructs <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
                             r.name = NA, r.preferred = NA, r.emerged = NA,
                             index = NULL, ...) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
@@ -355,8 +355,8 @@ c.setConstructs <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
   x
 }
 # x <- makeEmptyRepgrid()
-# x <- c.setConstructs(x, l.name=c("construct left 1", "construct left 2"))
-# x <- c.setConstructs(x, l.n=c("construct left 3", "construct left 4"), index=3:4)
+# x <- c_setConstructs(x, l.name=c("construct left 1", "construct left 2"))
+# x <- c_setConstructs(x, l.n=c("construct left 3", "construct left 4"), index=3:4)
 # str(x@constructs, m=3)
 
 
@@ -424,7 +424,7 @@ c_addConstructs <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
 }
 ### NOT RUN
 # x <- makeEmptyRepgrid()
-# x <- c.setConstructs(x, l.name=c("construct left 1", "construct left 2"))
+# x <- c_setConstructs(x, l.name=c("construct left 1", "construct left 2"))
 # x <- c_addConstructs(x, l.name="construct added at the end")
 # x <- c_addConstructs(x, l.name="construct left inserted at position 1", pos=1)
 # x <- c_addConstructs(x, l.name="construct right inserted at position 1", pos=1)

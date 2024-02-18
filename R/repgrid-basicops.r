@@ -1400,7 +1400,7 @@ makeRepgrid <- function(args) {
   l <- c(list(x = x), args) # make a new repgrid object
   x <- do.call(e.setElements, l)
   l <- c(list(x = x), args) # make a new repgrid object
-  x <- do.call(c.setConstructs, l)
+  x <- do.call(c_setConstructs, l)
   x <- initRatingArray(x) # initialize rating array
   l <- c(list(x = x), args) # make a new repgrid object
   x[, ] <- matrix(args$scores, ncol = getNoOfElements(x), byrow = T) # to fill matrix rowwise

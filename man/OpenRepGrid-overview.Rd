@@ -220,6 +220,14 @@ functions for these purposes.
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/markheckmann/OpenRepGrid}
+  \item \url{http://markheckmann.github.io/OpenRepGrid/}
+}
+
+}
 \author{
 Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann.
 Everyone who is interested in developing the package is invited to join.

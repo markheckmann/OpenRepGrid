@@ -3,6 +3,7 @@
 S3method("[",openrepgridSettings)
 S3method(dim,gridlist)
 S3method(dim,repgrid)
+S3method(drawDetails,gmSplitTextGrob)
 S3method(plot,indexDilemma)
 S3method(print,alignByLoadings)
 S3method(print,constructCor)
