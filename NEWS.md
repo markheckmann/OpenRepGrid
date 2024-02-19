@@ -1,4 +1,4 @@
-# OpenRepGrid (0.1.15)
+# OpenRepGrid 0.1.15
 
 * rename `ward` method to `ward.D` in `cluster` (fix #36) 
 * `indexDDI` and `indexUncertainty`, two dispersion indexes for dependency (e.g., situation-resource) grids added. Jon Raskin kindly helped with the documentation.
