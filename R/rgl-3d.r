@@ -12,18 +12,18 @@
 #' @keywords internal
 rglDrawStandardAxes <- function(max.dim = 1, lwd = 1, a.cex = 1.1, a.col = "black",
                                 a.radius = .05, labels = TRUE, spheres = FALSE, ...) {
-  lines3d(c(0, max.dim), c(0, 0), c(0, 0), lwd = lwd, col = a.col)
-  lines3d(c(0, 0), c(0, max.dim), c(0, 0), lwd = lwd, col = a.col)
-  lines3d(c(0, 0), c(0, 0), c(0, max.dim), lwd = lwd, col = a.col)
+  rgl::lines3d(c(0, max.dim), c(0, 0), c(0, 0), lwd = lwd, col = a.col)
+  rgl::lines3d(c(0, 0), c(0, max.dim), c(0, 0), lwd = lwd, col = a.col)
+  rgl::lines3d(c(0, 0), c(0, 0), c(0, max.dim), lwd = lwd, col = a.col)
   if (labels) {
-    text3d(max.dim, 0, 0, "X", cex = a.cex, adj = c(1, 1), col = a.col)
-    text3d(0, max.dim, 0, "Y", cex = a.cex, adj = c(1, 1), col = a.col)
-    text3d(0, 0, max.dim, "Z", cex = a.cex, adj = c(1, 1), col = a.col)
+    rgl::text3d(max.dim, 0, 0, "X", cex = a.cex, adj = c(1, 1), col = a.col)
+    rgl::text3d(0, max.dim, 0, "Y", cex = a.cex, adj = c(1, 1), col = a.col)
+    rgl::text3d(0, 0, max.dim, "Z", cex = a.cex, adj = c(1, 1), col = a.col)
   }
   if (spheres) {
-    spheres3d(max.dim, 0, 0, radius = a.radius, col = a.col)
-    spheres3d(0, max.dim, 0, radius = a.radius, col = a.col)
-    spheres3d(0, 0, max.dim, radius = a.radius, col = a.col)
+    rgl::spheres3d(max.dim, 0, 0, radius = a.radius, col = a.col)
+    rgl::spheres3d(0, max.dim, 0, radius = a.radius, col = a.col)
+    rgl::spheres3d(0, 0, max.dim, radius = a.radius, col = a.col)
   }
 }
 # open3d()
@@ -42,26 +42,32 @@ rglDrawStandardAxes <- function(max.dim = 1, lwd = 1, a.cex = 1.1, a.col = "blac
 rglDrawStandardEllipses <- function(max.dim = 1, lwd = 1, col = "black") {
   x <- seq(0, 2 * pi, len = 361)
   x <- data.frame(sin(x), cos(x)) * max.dim
-  lines3d(x[, 1], x[, 2], 0, col = col, lwd = lwd)
-  lines3d(x[, 1], 0, x[, 2], col = col, lwd = lwd)
-  lines3d(0, x[, 1], x[, 2], col = col, lwd = lwd)
+  rgl::lines3d(x[, 1], x[, 2], 0, col = col, lwd = lwd)
+  rgl::lines3d(x[, 1], 0, x[, 2], col = col, lwd = lwd)
+  rgl::lines3d(0, x[, 1], x[, 2], col = col, lwd = lwd)
 }
 
 
 
 rglDrawElementPoints <- function(coords, dim = 1:3, e.radius = .1, e.sphere.col = "black", ...) {
+  if (!requireNamespace("rgl", quietly = TRUE)) {
+    stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
+  }
   coords <- coords[, dim]
-  spheres3d(coords[, 1], coords[, 2], coords[, 3],
+  rgl::spheres3d(coords[, 1], coords[, 2], coords[, 3],
     radius = e.radius, color = e.sphere.col, aspect = F
   )
 }
 
 
 rglDrawElementLabels <- function(coords, labels = FALSE, dim = 1:3, e.radius = .1, e.cex = .6, e.text.col = "black", ...) {
+  if (!requireNamespace("rgl", quietly = TRUE)) {
+    stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
+  }
   coords <- coords[, dim]
   if (!identical(labels, FALSE)) {
     coords.text <- coords - e.radius / 2 # offset text for elements
-    texts3d(
+    rgl::texts3d(
       x = coords.text[, 1],
       y = coords.text[, 2],
       z = coords.text[, 3],
@@ -83,9 +89,12 @@ rglDrawElementLabels <- function(coords, labels = FALSE, dim = 1:3, e.radius = .
 #'
 rglDrawConstructPoints <- function(coords, dim = 1:3, c.radius = .02, c.sphere.col = grey(.4),
                                    ...) {
+  if (!requireNamespace("rgl", quietly = TRUE)) {
+    stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
+  }
   coords <- coords[, dim]
   coords[is.na(coords)] <- 0 # replace NAs by zero, so Na can be entered as dim for 2d projection
-  spheres3d(coords[, dim], radius = c.radius, color = c.sphere.col)
+  rgl::spheres3d(coords[, dim], radius = c.radius, color = c.sphere.col)
 }
 
 #' draw constructs in rgl
@@ -101,10 +110,13 @@ rglDrawConstructPoints <- function(coords, dim = 1:3, c.radius = .02, c.sphere.c
 #'
 rglDrawConstructLabels <- function(coords, labels = FALSE, dim = 1:3,
                                    c.cex = .6, c.text.col = grey(.4), ...) {
+  if (!requireNamespace("rgl", quietly = TRUE)) {
+    stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
+  }
   coords <- coords[, dim]
   coords[is.na(coords)] <- 0 # replace NAs by zero, so Na can be entered as dim for 2d projection
   if (!identical(labels, FALSE)) {
-    texts3d(coords,
+    rgl::texts3d(coords,
       texts = labels, adj = c(.5, .5),
       cex = c.cex, col = c.text.col, aspect = F
     )
@@ -142,17 +154,21 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
                           #                          e.points.show=TRUE,
                           #                          e.labels.show=TRUE,
                           ...) {
+  if (!requireNamespace("rgl", quietly = TRUE)) {
+    stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
+  }
+
   x <- calcBiplotCoords(x, ...)
   x <- prepareBiplotData(x, ...)
 
   showpoint <- showlabel <- type <- NULL # to prevent 'R CMD check' from noting a missing binding
   # as the variables are provided in object x as default
-  open3d() # open rgl device
-  par3d(params = list(
+  rgl::open3d() # open rgl device
+  rgl::par3d(params = list(
     windowRect = c(100, 100, 600, 600)
   )) # enlarge and position 3d device
-  view3d(theta = 0, phi = 0, zoom = .6) # change 3d view angle
-  bg3d(color = "white") # set background color
+  rgl::view3d(theta = 0, phi = 0, zoom = .6) # change 3d view angle
+  rgl::bg3d(color = "white") # set background color
 
   # select spheres to draw and labels to show
   # select which elements to show
@@ -211,7 +227,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
     # rglDrawConstructLabels(Cu[, dim], labels=labels.r, ...)
     # rglDrawConstructLabels(-Cu[, dim], labels=labels.l, ...)
   } else if (lines.c == 1) { # construct lines from cons pos to outside
-    segments3d(interleave(cl.l.xyz, cl.l.xyz.outer), col = "grey")
+    rgl::segments3d(interleave(cl.l.xyz, cl.l.xyz.outer), col = "grey")
     rglDrawConstructLabels(cl.l.xyz.outer, labels = cs.l$label, ...)
     if (draw.xyz.axes) rglDrawStandardAxes(lef * mval, a.col = "black")
     # segments3d(interleave(-Cu[, dim], -Cup), col="grey")       # Cu and Cup from older implementation without use if x@plotdata
@@ -219,7 +235,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
     # rglDrawConstructLabels(-Cup, labels=labels.l, ...)
   } else if (lines.c == 2) { # construct lines from center to outside
     nm <- matrix(0, ncol = 3, nrow = nrow(cl.l.xyz.outer))
-    segments3d(interleave(nm, as.matrix(cl.l.xyz.outer)), col = "grey")
+    rgl::segments3d(interleave(nm, as.matrix(cl.l.xyz.outer)), col = "grey")
     rglDrawConstructLabels(cl.l.xyz.outer, labels = cs.l$label, ...)
     if (draw.xyz.axes) rglDrawStandardAxes(lef * mval, a.col = "black")
   } else {
@@ -230,9 +246,9 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
   # rglDrawStandardEllipses(max.dim)
 
   # trick to make user coordinate system's origin the center of rotation
-  mval <- max(abs(par3d()$bbox)) # get max value in x,y,z
+  mval <- max(abs(rgl::par3d()$bbox)) # get max value in x,y,z
   ps <- interleave(mval * diag(3), -mval * (diag(3)))
-  spheres3d(ps, radius = 0) # draw invisible spheres at the extremes
+  rgl::spheres3d(ps, radius = 0) # draw invisible spheres at the extremes
 
   # select type of frame ariound the whole plot
   # 0=none, 1= simple box, 2= box with grid, 3=sphere.
@@ -264,12 +280,12 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
       mval, -mval, mval,
       mval, -mval, -mval
     ), ncol = 3, byrow = T)
-    segments3d(ss, col = col.frame)
+    rgl::segments3d(ss, col = col.frame)
   } else if (frame == 2) {
-    grid3d(c("x+", "x-", "y+", "y-", "z+", "z-"))
+    rgl::grid3d(c("x+", "x-", "y+", "y-", "z+", "z-"))
   } else if (frame == 3) {
     # sphere for easier 3D impression if prompted
-    spheres3d(0, 0, 0,
+    rgl::spheres3d(0, 0, 0,
       radius = mval, color = col.sphere,
       alpha = alpha.sphere, aspect = F, front = "lines", back = "lines"
     )
@@ -556,7 +572,7 @@ home <- function(view = 1, theta = NULL, phi = NULL) {
   if (!view %in% 1:3) {
     stop("'view' must take a numeric value between 1 and 3")
   }
-  p3d <- par3d()
+  p3d <- rgl::par3d()
   if (is.null(theta) & is.null(phi)) {
     if (view == 1) {
       theta <- 0
@@ -569,7 +585,7 @@ home <- function(view = 1, theta = NULL, phi = NULL) {
       phi <- 0
     }
   }
-  view3d(theta = theta, phi = phi, zoom = p3d$zoom) # change 3d view angle
+  rgl::view3d(theta = theta, phi = phi, zoom = p3d$zoom) # change 3d view angle
 }
 
 

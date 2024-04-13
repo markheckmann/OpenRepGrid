@@ -1,8 +1,8 @@
-#/////////////////////////////////////////////////////////////////////////////
+# /////////////////////////////////////////////////////////////////////////////
 #
 #  		       Data that comes along with the OpenRepGrid package
 #
-#//////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////////////////////////////////////////////////////
 
 
 # Bell (2010) ----
@@ -73,7 +73,7 @@ NULL
 #'
 #' @keywords data
 #' @examples bellmcgorry1992
-#' 
+#'
 NULL
 
 
@@ -275,7 +275,7 @@ NULL
 # Leach et al. (2001) ----
 
 #' Pre- and post therapy dataset from Leach et al. (2001).
-#' 
+#'
 #' Case as described by the authors: "Sarah, aged 32, was referred with problems of depression and sexual difficulties
 #' relating to childhood sexual abuse. She had three children and was living with her male partner. From the age of 9,
 #' her brother, an adult, had sexually abused Sarah. She attended a group for survivors of child sexual abuse and
@@ -291,7 +291,7 @@ NULL
 #' @references   Leach, C., Freshwater, K., Aldridge, J., & Sunderland, J. (2001). Analysis of repertory grids in
 #'   clinical practice. *The British Journalof Clinical Psychology, 40*, 225-248.
 #' @keywords data
-#' @examples 
+#' @examples
 #' leach2001a
 #' leach2001b
 NULL
@@ -376,7 +376,7 @@ NULL
 #'   measures. *International Journal of Personal Construct Psychology, 5*(1), 57-75.
 #' @keywords data
 #' @examples mackay1992
-#' 
+#'
 NULL
 
 
@@ -522,7 +522,7 @@ NULL
 #' @keywords data
 #' @examples
 #' slater1977b
-#' 
+#'
 NULL
 
 # args <- list(
@@ -550,4 +550,3 @@ NULL
 # slater1977b <- makeRepgrid(args)
 # slater1977b <- setScale(slater1977b, 1, 10)
 # save("slater1977b", file="../data/slater1977b.RData")
-

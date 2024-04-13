@@ -31,7 +31,6 @@ Imports:
     plyr,
     stringr,
     abind,
-    rgl,
     colorspace,
     psych,
     XML,
@@ -73,6 +72,7 @@ Collate:
 RoxygenNote: 7.3.0
 NeedsCompilation: no
 Suggests: 
+    rgl,
     testthat (>= 2.1.0),
     covr,
     styler,

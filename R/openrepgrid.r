@@ -34,7 +34,7 @@
 #' @keywords package repgrid
 #' @name OpenRepGrid
 #' @docType package
-#' @import methods graphics grid utils grDevices stringr abind rgl psych XML pvclust dplyr
+#' @import methods graphics grid utils grDevices stringr abind psych XML pvclust dplyr
 #' @rawNamespace import(stats, except=c(lag,filter))
 #' @rawNamespace import(plyr, except = c(failwith,id,count,mutate,desc,rename,summarize,summarise,filter,arrange))
 #' @importFrom colorspace HSV diverge_hcl hex hex2RGB
