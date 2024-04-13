@@ -6,7 +6,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
@@ -88,23 +88,23 @@ is .dat.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>     Sci<span class="sc">:</span>Vesco offers the options to rate the construct poles separately or using</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>           a bipolar scale. The separated rating is done using the <span class="st">"tetralemma"</span> field.</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>           The field is a bivariate plane on which each of the <span class="fu">four</span> (tetra) corners</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>           has a different meaning <span class="cf">in</span> terms of rating. Using this approach also allows ratings</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           like<span class="sc">:</span> <span class="st">"both poles apply"</span>, <span class="st">"none of the poles apply"</span> and all intermediate ratings</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>           can be chosen. This relaxes the bipolarity assumption often assumed <span class="cf">in</span> grid theory and</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>           allows <span class="cf">for</span> deviation from a strict bipolar rating <span class="cf">if</span> the constructs are not applied</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>           <span class="cf">in</span> a bipolar way. Using the tetralemma field <span class="cf">for</span> rating requires to analyze</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>           each construct separately though. This means we get a double entry grid where the</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>           emergent and contrast pole ratings might not simply be a reflection of on another.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>           If a tetralemma field has been used <span class="cf">for</span> rating, <span class="st">`</span><span class="at">OpenRepGrid</span><span class="st">`</span> offers the option</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>           to transform the scores into <span class="st">"normal"</span> grid <span class="fu">ratings</span> (i.e. restricted to bipolarity)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>           by projecting the ratings from the bivariate tetralemma field onto the diagonal</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>           of the tetralemma field and thus forcing a bipolar rating type. This option is</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>           not recommended due to the fact that the conversion is susceptible to error</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>           when both ratings are near to zero.</span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>     TODO<span class="sc">:</span> The element IDs are not used yet. This might cause wrong assignments.</span></code></pre><p></p></div>
+    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>     Sci<span class="sc">:</span>Vesco offers the options to rate the construct poles separately or using</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>           a bipolar scale. The separated rating is done using the <span class="st">"tetralemma"</span> field.</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>           The field is a bivariate plane on which each of the <span class="fu">four</span> (tetra) corners</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>           has a different meaning <span class="cf">in</span> terms of rating. Using this approach also allows ratings</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>           like<span class="sc">:</span> <span class="st">"both poles apply"</span>, <span class="st">"none of the poles apply"</span> and all intermediate ratings</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>           can be chosen. This relaxes the bipolarity assumption often assumed <span class="cf">in</span> grid theory and</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>           allows <span class="cf">for</span> deviation from a strict bipolar rating <span class="cf">if</span> the constructs are not applied</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>           <span class="cf">in</span> a bipolar way. Using the tetralemma field <span class="cf">for</span> rating requires to analyze</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>           each construct separately though. This means we get a double entry grid where the</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>           emergent and contrast pole ratings might not simply be a reflection of on another.</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>           If a tetralemma field has been used <span class="cf">for</span> rating, <span class="st">`</span><span class="at">OpenRepGrid</span><span class="st">`</span> offers the option</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>           to transform the scores into <span class="st">"normal"</span> grid <span class="fu">ratings</span> (i.e. restricted to bipolarity)</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>           by projecting the ratings from the bivariate tetralemma field onto the diagonal</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>           of the tetralemma field and thus forcing a bipolar rating type. This option is</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>           not recommended due to the fact that the conversion is susceptible to error</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>           when both ratings are near to zero.</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>     TODO<span class="sc">:</span> The element IDs are not used yet. This might cause wrong assignments.</span></code></pre><p></p></div>
     </div>
 
     <div class="section level2">
