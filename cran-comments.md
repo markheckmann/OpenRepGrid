@@ -1,13 +1,12 @@
 ## Submission info
 
-Fix CRAN check comment.
+Fix v0.1.14 CRAN check NOTES: <https://cran.r-project.org/web/checks/check_results_OpenRepGrid.html>
 
 ## Test environments
 
-* MacOS 14.3.1 (local desktop), R 4.3.1
-* MacOS 12.7.3, R 4.3.2
-* Microsoft Windows Server 2022, R 4.3.2
-* Ubuntu 20.04.3 LTS, R 4.3.2
+* MacOS 14.5, R 4.4.1
+* Microsoft Windows Server 2022, R 4.4.1
+* Ubuntu 22.04.4 LTS, R 4.4.1
 
 ## R CMD check results
 
