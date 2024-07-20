@@ -18,7 +18,7 @@ statsConstructs(x, index = T, trim = 20)
 occurs. Trimming simply saves space when displaying correlation of constructs or elements with long names.}
 }
 \value{
-A dataframe containing the following measures is returned invisibly (see \code{\link[=describe]{describe()}}):
+A dataframe containing the following measures is returned invisibly (see \code{\link[psych:describe]{psych::describe()}}):
 \itemize{
 \item item name
 \item item number

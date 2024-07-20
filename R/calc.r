@@ -6,7 +6,7 @@
 #' @param index Whether to print the number of the element.
 #' @param trim The number of characters an element or a construct is trimmed to (default is `20`). If `NA` no trimming
 #'   occurs. Trimming simply saves space when displaying correlation of constructs or elements with long names.
-#' @return  A dataframe containing the following measures is returned invisibly (see [describe()]):
+#' @return  A dataframe containing the following measures is returned invisibly (see [psych::describe()]):
 #'
 #'  - item name
 #'  - item number
@@ -1280,8 +1280,8 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' @inheritParams pvclust::pvclust
 #' @param seed    Random seed for bootstrapping. Can be set for reproducibility (see
 #'                [set.seed()]). Usually not needed.
-#' @param ...     Arguments to pass on to [pvclust()].
-#' @return  A pvclust object as returned by the function [pvclust()]
+#' @param ...     Arguments to pass on to [pvclust::pvclust()].
+#' @return  A pvclust object as returned by the function [pvclust::pvclust()]
 #' @export
 #' @examples \dontrun{
 #'

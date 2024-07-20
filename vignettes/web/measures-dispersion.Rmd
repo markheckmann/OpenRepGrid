@@ -14,9 +14,9 @@ bibliography: literature.bib
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+settings(show.scale = FALSE, show.meta = FALSE, show.cut = 30)
 ```
 
 
@@ -100,13 +100,13 @@ where:
 
 ```{r}
 # sample grid from Walker et al. (1988), p. 67
-file <- system.file("extdata", "dep_grid_walker_1988_2.xlsx" , package = "OpenRepGrid")
+file <- system.file("extdata", "dep_grid_walker_1988_2.xlsx", package = "OpenRepGrid")
 x <- importExcel(file)
 x
 ```
 
 ```{r}
-indexDDI(x, ds = 2:5) 
+indexDDI(x, ds = 2:5)
 ```
 
 #### Uncertainty Index (UI)
@@ -126,13 +126,13 @@ where:
 
 ```{r}
 # sample grid from Bell (2001, p.231)
-file <- system.file("extdata", "dep_grid_bell_2001.xlsx" , package = "OpenRepGrid")
+file <- system.file("extdata", "dep_grid_bell_2001.xlsx", package = "OpenRepGrid")
 x <- importExcel(file)
 x
 ```
 
 ```{r}
-indexUncertainty(x) 
+indexUncertainty(x)
 ```
 
 ### Literature

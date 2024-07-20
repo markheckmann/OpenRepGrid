@@ -12,9 +12,9 @@ vignette: >
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 
@@ -37,7 +37,7 @@ Various settings can be modified in the `bertin` function. To see the whole set 
 E.g. to change the color of the display use the argument color.
 
 ```{r bertin-color}
-bertin(boeker, color=c("white", "darkred"))
+bertin(boeker, color = c("white", "darkred"))
 ```
 
 **Printing of Scores**
@@ -45,7 +45,7 @@ bertin(boeker, color=c("white", "darkred"))
 To suppress the printing of the scores and only plot the colors use
 
 ```{r bertin-color-no-values}
-bertin(boeker, showvalues=FALSE)
+bertin(boeker, showvalues = FALSE)
 ```
 
 
@@ -54,9 +54,9 @@ bertin(boeker, showvalues=FALSE)
 The argument `id` allows to manage the printing of an index number of the elements and constructs.
 
 ```{r eval=FALSE}
-bertin(boeker, id=c(T, F))          # only index numbers for constructs
-bertin(boeker, id=c(F, T))          # only index numbers for elements
-bertin(boeker, id=c(F, F))          # no index numbers
+bertin(boeker, id = c(T, F)) # only index numbers for constructs
+bertin(boeker, id = c(F, T)) # only index numbers for elements
+bertin(boeker, id = c(F, F)) # no index numbers
 ```
 
 
@@ -73,25 +73,25 @@ bertinCluster(feixas2004)
 To apply different distance and cluster methods use the arguments `dmethod` (abbreveated: `dm`) and `cmethod` (abbreveated: cm). For more information on clustering go to here. The following code uses `manhattan` distance and `single` linkage clustering.
 
 ```{r bertin-cluster-2, warning=FALSE, message=FALSE, fig.height=8}
-bertinCluster(feixas2004, dmethod="manhattan", cm="single")  
+bertinCluster(feixas2004, dmethod = "manhattan", cm = "single")
 ```
 
 Sometimes it is desirable to spot structures by eye-balling the colors. For this purpose the printing of the scores can be surpressed.
 
 ```{r bertin-no-ratings, eval=FALSE}
-bertinCluster(feixas2004, showvalues=FALSE)  
+bertinCluster(feixas2004, showvalues = FALSE)
 ```
 
 Other options include to suppress the axis of the dendrogram 
 
 ```{r eval=FALSE}
-bertinCluster(feixas2004, draw.axis=F)        # no axis drawn for dendrogram  
+bertinCluster(feixas2004, draw.axis = F) # no axis drawn for dendrogram
 ```
 
 or to chose a rectangular type of dendrogram.
 
 ```{r bertin-rectangular, warning=FALSE, message=FALSE, fig.height=8}       
-bertinCluster(feixas2004, type="rectangle")   # rectangle type dendrogram 
+bertinCluster(feixas2004, type = "rectangle") # rectangle type dendrogram
 ```
 
 

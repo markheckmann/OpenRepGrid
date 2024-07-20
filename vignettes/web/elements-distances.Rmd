@@ -15,8 +15,8 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 
@@ -39,20 +39,20 @@ For most grid purposes, the first two options will suffice.
 In `OpenRepGrid` the function `distance` calculates various types of distances for constructs and for elements (the default is `euclidean`). The argument `along` determines if distances for 1) constructs or 2) elements are calculated. The default is to calculate distances for constructs, so we always need to set `along=2` to prompt element distances.
 
 ```{r}
-distance(fbb2003, along=2)          # along = 2 for elements
+distance(fbb2003, along = 2) # along = 2 for elements
 ```
 
 To change the distance measure supply any unambigous string of the available distance methods to the argument dmethod. E.g. for the manhattan distance bewteen constructs:
 
 ```{r}
-distance(fbb2003, along=2, dmethod="man")
+distance(fbb2003, along = 2, dmethod = "man")
 ```
 
 For other distance metrics:
 
 ```{r results='hide'}
-distance(fbb2003, along=2, dm="canb")            # canberra distance for constructs
-distance(fbb2003, along=2, dm="mink", p=3)       # minkowski metric to the power of 3  for constructs
+distance(fbb2003, along = 2, dm = "canb") # canberra distance for constructs
+distance(fbb2003, along = 2, dm = "mink", p = 3) # minkowski metric to the power of 3  for constructs
 ```
 
 If the distances are calculated for further processing, the printing to the console can be surpressed distance and the results can be saved into an object (here d).

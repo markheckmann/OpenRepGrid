@@ -1,7 +1,5 @@
 # TODOs
 
-  * move documentation to pkgdown
-  * use linter / styler package for code formatting
   * switch to cli package for console output?
   * make some function generic so they accept repgridlists as well (index functions)
   * Format scripts with RStudio comment headers to make them more readable

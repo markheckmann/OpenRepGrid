@@ -24,11 +24,9 @@ assign("settings", list(), envir = .OpenRepGridEnv)
 .onAttach <- function(lib, pkg) {
   packageStartupMessage(
     "------------------------------------------------",
-    "\n OpenRepGrid Version ", utils::packageDescription("OpenRepGrid", fields = "Version"),
+    "\n OpenRepGrid v", utils::packageDescription("OpenRepGrid", fields = "Version"),
     "\n Tools for the analysis of repertory grid data",
-    "\n For an introduction visit: www.openrepgrid.org",
-    "\n CAUTION: The package is in alpha phase.",
-    "\n          Design changes may still occur.",
+    "\n See: https://docs.openrepgrid.org/",
     "\n------------------------------------------------",
     appendLF = TRUE
   )

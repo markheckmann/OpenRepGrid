@@ -13,7 +13,7 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 
@@ -87,16 +87,16 @@ x <- importTxt("example.txt")
 You have to make sure, that the file exists in the current working directory. If not you either have to specify the whole path to the file or you must change the R working directory.
 
 ```{r eval=FALSE}
-x <- importTxt("markheckmann/data/examples.txt")      # whole path to file or
-getwd()                             # show current working directory
-setwd("markheckmann/data")          # change working directory to the folder markheckmann/data
-x <- importTxt("example.txt")       # load file that is in the current working directory
+x <- importTxt("markheckmann/data/examples.txt") # whole path to file or
+getwd() # show current working directory
+setwd("markheckmann/data") # change working directory to the folder markheckmann/data
+x <- importTxt("example.txt") # load file that is in the current working directory
 ```
 
 Another option that is available for all import functions is to supply no argument inside the brackets. In this case an interactive file selection dialog will open.
 
 ```{r eval=FALSE}
-x <- importTxt()       # without any arguments
+x <- importTxt() # without any arguments
 ```
 
 This will open a dialog window which allows you to select a file manually.
@@ -109,36 +109,36 @@ To import from other grid programs works the same as importing a `.txt` file. Ei
 #### Gridcor
 
 ```{r eval=FALSE}
-x <- importGridcor("gridcor.dat")                       # file in current R working directory or
-x <- importGridcor("markheckmann/data/gridcor.dat")     # whole file path or
-x <- importGridcor()                                    # open file selection dialog
+x <- importGridcor("gridcor.dat") # file in current R working directory or
+x <- importGridcor("markheckmann/data/gridcor.dat") # whole file path or
+x <- importGridcor() # open file selection dialog
 ```
 
 
 #### Gridstat
  
 ```{r eval=FALSE}
-x <- importGridstat("gridstat.dat")                     # file in current R working directory or
-x <- importGridstat("markheckmann/data/gridstat.dat")   # whole file path or
-x <- importGridstat()                                   # open file selection dialog
+x <- importGridstat("gridstat.dat") # file in current R working directory or
+x <- importGridstat("markheckmann/data/gridstat.dat") # whole file path or
+x <- importGridstat() # open file selection dialog
 ```
 
 
 #### GridSuite
 
 ```{r eval=FALSE}
-x <- importGridsuite("gridsuite.xml")                    # file in current R working directory or
-x <- importGridsuite("markheckmann/data/gridsuite.xml")  # whole file path or
-x <- importGridsuite()                                   # open file selection dialog
+x <- importGridsuite("gridsuite.xml") # file in current R working directory or
+x <- importGridsuite("markheckmann/data/gridsuite.xml") # whole file path or
+x <- importGridsuite() # open file selection dialog
 ```
 
 
 #### sci:vesco
 
 ```{r eval=FALSE}
-x <- importScivesco("scivesco.scires")                   # file in current R working directory or
+x <- importScivesco("scivesco.scires") # file in current R working directory or
 x <- importScivesco("markheckmann/data/scivesco.scires") # whole file path or
-x <- importScivesco()                                    # open file selection dialog
+x <- importScivesco() # open file selection dialog
 ```
 
 
@@ -151,8 +151,8 @@ x <- importScivesco()                                    # open file selection d
 To save a grid as a `.txt` file use the function `saveAsTxt`. It will save the grid as a .txt file in format used by `OpenRepGrid`. This file format can also easily be edited by hand (see `importTxt` for a description). The function will open an interactive dialog box to let the user enter a filename if no file argument is supplied in the function call. Let's suppose we want to strore the `boeker` grid.
 
 ```{r eval=FALSE}
-saveAsTxt(boeker, "boeker.txt")      # save it to the file "boeker.txt"
-saveAsTxt(boeker)                    # open a dialog box to enter the file name interactively
+saveAsTxt(boeker, "boeker.txt") # save it to the file "boeker.txt"
+saveAsTxt(boeker) # open a dialog box to enter the file name interactively
 ```
 
 
@@ -161,7 +161,7 @@ saveAsTxt(boeker)                    # open a dialog box to enter the file name 
 Another option is to save the grid as an `RData` object. This is done by using the function save.
 
 ```{r eval=FALSE}
-save(boeker, file="boeker.RData")     # save it to the file "boeker.RData"
+save(boeker, file = "boeker.RData") # save it to the file "boeker.RData"
 ```
 
 In future versions of OpenRepGrid will also support the `.xml` format once a community standard has been agreed upon.

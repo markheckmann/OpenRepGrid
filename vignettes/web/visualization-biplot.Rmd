@@ -14,9 +14,9 @@ vignette: >
 ```{r setup, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
 library(rgl)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE)
+settings(show.scale = FALSE, show.meta = FALSE)
 library(knitr)
-knitr::opts_chunk$set(collapse = TRUE, comment = "#", fig.height=6)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#", fig.height = 6)
 knit_hooks$set(webgl = hook_webgl)
 ```
 
@@ -46,7 +46,7 @@ All of these functions allow to change a lot of their settings. To see the whole
 `biplotSimple` is a graphically unsophisticated version of a biplot. It will draw elements and constructs vectors using similar arguments as `biplot2d`. It is a version for quick exploration used during development. The colors of the constructs has been set to `darkred` to make it easier to differentiate between constructs and element labels.
 
 ```{r biplot-simple}
-biplotSimple(boeker, c.label.col="darkred")
+biplotSimple(boeker, c.label.col = "darkred")
 ```
 
 
@@ -76,7 +76,7 @@ biplot3d(boeker)
 
 ```{r biplot3, echo=FALSE, webgl=TRUE, results='hide', fig.width=5, fig.height=5}
 biplot3d(boeker)
-view3d(theta = 0, phi = 0, zoom=.75)
+view3d(theta = 0, phi = 0, zoom = .75)
 ```
 
 ### Pre-transformations
@@ -88,15 +88,15 @@ In OpenRepGrid different options for centering and normalization (also called sc
 If the output is affected by pre-scaling the corresponding function in OpenRepGrid offers an argument to specify the form of pre-scaling to be used. The following figures demonstrate how different forms of pre-scaling lead to different representation.
 
 ```{r biplot2d-transforms-1}
-biplot2d(boeker, center=1, normalize=0)
+biplot2d(boeker, center = 1, normalize = 0)
 ```
 
 ```{r biplot2d-transforms-2}
-biplot2d(boeker, center=2, normalize=0)
+biplot2d(boeker, center = 2, normalize = 0)
 ```
 
 ```{r biplot2d-transforms-3}
-biplot2d(boeker, center=1, normalize=2)
+biplot2d(boeker, center = 1, normalize = 2)
 ```
 
 
@@ -120,7 +120,7 @@ The first version of a joint spatial representation of elements and constructs h
 
 ```{r eval=FALSE}
 biplotSlater2d(boeker)
-biplot2d(boeker, center=1, g=1, h=1)      # compare to previous plot
+biplot2d(boeker, center = 1, g = 1, h = 1) # compare to previous plot
 
 biplotSlaterPseudo3d(boeker)
 biplotSlater3d(boeker)
@@ -132,7 +132,7 @@ The ESA is a special type of biplot suggested by Raeithel (e.g. 1998). It uses m
 
 ```{r eval=FALSE}
 biplotEsa2d(boeker)
-biplot2d(boeker, center=1, g=1, h=1)      # compare to previous plot
+biplot2d(boeker, center = 1, g = 1, h = 1) # compare to previous plot
 
 biplotEsaPseudo3d(boeker)
 biplotEsa3d(boeker)
@@ -144,30 +144,32 @@ biplotEsa3d(boeker)
 A lot of arguments affecting the appearance of the biplot can be changed. For a full list see biplot2d. The following codes correspond to the figures in the gallery below. It gives an impression of what can be changed in `biplot2d`. Most arguments also apply to the other biplot functions (see above).
 
 ```{r eval=FALSE}
-biplot2d(boeker, e.label.col="red", c.label.col="blue")   # plot1: change label colors
-biplot2d(boeker, e.point.col="red", c.point.col="blue")   # plot2: change symbol colors
+biplot2d(boeker, e.label.col = "red", c.label.col = "blue") # plot1: change label colors
+biplot2d(boeker, e.point.col = "red", c.point.col = "blue") # plot2: change symbol colors
 
-biplot2d(boeker, e.label.cex=1, c.label.cex=.5)           # plot3: change label size
-biplot2d(boeker, e.point.cex=1.5, c.point.cex=.5)         # plot4 :change symbol size
+biplot2d(boeker, e.label.cex = 1, c.label.cex = .5) # plot3: change label size
+biplot2d(boeker, e.point.cex = 1.5, c.point.cex = .5) # plot4 :change symbol size
 
-biplot2d(boeker, zoom=.5)                                 # plot5: zoom out
-biplot2d(boeker, zoom=2.5)                                # plot6: zoom in
+biplot2d(boeker, zoom = .5) # plot5: zoom out
+biplot2d(boeker, zoom = 2.5) # plot6: zoom in
 
-biplot2d(boeker, unity=T)                                 # plot7: scale construct & element vectors to equal length
-biplot2d(boeker, unity=T, scale.e=.5)                     # plot8: scaling factor for element vectors
+biplot2d(boeker, unity = T) # plot7: scale construct & element vectors to equal length
+biplot2d(boeker, unity = T, scale.e = .5) # plot8: scaling factor for element vectors
 
-biplot2d(boeker, e.labels.show=F)                         # plot9: do not show element labels
-biplot2d(boeker, e.labels.show=c(1,2,4))                  # plot10: show labels for elements 1, 2 and 4
-biplot2d(boeker, e.points.show=c(1,2,4))                  # plot11: only show elements 1, 2 and 4
-biplot2d(boeker, c.labels.show=1:4)                       # plot12: show constructs labels 1 to 4   
+biplot2d(boeker, e.labels.show = F) # plot9: do not show element labels
+biplot2d(boeker, e.labels.show = c(1, 2, 4)) # plot10: show labels for elements 1, 2 and 4
+biplot2d(boeker, e.points.show = c(1, 2, 4)) # plot11: only show elements 1, 2 and 4
+biplot2d(boeker, c.labels.show = 1:4) # plot12: show constructs labels 1 to 4
 
-biplot2d(boeker, g=1, h=1, c.labels.inside=T,             # plot13: different margins and element color 
-         mai=c(0,0,0,0), e.label.col="blue") 
+biplot2d(boeker,
+  g = 1, h = 1, c.labels.inside = T, # plot13: different margins and element color
+  mai = c(0, 0, 0, 0), e.label.col = "blue"
+)
 
-biplot2d(boeker, flipaxes=c(T, F))                        # plot14: flip x axis
+biplot2d(boeker, flipaxes = c(T, F)) # plot14: flip x axis
 
-biplot2d(boeker, outer.positioning=F)                     # plot15: no positioning of construct labels
-biplot2d(boeker, c.labels.devangle=20)                    # plot16: only show constructs within 20 degree angle from xy plane
+biplot2d(boeker, outer.positioning = F) # plot15: no positioning of construct labels
+biplot2d(boeker, c.labels.devangle = 20) # plot16: only show constructs within 20 degree angle from xy plane
 ```
 
 

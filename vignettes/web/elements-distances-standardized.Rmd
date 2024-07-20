@@ -14,15 +14,16 @@ vignette: >
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 ```{r calc-data, echo=FALSE}
-do.calc <- FALSE              # do longer calculations? FALSE = use saved values
-if (!do.calc)
-  load("data/distances.Rdata") # load objects that take long time to calculate
+do.calc <- FALSE # do longer calculations? FALSE = use saved values
+if (!do.calc) {
+  load("data/distances.Rdata")
+} # load objects that take long time to calculate
 ```
 
 
@@ -55,7 +56,7 @@ You can save the results and define the way they are displayed using the `print`
    
 ```{r}
 d <- distanceSlater(boeker)
-print(d, cutoffs=c(.8, 1.2))
+print(d, cutoffs = c(.8, 1.2))
 ```
 
 
@@ -108,11 +109,11 @@ distanceHartmann(boeker)
 The second option (`method="simulate"`) is to simulate the distribution of distances based on the size and scale range of the grid under investigation. A distribution of Slater distances is derived using quasis and used for the Hartmann standardization instead of the precalculated values. The following simulation is based on `reps=1000` quasis.
 
 ```{r eval=do.calc, echo=FALSE, results='hide'}
-h <- distanceHartmann(boeker, method="simulate", reps=1000)
+h <- distanceHartmann(boeker, method = "simulate", reps = 1000)
 ```
 
 ```{r eval=FALSE}
-h <- distanceHartmann(boeker, method="simulate", reps=1000)
+h <- distanceHartmann(boeker, method = "simulate", reps = 1000)
 h
 ```
 
@@ -123,7 +124,7 @@ h
 If the results are saved, there are a couple of options for printing the object (see `?print.hdistance`).
 
 ```{r}
-print(d, p=c(.05, .95))
+print(d, p = c(.05, .95))
 ```
 
 
@@ -172,7 +173,7 @@ $Y_{i}^P = \frac{Y^{\lambda}_i - \overline Y^{\lambda}}{\sigma_{Y^{\lambda}}}$
 ### Literature
 
 ```{r save-data, echo=FALSE, eval=do.calc}
-save(n, h, file="data/distances.Rdata")
+save(n, h, file = "data/distances.Rdata")
 ```
 
 

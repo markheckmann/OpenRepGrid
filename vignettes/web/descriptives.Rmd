@@ -10,7 +10,7 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
 ```
 
@@ -52,5 +52,5 @@ statsConstructs(fbb2003, trim = 10)
 ```
 
 ```{r}
-statsConstructs(fbb2003, index=F)
+statsConstructs(fbb2003, index = F)
 ```

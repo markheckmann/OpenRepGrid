@@ -45,10 +45,10 @@ type \code{?dist}.}
 \item{seed}{Random seed for bootstrapping. Can be set for reproducibility (see
 \code{\link[=set.seed]{set.seed()}}). Usually not needed.}
 
-\item{...}{Arguments to pass on to \code{\link[=pvclust]{pvclust()}}.}
+\item{...}{Arguments to pass on to \code{\link[pvclust:pvclust]{pvclust::pvclust()}}.}
 }
 \value{
-A pvclust object as returned by the function \code{\link[=pvclust]{pvclust()}}
+A pvclust object as returned by the function \code{\link[pvclust:pvclust]{pvclust::pvclust()}}
 }
 \description{
 p-values are calculated for each branch of the cluster dendrogram to indicate the stability of a specific partition.

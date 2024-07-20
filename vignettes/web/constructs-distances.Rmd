@@ -13,8 +13,8 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 
@@ -43,20 +43,20 @@ distance(fbb2003)
 Distance for elements:
 
 ```{r}
-distance(fbb2003, along=2)
+distance(fbb2003, along = 2)
 ```
 
 To change the distance measure supply any unambigous string of the available distance methods to the argument dmethod. E.g. for the manhattan distance bewteen constructs:
 
 ```{r}
-distance(fbb2003, dmethod="manhattan")
+distance(fbb2003, dmethod = "manhattan")
 ```
 
 For other distance metrics:
 
 ```{r results='hide'}
-distance(fbb2003, dm="canb")            # canberra distance for constructs
-distance(fbb2003, dm="mink", p=3)       # minkowski metric to the power of 3  for constructs
+distance(fbb2003, dm = "canb") # canberra distance for constructs
+distance(fbb2003, dm = "mink", p = 3) # minkowski metric to the power of 3  for constructs
 ```
 
 If the distances are calculated for further processing, the printing to the console can be surpressed distance and the results can be saved into an object (here d).

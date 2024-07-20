@@ -14,9 +14,9 @@ vignette: >
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 ### Description
@@ -61,29 +61,29 @@ A depressive person considers herself as *timid* and wished to change to the opp
 To detect implicative dilemma use the function `indexDilemma`. It will output an overview over the arguments used in the detection, a table of classifications of the construct and the implicative dilemmas that have been detected.
 
 ```{r}
-indexDilemma(boeker, self=1, ideal=2)
+indexDilemma(boeker, self = 1, ideal = 2)
 ```
 
 To change the values for the classification of the constructs as congruent and discrepant use the argument `diff.congruent`. The following output is identical to the Gridstat default.
 
 ```{r}
-indexDilemma(boeker, self=1, ideal=2, diff.congruent=0)
+indexDilemma(boeker, self = 1, ideal = 2, diff.congruent = 0)
 ```
 
 Several other argumnets can be modified. Type the following code into the R console to see the results.
 
 ```{r eval=FALSE}
-indexDilemma(boeker, self=1, ideal=2, output=2)         # show identified dillemas only
-indexDilemma(boeker, 1, 2, diff.disc=0, diff.con=4)     # set classification parameters
+indexDilemma(boeker, self = 1, ideal = 2, output = 2) # show identified dillemas only
+indexDilemma(boeker, 1, 2, diff.disc = 0, diff.con = 4) # set classification parameters
 
-indexDilemma(boeker, 1, 2, index=F)                     # no index numbers
-indexDilemma(boeker, 1, 2, trim=20)                     # trim construct labels
+indexDilemma(boeker, 1, 2, index = F) # no index numbers
+indexDilemma(boeker, 1, 2, trim = 20) # trim construct labels
 ```
 
 Called for console output. Invisibly returns a list containing the result dataframes and all results from the calculations. 
 
 ```{r eval=FALSE}
-r <- indexDilemma(boeker, self=1, ideal=2)
+r <- indexDilemma(boeker, self = 1, ideal = 2)
 r$res1
 r$res2
 r$res3

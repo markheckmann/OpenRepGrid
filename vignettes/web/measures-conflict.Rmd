@@ -14,9 +14,9 @@ vignette: >
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 
@@ -71,7 +71,7 @@ For the Bassler et al. approach use
 
 ```{r}
 indexConflict2(boeker)
-indexConflict2(boeker, crit =.05)   # change critical value
+indexConflict2(boeker, crit = .05) # change critical value
 ```
 
 

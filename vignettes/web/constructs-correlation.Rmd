@@ -13,8 +13,8 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 
@@ -42,20 +42,20 @@ As suggested by Hinkle (1965) the relationships between constructs may take seve
 #### Correlation measures
 
 ```{r}
-constructCor(mackay1992) 
+constructCor(mackay1992)
 ```
 
 you can select between the different types of correlation by setting the argument `method` to `"pearson"`, `"kendall"` or `"spearman"`. To request a Spearman rank correlation type
 
 ```{r}
-constructCor(mackay1992, method="spearman") 
+constructCor(mackay1992, method = "spearman")
 ```
                      
 To format the output several arguments are available. See `?print.constructCor` for more printing options.
 
 ```{r}
 r <- constructCor(mackay1992)
-print(r, digits=5, col.index=F)
+print(r, digits = 5, col.index = F)
 ```
 
 
@@ -64,7 +64,7 @@ print(r, digits=5, col.index=F)
 To calulate the RMS correlation
 
 ```{r}
-constructRmsCor(fbb2003)  
+constructRmsCor(fbb2003)
 ```
 
 #### Somers' D
@@ -78,7 +78,7 @@ constructD(fbb2003)
 To set the rows as dependent, type
 
 ```{r eval=FALSE}
-constructD(fbb2003, dep="r")
+constructD(fbb2003, dep = "r")
 ```
 
 

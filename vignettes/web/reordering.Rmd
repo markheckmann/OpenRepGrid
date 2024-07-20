@@ -14,9 +14,9 @@ vignette: >
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
-options(width=120)
+options(width = 120)
 library(OpenRepGrid)
-settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+settings(show.scale = FALSE, show.meta = FALSE, show.cut = 30)
 ```
 
 ### Description
@@ -32,7 +32,7 @@ The direction of the constructs in a grid is arbitrary and a reflection of a sca
 To align a construct by preference, an ideal element has to be defined. For the following example it is element 13 (*ideal self*).
 
 ```{r}
-alignByIdeal(feixas2004, 13) 
+alignByIdeal(feixas2004, 13)
 ```
 
 Note that when midpoint ratings are present no preferred pole can be identified, as it is the case for one construct in the example above.
@@ -40,13 +40,13 @@ Note that when midpoint ratings are present no preferred pole can be identified,
 As a default the preferred poles are assigned to the right side. You can use the argument `high=FALSE` to indicate that high ratings will correspond to the negative pole. Hence, the preferred pole will be in the left side of the grid.
 
 ```{r}
-alignByIdeal(feixas2004, 13, high=F) 
+alignByIdeal(feixas2004, 13, high = F)
 ```
 
 To save the assigned grid into a new object:
 
 ```{r}
-x <- alignByIdeal(feixas2004, 13) 
+x <- alignByIdeal(feixas2004, 13)
 ```
 
 

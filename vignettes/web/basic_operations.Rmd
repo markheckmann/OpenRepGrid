@@ -14,8 +14,8 @@ vignette: >
 ```{r include = FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE, show.cut = 30)
 ```
 
 
@@ -56,7 +56,7 @@ Negative indexes indicate that a row and/or column is to be deleted. In order to
 
 ```{r eval=FALSE}
 bell2010[-1, ]
-bell2010[ , -c(1,2)]
+bell2010[, -c(1, 2)]
 ```
 
 
@@ -71,7 +71,7 @@ bell2010[9:1, ]
 Likewise we can rearrange the order of the elements. In order to facilitate a comparison between the elements self, unhappiest person you know and mother (elements 1, 3 and 6) we may want to rearrange them next to each other.
 
 ```{r}
-bell2010[ , c(1,3,6,2,4,5, 7:10)]
+bell2010[, c(1, 3, 6, 2, 4, 5, 7:10)]
 ```
 
 
@@ -80,7 +80,7 @@ bell2010[ , c(1,3,6,2,4,5, 7:10)]
 Several tasks concerning reordering will be used repeatedly, like e. g. moving a construct upwards. While the extract function can fulfill this task, the code quickly becomes tedious. Hence, specialized functions are available for standard actions. E.g. to move construct 2 upwards the following two lines of code are equivalent.
 
 ```{r eval=FALSE}
-bell2010[c(2,1, 3:9), ]
+bell2010[c(2, 1, 3:9), ]
 up(bell2010, 2)
 ```
 
@@ -111,22 +111,24 @@ swapPoles(bell2010, 1:3)
 To change single ratings of elements on constructs also the extract function can be used. In this context, the square brackets are used to determine the part of the grid that is assigned new scores. To change the rating in cell `(1,1)` of the dataset `bell2010` to `1` type
 
 ```{r}
-bell2010[1,1] <- 1
+bell2010[1, 1] <- 1
 ```
 
 Likewise, new scores can be assigned to a number of cells in the grid, to whole rows, to whole columns or to the entire grid. The following code gives some examples.
 
 ```{r}
-x <- bell2010[1:4, 1:5]         # subset of the Bell2010 data set with four rows and five columns
-x[1:3, 1] <- c(1,4,3)     # rows 1 to 3 in column 1
-x[1, c(1,4)] <- c(2,2)   	# columns 1 and 4 in row 1
-x[1, ] <- c(2,2,1,4,3)		# all columns in row one
-x[ ,1] <- c(2,2,1,4)		# all rows in column one
-x[ , ] <- c(1,2,3,4,		# whole grid column wise
-            1,2,3,4,
-            1,2,3,4,
-            1,2,3,4,
-            1,2,3,4)
+x <- bell2010[1:4, 1:5] # subset of the Bell2010 data set with four rows and five columns
+x[1:3, 1] <- c(1, 4, 3) # rows 1 to 3 in column 1
+x[1, c(1, 4)] <- c(2, 2) # columns 1 and 4 in row 1
+x[1, ] <- c(2, 2, 1, 4, 3) # all columns in row one
+x[, 1] <- c(2, 2, 1, 4) # all rows in column one
+x[, ] <- c(
+  1, 2, 3, 4, # whole grid column wise
+  1, 2, 3, 4,
+  1, 2, 3, 4,
+  1, 2, 3, 4,
+  1, 2, 3, 4
+)
 ```
 
 
@@ -141,7 +143,7 @@ setConstructAttr(boeker, 1, "new left pole", "new right pole")
 To change element the label of the first element, proceed likewise.
 
 ```{r}
-setElementAttr(boeker, 1, "new name")  
+setElementAttr(boeker, 1, "new name")
 ```
  
 
@@ -150,13 +152,13 @@ setElementAttr(boeker, 1, "new name")
 Sometimes it is necessary to add an element or a construct. This can be achieved by modifying the input file itself. Another option is to use the functions addConstruct and addElement. The following call will add a construct and the corresponding ratings to the bell2010 dataset. The left and right pole are labeled “left pole” and “right pole” respectively.
 
 ```{r}
-addConstruct(bell2010, "left pole", "pole right", c(3,1,3,2,5,4,6,3,7,1))
+addConstruct(bell2010, "left pole", "pole right", c(3, 1, 3, 2, 5, 4, 6, 3, 7, 1))
 ```
 
 The following code will add an element with the label “new element” to the dataset.
 
 ```{r}
-addElement(bell2010, "new element", c(1,2,5,4,3,6,5,2,7))
+addElement(bell2010, "new element", c(1, 2, 5, 4, 3, 6, 5, 2, 7))
 ```
 
 
@@ -166,13 +168,16 @@ The import functions make use of internal functions to construct a grid from scr
 
 ```{r}
 args <- list(
-  name= c("element 1", "element 2", "element 3", "element 4", "element 5"),
-  l.name= c("left pole 1", "left pole 2", "left pole 3", "left pole 4"),
-  r.name= c("right pole 1", "right pole 2", "right pole3 ", "right pole 4"),
-  scores= c(4,4,6,5,1,
-            2,7,6,5,2,
-            6,3,1,6,4,
-            6,7,5,6,3))
+  name = c("element 1", "element 2", "element 3", "element 4", "element 5"),
+  l.name = c("left pole 1", "left pole 2", "left pole 3", "left pole 4"),
+  r.name = c("right pole 1", "right pole 2", "right pole3 ", "right pole 4"),
+  scores = c(
+    4, 4, 6, 5, 1,
+    2, 7, 6, 5, 2,
+    6, 3, 1, 6, 4,
+    6, 7, 5, 6, 3
+  )
+)
 newGrid <- makeRepgrid(args)
 newGrid <- setScale(newGrid, 1, 7)
 newGrid

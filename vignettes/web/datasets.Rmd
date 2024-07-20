@@ -13,8 +13,8 @@ vignette: >
 ```{r include = FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE, show.cut=30)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE, show.cut = 30)
 ```
 
 `OpenRepGrid` comes with several datsets already included. The data can serve as a starting point to make your first steps using the software. The following table contains the names of the datasets and a short description where the grid comes from.

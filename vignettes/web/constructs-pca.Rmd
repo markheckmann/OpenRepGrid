@@ -13,8 +13,8 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 ### Description
@@ -32,36 +32,36 @@ constructPca(fbb2003)
 You can specify the number of components to extract. The following code yields the examples from Fransella et al. (2003, p.87). Two components are extracted using varimax rotation.
 
 ```{r message=FALSE, warning=FALSE}
-constructPca(fbb2003, nf=2)
+constructPca(fbb2003, nf = 2)
 ```
 
 In case the results are needed for further processing you can save the ouput.
 
 ```{r message=FALSE, warning=FALSE}
-r <- constructPca(fbb2003, nf=2)
+r <- constructPca(fbb2003, nf = 2)
 ```
 
 To gain an easier overview of the data, a cutoff level can be set to surpress the printing of small loadings.
 
 ```{r}
-print(r, cut=.3)
+print(r, cut = .3)
 ```
 
 Different methods of rotation can be chosen: `none`, `varimax`, `promax`, `cluster`.
 
 ```{r eval=FALSE}
-constructPca(fbb2003, rotate="none")
-constructPca(fbb2003, rotate="varimax")
-constructPca(fbb2003, rotate="promax")
-constructPca(fbb2003, rotate="cluster")
+constructPca(fbb2003, rotate = "none")
+constructPca(fbb2003, rotate = "varimax")
+constructPca(fbb2003, rotate = "promax")
+constructPca(fbb2003, rotate = "cluster")
 ```
 
 As a default, the correlation matrix is calculated using product-moment correlation. The methods that can be selected are `pearson`, `kendall`, `spearman`.
 
 ```{r eval=FALSE}
-constructPca(fbb2003, method="pearson")    # default setting
-constructPca(fbb2003, method="kendall")   
-constructPca(fbb2003, method="spearman")  
+constructPca(fbb2003, method = "pearson") # default setting
+constructPca(fbb2003, method = "kendall")
+constructPca(fbb2003, method = "spearman")
 ```
 
 

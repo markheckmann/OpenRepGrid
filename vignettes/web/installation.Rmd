@@ -55,5 +55,5 @@ install.packages(c("colorspace", "plyr", "abind", "rgl", "psych", "XML"))
 
 ```{r eval=FALSE}
 library(devtools)
-install_github("OpenRepGrid", "markheckmann") 
+install_github("OpenRepGrid", "markheckmann")
 ```

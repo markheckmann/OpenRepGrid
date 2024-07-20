@@ -15,8 +15,8 @@ vignette: >
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#")
 library(OpenRepGrid)
-options(width=120)
-settings(show.scale=FALSE, show.meta=FALSE)
+options(width = 120)
+settings(show.scale = FALSE, show.meta = FALSE)
 ```
 
 ### Description
@@ -31,7 +31,7 @@ As a default the construct reflection invariant correlation Cohen's rc is calcul
 Note how the values change when the simple product-moment correlation is used instaed of Cohen's rc. Make sure you know what you are doing when setting `rc=FALSE`.
 
 ```{r}
-elementCor(mackay1992, rc=F)
+elementCor(mackay1992, rc = F)
 ```
 
 Although nor recommended different measures, not invariant to construct relfection, can be prompoted, when setting `rc=FALSE`. 
@@ -43,14 +43,14 @@ Although nor recommended different measures, not invariant to construct relfecti
 To request these types of correlations use the `method` argument plus `rc=FALSE`.
 
 ```{r results='hide'}
-elementCor(mackay1992, rc=FALSE, meth="kendall")    # Kendalls tau correlation
-elementCor(mackay1992, rc=FALSE, meth="spearman")   # Spearman rank correlation
+elementCor(mackay1992, rc = FALSE, meth = "kendall") # Kendalls tau correlation
+elementCor(mackay1992, rc = FALSE, meth = "spearman") # Spearman rank correlation
 ```
 
 Several arguments to format the output are available.
 
 ```{r}
-elementCor(mackay1992, index=F, trim=6)
+elementCor(mackay1992, index = F, trim = 6)
 ```
 
 If the correlations are calculated for further processing, the correlations can be saved.
