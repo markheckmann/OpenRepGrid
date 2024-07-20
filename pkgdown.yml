@@ -1,32 +1,31 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
-  basic_operations: web/basic_operations.html
-  clustering: web/clustering.html
-  constructs-correlation: web/constructs-correlation.html
-  constructs-distances: web/constructs-distances.html
-  constructs-pca: web/constructs-pca.html
-  datasets: web/datasets.html
-  descriptives: web/descriptives.html
-  elements-correlation: web/elements-correlation.html
-  elements-distances-standardized: web/elements-distances-standardized.html
-  elements-distances: web/elements-distances.html
-  features: web/features.html
-  installation: web/installation.html
-  intro: web/intro.html
-  loading: web/loading.html
-  measures-conflict: web/measures-conflict.html
-  measures-dispersion: web/measures-dispersion.html
-  measures-implicative: web/measures-implicative.html
-  measures-intensity: web/measures-intensity.html
-  measures-pvaff: web/measures-pvaff.html
-  reordering: web/reordering.html
-  settings: web/settings.html
-  visualization-bertin: web/visualization-bertin.html
-  visualization-biplot: web/visualization-biplot.html
-last_built: 2024-06-22T12:50Z
+  web/basic_operations: web/basic_operations.html
+  web/clustering: web/clustering.html
+  web/constructs-correlation: web/constructs-correlation.html
+  web/constructs-distances: web/constructs-distances.html
+  web/constructs-pca: web/constructs-pca.html
+  web/datasets: web/datasets.html
+  web/descriptives: web/descriptives.html
+  web/elements-correlation: web/elements-correlation.html
+  web/elements-distances-standardized: web/elements-distances-standardized.html
+  web/elements-distances: web/elements-distances.html
+  web/features: web/features.html
+  web/installation: web/installation.html
+  web/intro: web/intro.html
+  web/loading: web/loading.html
+  web/measures-conflict: web/measures-conflict.html
+  web/measures-dispersion: web/measures-dispersion.html
+  web/measures-implicative: web/measures-implicative.html
+  web/measures-intensity: web/measures-intensity.html
+  web/measures-pvaff: web/measures-pvaff.html
+  web/reordering: web/reordering.html
+  web/settings: web/settings.html
+  web/visualization-bertin: web/visualization-bertin.html
+  web/visualization-biplot: web/visualization-biplot.html
+last_built: 2024-07-20T11:35Z
 urls:
   reference: https://docs.openrepgrid.org/reference
   article: https://docs.openrepgrid.org/articles
-

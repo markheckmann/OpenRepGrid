@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="OpenRepGrid">
 <title>Conflict measures • OpenRepGrid</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -15,68 +14,42 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="Conflict measures">
-<meta property="og:description" content="OpenRepGrid">
-<meta property="og:image" content="https://docs.openrepgrid.org/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><meta property="og:title" content="Conflict measures">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../../index.html">OpenRepGrid</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.15</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../../articles/web/intro.html">Intro</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../../articles/web/features.html">Features</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../../reference/index.html">Functions</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../../articles/web/intro.html">Intro</a></li>
+<li class="nav-item"><a class="nav-link" href="../../articles/web/features.html">Features</a></li>
+<li class="nav-item"><a class="nav-link" href="../../reference/index.html">Functions</a></li>
+<li class="nav-item"><a class="nav-link" href="../../news/index.html">Changelog</a></li>
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../../search.json">
+</form></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://eepurl.com/4h0t9" target="_blank" aria-label="Newsletter">
-    <span class="fa fa-envelope fa-light"></span>
-     
-    Newsletter
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/markheckmann/OpenRepGrid/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><a class="external-link nav-link" href="https://eepurl.com/4h0t9" target="_blank" aria-label="Newsletter"><span class="fa fa-envelope fa-light"></span> Newsletter</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/markheckmann/OpenRepGrid/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -88,7 +61,7 @@
       <img src="../../logo.png" class="logo" alt=""><h1>Conflict measures</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/HEAD/vignettes/web/measures-conflict.Rmd" class="external-link"><code>vignettes/web/measures-conflict.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/master/vignettes/web/measures-conflict.Rmd" class="external-link"><code>vignettes/web/measures-conflict.Rmd</code></a></small>
       <div class="d-none name"><code>measures-conflict.Rmd</code></div>
     </div>
 
@@ -137,15 +110,16 @@ proportion of conflictive triads in the grid as devised by <span class="citation
 approach<a class="anchor" aria-label="anchor" href="#slade_measurement_1979-approach"></a>
 </h5>
 <p>Multiply all correlations from a triad (formed by the constructs A, B
-and C) <span class="math inline">\(r_{AB} r_{AC} r_{BC}\)</span>. If the
-sign of the result is negative, the triad is imbalanced.</p>
+and C)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mrow><mi>A</mi><mi>B</mi></mrow></msub><msub><mi>r</mi><mrow><mi>A</mi><mi>C</mi></mrow></msub><msub><mi>r</mi><mrow><mi>B</mi><mi>C</mi></mrow></msub></mrow><annotation encoding="application/x-tex">r_{AB} r_{AC} r_{BC}</annotation></semantics></math>.
+If the sign of the result is negative, the triad is imbalanced.</p>
 <p>The table below shows when a triad made up of the constructs A, B,
 and C is balanced and imbalanced.</p>
 <table class="table">
 <thead><tr class="header">
-<th><span class="math inline">\(r_{AB}\)</span></th>
-<th><span class="math inline">\(r_{AC}\)</span></th>
-<th><span class="math inline">\(r_{BC}\)</span></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>A</mi><mi>B</mi></mrow></msub><annotation encoding="application/x-tex">r_{AB}</annotation></semantics></math></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>A</mi><mi>C</mi></mrow></msub><annotation encoding="application/x-tex">r_{AC}</annotation></semantics></math></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>B</mi><mi>C</mi></mrow></msub><annotation encoding="application/x-tex">r_{BC}</annotation></semantics></math></th>
 <th>Triad characteristic</th>
 </tr></thead>
 <tbody>
@@ -204,18 +178,21 @@ and C is balanced and imbalanced.</p>
 <h5 id="bassler_new_1992-approach">
 <span class="citation">Bassler et al. (1992)</span> approach<a class="anchor" aria-label="anchor" href="#bassler_new_1992-approach"></a>
 </h5>
-<p>Order correlations of the triad by absolute magnitude, so that <span class="math inline">\(r_{max} &gt; r_{mdn} &gt; r_{min}\)</span>.</p>
+<p>Order correlations of the triad by absolute magnitude, so that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>&gt;</mo><msub><mi>r</mi><mrow><mi>m</mi><mi>d</mi><mi>n</mi></mrow></msub><mo>&gt;</mo><msub><mi>r</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">r_{max} &gt; r_{mdn} &gt; r_{min}</annotation></semantics></math>.</p>
 <p>Apply Fisher’s Z-transformation and devision by 3 to yield values
 between 1 and -1 Check whether the triad is balanced by assessing if the
 following relation holds:</p>
 <ul>
-<li>If <span class="math inline">\(Z_{max} Z_{mdn} &gt; 0\)</span>, the
-triad is balanced if <span class="math inline">\(Z_{max} Z_{mdn} -
-Z_{min} &lt;= crit\)</span>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><msub><mi>Z</mi><mrow><mi>m</mi><mi>d</mi><mi>n</mi></mrow></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Z_{max} Z_{mdn} &gt; 0</annotation></semantics></math>,
+the triad is balanced if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><msub><mi>Z</mi><mrow><mi>m</mi><mi>d</mi><mi>n</mi></mrow></msub><mo>−</mo><msub><mi>Z</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>&lt;</mo><mo>=</mo><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Z_{max} Z_{mdn} - Z_{min} &lt;= crit</annotation></semantics></math>
 </li>
-<li>If <span class="math inline">\(Z_{max} Z_{mdn} &lt; 0\)</span>, the
-triad is balanced if <span class="math inline">\(Z_{min} - Z_{max}
-Z_{mdn} &lt;= crit\)</span>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><msub><mi>Z</mi><mrow><mi>m</mi><mi>d</mi><mi>n</mi></mrow></msub><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Z_{max} Z_{mdn} &lt; 0</annotation></semantics></math>,
+the triad is balanced if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>−</mo><msub><mi>Z</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><msub><mi>Z</mi><mrow><mi>m</mi><mi>d</mi><mi>n</mi></mrow></msub><mo>&lt;</mo><mo>=</mo><mi>c</mi><mi>r</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Z_{min} - Z_{max} Z_{mdn} &lt;= crit</annotation></semantics></math>
 </li>
 </ul>
 </div>
@@ -252,9 +229,8 @@ Z_{mdn} &lt;= crit\)</span>
 <span><span class="co"># Number of imbalanced triads: 240</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># Proportion of balanced triads: 34.1 %</span></span>
-<span><span class="co"># Proportion of imbalanced triads: 65.9 %</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexConflict2.html">indexConflict2</a></span><span class="op">(</span><span class="va">boeker</span>, crit <span class="op">=</span><span class="fl">.05</span><span class="op">)</span>   <span class="co"># change critical value</span></span>
+<span><span class="co"># Proportion of imbalanced triads: 65.9 %</span></span>
+<span><span class="fu"><a href="../../reference/indexConflict2.html">indexConflict2</a></span><span class="op">(</span><span class="va">boeker</span>, crit <span class="op">=</span><span class="fl">.05</span><span class="op">)</span>   <span class="co"># change critical value</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ###############################</span></span>
 <span><span class="co"># Conflicts based on correlations</span></span>
@@ -289,7 +265,7 @@ statistical testing procedures.</p>
 <div class="section level4">
 <h4 id="r-code-1">R-Code<a class="anchor" aria-label="anchor" href="#r-code-1"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexConflict3.html">indexConflict3</a></span><span class="op">(</span><span class="va">leach2001a</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##########################################################</span></span>
@@ -403,7 +379,7 @@ Psychology</em>, <em>55 (Pt 3)</em>, 257–269. Retrieved from <a href="http://w
 </div>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -420,9 +396,9 @@ Psychology</em>, <em>55 (Pt 3)</em>, 257–269. Retrieved from <a href="http://w
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
