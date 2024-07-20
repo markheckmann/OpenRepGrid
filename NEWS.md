@@ -1,4 +1,4 @@
-# OpenRepGrid 0.1.15 (dev version)
+# OpenRepGrid 0.1.15
 
 * add `LICENSE.md` file
 * `rgl` installation is now optional (close #41)
