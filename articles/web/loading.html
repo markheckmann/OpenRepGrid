@@ -148,15 +148,15 @@ END RANGE
 directory. If not you either have to specify the whole path to the file
 or you must change the R working directory.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"markheckmann/data/examples.txt"</span><span class="op">)</span>      <span class="co"># whole path to file or</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>                             <span class="co"># show current working directory</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"markheckmann/data"</span><span class="op">)</span>          <span class="co"># change working directory to the folder markheckmann/data</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span>       <span class="co"># load file that is in the current working directory</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"markheckmann/data/examples.txt"</span><span class="op">)</span> <span class="co"># whole path to file or</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show current working directory</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"markheckmann/data"</span><span class="op">)</span> <span class="co"># change working directory to the folder markheckmann/data</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span> <span class="co"># load file that is in the current working directory</span></span></code></pre></div>
 <p>Another option that is available for all import functions is to
 supply no argument inside the brackets. In this case an interactive file
 selection dialog will open.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="op">)</span>       <span class="co"># without any arguments</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># without any arguments</span></span></code></pre></div>
 <p>This will open a dialog window which allows you to select a file
 manually.</p>
 </div>
@@ -173,33 +173,33 @@ and interactive file selection dialog window will open.</p>
 <h4 id="gridcor">Gridcor<a class="anchor" aria-label="anchor" href="#gridcor"></a>
 </h4>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="st">"gridcor.dat"</span><span class="op">)</span>                       <span class="co"># file in current R working directory or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridcor.dat"</span><span class="op">)</span>     <span class="co"># whole file path or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="op">)</span>                                    <span class="co"># open file selection dialog</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="st">"gridcor.dat"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridcor.dat"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="gridstat">Gridstat<a class="anchor" aria-label="anchor" href="#gridstat"></a>
 </h4>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="st">"gridstat.dat"</span><span class="op">)</span>                     <span class="co"># file in current R working directory or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridstat.dat"</span><span class="op">)</span>   <span class="co"># whole file path or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="op">)</span>                                   <span class="co"># open file selection dialog</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="st">"gridstat.dat"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridstat.dat"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="gridsuite">GridSuite<a class="anchor" aria-label="anchor" href="#gridsuite"></a>
 </h4>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="st">"gridsuite.xml"</span><span class="op">)</span>                    <span class="co"># file in current R working directory or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridsuite.xml"</span><span class="op">)</span>  <span class="co"># whole file path or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="op">)</span>                                   <span class="co"># open file selection dialog</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="st">"gridsuite.xml"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridsuite.xml"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="scivesco">sci:vesco<a class="anchor" aria-label="anchor" href="#scivesco"></a>
 </h4>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="st">"scivesco.scires"</span><span class="op">)</span>                   <span class="co"># file in current R working directory or</span></span>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="st">"scivesco.scires"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="st">"markheckmann/data/scivesco.scires"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="op">)</span>                                    <span class="co"># open file selection dialog</span></span></code></pre></div>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -218,8 +218,8 @@ function will open an interactive dialog box to let the user enter a
 filename if no file argument is supplied in the function call. Let’s
 suppose we want to strore the <code>boeker</code> grid.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/saveAsTxt.html">saveAsTxt</a></span><span class="op">(</span><span class="va">boeker</span>, <span class="st">"boeker.txt"</span><span class="op">)</span>      <span class="co"># save it to the file "boeker.txt"</span></span>
-<span><span class="fu"><a href="../../reference/saveAsTxt.html">saveAsTxt</a></span><span class="op">(</span><span class="va">boeker</span><span class="op">)</span>                    <span class="co"># open a dialog box to enter the file name interactively</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/saveAsTxt.html">saveAsTxt</a></span><span class="op">(</span><span class="va">boeker</span>, <span class="st">"boeker.txt"</span><span class="op">)</span> <span class="co"># save it to the file "boeker.txt"</span></span>
+<span><span class="fu"><a href="../../reference/saveAsTxt.html">saveAsTxt</a></span><span class="op">(</span><span class="va">boeker</span><span class="op">)</span> <span class="co"># open a dialog box to enter the file name interactively</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="r-data-object">R data object<a class="anchor" aria-label="anchor" href="#r-data-object"></a>
@@ -227,7 +227,7 @@ suppose we want to strore the <code>boeker</code> grid.</p>
 <p>Another option is to save the grid as an <code>RData</code> object.
 This is done by using the function save.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">boeker</span>, file<span class="op">=</span><span class="st">"boeker.RData"</span><span class="op">)</span>     <span class="co"># save it to the file "boeker.RData"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">boeker</span>, file <span class="op">=</span> <span class="st">"boeker.RData"</span><span class="op">)</span> <span class="co"># save it to the file "boeker.RData"</span></span></code></pre></div>
 <p>In future versions of OpenRepGrid will also support the
 <code>.xml</code> format once a community standard has been agreed
 upon.</p>

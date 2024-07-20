@@ -129,7 +129,7 @@ The default is to calculate distances for constructs:</p>
 <span><span class="co"># (9) rather agg - not aggres 9</span></span></code></pre></div>
 <p>Distance for elements:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, along <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##########################</span></span>
 <span><span class="co"># Distances between elements</span></span>
@@ -150,7 +150,7 @@ The default is to calculate distances for constructs:</p>
 available distance methods to the argument dmethod. E.g. for the
 manhattan distance bewteen constructs:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dmethod<span class="op">=</span><span class="st">"manhattan"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ############################</span></span>
 <span><span class="co"># Distances between constructs</span></span>
@@ -170,8 +170,8 @@ manhattan distance bewteen constructs:</p>
 <span><span class="co"># (9) rather agg - not aggres 9</span></span></code></pre></div>
 <p>For other distance metrics:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dm<span class="op">=</span><span class="st">"canb"</span><span class="op">)</span>            <span class="co"># canberra distance for constructs</span></span>
-<span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dm<span class="op">=</span><span class="st">"mink"</span>, p<span class="op">=</span><span class="fl">3</span><span class="op">)</span>       <span class="co"># minkowski metric to the power of 3  for constructs</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dm <span class="op">=</span> <span class="st">"canb"</span><span class="op">)</span> <span class="co"># canberra distance for constructs</span></span>
+<span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dm <span class="op">=</span> <span class="st">"mink"</span>, p <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># minkowski metric to the power of 3  for constructs</span></span></code></pre></div>
 <p>If the distances are calculated for further processing, the printing
 to the console can be surpressed distance and the results can be saved
 into an object (here d).</p>

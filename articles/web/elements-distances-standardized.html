@@ -146,7 +146,7 @@ only within certain boundaries, using the <code>cutoff</code> values
 distances as suggested by Norris and Makhlouf-Norris <span class="citation">(1976)</span>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/distanceSlater.html">distanceSlater</a></span><span class="op">(</span><span class="va">boeker</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span>, cutoffs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">1.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span>, cutoffs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">1.2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##########################</span></span>
 <span><span class="co"># Distances between elements</span></span>
@@ -294,7 +294,7 @@ quasis and used for the Hartmann standardization instead of the
 precalculated values. The following simulation is based on
 <code>reps=1000</code> quasis.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/distanceHartmann.html">distanceHartmann</a></span><span class="op">(</span><span class="va">boeker</span>, method<span class="op">=</span><span class="st">"simulate"</span>, reps<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/distanceHartmann.html">distanceHartmann</a></span><span class="op">(</span><span class="va">boeker</span>, method <span class="op">=</span> <span class="st">"simulate"</span>, reps <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="va">h</span></span></code></pre></div>
 <pre><code><span><span class="co"># </span></span>
 <span><span class="co"># ##########################</span></span>
@@ -322,7 +322,7 @@ precalculated values. The following simulation is based on
 <p>If the results are saved, there are a couple of options for printing
 the object (see <code><a href="../../reference/print.hdistance.html">?print.hdistance</a></code>).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span>, p<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.05</span>, <span class="fl">.95</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span>, p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.05</span>, <span class="fl">.95</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##########################</span></span>
 <span><span class="co"># Distances between elements</span></span>

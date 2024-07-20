@@ -114,7 +114,7 @@ sign of the correlation thus allowing the .</p>
 code yields the examples from Fransella et al. (2003, p.87). Two
 components are extracted using varimax rotation.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, nf <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># #################</span></span>
 <span><span class="co"># PCA of constructs</span></span>
@@ -142,11 +142,11 @@ components are extracted using varimax rotation.</p>
 <p>In case the results are needed for further processing you can save
 the ouput.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, nf<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, nf <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>To gain an easier overview of the data, a cutoff level can be set to
 surpress the printing of small loadings.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r</span>, cut<span class="op">=</span><span class="fl">.3</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r</span>, cut <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># #################</span></span>
 <span><span class="co"># PCA of constructs</span></span>
@@ -174,17 +174,17 @@ surpress the printing of small loadings.</p>
 <p>Different methods of rotation can be chosen: <code>none</code>,
 <code>varimax</code>, <code>promax</code>, <code>cluster</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate<span class="op">=</span><span class="st">"none"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate<span class="op">=</span><span class="st">"varimax"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate<span class="op">=</span><span class="st">"promax"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate<span class="op">=</span><span class="st">"cluster"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate <span class="op">=</span> <span class="st">"varimax"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate <span class="op">=</span> <span class="st">"promax"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, rotate <span class="op">=</span> <span class="st">"cluster"</span><span class="op">)</span></span></code></pre></div>
 <p>As a default, the correlation matrix is calculated using
 product-moment correlation. The methods that can be selected are
 <code>pearson</code>, <code>kendall</code>, <code>spearman</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, method<span class="op">=</span><span class="st">"pearson"</span><span class="op">)</span>    <span class="co"># default setting</span></span>
-<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, method<span class="op">=</span><span class="st">"kendall"</span><span class="op">)</span>   </span>
-<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, method<span class="op">=</span><span class="st">"spearman"</span><span class="op">)</span>  </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span> <span class="co"># default setting</span></span>
+<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/constructPca.html">constructPca</a></span><span class="op">(</span><span class="va">fbb2003</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="literature">Literature<a class="anchor" aria-label="anchor" href="#literature"></a>
