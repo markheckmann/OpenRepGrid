@@ -6,3 +6,6 @@
 .quarto
 DS_store
 docs
+paper.html
+paper.docx
+~$paper.docx
