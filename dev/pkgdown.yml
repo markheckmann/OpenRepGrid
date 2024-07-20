@@ -1,0 +1,31 @@
+pandoc: 3.1.11
+pkgdown: 2.1.0
+pkgdown_sha: ~
+articles:
+  web/basic_operations: web/basic_operations.html
+  web/clustering: web/clustering.html
+  web/constructs-correlation: web/constructs-correlation.html
+  web/constructs-distances: web/constructs-distances.html
+  web/constructs-pca: web/constructs-pca.html
+  web/datasets: web/datasets.html
+  web/descriptives: web/descriptives.html
+  web/elements-correlation: web/elements-correlation.html
+  web/elements-distances-standardized: web/elements-distances-standardized.html
+  web/elements-distances: web/elements-distances.html
+  web/features: web/features.html
+  web/installation: web/installation.html
+  web/intro: web/intro.html
+  web/loading: web/loading.html
+  web/measures-conflict: web/measures-conflict.html
+  web/measures-dispersion: web/measures-dispersion.html
+  web/measures-implicative: web/measures-implicative.html
+  web/measures-intensity: web/measures-intensity.html
+  web/measures-pvaff: web/measures-pvaff.html
+  web/reordering: web/reordering.html
+  web/settings: web/settings.html
+  web/visualization-bertin: web/visualization-bertin.html
+  web/visualization-biplot: web/visualization-biplot.html
+last_built: 2024-07-20T20:04Z
+urls:
+  reference: https://docs.openrepgrid.org/reference
+  article: https://docs.openrepgrid.org/articles
