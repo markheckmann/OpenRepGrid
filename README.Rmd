@@ -21,7 +21,7 @@ library(OpenRepGrid)
 [![CRAN status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
 [![](https://cranlogs.r-pkg.org/badges/OpenRepGrid)](https://cran.rstudio.com/web/packages/OpenRepGrid/index.html)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/OpenRepGrid)](https://cran.r-project.org/package=OpenRepGrid)
-[![](https://img.shields.io/badge/devel-v0.1.15-blue.svg)](https://github.com/markheckmann/OpenRepGrid)
+[![](https://img.shields.io/badge/devel-v0.1.16-blue.svg)](https://github.com/markheckmann/OpenRepGrid)
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/markheckmann/OpenRepGrid?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/OpenRepGrid)
 [![Codecov test coverage](https://codecov.io/gh/markheckmann/OpenRepGrid/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid?branch=master)
@@ -61,7 +61,15 @@ And for a first impression of the package features type
     demo(OpenRepGrid)
 
 
-## Contributors
+## Contributing to the package development
+
+You can contribute to the package development in various ways. You can, for example, file a bug report, help improve the documentation or write code. See the our [contributing guide](https://docs.openrepgrid.org/CONTRIBUTING.html) for detailed  information. 
+
+Anyone getting involved in this package agrees to our [Code of
+Conduct](https://github.com/markheckmann/OpenRepGrid/blob/master/CODE_OF_CONDUCT.md).
+
+
+#### Contributors
 
 - [Mark Heckmann](https://markheckmann.de) (package maintainer)
 - Richard C. Bell
