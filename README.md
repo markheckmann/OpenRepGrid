@@ -69,13 +69,12 @@ And for a first impression of the package features type
 
     demo(OpenRepGrid)
 
-## Contributing to the package development
+## Contributing to OpenRepGrid
 
-You can contribute to the package development in various ways. You can,
-for example, file a bug report, help improve the documentation or write
-code. See the our [contributing
-guide](https://docs.openrepgrid.org/CONTRIBUTING.html) for detailed
-information.
+You can contribute to OpenRepGrid in various ways. You can, for example,
+file a bug report, help improve the documentation or write code. See the
+our [contributing guide](https://docs.openrepgrid.org/CONTRIBUTING.html)
+for detailed information.
 
 Anyone getting involved in this package agrees to our [Code of
 Conduct](https://github.com/markheckmann/OpenRepGrid/blob/master/CODE_OF_CONDUCT.md).
