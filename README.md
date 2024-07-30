@@ -69,6 +69,10 @@ And for a first impression of the package features type
 
     demo(OpenRepGrid)
 
+## Documentation
+
+Visit the package documentation website: <https://docs.openrepgrid.org/>
+
 ## Contributing to OpenRepGrid
 
 You can contribute to OpenRepGrid in various ways. You can, for example,
