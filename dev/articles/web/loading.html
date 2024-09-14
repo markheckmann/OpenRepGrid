@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.15.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.15.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,16 +88,17 @@ scale (red), the names of the elements (green) and the maximum of the
 rating scale (red). Below, every row contains the left construct pole
 (blue), the ratings (black) and the right construct pole (blue).</p>
 <p><img src="images/excel2.png"></p>
-<p>To load the <code>.xlsx</code> file and save it into the object
-<code>x</code> type the following code to the R console.</p>
+<p>To load an <code>.xlsx</code> file and save it into the object
+<code>x</code> type the following code to the R console (assuming you
+have a file called <code>sample.xlsx</code> exists).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importExcel.html">importExcel</a></span><span class="op">(</span><span class="st">"example.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importExcel.html">importExcel</a></span><span class="op">(</span><span class="st">"sample.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>OpenRepGrid</code> package comes with an example Excel
 file. If you have Excel installed, you should be able to open it by
 typing</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"excel_grid_001.xlsx"</span>, package <span class="op">=</span> <span class="st">"OpenRepGrid"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="va">file</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"grid_01.xlsx"</span>, package <span class="op">=</span> <span class="st">"OpenRepGrid"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/file.show.html" class="external-link">file.show</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="co"># may not work on all systems</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="txt-files">.txt files<a class="anchor" aria-label="anchor" href="#txt-files"></a>
@@ -110,7 +111,7 @@ uppercase letters. The first block starts with <code>ELEMENTS</code> and
 ends with <code>END ELEMENTS</code> and contains one element in each
 line. The other mandatory blocks contain the constructs and ratings (see
 below). In the block containing the constructs the left and right pole
-are seperated by a colon (<code>:</code>). The order of the blocks is
+are separated by a colon (<code>:</code>). The order of the blocks is
 arbitrary. All text not contained within the blocks is discarded and can
 thus be used for comments.</p>
 <pre><code>------------ example.txt file ---------------
@@ -149,17 +150,18 @@ END RANGE
 directory. If not you either have to specify the whole path to the file
 or you must change the R working directory.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"markheckmann/data/examples.txt"</span><span class="op">)</span> <span class="co"># whole path to file or</span></span>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"my_folder/example.txt"</span><span class="op">)</span> <span class="co"># whole path to file or</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show current working directory</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"markheckmann/data"</span><span class="op">)</span> <span class="co"># change working directory to the folder markheckmann/data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"my_folder"</span><span class="op">)</span> <span class="co"># change working directory to the folder markheckmann/data</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span> <span class="co"># load file that is in the current working directory</span></span></code></pre></div>
-<p>Another option that is available for all import functions is to
-supply no argument inside the brackets. In this case an interactive file
-selection dialog will open.</p>
+<p>The <code>OpenRepGrid</code> package comes with an sample
+<code>.txt</code> file. You can load it as follows.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># without any arguments</span></span></code></pre></div>
-<p>This will open a dialog window which allows you to select a file
-manually.</p>
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"grid_01.txt"</span>, package <span class="op">=</span> <span class="st">"OpenRepGrid"</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importTxt.html">importTxt</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></code></pre></div>
+<p>To open the sample <code>.txt</code> file try:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/file.show.html" class="external-link">file.show</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="co"># may not work on all systems</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -173,7 +175,7 @@ and interactive file selection dialog window will open.</p>
 <div class="section level4">
 <h4 id="gridcor">Gridcor<a class="anchor" aria-label="anchor" href="#gridcor"></a>
 </h4>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="st">"gridcor.dat"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridcor.dat"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridcor.html">importGridcor</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
@@ -181,7 +183,7 @@ and interactive file selection dialog window will open.</p>
 <div class="section level4">
 <h4 id="gridstat">Gridstat<a class="anchor" aria-label="anchor" href="#gridstat"></a>
 </h4>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="st">"gridstat.dat"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridstat.dat"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridstat.html">importGridstat</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
@@ -189,7 +191,7 @@ and interactive file selection dialog window will open.</p>
 <div class="section level4">
 <h4 id="gridsuite">GridSuite<a class="anchor" aria-label="anchor" href="#gridsuite"></a>
 </h4>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="st">"gridsuite.xml"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="st">"markheckmann/data/gridsuite.xml"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importGridsuite.html">importGridsuite</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
@@ -197,7 +199,7 @@ and interactive file selection dialog window will open.</p>
 <div class="section level4">
 <h4 id="scivesco">sci:vesco<a class="anchor" aria-label="anchor" href="#scivesco"></a>
 </h4>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="st">"scivesco.scires"</span><span class="op">)</span> <span class="co"># file in current R working directory or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="st">"markheckmann/data/scivesco.scires"</span><span class="op">)</span> <span class="co"># whole file path or</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/importScivesco.html">importScivesco</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># open file selection dialog</span></span></code></pre></div>
@@ -218,7 +220,7 @@ edited by hand (see <code>importTxt</code> for a description). The
 function will open an interactive dialog box to let the user enter a
 filename if no file argument is supplied in the function call. Let’s
 suppose we want to strore the <code>boeker</code> grid.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/saveAsTxt.html">saveAsTxt</a></span><span class="op">(</span><span class="va">boeker</span>, <span class="st">"boeker.txt"</span><span class="op">)</span> <span class="co"># save it to the file "boeker.txt"</span></span>
 <span><span class="fu"><a href="../../reference/saveAsTxt.html">saveAsTxt</a></span><span class="op">(</span><span class="va">boeker</span><span class="op">)</span> <span class="co"># open a dialog box to enter the file name interactively</span></span></code></pre></div>
 </div>
@@ -227,7 +229,7 @@ suppose we want to strore the <code>boeker</code> grid.</p>
 </h4>
 <p>Another option is to save the grid as an <code>RData</code> object.
 This is done by using the function save.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">boeker</span>, file <span class="op">=</span> <span class="st">"boeker.RData"</span><span class="op">)</span> <span class="co"># save it to the file "boeker.RData"</span></span></code></pre></div>
 <p>In future versions of OpenRepGrid will also support the
 <code>.xml</code> format once a community standard has been agreed
