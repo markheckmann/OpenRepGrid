@@ -73,7 +73,6 @@ NULL
 #'
 #' @keywords data
 #' @examples bellmcgorry1992
-#'
 NULL
 
 
@@ -127,7 +126,12 @@ NULL
 #' study with the Repertory Grid Technique. In: Scheer, J. W., Catina, A. (Eds.): *Empirical Constructivism in Europe -
 #' The Personal Construct Approach* (p. 160-167). Giessen: Psychosozial-Verlag.
 #' @keywords data
-#' @examples boeker
+#' @examples
+#' boeker
+#'
+#' # data is also available as Excel file
+#' path <- system.file("extdata", "boeker.xlsx", package = "OpenRepGrid")
+#' x <- importExcel(path)
 NULL
 
 # Heinz Boeker in Scheer & Catina (1996, p.163)
@@ -164,6 +168,7 @@ NULL
 # boeker <- makeRepgrid(args)
 # boeker <- setScale(boeker, 1, 6)
 # save("boeker", file="../data/boeker.RData")
+# saveAsExcel(boeker, "inst/extdata/boeker.xlsx")
 
 
 # Fransella, Bell & Bannister (2003) ----

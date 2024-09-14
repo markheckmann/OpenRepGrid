@@ -30,24 +30,24 @@ You can define a grid file using Microsoft Excel. The `.xlsx` file has to be in 
 ![](images/excel2.png)
 
 
-To load the `.xlsx` file and save it into the object `x` type the following code to the R console.
+To load an `.xlsx` file and save it into the object `x` type the following code to the R console (assuming you have a file called `sample.xlsx` exists).
 
 ```{r eval=FALSE}
-x <- importExcel("example.xlsx")
+x <- importExcel("sample.xlsx")
 ```
 
 The `OpenRepGrid` package comes with an example Excel file. If you have Excel installed, you should be able to open it by typing
 
 ```{r eval=FALSE}
-file <- system.file("extdata", "excel_grid_001.xlsx", package = "OpenRepGrid")
-system2("open", file)
+file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
+file.show(file) # may not work on all systems
 ```
 
 
 
 #### .txt files
 
-If you do not have a grid program at hand you can define a grid using a standard text editor and by saving it as a `.txt` file. The `.txt` file has to be in a fixed format. There are three mandatory blocks each starting and ending with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS` and contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the block containing the constructs the left and right pole are seperated by a colon (`:`). The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be used for comments.
+If you do not have a grid program at hand you can define a grid using a standard text editor and by saving it as a `.txt` file. The `.txt` file has to be in a fixed format. There are three mandatory blocks each starting and ending with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS` and contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the block containing the constructs the left and right pole are separated by a colon (`:`). The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be used for comments.
 
     ------------ example.txt file ---------------
     
@@ -87,19 +87,24 @@ x <- importTxt("example.txt")
 You have to make sure, that the file exists in the current working directory. If not you either have to specify the whole path to the file or you must change the R working directory.
 
 ```{r eval=FALSE}
-x <- importTxt("markheckmann/data/examples.txt") # whole path to file or
+x <- importTxt("my_folder/example.txt") # whole path to file or
 getwd() # show current working directory
-setwd("markheckmann/data") # change working directory to the folder markheckmann/data
+setwd("my_folder") # change working directory to the folder markheckmann/data
 x <- importTxt("example.txt") # load file that is in the current working directory
 ```
 
-Another option that is available for all import functions is to supply no argument inside the brackets. In this case an interactive file selection dialog will open.
+The `OpenRepGrid` package comes with an sample `.txt` file. You can load it as follows.
 
 ```{r eval=FALSE}
-x <- importTxt() # without any arguments
+file <- system.file("extdata", "grid_01.txt", package = "OpenRepGrid")
+x <- importTxt(file)
 ```
 
-This will open a dialog window which allows you to select a file manually.
+To open the sample `.txt` file try:
+
+```{r eval=FALSE}
+file.show(file) # may not work on all systems
+```
 
 
 ### Import files from other grid programs

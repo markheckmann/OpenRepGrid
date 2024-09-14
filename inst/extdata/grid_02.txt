@@ -1,0 +1,35 @@
+
+---------------- sample .txt file -----------------
+
+Note: anything outside the tag pairs is discarded
+
+ELEMENTS
+e 1
+e 2
+e 3
+e 4
+END ELEMENTS
+
+Note: the colon (:) seperates the construct poles
+
+CONSTRUCTS
+left pole 1 : right pole 1
+left pole 2 : right pole 2
+left pole 3 : right pole 3
+END CONSTRUCTS
+
+Note: columns represent elements, rows constructs
+
+RATINGS
+1 3 2 3
+4 1 1 5
+1 4 4 5
+END RATINGS
+
+Note: Range means the lowest and hightest possible rating value
+
+RANGE
+1 5
+END RANGE
+
+---------------- end of file ----------------

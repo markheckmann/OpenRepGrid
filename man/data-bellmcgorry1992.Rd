@@ -11,7 +11,6 @@ Originally, the data comes from a study by Bell and McGorry (1992).
 }
 \examples{
 bellmcgorry1992
-
 }
 \references{
 Bell, R. C. (1977). \emph{Using SPSS to Analyse Repertory Grid Data}. Technical Report, University of

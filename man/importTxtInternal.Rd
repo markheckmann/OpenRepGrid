@@ -33,34 +33,36 @@ block contains the range of the rating scale used defined by two numbers. The or
 text not contained within the blocks is discarded and can thus be used for comments.
 }
 \details{
-\tabular{l}{
-\verb{---------------- .txt file -----------------} \cr \cr
-\verb{anything not contained within the tags will be discarded} \cr
-\code{ELEMENTS}         \cr
-\verb{element 1}        \cr
-\verb{element 2}        \cr
-\verb{element 3}        \cr
-\verb{END ELEMENTS}     \cr
-\cr
-\code{CONSTRUCTS}                 \cr
-\verb{left pole 1 : right pole 1} \cr
-\verb{left pole 2 : right pole 2} \cr
-\verb{left pole 3 : right pole 3} \cr
-\verb{left pole 4 : right pole 4} \cr
-\verb{END CONSTRUCTS}             \cr
-\cr
-\code{RATINGS}        \cr
-\verb{1 3 2}          \cr
-\verb{4 1 1}          \cr
-\verb{1 4 4}          \cr
-\verb{3 1 1}          \cr
-\verb{END RATINGS}    \cr
-\cr
-\code{RANGE}          \cr
-\verb{1 4}            \cr
-\verb{END RANGE}      \cr
-\verb{---------------- end of file ----------------} \cr
-}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{---------------- sample .txt file -------------------
+
+    Note: anything outside the tag pairs is discarded
+
+ELEMENTS
+element 1
+element 2
+element 3
+END ELEMENTS
+
+CONSTRUCTS
+left pole 1 : right pole 1
+left pole 2 : right pole 2
+left pole 3 : right pole 3
+left pole 4 : right pole 4
+END CONSTRUCTS
+
+RATINGS
+1 3 2
+4 1 1
+1 4 4
+3 1 1
+END RATINGS
+
+RANGE
+1 4
+END RANGE
+
+------------------ end of file ------------------
+}\if{html}{\out{</div>}}
 
 Note that the maximum and minimum value has to be defined using the \code{min} and
 \code{max} arguments if no \code{RANGE} block is contained in the data file.

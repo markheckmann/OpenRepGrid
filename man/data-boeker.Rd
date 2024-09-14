@@ -11,6 +11,10 @@ during the last stage of therapy (Boeker, 1996, p. 163).
 }
 \examples{
 boeker
+
+# data is also available as Excel file
+path <- system.file("extdata", "boeker.xlsx", package = "OpenRepGrid")
+x <- importExcel(path)
 }
 \references{
 Boeker, H. (1996). The reconstruction of the self in the psychotherapy of chronic schizophrenia: a case

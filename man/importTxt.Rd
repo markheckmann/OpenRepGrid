@@ -25,44 +25,51 @@ A single \code{repgrid} object in case one file and
 a list of \code{repgrid} objects in case multiple files are imported.
 }
 \description{
-If you do not have a grid program at hand you can define a grid using a standard text editor and by saving it as a
-\code{.txt} file. The \code{.txt} file has to be in a fixed format. There are three mandatory blocks each starting and ending
+You can define a grid using a standard text editor and saving it as a \code{.txt} file.
+The \emph{Details} section describes the required format of the \code{.txt} file. However, you may also
+consider using the Excel format instead, as it has a more intuitive format (see \code{\link[=importExcel]{importExcel()}}).
+}
+\details{
+The \code{.txt} file has to be in a fixed format. There are \emph{three mandatory blocks} each starting and ending
 with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} and ends with \verb{END ELEMENTS} and
 contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the
 block containing the constructs the left and right pole are separated by a colon (:). To define missing values use
 \code{NA} like in the example below. One optional block contains the range of the rating scale used defined by two
 numbers. The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be
 used for comments.
-}
-\details{
-\tabular{l}{
-\verb{---------------- .txt file -----------------} \cr \cr
-\verb{anything not contained within the tags will be discarded} \cr
-\code{ELEMENTS}         \cr
-\verb{element 1}        \cr
-\verb{element 2}        \cr
-\verb{element 3}        \cr
-\verb{END ELEMENTS}     \cr
-\cr
-\code{CONSTRUCTS}                 \cr
-\verb{left pole 1 : right pole 1} \cr
-\verb{left pole 2 : right pole 2} \cr
-\verb{left pole 3 : right pole 3} \cr
-\verb{left pole 4 : right pole 4} \cr
-\verb{END CONSTRUCTS}             \cr
-\cr
-\code{RATINGS}        \cr
-\verb{1 3 2}          \cr
-\verb{4 1 1}          \cr
-\verb{1 4 4}          \cr
-\verb{3 1 1}          \cr
-\verb{END RATINGS}    \cr
-\cr
-\code{RANGE}          \cr
-\verb{1 4}            \cr
-\verb{END RANGE}      \cr
-\verb{---------------- end of file ----------------} \cr
-}
+
+The content of a sample \code{.txt} file is shown below. The package also contains a sample file (see \emph{Examples}).
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{---------------- sample .txt file -------------------
+
+    Note: anything outside the tag pairs is discarded
+
+ELEMENTS
+element 1
+element 2
+element 3
+END ELEMENTS
+
+CONSTRUCTS
+left pole 1 : right pole 1
+left pole 2 : right pole 2
+left pole 3 : right pole 3
+left pole 4 : right pole 4
+END CONSTRUCTS
+
+RATINGS
+1 3 2
+4 1 1
+1 4 4
+3 1 1
+END RATINGS
+
+RANGE
+1 4
+END RANGE
+
+------------------ end of file ------------------
+}\if{html}{\out{</div>}}
 
 Note that the maximum and minimum value has to be defined using the \code{min} and \code{max} arguments if no \code{RANGE} block is
 contained in the data file. Otherwise the scaling range is inferred from the available data and a warning is issued
@@ -70,24 +77,19 @@ as the range may be erroneous. This may effect other functions that depend on kn
 thus strongly recommended to set the scale range correctly.
 }
 \examples{
-\dontrun{
-
-# supposing that the data file sample.txt is in the current directory
-file <- "sample.txt"
+# Import a .txt file delivered along with the package
+file <- system.file("extdata", "grid_01.txt", package = "OpenRepGrid")
 rg <- importTxt(file)
 
-# specifying a directory (arbitrary example directory)
-dir <- "/Users/markheckmann/data"
-rg <- importTxt(file, dir)
-
-# using a full path
-rg <- importTxt("/Users/markheckmann/data/sample.txt")
-
-# importing more than one .txt file via R code
-files <- c("sample.txt", "sample_2.txt")
-rg <- importTxt(files)
+\dontrun{
+# To see the structure of the Excel file try to open it as follows.
+# May not work on all systems.
+file.show(file)
 }
 
+# Import more than one .txt file
+files <- system.file("extdata", c("grid_01.txt", "grid_02.txt"), package = "OpenRepGrid")
+rgs <- importTxt(files)
 }
 \seealso{
 \code{\link[=importGridcor]{importGridcor()}}, \code{\link[=importGridstat]{importGridstat()}}, \code{\link[=importScivesco]{importScivesco()}}, \code{\link[=importGridsuite]{importGridsuite()}}, \code{\link[=importTxt]{importTxt()}},

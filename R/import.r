@@ -1139,34 +1139,37 @@ importScivesco <- function(file, dir = NULL) {
 #' block contains the range of the rating scale used defined by two numbers. The order of the blocks is arbitrary. All
 #' text not contained within the blocks is discarded and can thus be used for comments.
 #'
-#' \tabular{l}{
-#' `---------------- .txt file -----------------` \cr \cr
-#' `anything not contained within the tags will be discarded` \cr
-#' `ELEMENTS`         \cr
-#' `element 1`        \cr
-#' `element 2`        \cr
-#' `element 3`        \cr
-#' `END ELEMENTS`     \cr
-#' \cr
-#' `CONSTRUCTS`                 \cr
-#' `left pole 1 : right pole 1` \cr
-#' `left pole 2 : right pole 2` \cr
-#' `left pole 3 : right pole 3` \cr
-#' `left pole 4 : right pole 4` \cr
-#' `END CONSTRUCTS`             \cr
-#' \cr
-#' `RATINGS`        \cr
-#' `1 3 2`          \cr
-#' `4 1 1`          \cr
-#' `1 4 4`          \cr
-#' `3 1 1`          \cr
-#' `END RATINGS`    \cr
-#' \cr
-#' `RANGE`          \cr
-#' `1 4`            \cr
-#' `END RANGE`      \cr
-#' `---------------- end of file ----------------` \cr
-#' }
+#' ```
+#' ---------------- sample .txt file -------------------
+#'
+#'     Note: anything outside the tag pairs is discarded
+#'
+#' ELEMENTS
+#' element 1
+#' element 2
+#' element 3
+#' END ELEMENTS
+#'
+#' CONSTRUCTS
+#' left pole 1 : right pole 1
+#' left pole 2 : right pole 2
+#' left pole 3 : right pole 3
+#' left pole 4 : right pole 4
+#' END CONSTRUCTS
+#'
+#' RATINGS
+#' 1 3 2
+#' 4 1 1
+#' 1 4 4
+#' 3 1 1
+#' END RATINGS
+#'
+#' RANGE
+#' 1 4
+#' END RANGE
+#'
+#' ------------------ end of file ------------------
+#' ```
 #'
 #' Note that the maximum and minimum value has to be defined using the `min` and
 #' `max` arguments if no `RANGE` block is contained in the data file.
@@ -1300,48 +1303,9 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 
 #' Import grid data from a text file.
 #'
-#' If you do not have a grid program at hand you can define a grid using a standard text editor and by saving it as a
-#' `.txt` file. The `.txt` file has to be in a fixed format. There are three mandatory blocks each starting and ending
-#' with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS` and
-#' contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the
-#' block containing the constructs the left and right pole are separated by a colon (:). To define missing values use
-#' `NA` like in the example below. One optional block contains the range of the rating scale used defined by two
-#' numbers. The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be
-#' used for comments.
-#'
-#' \tabular{l}{
-#' `---------------- .txt file -----------------` \cr \cr
-#' `anything not contained within the tags will be discarded` \cr
-#' `ELEMENTS`         \cr
-#' `element 1`        \cr
-#' `element 2`        \cr
-#' `element 3`        \cr
-#' `END ELEMENTS`     \cr
-#' \cr
-#' `CONSTRUCTS`                 \cr
-#' `left pole 1 : right pole 1` \cr
-#' `left pole 2 : right pole 2` \cr
-#' `left pole 3 : right pole 3` \cr
-#' `left pole 4 : right pole 4` \cr
-#' `END CONSTRUCTS`             \cr
-#' \cr
-#' `RATINGS`        \cr
-#' `1 3 2`          \cr
-#' `4 1 1`          \cr
-#' `1 4 4`          \cr
-#' `3 1 1`          \cr
-#' `END RATINGS`    \cr
-#' \cr
-#' `RANGE`          \cr
-#' `1 4`            \cr
-#' `END RANGE`      \cr
-#' `---------------- end of file ----------------` \cr
-#' }
-#'
-#' Note that the maximum and minimum value has to be defined using the `min` and `max` arguments if no `RANGE` block is
-#' contained in the data file. Otherwise the scaling range is inferred from the available data and a warning is issued
-#' as the range may be erroneous. This may effect other functions that depend on knowing the correct range and it is
-#' thus strongly recommended to set the scale range correctly.
+#' You can define a grid using a standard text editor and saving it as a `.txt` file.
+#' The *Details* section describes the required format of the `.txt` file. However, you may also
+#' consider using the Excel format instead, as it has a more intuitive format (see [importExcel()]).
 #'
 #' @param file	  A vector of filenames including the full path if file is not in current working
 #'                directory. File can also be a complete URL. The file suffix
@@ -1354,27 +1318,72 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #'                for maximum rating value in grid.
 #' @return  A single `repgrid` object in case one file and
 #'                a list of `repgrid` objects in case multiple files are imported.
+#'
+#' @details
+#' The `.txt` file has to be in a fixed format. There are *three mandatory blocks* each starting and ending
+#' with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS` and
+#' contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the
+#' block containing the constructs the left and right pole are separated by a colon (:). To define missing values use
+#' `NA` like in the example below. One optional block contains the range of the rating scale used defined by two
+#' numbers. The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be
+#' used for comments.
+#'
+#' The content of a sample `.txt` file is shown below. The package also contains a sample file (see *Examples*).
+#'
+#' ```
+#' ---------------- sample .txt file -------------------
+#'
+#'     Note: anything outside the tag pairs is discarded
+#'
+#' ELEMENTS
+#' element 1
+#' element 2
+#' element 3
+#' END ELEMENTS
+#'
+#' CONSTRUCTS
+#' left pole 1 : right pole 1
+#' left pole 2 : right pole 2
+#' left pole 3 : right pole 3
+#' left pole 4 : right pole 4
+#' END CONSTRUCTS
+#'
+#' RATINGS
+#' 1 3 2
+#' 4 1 1
+#' 1 4 4
+#' 3 1 1
+#' END RATINGS
+#'
+#' RANGE
+#' 1 4
+#' END RANGE
+#'
+#' ------------------ end of file ------------------
+#' ```
+#'
+#' Note that the maximum and minimum value has to be defined using the `min` and `max` arguments if no `RANGE` block is
+#' contained in the data file. Otherwise the scaling range is inferred from the available data and a warning is issued
+#' as the range may be erroneous. This may effect other functions that depend on knowing the correct range and it is
+#' thus strongly recommended to set the scale range correctly.
+#'
 #' @export
 #' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
 #'   [importExcel()]
-#' @examples \dontrun{
-#'
-#' # supposing that the data file sample.txt is in the current directory
-#' file <- "sample.txt"
+#' @examples
+#' # Import a .txt file delivered along with the package
+#' file <- system.file("extdata", "grid_01.txt", package = "OpenRepGrid")
 #' rg <- importTxt(file)
 #'
-#' # specifying a directory (arbitrary example directory)
-#' dir <- "/Users/markheckmann/data"
-#' rg <- importTxt(file, dir)
-#'
-#' # using a full path
-#' rg <- importTxt("/Users/markheckmann/data/sample.txt")
-#'
-#' # importing more than one .txt file via R code
-#' files <- c("sample.txt", "sample_2.txt")
-#' rg <- importTxt(files)
+#' \dontrun{
+#' # To see the structure of the Excel file try to open it as follows.
+#' # May not work on all systems.
+#' file.show(file)
 #' }
 #'
+#' # Import more than one .txt file
+#' files <- system.file("extdata", c("grid_01.txt", "grid_02.txt"), package = "OpenRepGrid")
+#' rgs <- importTxt(files)
 importTxt <- function(file, dir = NULL, min = NULL, max = NULL) {
   imps <- lapply(as.list(file), importTxtInternal, # make import objects for each .txt file
     dir = dir, min = min, max = max
@@ -1386,7 +1395,6 @@ importTxt <- function(file, dir = NULL, min = NULL, max = NULL) {
     return(rgs) # return a list of repgrid objects
   }
 }
-
 
 
 ############################# IMPORT EXCEL ####################################
