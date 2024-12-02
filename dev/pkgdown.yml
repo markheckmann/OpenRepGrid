@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   web/basic_operations: web/basic_operations.html
@@ -25,7 +25,7 @@ articles:
   web/settings: web/settings.html
   web/visualization-bertin: web/visualization-bertin.html
   web/visualization-biplot: web/visualization-biplot.html
-last_built: 2024-09-14T13:48Z
+last_built: 2024-12-02T21:04Z
 urls:
   reference: https://docs.openrepgrid.org/reference
   article: https://docs.openrepgrid.org/articles
