@@ -68,6 +68,8 @@
 
     
     
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
 <p>Sometimes basic descriptive measures for constructs and elements,
 e.g. mean, standard deviation, are neeeded. To prompt descriptive
 statistics for the constructs and elements of a grid use the function
@@ -94,7 +96,7 @@ following measures are returned:</p>
 <p>The following examples are identical for <code>statsElements</code>.
 Just replace <code>statsConstructs</code> by <code>statsElements</code>
 in order to analyze elements.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/stats.html">statsConstructs</a></span><span class="op">(</span><span class="va">fbb2003</span><span class="op">)</span></span>
 <span><span class="va">d</span></span>
 <span><span class="co"># </span></span>
@@ -114,10 +116,10 @@ in order to analyze elements.</p>
 <span><span class="co"># (9) rather agg - not aggres    9 8 3.62 1.92    3.0    3.62 2.22   1   7     6  0.36    -1.25 0.68</span></span></code></pre></div>
 <p>The returned object is a dataframe, so you may access them as usual.
 E.g. to retrieve the means of the constructs, type</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span><span class="op">$</span><span class="va">mean</span></span>
 <span><span class="co"># [1] 3.750 4.000 3.500 4.375 3.500 4.500 3.250 4.125 3.625</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/stats.html">statsConstructs</a></span><span class="op">(</span><span class="va">fbb2003</span>, trim <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ####################################</span></span>
@@ -134,7 +136,7 @@ E.g. to retrieve the means of the constructs, type</p>
 <span><span class="co"># (7) respe - not r    7 8 3.25 1.75    3.0    3.25 1.48   1   6     5  0.23    -1.67 0.62</span></span>
 <span><span class="co"># (8) dista - warm     8 8 4.12 1.96    4.0    4.12 1.48   1   7     6 -0.05    -1.46 0.69</span></span>
 <span><span class="co"># (9) rathe - not a    9 8 3.62 1.92    3.0    3.62 2.22   1   7     6  0.36    -1.25 0.68</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/stats.html">statsConstructs</a></span><span class="op">(</span><span class="va">fbb2003</span>, index <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ####################################</span></span>

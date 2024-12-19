@@ -68,6 +68,8 @@
 
     
     
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
@@ -212,7 +214,7 @@ constructs is used as an indicator for implication.</p>
 <code>indexDilemma</code>. It will output an overview over the arguments
 used in the detection, a table of classifications of the construct and
 the implicative dilemmas that have been detected.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexDilemma.html">indexDilemma</a></span><span class="op">(</span><span class="va">boeker</span>, self <span class="op">=</span> <span class="fl">1</span>, ideal <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ####################</span></span>
@@ -283,7 +285,7 @@ the implicative dilemmas that have been detected.</p>
 <p>To change the values for the classification of the constructs as
 congruent and discrepant use the argument <code>diff.congruent</code>.
 The following output is identical to the Gridstat default.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexDilemma.html">indexDilemma</a></span><span class="op">(</span><span class="va">boeker</span>, self <span class="op">=</span> <span class="fl">1</span>, ideal <span class="op">=</span> <span class="fl">2</span>, diff.congruent <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ####################</span></span>
@@ -351,7 +353,7 @@ The following output is identical to the Gridstat default.</p>
 <span><span class="co">#   R was used as criterion</span></span></code></pre></div>
 <p>Several other argumnets can be modified. Type the following code into
 the R console to see the results.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexDilemma.html">indexDilemma</a></span><span class="op">(</span><span class="va">boeker</span>, self <span class="op">=</span> <span class="fl">1</span>, ideal <span class="op">=</span> <span class="fl">2</span>, output <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># show identified dillemas only</span></span>
 <span><span class="fu"><a href="../../reference/indexDilemma.html">indexDilemma</a></span><span class="op">(</span><span class="va">boeker</span>, <span class="fl">1</span>, <span class="fl">2</span>, diff.disc <span class="op">=</span> <span class="fl">0</span>, diff.con <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="co"># set classification parameters</span></span>
 <span></span>
@@ -359,7 +361,7 @@ the R console to see the results.</p>
 <span><span class="fu"><a href="../../reference/indexDilemma.html">indexDilemma</a></span><span class="op">(</span><span class="va">boeker</span>, <span class="fl">1</span>, <span class="fl">2</span>, trim <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="co"># trim construct labels</span></span></code></pre></div>
 <p>Called for console output. Invisibly returns a list containing the
 result dataframes and all results from the calculations.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/indexDilemma.html">indexDilemma</a></span><span class="op">(</span><span class="va">boeker</span>, self <span class="op">=</span> <span class="fl">1</span>, ideal <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">r</span><span class="op">$</span><span class="va">res1</span></span>
 <span><span class="va">r</span><span class="op">$</span><span class="va">res2</span></span>

@@ -68,6 +68,8 @@
 
     
     
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
@@ -109,7 +111,7 @@ calculates various types of distances for constructs and for elements
 (the default is <code>euclidean</code>). The argument <code>along</code>
 determines if distances for 1) constructs or 2) elements are calculated.
 The default is to calculate distances for constructs:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ############################</span></span>
@@ -129,7 +131,7 @@ The default is to calculate distances for constructs:</p>
 <span><span class="co"># (8) distant - warm          8                                                  5.10</span></span>
 <span><span class="co"># (9) rather agg - not aggres 9</span></span></code></pre></div>
 <p>Distance for elements:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, along <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##########################</span></span>
@@ -150,7 +152,7 @@ The default is to calculate distances for constructs:</p>
 <p>To change the distance measure supply any unambigous string of the
 available distance methods to the argument dmethod. E.g. for the
 manhattan distance bewteen constructs:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ############################</span></span>
@@ -170,17 +172,17 @@ manhattan distance bewteen constructs:</p>
 <span><span class="co"># (8) distant - warm          8                                                 10.00</span></span>
 <span><span class="co"># (9) rather agg - not aggres 9</span></span></code></pre></div>
 <p>For other distance metrics:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dm <span class="op">=</span> <span class="st">"canb"</span><span class="op">)</span> <span class="co"># canberra distance for constructs</span></span>
 <span><span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span>, dm <span class="op">=</span> <span class="st">"mink"</span>, p <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># minkowski metric to the power of 3  for constructs</span></span></code></pre></div>
 <p>If the distances are calculated for further processing, the printing
 to the console can be surpressed distance and the results can be saved
 into an object (here d).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">fbb2003</span><span class="op">)</span></span></code></pre></div>
 <p>The object is a matrix. So we can look at the distances for the first
 construct only by</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
 <span><span class="co">#     (1) clever - not bright  (2) disorganiz - organized    (3) listens - doesn't he (4) no clear v - clear view </span></span>
 <span><span class="co">#                    0.000000                   10.392305                    2.449490                    9.539392 </span></span>
@@ -192,7 +194,7 @@ construct only by</p>
 <p>Note that when you inverse a construct the distance measure will
 change. Reversing the frist consstruct of <code>fbb2003</code> will
 yield different values than before.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/reverse.html">swapPoles</a></span><span class="op">(</span><span class="va">fbb2003</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/distance.html">distance</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">d</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>

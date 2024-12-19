@@ -68,6 +68,8 @@
 
     
     
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
@@ -137,13 +139,13 @@ methods:</p>
 </h4>
 <p>When the function <code>cluster</code> is called dendrograms of the
 construct and element clustering are drawn.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span><span class="op">)</span></span></code></pre></div>
 <p><img src="clustering_files/figure-html/cluster-simple-1.png" width="700"></p>
 <p>The function also returns the reordered matrix invisibly. To see the
 reordered grid save it into a new object. To oppress the creation of a
 graphic set <code>print = FALSE</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, print <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co"># </span></span>
@@ -166,7 +168,7 @@ graphic set <code>print = FALSE</code>.</p>
 <p>The function also allows to only cluster constructs or elements. To
 only cluster the constructs us the following code. Again a dendrogram is
 drawn and a grid with reordered constructs is returned.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, along <span class="op">=</span> <span class="fl">1</span>, print <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co"># </span></span>
@@ -187,7 +189,7 @@ drawn and a grid with reordered constructs is returned.</p>
 <span><span class="co"># <span style="color: #BBBBBB;">      fearless (8)</span>   2 3 4 3 5 3 4 3 3 2   <span style="color: #BBBBBB;">(8) fearful&amp;timid</span></span></span>
 <span><span class="co"># <span style="color: #BBBBBB;">loves to argue (9)</span>   1 3 3 4 4 2 2 3 3 1   <span style="color: #BBBBBB;">(9) accept as it </span></span></span></code></pre></div>
 <p>To only cluster the elements set <code>along=2</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, along <span class="op">=</span> <span class="fl">2</span>, print <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co"># </span></span>
@@ -211,7 +213,7 @@ drawn and a grid with reordered constructs is returned.</p>
 arguments <code>dmethod</code> and <code>cmethod</code> (here
 <code>manhattan</code> distance and <code>single</code> linkage
 clustering).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, dmethod <span class="op">=</span> <span class="st">"manh"</span>, cmethod <span class="op">=</span> <span class="st">"single"</span>, print <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co"># </span></span>
@@ -233,7 +235,7 @@ clustering).</p>
 <span><span class="co"># <span style="color: #BBBBBB;">  loves people (9)</span>   4 1 1 3 2 1 2 3 2 2   <span style="color: #BBBBBB;">(9) not interacti</span></span></span></code></pre></div>
 <p>To apply different methods to the constructs and the rows, use a
 two-step approach.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># cluster constructs using default methods</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, along <span class="op">=</span> <span class="fl">1</span>, print <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co"># cluster elements using manhattan distance and single linkage clustering</span></span>
@@ -258,7 +260,7 @@ two-step approach.</p>
 <span><span class="co"># <span style="color: #BBBBBB;">  loves sports (9)</span>   5 4 5 5 6 1 4 2 2 2   <span style="color: #BBBBBB;">(9) dislikes spor</span></span></span></code></pre></div>
 <p>Some other options can be set. Paste the code into the R console to
 try it out. See <code><a href="../../reference/cluster.html">?cluster</a></code> for more information.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, main <span class="op">=</span> <span class="st">"My cluster analysis"</span><span class="op">)</span> <span class="co"># new title</span></span>
 <span><span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, type <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span> <span class="co"># different drawing style</span></span>
 <span><span class="fu"><a href="../../reference/cluster.html">cluster</a></span><span class="op">(</span><span class="va">bell2010</span>, dmethod <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span> <span class="co"># using manhattan metric</span></span>
@@ -280,7 +282,7 @@ try it out. See <code><a href="../../reference/cluster.html">?cluster</a></code>
 <p>The following figure shows a clustered Bertin matrix. The full
 explanation is found under the section <a href="">Bertin
 display</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/bertinCluster.html">bertinCluster</a></span><span class="op">(</span><span class="va">bell2010</span><span class="op">)</span></span></code></pre></div>
 <p><img src="clustering_files/figure-html/cluster-bertin-1.png" width="700"></p>
 </div>

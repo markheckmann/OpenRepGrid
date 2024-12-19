@@ -68,6 +68,8 @@
 
     
     
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
@@ -119,7 +121,7 @@ measure Somers’ D (Somers, 1962). The calculation of Somers’ D in
 <div class="section level4">
 <h4 id="correlation-measures-1">Correlation measures<a class="anchor" aria-label="anchor" href="#correlation-measures-1"></a>
 </h4>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructCor.html">constructCor</a></span><span class="op">(</span><span class="va">mackay1992</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##############################</span></span>
@@ -139,7 +141,7 @@ measure Somers’ D (Somers, 1962). The calculation of Somers’ D in
 the argument <code>method</code> to <code>"pearson"</code>,
 <code>"kendall"</code> or <code>"spearman"</code>. To request a Spearman
 rank correlation type</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructCor.html">constructCor</a></span><span class="op">(</span><span class="va">mackay1992</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##############################</span></span>
@@ -157,7 +159,7 @@ rank correlation type</p>
 <span><span class="co"># *Caring - Selfish   6</span></span></code></pre></div>
 <p>To format the output several arguments are available. See
 <code><a href="../../reference/print.constructCor.html">?print.constructCor</a></code> for more printing options.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/constructCor.html">constructCor</a></span><span class="op">(</span><span class="va">mackay1992</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r</span>, digits <span class="op">=</span> <span class="fl">5</span>, col.index <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
@@ -179,7 +181,7 @@ rank correlation type</p>
 <h4 id="root-mean-square-correlation-1">Root mean square correlation<a class="anchor" aria-label="anchor" href="#root-mean-square-correlation-1"></a>
 </h4>
 <p>To calulate the RMS correlation</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructRmsCor.html">constructRmsCor</a></span><span class="op">(</span><span class="va">fbb2003</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ##########################################</span></span>
@@ -205,7 +207,7 @@ rank correlation type</p>
 </h4>
 <p>Somers’ D is an asymmetric measure. As a default the columns are the
 dependent the rows the independent variables.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructD.html">constructD</a></span><span class="op">(</span><span class="va">fbb2003</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ############################</span></span>
@@ -224,7 +226,7 @@ dependent the rows the independent variables.</p>
 <span><span class="co"># (8) distant - warm                   8  0.0 -0.1  0.0 -0.2  0.0  0.2 -0.1  1.0  0.5</span></span>
 <span><span class="co"># (9) rather aggressi - not aggressive 9 -0.1 -0.4 -0.2 -0.2 -0.2  0.1  0.0  0.5  1.0</span></span></code></pre></div>
 <p>To set the rows as dependent, type</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/constructD.html">constructD</a></span><span class="op">(</span><span class="va">fbb2003</span>, dep <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span></span></code></pre></div>
 <p>The returned data is in all cases a <code>matrix</code> or a
 <code>data.frame</code>, so you can easily extract the data you need for

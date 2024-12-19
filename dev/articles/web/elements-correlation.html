@@ -68,6 +68,8 @@
 
     
     
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
 <div class="section level3">
 <h3 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h3>
@@ -86,7 +88,7 @@ rc is calculated.</p>
 <p>Note how the values change when the simple product-moment correlation
 is used instaed of Cohen’s rc. Make sure you know what you are doing
 when setting <code>rc=FALSE</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/elementCor.html">elementCor</a></span><span class="op">(</span><span class="va">mackay1992</span>, rc <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ############################</span></span>
@@ -116,11 +118,11 @@ construct relfection, can be prompoted, when setting
 </ul>
 <p>To request these types of correlations use the <code>method</code>
 argument plus <code>rc=FALSE</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/elementCor.html">elementCor</a></span><span class="op">(</span><span class="va">mackay1992</span>, rc <span class="op">=</span> <span class="cn">FALSE</span>, meth <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span> <span class="co"># Kendalls tau correlation</span></span>
 <span><span class="fu"><a href="../../reference/elementCor.html">elementCor</a></span><span class="op">(</span><span class="va">mackay1992</span>, rc <span class="op">=</span> <span class="cn">FALSE</span>, meth <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span> <span class="co"># Spearman rank correlation</span></span></code></pre></div>
 <p>Several arguments to format the output are available.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/elementCor.html">elementCor</a></span><span class="op">(</span><span class="va">mackay1992</span>, index <span class="op">=</span> <span class="cn">F</span>, trim <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ############################</span></span>
@@ -138,11 +140,11 @@ argument plus <code>rc=FALSE</code>.</p>
 <span><span class="co"># Dislik 6</span></span></code></pre></div>
 <p>If the correlations are calculated for further processing, the
 correlations can be saved.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/elementCor.html">elementCor</a></span><span class="op">(</span><span class="va">mackay1992</span><span class="op">)</span></span></code></pre></div>
 <p>The object is matrix, so you can eassily acces the results. E.g. all
 correlations with the element <code>Self</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
 <span><span class="co">#            (1) Self      (2) Ideal self          (3) Mother          (4) Father          (5) Spouse (6) Disliked person </span></span>
 <span><span class="co">#           1.0000000           0.5876060           0.2809003           0.2909572          -0.6123724          -0.6182840</span></span></code></pre></div>
