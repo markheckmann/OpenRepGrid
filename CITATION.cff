@@ -1,0 +1,28 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Heckmann
+  given-names: Mark
+  orcid: "https://orcid.org/0000-0002-0736-7417"
+doi: 10.5281/zenodo.14262588
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Heckmann
+    given-names: Mark
+    orcid: "https://orcid.org/0000-0002-0736-7417"
+  date-published: 2024-12-19
+  doi: 10.21105/joss.06918
+  issn: 2475-9066
+  issue: 104
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 6918
+  title: "OpenRepGrid: An R Package for the Analysis of Repertory Grid
+    Data"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.06918"
+  volume: 9
+title: "OpenRepGrid: An R Package for the Analysis of Repertory Grid
+  Data"

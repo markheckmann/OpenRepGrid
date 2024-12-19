@@ -1,10 +1,14 @@
 bibentry(
-  bibtype = "Manual",
-  title = "OpenRepGrid: An R package for the analysis of repertory grids",
-  author = person(given = "Mark", family = "Heckmann"),
-  year = 2023,
-  publisher = "ZENODO",
-  note = " R package version 0.1.15",
-  doi = "10.5281/zenodo.8492",
-  url = "https://github.com/markheckmann/OpenRepGrid"
+  bibtype   = "Article",
+  title     = "OpenRepGrid: An R Package for the Analysis of Repertory Grid Data",
+  author    = person(given = "Mark", family = "Heckmann"),
+  year      = 2024,
+  journal   = "Journal of Open Source Software",
+  publisher = "Open Journals",
+  volume    = 9,
+	number    = 104,
+	pages     = 6918,
+  doi       = "10.21105/joss.06918",
+	url       = "https://joss.theoj.org/papers/10.21105/joss.06918",
+	orcid     = "https://orcid.org/0000-0002-0736-7417"
 )
