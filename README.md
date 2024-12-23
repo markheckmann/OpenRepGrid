@@ -19,6 +19,8 @@ coverage](https://codecov.io/gh/markheckmann/OpenRepGrid/branch/master/graph/bad
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![status](https://joss.theoj.org/papers/88b1ba29095623f416d9fe944afe5cd8/status.svg)](https://joss.theoj.org/papers/88b1ba29095623f416d9fe944afe5cd8)
+[![Donate](https://img.shields.io/badge/Donate-❤-EA4AAA)](https://github.com/sponsors/markheckmann)
+
 <!-- badges: end -->
 
 <br>
@@ -82,6 +84,10 @@ for detailed information.
 
 Anyone getting involved in this package agrees to our [Code of
 Conduct](https://github.com/markheckmann/OpenRepGrid/blob/master/CODE_OF_CONDUCT.md).
+
+If our software makes your life easier, consider sponsoring us — think
+of it as buying us a coffee while we keep hacking away!
+[![Donate](https://img.shields.io/badge/Donate-❤-EA4AAA)](https://github.com/sponsors/markheckmann)
 
 #### Contributors
 
