@@ -15,7 +15,7 @@ options(width = 200)
 library(OpenRepGrid)
 ```
 
-# OpenRepGrid: An R Package for the Analysis of Repertory Grid Data <a href="https://docu.openrepgrid.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# OpenRepGrid: An R Package for the Analysis of Repertory Grid Data <a href="https://docs.openrepgrid.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
