@@ -252,7 +252,8 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
                        xlim = c(0, 1), ylim = c(0, 1), margins = c(0, 1, 1), lheight = .75,
                        text.margin = 0.005, elements.offset = c(0.002, 0.002),
                        id = c(T, T), cc = 0, cr = 0, cc.old = 0, cr.old = 0,
-                       col.mark.fill = "#FCF5A4", print = TRUE, byrow = FALSE, add = FALSE) {
+                       col.mark.fill = "#FCF5A4", print = TRUE, byrow = FALSE, add = FALSE,
+                       col.lines = "black", col.e.and.c = "black", ...) {
   if (byrow) {
     labels <- as.vector(matrix(labels, nrow = nrow, ncol = ncol, byrow = TRUE))
   }
@@ -290,14 +291,16 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     x.lines <- xlim[1] + x1.o * diff(xlim) + cell.width / 2
     y1.lines <- ylim[2]
     y2.lines <- y1.lines + cascade(ncol) * height.strokes # upper end of bertin main plus offset
-    segments(x.lines, y1.lines, x.lines, y2.lines)
+    segments(x.lines, y1.lines, x.lines, y2.lines, col = col.lines)
     text(x.lines[index$left] + elements.offset[1],
       y2.lines[index$left] + elements.offset[2],
-      labels = labels.elements[index$left], adj = c(1, 0), cex = cex.elements, xpd = T
+      labels = labels.elements[index$left], adj = c(1, 0), cex = cex.elements,
+      xpd = TRUE, col = col.e.and.c
     )
     text(x.lines[index$right] - elements.offset[1],
       y2.lines[index$right] + elements.offset[2],
-      labels = labels.elements[index$right], adj = c(0, 0), cex = cex.elements, xpd = T
+      labels = labels.elements[index$right], adj = c(0, 0), cex = cex.elements,
+      xpd = TRUE, col = col.e.and.c
     )
   }
 
@@ -311,11 +314,11 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     par(lheight = lheight) # set lineheight
     text(xlim[1] - text.margin, y1[1:nrow] + cell.height / 2,
       labels = labels.left,
-      cex = cex.constructs, adj = 1, xpd = T
+      cex = cex.constructs, adj = 1, xpd = TRUE, col = col.e.and.c
     )
     text(xlim[2] + text.margin, y1[1:nrow] + cell.height / 2,
       labels = labels.right,
-      cex = cex.constructs, adj = 0, xpd = T
+      cex = cex.constructs, adj = 0, xpd = TRUE, col = col.e.and.c
     )
   }
 
