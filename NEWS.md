@@ -1,6 +1,6 @@
-# OpenRepGrid (dev version)
+# OpenRepGrid (0.1.17, dev version)
 
-* ...
+* `cbind` and `/` to bind elements by combining the columns of the grids (#46)
 
 # OpenRepGrid 0.1.16
 

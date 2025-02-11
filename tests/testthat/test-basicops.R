@@ -45,3 +45,25 @@ test_that("reverse works correctly", {
   ii <- c(1, 4, 6)
   expect_equal(swapPoles(boeker, ii), reverse(boeker, ii))
 })
+
+
+test_that("cbind and `/`", {
+  x <- boeker[, 1:2]
+  y <- boeker[, 5:6]
+  z <- boeker[, c(1:2, 5)]
+  y_reordered <- y[sample(nrow(y)), ]
+  y_swapped <- swapPoles(y)
+  x_scale <- setScale(x, max = 8)
+
+  expect_error(cbind(x, x_scale), regexp = "x and y must have identical scale ranges.")
+  expect_no_error(xy_1 <- cbind(x, y))
+  expect_no_error(xy_2 <- x / y)
+  expect_no_error(xx_1 <- x / x)
+  xy_3 <- cbind(x, y_reordered)
+  expect_equal(xy_1, xy_2)
+  expect_equal(xy_1, xy_3)
+
+  expect_error(cbind(x, y_reordered, .reorder = FALSE), regexp = "Constructs in x and y have different orders.")
+  expect_error(cbind(x, y_swapped), regexp = "x and y have different constructs.")
+  expect_error(cbind(x, z, .unique = TRUE), regexp = "x and y have common elements.")
+})

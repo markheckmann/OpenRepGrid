@@ -28,10 +28,10 @@ navbar:
       target: _blank
     intro_custom:
       text: "Intro"
-      href: articles/web/intro.html 
+      href: articles/web/intro.html
     features:
       text: "Features"
-      href: articles/web/features.html 
+      href: articles/web/features.html
     functions:
       text: "Functions"
       href: reference/index.html
@@ -44,22 +44,22 @@ navbar:
       #   icon: fa-file-pdf fa-lg
 
 footer:
-  structure: 
+  structure:
     left: developed_by
-    right: legal 
+    right: legal
   components:
     legal: Provided without **any warranty**
-   
+
 reference:
   - title: Elements
-    contents: 
+    contents:
     - elementCor
     - elementRmsCor
     - elements
     - statsElements
-    
+
   - title: Constructs
-    contents: 
+    contents:
     - constructCor
     - constructD
     - constructPca
@@ -71,17 +71,17 @@ reference:
     - permuteConstructs
 
   - title: Distances
-    contents: 
+    contents:
     - distance
     - distanceHartmann
     - distanceNormalized
     - distanceSlater
-   
+
   - title: Clustering
-    contents: 
+    contents:
     - cluster
     - clusterBoot
-    
+
   - title: Grids
     contents:
     - midpoint
@@ -96,7 +96,7 @@ reference:
     - reorder2d
     - gridlist
     - grids_leave_n_out
-    
+
   - title: Data Sets
     contents:
     - data-bell2010
@@ -109,15 +109,15 @@ reference:
     - data-raeithel
     - data-slater1977a
     - data-slater1977b
-  
+
   - title: Settings
-    contents: 
+    contents:
     - settings
     - settingsLoad
     - settingsSave
-    
+
   - title: Import and Export Data
-    contents: 
+    contents:
     - importExcel
     - importGridcor
     - importGridstat
@@ -126,7 +126,7 @@ reference:
     - importTxt
     - saveAsExcel
     - saveAsTxt
-  
+
   - title: Plots
     contents:
     - bertin
@@ -142,7 +142,7 @@ reference:
     - biplotSlater2d
     - biplotSlater3d
     - biplotSlaterPseudo3d
-    
+
   - title: Indexes
     contents:
     - indexBias
@@ -159,7 +159,7 @@ reference:
     - indexVariability
     - indexDDI
     - indexUncertainty
-    
+
   - title: General
     contents:
     - OpenRepGrid
@@ -169,4 +169,5 @@ reference:
     - "show,repgrid-method"
     - "[,repgrid-method"
     - "[<-,repgrid-method"
+    - cbind.repgrid
 
