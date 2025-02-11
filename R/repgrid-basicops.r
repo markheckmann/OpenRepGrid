@@ -1534,21 +1534,104 @@ bindConstructs <- function(..., index = FALSE) {
 }
 
 
-# @aliases +,repgrid,repgrid-method
-# @docType methods
+#' Join the constructs of a grid with the same reversed constructs.
+#'
+#'
+#' @param x `repgrid` object
+#' @return `repgrid` object
+#'
+#' @export
+#' @keywords internal
+#' @examples \dontrun{
+#'
+#' data(bell2010)
+#' doubleEntry(bell2010)
+#' }
+#'
+doubleEntry <- function(x) {
+  bindConstructs(x, swapPoles(x))
+}
+
+
+#' Concatenate the elements of two grids
+#' @param ... `repgrid` objects or list of objects.
+#' @param .reorder If `TRUE` (default), matches construct order of `y` to `x`.
+#' @param .unique If `FALSE` (default), `x` and `y` may have common elements.
+#' If `FALSE`, they must be mutually exclusive.
+#' @return `repgrid` with combined elements.
+#' @method cbind repgrid
+#' @export
+#' @examples
+#' x <- boeker[, 1:2]
+#' y <- boeker[, 5:7]
+#' cbind(x, y)
+#' x / y
+#' y_reordered <- y[sample(nrow(y)), ]
+#' cbind(x, y, y_reordered)
+cbind.repgrid <- function(..., .reorder = TRUE, .unique = FALSE) {
+  bindElements(..., .reorder = .reorder, .unique = .unique)
+}
+
+
+bindElements <- function(..., .reorder = TRUE, .unique = FALSE) {
+  dots <- unlist(list(...))  # in case list of repgrid objects are supplied
+  is.grid <- sapply(dots, function(x) inherits(x, "repgrid"))
+  .f <- function(x, y) {
+    bindTwoElements(x, y, .reorder = .reorder, .unique = .unique)
+  }
+  Reduce(.f, dots[is.grid])
+}
+
+
+bindTwoElements <- function(x, y, .reorder = TRUE, .unique = FALSE) {
+  stop_if_not_is_repgrid(x, name = "x")
+  stop_if_not_is_repgrid(y, name = "y")
+
+  e_x <- elements(y)
+  e_y <- elements(y)
+  check_unique <- length(intersect(e_x, e_y)) == 0
+  if (.unique && !check_unique) {
+    stop("\nx and y have common elements.\nSet `.unique`=FALSE, to allow for common elements.", call. = FALSE)
+  }
+
+  c_x <- constructs(x, collapse = TRUE)
+  c_y <- constructs(y, collapse = TRUE)
+  check_same_construct_set <- all(sort(c_x) == sort(c_y))
+  if (!check_same_construct_set) {
+    stop("\nx and y have different constructs.\nTo bind grid elements, constructs must be identical", call. = FALSE)
+  }
+  if (.reorder) {
+    ii <- match(c_x, c_y)
+    y <- y[ii, ]
+  }
+  check_same_constructs <- all(constructs(x) == constructs(y))
+  if (!check_same_constructs) {
+    stop("\nConstructs in x and y have different orders.\nSet `.reorder=TRUE` to allow for reordering.", call. = FALSE)
+  }
+
+  if (any(getScale(x) != getScale(y))) {
+    stop("\nx and y must have identical scale ranges.", call. = FALSE)
+  }
+
+  r_y <- ratings(y, trim = NA)
+  for (e in e_y) {
+    x <- addElement(x, e, r_y[, e]) # add add elements of y to x
+  }
+  x
+}
+
 
 #' Concatenate repgrid objects.
 #'
 #' Simple concatenation of repgrid objects or list containing
 #' repgrid objects using the '+' operator.
 #'
-#' Methods for `"+"` function.
 #' @param e1,e2  A `repgrid` object.
 #' @rdname ops-methods
 #' @include repgrid.r
 #' @export
 #' @examples
-#'
+#' # join constructs
 #' x <- bell2010
 #' x + x
 #' x + list(x, x)
@@ -1584,23 +1667,15 @@ setMethod(
 )
 
 
-#' Join the constructs of a grid with the same reversed constructs.
-#'
-#'
-#' @param x `repgrid` object
-#' @return `repgrid` object
-#'
+#' @rdname ops-methods
+#' @include repgrid.r
 #' @export
-#' @keywords internal
-#' @examples \dontrun{
-#'
-#' data(bell2010)
-#' doubleEntry(bell2010)
-#' }
-#'
-doubleEntry <- function(x) {
-  bindConstructs(x, swapPoles(x))
-}
+setMethod(
+  "/", signature(e1 = "repgrid", e2 = "repgrid"),
+  definition = function(e1, e2) {
+    cbind(e1, e2)
+  }
+)
 
 
 #' Return size of a grid.
