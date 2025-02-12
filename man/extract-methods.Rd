@@ -9,7 +9,9 @@
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{i, j}{Row and column indices.}
+\item{i}{Row index (numeric)}
+
+\item{j}{Column index. Either numeric or character (elements names).}
 
 \item{...}{Not evaluated.}
 
@@ -19,11 +21,10 @@
 Methods for \code{"["}, i.e., subsetting of repgrid objects.
 }
 \examples{
-
-x <- randomGrid()
+x <- boeker
 x[1:4, ]
 x[, 1:3]
 x[1:4, 1:3]
-x[1, 1]
+x[1:4, c("self", "ideal self", "mother")]
 
 }
