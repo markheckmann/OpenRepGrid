@@ -76,19 +76,19 @@ stop_if_scale_not_defined <- function(x) {
 #' Methods for `"["`, i.e., subsetting of repgrid objects.
 #'
 #' @param  x  A `repgrid` object.
-#' @param i,j   Row and column indices.
+#' @param i Row index (numeric)
+#' @param j Column index. Either numeric or character (elements names).
 #' @param ...   Not evaluated.
 #' @param drop  Not used.
 #' @rdname extract-methods
 #' @aliases [,repgrid-method
 #' @include repgrid.r
 #' @examples
-#'
-#' x <- randomGrid()
+#' x <- boeker
 #' x[1:4, ]
 #' x[, 1:3]
 #' x[1:4, 1:3]
-#' x[1, 1]
+#' x[1:4, c("self", "ideal self", "mother")]
 #'
 setMethod(
   "[", signature(x = "repgrid", i = "ANY", j = "ANY"),
@@ -108,6 +108,14 @@ setMethod(
     }
     if (missing(j)) {
       j <- seq_len(length(x@elements))
+    }
+    if (is.character(j)) {
+      ii <- match(j, elements(x))
+      idx_unknown <- is.na(ii)
+      if (any(idx_unknown)) {
+        stop("\nUnknown elements: ", paste(j[idx_unknown], collapse = ", "), call. = FALSE)
+      }
+      j <- ii
     }
     if (!is.numeric(c(i, j))) { # check if i,j are numeric
       stop("All index values must be numeric")

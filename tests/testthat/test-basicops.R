@@ -47,6 +47,22 @@ test_that("reverse works correctly", {
 })
 
 
+
+test_that("extract element by name", {
+  x <- boeker[, 1:2]
+  y <- boeker[, c("self", "ideal self")]
+  expect_equal(x, y)
+
+  ii <- sample(ncol(boeker))
+  el <- elements(boeker)[ii]
+  x <- boeker[, ii]
+  y <- boeker[, el]
+  expect_equal(x, y)
+
+  expect_error(boeker[, c("xxx", "yyy")], regex = "Unknown elements: xxx, yyy")
+})
+
+
 test_that("cbind and `/`", {
   x <- boeker[, 1:2]
   y <- boeker[, 5:6]

@@ -1,5 +1,6 @@
 # OpenRepGrid (0.1.17, dev version)
 
+* subsetting columns using elements names (`boeker[, c("self", "ideal self")]`) (#48)
 * `cbind` and `/` to bind elements by combining the columns of the grids (#46)
 
 # OpenRepGrid 0.1.16
