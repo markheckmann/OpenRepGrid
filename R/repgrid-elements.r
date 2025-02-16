@@ -178,13 +178,18 @@ elements <- function(x) {
 }
 
 
+#' @export
+#' @keywords internal
+names.repgrid <- function(x) {
+  stop_if_not_is_repgrid(x)
+  elements(x)
+}
+
+
 getNoOfElements <- function(x) {
-  if (!inherits(x, "repgrid")) { # check if x is repgrid object
-    stop("Object x must be of class 'repgrid'.")
-  }
+  stop_if_not_is_repgrid(x)
   length(x@elements)
 }
-# getNoOfElements(rg1)
 
 
 # internal: e.makeNewElement makes a new element object which is simply list with certain standard

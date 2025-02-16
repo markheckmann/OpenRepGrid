@@ -1,5 +1,6 @@
 # OpenRepGrid (0.1.17, dev version)
 
+* `names` now returns element names as alternative to `elements()`.
 * subsetting columns using elements names (`boeker[, c("self", "ideal self")]`) (#48)
 * `cbind` and `/` to bind elements by combining the columns of the grids (#46)
 
