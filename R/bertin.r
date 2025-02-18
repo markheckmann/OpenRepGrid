@@ -292,11 +292,13 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     y1.lines <- ylim[2]
     y2.lines <- y1.lines + cascade(ncol) * height.strokes # upper end of bertin main plus offset
     segments(x.lines, y1.lines, x.lines, y2.lines, col = col.lines)
+    # left element side
     text(x.lines[index$left] + elements.offset[1],
       y2.lines[index$left] + elements.offset[2],
       labels = labels.elements[index$left], adj = c(1, 0), cex = cex.elements,
       xpd = TRUE, col = col.e.and.c
     )
+    # right element side
     text(x.lines[index$right] - elements.offset[1],
       y2.lines[index$right] + elements.offset[2],
       labels = labels.elements[index$right], adj = c(0, 0), cex = cex.elements,
@@ -312,10 +314,12 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     labels.left <- baseSplitString(labels.left, availwidth = (xlim[1] - margins[1]) * .95, cex = cex.text)
     labels.right <- baseSplitString(labels.right, availwidth = (margins[3] - xlim[2]) * .95, cex = cex.text)
     par(lheight = lheight) # set lineheight
+    # left poles
     text(xlim[1] - text.margin, y1[1:nrow] + cell.height / 2,
       labels = labels.left,
       cex = cex.constructs, adj = 1, xpd = TRUE, col = col.e.and.c
     )
+    # right poles
     text(xlim[2] + text.margin, y1[1:nrow] + cell.height / 2,
       labels = labels.right,
       cex = cex.constructs, adj = 0, xpd = TRUE, col = col.e.and.c
@@ -584,7 +588,7 @@ bertin <- function(x, colors = c("white", "black"), showvalues = TRUE,
     labels.right = constructs(x)$rightpole,
     col.fill = col.fill,
     xlim = xlim, ylim = ylim, margins = margins,
-    cex.elements = cex.elements, cex.constructs = cex.elements,
+    cex.elements = cex.elements, cex.constructs = cex.constructs,
     cex.text = cex.text, col.text = col.text,
     border = border, lheight = lheight, id = id, cc = cc, cr = cr, cc.old = cc.old, cr.old = cr.old,
     col.mark.fill = col.mark.fill, print = print, ...
