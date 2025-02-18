@@ -504,6 +504,8 @@ biplotSimple <- function(x, dim = 1:2, center = 1, normalize = 0,
 #'                      is supplied (e.g. `"black"`) no mapping occurs and all construct labels
 #'                      will have the same color irrespective of their value on the `map.dim`
 #'                      dimension.
+#' @param c.label.col.left,c.label.col.right Explicit color values for left and right construct poles.
+#'                      `NULL` by default. Will overwrite `c.label.col`.
 #' @param c.label.cex   Size of the construct labels. Two values can be entered that will
 #'                      represents the lower and upper size of a range of cex the values of `map.dim`
 #'                      are mapped onto. The default is `c(.4, .8)`. If only one cex value
@@ -541,6 +543,8 @@ prepareBiplotData <- function(x, dim = c(1, 2), map.dim = 3,
                               c.label.cex = .6,
                               e.label.col = "black",
                               c.label.col = grey(.8),
+                              c.label.col.left = NULL,
+                              c.label.col.right = NULL,
                               e.point.cex = .7,
                               c.point.cex = .8,
                               e.point.col = "black",
@@ -572,13 +576,13 @@ prepareBiplotData <- function(x, dim = c(1, 2), map.dim = 3,
   #  c.cex.map <- rep(c.cex.map, 2)
 
   if (length(e.label.col) == 1) { # label color(s) for elements
-    e.label.col <- rep(e.label.col, 2)
+    e.label.col <- rep(e.label.col, ncol(x))
   }
   if (length(c.label.col) == 1) { # label color(s) for constructs
-    c.label.col <- rep(c.label.col, 2)
+    c.label.col <- rep(c.label.col, nrow(x))
   }
   if (length(e.point.col) == 1) { # point color(s) for elements
-    e.point.col <- rep(e.point.col, 2)
+    e.point.col <- rep(e.point.col, ncol(x))
   }
   if (length(c.point.col) == 1) { # point color(s) for constructs
     c.point.col <- rep(c.point.col, 2)
@@ -665,31 +669,36 @@ prepareBiplotData <- function(x, dim = c(1, 2), map.dim = 3,
 
   # plot coords for all points
   z <- subset(df, type == "e", sel = z) # z scores for elements
-  # cex.e <- mapCoordinatesToValue(z, e.cex.map)
   cex.label.e <- mapCoordinatesToValue(z, e.label.cex)
   cex.point.e <- mapCoordinatesToValue(z, e.point.cex)
-  # color.e <- mapCoordinatesToColor(z, color=e.color, val.range=e.color.map)
-  color.label.e <- mapCoordinatesToColor(z, colors = e.label.col, val.range = e.color.map)
-  color.point.e <- mapCoordinatesToColor(z, colors = e.point.col, val.range = e.color.map)
-
+  if (length(e.label.col) == ncol(x)) {
+    color.label.e <- e.label.col
+  } else {
+    color.label.e <- mapCoordinatesToColor(z, colors = e.label.col, val.range = e.color.map)
+  }
+  if (length(e.point.col) == ncol(x)) {
+    color.point.e <- e.point.col
+  } else {
+    color.point.e <- mapCoordinatesToColor(z, colors = e.point.col, val.range = e.color.map)
+  }
   z <- subset(df, type == "cl", sel = z)
-  # cex.cl <- mapCoordinatesToValue(z, c.cex.map)
   cex.label.cl <- mapCoordinatesToValue(z, c.label.cex)
   cex.point.cl <- mapCoordinatesToValue(z, c.point.cex)
-  # color.cl <- mapCoordinatesToColor(z, color=c.color, val.range=c.color.map)
-  color.label.cl <- mapCoordinatesToColor(z, colors = c.label.col, val.range = c.color.map)
+  if (!is.null(c.label.col.left)) {
+    color.label.cl <- rep_len(c.label.col.left, nrow(x))
+  } else {
+    color.label.cl <- mapCoordinatesToColor(z, colors = c.label.col, val.range = c.color.map)
+  }
   color.point.cl <- mapCoordinatesToColor(z, colors = c.point.col, val.range = c.color.map)
-
   z <- subset(df, type == "cr", sel = z)
-  # cex.cr <- mapCoordinatesToValue(z, c.cex.map)
   cex.label.cr <- mapCoordinatesToValue(z, c.label.cex)
   cex.point.cr <- mapCoordinatesToValue(z, c.point.cex)
-  # color.cr <- mapCoordinatesToColor(z, color=c.color, val.range=c.color.map)
-  color.label.cr <- mapCoordinatesToColor(z, colors = c.label.col, val.range = c.color.map)
+  if (!is.null(c.label.col.right)) {
+    color.label.cr <- rep_len(c.label.col.right, nrow(x))
+  } else {
+    color.label.cr <- mapCoordinatesToColor(z, colors = c.label.col, val.range = c.color.map)
+  }
   color.point.cr <- mapCoordinatesToColor(z, colors = c.point.col, val.range = c.color.map)
-
-  # df$cex <- unlist(rbind(cex.e, cex.cl, cex.cr))
-  # df$color <- c(color.e, color.cl, color.cr)
   df$label.col <- c(color.label.e, color.label.cl, color.label.cr)
   df$point.col <- c(color.point.e, color.point.cl, color.point.cr)
   df$label.cex <- unlist(c(cex.label.e, cex.label.cl, cex.label.cr))
@@ -1382,6 +1391,8 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
 #'                            If only one color color value is supplied (e.g. `"black"`)
 #'                            no mapping occurs and all labels will have the same color
 #'                            irrespective of their value on the `map.dim` dimension.
+#' @param c.label.col.left,c.label.col.right Explicit color values for left and right construct poles.
+#'                      `NULL` by default. Will overwrite `c.label.col`.
 #' @param c.label.cex         Size of the construct labels. The default is `.7`.
 #'                            Two values can be entered that will create a size ramp. The values of
 #'                            `map.dim` are mapped onto the ramp.
@@ -1534,6 +1545,8 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      c.point.col = "black",
                      c.point.cex = 0, # construct positions are not displayed by default
                      c.label.col = "black",
+                     c.label.col.left = NULL,
+                     c.label.col.right = NULL,
                      c.label.cex = .7,
                      c.color.map = c(.4, 1),
                      # e.cex.map=.7,
@@ -1574,6 +1587,7 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     dim = dim, map.dim = map.dim,
     e.label.cex = e.label.cex, c.label.cex = c.label.cex,
     e.label.col = e.label.col, c.label.col = c.label.col,
+    c.label.col.left = c.label.col.left, c.label.col.right = c.label.col.right,
     e.point.cex = e.point.cex, c.point.cex = c.point.cex,
     e.point.col = e.point.col, c.point.col = c.point.col,
     # e.color=e.color, c.color=c.color,
