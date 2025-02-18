@@ -1,5 +1,7 @@
 # OpenRepGrid (0.1.17, dev version)
 
+* `bertin` gains the arguments `col.c.left`, `col.c.right`, `col.e` and `col.e.lines` to set the color of the construct
+  poles, elements and element lines (#51).
 * `names` now returns element names as alternative to `elements()`.
 * subsetting columns using elements names (`boeker[, c("self", "ideal self")]`) (#48)
 * `cbind` and `/` to bind elements by combining the columns of the grids (#46)

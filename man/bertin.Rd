@@ -17,7 +17,11 @@ bertin(
   col.text = NA,
   border = "white",
   lheight = 0.75,
-  id = c(T, T),
+  id = c(TRUE, TRUE),
+  col.e = "black",
+  col.c.left = "black",
+  col.c.right = "black",
+  col.e.lines = "black",
   cc = 0,
   cr = 0,
   cc.old = 0,
@@ -63,6 +67,12 @@ the color is set independent of background.}
 
 \item{id}{Logical. Whether to print id number for constructs and elements
 respectively (default \code{c(T,T)}).}
+
+\item{col.e}{Color of elements.}
+
+\item{col.c.left, col.c.right}{Color of left and right conctructs poles.}
+
+\item{col.e.lines}{Color of vertical elements lines.}
 
 \item{cc}{Numeric. Current column to mark.}
 

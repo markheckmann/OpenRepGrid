@@ -253,7 +253,9 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
                        text.margin = 0.005, elements.offset = c(0.002, 0.002),
                        id = c(T, T), cc = 0, cr = 0, cc.old = 0, cr.old = 0,
                        col.mark.fill = "#FCF5A4", print = TRUE, byrow = FALSE, add = FALSE,
-                       col.lines = "black", col.e.and.c = "black", ...) {
+                       col.e.lines = "black",
+                       col.e = "black", col.c.left = "black", col.c.right = "black",
+                       ...) {
   if (byrow) {
     labels <- as.vector(matrix(labels, nrow = nrow, ncol = ncol, byrow = TRUE))
   }
@@ -275,6 +277,9 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
   }
 
   makeElements <- function() { #### elements
+    col.e <- rep(col.e, length.out = ncol)
+    col.e.lines <- rep(col.e.lines, length.out = ncol)
+
     index <- cascade(ncol, type = 2)
     if (id[2]) {
       labels.elements[index$left] <- paste(
@@ -291,22 +296,25 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     x.lines <- xlim[1] + x1.o * diff(xlim) + cell.width / 2
     y1.lines <- ylim[2]
     y2.lines <- y1.lines + cascade(ncol) * height.strokes # upper end of bertin main plus offset
-    segments(x.lines, y1.lines, x.lines, y2.lines, col = col.lines)
+    segments(x.lines, y1.lines, x.lines, y2.lines, col = col.e.lines)
     # left element side
     text(x.lines[index$left] + elements.offset[1],
       y2.lines[index$left] + elements.offset[2],
       labels = labels.elements[index$left], adj = c(1, 0), cex = cex.elements,
-      xpd = TRUE, col = col.e.and.c
+      xpd = TRUE, col = col.e[index$left],
     )
     # right element side
     text(x.lines[index$right] - elements.offset[1],
       y2.lines[index$right] + elements.offset[2],
       labels = labels.elements[index$right], adj = c(0, 0), cex = cex.elements,
-      xpd = TRUE, col = col.e.and.c
+      xpd = TRUE, col = col.e[index$right]
     )
   }
 
   makeConstructs <- function() { ### constructs
+    col.c.left <- rep(col.c.left, length.out = nrow)
+    col.c.right <- rep(col.c.right, length.out = nrow)
+
     if (id[1]) {
       labels.left <- paste(labels.left, " (", 1:nrow, ")", sep = "")
       labels.right <- paste("(", 1:nrow, ") ", labels.right, sep = "")
@@ -317,12 +325,12 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     # left poles
     text(xlim[1] - text.margin, y1[1:nrow] + cell.height / 2,
       labels = labels.left,
-      cex = cex.constructs, adj = 1, xpd = TRUE, col = col.e.and.c
+      cex = cex.constructs, adj = 1, xpd = TRUE, col = col.c.left
     )
     # right poles
     text(xlim[2] + text.margin, y1[1:nrow] + cell.height / 2,
       labels = labels.right,
-      cex = cex.constructs, adj = 0, xpd = TRUE, col = col.e.and.c
+      cex = cex.constructs, adj = 0, xpd = TRUE, col = col.c.right
     )
   }
 
@@ -524,6 +532,9 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
 #'                        background color. If the background ist bright the text
 #'                        will be black and vice versa. When a color is specified
 #'                        the color is set independent of background.
+#' @param col.e           Color of elements.
+#' @param col.e.lines     Color of vertical elements lines.
+#' @param col.c.left,col.c.right Color of left and right conctructs poles.
 #' @param border          Border color of the bertin cells (default `white`).
 #' @param lheight         Line height for constructs.
 #' @param id              Logical. Whether to print id number for constructs and elements
@@ -564,7 +575,8 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
 bertin <- function(x, colors = c("white", "black"), showvalues = TRUE,
                    xlim = c(.2, .8), ylim = c(0, .6), margins = c(0, 1, 1),
                    cex.elements = .7, cex.constructs = .7, cex.text = .6, col.text = NA,
-                   border = "white", lheight = .75, id = c(T, T),
+                   border = "white", lheight = .75, id = c(TRUE, TRUE),
+                   col.e = "black", col.c.left = "black", col.c.right = "black", col.e.lines = "black",
                    cc = 0, cr = 0, cc.old = 0, cr.old = 0, col.mark.fill = "#FCF5A4", print = TRUE,
                    ...) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
@@ -590,6 +602,7 @@ bertin <- function(x, colors = c("white", "black"), showvalues = TRUE,
     xlim = xlim, ylim = ylim, margins = margins,
     cex.elements = cex.elements, cex.constructs = cex.constructs,
     cex.text = cex.text, col.text = col.text,
+    col.e = col.e, col.c.left = col.c.left, col.c.right = col.c.right, col.e.lines = col.e.lines,
     border = border, lheight = lheight, id = id, cc = cc, cr = cr, cc.old = cc.old, cr.old = cr.old,
     col.mark.fill = col.mark.fill, print = print, ...
   )
