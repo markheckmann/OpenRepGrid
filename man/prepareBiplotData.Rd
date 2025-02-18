@@ -12,6 +12,8 @@ prepareBiplotData(
   c.label.cex = 0.6,
   e.label.col = "black",
   c.label.col = grey(0.8),
+  c.label.col.left = NULL,
+  c.label.col.right = NULL,
   e.point.cex = 0.7,
   c.point.cex = 0.8,
   e.point.col = "black",
@@ -65,6 +67,9 @@ The default is \code{c("white", "black")}. If only one color color value
 is supplied (e.g. \code{"black"}) no mapping occurs and all construct labels
 will have the same color irrespective of their value on the \code{map.dim}
 dimension.}
+
+\item{c.label.col.left, c.label.col.right}{Explicit color values for left and right construct poles.
+\code{NULL} by default. Will overwrite \code{c.label.col}.}
 
 \item{e.point.cex}{Size of the element symbols. Two values can be entered that will
 represents the lower and upper size of a range of cex the values of \code{map.dim}

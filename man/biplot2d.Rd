@@ -22,6 +22,8 @@ biplot2d(
   c.point.col = "black",
   c.point.cex = 0,
   c.label.col = "black",
+  c.label.col.left = NULL,
+  c.label.col.right = NULL,
   c.label.cex = 0.7,
   c.color.map = c(0.4, 1),
   c.points.devangle = 91,
@@ -142,6 +144,9 @@ Two values can be entered that will create a color ramp. The values of
 If only one color color value is supplied (e.g. \code{"black"})
 no mapping occurs and all labels will have the same color
 irrespective of their value on the \code{map.dim} dimension.}
+
+\item{c.label.col.left, c.label.col.right}{Explicit color values for left and right construct poles.
+\code{NULL} by default. Will overwrite \code{c.label.col}.}
 
 \item{c.label.cex}{Size of the construct labels. The default is \code{.7}.
 Two values can be entered that will create a size ramp. The values of
