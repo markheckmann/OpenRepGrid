@@ -1108,7 +1108,7 @@ alignByIdeal <- function(x, ideal, high = TRUE) {
 #' @param  p  The power of the Minkowski distance, in case `"minkowski"` is used as argument for `dmethod`.
 #' @param align Whether the constructs should be aligned before clustering (default is `TRUE`). If not, the grid matrix
 #'   is clustered as is. See Details section for more information.
-#' @param trim the number of characters a construct is trimmed to (default is `10`). If `NA` no trimming is done.
+#' @param trim the number of characters a construct is trimmed to. If `NA` (default), no trimming is done.
 #'   Trimming simply saves space when displaying the output.
 #' @param main Title of plot. The default is a name indicating the distance function and cluster method.
 #' @param mar Define the plot region (bottom, left, upper, right).
@@ -1301,14 +1301,14 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #'
 clusterBoot <- function(x, along = 1, align = TRUE, dmethod = "euclidean",
                         cmethod = "ward.D", p = 2, nboot = 1000,
-                        r = seq(.8, 1.4, by = .1), seed = NULL, ...) {
+                        r = seq(.8, 1.4, by = .1), seed = NULL, trim = NA, ...) {
   if (!along %in% 1:2) {
     stop("along must either be 1 for constructs (default) or 2 for element clustering", call. = FALSE)
   }
   if (align) {
     x <- align(x)
   }
-  xr <- getRatingLayer(x)
+  xr <- getRatingLayer(x, trim = trim)
   if (!is.null(seed) & is.numeric(seed)) {
     set.seed(seed)
   }
@@ -1318,6 +1318,7 @@ clusterBoot <- function(x, along = 1, align = TRUE, dmethod = "euclidean",
   pv.e <- pvclust::pvclust(xr, method.hclust = cmethod, method.dist = dmethod, r = r, nboot = nboot, ...)
   pv.e
 }
+
 
 #' Normalize rows or columns by its standard deviation.
 #'
