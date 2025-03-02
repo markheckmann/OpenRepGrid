@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Prepare dataframe passed to drawing functions for biplots.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.16/R/repgrid-plots.r" class="external-link"><code>R/repgrid-plots.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/R/repgrid-plots.r" class="external-link"><code>R/repgrid-plots.r</code></a></small>
       <div class="d-none name"><code>prepareBiplotData.Rd</code></div>
     </div>
 
@@ -49,6 +49,8 @@
 <span>  c.label.cex <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>  e.label.col <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  c.label.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/gray.html" class="external-link">grey</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>  c.label.col.left <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  c.label.col.right <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  e.point.cex <span class="op">=</span> <span class="fl">0.7</span>,</span>
 <span>  c.point.cex <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  e.point.col <span class="op">=</span> <span class="st">"black"</span>,</span>
@@ -119,6 +121,11 @@ The default is <code>c("white", "black")</code>. If only one color color value
 is supplied (e.g. <code>"black"</code>) no mapping occurs and all construct labels
 will have the same color irrespective of their value on the <code>map.dim</code>
 dimension.</p></dd>
+
+
+<dt id="arg-c-label-col-left-c-label-col-right">c.label.col.left, c.label.col.right<a class="anchor" aria-label="anchor" href="#arg-c-label-col-left-c-label-col-right"></a></dt>
+<dd><p>Explicit color values for left and right construct poles.
+<code>NULL</code> by default. Will overwrite <code>c.label.col</code>.</p></dd>
 
 
 <dt id="arg-e-point-cex">e.point.cex<a class="anchor" aria-label="anchor" href="#arg-e-point-cex"></a></dt>

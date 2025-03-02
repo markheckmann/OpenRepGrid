@@ -13,7 +13,7 @@ additional p-values. Two kinds of p-values are reported: bootstrap probabilities
 
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@ additional p-values. Two kinds of p-values are reported: bootstrap probabilities
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Multiscale bootstrap cluster analysis.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.16/R/calc.r" class="external-link"><code>R/calc.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/R/calc.r" class="external-link"><code>R/calc.r</code></a></small>
       <div class="d-none name"><code>clusterBoot.Rd</code></div>
     </div>
 
@@ -60,6 +60,7 @@ additional p-values. Two kinds of p-values are reported: bootstrap probabilities
 <span>  nboot <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">1.4</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>,</span>
 <span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trim <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -111,6 +112,11 @@ type <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">?di
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Random seed for bootstrapping. Can be set for reproducibility (see
 <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>). Usually not needed.</p></dd>
+
+
+<dt id="arg-trim">trim<a class="anchor" aria-label="anchor" href="#arg-trim"></a></dt>
+<dd><p>the number of characters a construct is trimmed to. If <code>NA</code> (default), no trimming is done.
+Trimming simply saves space when displaying the output.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

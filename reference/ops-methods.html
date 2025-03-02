@@ -9,7 +9,7 @@ repgrid objects using the '+' operator."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@ repgrid objects using the '+' operator."><meta property="og:image" content="http
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Concatenate repgrid objects.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.16/R/repgrid-basicops.r" class="external-link"><code>R/repgrid-basicops.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/R/repgrid-basicops.r" class="external-link"><code>R/repgrid-basicops.r</code></a></small>
       <div class="d-none name"><code>ops-methods.Rd</code></div>
     </div>
 
@@ -51,7 +51,10 @@ repgrid objects using the '+' operator.</p>
 <span><span class="va">e1</span> <span class="op">+</span> <span class="va">e2</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'repgrid,list'</span></span>
-<span><span class="va">e1</span> <span class="op">+</span> <span class="va">e2</span></span></code></pre></div>
+<span><span class="va">e1</span> <span class="op">+</span> <span class="va">e2</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'repgrid,repgrid'</span></span>
+<span><span class="va">e1</span><span class="op">/</span><span class="va">e2</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -62,14 +65,10 @@ repgrid objects using the '+' operator.</p>
 <dd><p>A <code>repgrid</code> object.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Methods for <code>"+"</code> function.</p>
-    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># join constructs</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">bell2010</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">+</span> <span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

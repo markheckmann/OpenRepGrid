@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,9 +31,23 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.16/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.17" id="openrepgrid-0117">OpenRepGrid 0.1.17<a class="anchor" aria-label="anchor" href="#openrepgrid-0117"></a></h2><p class="text-muted">CRAN release: 2025-03-02</p>
+<ul><li>
+<code>clusterBoot</code> gains <code>trim</code> arg. Construct labels in dendrogram are no longer trimmed by default (<a href="https://github.com/markheckmann/OpenRepGrid/issues/58" class="external-link">#58</a>).</li>
+<li>
+<code>biplot2d</code>: improved color options for elements and constructs. New args <code>c.label.col.left</code>, <code>c.label.col.right</code>. Args <code>e.label.col</code>, <code>c.label.col</code>, and <code>e.point.col</code> now vectorized.</li>
+<li>
+<code>bertin</code> gains the arguments <code>col.c.left</code>, <code>col.c.right</code>, <code>col.e</code> and <code>col.e.lines</code> to set the color of the construct poles, elements and element lines (<a href="https://github.com/markheckmann/OpenRepGrid/issues/51" class="external-link">#51</a>).</li>
+<li>
+<code>names</code> now returns element names as alternative to <code><a href="../reference/elements.html">elements()</a></code>.</li>
+<li>subsetting columns using elements names (<code>boeker[, c("self", "ideal self")]</code>) (<a href="https://github.com/markheckmann/OpenRepGrid/issues/48" class="external-link">#48</a>)</li>
+<li>
+<code>cbind</code> and <code>/</code> to bind elements by combining the columns of the grids (<a href="https://github.com/markheckmann/OpenRepGrid/issues/46" class="external-link">#46</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.16" id="openrepgrid-0116">OpenRepGrid 0.1.16<a class="anchor" aria-label="anchor" href="#openrepgrid-0116"></a></h2><p class="text-muted">CRAN release: 2024-12-02</p>
 <ul><li>Improved documentation as required during <a href="https://github.com/openjournals/joss-reviews/issues/6918" class="external-link">JOSS</a> review.</li>

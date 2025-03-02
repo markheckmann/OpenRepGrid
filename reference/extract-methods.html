@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Extract parts of the repgrid object.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.16/R/repgrid-basicops.r" class="external-link"><code>R/repgrid-basicops.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/R/repgrid-basicops.r" class="external-link"><code>R/repgrid-basicops.r</code></a></small>
       <div class="d-none name"><code>extract-methods.Rd</code></div>
     </div>
 
@@ -53,8 +53,12 @@
 <dd><p>A <code>repgrid</code> object.</p></dd>
 
 
-<dt id="arg-i-j">i, j<a class="anchor" aria-label="anchor" href="#arg-i-j"></a></dt>
-<dd><p>Row and column indices.</p></dd>
+<dt id="arg-i">i<a class="anchor" aria-label="anchor" href="#arg-i"></a></dt>
+<dd><p>Row index (numeric)</p></dd>
+
+
+<dt id="arg-j">j<a class="anchor" aria-label="anchor" href="#arg-j"></a></dt>
+<dd><p>Column index. Either numeric or character (elements names).</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -68,8 +72,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="randomGrid.html">randomGrid</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">boeker</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> META DATA:</span>
@@ -77,46 +80,50 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of elements:  15 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SCALE INFO:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 5 (right pole)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 6 (right pole)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RATINGS:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                    8 - by flees                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     beyond she - 7 | 9 - I customer Mark who          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  by essentially good Johnson - 6 | | | 10 - Brownstone him is airplane</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ricks initially initially  - 5 | | | | | 11 - Harry the money away    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             customer man - 4 | | | | | | | 12 - Harry activity        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  beyond fishing initia - 3 | | | | | | | | | 13 - paying back has nove</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       the has forces - 2 | | | | | | | | | | | 14 - what of           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                she - 1 | | | | | | | | | | | | | 15 - an back is essen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                    8 - martin                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         george - 7 | 9 - elizabeth                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         karl - 6 | | | 10 - therapist                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       kurt - 5 | | | | | 11 - irene                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   father - 4 | | | | | | | 12 - childhood self        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 mother - 3 | | | | | | | | | 13 - self before illness </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           ideal self - 2 | | | | | | | | | | | 14 - self with delusion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               self - 1 | | | | | | | | | | | | | 15 - self as dreamer </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      | | | | | | | | | | | | | | |                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      the Mark (1)</span>   2 1 5 5 4 1 2 1 4 2 1 5 1 3 1   <span style="color: #BBBBBB;">(1) he           </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ng man economi (2)</span>   2 1 5 1 1 3 2 3 1 4 2 5 5 1 5   <span style="color: #BBBBBB;">(2) forces his   </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ricks into man (3)</span>   2 4 5 1 1 5 4 3 4 3 4 5 4 3 5   <span style="color: #BBBBBB;">(3) his customer </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">he him the man (4)</span>   4 4 3 4 4 4 5 1 5 2 2 3 4 5 1   <span style="color: #BBBBBB;">(4) good away the</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      balanced (1)</span>   1 4 2 2 3 5 2 5 4 2 6 2 2 3 3   <span style="color: #BBBBBB;">(1) get along wit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      isolated (2)</span>   3 6 3 5 5 4 5 4 5 4 4 4 2 2 3   <span style="color: #BBBBBB;">(2) sociable     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ely integrated (3)</span>   2 2 2 3 5 3 2 3 2 3 3 4 4 5 3   <span style="color: #BBBBBB;">(3) excluded     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">    discursive (4)</span>   4 1 3 1 2 4 2 3 3 2 3 3 3 5 4   <span style="color: #BBBBBB;">(4) passive      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> META DATA:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of constructs:  10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of constructs:  14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of elements:  3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SCALE INFO:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 5 (right pole)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 6 (right pole)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RATINGS:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        2 - the has forces     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                she - 1 | 3 - economic beyond f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        2 - ideal self         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               self - 1 | 3 - mother           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      | | |                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      the Mark (1)</span>   2 1 5   <span style="color: #BBBBBB;">(1) he           </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ng man economi (2)</span>   2 1 5   <span style="color: #BBBBBB;">(2) forces his   </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ricks into man (3)</span>   2 4 5   <span style="color: #BBBBBB;">(3) his customer </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">he him the man (4)</span>   4 4 3   <span style="color: #BBBBBB;">(4) good away the</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">   is customer (5)</span>   2 1 3   <span style="color: #BBBBBB;">(5) Harry away   </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;"> Harry fishing (6)</span>   3 4 2   <span style="color: #BBBBBB;">(6) she an Mr. Ma</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">essentially is (7)</span>   1 4 3   <span style="color: #BBBBBB;">(7) initially for</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">the as is away (8)</span>   4 5 1   <span style="color: #BBBBBB;">(8) Johnson I act</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">hout owes away (9)</span>   5 5 5   <span style="color: #BBBBBB;">(9) he he into de</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">good airplane (10)</span>   4 3 5   <span style="color: #BBBBBB;">(10) charter cust</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      balanced (1)</span>   1 4 2   <span style="color: #BBBBBB;">(1) get along wit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      isolated (2)</span>   3 6 3   <span style="color: #BBBBBB;">(2) sociable     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ely integrated (3)</span>   2 2 2   <span style="color: #BBBBBB;">(3) excluded     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">    discursive (4)</span>   4 1 3   <span style="color: #BBBBBB;">(4) passive      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">   open minded (5)</span>   2 1 2   <span style="color: #BBBBBB;">(5) indifferent  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">        dreamy (6)</span>   4 5 3   <span style="color: #BBBBBB;">(6) dispassionate</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">cally oriented (7)</span>   2 1 3   <span style="color: #BBBBBB;">(7) depressed    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">       playful (8)</span>   4 5 4   <span style="color: #BBBBBB;">(8) serious      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ocially minded (9)</span>   2 1 3   <span style="color: #BBBBBB;">(9) selfish      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">  quarrelsome (10)</span>   5 5 5   <span style="color: #BBBBBB;">(10) peaceful    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">     artistic (11)</span>   5 1 2   <span style="color: #BBBBBB;">(11) technical   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">   scientific (12)</span>   2 1 5   <span style="color: #BBBBBB;">(12) emotional   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">    introvert (13)</span>   4 5 4   <span style="color: #BBBBBB;">(13) extrovert   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">   wanderlust (14)</span>   1 1 4   <span style="color: #BBBBBB;">(14) home oriente</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -125,30 +132,34 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of elements:  3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SCALE INFO:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 5 (right pole)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 6 (right pole)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RATINGS:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        2 - the has forces     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                she - 1 | 3 - economic beyond f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        2 - ideal self         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               self - 1 | 3 - mother           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      | | |                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      the Mark (1)</span>   2 1 5   <span style="color: #BBBBBB;">(1) he           </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ng man economi (2)</span>   2 1 5   <span style="color: #BBBBBB;">(2) forces his   </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ricks into man (3)</span>   2 4 5   <span style="color: #BBBBBB;">(3) his customer </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">he him the man (4)</span>   4 4 3   <span style="color: #BBBBBB;">(4) good away the</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      balanced (1)</span>   1 4 2   <span style="color: #BBBBBB;">(1) get along wit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      isolated (2)</span>   3 6 3   <span style="color: #BBBBBB;">(2) sociable     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ely integrated (3)</span>   2 2 2   <span style="color: #BBBBBB;">(3) excluded     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">    discursive (4)</span>   4 1 3   <span style="color: #BBBBBB;">(4) passive      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"self"</span>, <span class="st">"ideal self"</span>, <span class="st">"mother"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> META DATA:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of constructs:  1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of elements:  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of constructs:  4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of elements:  3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SCALE INFO:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 5 (right pole)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The grid is rated on a scale from 1 (left pole) to 6 (right pole)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RATINGS:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                she - 1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                |         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">the Mark (1)</span>   2   <span style="color: #BBBBBB;">(1) he</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        2 - ideal self         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               self - 1 | 3 - mother           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      | | |                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      balanced (1)</span>   1 4 2   <span style="color: #BBBBBB;">(1) get along wit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">      isolated (2)</span>   3 6 3   <span style="color: #BBBBBB;">(2) sociable     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">ely integrated (3)</span>   2 2 2   <span style="color: #BBBBBB;">(3) excluded     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBBBB;">    discursive (4)</span>   4 1 3   <span style="color: #BBBBBB;">(4) passive      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

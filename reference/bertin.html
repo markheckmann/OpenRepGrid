@@ -19,7 +19,7 @@ values correspond to low, dark to high scores. For an example of how to analyze 
 
     <a class="navbar-brand me-2" href="../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@ values correspond to low, dark to high scores. For an example of how to analyze 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Make Bertin display of grid data.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.16/R/bertin.r" class="external-link"><code>R/bertin.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/R/bertin.r" class="external-link"><code>R/bertin.r</code></a></small>
       <div class="d-none name"><code>bertin.Rd</code></div>
     </div>
 
@@ -72,7 +72,11 @@ values correspond to low, dark to high scores. For an example of how to analyze 
 <span>  col.text <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  border <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>  lheight <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  col.e <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  col.c.left <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  col.c.right <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  col.e.lines <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  cc <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  cr <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  cc.old <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -147,6 +151,18 @@ the color is set independent of background.</p></dd>
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>Logical. Whether to print id number for constructs and elements
 respectively (default <code>c(T,T)</code>).</p></dd>
+
+
+<dt id="arg-col-e">col.e<a class="anchor" aria-label="anchor" href="#arg-col-e"></a></dt>
+<dd><p>Color of elements.</p></dd>
+
+
+<dt id="arg-col-c-left-col-c-right">col.c.left, col.c.right<a class="anchor" aria-label="anchor" href="#arg-col-c-left-col-c-right"></a></dt>
+<dd><p>Color of left and right conctructs poles.</p></dd>
+
+
+<dt id="arg-col-e-lines">col.e.lines<a class="anchor" aria-label="anchor" href="#arg-col-e-lines"></a></dt>
+<dd><p>Color of vertical elements lines.</p></dd>
 
 
 <dt id="arg-cc">cc<a class="anchor" aria-label="anchor" href="#arg-cc"></a></dt>
