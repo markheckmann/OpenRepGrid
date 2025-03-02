@@ -1,8 +1,8 @@
 ## Test environments
 
-* MacOS 14.7.1, R 4.4.2
-* Microsoft Windows Server 2022, R 4.4.2
-* Ubuntu 22.04.5 LTS, R 4.4.2
+* MacOS 14.7.2, R 4.4.3
+* Microsoft Windows Server 2022, R 4.4.3
+* Ubuntu 22.04.2 LTS, R 4.4.3
 
 ## R CMD check results
 
