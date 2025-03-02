@@ -1,4 +1,4 @@
-# OpenRepGrid (0.1.17, dev version)
+# OpenRepGrid 0.1.17
 
 * `clusterBoot` gains `trim` arg. Construct labels in dendrogram are no longer trimmed by default (#58).
 * `biplot2d`: improved color options for elements and constructs. New args `c.label.col.left`, `c.label.col.right`.
