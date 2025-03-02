@@ -9,7 +9,7 @@
 status](https://www.r-pkg.org/badges/version/OpenRepGrid)](https://CRAN.R-project.org/package=OpenRepGrid)
 [![](https://cranlogs.r-pkg.org/badges/OpenRepGrid)](https://cran.rstudio.com/web/packages/OpenRepGrid/index.html)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/OpenRepGrid)](https://cran.r-project.org/package=OpenRepGrid)
-[![](https://img.shields.io/badge/devel-v0.1.17-blue.svg)](https://github.com/markheckmann/OpenRepGrid)
+[![](https://img.shields.io/badge/devel-v0.1.18-blue.svg)](https://github.com/markheckmann/OpenRepGrid)
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid/actions/workflows/R-CMD-check.yaml)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/markheckmann/OpenRepGrid?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/OpenRepGrid)
@@ -58,10 +58,11 @@ Install the latest release version from
 
     install.packages("OpenRepGrid", dep = TRUE)
 
-Install the latest development version from github.
+Install a development version from github by referencing a the dev
+branch (e.g., `0.1.18`):
 
     library(devtools)
-    install_github("markheckmann/OpenRepGrid") 
+    install_github("markheckmann/OpenRepGrid@01.1.18") 
 
 To load the OpenRepGrid package after installation type
 
