@@ -14,6 +14,7 @@ clusterBoot(
   nboot = 1000,
   r = seq(0.8, 1.4, by = 0.1),
   seed = NULL,
+  trim = NA,
   ...
 )
 }
@@ -44,6 +45,9 @@ type \code{?dist}.}
 
 \item{seed}{Random seed for bootstrapping. Can be set for reproducibility (see
 \code{\link[=set.seed]{set.seed()}}). Usually not needed.}
+
+\item{trim}{the number of characters a construct is trimmed to. If \code{NA} (default), no trimming is done.
+Trimming simply saves space when displaying the output.}
 
 \item{...}{Arguments to pass on to \code{\link[pvclust:pvclust]{pvclust::pvclust()}}.}
 }

@@ -38,7 +38,7 @@ type \code{?dist}.}
 \item{align}{Whether the constructs should be aligned before clustering (default is \code{TRUE}). If not, the grid matrix
 is clustered as is. See Details section for more information.}
 
-\item{trim}{the number of characters a construct is trimmed to (default is \code{10}). If \code{NA} no trimming is done.
+\item{trim}{the number of characters a construct is trimmed to. If \code{NA} (default), no trimming is done.
 Trimming simply saves space when displaying the output.}
 
 \item{main}{Title of plot. The default is a name indicating the distance function and cluster method.}
