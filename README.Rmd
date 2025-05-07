@@ -67,6 +67,14 @@ And for a first impression of the package features type
 Visit the package documentation website: <https://docs.openrepgrid.org/>
 
 
+## Questions
+
+If you get stuck, you can get help on [StackOverflow](https://stackoverflow.com/):
+
+- Make sure to read [How to write a good R question with a reproducible example](https://stackoverflow.com/collectives/r-language/articles/76995406/how-to-write-a-good-r-question-with-a-reproducible-example) before posting your question
+- Add the tags `R` and `openrepgrid` to your question
+
+
 ## Contributing to OpenRepGrid
 
 You can contribute to OpenRepGrid in various ways. You can, for example, file a bug report, help improve the documentation or write code. See the our [contributing guide](https://docs.openrepgrid.org/CONTRIBUTING.html) for detailed information. 
