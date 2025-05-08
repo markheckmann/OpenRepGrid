@@ -1,5 +1,6 @@
 # OpenRepGrid 0.1.18 (dev version)
 
+* fix `align` function which caused a bug in `bertinCluster` (#22)
 * `biplot3d`: New arg `c.sphere.show` and new defaults: Construct spheres now hidden by default, construct axes start 
   at origin (#25)
 
