@@ -1,3 +1,8 @@
+# OpenRepGrid 0.1.18 (dev version)
+
+* `biplot3d`: New arg `c.sphere.show` and new defaults: Construct spheres now hidden by default, construct axes start 
+  at origin (#25)
+
 # OpenRepGrid 0.1.17
 
 * `clusterBoot` gains `trim` arg. Construct labels in dendrogram are no longer trimmed by default (#58).
