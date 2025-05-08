@@ -1,5 +1,6 @@
 # OpenRepGrid 0.1.18 (dev version)
 
+* `indexSelfRating`: frist draft (WIP #58)
 * `importTxt` reads preferred poles from section `PREFERRED`, `importExcel` reads rightmost column `preferred_poles` (#57)
 * `preferredPoles` sets the preferred construct poles, `preferredPolesByIdeal` sets the preferred pole bases on the 
   ideal elements ratings, `alignByPreferredPole` aligns constructs by pole preference (#57)

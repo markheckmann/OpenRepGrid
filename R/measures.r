@@ -1047,6 +1047,94 @@ print.indexSelfConstruction <- function(x, digits = 2, ...) {
 # }
 
 
+# get element index and name
+# x: element index or name
+# grid: a repgrid object
+element <- function(x, grid) {
+  stop_if_not_is_repgrid(grid)
+  if (!is.numeric(x) && !is.character(x)) {
+    stop("x must be the element index (numeric) or the name (character)")
+  }
+  name <- elements(grid[, x])
+  index <- match(name, elements(grid))
+  list(index = index, name = name)
+}
+
+
+# issue #58:
+# https://github.com/markheckmann/OpenRepGrid/issues/58
+
+#' Self Ratings
+#' TBD
+#' @param x A `repgrid` object.
+#' @param ideal Ideal element to compare against (index or name).
+#' @param compare_to Element to compare to ideal (index or name).
+#' @param max_diff Max. difference from ideal to count as positive (numeric).
+#' @param midpoint_diff TBD.
+#' @export
+#' @examples
+#' indexSelfRating(boeker, "ideal self", "self")
+#' indexSelfRating(boeker, "ideal self", "self", max_diff = 1)
+indexSelfRating <- function(x, ideal, compare_to, max_diff = 2, midpoint_diff = 0) {
+  stop_if_not_is_repgrid(x)
+  sc <- getScale(x)
+  mp <- midpoint(x)
+
+  ideal <- element(ideal, x)$name
+  compare_to <- element(compare_to, x)$name
+
+  r <- ratings(x, trim = NA)
+  r_i <- r[, ideal]
+  r_c <- r[, compare_to]
+
+  df <- r[, c(ideal, compare_to)] %>% as.data.frame()
+  df$diff <- abs(r_i - r_c)
+  df$construing <- ifelse(df$diff <= max_diff, "positive", "negative")
+  n_positive <- sum(df$construing == "positive")
+  n_negative <- sum(df$construing == "negative")
+
+  structure(list(
+    grid = x,
+    ideal = ideal,
+    compare_to = compare_to,
+    max_diff = max_diff,
+    midpoint_diff = midpoint_diff,
+    data = df,
+    n_positive = n_positive,
+    n_negative = n_negative
+  ), class = "indexSelfRating")
+}
+
+
+#' @keywords internal
+#' @export
+print.indexSelfRating <- function(x) {
+  cat("SELF RATING\n")
+  list2env(x, environment())
+
+  cat("\nIdeal: ", ideal)
+  cat("\nCompare: ", compare_to)
+  cat("\nMax. Difference: ", max_diff)
+
+  cat("\n")
+  cat("\nPositive: ", n_positive)
+  cat("\nNegative: ", n_negative)
+  cat("\n")
+  print(data)
+  # df_counts <- dplyr::count(data, construing)
+  # rownames(df_counts) <- NULL
+  # print(df_counts)
+}
+
+
+#' @keywords internal
+#' @export
+plot.indexSelfRating <- function(x) {
+  plot(1:10)
+}
+
+
+
 # . ----------
 # ___________________ ----
 # //////////////////////////////////////////////////////////////////////////////
