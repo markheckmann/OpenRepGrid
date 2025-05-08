@@ -1,10 +1,10 @@
 # OpenRepGrid 0.1.18 (dev version)
 
+* `biplot3d`: New args `e.sphere.show`, `e.labels.show`, `c.axis.show`. `c.sphere.show`. Construct spheres now hidden 
+  by default. Construct axes start at origin (#9, #25)
 * `print.distance`: fix docs for `cutoffs` arg (#18)
 * `distanceHartmann`: change default for `method` arg to `simulate` (#19)
 * fix bug in `align` which caused constructs to disappear and subsequent bugs in `bertinCluster` and `cluster` (#22, #31)
-* `biplot3d`: New arg `c.sphere.show` and new defaults: Construct spheres now hidden by default, construct axes start 
-  at origin (#25)
 
 # OpenRepGrid 0.1.17
 
