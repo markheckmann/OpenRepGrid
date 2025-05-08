@@ -1,0 +1,45 @@
+=========================
+Data File for OpenRepGrid
+=========================
+
+ELEMENTS
+e-1
+e-2
+e-3
+e-4
+e-5
+e-6
+e-7
+e-8
+e-9
+END ELEMENTS
+
+CONSTRUCTS
+l-1 : r-1
+l-2 : r-2
+l-3 : r-3
+l-4 : r-4
+l-5 : r-5
+l-6 : r-6
+l-7 : r-7
+l-8 : r-8
+l-9 : r-9
+l-10 : r-10
+END CONSTRUCTS
+
+RATINGS
+3 3 4 4 2 3 5 2 4
+1 1 3 2 1 3 4 3 2
+5 5 5 2 1 1 1 4 4
+3 4 2 4 3 3 2 3 3
+5 5 2 3 2 2 3 3 3
+5 5 5 1 1 2 1 5 5
+4 4 4 5 4 3 1 3 1
+5 5 4 5 1 1 4 1 3
+3 4 3 2 1 2 1 3 5
+4 4 3 5 2 2 4 2 2
+END RATINGS
+
+RANGE
+1 5 
+END RANGE
