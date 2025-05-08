@@ -149,6 +149,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
                           lef = 1.1, frame = 1, col.frame = grey(.6),
                           col.sphere = "black", alpha.sphere = .05, zoom = 1,
                           draw.xyz.axes = TRUE,
+                          c.sphere.show = FALSE,
                           #                           c.points.show=TRUE,
                           #                           c.labels.show=TRUE,
                           #                          e.points.show=TRUE,
@@ -241,7 +242,9 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
   } else {
     stop("'lines.c' can only take numeric values from 0 to 2")
   }
-  rglDrawConstructPoints(cs.p.xyz, c.radius = mval / 200, ...)
+  if (c.sphere.show) {
+    rglDrawConstructPoints(cs.p.xyz, c.radius = mval / 200, ...)
+  }
   # rglDrawConstructPoints(-Cu[, dim], c.radius=mval/200, ...)
   # rglDrawStandardEllipses(max.dim)
 
@@ -314,13 +317,13 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #'                      `2 =` lines from the center to outer frame.
 #' @param lef           Construct lines extension factor
 #'
-#' @param  center		    Numeric. The type of centering to be performed.
+#' @param center		    Numeric. The type of centering to be performed.
 #'                      0= no centering, 1= row mean centering (construct),
 #'                      2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                      4= midpoint centering of rows (constructs).
 #'                      Default is `1` (row centering).
 #'
-#' @param  normalize    A numeric value indicating along what direction (rows, columns)
+#' @param normalize     A numeric value indicating along what direction (rows, columns)
 #'                      to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
 #'                      (default is `0`).
 #' @param g             Power of the singular value matrix assigned to the left singular
@@ -334,6 +337,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #'                      determine the solution. Default is `NA`, i.e. no elements are set
 #'                      supplementary.
 #'
+#' @param c.sphere.show Show construct spheres (default is `FALSE`).
 #' @param c.sphere.col  Color of construct spheres.
 #' @param c.cex         Size of construct text.
 #' @param c.text.col    Color for construct text.
@@ -396,10 +400,10 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #' )
 #' }
 #'
-biplot3d <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = TRUE,
+biplot3d <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = 2,
                      lef = 1.3, center = 1, normalize = 0, g = 0, h = 1, col.active = NA,
                      col.passive = NA,
-                     c.sphere.col = grey(.4), c.cex = .6, c.text.col = grey(.4),
+                     c.sphere.show = FALSE, c.sphere.col = grey(.4), c.cex = .6, c.text.col = grey(.4),
                      e.sphere.col = grey(0), e.cex = .6, e.text.col = grey(0),
                      alpha.sphere = .05, col.sphere = "black",
                      unity = FALSE,
@@ -409,7 +413,7 @@ biplot3d <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = T
     x = x, dim = dim, labels.e = labels.e, labels.c = labels.c, lines.c = lines.c,
     lef = lef, center = center, normalize = normalize, g = g, h = h,
     col.active = col.active, col.passive = col.passive,
-    c.sphere.col = c.sphere.col, c.cex = c.cex, c.text.col = c.text.col,
+    c.sphere.show = c.sphere.show, c.sphere.col = c.sphere.col, c.cex = c.cex, c.text.col = c.text.col,
     e.sphere.col = e.sphere.col, e.cex = e.cex, e.text.col = e.text.col,
     alpha.sphere = alpha.sphere, col.sphere = col.sphere,
     unity = unity, unity3d = unity3d, scale.e = scale.e, zoom = zoom, ...

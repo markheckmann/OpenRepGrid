@@ -9,7 +9,7 @@ biplot3d(
   dim = 1:3,
   labels.e = TRUE,
   labels.c = TRUE,
-  lines.c = TRUE,
+  lines.c = 2,
   lef = 1.3,
   center = 1,
   normalize = 0,
@@ -17,6 +17,7 @@ biplot3d(
   h = 1,
   col.active = NA,
   col.passive = NA,
+  c.sphere.show = FALSE,
   c.sphere.col = grey(0.4),
   c.cex = 0.6,
   c.text.col = grey(0.4),
@@ -70,6 +71,8 @@ in the SVD to find principal components. default is to use all elements.}
 in the SVD but projected into the component space afterwards. They do not
 determine the solution. Default is \code{NA}, i.e. no elements are set
 supplementary.}
+
+\item{c.sphere.show}{Show construct spheres (default is \code{FALSE}).}
 
 \item{c.sphere.col}{Color of construct spheres.}
 
