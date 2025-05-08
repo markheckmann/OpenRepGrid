@@ -224,7 +224,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 
   if (lines.c == 0) { # no construct lines labels at cons pos
     rglDrawConstructLabels(cl.l.xyz, labels = cs.l$label, ...)
-    if (draw.xyz.axes) rglDrawStandardAxes(mval, spheres = F)
+    if (draw.xyz.axes) rglDrawStandardAxes(mval, spheres = FALSE)
     # rglDrawConstructLabels(Cu[, dim], labels=labels.r, ...)
     # rglDrawConstructLabels(-Cu[, dim], labels=labels.l, ...)
   } else if (lines.c == 1) { # construct lines from cons pos to outside
@@ -341,7 +341,14 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #' @param c.sphere.col  Color of construct spheres.
 #' @param c.cex         Size of construct text.
 #' @param c.text.col    Color for construct text.
-#'
+#' @param e.sphere.show Whether the elements are printed (default is `TRUE`).
+#'                      `FALSE` will suppress the printing of the elements.
+#'                      To only print certain elements a numeric vector can be
+#'                      provided (e.g. `c(1:10)`).
+#' @param e.labels.show Whether the element labels are printed (default is `TRUE`).
+#'                      `FALSE` will suppress the printing of the labels.
+#'                      To only print certain element labels a numeric vector can be
+#'                      provided (e.g. `c(1:10)`).
 #' @param e.sphere.col  Color of elements.
 #' @param e.cex         Size of element labels.
 #' @param e.text.col    Color of element labels.
@@ -403,7 +410,9 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 biplot3d <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = 2,
                      lef = 1.3, center = 1, normalize = 0, g = 0, h = 1, col.active = NA,
                      col.passive = NA,
+                     #c.points.show = TRUE, c.labels.show = TRUE,
                      c.sphere.show = FALSE, c.sphere.col = grey(.4), c.cex = .6, c.text.col = grey(.4),
+                     e.sphere.show = TRUE, e.labels.show = TRUE,
                      e.sphere.col = grey(0), e.cex = .6, e.text.col = grey(0),
                      alpha.sphere = .05, col.sphere = "black",
                      unity = FALSE,
@@ -413,7 +422,9 @@ biplot3d <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = 2
     x = x, dim = dim, labels.e = labels.e, labels.c = labels.c, lines.c = lines.c,
     lef = lef, center = center, normalize = normalize, g = g, h = h,
     col.active = col.active, col.passive = col.passive,
+    #c.points.show = c.points.show, c.labels.show = c.labels.show,
     c.sphere.show = c.sphere.show, c.sphere.col = c.sphere.col, c.cex = c.cex, c.text.col = c.text.col,
+    e.points.show = e.sphere.show, e.labels.show = e.labels.show,
     e.sphere.col = e.sphere.col, e.cex = e.cex, e.text.col = e.text.col,
     alpha.sphere = alpha.sphere, col.sphere = col.sphere,
     unity = unity, unity3d = unity3d, scale.e = scale.e, zoom = zoom, ...

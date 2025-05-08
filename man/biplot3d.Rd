@@ -21,6 +21,8 @@ biplot3d(
   c.sphere.col = grey(0.4),
   c.cex = 0.6,
   c.text.col = grey(0.4),
+  e.sphere.show = TRUE,
+  e.labels.show = TRUE,
   e.sphere.col = grey(0),
   e.cex = 0.6,
   e.text.col = grey(0),
@@ -79,6 +81,16 @@ supplementary.}
 \item{c.cex}{Size of construct text.}
 
 \item{c.text.col}{Color for construct text.}
+
+\item{e.sphere.show}{Whether the elements are printed (default is \code{TRUE}).
+\code{FALSE} will suppress the printing of the elements.
+To only print certain elements a numeric vector can be
+provided (e.g. \code{c(1:10)}).}
+
+\item{e.labels.show}{Whether the element labels are printed (default is \code{TRUE}).
+\code{FALSE} will suppress the printing of the labels.
+To only print certain element labels a numeric vector can be
+provided (e.g. \code{c(1:10)}).}
 
 \item{e.sphere.col}{Color of elements.}
 
