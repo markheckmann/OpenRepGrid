@@ -1204,7 +1204,8 @@ cluster <- function(x, along = 0, dmethod = "euclidean", cmethod = "ward.D", p =
 
 
 # function calculates cluster dendrogram from doublebind grid matrix
-# and reverses the constructs accoring to the upper big cluster
+# by seleting the frist occurence of the reordered grid after clustering
+# we (probably) get a decent alignment. NB: Seriation would probably be better.
 align <- function(x, along = 0, dmethod = "euclidean",
                   cmethod = "ward.D", p = 2, ...) {
   x2 <- doubleEntry(x)
@@ -1212,8 +1213,14 @@ align <- function(x, along = 0, dmethod = "euclidean",
     dmethod = dmethod, cmethod = cmethod, p = p,
     align = FALSE, print = FALSE
   )
-  nc <- getNoOfConstructs(xr) / 2
-  xr[1:nc, ]
+  # step 1: cluster by distance
+  # step 2: take the first occurence of each constructs (see #22)
+  # => should yield a reasonable alignment. Unclear if it has edge cases.
+  df_con <- constructs(xr)
+  l <- as.list(as.data.frame(t(df_con))) # df rows as list
+  con <- vapply(l, function(x) paste(sort(x), collapse = " "), character(1))
+  ii <- which(!duplicated(con))
+  xr[ii, ]
 }
 
 
