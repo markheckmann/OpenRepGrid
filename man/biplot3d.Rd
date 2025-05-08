@@ -17,6 +17,7 @@ biplot3d(
   h = 1,
   col.active = NA,
   col.passive = NA,
+  c.axis.show = TRUE,
   c.sphere.show = FALSE,
   c.sphere.col = grey(0.4),
   c.cex = 0.6,
@@ -74,7 +75,12 @@ in the SVD but projected into the component space afterwards. They do not
 determine the solution. Default is \code{NA}, i.e. no elements are set
 supplementary.}
 
-\item{c.sphere.show}{Show construct spheres (default is \code{FALSE}).}
+\item{c.axis.show}{Whether the construct axes are shown (default is \code{TRUE}).
+\code{FALSE} will suppress the printing all axes.
+To only print certain axes, a numeric vector can be provided (e.g. \code{c(1:10)}).}
+
+\item{c.sphere.show}{Whether the construct speheres are shown (default is \code{FALSE}).
+To only print certain speheres, a numeric vector can be provided (e.g. \code{c(1:10)}).}
 
 \item{c.sphere.col}{Color of construct spheres.}
 
@@ -84,13 +90,11 @@ supplementary.}
 
 \item{e.sphere.show}{Whether the elements are printed (default is \code{TRUE}).
 \code{FALSE} will suppress the printing of the elements.
-To only print certain elements a numeric vector can be
-provided (e.g. \code{c(1:10)}).}
+To only print certain elements, a numeric vector can be provided (e.g. \code{c(1:10)}).}
 
 \item{e.labels.show}{Whether the element labels are printed (default is \code{TRUE}).
 \code{FALSE} will suppress the printing of the labels.
-To only print certain element labels a numeric vector can be
-provided (e.g. \code{c(1:10)}).}
+To only print certain element labels, a numeric vector can be provided (e.g. \code{c(1:10)}).}
 
 \item{e.sphere.col}{Color of elements.}
 
@@ -128,24 +132,18 @@ of elements under investigation (e.g. Raeithel, 1998).
 }
 \examples{
 \dontrun{
-
 biplot3d(boeker)
-biplot3d(boeker, unity3d = T)
 
-biplot3d(boeker,
-  e.sphere.col = "red",
-  c.text.col = "blue"
-)
+biplot3d(boeker, e.sphere.show = 1:4)
+biplot3d(boeker, c.axis.show = 1:2)
+
+biplot3d(boeker, e.sphere.col = "red", c.text.col = "blue")
 biplot3d(boeker, e.cex = 1)
 biplot3d(boeker, col.sphere = "red")
 
 biplot3d(boeker, g = 1, h = 1) # INGRID biplot
-biplot3d(boeker,
-  g = 1, h = 1, # ESA biplot
-  center = 4
-)
+biplot3d(boeker, g = 1, h = 1, center = 4) # ESA biplot
 }
-
 }
 \references{
 Raeithel, A. (1998). Kooperative Modellproduktion von

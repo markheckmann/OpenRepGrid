@@ -148,13 +148,8 @@ rglDrawConstructLabels <- function(coords, labels = FALSE, dim = 1:3,
 biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = 1,
                           lef = 1.1, frame = 1, col.frame = grey(.6),
                           col.sphere = "black", alpha.sphere = .05, zoom = 1,
-                          draw.xyz.axes = TRUE,
-                          c.sphere.show = FALSE,
-                          #                           c.points.show=TRUE,
-                          #                           c.labels.show=TRUE,
-                          #                          e.points.show=TRUE,
-                          #                          e.labels.show=TRUE,
-                          ...) {
+                          draw.xyz.axes = TRUE, ...) {
+
   if (!requireNamespace("rgl", quietly = TRUE)) {
     stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
   }
@@ -242,9 +237,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
   } else {
     stop("'lines.c' can only take numeric values from 0 to 2")
   }
-  if (c.sphere.show) {
-    rglDrawConstructPoints(cs.p.xyz, c.radius = mval / 200, ...)
-  }
+  rglDrawConstructPoints(cs.p.xyz, c.radius = mval / 200, ...)
   # rglDrawConstructPoints(-Cu[, dim], c.radius=mval/200, ...)
   # rglDrawStandardEllipses(max.dim)
 
@@ -316,13 +309,11 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #'                      `0 =` no lines, `1 =` lines from constructs to outer frame,
 #'                      `2 =` lines from the center to outer frame.
 #' @param lef           Construct lines extension factor
-#'
 #' @param center		    Numeric. The type of centering to be performed.
 #'                      0= no centering, 1= row mean centering (construct),
 #'                      2= column mean centering (elements), 3= double-centering (construct and element means),
 #'                      4= midpoint centering of rows (constructs).
 #'                      Default is `1` (row centering).
-#'
 #' @param normalize     A numeric value indicating along what direction (rows, columns)
 #'                      to normalize by standard deviations. `0 = none, 1= rows, 2 = columns`
 #'                      (default is `0`).
@@ -336,26 +327,25 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #'                      in the SVD but projected into the component space afterwards. They do not
 #'                      determine the solution. Default is `NA`, i.e. no elements are set
 #'                      supplementary.
-#'
-#' @param c.sphere.show Show construct spheres (default is `FALSE`).
+#' @param c.axis.show   Whether the construct axes are shown (default is `TRUE`).
+#'                      `FALSE` will suppress the printing all axes.
+#'                      To only print certain axes, a numeric vector can be provided (e.g. `c(1:10)`).
+#' @param c.sphere.show Whether the construct speheres are shown (default is `FALSE`).
+#'                      To only print certain speheres, a numeric vector can be provided (e.g. `c(1:10)`).
 #' @param c.sphere.col  Color of construct spheres.
 #' @param c.cex         Size of construct text.
 #' @param c.text.col    Color for construct text.
 #' @param e.sphere.show Whether the elements are printed (default is `TRUE`).
 #'                      `FALSE` will suppress the printing of the elements.
-#'                      To only print certain elements a numeric vector can be
-#'                      provided (e.g. `c(1:10)`).
+#'                      To only print certain elements, a numeric vector can be provided (e.g. `c(1:10)`).
 #' @param e.labels.show Whether the element labels are printed (default is `TRUE`).
 #'                      `FALSE` will suppress the printing of the labels.
-#'                      To only print certain element labels a numeric vector can be
-#'                      provided (e.g. `c(1:10)`).
+#'                      To only print certain element labels, a numeric vector can be provided (e.g. `c(1:10)`).
 #' @param e.sphere.col  Color of elements.
 #' @param e.cex         Size of element labels.
 #' @param e.text.col    Color of element labels.
-#'
 #' @param alpha.sphere  Numeric. alpha blending of the surrounding sphere (default`".05"`).
 #' @param col.sphere    Color of surrounding sphere (default`"black"`).
-#'
 #' @param unity         Scale elements and constructs coordinates to unit scale (maximum of 1)
 #'                      so they are printed more neatly (default `TRUE`).
 #' @param unity3d       To come.
@@ -365,6 +355,7 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #' @param zoom          Not yet used. Scaling factor for all vectors. Can be used to zoom
 #'                      the plot in and out (default `1`).
 #' @param ...           Parameters to be passed on.
+#'
 #' @export
 #' @seealso   Unsophisticated biplot: [biplotSimple()]; \cr
 #'            2D biplots:
@@ -382,48 +373,26 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
 #'            Function to set view in 3D:
 #'            [home()].
 #'
-#' @references   Raeithel, A. (1998). Kooperative Modellproduktion von
-#'                  Professionellen und Klienten - erlauetert am Beispiel des
-#'                  Repertory Grid. *Selbstorganisation, Kooperation, Zeichenprozess:
-#'                  Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen
-#'                  Psychologie* (pp. 209-254). Opladen: Westdeutscher Verlag.
+#' @references  Raeithel, A. (1998). Kooperative Modellproduktion von
+#'              Professionellen und Klienten - erlauetert am Beispiel des
+#'              Repertory Grid. *Selbstorganisation, Kooperation, Zeichenprozess:
+#'              Arbeiten zu einer kulturwissenschaftlichen, anwendungsbezogenen
+#'              Psychologie* (pp. 209-254). Opladen: Westdeutscher Verlag.
 #'
-#' @examples \dontrun{
-#'
-#' biplot3d(boeker)
-#' biplot3d(boeker, unity3d = T)
-#'
-#' biplot3d(boeker,
-#'   e.sphere.col = "red",
-#'   c.text.col = "blue"
-#' )
-#' biplot3d(boeker, e.cex = 1)
-#' biplot3d(boeker, col.sphere = "red")
-#'
-#' biplot3d(boeker, g = 1, h = 1) # INGRID biplot
-#' biplot3d(boeker,
-#'   g = 1, h = 1, # ESA biplot
-#'   center = 4
-#' )
-#' }
+#' @example inst/examples/example-biplot3d.R
 #'
 biplot3d <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.c = 2,
-                     lef = 1.3, center = 1, normalize = 0, g = 0, h = 1, col.active = NA,
-                     col.passive = NA,
-                     #c.points.show = TRUE, c.labels.show = TRUE,
-                     c.sphere.show = FALSE, c.sphere.col = grey(.4), c.cex = .6, c.text.col = grey(.4),
-                     e.sphere.show = TRUE, e.labels.show = TRUE,
-                     e.sphere.col = grey(0), e.cex = .6, e.text.col = grey(0),
+                     lef = 1.3, center = 1, normalize = 0, g = 0, h = 1, col.active = NA, col.passive = NA,
+                     c.axis.show = TRUE, c.sphere.show = FALSE, c.sphere.col = grey(.4), c.cex = .6, c.text.col = grey(.4),
+                     e.sphere.show = TRUE, e.labels.show = TRUE, e.sphere.col = grey(0), e.cex = .6, e.text.col = grey(0),
                      alpha.sphere = .05, col.sphere = "black",
-                     unity = FALSE,
-                     unity3d = FALSE,
-                     scale.e = .9, zoom = 1, ...) {
+                     unity = FALSE, unity3d = FALSE, scale.e = .9, zoom = 1, ...) {
   biplot3dBase2(
     x = x, dim = dim, labels.e = labels.e, labels.c = labels.c, lines.c = lines.c,
     lef = lef, center = center, normalize = normalize, g = g, h = h,
     col.active = col.active, col.passive = col.passive,
-    #c.points.show = c.points.show, c.labels.show = c.labels.show,
-    c.sphere.show = c.sphere.show, c.sphere.col = c.sphere.col, c.cex = c.cex, c.text.col = c.text.col,
+    c.points.show = c.sphere.show, c.labels.show = c.axis.show,
+    c.sphere.col = c.sphere.col, c.cex = c.cex, c.text.col = c.text.col,
     e.points.show = e.sphere.show, e.labels.show = e.labels.show,
     e.sphere.col = e.sphere.col, e.cex = e.cex, e.text.col = e.text.col,
     alpha.sphere = alpha.sphere, col.sphere = col.sphere,
