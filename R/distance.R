@@ -125,9 +125,8 @@ dist_minmax <- function(x, along = 1, dmethod = "euclidean", p = 2, max.only = F
 #'                    the output (default is `TRUE`).
 #' @param upper       Whether to display upper triangle of correlation matrix only
 #'                    (default is `TRUE`).
-#' @param cutoffs     Cutoff values. Values below or above this interval are not
-#'                    printed. For Slater distances `c(.8, 1.2)` are common
-#'                    values.
+#' @param cutoffs     Cutoff values. Only values outside the interval are printed.
+#'                    For Slater distances `c(.8, 1.2)` are common values.
 #' @param diag        Whether to show the matrix diagonal.
 #' @param ...         Not evaluated.
 #' @export

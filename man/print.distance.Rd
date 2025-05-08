@@ -30,9 +30,8 @@ the output (default is \code{TRUE}).}
 
 \item{diag}{Whether to show the matrix diagonal.}
 
-\item{cutoffs}{Cutoff values. Values below or above this interval are not
-printed. For Slater distances \code{c(.8, 1.2)} are common
-values.}
+\item{cutoffs}{Cutoff values. Only values outside the interval are printed.
+For Slater distances \code{c(.8, 1.2)} are common values.}
 
 \item{...}{Not evaluated.}
 }
