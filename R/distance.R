@@ -449,7 +449,7 @@ getDistributionParameters <- function(x, probs = c(.01, .025, .05, .1, .9, .95, 
 #'                    parameters as given in Hartmann (1992) for calculation.
 #'                    `"simulate"` (default) simulates a Slater distribution
 #'                    for the calculation. In a future version the time consuming
-#'                    simulation will be replaced by more accurate parameters for
+#'                    simulation may be replaced by more accurate parameters for
 #'                    Hartmann distances than used in Hartmann (1992).
 #' @param reps        Number of random grids to generate sample distribution for
 #'                    Slater distances (default is `10000`). Note that
@@ -501,7 +501,7 @@ getDistributionParameters <- function(x, probs = c(.01, .025, .05, .1, .9, .95, 
 #' hist(l$hartmann, breaks = 100)
 #' }
 #'
-distanceHartmann <- function(x, method = "paper", reps = 10000,
+distanceHartmann <- function(x, method = "simulate", reps = 10000,
                              prob = NULL, progress = TRUE, distributions = FALSE) {
   if (distributions == TRUE & method != "simulate") {
     method <- "simulate"

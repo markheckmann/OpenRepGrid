@@ -6,7 +6,7 @@
 \usage{
 distanceHartmann(
   x,
-  method = "paper",
+  method = "simulate",
   reps = 10000,
   prob = NULL,
   progress = TRUE,
@@ -21,7 +21,7 @@ distanceHartmann(
 parameters as given in Hartmann (1992) for calculation.
 \code{"simulate"} (default) simulates a Slater distribution
 for the calculation. In a future version the time consuming
-simulation will be replaced by more accurate parameters for
+simulation may be replaced by more accurate parameters for
 Hartmann distances than used in Hartmann (1992).}
 
 \item{reps}{Number of random grids to generate sample distribution for
