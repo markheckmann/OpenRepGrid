@@ -832,8 +832,8 @@ prepareBiplotData <- function(x, dim = c(1, 2), map.dim = 3,
 biplotDraw <- function(x,
                        inner.positioning = TRUE,
                        outer.positioning = TRUE,
-                       c.labels.inside = F,
-                       flipaxes = c(F, F),
+                       c.labels.inside = FALSE,
+                       flipaxes = c(FALSE, FALSE),
                        strokes.x = .1, strokes.y = .1,
                        offsetting = TRUE, offset.labels = .0, offset.e = 1,
                        axis.ext = .1, mai = c(.2, 1.5, .2, 1.5),
@@ -1088,16 +1088,18 @@ biplotDraw <- function(x,
 
   # make construct lines if prompted
   if (c.lines) {
-    cli <- subset(x, type %in% c("cl", "cr") & showlabel == T) # select only labels that should be shown
-    segments(0, 0, cli$str.1.x, cli$str.1.y, col = col.c.lines) # lines form biplot center to outsides
+    cli <- subset(x, type %in% c("cl", "cr") & showlabel == TRUE) # select only labels that should be shown
+    if (nrow(cli) > 0) {
+      segments(0, 0, cli$str.1.x, cli$str.1.y, col = col.c.lines) # lines form biplot center to outsides
+    }
   }
 
   # make construct symbols
-  cs <- subset(x, type %in% c("cl", "cr") & showpoint == T & abs(x) < max.ext & abs(y) < max.ext)
+  cs <- subset(x, type %in% c("cl", "cr") & showpoint == TRUE & abs(x) < max.ext & abs(y) < max.ext)
   points(cs[c("x", "y")], col = cs$point.col, pch = 4, cex = cs$point.cex, xpd = xpd)
 
   # make element symbols
-  es <- subset(x, type == "e" & showpoint == T & abs(x) < max.ext & abs(y) < max.ext)
+  es <- subset(x, type == "e" & showpoint == TRUE & abs(x) < max.ext & abs(y) < max.ext)
   points(es[c("x", "y")], col = es$point.col, pch = 15, cex = es$point.cex, xpd = xpd)
 
   # positioning of element and constructs labels inside the plot
@@ -1108,13 +1110,15 @@ biplotDraw <- function(x,
     x$showlabel[is.na(x$showlabel)] <- TRUE
     x$showpoint[is.na(x$showpoint)] <- TRUE
 
-    sh <- subset(x, showlabel == T & showpoint == T) # &
-    lpos <- pointLabel(sh[c("x", "y")], labels = sh$label, doPlot = FALSE, cex = cex.pos) # package maptools
-    x$x.pos <- NA
-    x$y.pos <- NA
-    sh$x.pos <- lpos$x
-    sh$y.pos <- lpos$y
-    x[x$showlabel == T & x$showpoint == T, ] <- sh
+    sh <- subset(x, showlabel == TRUE & showpoint == TRUE)
+    if (nrow(sh) > 0) {
+      lpos <- pointLabel(sh[c("x", "y")], labels = sh$label, doPlot = FALSE, cex = cex.pos) # package maptools
+      x$x.pos <- NA
+      x$y.pos <- NA
+      sh$x.pos <- lpos$x
+      sh$y.pos <- lpos$y
+      x[x$showlabel == TRUE & x$showpoint == TRUE, ] <- sh
+    }
   } else { # simple offsetting in y direction
     x$x.pos <- x$x
     x$y.pos <- NA
