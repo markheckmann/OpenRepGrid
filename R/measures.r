@@ -1108,19 +1108,18 @@ indexSelfRating <- function(x, ideal, compare_to, max_diff = 2, midpoint_diff = 
 
 #' @keywords internal
 #' @export
-print.indexSelfRating <- function(x) {
+print.indexSelfRating <- function(x, ...) {
   cat("SELF RATING\n")
-  list2env(x, environment())
 
-  cat("\nIdeal: ", ideal)
-  cat("\nCompare: ", compare_to)
-  cat("\nMax. Difference: ", max_diff)
+  cat("\nIdeal: ", x$ideal)
+  cat("\nCompare: ", x$compare_to)
+  cat("\nMax. Difference: ", x$max_diff)
 
   cat("\n")
-  cat("\nPositive: ", n_positive)
-  cat("\nNegative: ", n_negative)
+  cat("\nPositive: ", x$n_positive)
+  cat("\nNegative: ", x$n_negative)
   cat("\n")
-  print(data)
+  print(x$data)
   # df_counts <- dplyr::count(data, construing)
   # rownames(df_counts) <- NULL
   # print(df_counts)
@@ -1129,7 +1128,7 @@ print.indexSelfRating <- function(x) {
 
 #' @keywords internal
 #' @export
-plot.indexSelfRating <- function(x) {
+plot.indexSelfRating <- function(x, ...) {
   plot(1:10)
 }
 
