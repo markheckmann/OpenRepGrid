@@ -191,6 +191,15 @@ colorize_matrix_rows <- function(m, colors = "white", na.val = "white") {
 }
 
 
+colorize <- function(x, color) {
+  if (!crayon::has_color()) {
+    return(x)
+  }
+  color <- match.arg(color, c("black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "silver"))
+  match.fun(color)(x)
+}
+
+
 df_out <- function(df, # data frame
                    left = NA, # rows left
                    right = NA, # rows right
@@ -209,7 +218,8 @@ df_out <- function(df, # data frame
                    margin = 1, # right margin for linebreak
                    trim = c(NA, NA), # maximum number of character for r/c entry.
                    cut = c(NA, NA), # maximal number of chars left and right of main matrix
-                   id = c(T, T), # id numbers at beginning/end of each row/column
+                   id = c(TRUE, TRUE), # id numbers at beginning/end of each row/column
+                   show_preferred = TRUE, # show preferred pole if exsist
                    hatform = FALSE, # column names in hat form
                    grid) # repgrid object
 {
@@ -254,16 +264,23 @@ df_out <- function(df, # data frame
   # idside    side at which id is attached (1=start, 2=end)
   # trim      number of chars to trim strings to
   # just      justification of text (l, c, r)
-  make_mat_leftright <- function(vec, id = TRUE, idside = 1, trim = NA, just = "r") {
+  # preferred vector with preference indicators
+  make_mat_leftright <- function(vec, show_id = TRUE, idside = 1, trim = NA, just = "r", preferred = "", show_preferred) {
     if (!is.na(trim)) { # trim rownames
       left <- substr(vec, 1, trim)
     }
-    if (id) { # add id number to each row
-      ids <- paste("(", seq_along(vec), ")", sep = "")
+    preferred_pre <- if (idside == 2 && show_preferred) preferred else ""
+    preferred_post <- if (idside == 1 && show_preferred) preferred else ""
+
+    ids <- if (show_id) seq_along(vec) else ""
+    if (show_id || show_preferred) { # add id number to each row
+      .open <- "("
+      .close <- ")"
+      info <- paste(.open, preferred_pre, ids, preferred_post, .close, sep = "")
       if (idside == 1) { # ids at start of string (for right side constructs)
-        vec <- paste(ids, vec)
+        vec <- paste(info, vec)
       } else {
-        vec <- paste(vec, ids)
+        vec <- paste(vec, info)
       } # ids at end of string (for left side constructs)
     }
     vec <- format(vec, justify = just) # justify rownames
@@ -284,27 +301,34 @@ df_out <- function(df, # data frame
 
   # decision where and how to put left and right vectors
   if (showopt == 1) { # #1 left to left, right to right
+    pref <- preferred_indicators(grid)
     if (!identical(left, NA)) {
-      mat.left <- make_mat_leftright(left, id = id[1], idside = 2, just = "r")
+      mat.left <- make_mat_leftright(left,
+        show_id = id[1], idside = 2, just = "r",
+        preferred = pref$left, show_preferred = show_preferred
+      )
     }
     if (!identical(right, NA)) {
-      mat.right <- make_mat_leftright(right, id = id[1], idside = 1, just = "l")
+      mat.right <- make_mat_leftright(right,
+        show_id = id[1], idside = 1, just = "l",
+        preferred = pref$right, show_preferred = show_preferred
+      )
     }
   } else if (showopt == 2) { # #2 left and right on left side
     if (!identical(left, NA) & !identical(right, NA)) {
-      mat.left <- make_mat_leftright(leftright, id = id[1], idside = 2, just = "r")
+      mat.left <- make_mat_leftright(leftright, show_id = id[1], idside = 2, just = "r")
     } else if (identical(left, NA) & !identical(right, NA)) {
-      mat.left <- make_mat_leftright(right, id = id[1], idside = 2, just = "r")
+      mat.left <- make_mat_leftright(right, show_id = id[1], idside = 2, just = "r")
     } else if (!identical(left, NA) & identical(right, NA)) {
-      mat.left <- make_mat_leftright(left, id = id[1], idside = 2, just = "r")
+      mat.left <- make_mat_leftright(left, show_id = id[1], idside = 2, just = "r")
     }
   } else if (showopt == 3) { # #3 left and right on right side
     if (!identical(left, NA) & !identical(right, NA)) {
-      mat.right <- make_mat_leftright(leftright, id = id[1], idside = 1, just = "l")
+      mat.right <- make_mat_leftright(leftright, show_id = id[1], idside = 1, just = "l")
     } else if (identical(left, NA) & !identical(right, NA)) {
-      mat.right <- make_mat_leftright(right, id = id[1], idside = 1, just = "l")
+      mat.right <- make_mat_leftright(right, show_id = id[1], idside = 1, just = "l")
     } else if (!identical(left, NA) & identical(right, NA)) {
-      mat.right <- make_mat_leftright(left, id = id[1], idside = 1, just = "l")
+      mat.right <- make_mat_leftright(left, show_id = id[1], idside = 1, just = "l")
     }
   } # #0 left and right unused, mat.left and mat.right remain void
 
@@ -448,7 +472,7 @@ df_out <- function(df, # data frame
     preferred == "none" ~ "white",
     preferred == "right" ~ "red",
     is.na(NA) ~ "white"
-    )
+  )
   colors_pole_right <- case_when(
     preferred == "right" ~ "green",
     preferred == "both" ~ "green",
@@ -499,6 +523,14 @@ df_out <- function(df, # data frame
     mat.out.atomic <- mat.out.atomic[, end.left:end.right]
   }
   break_output(mat.out.atomic)
+
+  if (show_preferred) {
+    s_1 <- colorize("(+) = preferred", "green")
+    s_2 <- colorize("(-) = non-preferred", "red")
+    s_3 <- colorize("(/) = none", "white")
+    s_4 <- colorize("(.) = not defined", "white")
+    cat("\nPoles:", paste(s_1, ",", s_2, ",",s_3, ",", s_4))
+  }
   invisible(NULL)
 }
 
@@ -512,29 +544,6 @@ df_out <- function(df, # data frame
 # Show method -------------------------------------------------
 
 
-# repgrid show method
-
-# @usage \S4method{show}{repgrid}(object)
-
-# show method for repgrid class
-# org <- list()
-# org$show$cut <- 30
-# org$show$showopt <- 1
-# org$show$verbose <- TRUE
-
-# method depends on the definition of the 'repgrid' object
-# hence has to come before this code in COLLATE tag in DESCRIPTION
-
-# @aliases show,repgrid-method
-
-# Show method for repgrid
-#
-# @param object a `repgrid` object
-# @docType methods
-# @usage \S4method{show}{repgrid}(object)
-# @include repgrid.r
-#
-
 #' Show method for repgrid
 #'
 #' @param object A `repgrid` object.
@@ -547,7 +556,8 @@ setMethod("show", "repgrid", function(object) {
   verbose <- TRUE # what parts to print TRUE prints all information about the grid
   showopt <- 1
   id <- c(pars$c.no, pars$e.no) #  c(T,T)
-  hatform <- T
+  hatform <- TRUE
+  show_preferred <- pars$preferred
 
   x <- object
   do.bertin <- FALSE
@@ -570,7 +580,7 @@ setMethod("show", "repgrid", function(object) {
   df_out(df.ratings, left, right,
     just.main = "r", hatform = hatform, id = id,
     trim = trim, cut = cut, equal = FALSE, showopt = showopt,
-    grid = x
+    grid = x, show_preferred = show_preferred
   )
   cat("\n")
   if (do.bertin) {

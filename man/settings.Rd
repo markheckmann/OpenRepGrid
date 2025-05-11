@@ -22,8 +22,9 @@ The default value is shown in the brackets at the end of a line.
 \item \code{show.meta}: Show grid meta data? (\code{TRUE})
 \item \code{show.trim}: Number of chars to trim strings to (\code{30})
 \item \code{show.cut}: Maximum number of characters printed on the sides of a grid (\code{20})
-\item \code{c.no}: Print construct ID number? (\code{TRUE})
 \item \code{e.no}: Print element ID number? (\code{TRUE})
+\item \code{c.no}: Print construct ID number? (\code{TRUE})
+\item \code{preferred}: Print preferred pole indicator? (\code{TRUE})
 }
 }
 \examples{

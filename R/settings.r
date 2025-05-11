@@ -11,10 +11,12 @@ generateDefaultSettings <- function() {
   type$show.scale <- "logical"
   l$show.meta <- TRUE
   type$show.meta <- "logical"
-  l$c.no <- TRUE
-  type$c.no <- "logical"
   l$e.no <- TRUE
   type$e.no <- "logical"
+  l$c.no <- TRUE
+  type$c.no <- "logical"
+  l$preferred <- TRUE
+  type$preferred <- "logical"
 
   class(l) <- "openrepgridSettings"
   attr(l, "type") <- type
@@ -74,8 +76,9 @@ setDefaultSettings <- function() {
 #'  - `show.meta`: Show grid meta data? (`TRUE`)
 #'  - `show.trim`: Number of chars to trim strings to (`30`)
 #'  - `show.cut`: Maximum number of characters printed on the sides of a grid (`20`)
-#'  - `c.no`: Print construct ID number? (`TRUE`)
 #'  - `e.no`: Print element ID number? (`TRUE`)
+#'  - `c.no`: Print construct ID number? (`TRUE`)
+#'  - `preferred`: Print preferred pole indicator? (`TRUE`)
 #'
 #' @export
 #' @examples \dontrun{
@@ -153,8 +156,9 @@ print.openrepgridSettings <- function(x, ...) {
   if (!is.null(x$show.meta)) cat("\tshow.meta  :", x$show.meta, "(show grid meta data?)\n")
   if (!is.null(x$show.trim)) cat("\tshow.trim  :", x$show.trim, "(number of chars to trim strings to)\n")
   if (!is.null(x$show.cut)) cat("\tshow.cut   :", x$show.cut, "(max no of chars on the sides of a grid)\n")
-  if (!is.null(x$c.no)) cat("\tc.no       :", x$c.no, "(print construct id?)\n")
   if (!is.null(x$e.no)) cat("\te.no       :", x$e.no, "(print element id?)\n")
+  if (!is.null(x$c.no)) cat("\tc.no       :", x$c.no, "(print construct id?)\n")
+  if (!is.null(x$preferred)) cat("\tpreferred  :", x$c.no, "(print preferred pole indicator?)\n")
 }
 
 
