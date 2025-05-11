@@ -1,7 +1,5 @@
-
 # test for issues #22 and #31 (constructs were missing after align)
 test_that("align()", {
-
   sorted_poles <- function(x) {
     df_con <- constructs(x)
     l <- as.list(as.data.frame(t(df_con))) # df rows as list
