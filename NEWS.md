@@ -1,5 +1,7 @@
 # OpenRepGrid 0.1.18 (dev version)
 
+* `preferredPoles` sets the preferred construct poles, `preferredPolesByIdeal` sets the preferred pole bases on the 
+  ideal elements ratings, `alignByPreferredPole` aligns constructs by pole preference (#57)
 * `biplot3d`: New args `e.sphere.show`, `e.labels.show`, `c.axis.show`. `c.sphere.show`. Construct spheres now hidden 
   by default. Construct axes start at origin (#9, #25)
 * `print.distance`: fix docs for `cutoffs` arg (#18)

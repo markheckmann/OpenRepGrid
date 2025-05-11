@@ -204,13 +204,14 @@ df_out <- function(df, # data frame
                    equal = FALSE, # equal width for columns (max column width)
                    prefix = "", # optional prefix before printed column name
                    # (e.g. "+---"). characters
-                   keeprows = T, # whether to show rows after each pagebreak
+                   keeprows = TRUE, # whether to show rows after each pagebreak
                    colstart = "l",
                    margin = 1, # right margin for linebreak
                    trim = c(NA, NA), # maximum number of character for r/c entry.
                    cut = c(NA, NA), # maximal number of chars left and right of main matrix
                    id = c(T, T), # id numbers at beginning/end of each row/column
-                   hatform = FALSE) # column names in hat form
+                   hatform = FALSE, # column names in hat form
+                   grid) # repgrid object
 {
   # sanity checks
   if (length(trim) == 1) { # if only one parameter given, extend to the other
@@ -440,13 +441,24 @@ df_out <- function(df, # data frame
   }
 
   # colorize constructs by pole preference
-  # TODO: Extract pole preferences here
-  # rows <- nrow(mat.left.atomic)
-  # colors_ <- sample(c("red", "green", "yellow", "silver", "white"), rows, T)
-  mat.left.atomic <- colorize_matrix_rows(mat.left.atomic, "white")
-  mat.right.atomic <- colorize_matrix_rows(mat.right.atomic, "white")
+  preferred <- preferredPoles(grid)
+  colors_pole_left <- case_when(
+    preferred == "left" ~ "green",
+    preferred == "both" ~ "green",
+    preferred == "none" ~ "white",
+    preferred == "right" ~ "red",
+    is.na(NA) ~ "white"
+    )
+  colors_pole_right <- case_when(
+    preferred == "right" ~ "green",
+    preferred == "both" ~ "green",
+    preferred == "none" ~ "white",
+    preferred == "left" ~ "red",
+    is.na(NA) ~ "white"
+  )
+  mat.left.atomic <- colorize_matrix_rows(mat.left.atomic, colors_pole_left)
+  mat.right.atomic <- colorize_matrix_rows(mat.right.atomic, colors_pole_right)
 
-  # browser()
   # same part for both types
   mat.sep2.atomic <- make_sep_mat_atomic(sep2, nr = nrow(df)) # matrix to separate left and main, or main and right
   mat.lm.atomic <- cbind(
@@ -557,13 +569,15 @@ setMethod("show", "repgrid", function(object) {
   right <- con[, 2]
   df_out(df.ratings, left, right,
     just.main = "r", hatform = hatform, id = id,
-    trim = trim, cut = cut, equal = F, showopt = showopt
+    trim = trim, cut = cut, equal = FALSE, showopt = showopt,
+    grid = x
   )
   cat("\n")
   if (do.bertin) {
     bertin(x)
   }
 })
+
 
 # # Show method for repgrid
 # # @param repgrid object
