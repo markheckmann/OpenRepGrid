@@ -4,7 +4,7 @@
 \alias{alignByPreferredPole}
 \title{Align constructs by preferred pole}
 \usage{
-alignByPreferredPole(x, side = "right")
+alignByPreferredPole(x, side_positive = "right")
 }
 \arguments{
 \item{x}{A \code{repgrid} object.}
@@ -21,7 +21,9 @@ is placing all positive poles on the same side. Note that this this is only poss
 are defined (see \code{\link[=preferredPoles]{preferredPoles()}}).
 }
 \examples{
-#TBD
+x <- preferredPolesByIdeal(boeker, "ideal self")
+x <- alignByPreferredPole(x)
+x
 }
 \seealso{
 \code{\link[=alignByLoadings]{alignByLoadings()}}

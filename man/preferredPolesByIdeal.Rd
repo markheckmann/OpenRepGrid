@@ -13,7 +13,7 @@ preferredPolesByIdeal(x, ideal, none_range = NULL, align = FALSE)
 
 \item{none_range}{Range of ratings that do not allow assining a preferred pole (\code{NULL} be default).}
 
-\item{align}{Align preferred poles on same side (default \code{FALSE}). See \code{\link[=alignByPreferredPoles]{alignByPreferredPoles()}}.}
+\item{align}{Align preferred poles on same side (default \code{FALSE}). See \code{\link[=alignByPreferredPole]{alignByPreferredPole()}}.}
 }
 \description{
 The preferred construct pole is inferred from the rating of the ideal element.
