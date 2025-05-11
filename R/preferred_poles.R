@@ -1,3 +1,14 @@
+#' Get / set preferred construct poles
+#'
+#' Constructs are bipolar, often with one pole being preferred (positive).
+#' Setting the preferred poles may be useful for some analyses.
+#'
+#' @param x A `repgrid` object.
+#' @param value Vector of with preferred poles. One of `'left'`, `'right'`, `'none'` or `NA`.
+#' Abbreviations are allowsd (`'l'` for `'left'`).
+#' @export
+#' @rdname preferred-pole
+#' @example inst/examples/example-preferredPoles.R
 preferredPoles <- function(x) {
   stop_if_not_is_repgrid(x)
   left_is_preferred <- sapply(x@constructs, function(c) c$leftpole$preferred)
@@ -12,6 +23,8 @@ preferredPoles <- function(x) {
 }
 
 
+#' @export
+#' @rdname preferred-pole
 `preferredPoles<-` <- function(x, value) {
   stop_if_not_is_repgrid(x)
   nc <- nrow(x)
@@ -52,46 +65,6 @@ preferred_indicators <- function(x) {
 }
 
 
-#' Set preferred pole by ideal element
-#'
-#' The preferred construct pole is inferred from the rating of the ideal element.
-#' The preferred pole is the side of the ideal element. If the ideal is rated on the
-#' scale midpoint (or within `none_range`), none of the poles is preferred.
-#'
-#' @param x A `repgrid` object.
-#' @param ideal Index or name of ideal element.
-#' @param none_range Range of ratings that do not allow assining a preferred pole (`NULL` be default).
-#' @param align Align preferred poles on same side (default `FALSE`). See [alignByPreferredPoles()].
-#' @export
-preferredPolesByIdeal <- function(x, ideal, none_range = NULL, align = FALSE) {
-  stop_if_not_is_repgrid(x)
-  stop_if_not_in_element_range(x, ideal)
-
-  midpoint <- getScaleMidpoint(x)
-  sc <- getScale(x)
-  if (is.null(none_range)) {
-    none_range <- midpoint
-  } else {
-    stop_if_not_integerish(none_range, arg = "none_range")
-  }
-
-  idealRatings <- ratings(x)[, ideal]
-  preferred_pole <- case_when(
-    idealRatings %in% none_range ~ "none",
-    idealRatings == midpoint ~ "none",
-    idealRatings > midpoint ~ "right",
-    idealRatings < midpoint ~ "left",
-    .default = NA_character_
-  )
-  preferredPoles(x) <- preferred_pole
-
-  if (align) {
-    x <- alignByPreferredPoles(x)
-  }
-  x
-}
-
-
 #' Align constructs by preferred pole
 #'
 #' The direction of the constructs in a grid is arbitrary. While their reversal (see [reverse()]) does not affect the information
@@ -105,10 +78,12 @@ preferredPolesByIdeal <- function(x, ideal, none_range = NULL, align = FALSE) {
 #' @export
 #' @seealso [alignByLoadings()]
 #' @examples
-#' # TBD
-alignByPreferredPole <- function(x, side = "right") {
+#' x <- preferredPolesByIdeal(boeker, "ideal self")
+#' x <- alignByPreferredPole(x)
+#' x
+alignByPreferredPole <- function(x, side_positive = "right") {
   stop_if_not_is_repgrid(x)
-  side <- match.arg(side, c("left", "right"))
+  side_positive <- match.arg(side_positive, c("left", "right"))
   preferred_poles <- preferredPoles(x)
   ii_na <- is.na(preferred_poles)
   if (any(ii_na)) {
@@ -117,7 +92,7 @@ alignByPreferredPole <- function(x, side = "right") {
       "See 'preferredPoles() to set a preference'"
     ), call. = FALSE)
   }
-  if (side == "left") {
+  if (side_positive == "left") {
     ii_reverse <- preferred_poles == "right"
   } else {
     ii_reverse <- preferred_poles == "left"
@@ -125,6 +100,45 @@ alignByPreferredPole <- function(x, side = "right") {
   ii_reverse <- which(ii_reverse)
   if (length(ii_reverse) > 0) {
     x <- reverse(x, ii_reverse)
+  }
+  x
+}
+
+
+#' Set preferred pole by ideal element
+#'
+#' The preferred construct pole is inferred from the rating of the ideal element.
+#' The preferred pole is the side of the ideal element. If the ideal is rated on the
+#' scale midpoint (or within `none_range`), none of the poles is preferred.
+#'
+#' @param x A `repgrid` object.
+#' @param ideal Index or name of ideal element.
+#' @param none_range Range of ratings that do not allow assining a preferred pole (`NULL` be default).
+#' @param align Align preferred poles on same side (default `FALSE`). See [alignByPreferredPole()].
+#' @export
+preferredPolesByIdeal <- function(x, ideal, none_range = NULL, align = FALSE) {
+  stop_if_not_is_repgrid(x)
+  stop_if_not_in_element_range(x, ideal)
+  ideal <- fortify_element_id(x, ideal)
+  midpoint <- getScaleMidpoint(x)
+  sc <- getScale(x)
+  if (is.null(none_range)) {
+    none_range <- midpoint
+  } else {
+    stop_if_not_integerish(none_range, arg = "none_range")
+  }
+  idealRatings <- ratings(x)[, ideal]
+  preferred_pole <- case_when(
+    idealRatings %in% none_range ~ "none",
+    idealRatings == midpoint ~ "none",
+    idealRatings > midpoint ~ "right",
+    idealRatings < midpoint ~ "left",
+    .default = NA_character_
+  )
+  preferredPoles(x) <- preferred_pole
+
+  if (align) {
+    x <- alignByPreferredPole(x)
   }
   x
 }

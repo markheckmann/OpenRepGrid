@@ -844,6 +844,33 @@ is_integerish <- function(x) {
 }
 
 
+#' convert element index or name to index
+#' @examples
+#' fortify_element_id(boeker, "self")
+#' fortify_element_id(boeker, 1)
+#' @noRd
+fortify_element_id <- function(x, element) {
+  stop_if_not_in_element_range(x, element)
+  if (is.character(element)) {
+    element <- which(elements(x) == element)
+  }
+  element
+}
+
+
+#' convert element index or name to name
+#' @examples
+#' fortify_element_name(boeker, 1)
+#' fortify_element_name(boeker, "self")
+#' @noRd
+fortify_element_name <- function(x, element) {
+  stop_if_not_in_element_range(x, element)
+  if (is.numeric(element)) {
+    element <- elements(x)[element]
+  }
+  element
+}
+
 
 # //////////////////////////////////////////////////////////////////////////////
 ###                           FORMATTING                                   ####
