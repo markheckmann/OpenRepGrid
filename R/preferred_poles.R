@@ -32,6 +32,27 @@ preferredPoles <- function(x) {
 }
 
 
+# short form preference indicators for repgrid show method
+preferred_indicators <- function(x) {
+  preferred <- preferredPoles(x)
+  indicators_left <- case_when(
+    preferred == "left" ~ "+",
+    preferred == "both" ~ "+",
+    preferred == "none" ~ "/",
+    preferred == "right" ~ "-",
+    is.na(NA) ~ "."
+  )
+  indicators_right <- case_when(
+    preferred == "left" ~ "-",
+    preferred == "both" ~ "+",
+    preferred == "none" ~ "/",
+    preferred == "right" ~ "+",
+    is.na(NA) ~ "."
+  )
+  list(left = indicators_left, right = indicators_right)
+}
+
+
 #' Set preferred pole by ideal element
 #'
 #' The preferred construct pole is inferred from the rating of the ideal element.
