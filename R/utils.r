@@ -834,6 +834,17 @@ angle <- function(x, y) {
 }
 
 
+# is_integerish(1)
+# is_integerish(1.0)
+# is_integerish(c(1.0, 2.0))
+is_integerish <- function(x) {
+  ii <- all(is.numeric(x) | is.integer(x))
+  jj <- all(x == as.integer(x))
+  ii && jj
+}
+
+
+
 # //////////////////////////////////////////////////////////////////////////////
 ###                           FORMATTING                                   ####
 # //////////////////////////////////////////////////////////////////////////////
