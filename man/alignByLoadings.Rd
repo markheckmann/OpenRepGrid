@@ -72,5 +72,8 @@ Mackay, N. (1992). Identification, Reflection, and Correlation: Problems in the 
 \emph{International Journal of Personal Construct Psychology, 5}(1), 57-75.
 }
 \seealso{
-\code{\link[=alignByIdeal]{alignByIdeal()}}
+Aligning constructs
+\code{\link{alignByIdeal}()},
+\code{\link{alignByPreferredPole}()}
 }
+\concept{align_constructs}

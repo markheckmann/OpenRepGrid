@@ -1,7 +1,7 @@
 #' Get / set preferred construct poles
 #'
-#' Constructs are bipolar, often with one pole being preferred (positive).
-#' Setting the preferred poles may be useful for some analyses.
+#' Constructs are bipolar, usually with one pole being preferred (positive).
+#' Setting the preferred poles may is useful in some analyses.
 #'
 #' @param x A `repgrid` object.
 #' @param value Vector of with preferred poles. One of `'left'`, `'right'`, `'none'` or `NA`.
@@ -76,7 +76,7 @@ preferred_indicators <- function(x) {
 #' @param side_positive Align all positoive poles on '
 #' @return A `repgrid` object with aligned constructs.
 #' @export
-#' @seealso [alignByLoadings()]
+#' @family align_constructs
 #' @examples
 #' x <- preferredPolesByIdeal(boeker, "ideal self")
 #' x <- alignByPreferredPole(x)

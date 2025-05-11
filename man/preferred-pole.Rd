@@ -16,8 +16,8 @@ preferredPoles(x) <- value
 Abbreviations are allowsd (\code{'l'} for \code{'left'}).}
 }
 \description{
-Constructs are bipolar, often with one pole being preferred (positive).
-Setting the preferred poles may be useful for some analyses.
+Constructs are bipolar, usually with one pole being preferred (positive).
+Setting the preferred poles may is useful in some analyses.
 }
 \examples{
 x <- fbb2003
@@ -35,5 +35,9 @@ x
 
 # change preferance for constructs 1 and 5
 preferredPoles(x)[2] <- "left"
+x
+
+# remove prefernces
+preferredPoles(x) <- NA
 x
 }

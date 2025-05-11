@@ -26,5 +26,8 @@ x <- alignByPreferredPole(x)
 x
 }
 \seealso{
-\code{\link[=alignByLoadings]{alignByLoadings()}}
+Aligning constructs
+\code{\link{alignByIdeal}()},
+\code{\link{alignByLoadings}()}
 }
+\concept{align_constructs}

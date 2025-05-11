@@ -14,3 +14,7 @@ x
 # change preferance for constructs 1 and 5
 preferredPoles(x)[2] <- "left"
 x
+
+# remove prefernces
+preferredPoles(x) <- NA
+x
