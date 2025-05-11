@@ -17,4 +17,3 @@ test_that("preferredPoles", {
   preferredPoles(x) <- NA
   expect_equal(preferredPoles(x), rep_len(NA_character_, nc))
 })
-

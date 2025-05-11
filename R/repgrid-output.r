@@ -529,7 +529,7 @@ df_out <- function(df, # data frame
     s_2 <- colorize("(-) = non-preferred", "red")
     s_3 <- colorize("(/) = none", "white")
     s_4 <- colorize("(.) = not defined", "white")
-    cat("\nPoles:", paste(s_1, ",", s_2, ",",s_3, ",", s_4))
+    cat("\nPoles:", paste(s_1, ",", s_2, ",", s_3, ",", s_4))
   }
   invisible(NULL)
 }

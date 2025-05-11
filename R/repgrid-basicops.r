@@ -74,7 +74,7 @@ stop_if_not_in_element_range <- function(x, element) {
     stop("element name '", element, " 'is not unknown", call. = FALSE)
   }
   if (is.numeric(element) && !is_integerish(element)) {
-    stop("element index must be an integer",  call. = FALSE)
+    stop("element index must be an integer", call. = FALSE)
   }
   ii <- seq_along(.elements)
   if (is.numeric(element) && !element %in% ii) {
@@ -91,7 +91,7 @@ stop_if_not_integerish <- function(x, arg = NULL) {
     } else {
       argname <- ""
     }
-    stop("Expected integerish value ", argname, "but got '",  class(x)[1], "'", call. = FALSE)
+    stop("Expected integerish value ", argname, "but got '", class(x)[1], "'", call. = FALSE)
   }
 }
 
@@ -1616,7 +1616,7 @@ cbind.repgrid <- function(..., .reorder = TRUE, .unique = FALSE) {
 
 
 bindElements <- function(..., .reorder = TRUE, .unique = FALSE) {
-  dots <- unlist(list(...))  # in case list of repgrid objects are supplied
+  dots <- unlist(list(...)) # in case list of repgrid objects are supplied
   is.grid <- sapply(dots, function(x) inherits(x, "repgrid"))
   .f <- function(x, y) {
     bindTwoElements(x, y, .reorder = .reorder, .unique = .unique)

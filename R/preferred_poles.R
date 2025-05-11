@@ -1,4 +1,3 @@
-
 preferredPoles <- function(x) {
   stop_if_not_is_repgrid(x)
   left_is_preferred <- sapply(x@constructs, function(c) c$leftpole$preferred)
@@ -106,15 +105,17 @@ preferredPolesByIdeal <- function(x, ideal, none_range = NULL, align = FALSE) {
 #' @export
 #' @seealso [alignByLoadings()]
 #' @examples
-#' #TBD
+#' # TBD
 alignByPreferredPole <- function(x, side = "right") {
   stop_if_not_is_repgrid(x)
   side <- match.arg(side, c("left", "right"))
   preferred_poles <- preferredPoles(x)
   ii_na <- is.na(preferred_poles)
   if (any(ii_na)) {
-    warning(c("Some construct do not have a preferred pole and were not aligned.\n",
-              "See 'preferredPoles() to set a preference'"), call. = FALSE)
+    warning(c(
+      "Some construct do not have a preferred pole and were not aligned.\n",
+      "See 'preferredPoles() to set a preference'"
+    ), call. = FALSE)
   }
   if (side == "left") {
     ii_reverse <- preferred_poles == "right"
