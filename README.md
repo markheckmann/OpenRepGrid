@@ -100,9 +100,12 @@ If our software makes your life easier, consider sponsoring us — think
 of it as buying us a coffee while we keep hacking away!
 [![Donate](https://img.shields.io/badge/Donate-❤-EA4AAA)](https://github.com/sponsors/markheckmann)
 
-#### Contributors
+#### Authors
 
 - [Mark Heckmann](https://markheckmann.de) (package maintainer)
+
+#### Contributors
+
 - Richard C. Bell
 - Alejandro García Gutiérrez ([@j4n7](https://github.com/j4n7))
 - Diego Vitali ([@artoo-git](https://github.com/artoo-git))
