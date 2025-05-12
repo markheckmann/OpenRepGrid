@@ -2,8 +2,15 @@
 
 devtools::load_all()
 
-x <- boeker
 
-# how to disntinguish between no preferred poles available
-# and no preference?
+file <- system.file("extdata", "grid_01b.txt", package = "OpenRepGrid")
+importTxt(file)
+
+
+file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
+importExcel(file)
+
+
+file <- system.file("extdata", "grid_01b.xlsx", package = "OpenRepGrid")
+importExcel(file)
 
