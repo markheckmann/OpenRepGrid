@@ -145,19 +145,15 @@ make_sep_mat_atomic <- function(sep, nr) {
 }
 
 
-
 #' Colorize matrix cell rows using crayon colors
 #'
-#' Atomic matrices can be wrapped into crayon color codes without
-#' destroying the structure or alignment. Used to indicate
-#' preferred poles.
+#' Atomic matrices can be wrapped into crayon color codes without destroying the structure or alignment. Used to
+#' indicate preferred poles.
 #'
 #' @param m A matrix.
-#' @param colors crayon colors as a string. One of
-#' black, red, green, yellow, blue, magenta, cyan, white,
-#' silver.
-#' @export
-#' @keywords internal
+#' @param colors crayon colors as a string. One of `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`,
+#'   `white`, `silver`.
+#' @noRd
 #' @examples
 #' m <- as.matrix(mtcars)
 #' colorize_matrix_rows(m, "red")
@@ -166,7 +162,6 @@ colorize_matrix_rows <- function(m, colors = "white", na.val = "white") {
   if (!crayon::has_color()) {
     return(m)
   }
-
   nr <- nrow(m)
   if (length(colors) == 1) {
     colors <- rep(colors, nr)
