@@ -169,6 +169,11 @@ modifyListNA <- function(x, val) {
 # modifyListNA(l2, l1)
 
 
+match.arg2 <- function(arg, choices, several.ok = TRUE) {
+  sapply(arg, match.arg, choices = choices, several.ok = several.ok)
+}
+
+
 # //////////////////////////////////////////////////////////////////////////////
 #' bring vector values into ring form
 #'
