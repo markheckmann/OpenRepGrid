@@ -34,6 +34,7 @@ convertImportObjectToRepGridObject <- function(import) {
   # List of 9
   #  $ elements     :List of 3
   #  $ constructs   :List of 4
+  #  $ preferred    :List of 4
   #  $ emergentPoles:List of 4
   #  $ contrastPoles:List of 4
   #  $ ratings      :List of 4
@@ -50,6 +51,19 @@ convertImportObjectToRepGridObject <- function(import) {
   ) # ratings
   x <- makeRepgrid(args) # make repgrid
   x <- setScale(x, import$minValue, import$maxValue) # set scale range
+
+  # preferred poles
+  if (!is.null(import$preferred)) {
+    preferred <- unlist(import$preferred)
+    n_preferred <- length(preferred)
+    if (length(preferred) != nrow(x)) {
+      stop(c(
+        "\nNumber of preferred poles (", n_preferred, ") does not match number of constructs (", nrow(x), ")",
+        "\nPlease check section 'PREFERRED' in source file"
+      ), call. = FALSE)
+    }
+    preferredPoles(x) <- preferred
+  }
   x
 }
 
@@ -1221,6 +1235,8 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
   line.elements.end <- which(d == "END ELEMENTS")
   line.constructs <- which(d == "CONSTRUCTS")
   line.constructs.end <- which(d == "END CONSTRUCTS")
+  line.preferred <- which(d == "PREFERRED")
+  line.preferred.end <- which(d == "END PREFERRED")
   line.ratings <- which(d == "RATINGS")
   line.ratings.end <- which(d == "END RATINGS")
   line.range <- which(d == "RANGE")
@@ -1241,6 +1257,12 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
   })
   l$emergentPoles <- lapply(tmp, function(x) trimBlanksInString(x[1]))
   l$contrastPoles <- lapply(tmp, function(x) trimBlanksInString(x[2]))
+
+  # read preferred poles
+  if (length(line.preferred) > 0 && length(line.preferred.end) > 0) {
+    l$preferred <- as.list(data[(line.preferred + 1):(line.preferred.end - 1)])
+    l$preferred <- lapply(l$preferred, function(x) trimBlanksInString(x[1]))
+  }
 
   # read ratings and convert to numeric
   op <- options()$warn

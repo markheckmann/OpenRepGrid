@@ -30,7 +30,7 @@ preferredPoles <- function(x) {
   nc <- nrow(x)
   value <- rep_len(value, length.out = nc)
   value <- as.character(value) # all NA case
-  value <- match.arg(value, c("left", "right", "none", "both", NA_character_), several.ok = TRUE)
+  value <- match.arg2(value, c("left", "right", "none", "both", NA_character_), several.ok = TRUE)
   left_preferred <- value %in% c("left", "both")
   right_preferred <- value %in% c("right", "both")
   is.na(left_preferred) <- is.na(value)
