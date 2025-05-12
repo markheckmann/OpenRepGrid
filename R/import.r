@@ -1405,8 +1405,8 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #' rg <- importTxt(file)
 #'
 #' \dontrun{
-#' # To see the structure of the Excel file try to open it as follows.
-#' # May not work on all systems.
+#' # To see the structure of the file, try opening it as follows.
+#' # (may not work on all systems)
 #' file.show(file)
 #' }
 #'
