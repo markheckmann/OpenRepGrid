@@ -21,8 +21,9 @@ for minimum rating value in grid.}
 for maximum rating value in grid.}
 }
 \value{
-A single \code{repgrid} object in case one file and
-a list of \code{repgrid} objects in case multiple files are imported.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{   A single `repgrid` object in case one file and
+           a list of `repgrid` objects in case multiple files are imported.
+}\if{html}{\out{</div>}}
 }
 \description{
 You can define a grid using a standard text editor and saving it as a \code{.txt} file.
@@ -31,12 +32,13 @@ consider using the Excel format instead, as it has a more intuitive format (see 
 }
 \details{
 The \code{.txt} file has to be in a fixed format. There are \emph{three mandatory blocks} each starting and ending
-with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} and ends with \verb{END ELEMENTS} and
-contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the
-block containing the constructs the left and right pole are separated by a colon (:). To define missing values use
-\code{NA} like in the example below. One optional block contains the range of the rating scale used defined by two
-numbers. The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be
-used for comments.
+with a predefined tag in uppercase letters. The first block starts with \code{ELEMENTS} and ends with \verb{END ELEMENTS}.
+It contains one element per line. The other mandatory blocks are \code{CONSTRUCTS} and \code{RATINGS} (see below). In the
+block containing the constructs the left and right pole are separated by a colon (\code{:}). To define missing values
+use \code{NA}. The block \code{PREFERRED} is \emph{optional}. Each line indicated the preferred construct pole. Allowed values
+are \code{left}, \code{right}, \code{none} (no pole preferred), and \code{NA} (unknown). The block \code{RANGE} is \emph{optional} but
+recommended. It gives the rating scale range defined by two numbers. The order of the blocks is arbitrary. All
+text oustide the blocks is discarded and can be used for comments.
 
 The content of a sample \code{.txt} file is shown below. The package also contains a sample file (see \emph{Examples}).
 
@@ -56,6 +58,13 @@ left pole 2 : right pole 2
 left pole 3 : right pole 3
 left pole 4 : right pole 4
 END CONSTRUCTS
+
+PREFERRED
+left
+left
+right
+none
+END PREFERRED
 
 RATINGS
 1 3 2

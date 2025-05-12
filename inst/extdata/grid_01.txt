@@ -18,6 +18,15 @@ left pole 3 : right pole 3
 left pole 4 : right pole 4
 END CONSTRUCTS
 
+Note: optional block indicating prefered pole (left, right, none, NA)
+
+PREFERRED
+left
+left
+right
+none
+END PREFERRED
+
 Note: columns represent elements, rows constructs
 
 RATINGS
