@@ -1,6 +1,6 @@
 # OpenRepGrid 0.1.18 (dev version)
 
-* `importTxt` reads preferred poles from section `PREFERRED` (#57)
+* `importTxt` reads preferred poles from section `PREFERRED`, `importExcel` reads rightmost column `preferred_poles` (#57)
 * `preferredPoles` sets the preferred construct poles, `preferredPolesByIdeal` sets the preferred pole bases on the 
   ideal elements ratings, `alignByPreferredPole` aligns constructs by pole preference (#57)
 * `biplot3d`: New args `e.sphere.show`, `e.labels.show`, `c.axis.show`. `c.sphere.show`. Construct spheres now hidden 
@@ -62,34 +62,34 @@
 
 # OpenRepGrid 0.1.13 
 
-  * indexDilemma was improved and fixed (thanks to Diego Vitali aka @artoo-git)
-  * biplot2d does now hide construct points as default setting (cex=0)
-  * setting a rating value outside the defined scale range now throws an error
-  * 'ratings' to access and replace grid ratings added
-  * 'elements' added to get and set element names replaces 'getElementNames' and 'eNames' which have become deprecated.
-  * 'constructs', 'leftpoles', and 'rightpoles' added to get and set construct poles replace 'getConstructNames' and 'cNames' which have become  deprecated.
+* indexDilemma was improved and fixed (thanks to Diego Vitali aka @artoo-git)
+* biplot2d does now hide construct points as default setting (cex=0)
+* setting a rating value outside the defined scale range now throws an error
+* 'ratings' to access and replace grid ratings added
+* 'elements' added to get and set element names replaces 'getElementNames' and 'eNames' which have become deprecated.
+* 'constructs', 'leftpoles', and 'rightpoles' added to get and set construct poles replace 'getConstructNames' and 'cNames' which have become  deprecated.
 
 # OpenRepGrid 0.1.11
 
-  * saveAsExcel to save grids as Microsoft Excel files
-  * replace xlsx by openxlsx to import Excel files to get rid of JRE dependency
+* saveAsExcel to save grids as Microsoft Excel files
+* replace xlsx by openxlsx to import Excel files to get rid of JRE dependency
   
 # OpenRepGrid 0.1.10
 
-  * indexDilemma: improved implicative dilemmas (thanks to Alejandro García, (#24, @j4n7)
-  * changelog file as place for documenting changes removed. All changes now in NEWS
+* indexDilemma: improved implicative dilemmas (thanks to Alejandro García, (#24, @j4n7)
+* changelog file as place for documenting changes removed. All changes now in NEWS
   
 # OpenRepGrid 0.1.9
 
-  * align parameter added to cluster
-  * importTxt will now erase empty lines
-  * changed default settings for implicative dilemmas
-  * dependency on xlsx removed (issue #15)
+* align parameter added to cluster
+* importTxt will now erase empty lines
+* changed default settings for implicative dilemmas
+* dependency on xlsx removed (issue #15)
 
 # OpenRepGrid 0.1.8
 
-  * importGridstat can now import multigrid files
-  * bug fix in importTxt: negative values are read in again
+* importGridstat can now import multigrid files
+* bug fix in importTxt: negative values are read in again
 
 # OpenRepGrid 0.1.7
 

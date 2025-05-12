@@ -1,3 +1,5 @@
+# TEXTFILE --------------------------------------------
+
 test_that("importTxt - PREFERRED", {
   path <- test_path("testdata/grid_no_preferred.txt")
   x <- importTxt(path)
@@ -23,4 +25,26 @@ test_that("importTxt - RATINGS", {
   x <- importTxt(path)
   r_same <- ratings(x) == cbind(1:4, c(2:4, 1), c(3:4, 1:2))
   expect_true(all(r_same))
+})
+
+
+
+# EXCEL --------------------------------------------
+
+test_that("importExcel - PREFERRED", {
+  path <- test_path("testdata/grids.xlsx")
+
+  x <- importExcel(path, sheet = "no preferred")
+  x_pref <- importExcel(path, sheet = "with preferred")
+
+  expect_equal(preferredPoles(x), rep(NA_character_, 10))
+  expect_equal(preferredPoles(x_pref), c("left", "right", "none", NA, "left", "left", "left", "right", NA, NA))
+
+  preferredPoles(x) <- preferredPoles(x_pref)
+  expect_identical(x, x_pref)
+
+  expect_error(
+    regexp = "'arg' should be one of .{1}left.{1}, .{1}right.{1}, .{1}none.{1}, .{1}both.{1}, .{1}NA.{1}",
+    importExcel(path, sheet = "preferred incorrect 1")
+  )
 })
