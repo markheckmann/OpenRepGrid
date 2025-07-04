@@ -5,7 +5,7 @@ generateDefaultSettings <- function() {
   # print grid to console
   l$show.trim <- 30
   type$show.trim <- "numeric"
-  l$show.cut <- 20
+  l$show.cut <- 25
   type$show.cut <- "numeric"
   l$show.scale <- TRUE
   type$show.scale <- "logical"
