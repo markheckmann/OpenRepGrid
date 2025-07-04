@@ -1073,22 +1073,29 @@ element <- function(x, grid) {
 #' @param midpoint_diff TBD.
 #' @export
 #' @examples
-#' indexSelfRating(boeker, "ideal self", "self")
-#' indexSelfRating(boeker, "ideal self", "self", max_diff = 1)
-indexSelfRating <- function(x, ideal, compare_to, max_diff = 2, midpoint_diff = 0) {
+#' indexSelfRating(boeker, "self", "ideal self")
+#' indexSelfRating(boeker, "self", "ideal self", max_diff = 1)
+indexSelfRating <- function(x, compare_to, ideal, max_diff = 2, midpoint_range = NULL) {
   stop_if_not_is_repgrid(x)
   sc <- getScale(x)
   mp <- midpoint(x)
 
-  ideal <- element(ideal, x)$name
-  compare_to <- element(compare_to, x)$name
+  ideal <- fortify_element_name(x, ideal)
+  compare_to <- fortify_element_name(x, compare_to)
+
+  if (is.null(midpoint_range)) {
+    midpoint_range <- midpoint
+  } else {
+    stop_if_not_integerish(midpoint_range, arg = "midpoint_range")
+  }
 
   r <- ratings(x, trim = NA)
   r_i <- r[, ideal]
   r_c <- r[, compare_to]
 
-  df <- r[, c(ideal, compare_to)] %>% as.data.frame()
-  df$diff <- abs(r_i - r_c)
+  df <- r[, c(compare_to, ideal)] %>% as.data.frame()
+  df <- cbind(construct = rownames(r), df) %>% `rownames<-`(NULL)
+  df$difference <- abs(r_i - r_c)
   df$construing <- ifelse(df$diff <= max_diff, "positive", "negative")
   n_positive <- sum(df$construing == "positive")
   n_negative <- sum(df$construing == "negative")
@@ -1098,7 +1105,7 @@ indexSelfRating <- function(x, ideal, compare_to, max_diff = 2, midpoint_diff = 
     ideal = ideal,
     compare_to = compare_to,
     max_diff = max_diff,
-    midpoint_diff = midpoint_diff,
+    midpoint_range = midpoint_range,
     data = df,
     n_positive = n_positive,
     n_negative = n_negative
@@ -1114,6 +1121,7 @@ print.indexSelfRating <- function(x, ...) {
   cat("\nIdeal: ", x$ideal)
   cat("\nCompare: ", x$compare_to)
   cat("\nMax. Difference: ", x$max_diff)
+  # cat("\nMitpoint Range: ", x$midpoint_range)
 
   cat("\n")
   cat("\nPositive: ", x$n_positive)
