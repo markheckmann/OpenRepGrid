@@ -169,6 +169,11 @@ modifyListNA <- function(x, val) {
 # modifyListNA(l2, l1)
 
 
+match.arg2 <- function(arg, choices, several.ok = TRUE) {
+  sapply(arg, match.arg, choices = choices, several.ok = several.ok)
+}
+
+
 # //////////////////////////////////////////////////////////////////////////////
 #' bring vector values into ring form
 #'
@@ -831,6 +836,44 @@ angle <- function(x, y) {
     }
   }
   apply(cbind(x, y), 1, angle2)
+}
+
+
+# is_integerish(1)
+# is_integerish(1.0)
+# is_integerish(c(1.0, 2.0))
+is_integerish <- function(x) {
+  ii <- all(is.numeric(x) | is.integer(x))
+  jj <- all(x == as.integer(x))
+  ii && jj
+}
+
+
+#' convert element index or name to index
+#' @examples
+#' fortify_element_id(boeker, "self")
+#' fortify_element_id(boeker, 1)
+#' @noRd
+fortify_element_id <- function(x, element) {
+  stop_if_not_in_element_range(x, element)
+  if (is.character(element)) {
+    element <- which(elements(x) == element)
+  }
+  element
+}
+
+
+#' convert element index or name to name
+#' @examples
+#' fortify_element_name(boeker, 1)
+#' fortify_element_name(boeker, "self")
+#' @noRd
+fortify_element_name <- function(x, element) {
+  stop_if_not_in_element_range(x, element)
+  if (is.numeric(element)) {
+    element <- elements(x)[element]
+  }
+  element
 }
 
 

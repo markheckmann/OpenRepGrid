@@ -38,6 +38,7 @@
 #' @rawNamespace import(stats, except=c(lag,filter))
 #' @rawNamespace import(plyr, except = c(failwith,id,count,mutate,desc,rename,summarize,summarise,filter,arrange))
 #' @importFrom colorspace HSV diverge_hcl hex hex2RGB
+#' @importFrom dplyr case_when
 #' @importFrom crayon bold black red green yellow blue magenta cyan white silver
 #'
 "_PACKAGE"

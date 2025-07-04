@@ -48,13 +48,50 @@ stop_if_not_0_1_ratings_only <- function(x, name = "x") {
 #' @keywords internal
 #'
 stop_if_scale_not_defined <- function(x) {
-  stop_if_not_is_repgrid(x, name)
+  stop_if_not_is_repgrid(x)
 
   if (identical(x@scale$min, NA) | identical(x@scale$min, NULL)) {
     stop("No min value for the rating scale defined. To define the scale use setScale().")
   }
   if (identical(x@scale$max, NA) | identical(x@scale$max, NULL)) {
     stop("No max value for the rating scale defined. To define the scale use setScale().")
+  }
+}
+
+
+#' Raise error if element index is outside of range or element name is unknown
+#' @param x A `repgrid``` object.
+#' @param element Element index or name.
+#' @export
+#' @keywords internal
+stop_if_not_in_element_range <- function(x, element) {
+  stop_if_not_is_repgrid(x)
+  if (!is.character(element) && !is.numeric(element)) {
+    stop("arg 'element' must be the element index (integer) or name (character)", call. = FALSE)
+  }
+  .elements <- elements(x)
+  if (is.character(element) && !element %in% .elements) {
+    stop("element name '", element, " 'is not unknown", call. = FALSE)
+  }
+  if (is.numeric(element) && !is_integerish(element)) {
+    stop("element index must be an integer", call. = FALSE)
+  }
+  ii <- seq_along(.elements)
+  if (is.numeric(element) && !element %in% ii) {
+    interval <- paste(range(ii), collapse = ",")
+    stop("element index ", element, " is outside interval [", interval, "]", call. = FALSE)
+  }
+}
+
+
+stop_if_not_integerish <- function(x, arg = NULL) {
+  if (!is_integerish(x)) {
+    if (!is.null(arg)) {
+      argname <- paste0("for '", arg, "' ")
+    } else {
+      argname <- ""
+    }
+    stop("Expected integerish value ", argname, "but got '", class(x)[1], "'", call. = FALSE)
   }
 }
 
@@ -682,7 +719,7 @@ swapPoles <- function(x, pos) {
   if (missing(pos)) {
     pos <- seq_along(x@constructs)
   }
-  if (any(pos <= 0 | pos > getNoOfConstructs(x))) {
+  if (any(pos <= 0 | pos > nrow(x))) {
     stop("pos must contains values greater than 0 and equal or less than number of constructs.")
   }
   if (identical(x@scale$min, NA) | identical(x@scale$min, NULL)) {
@@ -723,11 +760,12 @@ reverse <- function(x, pos = 1L:nrow(x)) {
     stop("all 'pos' must lie in the interval [1, ", nc, "]", call. = FALSE)
   }
 
-  # swap names of poles
-  lp <- leftpoles(x)[pos]
-  rp <- rightpoles(x)[pos]
-  leftpoles(x)[pos] <- rp
-  rightpoles(x)[pos] <- lp
+  # swap poles
+  for (i in pos) {
+    tmp <- x@constructs[[i]]$leftpole
+    x@constructs[[i]]$leftpole <- x@constructs[[i]]$rightpole
+    x@constructs[[i]]$rightpole <- tmp
+  }
 
   # reverse ratings
   sc <- getScale(x)
@@ -1344,30 +1382,26 @@ setCoupled <- function(x, coupled = TRUE) {
 #'
 #' @param x     repgrid object
 #' @return `NULL`
-#' @export
-#' @keywords internal
-#' @examples \dontrun{
-#'
-#' ####  TODO  ####
-#' }
+#' @noRd
+#' @examples
+#' showMeta(boeker)
 #'
 showMeta <- function(x) {
   cat("\nMETA DATA:\n")
   if (!is.null(x@meta$type)) {
     cat("Grid type: ", x@meta$type, "\n")
-  } # print Meta data
+  }
   if (!is.null(x@meta$id)) {
     cat("Interview id: ", x@meta$id, "\n")
-  } # print Meta data
+  }
   if (!is.null(x@meta$name)) {
     cat("Name of interview partner: ", x@meta$name, "\n")
   }
-  cat("Number of constructs: ", length(x@constructs), "\n")
   cat("Number of elements: ", length(x@elements), "\n")
+  cat("Number of constructs: ", length(x@constructs), "\n")
+  pp <- preferredPoles(x)
+  cat("Preferred poles defined: ", paste0(sum(!is.na(pp)), "/", length(pp)), "\n")
 }
-
-# showMeta(x)
-
 
 
 #' Make a new repgrid object.
@@ -1582,7 +1616,7 @@ cbind.repgrid <- function(..., .reorder = TRUE, .unique = FALSE) {
 
 
 bindElements <- function(..., .reorder = TRUE, .unique = FALSE) {
-  dots <- unlist(list(...))  # in case list of repgrid objects are supplied
+  dots <- unlist(list(...)) # in case list of repgrid objects are supplied
   is.grid <- sapply(dots, function(x) inherits(x, "repgrid"))
   .f <- function(x, y) {
     bindTwoElements(x, y, .reorder = .reorder, .unique = .unique)

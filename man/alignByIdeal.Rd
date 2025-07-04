@@ -48,5 +48,8 @@ Winter, D. A., Bell, R. C., & Watson, S. (2010). Midpoint ratings on personal co
 middle way? \emph{Journal of Constructivist Psychology, 23}(4), 337-356.
 }
 \seealso{
-\code{\link[=alignByLoadings]{alignByLoadings()}}
+Aligning constructs
+\code{\link{alignByLoadings}()},
+\code{\link{alignByPreferredPole}()}
 }
+\concept{align_constructs}

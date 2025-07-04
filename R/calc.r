@@ -934,7 +934,7 @@ print.constructPca <- function(x, digits = 2, cutoff = 0, ...) {
 #' *International Journal of Personal Construct Psychology, 5*(1), 57-75.
 #'
 #' @export
-#' @seealso [alignByIdeal()]
+#' @family align_constructs
 #' @examples
 #'
 #' # reproduction of the example in the Bell (2010)
@@ -1049,7 +1049,7 @@ print.alignByLoadings <- function(x, digits = 2, col.index = TRUE, ...) {
 #'   middle way? *Journal of Constructivist Psychology, 23*(4), 337-356.
 #'
 #' @export
-#' @seealso [alignByLoadings()]
+#' @family align_constructs
 #' @examples
 #'
 #' feixas2004 # original grid

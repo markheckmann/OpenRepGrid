@@ -34,6 +34,7 @@ convertImportObjectToRepGridObject <- function(import) {
   # List of 9
   #  $ elements     :List of 3
   #  $ constructs   :List of 4
+  #  $ preferredPoles    :List of 4
   #  $ emergentPoles:List of 4
   #  $ contrastPoles:List of 4
   #  $ ratings      :List of 4
@@ -50,6 +51,19 @@ convertImportObjectToRepGridObject <- function(import) {
   ) # ratings
   x <- makeRepgrid(args) # make repgrid
   x <- setScale(x, import$minValue, import$maxValue) # set scale range
+
+  # preferred poles
+  if (!is.null(import$preferredPoles)) {
+    preferred_poles <- unlist(import$preferredPoles)
+    n_preferred <- length(preferred_poles)
+    if (length(preferred_poles) != nrow(x)) {
+      stop(c(
+        "\nNumber of preferred poles (", n_preferred, ") does not match number of constructs (", nrow(x), ")",
+        "\nPlease check section 'PREFERRED' in source file"
+      ), call. = FALSE)
+    }
+    preferredPoles(x) <- preferred_poles
+  }
   x
 }
 
@@ -1221,6 +1235,8 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
   line.elements.end <- which(d == "END ELEMENTS")
   line.constructs <- which(d == "CONSTRUCTS")
   line.constructs.end <- which(d == "END CONSTRUCTS")
+  line.preferred <- which(d == "PREFERRED")
+  line.preferred.end <- which(d == "END PREFERRED")
   line.ratings <- which(d == "RATINGS")
   line.ratings.end <- which(d == "END RATINGS")
   line.range <- which(d == "RANGE")
@@ -1241,6 +1257,12 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
   })
   l$emergentPoles <- lapply(tmp, function(x) trimBlanksInString(x[1]))
   l$contrastPoles <- lapply(tmp, function(x) trimBlanksInString(x[2]))
+
+  # read preferred poles
+  if (length(line.preferred) > 0 && length(line.preferred.end) > 0) {
+    l$preferredPoles <- as.list(data[(line.preferred + 1):(line.preferred.end - 1)])
+    l$preferredPoles <- lapply(l$preferredPoles, function(x) trimBlanksInString(x[1]))
+  }
 
   # read ratings and convert to numeric
   op <- options()$warn
@@ -1316,17 +1338,17 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #'                for minimum rating value in grid.
 #' @param max	    Optional argument (`numeric`, default `NULL`)
 #'                for maximum rating value in grid.
-#' @return  A single `repgrid` object in case one file and
+#' @return        A single `repgrid` object in case one file and
 #'                a list of `repgrid` objects in case multiple files are imported.
 #'
-#' @details
-#' The `.txt` file has to be in a fixed format. There are *three mandatory blocks* each starting and ending
-#' with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS` and
-#' contains one element in each line. The other mandatory blocks contain the constructs and ratings (see below). In the
-#' block containing the constructs the left and right pole are separated by a colon (:). To define missing values use
-#' `NA` like in the example below. One optional block contains the range of the rating scale used defined by two
-#' numbers. The order of the blocks is arbitrary. All text not contained within the blocks is discarded and can thus be
-#' used for comments.
+#' @details The `.txt` file has to be in a fixed format. There are *three mandatory blocks* each starting and ending
+#'   with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with `END ELEMENTS`.
+#'   It contains one element per line. The other mandatory blocks are `CONSTRUCTS` and `RATINGS` (see below). In the
+#'   block containing the constructs the left and right pole are separated by a colon (`:`). To define missing values
+#'   use `NA`. The block `PREFERRED` is *optional*. Each line indicated the preferred construct pole. Allowed values
+#'   are `left`, `right`, `none` (no pole preferred), and `NA` (unknown). The block `RANGE` is *optional* but
+#'   recommended. It gives the rating scale range defined by two numbers. The order of the blocks is arbitrary. All
+#'   text oustide the blocks is discarded and can be used for comments.
 #'
 #' The content of a sample `.txt` file is shown below. The package also contains a sample file (see *Examples*).
 #'
@@ -1347,6 +1369,13 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #' left pole 3 : right pole 3
 #' left pole 4 : right pole 4
 #' END CONSTRUCTS
+#'
+#' PREFERRED
+#' left
+#' left
+#' right
+#' none
+#' END PREFERRED
 #'
 #' RATINGS
 #' 1 3 2
@@ -1376,8 +1405,8 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #' rg <- importTxt(file)
 #'
 #' \dontrun{
-#' # To see the structure of the Excel file try to open it as follows.
-#' # May not work on all systems.
+#' # To see the structure of the file, try opening it as follows.
+#' # (may not work on all systems)
 #' file.show(file)
 #' }
 #'
@@ -1405,43 +1434,57 @@ importTxt <- function(file, dir = NULL, min = NULL, max = NULL) {
 #' @inheritParams importExcel
 #' @export
 #' @keywords      internal
-importExcelInternal <- function(file, dir = NULL, sheetIndex = 1,
+importExcelInternal <- function(file, dir = NULL, sheet = 1,
                                 min = NULL, max = NULL) {
   if (!is.null(dir)) {
     file <- paste(dir, file, sep = "/", collapse = "")
   }
 
   # read in Excel file
-  x <- openxlsx::read.xlsx(file, sheet = sheetIndex, colNames = F) # read .xlxs or .xls file
+  x <- openxlsx::read.xlsx(file, sheet = sheet, colNames = FALSE) # read .xlxs or .xls file
 
-  # remove NA lines when too many rows in Excel
+  # remove NA lines if too many rows in Excel
   na.rows <- apply(x, 1, function(x) all(is.na(unlist(x))))
   x <- x[!na.rows, ]
 
-  nc <- nrow(x) - 1 # number of constructs
-  ne <- ncol(x) - 2 # number of elements
+  last_col_value <- str_trim(x[1L, ncol(x)])
+  last_col_numeric <- last_col_value %>%
+    str_trim() %>%
+    str_detect("^[0-9]+$")
+  last_col_has_preferred_poles <- tolower(last_col_value) %>% str_detect("^preferred.*")
+
+  nc <- nrow(x) - 1L # number of constructs
+  ne <- ncol(x) - 2L - last_col_has_preferred_poles # number of elements
+
+  elements_col_start <- 2L
+  elements_col_end <- ncol(x) - 1L - last_col_has_preferred_poles
+  cols_elements <- elements_col_start:elements_col_end
+
+  rows_ratings <- seq_len(nc) + 1L
 
   l <- list()
 
   # read elements
-  l$elements <- as.list(as.character((unlist(x[1, 2:(1 + ne)])))) # list of element names
+  l$elements <- as.list(as.character(unlist(x[1, cols_elements]))) # list of element names
 
   # read constructs and trim blanks
-  l$emergentPoles <- as.list(as.character(x[2:(nc + 1), 1]))
-  l$contrastPoles <- as.list(as.character(x[2:(nc + 1), ne + 2]))
+  l$emergentPoles <- as.list(as.character(x[rows_ratings, 1L]))
+  l$contrastPoles <- as.list(as.character(x[rows_ratings, ne + 2L]))
 
+  if (last_col_has_preferred_poles) {
+    l$preferredPoles <- as.list(as.character(x[rows_ratings, ncol(x)]))
+  }
   # read ratings and convert to numeric
-  ratings <- x[-1, c(-1, -(ne + 2))]
+  ratings <- x[rows_ratings, cols_elements]
   ratings <- sapply(ratings, function(x) as.numeric(as.character(x))) # convert to numerics
-  l$ratings <- split(ratings, 1:nrow(ratings)) # convert df to list row-wise
-  # names(l$ratings) <- NULL
+  l$ratings <- split(ratings, 1L:nrow(ratings)) # convert df to list row-wise
 
   # read range info if available
-  rmin <- as.numeric(as.vector(x[1, 1]))
-  rmax <- as.numeric(as.vector(x[1, ne + 2]))
+  rmin <- as.numeric(as.vector(x[1L, 1L]))
+  rmax <- as.numeric(as.vector(x[1L, ne + 2L]))
 
   # if not availabe infer range data and issue warning
-  if (identical(rmin, numeric(0)) | identical(rmax, numeric(0))) {
+  if (identical(rmin, numeric(0)) || identical(rmax, numeric(0))) {
     warning("the minimum and/or the maximum value of the rating scale have not been set explicitly.",
       "The scale range was thus inferred by scanning the available ratings and may be wrong.",
       "See ?importExcel for more information",
@@ -1496,7 +1539,7 @@ importExcelInternal <- function(file, dir = NULL, sheetIndex = 1,
 #'                directory. The file suffix has to be `.xlsx` (used since Excel 2007).
 #' @param dir	    Alternative way to supply the directory where the file is located
 #'                (default `NULL`).
-#' @param sheetIndex  The number of the Excel sheet that contains the grid data.
+#' @param sheet   Name or index of Excel sheet containing the grid.
 #' @param min	    Optional argument (`numeric`, default `NULL`)
 #'                for minimum rating value in grid.
 #' @param max	    Optional argument (`numeric`, default `NULL`)
@@ -1525,9 +1568,9 @@ importExcelInternal <- function(file, dir = NULL, sheetIndex = 1,
 #' rg <- importExcel(files)
 #' }
 #'
-importExcel <- function(file, dir = NULL, sheetIndex = 1, min = NULL, max = NULL) {
+importExcel <- function(file, dir = NULL, sheet = 1, min = NULL, max = NULL) {
   imps <- lapply(as.list(file), importExcelInternal, # make import objects for each .txt file
-    dir = dir, sheet = sheetIndex,
+    dir = dir, sheet = sheet,
     min = min, max = max
   )
   rgs <- lapply(imps, convertImportObjectToRepGridObject) # make repgrid object from import object

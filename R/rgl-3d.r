@@ -149,7 +149,6 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
                           lef = 1.1, frame = 1, col.frame = grey(.6),
                           col.sphere = "black", alpha.sphere = .05, zoom = 1,
                           draw.xyz.axes = TRUE, ...) {
-
   if (!requireNamespace("rgl", quietly = TRUE)) {
     stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
   }

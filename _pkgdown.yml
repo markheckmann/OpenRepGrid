@@ -66,8 +66,10 @@ reference:
     - constructPcaLoadings
     - constructRmsCor
     - constructs
+    - preferredPoles
     - alignByIdeal
     - alignByLoadings
+    - alignByPreferredPole
     - permuteConstructs
 
   - title: Distances
@@ -119,11 +121,11 @@ reference:
   - title: Import and Export Data
     contents:
     - importExcel
+    - importTxt
     - importGridcor
     - importGridstat
     - importGridsuite
     - importScivesco
-    - importTxt
     - saveAsExcel
     - saveAsTxt
 

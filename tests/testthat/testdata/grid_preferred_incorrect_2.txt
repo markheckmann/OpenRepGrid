@@ -4,36 +4,36 @@
 Note: anything outside the tag pairs is discarded
 
 ELEMENTS
-element 1
-element 2
-element 3
+e1
+e2
+e3
 END ELEMENTS
 
 Note: the colon (:) seperates the construct poles
 
 CONSTRUCTS
-left pole 1 : right pole 1
-left pole 2 : right pole 2
-left pole 3 : right pole 3
-left pole 4 : right pole 4
+l1 : r1
+l2 : r2
+l3 : r3
+l4 : r4
 END CONSTRUCTS
 
-Note: optional block indicating prefered pole (left, right, none, NA)
+Note: indicate the preferred pole: left, right, none, NA (=unknown)
 
 PREFERRED
 left
-left
-right
-none
+r
+xxx
+NA
 END PREFERRED
 
 Note: columns represent elements, rows constructs
 
 RATINGS
-1 3 2
-4 1 1
-1 4 4
-3 1 1
+1 2 3
+2 3 4
+3 4 1
+4 1 2
 END RATINGS
 
 Note: Range means the lowest and hightest possible rating value
