@@ -2,32 +2,41 @@
 % Please edit documentation in R/export.r
 \name{saveAsExcel}
 \alias{saveAsExcel}
-\title{Save grid in a Microsoft Excel file (.xlsx)}
+\title{Save grid as Microsoft Excel file (.xlsx)}
 \usage{
-saveAsExcel(x, file, sheet = 1)
+saveAsExcel(x, file, format = "wide", sheet = NULL)
 }
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{file}{Filename to save the grid to. The name should have
-the suffix \code{.xlsx}.}
+\item{file}{File path. Suffix must be \code{.xlsx}.}
 
-\item{sheet}{Index of the sheet to write to.}
+\item{format}{Two output formats are supported: \code{wide} (default) where each column represents one element, each row
+represent one constructs (a common grid representation), and \code{long} where each row contains an element-construct
+combination and the corresponding rating value. See \code{\link[=importExcel]{importExcel()}} for details and examples.}
+
+\item{sheet}{Optional sheet name. If \code{NULL} (default), either \code{"grid (wide format)"} or \code{"grid (long format)"}.}
 }
 \value{
-Invisibly returns the name of the file.
+Invisibly returns file path.
 }
 \description{
-\code{saveAsExcel} will save the grid as a Microsoft Excel file
-(\code{.xlsx}).
+\code{saveAsExcel} will save the grid as a Microsoft Excel file (\code{.xlsx}).
 }
 \examples{
+# save grid in wide format (default)
+file <- tempfile(fileext = ".xlsx")
+saveAsExcel(boeker, file)
 \dontrun{
-
-x <- randomGrid(options = 0)
-saveAsExcel(x, "grid.xlsx")
+browseURL(file) # open file, requires Excel, may not work on all system
 }
 
+# save grid in log format
+file <- tempfile(fileext = ".xlsx")
+saveAsExcel(boeker, file, format = "long")
+\dontrun{
+browseURL(file)
+}
 }
 \seealso{
 \code{\link[=importExcel]{importExcel()}}

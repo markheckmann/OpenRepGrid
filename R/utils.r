@@ -1021,3 +1021,12 @@ list_to_dataframe <- function(l) {
   # plyr:::list_to_dataframe(l)
   do.call(rbind.data.frame, l)
 }
+
+
+`%||%` <- function(a, b){
+  if (!is.null(a)) {
+    a
+  } else {
+    b
+  }
+}

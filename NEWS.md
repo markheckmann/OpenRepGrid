@@ -1,5 +1,6 @@
 # OpenRepGrid 0.1.18 (dev version)
 
+* `saveAsExcel` now supports output in wide and long format. The output is also formatted now (#64).
 * `bertinCluster`: now restores the original `par()` settings after changing the plot layout (#63).
 * `importTxt` reads preferred poles from section `PREFERRED`, `importExcel` reads rightmost column `preferred_poles` (#57)
 * `preferredPoles` sets the preferred construct poles, `preferredPolesByIdeal` sets the preferred pole bases on the 
