@@ -786,16 +786,14 @@ bertinCluster <- function(x, dmethod = c("euclidean", "euclidean"),
 
   x <- x[con.ord, el.ord] # reorder repgrid object
 
+  old_par <- par(fig = c(xsegs[c(1, 4)], ysegs[c(2, 4)]))
   plot.new()
-  par(fig = c(xsegs[c(1, 4)], ysegs[c(2, 4)]), new = TRUE)
-  # par(fig = c(0, .8, .2, 1), new=T)
-
-  bertin(x, xlim = xlim.bertin, ylim = ylim.bertin, add = TRUE, ...) # print reordered bertin
+  bertin(x, xlim = xlim.bertin, ylim = ylim.bertin, add = FALSE, ...) # print reordered bertin
 
   # x dendrogram (horizontal) elements
   if (!is.na(cmethod[2])) {
     dend.x.fig <- c(xsegs[2:3], ysegs[1:2]) + c(0, 0, y.off, -y.off) # adjust for offsets
-    par(fig = dend.x.fig, new = T, mar = c(0, 0, 0, 0))
+    par(fig = dend.x.fig, new = TRUE, mar = c(0, 0, 0, 0)) # trick: new = TRUE avoids opening a new plot window in next plot
     ymax.el <- attr(dend.el, "height")
     plot(dend.el,
       horiz = F, xlab = "", xaxs = "i", yaxs = "i", yaxt = "n",
@@ -819,17 +817,7 @@ bertinCluster <- function(x, dmethod = c("euclidean", "euclidean"),
       axis(1, las = 1, cex.axis = cex.axis, col = col.axis, col.axis = col.axis)
     }
   }
+  par(old_par)
   # return hclust objects for elements and constructs
   invisible(list(constructs = fit.constructs, elements = fit.elements))
 }
-
-# TODO: use of layout does not work with bertinCluster
-# a future version could use layout
-# layout (matrix(1:4), 2)
-# bertinCluster(bell2010)
-
-# bertinCluster(bell2010, type="t", bor=grey(.5))
-# dev.new()
-# bertinCluster(bell2010, type="t", dm="manhattan", cm="single")
-# dev.new()
-# bertinCluster(bell2010, type="t", dm="manhattan", cm="centroid")
