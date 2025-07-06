@@ -55,7 +55,7 @@ randomGrid <- function(nc = 10, ne = 15, nwc = 8, nwe = 5, range = c(1, 5), prob
     scores = scores
   )
   x <- makeRepgrid(args)
-  setScale(x, min = range[1], max = range[2], step = 1)
+  setScale(x, min = range[1], max = range[2])
 }
 
 

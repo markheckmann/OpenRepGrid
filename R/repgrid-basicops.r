@@ -510,9 +510,9 @@ setScale <- function(x, min, max, step, ...) { # ... needes for makeRepgrid call
     }
     x@scale$max <- max
   }
-  if (!missing(step)) {
-    x@scale$step <- step
-  }
+  # if (!missing(step)) {
+  #   x@scale$step <- step
+  # }
   x
 }
 # setScale(x, min=1, max=5, step=1)
