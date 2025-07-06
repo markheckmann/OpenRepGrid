@@ -50,10 +50,12 @@ for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva.
 Retrieved from \url{https://repertorygrid.net/en/}.
 }
 \seealso{
-\code{\link[=importGridcor]{importGridcor()}},
-\code{\link[=importGridstat]{importGridstat()}},
-\code{\link[=importScivesco]{importScivesco()}},
-\code{\link[=importGridsuite]{importGridsuite()}},
-\code{\link[=importTxt]{importTxt()}},
-\code{\link[=importExcel]{importExcel()}}
+Import data
+\code{\link{importDataframe}()},
+\code{\link{importExcel}()},
+\code{\link{importGridstat}()},
+\code{\link{importGridsuite}()},
+\code{\link{importScivesco}()},
+\code{\link{importTxt}()}
 }
+\concept{import}

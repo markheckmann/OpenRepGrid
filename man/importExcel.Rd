@@ -4,73 +4,84 @@
 \alias{importExcel}
 \title{Import grid data from an Excel file.}
 \usage{
-importExcel(file, dir = NULL, sheet = 1, min = NULL, max = NULL)
+importExcel(file, sheet = 1, format = "wide", rmin = NULL, rmax = NULL)
 }
 \arguments{
-\item{file}{A vector of filenames including the full path if file is not in current working
-directory. The file suffix has to be \code{.xlsx} (used since Excel 2007).}
+\item{file}{Path(s) to Excel file(s) (suffix \code{.xlsx}).}
 
-\item{dir}{Alternative way to supply the directory where the file is located
-(default \code{NULL}).}
+\item{sheet}{Name or index of sheet with grid data.}
 
-\item{sheet}{Name or index of Excel sheet containing the grid.}
+\item{format}{Two formats are supported. \code{wide} (default): each column represents one element, each row represent
+one constructs. \code{long}: each row contains one rating value for a element-construct combination. See
+sections below and examples.}
 
-\item{min}{Optional argument (\code{numeric}, default \code{NULL})
-for minimum rating value in grid.}
-
-\item{max}{Optional argument (\code{numeric}, default \code{NULL})
-for maximum rating value in grid.}
+\item{rmin, rmax}{Min and max of the rating scale (\code{numeric}, default \code{NULL}).}
 }
 \value{
-A single \code{repgrid} object in case one file and
-a list of \code{repgrid} objects in case multiple files are imported.
+A single \code{repgrid} object (one inpput file) or a list of \code{repgrid} objects (several input files).
 }
 \description{
-You can define a grid using Microsoft Excel and by saving it as a
-\code{.xlsx} file. The \code{.xlsx} file has to be in a specified fixed
-format (see section Details).
+You can define a grid in a Microsoft Excel file (suffix \code{.xlsx}). The file must have one of
+two formats (\code{wide} or \code{long}, see format sections below).
 }
-\details{
-Excel file structure: The first row contains the minimum of the rating scale,
-the names of the elements and the maximum of the rating scale. Below every
-row contains the left construct pole, the ratings and the right construct
-pole.
+\section{Format \code{wide}}{
 
-\tabular{lccccr}{
-\code{1}           \tab \code{E1}  \tab \code{E2} \tab \code{E3} \tab \code{E4}  \tab \code{5}        \cr
-\verb{left pole 1} \tab \code{1}   \tab \code{5}  \tab \code{3}  \tab \code{4}   \tab \verb{right pole 1} \cr
-\verb{left pole 2} \tab \code{3}   \tab \code{1}  \tab \code{1}  \tab \code{3}   \tab \verb{right pole 2} \cr
-\verb{left pole 3} \tab \code{4}   \tab \code{2}  \tab \code{5}  \tab \code{1}   \tab \verb{right pole 3} \cr
+
+In the \code{wide} format, each element has a separate column, and each row contains the ratzings for one construct.
+It is a common way to represent grid data and looks like this:
+
+\tabular{lccccrr}{
+\code{1}           \tab \code{element_1} \tab \code{element_2} \tab \code{element_3} \tab \code{element_4}  \tab \code{5}            \tab \code{preferred} \cr
+\code{left_pole_1} \tab \code{1}         \tab \code{5}         \tab \code{3}         \tab \code{4}          \tab \code{right_pole_1} \tab \code{left} \cr
+\code{left_pole_2} \tab \code{3}         \tab \code{1}         \tab \code{1}         \tab \code{3}          \tab \code{right_pole_2} \tab \code{right} \cr
+\code{left_pole_3} \tab \code{4}         \tab \code{2}         \tab \code{5}         \tab \code{1}          \tab \code{right_pole_3} \tab \code{NA} \cr
 }
 
-Note that the maximum and minimum value has to be defined using the
-\code{min} and \code{max} arguments if no values are supplied at the
-beginning and end of the first row. Otherwise the scaling range is inferred
-from the available data and a warning is issued as the range may be
-erroneous. This may effect other functions that depend on knowing the correct
-range and it is thus strongly recommended to set the scale range correctly.
+The header row contains the minimum of the rating scale (\code{1}), the names of the elements (\code{element_1} to \code{element_4}),
+the maximum of the rating scale (\code{5}), and optionally the column \code{preferred}, indicating the preferred pole.
+Each row contains the constructs entries (left pole, ratings, right pole, preferred pole). The preferred pole
+must be one of \code{left}, \code{right}, \code{none}, \code{NA} (see \code{\link[=preferredPoles]{preferredPoles()}}).
 }
+
+\section{Format \code{long}}{
+
+
+The \code{long} format has this name because it has few columns and many rows. It is a common format
+in data analytics. Here, each row contains a different element-construct combination and the corresponding rating
+value. The format looks like this:
+
+\tabular{lllrlrr}{
+\code{element}   \tab \code{left_pole}   \tab \code{right_pole}   \tab \code{rating} \tab \code{preferred_pole} \tab \code{rmin} \tab \code{rmax} \cr
+\verb{element 1} \tab \verb{left pole 1} \tab \verb{right pole 1} \tab \code{1}      \tab \code{left}           \tab \code{1}    \tab \code{5}   \cr
+\code{element_2} \tab \verb{left pole 1} \tab \verb{right pole 1} \tab \code{5}      \tab \code{left}           \tab \code{1}    \tab \code{5}   \cr
+\code{element_3} \tab \verb{left pole 1} \tab \verb{right pole 1} \tab \code{4}      \tab \code{left}           \tab \code{1}    \tab \code{5}   \cr
+}
+
+The columns \code{element}, \code{left_pole}, \code{right_pole}, and \code{rating} are mandatory, the columns \code{preferred_pole}, \code{rmin},
+and \code{rmax} are optional. \code{rmin} and \code{rmax} contain the min and max of the rating scale. Alternatively, you may
+pass \code{rmin} and \code{rmax} as arguments in the function call.
+}
+
 \examples{
-\dontrun{
-
-# Open Excel file delivered along with the package
 file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
-rg <- importExcel(file)
+rg_1 <- importExcel(file, sheet = "wide")
+rg_2 <- importExcel(file, sheet = "long", format = "long")
 
-# To see the structure of the Excel file try to open it as follows.
-# Requires Excel to be installed.
-system2("open", file)
+# Open Sample file to inspect the two (requires Excel to be installed).
+\dontrun{
+browseURL(file) # may not work on all systems }
 
 # Import more than one Excel file
 files <- system.file("extdata", c("grid_01.xlsx", "grid_02.xlsx"), package = "OpenRepGrid")
-rg <- importExcel(files)
-}
-
+rgs <- importExcel(files) # returns a list of grids
 }
 \seealso{
-\code{\link[=importGridcor]{importGridcor()}},
-\code{\link[=importGridstat]{importGridstat()}},
-\code{\link[=importScivesco]{importScivesco()}},
-\code{\link[=importGridsuite]{importGridsuite()}},
-\code{\link[=importTxt]{importTxt()}}
+Import data
+\code{\link{importDataframe}()},
+\code{\link{importGridcor}()},
+\code{\link{importGridstat}()},
+\code{\link{importGridsuite}()},
+\code{\link{importScivesco}()},
+\code{\link{importTxt}()}
 }
+\concept{import}

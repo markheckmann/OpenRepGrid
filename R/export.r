@@ -207,7 +207,7 @@ saveAsExcel <- function(x, file, format = "wide", sheet = NULL) {
   format <- match.arg(tolower(format), c("wide", "long"))
 
   if (format == "wide") {
-    df <- grid_to_wide_format(x)
+    df <- grid_to_df_wide(x)
     sheet <- sheet %||% "grid (wide format)"
     jj_rows <- seq_len(nrow(df) + 1)
     jj_elements <- seq_len(ncol(x)) + 1
@@ -232,7 +232,7 @@ saveAsExcel <- function(x, file, format = "wide", sheet = NULL) {
     openxlsx::setColWidths(wb, sheet, cols = c(j_left_pole, j_right_pole, j_preferred), widths = c(20, 20, 13))
     openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
   } else {
-    df <- grid_to_long_format(x)
+    df <- grid_to_df_long(x)
     sheet <- sheet %||% "grid (long format)"
     jj_rows <- seq_len(nrow(df) + 1)
     jj_cols <- seq_len(ncol(df))
@@ -260,7 +260,13 @@ saveAsExcel <- function(x, file, format = "wide", sheet = NULL) {
 }
 
 
-grid_to_wide_format <- function(x) {
+
+#' Export a grid to dataframe with wide format
+#' @param x A `repgrid` object.
+#' @export
+#' @keywords internal
+grid_to_df_wide <- function(x) {
+  stop_if_not_is_repgrid(x)
   enames <- elements(x)
   cnames <- constructs(x)
   ratings <- ratings(x, names = FALSE)
@@ -273,9 +279,14 @@ grid_to_wide_format <- function(x) {
 }
 
 
-grid_to_long_format <- function(x) {
+#' Export a grid to dataframe with long format
+#' @param x A `repgrid` object.
+#' @export
+#' @keywords internal
+grid_to_df_long <- function(x) {
+  stop_if_not_is_repgrid(x)
   element <- left_pole <- right_pole <- preferred_pole <- NULL # register for R CMD CHECK
-  df <- grid_to_wide_format(x)
+  df <- grid_to_df_wide(x)
   names(df)[c(1L, ncol(x) + 2)] <- c("left_pole", "right_pole")
   df_long <- df %>%
     tidyr::pivot_longer(-c(left_pole, right_pole, preferred_pole), names_to = "element", values_to = "rating")

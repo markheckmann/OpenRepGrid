@@ -16,7 +16,7 @@ Description: Analyze repertory grids, a qualitative-quantitative
     to quantitatively analyze and visualize repertory grid data (e.g. 'Fransella', 'Bell', & 'Bannister', 
     2004, ISBN: 978-0-470-09080-0). The package is part of the The package is part of the 
     <https://openrepgrid.org/> project.
-Version: 0.1.18.9008
+Version: 0.1.18.9009
 Date: 2025-07-05
 Encoding: UTF-8
 URL: https://github.com/markheckmann/OpenRepGrid

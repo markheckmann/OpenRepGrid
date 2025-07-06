@@ -1,4 +1,6 @@
-################### 	import repgrid data from other (grid) programs ############
+# _______________----
+# 	IMPORT GRID DATA  -----------
+
 #
 # programs currently supported:
 #
@@ -68,7 +70,7 @@ convertImportObjectToRepGridObject <- function(import) {
 }
 
 
-############################ GRIDSTAT #########################################
+## GRIDSTAT ----
 
 # gridstat output has the following form.
 # 1) first line:  some description elements.
@@ -390,11 +392,8 @@ multigridFileToSinglegridFiles <- function(file) {
 #'   names are assigned to elements and constructs.
 #'
 #' @export
+#' @family import
 #' @references  Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a repertory grid. Melbourne: Author.
-#'
-#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
-#'   [importExcel()]
-#'
 #' @examples \dontrun{
 #'
 #' # supposing that the data file gridstat.dat is in the current working directory
@@ -430,7 +429,7 @@ importGridstat <- function(file, dir = NULL, min = NULL, max = NULL) {
 
 
 
-############################# GRIDCOR #########################################
+## GRIDCOR ------------------------------------------------------------------------------------
 
 # gridcor outpout has the following form:
 # "As you can see in this sample file, the first line contains the number of constructs (10),
@@ -609,16 +608,10 @@ importGridcorInternal <- function(file, dir = NULL) {
 #'
 #'   Also note that both Gridcor and Gridstat data files do have the same suffix `.dat`. Make sure not to mix them up.
 #' @export
+#' @family import
 #' @references  Feixas, G., & Cornejo, J. M. (2002). GRIDCOR: Correspondence Analysis
 #' for Grid Data (version 4.0). Barcelona: Centro de Terapia Cognitiva.
 #' Retrieved from <https://repertorygrid.net/en/>.
-#'
-#' @seealso [importGridcor()],
-#'                [importGridstat()],
-#'                [importScivesco()],
-#'                [importGridsuite()],
-#'                [importTxt()],
-#'                [importExcel()]
 #'
 #' @examples \dontrun{
 #'
@@ -647,9 +640,7 @@ importGridcor <- function(file, dir = NULL) {
 }
 
 
-
-
-############################# GRIDSUITE #######################################
+## GRIDSUITE ------------------------------------------------------------------------------------
 
 #
 # On www.gridsuite.de there are example files and XSD schemes available.
@@ -780,9 +771,7 @@ importGridsuiteInternal <- function(file, dir = NULL) {
 #'   current mechanism will cause false assignments.
 #'
 #' @export
-#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
-#'   [importExcel()]
-#'
+#' @family import
 #' @examples \dontrun{
 #'
 #' # supposing that the data file gridsuite.xml is in the current directory
@@ -810,7 +799,7 @@ importGridsuite <- function(file, dir = NULL) {
 }
 
 
-############################# sci:vesco #######################################
+## sci:vesco ------------------------------------------------------------------------------------
 
 # scivesco saves single grids in .scires files which have an XML structure.
 # Note: not all nodes are imported by importScivesco()
@@ -1110,10 +1099,7 @@ convertScivescoImportObjectToRepGridObject <- function(import) {
 #' @export
 #' @references    Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und
 #'                rationale Konstrukte verstehen. *Personalfuehrung, 4*(7), 91-99.
-#'
-#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
-#'   [importExcel()]
-#'
+#' @family import
 #' @examples \dontrun{
 #'
 #' # supposing that the data file scivesco.scires is in the current directory
@@ -1141,7 +1127,8 @@ importScivesco <- function(file, dir = NULL) {
 }
 
 
-############################# IMPORT .TXT #######################################
+## .txt ------------------------------------------------------------------------------------
+
 
 #' ImportTxtInternal is the parser for importTxt.
 #'
@@ -1205,8 +1192,7 @@ importScivesco <- function(file, dir = NULL) {
 #'                for maximum rating value in grid.
 #' @return  List of relevant data.
 #'
-#' @export
-#' @keywords internal
+#' @noRd
 #' @examples \dontrun{
 #'
 #' # supposing that the data file sample.txt is in the current directory
@@ -1397,22 +1383,21 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #' thus strongly recommended to set the scale range correctly.
 #'
 #' @export
-#' @seealso [importGridcor()], [importGridstat()], [importScivesco()], [importGridsuite()], [importTxt()],
-#'   [importExcel()]
+#' @family import
 #' @examples
 #' # Import a .txt file delivered along with the package
 #' file <- system.file("extdata", "grid_01.txt", package = "OpenRepGrid")
 #' rg <- importTxt(file)
 #'
-#' \dontrun{
 #' # To see the structure of the file, try opening it as follows.
 #' # (may not work on all systems)
-#' file.show(file)
+#' \dontrun{ file.show(file)
 #' }
 #'
 #' # Import more than one .txt file
 #' files <- system.file("extdata", c("grid_01.txt", "grid_02.txt"), package = "OpenRepGrid")
 #' rgs <- importTxt(files)
+#'
 importTxt <- function(file, dir = NULL, min = NULL, max = NULL) {
   imps <- lapply(as.list(file), importTxtInternal, # make import objects for each .txt file
     dir = dir, min = min, max = max
@@ -1426,164 +1411,298 @@ importTxt <- function(file, dir = NULL, min = NULL, max = NULL) {
 }
 
 
-############################# IMPORT EXCEL ####################################
+## DATAFRAME ------------------------------------------------------------------------------------
 
 
-#' workhorse function (parser) for importExcel.
-#'
-#' @inheritParams importExcel
-#' @export
-#' @keywords      internal
-importExcelInternal <- function(file, dir = NULL, sheet = 1,
-                                min = NULL, max = NULL) {
-  if (!is.null(dir)) {
-    file <- paste(dir, file, sep = "/", collapse = "")
+#' Convert dataframe to repgrid object (internal)
+#' @param x A dataframe with predefined format.
+#' @param rmin,rmax Min and max of the rating scale.
+#' @return A reogrid object
+#' @noRd
+df_wide_to_grid <- function(x, rmin = NULL, rmax = NULL ) {
+  if (!is.data.frame(x)) {
+    stop("'x' must be a dataframe. Got '", class(x)[1], "' instead.")
   }
-
-  # read in Excel file
-  x <- openxlsx::read.xlsx(file, sheet = sheet, colNames = FALSE) # read .xlxs or .xls file
-
-  # remove NA lines if too many rows in Excel
-  na.rows <- apply(x, 1, function(x) all(is.na(unlist(x))))
-  x <- x[!na.rows, ]
-
-  last_col_value <- str_trim(x[1L, ncol(x)])
-  last_col_numeric <- last_col_value %>%
-    str_trim() %>%
-    str_detect("^[0-9]+$")
-  last_col_has_preferred_poles <- tolower(last_col_value) %>% str_detect("^preferred.*")
-
-  nc <- nrow(x) - 1L # number of constructs
+  nms <- names(x) <- trimws(names(x))
+  col_last <- tail(nms, 1)
+  # last_col_numeric <- grepl("^[0-9]+$", col_last)
+  last_col_has_preferred_poles <- grepl("^preferred.*", tolower(col_last))
+  nc <- nrow(x) # number of constructs
   ne <- ncol(x) - 2L - last_col_has_preferred_poles # number of elements
 
-  elements_col_start <- 2L
-  elements_col_end <- ncol(x) - 1L - last_col_has_preferred_poles
-  cols_elements <- elements_col_start:elements_col_end
+  col_left_poles <- 1
+  col_right_poles <- ne + 2L
+  cols_elements <- seq_len(ne) + 1L
+  rows_ratings <- seq_len(nc)
 
-  rows_ratings <- seq_len(nc) + 1L
-
-  l <- list()
-
-  # read elements
-  l$elements <- as.list(as.character(unlist(x[1, cols_elements]))) # list of element names
-
-  # read constructs and trim blanks
-  l$emergentPoles <- as.list(as.character(x[rows_ratings, 1L]))
-  l$contrastPoles <- as.list(as.character(x[rows_ratings, ne + 2L]))
-
-  if (last_col_has_preferred_poles) {
-    l$preferredPoles <- as.list(as.character(x[rows_ratings, ncol(x)]))
+  ratings <- x[rows_ratings, cols_elements] %>% as.matrix() %>% as.numeric()
+  if (any(is.na(ratings))) {
+    stop("\nNA ratings are not allowed.", call. = FALSE)
   }
-  # read ratings and convert to numeric
-  ratings <- x[rows_ratings, cols_elements]
-  ratings <- sapply(ratings, function(x) as.numeric(as.character(x))) # convert to numerics
-  l$ratings <- split(ratings, 1L:nrow(ratings)) # convert df to list row-wise
 
-  # read range info if available
-  rmin <- as.numeric(as.vector(x[1L, 1L]))
-  rmax <- as.numeric(as.vector(x[1L, ne + 2L]))
+  # determine rating range
+  rmin <- rmin %||% suppressWarnings(as.numeric(trimws(nms[col_left_poles]))) # supress NA conversion, NA handled below
+  rmax <- rmax %||% suppressWarnings(as.numeric(trimws(nms[col_right_poles])))
 
-  # if not availabe infer range data and issue warning
-  if (identical(rmin, numeric(0)) || identical(rmax, numeric(0))) {
-    warning("the minimum and/or the maximum value of the rating scale have not been set explicitly.",
-      "The scale range was thus inferred by scanning the available ratings and may be wrong.",
-      "See ?importExcel for more information",
-      call. = FALSE
+  # if unknown range, infer from data with warning
+  if (identical(rmin, numeric(0)) || is.na(rmin) || identical(rmax, numeric(0))|| is.na(rmax) ) {
+    warning("The range of the rating scale was not supplied via args `rmin` and `rmax`.",
+            "\nI will set the min and max rating as scale range. This may be incorrect!",
+            "\nSee `?importExcel` for more information",
+            call. = FALSE
     )
     rmin <- min(ratings, na.rm = TRUE) # infer rating range
     rmax <- max(ratings, na.rm = TRUE)
   }
 
-  # overwrite scale range if given in arguments
-  if (!is.null(min)) {
-    rmin <- min
-  }
-  if (!is.null(max)) {
-    rmax <- max
-  }
-
-  l$noConstructs <- nc # no of constructs
-  l$noElements <- ne # no of elements
-  l$minValue <- rmin # minimum value for Likert scale
-  l$maxValue <- rmax # maximum value for Likert scale
-  l
+  # easier than building from scratch, as makeEmptyRepgrid() appears not suited here
+  rg <- randomGrid(ne = ne, nc = nc, range = c(rmin, rmax), options = 0)
+  ratings(rg) <- ratings
+  elements(rg) <- nms[cols_elements]
+  leftpoles(rg) <- x[[col_left_poles]]
+  rightpoles(rg) <- x[[col_right_poles]]
+  preferredPoles(rg) <- x[["preferred_pole"]] # if not present => NULL => NA
+  rg
 }
 
+
+df_long_to_wide <- function(df, rmin = NULL, rmax = NULL) {
+  left_pole <- preferred_pole <- right_pole <- NULL # register vars for R CMD CHECK
+  if (!is.data.frame(df)) {
+    stop("'df' must be a dataframe. Got '", class(df)[1], "' instead.")
+  }
+  cols_required <- c("element", "left_pole", "right_pole", "rating")
+  cols_optional <- c("preferred_pole", "rmin", "rmax")
+  nms <- names(df)
+  cols_missing <- cols_required[!cols_required %in% nms]
+  if (length(cols_missing) > 0) {
+    stop("\nMissing columns: ", paste(shQuote(cols_missing), collapse = ", "),
+         "\nSee `importDataframe()` for long format requirements.", call. = FALSE)
+  }
+
+  rmin <- df[["rmin"]] %>% unique()
+  rmax <- df[["rmax"]] %>% unique()
+
+  # convert to wide, simple approach, as we already have an importer for a wide grid
+  df_wide <- df %>%
+    tidyr::pivot_wider(id_cols = c("left_pole", "right_pole"), names_from = "element", values_from = "rating") %>%
+    dplyr::relocate(right_pole, .after = last_col())
+  df_pref <- df %>% dplyr::count(left_pole, preferred_pole) %>% select(-n)
+  df_wide <- df_wide %>% left_join(df_pref, by = join_by(left_pole))
+
+  if (!is.null(rmin) && !is.null(rmax)) {
+    jj_poles <- c(1L, ncol(df_wide) - 1)
+    names(df_wide)[jj_poles]  <- c(rmin, rmax)
+  }
+  df_wide
+}
+
+
+#' Transpose grid dataframe
+#' Covers the case if elements come in rows instead of columns.
+#' @param x A dataframe. Required format: Elements in first column, constructs as columns names.
+#' @param pole_sep Seperator for construct poles (default is a colon).
+#' @noRd
+#' @return A dataframe in standard dataframe format.
+#'
+df_construct_cols_to_wide <- function(x, pole_sep = ":") {
+  x_raw <- x
+  if (!all(grepl("[a-zA-Z]", x_raw[[1]]))) {
+    warning("The first column must contain the element names")
+  }
+  constructs <- names(x_raw)[-1]
+  x <- as.data.frame(t(x_raw))
+  rownames(x) <- NULL
+  names(x) <- x[1L, ]
+  x <- x[-1L, ] # elements only
+
+  list_poles <- stringr::str_split(constructs, pole_sep) # split left poles: right pole
+  list_poles <- lapply(list_poles, stringr::str_trim)
+  list_poles <- lapply(list_poles, rev) # put right poles first for easier selection
+  right_poles <- sapply(list_poles, "[", 1L) # by default right pole
+  left_poles <- sapply(list_poles, "[", 2L) # if exist, else NA
+  cbind(left = left_poles, x, right = right_poles)
+}
+
+
+#' Convert a dataframe into a repgrid object.
+#'
+#' There are three different dataframe formats from which a `repgrid` object can be created:
+#' Columns are a) `element_columns`, b) `construct_columns`, c) `long`.
+#' Three corresponding sample dataframes, ([df_element_columns], [df_construct_columns], and [df_long]) are included
+#' in the package (see examples). See Detail section below for more info.
+#'
+#'
+#' @section Format `element_columns`:
+#'
+#' In this format, each element has a separate column, and each row contains the ratings for one construct.
+#' It is a common way to represent grid data and looks like this.
+#'
+#' \tabular{lccccrr}{
+#' `1`           \tab `element_1`  \tab `element_2` \tab `element_3` \tab `element_4`  \tab `5` \tab `preferred` \cr
+#' `left_pole_1` \tab `1`   \tab `5`  \tab `3`  \tab `4`   \tab `right_pole_1` \tab `left` \cr
+#' `left_pole_2` \tab `3`   \tab `1`  \tab `1`  \tab `3`   \tab `right_pole_2` \tab `right` \cr
+#' `left_pole_3` \tab `4`   \tab `2`  \tab `5`  \tab `1`   \tab `right_pole_3` \tab `NA` \cr
+#' }
+#'
+#' The columns names contains the minimum of the rating scale (`1`), the names of the elements (`element_1` to
+#' `element_4`), the maximum of the rating scale (`5`), and optionally the column `preferred`, indicating the preferred
+#' pole. Each row contains the constructs entries (left pole, ratings, right pole, preferred pole). The preferred pole
+#' must be one of `left`, `right`, `none`, `NA` (see [preferredPoles()]). See sample dataframe [df_element_columns].
+#'
+#'
+#' @section Format `construct_columns`:
+#'
+#' In this format, each construct has a separate column, and each row contains represents element. This format often
+#' results when summarising data (see examples). It looks like this:
+#'
+#' The first column is named `elements` followed by the constructs. The construct poles are separated by a colon by
+#' default (see arg `pole_sep`). The rows below contain the elements' entries (element name, ratings). The min and max
+#' of the rating scale should be passed explicitly via the args `rmin` and `rmax`. See sample dataframe
+#' [df_construct_columns].
+#'
+#' \tabular{lrrr}{
+#' `elements`  \tab `left_pole_1:right_pole_1` \tab `left_pole_2:right_pole_2` \tab `left_pole_3:right_pole_3` \cr
+#' `element_1` \tab `1`                        \tab `5`                        \tab `3`                        \cr
+#' `element_2` \tab `3`                        \tab `1`                        \tab `1`                        \cr
+#' `element_3` \tab `4`                        \tab `2`                        \tab `5`                        \cr
+#' }
+#'
+#'
+#' @section Format `long`:
+#'
+#' The `long` format gets its name from the fact, that it has less columns, but many more rows. It is a common format
+#' in data analytics. Here, each row contains a different element-construct combination and the corresponding rating
+#' value. The format looks like this:
+#'
+#' \tabular{lllrlrr}{
+#' `element`   \tab `left_pole`   \tab `right_pole`   \tab `rating` \tab `preferred_pole` \tab `rmin` \tab `rmax` \cr
+#' `element 1` \tab `left pole 1` \tab `right pole 1` \tab `1`      \tab `left`           \tab `1`    \tab `5`    \cr
+#' `element_2` \tab `left pole 1` \tab `right pole 1` \tab `5`      \tab `left`           \tab `1`    \tab `5`    \cr
+#' `element_3` \tab `left pole 1` \tab `right pole 1` \tab `4`      \tab `left`           \tab `1`    \tab `5`    \cr
+#' }
+#'
+#' The columns `element`, `left_pole`, `right_pole`, and `rating` are mandatory, the columns `preferred_pole`, `rmin`,
+#' and `rmax` are optional. `rmin` and `rmax` contain the min and max of the rating scale. Alternatively, you may
+#' pass `rmin` and `rmax` as arguments in the function call. See sample dataframe [df_long].
+#'
+#'
+#' @param x A dataframe. See Detail section and examples for required format.
+#' @param format One of  `element_columns` (default), `construct_columns`, or `long`. See corresponding sections below.
+#' @param rmin,rmax Min and max of rating scale.
+#' @param pole_sep Character(s) to seperate the constructs poles (defaults to a colon) for format `construct_columns`.
+#'  Without a separator, constructs are used as right poles, all left poles will be `NA`.
+#' @return A `repgrid`` object.
+#' @family import
+#' @export
+#' @examples
+#' # dataframe with elements as columns (preferred way)
+#' importDataframe(df_element_columns)
+#'
+#' # dataframe with constructs as columns
+#' importDataframe(df_construct_columns, format = "construct_columns", rmin = 1, rmax = 5)
+#'
+#' # dataframe with long format
+#' importDataframe(df_long, format = "long", rmin = 1, rmax = 5)
+importDataframe <- function(x, format = "element_columns", rmin = NULL, rmax = NULL, pole_sep = ":") {
+  if (!is.data.frame(x)) {
+    stop("'x' must be a dataframe. Got <", class(x)[1], "> instead.")
+  }
+  format <- match.arg(tolower(format), choices = c("element_columns", "construct_columns", "long"))
+  if (format == "construct_columns") {
+    x <- df_construct_cols_to_wide(x, pole_sep = pole_sep)
+  } else if (format == "long") {
+    x <- df_long_to_wide(x, rmin = rmin, rmax = rmax)
+  }
+  df_wide_to_grid(x, rmin = rmin, rmax = rmax)
+}
+
+
+## EXCEL ------------------------------------------------------------------------------------
 
 #' Import grid data from an Excel file.
 #'
-#' You can define a grid using Microsoft Excel and by saving it as a
-#' `.xlsx` file. The `.xlsx` file has to be in a specified fixed
-#' format (see section Details).
+#' You can define a grid in a Microsoft Excel file (suffix `.xlsx`). The file must have one of
+#' two formats (`wide` or `long`, see format sections below).
 #'
-#' Excel file structure: The first row contains the minimum of the rating scale,
-#' the names of the elements and the maximum of the rating scale. Below every
-#' row contains the left construct pole, the ratings and the right construct
-#' pole.
+#' @section Format `wide`:
 #'
-#' \tabular{lccccr}{
-#' `1`           \tab `E1`  \tab `E2` \tab `E3` \tab `E4`  \tab `5`        \cr
-#' `left pole 1` \tab `1`   \tab `5`  \tab `3`  \tab `4`   \tab `right pole 1` \cr
-#' `left pole 2` \tab `3`   \tab `1`  \tab `1`  \tab `3`   \tab `right pole 2` \cr
-#' `left pole 3` \tab `4`   \tab `2`  \tab `5`  \tab `1`   \tab `right pole 3` \cr
+#' In the `wide` format, each element has a separate column, and each row contains the ratzings for one construct.
+#' It is a common way to represent grid data and looks like this:
+#'
+#' \tabular{lccccrr}{
+#' `1`           \tab `element_1` \tab `element_2` \tab `element_3` \tab `element_4`  \tab `5`            \tab `preferred` \cr
+#' `left_pole_1` \tab `1`         \tab `5`         \tab `3`         \tab `4`          \tab `right_pole_1` \tab `left` \cr
+#' `left_pole_2` \tab `3`         \tab `1`         \tab `1`         \tab `3`          \tab `right_pole_2` \tab `right` \cr
+#' `left_pole_3` \tab `4`         \tab `2`         \tab `5`         \tab `1`          \tab `right_pole_3` \tab `NA` \cr
 #' }
 #'
-#' Note that the maximum and minimum value has to be defined using the
-#' `min` and `max` arguments if no values are supplied at the
-#' beginning and end of the first row. Otherwise the scaling range is inferred
-#' from the available data and a warning is issued as the range may be
-#' erroneous. This may effect other functions that depend on knowing the correct
-#' range and it is thus strongly recommended to set the scale range correctly.
+#' The header row contains the minimum of the rating scale (`1`), the names of the elements (`element_1` to `element_4`),
+#' the maximum of the rating scale (`5`), and optionally the column `preferred`, indicating the preferred pole.
+#' Each row contains the constructs entries (left pole, ratings, right pole, preferred pole). The preferred pole
+#' must be one of `left`, `right`, `none`, `NA` (see [preferredPoles()]).
 #'
-#' @param file    A vector of filenames including the full path if file is not in current working
-#'                directory. The file suffix has to be `.xlsx` (used since Excel 2007).
-#' @param dir	    Alternative way to supply the directory where the file is located
-#'                (default `NULL`).
-#' @param sheet   Name or index of Excel sheet containing the grid.
-#' @param min	    Optional argument (`numeric`, default `NULL`)
-#'                for minimum rating value in grid.
-#' @param max	    Optional argument (`numeric`, default `NULL`)
-#'                for maximum rating value in grid.
-#' @return  A single `repgrid` object in case one file and
-#'                a list of `repgrid` objects in case multiple files are imported.
+#'
+#' @section Format `long`:
+#'
+#' The `long` format has this name because it has few columns and many rows. It is a common format
+#' in data analytics. Here, each row contains a different element-construct combination and the corresponding rating
+#' value. The format looks like this:
+#'
+#' \tabular{lllrlrr}{
+#' `element`   \tab `left_pole`   \tab `right_pole`   \tab `rating` \tab `preferred_pole` \tab `rmin` \tab `rmax` \cr
+#' `element 1` \tab `left pole 1` \tab `right pole 1` \tab `1`      \tab `left`           \tab `1`    \tab `5`   \cr
+#' `element_2` \tab `left pole 1` \tab `right pole 1` \tab `5`      \tab `left`           \tab `1`    \tab `5`   \cr
+#' `element_3` \tab `left pole 1` \tab `right pole 1` \tab `4`      \tab `left`           \tab `1`    \tab `5`   \cr
+#' }
+#'
+#' The columns `element`, `left_pole`, `right_pole`, and `rating` are mandatory, the columns `preferred_pole`, `rmin`,
+#' and `rmax` are optional. `rmin` and `rmax` contain the min and max of the rating scale. Alternatively, you may
+#' pass `rmin` and `rmax` as arguments in the function call.
+#'
+#' @param file      Path(s) to Excel file(s) (suffix `.xlsx`).
+#' @param sheet     Name or index of sheet with grid data.
+#' @param format    Two formats are supported. `wide` (default): each column represents one element, each row represent
+#'                  one constructs. `long`: each row contains one rating value for a element-construct combination. See
+#'                  sections below and examples.
+#' @param rmin,rmax Min and max of the rating scale (`numeric`, default `NULL`).
+#' @return A single `repgrid` object (one inpput file) or a list of `repgrid` objects (several input files).
 #' @export
-#' @seealso [importGridcor()],
-#'                [importGridstat()],
-#'                [importScivesco()],
-#'                [importGridsuite()],
-#'                [importTxt()]
+#' @family import
+#' @example inst/examples/example-importExcel.R
 #'
-#' @examples \dontrun{
-#'
-#' # Open Excel file delivered along with the package
-#' file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
-#' rg <- importExcel(file)
-#'
-#' # To see the structure of the Excel file try to open it as follows.
-#' # Requires Excel to be installed.
-#' system2("open", file)
-#'
-#' # Import more than one Excel file
-#' files <- system.file("extdata", c("grid_01.xlsx", "grid_02.xlsx"), package = "OpenRepGrid")
-#' rg <- importExcel(files)
-#' }
-#'
-importExcel <- function(file, dir = NULL, sheet = 1, min = NULL, max = NULL) {
-  imps <- lapply(as.list(file), importExcelInternal, # make import objects for each .txt file
-    dir = dir, sheet = sheet,
-    min = min, max = max
-  )
-  rgs <- lapply(imps, convertImportObjectToRepGridObject) # make repgrid object from import object
-  if (length(file) == 1) {
-    return(rgs[[1]]) # return a single repgrid opbject if a single file is prompted
+importExcel <- function(file, sheet = 1, format = "wide", rmin = NULL, rmax = NULL) {
+  format <- match.arg(tolower(format), c("wide", "long"))
+
+  rgs <- if (format == "wide") {
+    lapply(file, import_excel_wide, sheet = sheet, rmin = rmin, rmax = rmax)
   } else {
-    return(rgs) # return a list of repgrid objects
+    lapply(file, import_excel_long, sheet = sheet, rmin = rmin, rmax = rmax)
+  }
+
+  if (length(rgs) == 1) {
+    return(rgs[[1]]) # no list, just a single repgrid object
+  } else {
+    return(rgs) # list of repgrid objects
   }
 }
 
 
+import_excel_wide <- function(file, sheet = 1,rmin = NULL, rmax = NULL) {
+  x <- openxlsx::read.xlsx(file, sheet = sheet, colNames = FALSE) # colNames = FALSE as spaces are treated incorrectly
+  names(x) <- x[1L, ]
+  x <- x[-1L, ]
+  importDataframe(x, format = "element_columns", rmin = rmin, rmax = rmax)
+}
 
-############################# IMPORTING ###################################
+
+import_excel_long <- function(file, sheet = 1,rmin = NULL, rmax = NULL) {
+  x <- openxlsx::read.xlsx(file, sheet = sheet, colNames = TRUE)
+  importDataframe(x, format = "long", rmin = rmin, rmax = rmax)
+}
+
+
+# HELPERS --------------------------------------------------------------------------------
 
 
 guessDataSource <- function(file) {

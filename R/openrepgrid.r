@@ -248,12 +248,6 @@
 #' [doubleEntry()]          \tab  Join the constructs of a grid with the same reversed constructs.  \cr
 #' }
 #'
-#' **Other internal functions** \cr
-#'
-#' \tabular{ll}{
-#' [importTxtInternal()]  \tab  \cr
-#' }
-#'
 #' @author    Current members of the \pkg{OpenRepGrid} development team: Mark Heckmann.
 #'            Everyone who is interested in developing the package is invited to join.
 #'

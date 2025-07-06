@@ -28,6 +28,7 @@ preferredPoles <- function(x) {
 `preferredPoles<-` <- function(x, value) {
   stop_if_not_is_repgrid(x)
   nc <- nrow(x)
+  value <- value %||% NA # replace NULL with NA
   value <- rep_len(value, length.out = nc)
   value <- as.character(value) # all NA case
   value <- match.arg2(value, c("left", "right", "none", "both", NA_character_), several.ok = TRUE)

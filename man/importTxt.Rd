@@ -90,17 +90,23 @@ thus strongly recommended to set the scale range correctly.
 file <- system.file("extdata", "grid_01.txt", package = "OpenRepGrid")
 rg <- importTxt(file)
 
-\dontrun{
 # To see the structure of the file, try opening it as follows.
 # (may not work on all systems)
-file.show(file)
+\dontrun{ file.show(file)
 }
 
 # Import more than one .txt file
 files <- system.file("extdata", c("grid_01.txt", "grid_02.txt"), package = "OpenRepGrid")
 rgs <- importTxt(files)
+
 }
 \seealso{
-\code{\link[=importGridcor]{importGridcor()}}, \code{\link[=importGridstat]{importGridstat()}}, \code{\link[=importScivesco]{importScivesco()}}, \code{\link[=importGridsuite]{importGridsuite()}}, \code{\link[=importTxt]{importTxt()}},
-\code{\link[=importExcel]{importExcel()}}
+Import data
+\code{\link{importDataframe}()},
+\code{\link{importExcel}()},
+\code{\link{importGridcor}()},
+\code{\link{importGridstat}()},
+\code{\link{importGridsuite}()},
+\code{\link{importScivesco}()}
 }
+\concept{import}
