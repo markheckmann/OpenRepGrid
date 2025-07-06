@@ -335,7 +335,7 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
   }
 
   colorRow <- function(cr) {
-    par(new = TRUE) # next plot will overplot not earse the old one, necessary for setting the same regions
+    old_par <- par(new = TRUE) # next plot will overplot not erase the old one, necessary for setting the same regions
     plot.new()
     # plot.window(xlim=0:1, ylim=0:1) #, xaxs="i", yaxs="i")#, asp =nrow/ncol)
     if (cr >= 1 & cr <= nrow) { # color current row cr
@@ -348,10 +348,11 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
         labels = labels.rows, col = col.mark.text, cex = cex.text
       )
     }
+    par(old_par)
   }
 
   colorColumn <- function(cc) {
-    par(new = TRUE) # next plot will overplot not earse the old one, necessary for setting the same regions
+    old_par <- par(new = TRUE) # next plot will overplot not earse the old one, necessary for setting the same regions
     plot.new()
     # plot.window(xlim=0:1, ylim=0:1) #, xaxs="i", yaxs="i")#, asp =nrow/ncol)
     if (cc >= 1 & cc <= ncol) { # color current column cc
@@ -373,6 +374,7 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
       segments(x.lines[cc], y1.lines, x.lines[cc], y2.lines[cc], lwd = 3, col = "white") # overplot old stroke in white
       segments(x.lines[cc], y1.lines, x.lines[cc], y2.lines[cc], col = col.mark.fill)
     }
+    par(old_par)
   }
 
   renewColumn <- function(cc) {
@@ -440,7 +442,7 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
   # set plotting parameters
   # old.par <- par(no.readonly = TRUE)    # save parameters
   # on.exit(par(old.par))                 # reset old par when done
-  op <- par(oma = rep(0, 4), mar = rep(0, 4), xaxs = "i", yaxs = "i")
+  old_par <- par(oma = rep(0, 4), mar = rep(0, 4), xaxs = "i", yaxs = "i")
   if (print) { # in case no new printing should occur
     par(new = FALSE)
   } else {
@@ -466,7 +468,7 @@ bertinBase <- function(nrow, ncol, labels = "", labels.elements = "",
     colorRow(cr)
     colorColumn(cc)
   }
-  # par(op)
+  par(old_par)
   invisible(NULL)
 }
 
