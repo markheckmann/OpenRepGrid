@@ -1486,9 +1486,9 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
 #' - Interactive 3D biplots: [biplot3d()], [biplotEsa3d()], [biplotSlater3d()];
 #' - Function to set view in 3D: [home()]
 #'
-#' @examples \dontrun{
-#'
+#' @examples
 #' biplot2d(boeker) # biplot of boeker data
+#' \dontrun{
 #' biplot2d(boeker, c.lines = T) # add construct lines
 #' biplot2d(boeker, center = 2) # with column centering
 #' biplot2d(boeker, center = 4) # midpoint centering

@@ -282,9 +282,8 @@ Note that the grid matrix values are only recovered and
 the projection property is only given if \eqn{g + h = 1}{g + h = 1}
 }
 \examples{
-\dontrun{
-
 biplot2d(boeker) # biplot of boeker data
+\dontrun{
 biplot2d(boeker, c.lines = T) # add construct lines
 biplot2d(boeker, center = 2) # with column centering
 biplot2d(boeker, center = 4) # midpoint centering
