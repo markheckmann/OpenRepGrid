@@ -1,4 +1,4 @@
-# OpenRepGrid 0.1.18 (dev version)
+# OpenRepGrid 0.1.18
 
 * `saveAsExcel` can export a list of grids now (#67)
 * `saveAsWorksheet` to add grid as anew to an in `openxlsx` `Workbook` object.
