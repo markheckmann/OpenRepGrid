@@ -318,15 +318,19 @@ saveAsWorksheet <- function(x, wb, format = "wide", sheet = "grid") {
 #   invisible(file)
 # }
 
-add_one_sheet_with_grid <- function(x, wb, format = "wide", sheet = NULL) {
+add_one_sheet_with_grid <- function(x, wb, format = "wide", sheet = "grid") {
   stop_if_not_is_repgrid(x)
   stop_if_not_inherits(wb, "Workbook")
 
   format <- match.arg(tolower(format), c("wide", "long"))
 
+  sheet <- sheet %||% "grid"
+  if (sheet %in% names(wb)) {
+    stop("Worksheet ", shQuote(sheet), " already exists", call. = FALSE)
+  }
+
   if (format == "wide") {
     df <- grid_to_df_wide(x)
-    sheet <- sheet %||% "grid (wide format)"
     jj_rows <- seq_len(nrow(df) + 1)
     jj_elements <- seq_len(ncol(x)) + 1
     j_left_pole <- 1
@@ -348,7 +352,6 @@ add_one_sheet_with_grid <- function(x, wb, format = "wide", sheet = NULL) {
     openxlsx::setColWidths(wb, sheet, cols = c(j_left_pole, j_right_pole, j_preferred), widths = c(20, 20, 13))
   } else {
     df <- grid_to_df_long(x)
-    sheet <- sheet %||% "grid (long format)"
     jj_rows <- seq_len(nrow(df) + 1)
     jj_cols <- seq_len(ncol(df))
     jj_cols_optional <- 5:7
