@@ -104,3 +104,8 @@ rep.repgrid <- function(x, n = 1, ...) {
   l <- replicate(n, x)
   as.gridlist(l)
 }
+
+
+is_list_of_repgrids <- function(x) {
+  is.list(x) && all(vapply(x, is.repgrid, logical(1)))
+}

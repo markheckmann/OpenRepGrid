@@ -27,3 +27,16 @@ test_that("fortify_element_*", {
   expect_error(fortify_element_id(x, -1))
   expect_error(fortify_element_name(x, "xxx"))
 })
+
+
+test_that("get_names_na*", {
+  l1 <- as.list(1:3)
+  expect_equal(get_names_na(l1), rep(NA_character_, 3))
+
+  l2 <- list(a = 1, b = 2, 3)
+  expect_equal(get_names_na(l2), c("a", "b", NA))
+
+  l3 <- setNames(list(1,2,3), c("x", "", "z"))
+  expect_equal(get_names_na(l3), c("x", NA, "z"))
+})
+

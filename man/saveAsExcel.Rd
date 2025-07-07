@@ -2,12 +2,12 @@
 % Please edit documentation in R/export.r
 \name{saveAsExcel}
 \alias{saveAsExcel}
-\title{Save grid as Microsoft Excel file (.xlsx)}
+\title{Save grids as Microsoft Excel file (.xlsx)}
 \usage{
-saveAsExcel(x, file, format = "wide", sheet = NULL)
+saveAsExcel(x, file, format = "wide", sheet = "grid")
 }
 \arguments{
-\item{x}{A \code{repgrid} object.}
+\item{x}{A \code{repgrid} object or a list of grids.}
 
 \item{file}{File path. Suffix must be \code{.xlsx}.}
 
@@ -15,29 +15,46 @@ saveAsExcel(x, file, format = "wide", sheet = NULL)
 represent one constructs (a common grid representation), and \code{long} where each row contains an element-construct
 combination and the corresponding rating value. See \code{\link[=importExcel]{importExcel()}} for details and examples.}
 
-\item{sheet}{Optional sheet name. If \code{NULL} (default), either \code{"grid (wide format)"} or \code{"grid (long format)"}.}
+\item{sheet}{Sheet name (defaults to \code{grid}). If \code{x} is a list of grids, the name of the list entry is used.
+If it has no name, a sequential index is appended to \code{sheet}.}
 }
 \value{
 Invisibly returns file path.
 }
 \description{
-\code{saveAsExcel} will save the grid as a Microsoft Excel file (\code{.xlsx}).
+\code{saveAsExcel} will save one or more grids as MS Excel file (\code{.xlsx}).
 }
 \examples{
-# save grid in wide format (default)
+# save one grid in wide format (default)
 file <- tempfile(fileext = ".xlsx")
 saveAsExcel(boeker, file)
 \dontrun{
 browseURL(file) # open file, requires Excel, may not work on all system
 }
 
-# save grid in log format
+# save one grid in log format
 file <- tempfile(fileext = ".xlsx")
 saveAsExcel(boeker, file, format = "long")
 \dontrun{
 browseURL(file)
 }
+
+# save a list of grids
+file <- tempfile(fileext = ".xlsx")
+l <- list(boeker, feixas2004, bell2010)
+saveAsExcel(l, file)
+\dontrun{
+  browseURL(file)
+}
+
+# pass some sheet names (2nd with named sheet)
+file <- tempfile(fileext = ".xlsx")
+l <- list(boeker, "feixas' grid" = feixas2004)
+saveAsExcel(l, file)
+\dontrun{
+  browseURL(file)
+}
 }
 \seealso{
-\code{\link[=importExcel]{importExcel()}}
+\code{\link[=importExcel]{importExcel()}}, \code{\link[=saveAsWorksheet]{saveAsWorksheet()}}
 }

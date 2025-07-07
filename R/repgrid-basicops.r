@@ -96,6 +96,13 @@ stop_if_not_integerish <- function(x, arg = NULL) {
 }
 
 
+stop_if_not_inherits <- function(x, what, argname = "x") {
+  if (!inherits(x, what)) {
+    stop("`", argname, "` must have class <", what, "> not <", class(x)[1], ">", call. = FALSE)
+  }
+}
+
+
 ############################# EXTRACT AND SET #################################
 
 ## S4 methods

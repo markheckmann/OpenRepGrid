@@ -397,7 +397,6 @@ indexPvaff <- function(x, method = 1) {
 #' @example inst/examples/example-indexBieri.R
 #' @export
 #'
-#'
 indexBieri <- function(x, deviation = 0) {
   stop_if_not_is_repgrid(x)
 

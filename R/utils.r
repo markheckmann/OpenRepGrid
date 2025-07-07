@@ -1030,3 +1030,15 @@ list_to_dataframe <- function(l) {
     b
   }
 }
+
+
+# Get list names
+# returns vector with same length as list. NA if list entry has no name.
+get_names_na <- function(x) {
+  nm <- names(x)
+  if (is.null(nm)) {
+    rep(NA_character_, length(x))
+  } else {
+    ifelse(nzchar(nm), nm, NA_character_)
+  }
+}

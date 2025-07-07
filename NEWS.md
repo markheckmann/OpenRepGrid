@@ -1,5 +1,7 @@
 # OpenRepGrid 0.1.18 (dev version)
 
+* `saveAsExcel` can export a list of grids now (#67)
+* `saveAsWorksheet` to add grid as anew to an in `openxlsx` `Workbook` object.
 * `importExcel` now also understands the long format (#65)
 * `importDataframe` converts a dataframe into a repgrid. Three different formats can be read in. See the sample 
    dataframes `df_element_columns`, `df_construct_columns`, and `df_long` (#61)
