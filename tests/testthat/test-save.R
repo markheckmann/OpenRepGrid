@@ -36,5 +36,5 @@ test_that("saveAsWorkbook", {
 
   wb <- createWorkbook()
   saveAsWorksheet(boeker, wb)
-  expect_error(saveAsWorksheet(boeker, wb), "Worksheet 'grid' already exists")
+  expect_error(saveAsWorksheet(boeker, wb), "Worksheet ['\"]grid['\"] already exists") # windows renders \"
 })
