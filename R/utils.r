@@ -1023,7 +1023,7 @@ list_to_dataframe <- function(l) {
 }
 
 
-`%||%` <- function(a, b){
+`%||%` <- function(a, b) {
   if (!is.null(a)) {
     a
   } else {

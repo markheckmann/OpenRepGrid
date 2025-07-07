@@ -1,4 +1,3 @@
-
 # test for issues #22 and #31 (constructs were missing after align)
 test_that("align()", {
   sorted_poles <- function(x) {

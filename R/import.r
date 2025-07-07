@@ -1391,7 +1391,8 @@ importTxtInternal <- function(file, dir = NULL, min = NULL, max = NULL) {
 #'
 #' # To see the structure of the file, try opening it as follows.
 #' # (may not work on all systems)
-#' \dontrun{ file.show(file)
+#' \dontrun{
+#' file.show(file)
 #' }
 #'
 #' # Import more than one .txt file
@@ -1419,7 +1420,7 @@ importTxt <- function(file, dir = NULL, min = NULL, max = NULL) {
 #' @param rmin,rmax Min and max of the rating scale.
 #' @return A reogrid object
 #' @noRd
-df_wide_to_grid <- function(x, rmin = NULL, rmax = NULL ) {
+df_wide_to_grid <- function(x, rmin = NULL, rmax = NULL) {
   if (!is.data.frame(x)) {
     stop("'x' must be a dataframe. Got '", class(x)[1], "' instead.")
   }
@@ -1435,7 +1436,9 @@ df_wide_to_grid <- function(x, rmin = NULL, rmax = NULL ) {
   cols_elements <- seq_len(ne) + 1L
   rows_ratings <- seq_len(nc)
 
-  ratings <- x[rows_ratings, cols_elements] %>% as.matrix() %>% as.numeric()
+  ratings <- x[rows_ratings, cols_elements] %>%
+    as.matrix() %>%
+    as.numeric()
   if (any(is.na(ratings))) {
     stop("\nNA ratings are not allowed.", call. = FALSE)
   }
@@ -1445,11 +1448,11 @@ df_wide_to_grid <- function(x, rmin = NULL, rmax = NULL ) {
   rmax <- rmax %||% suppressWarnings(as.numeric(trimws(nms[col_right_poles])))
 
   # if unknown range, infer from data with warning
-  if (identical(rmin, numeric(0)) || is.na(rmin) || identical(rmax, numeric(0))|| is.na(rmax) ) {
+  if (identical(rmin, numeric(0)) || is.na(rmin) || identical(rmax, numeric(0)) || is.na(rmax)) {
     warning("The range of the rating scale was not supplied via args `rmin` and `rmax`.",
-            "\nI will set the min and max rating as scale range. This may be incorrect!",
-            "\nSee `?importExcel` for more information",
-            call. = FALSE
+      "\nI will set the min and max rating as scale range. This may be incorrect!",
+      "\nSee `?importExcel` for more information",
+      call. = FALSE
     )
     rmin <- min(ratings, na.rm = TRUE) # infer rating range
     rmax <- max(ratings, na.rm = TRUE)
@@ -1477,7 +1480,9 @@ df_long_to_wide <- function(df, rmin = NULL, rmax = NULL) {
   cols_missing <- cols_required[!cols_required %in% nms]
   if (length(cols_missing) > 0) {
     stop("\nMissing columns: ", paste(shQuote(cols_missing), collapse = ", "),
-         "\nSee `importDataframe()` for long format requirements.", call. = FALSE)
+      "\nSee `importDataframe()` for long format requirements.",
+      call. = FALSE
+    )
   }
 
   rmin <- df[["rmin"]] %>% unique()
@@ -1487,12 +1492,14 @@ df_long_to_wide <- function(df, rmin = NULL, rmax = NULL) {
   df_wide <- df %>%
     tidyr::pivot_wider(id_cols = c("left_pole", "right_pole"), names_from = "element", values_from = "rating") %>%
     dplyr::relocate(right_pole, .after = last_col())
-  df_pref <- df %>% dplyr::count(left_pole, preferred_pole) %>% select(-n)
+  df_pref <- df %>%
+    dplyr::count(left_pole, preferred_pole) %>%
+    select(-n)
   df_wide <- df_wide %>% left_join(df_pref, by = join_by(left_pole))
 
   if (!is.null(rmin) && !is.null(rmax)) {
     jj_poles <- c(1L, ncol(df_wide) - 1)
-    names(df_wide)[jj_poles]  <- c(rmin, rmax)
+    names(df_wide)[jj_poles] <- c(rmin, rmax)
   }
   df_wide
 }
@@ -1688,7 +1695,7 @@ importExcel <- function(file, sheet = 1, format = "wide", rmin = NULL, rmax = NU
 }
 
 
-import_excel_wide <- function(file, sheet = 1,rmin = NULL, rmax = NULL) {
+import_excel_wide <- function(file, sheet = 1, rmin = NULL, rmax = NULL) {
   x <- openxlsx::read.xlsx(file, sheet = sheet, colNames = FALSE) # colNames = FALSE as spaces are treated incorrectly
   names(x) <- x[1L, ]
   x <- x[-1L, ]
@@ -1696,7 +1703,7 @@ import_excel_wide <- function(file, sheet = 1,rmin = NULL, rmax = NULL) {
 }
 
 
-import_excel_long <- function(file, sheet = 1,rmin = NULL, rmax = NULL) {
+import_excel_long <- function(file, sheet = 1, rmin = NULL, rmax = NULL) {
   x <- openxlsx::read.xlsx(file, sheet = sheet, colNames = TRUE)
   importDataframe(x, format = "long", rmin = rmin, rmax = rmax)
 }

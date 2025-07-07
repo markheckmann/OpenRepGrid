@@ -3,7 +3,6 @@ library(vdiffr)
 
 
 test_that("biplots work", {
-
   create_biplot2d <- function() {
     set.seed(0)
     biplot2d(boeker)

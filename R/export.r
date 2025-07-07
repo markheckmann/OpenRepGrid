@@ -356,7 +356,9 @@ add_one_sheet_with_grid <- function(x, wb, format = "wide", sheet = "grid") {
     jj_cols <- seq_len(ncol(df))
     jj_cols_optional <- 5:7
     j_preferred <- 5
-    ii_end_construct <- rle(df$left_pole)$lengths %>% cumsum() %>% head(-1) + 1
+    ii_end_construct <- rle(df$left_pole)$lengths %>%
+      cumsum() %>%
+      head(-1) + 1
 
     style_header <- openxlsx::createStyle(textDecoration = "bold", fgFill = "grey90", border = "bottom")
     style_border_left <- openxlsx::createStyle(border = "left")

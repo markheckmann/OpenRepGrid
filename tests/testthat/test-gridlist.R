@@ -1,5 +1,4 @@
 test_that("gridlist works correctly", {
-
   l <- list(boeker, feixas2004)
   expect_true(is_list_of_repgrids(l))
   l2 <- append(l, "hello")

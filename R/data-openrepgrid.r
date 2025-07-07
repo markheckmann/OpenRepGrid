@@ -4,7 +4,7 @@
 #
 # //////////////////////////////////////////////////////////////////////////////
 
-#_____________ ----
+# _____________ ----
 # REPGRID ----
 
 ## Bell (2010) ----
@@ -559,7 +559,7 @@ NULL
 # save("slater1977b", file="../data/slater1977b.RData")
 
 
-#_____________ ----
+# _____________ ----
 # DATAFRAME ----
 
 ##  df_element_columns ----
@@ -621,7 +621,7 @@ NULL
 #' @keywords data
 #' @examples
 #' df_construct_columns
-#' importDataframe(df_construct_columns, format = "construct_columns", rmin =1, rmax = 5)
+#' importDataframe(df_construct_columns, format = "construct_columns", rmin = 1, rmax = 5)
 NULL
 
 # # dataframe with columns as constructs

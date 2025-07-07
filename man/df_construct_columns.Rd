@@ -22,7 +22,7 @@ min and max of the rating scale should be passed explicitly via the args \code{r
 }
 \examples{
 df_construct_columns
-importDataframe(df_construct_columns, format = "construct_columns", rmin =1, rmax = 5)
+importDataframe(df_construct_columns, format = "construct_columns", rmin = 1, rmax = 5)
 }
 \seealso{
 \code{\link[=importDataframe]{importDataframe()}}

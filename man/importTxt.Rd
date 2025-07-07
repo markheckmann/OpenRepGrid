@@ -92,7 +92,8 @@ rg <- importTxt(file)
 
 # To see the structure of the file, try opening it as follows.
 # (may not work on all systems)
-\dontrun{ file.show(file)
+\dontrun{
+file.show(file)
 }
 
 # Import more than one .txt file
