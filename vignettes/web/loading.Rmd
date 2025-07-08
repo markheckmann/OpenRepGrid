@@ -156,7 +156,7 @@ x <- importGridsuite("gridsuite.xml") # file in current R working directory
 #### sci:vesco
 
 ```{r eval=FALSE}
-x <- importScivesco("scivesco.scires") # file in current R working directory 
+x <- importScivesco("scivesco.scires") # file in current R working directory
 ```
 
 
