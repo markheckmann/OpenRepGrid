@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Dispersion of Dependency • OpenRepGrid</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../../favicon.ico">
+<link rel="manifest" href="../../site.webmanifest">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +60,7 @@
       <img src="../../logo.png" class="logo" alt=""><h1>Dispersion of Dependency</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/vignettes/web/measures-dispersion.Rmd" class="external-link"><code>vignettes/web/measures-dispersion.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.18/vignettes/web/measures-dispersion.Rmd" class="external-link"><code>vignettes/web/measures-dispersion.Rmd</code></a></small>
       <div class="d-none name"><code>measures-dispersion.Rmd</code></div>
     </div>
 
@@ -210,15 +209,17 @@ objects, i.e.,
 <span><span class="va">x</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#              3 - P3        </span></span>
-<span><span class="co">#       P2 - 2 | 4 - P4      </span></span>
-<span><span class="co">#     P1 - 1 | | | 5 - P5    </span></span>
-<span><span class="co">#          | | | | |         </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S1 (1)</span>   1 0 0 1 0   <span style="color: #BBBBBB;">(1) NA</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S2 (2)</span>   0 1 0 0 1   <span style="color: #BBBBBB;">(2) NA</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S3 (3)</span>   1 0 1 0 0   <span style="color: #BBBBBB;">(3) NA</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S4 (4)</span>   0 0 0 1 1   <span style="color: #BBBBBB;">(4) NA</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S5 (5)</span>   0 1 1 0 0   <span style="color: #BBBBBB;">(5) NA</span></span></span></code></pre></div>
+<span><span class="co">#               3 - P3         </span></span>
+<span><span class="co">#        P2 - 2 | 4 - P4       </span></span>
+<span><span class="co">#      P1 - 1 | | | 5 - P5     </span></span>
+<span><span class="co">#           | | | | |          </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S1 (.1)</span>   1 0 0 1 0   <span style="color: #BBBBBB;">(1.) NA</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S2 (.2)</span>   0 1 0 0 1   <span style="color: #BBBBBB;">(2.) NA</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S3 (.3)</span>   1 0 1 0 0   <span style="color: #BBBBBB;">(3.) NA</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S4 (.4)</span>   0 0 0 1 1   <span style="color: #BBBBBB;">(4.) NA</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S5 (.5)</span>   0 1 1 0 0   <span style="color: #BBBBBB;">(5.) NA</span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexDDI.html">indexDDI</a></span><span class="op">(</span><span class="va">x</span>, ds <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co"># [1] 1.888889 2.666667 3.333333 3.888889</span></span></code></pre></div>
@@ -257,25 +258,27 @@ number of dependencies for resource
 <span><span class="va">x</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#                    G - 7 8 - H                  </span></span>
-<span><span class="co">#                  F - 6 | | 9 - I                </span></span>
-<span><span class="co">#                E - 5 | | | | 10 - J             </span></span>
-<span><span class="co">#              D - 4 | | | | | | 11 - K           </span></span>
-<span><span class="co">#            C - 3 | | | | | | | | 12 - L         </span></span>
-<span><span class="co">#          B - 2 | | | | | | | | | | 13 - M       </span></span>
-<span><span class="co">#        A - 1 | | | | | | | | | | | | 14 - N     </span></span>
-<span><span class="co">#            | | | | | | | | | | | | | |          </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S1 (1)</span>   1 0 0 0 0 0 0 0 0 0 1 0 0 1   <span style="color: #BBBBBB;">(1) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S2 (2)</span>   0 0 1 0 0 1 0 0 1 0 0 0 1 0   <span style="color: #BBBBBB;">(2) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S3 (3)</span>   0 1 0 1 1 0 1 1 0 1 0 1 0 0   <span style="color: #BBBBBB;">(3) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S4 (4)</span>   0 0 0 0 0 1 0 0 1 0 0 0 1 0   <span style="color: #BBBBBB;">(4) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S5 (5)</span>   1 0 0 1 0 0 0 0 0 0 0 0 0 1   <span style="color: #BBBBBB;">(5) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S6 (6)</span>   0 0 0 0 1 0 0 1 0 1 0 0 0 0   <span style="color: #BBBBBB;">(6) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S7 (7)</span>   0 1 0 0 0 0 1 0 0 0 0 1 0 0   <span style="color: #BBBBBB;">(7) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S8 (8)</span>   1 0 0 1 1 0 1 0 0 1 1 0 0 1   <span style="color: #BBBBBB;">(8) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  S9 (9)</span>   0 1 0 0 0 0 0 1 0 0 0 1 1 0   <span style="color: #BBBBBB;">(9) NA </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S10 (10)</span>   0 0 1 0 0 1 0 0 1 0 0 0 1 0   <span style="color: #BBBBBB;">(10) NA</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">S11 (11)</span>   0 0 0 1 1 0 1 0 0 1 0 0 0 1   <span style="color: #BBBBBB;">(11) NA</span></span></span></code></pre></div>
+<span><span class="co">#                     G - 7 8 - H                   </span></span>
+<span><span class="co">#                   F - 6 | | 9 - I                 </span></span>
+<span><span class="co">#                 E - 5 | | | | 10 - J              </span></span>
+<span><span class="co">#               D - 4 | | | | | | 11 - K            </span></span>
+<span><span class="co">#             C - 3 | | | | | | | | 12 - L          </span></span>
+<span><span class="co">#           B - 2 | | | | | | | | | | 13 - M        </span></span>
+<span><span class="co">#         A - 1 | | | | | | | | | | | | 14 - N      </span></span>
+<span><span class="co">#             | | | | | | | | | | | | | |           </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S1 (.1)</span>   1 0 0 0 0 0 0 0 0 0 1 0 0 1   <span style="color: #BBBBBB;">(1.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S2 (.2)</span>   0 0 1 0 0 1 0 0 1 0 0 0 1 0   <span style="color: #BBBBBB;">(2.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S3 (.3)</span>   0 1 0 1 1 0 1 1 0 1 0 1 0 0   <span style="color: #BBBBBB;">(3.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S4 (.4)</span>   0 0 0 0 0 1 0 0 1 0 0 0 1 0   <span style="color: #BBBBBB;">(4.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S5 (.5)</span>   1 0 0 1 0 0 0 0 0 0 0 0 0 1   <span style="color: #BBBBBB;">(5.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S6 (.6)</span>   0 0 0 0 1 0 0 1 0 1 0 0 0 0   <span style="color: #BBBBBB;">(6.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S7 (.7)</span>   0 1 0 0 0 0 1 0 0 0 0 1 0 0   <span style="color: #BBBBBB;">(7.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S8 (.8)</span>   1 0 0 1 1 0 1 0 0 1 1 0 0 1   <span style="color: #BBBBBB;">(8.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  S9 (.9)</span>   0 1 0 0 0 0 0 1 0 0 0 1 1 0   <span style="color: #BBBBBB;">(9.) NA </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S10 (.10)</span>   0 0 1 0 0 1 0 0 1 0 0 0 1 0   <span style="color: #BBBBBB;">(10.) NA</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">S11 (.11)</span>   0 0 0 1 1 0 1 0 0 1 0 0 0 1   <span style="color: #BBBBBB;">(11.) NA</span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/indexUncertainty.html">indexUncertainty</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co"># Uncertainty Index </span></span>

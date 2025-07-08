@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Automatic reordering • OpenRepGrid</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../../favicon.ico">
+<link rel="manifest" href="../../site.webmanifest">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +60,7 @@
       <img src="../../logo.png" class="logo" alt=""><h1>Automatic reordering</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/vignettes/web/reordering.Rmd" class="external-link"><code>vignettes/web/reordering.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.18/vignettes/web/reordering.Rmd" class="external-link"><code>vignettes/web/reordering.Rmd</code></a></small>
       <div class="d-none name"><code>reordering.Rmd</code></div>
     </div>
 
@@ -113,26 +112,28 @@ self</em>).</p>
 <span><span class="co">#                         Mother - 2 | | | | | | | | | 12 - Friend 4                    </span></span>
 <span><span class="co">#                     Self now - 1 | | | | | | | | | | | 13 - Ideal Self                </span></span>
 <span><span class="co">#                                | | | | | | | | | | | | |                              </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">             Pessimistic (1)</span>   1 1 5 2 7 3 6 2 6 4 3 2 7   <span style="color: #BBBBBB;">(1) Optimistic             </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          Self-demanding (2)</span>   1 6 6 2 2 5 6 3 5 6 4 5 4   <span style="color: #BBBBBB;">(2) Takes it easy          </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                 Fearful (3)</span>   2 2 6 2 4 5 6 5 2 3 4 5 5   <span style="color: #BBBBBB;">(3) Enterprising           </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">           Lives to work (4)</span>   5 1 2 2 6 6 6 1 6 7 6 6 7   <span style="color: #BBBBBB;">(4) Works to live          </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  Imposes his/her wishes (5)</span>   6 2 1 1 4 3 6 1 7 3 4 2 7   <span style="color: #BBBBBB;">(5) Tolerant with others   </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                  Touchy (6)</span>   6 1 7 2 4 5 4 2 5 5 3 2 5   <span style="color: #BBBBBB;">(6) Teasing                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">es not appreciate others (7)</span>   6 2 2 2 7 3 4 1 4 6 6 3 7   <span style="color: #BBBBBB;">(7) Appreciates others     </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">              Aggressive (8)</span>   6 4 2 2 7 4 6 2 6 6 6 3 7   <span style="color: #BBBBBB;">(8) Calm                   </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                 Selfish (9)</span>   6 6 2 1 6 5 3 1 5 5 6 6 6   <span style="color: #BBBBBB;">(9) Concerned about others </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">             Avaricious (10)</span>   6 1 1 1 7 5 5 1 6 3 3 6 7   <span style="color: #BBBBBB;">(10) Generous              </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">erialistic, superficial (11)</span>   7 3 1 1 7 4 3 1 7 4 5 4 7   <span style="color: #BBBBBB;">(11) Sensitive             </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                 Cheeky (12)</span>   6 6 5 4 6 6 6 1 6 5 6 5 7   <span style="color: #BBBBBB;">(12) Respectful            </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">           Hypocritical (13)</span>   5 4 4 2 6 5 5 1 6 6 5 4 7   <span style="color: #BBBBBB;">(13) Sincere               </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">            Blackmailer (14)</span>   3 2 2 1 5 6 6 1 6 6 6 3 7   <span style="color: #BBBBBB;">(14) Non blackmailer       </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">ppears stronger than is (15)</span>   6 3 1 2 5 2 4 2 7 6 6 5 6   <span style="color: #BBBBBB;">(15) Natural               </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">t look after the friend (16)</span>   6 3 3 3 6 2 1 2 4 4 6 4 7   <span style="color: #BBBBBB;">(16) Looks after the friend</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">         Non Accessible (17)</span>   5 2 2 1 4 2 4 1 6 3 5 2 7   <span style="color: #BBBBBB;">(17) Accessible            </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">            Introverted (18)</span>   1 2 6 2 4 5 7 5 2 6 6 5 5   <span style="color: #BBBBBB;">(18) Extroverted           </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  Gets depressed easily (19)</span>   1 2 6 3 6 3 7 6 1 3 3 3 6   <span style="color: #BBBBBB;">(19) Does not get depressed</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;"> Sees only the negative (20)</span>   2 2 4 2 7 3 6 1 2 5 5 3 7   <span style="color: #BBBBBB;">(20) Tries to find the good</span></span></span></code></pre></div>
+<span><span class="co"># <span style="color: #BBBBBB;">            Pessimistic (.1)</span>   1 1 5 2 7 3 6 2 6 4 3 2 7   <span style="color: #BBBBBB;">(1.) Optimistic            </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">         Self-demanding (.2)</span>   1 6 6 2 2 5 6 3 5 6 4 5 4   <span style="color: #BBBBBB;">(2.) Takes it easy         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">                Fearful (.3)</span>   2 2 6 2 4 5 6 5 2 3 4 5 5   <span style="color: #BBBBBB;">(3.) Enterprising          </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          Lives to work (.4)</span>   5 1 2 2 6 6 6 1 6 7 6 6 7   <span style="color: #BBBBBB;">(4.) Works to live         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;"> Imposes his/her wishes (.5)</span>   6 2 1 1 4 3 6 1 7 3 4 2 7   <span style="color: #BBBBBB;">(5.) Tolerant with others  </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">                 Touchy (.6)</span>   6 1 7 2 4 5 4 2 5 5 3 2 5   <span style="color: #BBBBBB;">(6.) Teasing               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">s not appreciate others (.7)</span>   6 2 2 2 7 3 4 1 4 6 6 3 7   <span style="color: #BBBBBB;">(7.) Appreciates others    </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">             Aggressive (.8)</span>   6 4 2 2 7 4 6 2 6 6 6 3 7   <span style="color: #BBBBBB;">(8.) Calm                  </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">                Selfish (.9)</span>   6 6 2 1 6 5 3 1 5 5 6 6 6   <span style="color: #BBBBBB;">(9.) Concerned about others</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">            Avaricious (.10)</span>   6 1 1 1 7 5 5 1 6 3 3 6 7   <span style="color: #BBBBBB;">(10.) Generous             </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">rialistic, superficial (.11)</span>   7 3 1 1 7 4 3 1 7 4 5 4 7   <span style="color: #BBBBBB;">(11.) Sensitive            </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">                Cheeky (.12)</span>   6 6 5 4 6 6 6 1 6 5 6 5 7   <span style="color: #BBBBBB;">(12.) Respectful           </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          Hypocritical (.13)</span>   5 4 4 2 6 5 5 1 6 6 5 4 7   <span style="color: #BBBBBB;">(13.) Sincere              </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           Blackmailer (.14)</span>   3 2 2 1 5 6 6 1 6 6 6 3 7   <span style="color: #BBBBBB;">(14.) Non blackmailer      </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">pears stronger than is (.15)</span>   6 3 1 2 5 2 4 2 7 6 6 5 6   <span style="color: #BBBBBB;">(15.) Natural              </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;"> look after the friend (.16)</span>   6 3 3 3 6 2 1 2 4 4 6 4 7   <span style="color: #BBBBBB;">(16.) Looks after the frien</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        Non Accessible (.17)</span>   5 2 2 1 4 2 4 1 6 3 5 2 7   <span style="color: #BBBBBB;">(17.) Accessible           </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           Introverted (.18)</span>   1 2 6 2 4 5 7 5 2 6 6 5 5   <span style="color: #BBBBBB;">(18.) Extroverted          </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;"> Gets depressed easily (.19)</span>   1 2 6 3 6 3 7 6 1 3 3 3 6   <span style="color: #BBBBBB;">(19.) Does not get depresse</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">Sees only the negative (.20)</span>   2 2 4 2 7 3 6 1 2 5 5 3 7   <span style="color: #BBBBBB;">(20.) Tries to find the goo</span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <p>Note that when midpoint ratings are present no preferred pole can be
 identified, as it is the case for one construct in the example
 above.</p>
@@ -154,26 +155,28 @@ will be in the left side of the grid.</p>
 <span><span class="co">#                         Mother - 2 | | | | | | | | | 12 - Friend 4                    </span></span>
 <span><span class="co">#                     Self now - 1 | | | | | | | | | | | 13 - Ideal Self                </span></span>
 <span><span class="co">#                                | | | | | | | | | | | | |                              </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">              Optimistic (1)</span>   7 7 3 6 1 5 2 6 2 4 5 6 1   <span style="color: #BBBBBB;">(1) Pessimistic            </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          Self-demanding (2)</span>   1 6 6 2 2 5 6 3 5 6 4 5 4   <span style="color: #BBBBBB;">(2) Takes it easy          </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">            Enterprising (3)</span>   6 6 2 6 4 3 2 3 6 5 4 3 3   <span style="color: #BBBBBB;">(3) Fearful                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">           Works to live (4)</span>   3 7 6 6 2 2 2 7 2 1 2 2 1   <span style="color: #BBBBBB;">(4) Lives to work          </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">    Tolerant with others (5)</span>   2 6 7 7 4 5 2 7 1 5 4 6 1   <span style="color: #BBBBBB;">(5) Imposes his/her wishes </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                 Teasing (6)</span>   2 7 1 6 4 3 4 6 3 3 5 6 3   <span style="color: #BBBBBB;">(6) Touchy                 </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">      Appreciates others (7)</span>   2 6 6 6 1 5 4 7 4 2 2 5 1   <span style="color: #BBBBBB;">(7) Does not appreciate oth</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                    Calm (8)</span>   2 4 6 6 1 4 2 6 2 2 2 5 1   <span style="color: #BBBBBB;">(8) Aggressive             </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  Concerned about others (9)</span>   2 2 6 7 2 3 5 7 3 3 2 2 2   <span style="color: #BBBBBB;">(9) Selfish                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">               Generous (10)</span>   2 7 7 7 1 3 3 7 2 5 5 2 1   <span style="color: #BBBBBB;">(10) Avaricious            </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">              Sensitive (11)</span>   1 5 7 7 1 4 5 7 1 4 3 4 1   <span style="color: #BBBBBB;">(11) Materialistic, superfi</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">             Respectful (12)</span>   2 2 3 4 2 2 2 7 2 3 2 3 1   <span style="color: #BBBBBB;">(12) Cheeky                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                Sincere (13)</span>   3 4 4 6 2 3 3 7 2 2 3 4 1   <span style="color: #BBBBBB;">(13) Hypocritical          </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        Non blackmailer (14)</span>   5 6 6 7 3 2 2 7 2 2 2 5 1   <span style="color: #BBBBBB;">(14) Blackmailer           </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">                Natural (15)</span>   2 5 7 6 3 6 4 6 1 2 2 3 2   <span style="color: #BBBBBB;">(15) Appears stronger than </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">ks after the friendship (16)</span>   2 5 5 5 2 6 7 6 4 4 2 4 1   <span style="color: #BBBBBB;">(16) Does not look after th</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">             Accessible (17)</span>   3 6 6 7 4 6 4 7 2 5 3 6 1   <span style="color: #BBBBBB;">(17) Non Accessible        </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">            Extroverted (18)</span>   7 6 2 6 4 3 1 3 6 2 2 3 3   <span style="color: #BBBBBB;">(18) Introverted           </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">ot get depressed easily (19)</span>   7 6 2 5 2 5 1 2 7 5 5 5 2   <span style="color: #BBBBBB;">(19) Gets depressed easily </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">o find the good in thin (20)</span>   6 6 4 6 1 5 2 7 6 3 3 5 1   <span style="color: #BBBBBB;">(20) Sees only the negative</span></span></span></code></pre></div>
+<span><span class="co"># <span style="color: #BBBBBB;">             Optimistic (.1)</span>   7 7 3 6 1 5 2 6 2 4 5 6 1   <span style="color: #BBBBBB;">(1.) Pessimistic           </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">         Self-demanding (.2)</span>   1 6 6 2 2 5 6 3 5 6 4 5 4   <span style="color: #BBBBBB;">(2.) Takes it easy         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           Enterprising (.3)</span>   6 6 2 6 4 3 2 3 6 5 4 3 3   <span style="color: #BBBBBB;">(3.) Fearful               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          Works to live (.4)</span>   3 7 6 6 2 2 2 7 2 1 2 2 1   <span style="color: #BBBBBB;">(4.) Lives to work         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">   Tolerant with others (.5)</span>   2 6 7 7 4 5 2 7 1 5 4 6 1   <span style="color: #BBBBBB;">(5.) Imposes his/her wishes</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">                Teasing (.6)</span>   2 7 1 6 4 3 4 6 3 3 5 6 3   <span style="color: #BBBBBB;">(6.) Touchy                </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">     Appreciates others (.7)</span>   2 6 6 6 1 5 4 7 4 2 2 5 1   <span style="color: #BBBBBB;">(7.) Does not appreciate ot</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">                   Calm (.8)</span>   2 4 6 6 1 4 2 6 2 2 2 5 1   <span style="color: #BBBBBB;">(8.) Aggressive            </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;"> Concerned about others (.9)</span>   2 2 6 7 2 3 5 7 3 3 2 2 2   <span style="color: #BBBBBB;">(9.) Selfish               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">              Generous (.10)</span>   2 7 7 7 1 3 3 7 2 5 5 2 1   <span style="color: #BBBBBB;">(10.) Avaricious           </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">             Sensitive (.11)</span>   1 5 7 7 1 4 5 7 1 4 3 4 1   <span style="color: #BBBBBB;">(11.) Materialistic, superf</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">            Respectful (.12)</span>   2 2 3 4 2 2 2 7 2 3 2 3 1   <span style="color: #BBBBBB;">(12.) Cheeky               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">               Sincere (.13)</span>   3 4 4 6 2 3 3 7 2 2 3 4 1   <span style="color: #BBBBBB;">(13.) Hypocritical         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">       Non blackmailer (.14)</span>   5 6 6 7 3 2 2 7 2 2 2 5 1   <span style="color: #BBBBBB;">(14.) Blackmailer          </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">               Natural (.15)</span>   2 5 7 6 3 6 4 6 1 2 2 3 2   <span style="color: #BBBBBB;">(15.) Appears stronger than</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">s after the friendship (.16)</span>   2 5 5 5 2 6 7 6 4 4 2 4 1   <span style="color: #BBBBBB;">(16.) Does not look after t</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">            Accessible (.17)</span>   3 6 6 7 4 6 4 7 2 5 3 6 1   <span style="color: #BBBBBB;">(17.) Non Accessible       </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           Extroverted (.18)</span>   7 6 2 6 4 3 1 3 6 2 2 3 3   <span style="color: #BBBBBB;">(18.) Introverted          </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">t get depressed easily (.19)</span>   7 6 2 5 2 5 1 2 7 5 5 5 2   <span style="color: #BBBBBB;">(19.) Gets depressed easily</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;"> find the good in thin (.20)</span>   6 6 4 6 1 5 2 7 6 3 3 5 1   <span style="color: #BBBBBB;">(20.) Sees only the negativ</span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <p>To save the assigned grid into a new object:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/alignByIdeal.html">alignByIdeal</a></span><span class="op">(</span><span class="va">feixas2004</span>, <span class="fl">13</span><span class="op">)</span></span>
@@ -301,15 +304,17 @@ poles you may do:</p>
 <span><span class="co"># closest friend of the same sex - 2 | | | | | | 9 - A person you work well with (</span></span>
 <span><span class="co">#                         self - 1 | | | | | | | | 10 - A teacher you did not resp</span></span>
 <span><span class="co">#                                | | | | | | | | | |                              </span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">             relaxed (1)</span>   4 4 6 5 3 6 5 2 2 6   <span style="color: #BBBBBB;">(1) worried &amp; tense        </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">smart (academically) (2)</span>   2 1 2 3 1 4 2 1 4 1   <span style="color: #BBBBBB;">(2) not so smart (academica</span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">     dislikes sports (3)</span>   6 3 7 6 4 4 2 3 6 3   <span style="color: #BBBBBB;">(3) loves sports           </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">        loves people (4)</span>   2 1 3 2 2 3 2 1 1 4   <span style="color: #BBBBBB;">(4) not interactive        </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">     not transparent (5)</span>   6 4 5 7 3 7 6 5 6 3   <span style="color: #BBBBBB;">(5) transparent            </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">         insensitive (6)</span>   4 6 5 4 4 6 5 3 4 2   <span style="color: #BBBBBB;">(6) sensitive              </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">            fearless (7)</span>   3 4 4 2 3 5 3 2 3 3   <span style="color: #BBBBBB;">(7) fearful&amp;timid          </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">               rough (8)</span>   5 6 6 4 5 7 7 3 5 6   <span style="color: #BBBBBB;">(8) gentle                 </span></span></span>
-<span><span class="co">#     <span style="color: #BBBBBB;">      loves to argue (9)</span>   3 3 2 1 4 4 2 1 3 3   <span style="color: #BBBBBB;">(9) accept as it is        </span></span></span></code></pre></div>
+<span><span class="co">#    <span style="color: #BBBBBB;">             relaxed (.1)</span>   4 4 6 5 3 6 5 2 2 6   <span style="color: #BBBBBB;">(1.) worried &amp; tense       </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">smart (academically) (.2)</span>   2 1 2 3 1 4 2 1 4 1   <span style="color: #BBBBBB;">(2.) not so smart (academic</span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">     dislikes sports (.3)</span>   6 3 7 6 4 4 2 3 6 3   <span style="color: #BBBBBB;">(3.) loves sports          </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">        loves people (.4)</span>   2 1 3 2 2 3 2 1 1 4   <span style="color: #BBBBBB;">(4.) not interactive       </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">     not transparent (.5)</span>   6 4 5 7 3 7 6 5 6 3   <span style="color: #BBBBBB;">(5.) transparent           </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">         insensitive (.6)</span>   4 6 5 4 4 6 5 3 4 2   <span style="color: #BBBBBB;">(6.) sensitive             </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">            fearless (.7)</span>   3 4 4 2 3 5 3 2 3 3   <span style="color: #BBBBBB;">(7.) fearful&amp;timid         </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">               rough (.8)</span>   5 6 6 4 5 7 7 3 5 6   <span style="color: #BBBBBB;">(8.) gentle                </span></span></span>
+<span><span class="co">#    <span style="color: #BBBBBB;">      loves to argue (.9)</span>   3 3 2 1 4 4 2 1 3 3   <span style="color: #BBBBBB;">(9.) accept as it is       </span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <p>This is clumsy though and will be subject to change in later versions
 of <code>OpenRepGrid</code>.</p>
 </div>

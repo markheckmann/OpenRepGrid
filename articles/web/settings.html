@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Settings • OpenRepGrid</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../../favicon.ico">
+<link rel="manifest" href="../../site.webmanifest">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +60,7 @@
       <img src="../../logo.png" class="logo" alt=""><h1>Settings</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/vignettes/web/settings.Rmd" class="external-link"><code>vignettes/web/settings.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.18/vignettes/web/settings.Rmd" class="external-link"><code>vignettes/web/settings.Rmd</code></a></small>
       <div class="d-none name"><code>settings.Rmd</code></div>
     </div>
 
@@ -80,36 +79,40 @@ settings by calling <code><a href="../../reference/settings.html">settings()</a>
 <span><span class="co">#   show.scale : TRUE (show grid scale info?)</span></span>
 <span><span class="co">#   show.meta  : TRUE (show grid meta data?)</span></span>
 <span><span class="co">#   show.trim  : 30 (number of chars to trim strings to)</span></span>
-<span><span class="co">#   show.cut   : 20 (max no of chars on the sides of a grid)</span></span>
+<span><span class="co">#   show.cut   : 25 (max no of chars on the sides of a grid)</span></span>
+<span><span class="co">#   e.no       : TRUE (print element id?)</span></span>
 <span><span class="co">#   c.no       : TRUE (print construct id?)</span></span>
-<span><span class="co">#   e.no       : TRUE (print element id?)</span></span></code></pre></div>
+<span><span class="co">#   preferred  : TRUE (print preferred pole indicator?)</span></span></code></pre></div>
 <p>By default information about the scale and grid meta data is
 displayed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fbb2003</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># META DATA:</span></span>
-<span><span class="co"># Number of constructs:  9 </span></span>
 <span><span class="co"># Number of elements:  8 </span></span>
+<span><span class="co"># Number of constructs:  9 </span></span>
+<span><span class="co"># Preferred poles defined:  0/9 </span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># SCALE INFO:</span></span>
 <span><span class="co"># The grid is rated on a scale from 1 (left pole) to 7 (right pole)</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#        an ethical person - 4 5 - my mother              </span></span>
-<span><span class="co">#           an old flame - 3 | | 6 - a rejected teacher   </span></span>
-<span><span class="co">#            my father - 2 | | | | 7 - as I would love to </span></span>
-<span><span class="co">#               self - 1 | | | | | | 8 - a pitied person  </span></span>
-<span><span class="co">#                      | | | | | | | |                    </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        clever (1)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(1) not bright   </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  disorganized (2)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(2) organized    </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">       listens (3)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(3) doesn't hear </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;"> no clear view (4)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(4) clear view of</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">understands me (5)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(5) no understand</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     ambitious (6)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(6) no ambition  </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     respected (7)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(7) not respected</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">       distant (8)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(8) warm         </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">her aggressive (9)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(9) not aggressiv</span></span></span></code></pre></div>
+<span><span class="co">#            an ethical person - 4 5 - my mother                   </span></span>
+<span><span class="co">#               an old flame - 3 | | 6 - a rejected teacher        </span></span>
+<span><span class="co">#                my father - 2 | | | | 7 - as I would love to be   </span></span>
+<span><span class="co">#                   self - 1 | | | | | | 8 - a pitied person       </span></span>
+<span><span class="co">#                          | | | | | | | |                         </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           clever (.1)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(1.) not bright       </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">     disorganized (.2)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(2.) organized        </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          listens (.3)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(3.) doesn't hear     </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">    no clear view (.4)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(4.) clear view of lif</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">   understands me (.5)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(5.) no understanding </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        ambitious (.6)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(6.) no ambition      </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        respected (.7)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(7.) not respected    </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          distant (.8)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(8.) warm             </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">rather aggressive (.9)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(9.) not aggressive   </span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <p>To change the settings enter the new parameters as
 <code>name=value</code> pairs. To turn off the display of the scale and
 meta information type in</p>
@@ -120,20 +123,22 @@ meta information type in</p>
 <code class="sourceCode R"><span><span class="va">fbb2003</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#        an ethical person - 4 5 - my mother              </span></span>
-<span><span class="co">#           an old flame - 3 | | 6 - a rejected teacher   </span></span>
-<span><span class="co">#            my father - 2 | | | | 7 - as I would love to </span></span>
-<span><span class="co">#               self - 1 | | | | | | 8 - a pitied person  </span></span>
-<span><span class="co">#                      | | | | | | | |                    </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        clever (1)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(1) not bright   </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  disorganized (2)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(2) organized    </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">       listens (3)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(3) doesn't hear </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;"> no clear view (4)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(4) clear view of</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">understands me (5)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(5) no understand</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     ambitious (6)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(6) no ambition  </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     respected (7)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(7) not respected</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">       distant (8)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(8) warm         </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">her aggressive (9)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(9) not aggressiv</span></span></span></code></pre></div>
+<span><span class="co">#            an ethical person - 4 5 - my mother                   </span></span>
+<span><span class="co">#               an old flame - 3 | | 6 - a rejected teacher        </span></span>
+<span><span class="co">#                my father - 2 | | | | 7 - as I would love to be   </span></span>
+<span><span class="co">#                   self - 1 | | | | | | 8 - a pitied person       </span></span>
+<span><span class="co">#                          | | | | | | | |                         </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           clever (.1)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(1.) not bright       </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">     disorganized (.2)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(2.) organized        </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          listens (.3)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(3.) doesn't hear     </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">    no clear view (.4)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(4.) clear view of lif</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">   understands me (.5)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(5.) no understanding </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        ambitious (.6)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(6.) no ambition      </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        respected (.7)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(7.) not respected    </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          distant (.8)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(8.) warm             </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">rather aggressive (.9)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(9.) not aggressive   </span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <p>Other settings that can be modified are maximal length of the
 construct that is displayed. Changing <code>show.cut</code>to
 <code>40</code> will prevent that the names of the constructs are cut
@@ -143,20 +148,22 @@ off.</p>
 <span><span class="va">fbb2003</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#           an ethical person - 4 5 - my mother                   </span></span>
-<span><span class="co">#              an old flame - 3 | | 6 - a rejected teacher        </span></span>
-<span><span class="co">#               my father - 2 | | | | 7 - as I would love to be   </span></span>
-<span><span class="co">#                  self - 1 | | | | | | 8 - a pitied person       </span></span>
-<span><span class="co">#                         | | | | | | | |                         </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">           clever (1)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(1) not bright        </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     disorganized (2)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(2) organized         </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          listens (3)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(3) doesn't hear      </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">    no clear view (4)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(4) clear view of life</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">   understands me (5)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(5) no understanding  </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        ambitious (6)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(6) no ambition       </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        respected (7)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(7) not respected     </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          distant (8)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(8) warm              </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">rather aggressive (9)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(9) not aggressive    </span></span></span></code></pre></div>
+<span><span class="co">#            an ethical person - 4 5 - my mother                    </span></span>
+<span><span class="co">#               an old flame - 3 | | 6 - a rejected teacher         </span></span>
+<span><span class="co">#                my father - 2 | | | | 7 - as I would love to be    </span></span>
+<span><span class="co">#                   self - 1 | | | | | | 8 - a pitied person        </span></span>
+<span><span class="co">#                          | | | | | | | |                          </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           clever (.1)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(1.) not bright        </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">     disorganized (.2)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(2.) organized         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          listens (.3)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(3.) doesn't hear      </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">    no clear view (.4)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(4.) clear view of life</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">   understands me (.5)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(5.) no understanding  </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        ambitious (.6)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(6.) no ambition       </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        respected (.7)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(7.) not respected     </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          distant (.8)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(8.) warm              </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">rather aggressive (.9)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(9.) not aggressive    </span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 <p>In order to not print the number of constructs and elements you can
 turn off this options by</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -164,20 +171,22 @@ turn off this options by</p>
 <span><span class="va">fbb2003</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#           an ethical person my mother                   </span></span>
-<span><span class="co">#              an old flame | | a rejected teacher        </span></span>
-<span><span class="co">#               my father | | | | as I would love to be   </span></span>
-<span><span class="co">#                  self | | | | | | a pitied person       </span></span>
-<span><span class="co">#                     | | | | | | | |                     </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">           clever</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">not bright        </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     disorganized</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">organized         </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          listens</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">doesn't hear      </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">    no clear view</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">clear view of life</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">   understands me</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">no understanding  </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        ambitious</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">no ambition       </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        respected</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">not respected     </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          distant</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">warm              </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">rather aggressive</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">not aggressive    </span></span></span></code></pre></div>
+<span><span class="co">#               an ethical person my mother                       </span></span>
+<span><span class="co">#                  an old flame | | a rejected teacher            </span></span>
+<span><span class="co">#                   my father | | | | as I would love to be       </span></span>
+<span><span class="co">#                      self | | | | | | a pitied person           </span></span>
+<span><span class="co">#                         | | | | | | | |                         </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           clever (.)</span>   2 1 6 3 5 7 1 5   <span style="color: #BBBBBB;">(.) not bright        </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">     disorganized (.)</span>   6 6 4 5 2 2 5 2   <span style="color: #BBBBBB;">(.) organized         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          listens (.)</span>   3 1 6 3 3 7 1 4   <span style="color: #BBBBBB;">(.) doesn't hear      </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">    no clear view (.)</span>   5 6 3 3 3 5 7 3   <span style="color: #BBBBBB;">(.) clear view of life</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">   understands me (.)</span>   3 2 6 2 2 6 2 5   <span style="color: #BBBBBB;">(.) no understanding  </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        ambitious (.)</span>   6 3 5 4 7 3 3 5   <span style="color: #BBBBBB;">(.) no ambition       </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        respected (.)</span>   2 2 4 2 5 6 1 4   <span style="color: #BBBBBB;">(.) not respected     </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          distant (.)</span>   3 3 7 3 5 1 6 5   <span style="color: #BBBBBB;">(.) warm              </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">rather aggressive (.)</span>   1 3 3 3 5 2 5 7   <span style="color: #BBBBBB;">(.) not aggressive    </span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
   </main>
 </div>
 

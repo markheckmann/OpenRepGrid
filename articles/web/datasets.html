@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Data Sets • OpenRepGrid</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../../favicon.ico">
+<link rel="manifest" href="../../site.webmanifest">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -26,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +60,7 @@
       <img src="../../logo.png" class="logo" alt=""><h1>Data Sets</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.17/vignettes/web/datasets.Rmd" class="external-link"><code>vignettes/web/datasets.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/markheckmann/OpenRepGrid/blob/v0.1.18/vignettes/web/datasets.Rmd" class="external-link"><code>vignettes/web/datasets.Rmd</code></a></small>
       <div class="d-none name"><code>datasets.Rmd</code></div>
     </div>
 
@@ -137,6 +136,8 @@ self-mutilation. The data was originally reported by Watson (1970).</td>
 </tr>
 </tbody>
 </table>
+<p>You can also get an overview by typing
+<code>data(package = "OpenRepGrid")</code> into the console.</p>
 <div class="section level3">
 <h3 id="r-code">R-Code<a class="anchor" aria-label="anchor" href="#r-code"></a>
 </h3>
@@ -146,29 +147,31 @@ console.</p>
 <code class="sourceCode R"><span><span class="va">boeker</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># RATINGS:</span></span>
-<span><span class="co">#                                          8 - martin                                   </span></span>
-<span><span class="co">#                               george - 7 | 9 - elizabeth                              </span></span>
-<span><span class="co">#                               karl - 6 | | | 10 - therapist                           </span></span>
-<span><span class="co">#                             kurt - 5 | | | | | 11 - irene                             </span></span>
-<span><span class="co">#                         father - 4 | | | | | | | 12 - childhood self                  </span></span>
-<span><span class="co">#                       mother - 3 | | | | | | | | | 13 - self before illness           </span></span>
-<span><span class="co">#                 ideal self - 2 | | | | | | | | | | | 14 - self with delusion          </span></span>
-<span><span class="co">#                     self - 1 | | | | | | | | | | | | | 15 - self as dreamer           </span></span>
-<span><span class="co">#                            | | | | | | | | | | | | | | |                              </span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">            balanced (1)</span>   1 4 2 2 3 5 2 5 4 2 6 2 2 3 3   <span style="color: #BBBBBB;">(1) get along with conflict</span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">            isolated (2)</span>   3 6 3 5 5 4 5 4 5 4 4 4 2 2 3   <span style="color: #BBBBBB;">(2) sociable               </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">  closely integrated (3)</span>   2 2 2 3 5 3 2 3 2 3 3 4 4 5 3   <span style="color: #BBBBBB;">(3) excluded               </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          discursive (4)</span>   4 1 3 1 2 4 2 3 3 2 3 3 3 5 4   <span style="color: #BBBBBB;">(4) passive                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">         open minded (5)</span>   2 1 2 1 2 4 4 2 4 2 6 3 2 2 3   <span style="color: #BBBBBB;">(5) indifferent            </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">              dreamy (6)</span>   4 5 3 5 4 5 4 5 4 4 6 3 3 3 2   <span style="color: #BBBBBB;">(6) dispassionate          </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">practically oriented (7)</span>   2 1 3 2 3 3 3 2 2 3 2 3 3 3 3   <span style="color: #BBBBBB;">(7) depressed              </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">             playful (8)</span>   4 5 4 3 4 3 2 3 4 4 5 3 2 4 3   <span style="color: #BBBBBB;">(8) serious                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">     socially minded (9)</span>   2 1 3 2 4 5 4 1 3 2 6 3 3 3 3   <span style="color: #BBBBBB;">(9) selfish                </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">        quarrelsome (10)</span>   5 5 5 5 5 2 5 2 4 4 1 6 5 5 5   <span style="color: #BBBBBB;">(10) peaceful              </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">           artistic (11)</span>   5 1 2 4 3 5 3 2 4 3 3 4 4 4 4   <span style="color: #BBBBBB;">(11) technical             </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">         scientific (12)</span>   2 1 5 3 4 4 5 3 4 1 6 4 2 3 3   <span style="color: #BBBBBB;">(12) emotional             </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">          introvert (13)</span>   4 5 4 6 5 3 5 3 5 2 5 2 2 2 3   <span style="color: #BBBBBB;">(13) extrovert             </span></span></span>
-<span><span class="co"># <span style="color: #BBBBBB;">         wanderlust (14)</span>   1 1 4 2 4 5 2 5 5 3 6 1 1 2 1   <span style="color: #BBBBBB;">(14) home oriented         </span></span></span></code></pre></div>
+<span><span class="co">#                                           8 - martin                                   </span></span>
+<span><span class="co">#                                george - 7 | 9 - elizabeth                              </span></span>
+<span><span class="co">#                                karl - 6 | | | 10 - therapist                           </span></span>
+<span><span class="co">#                              kurt - 5 | | | | | 11 - irene                             </span></span>
+<span><span class="co">#                          father - 4 | | | | | | | 12 - childhood self                  </span></span>
+<span><span class="co">#                        mother - 3 | | | | | | | | | 13 - self before illness           </span></span>
+<span><span class="co">#                  ideal self - 2 | | | | | | | | | | | 14 - self with delusion          </span></span>
+<span><span class="co">#                      self - 1 | | | | | | | | | | | | | 15 - self as dreamer           </span></span>
+<span><span class="co">#                             | | | | | | | | | | | | | | |                              </span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">            balanced (.1)</span>   1 4 2 2 3 5 2 5 4 2 6 2 2 3 3   <span style="color: #BBBBBB;">(1.) get along with conflic</span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">            isolated (.2)</span>   3 6 3 5 5 4 5 4 5 4 4 4 2 2 3   <span style="color: #BBBBBB;">(2.) sociable              </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">  closely integrated (.3)</span>   2 2 2 3 5 3 2 3 2 3 3 4 4 5 3   <span style="color: #BBBBBB;">(3.) excluded              </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          discursive (.4)</span>   4 1 3 1 2 4 2 3 3 2 3 3 3 5 4   <span style="color: #BBBBBB;">(4.) passive               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">         open minded (.5)</span>   2 1 2 1 2 4 4 2 4 2 6 3 2 2 3   <span style="color: #BBBBBB;">(5.) indifferent           </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">              dreamy (.6)</span>   4 5 3 5 4 5 4 5 4 4 6 3 3 3 2   <span style="color: #BBBBBB;">(6.) dispassionate         </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">practically oriented (.7)</span>   2 1 3 2 3 3 3 2 2 3 2 3 3 3 3   <span style="color: #BBBBBB;">(7.) depressed             </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">             playful (.8)</span>   4 5 4 3 4 3 2 3 4 4 5 3 2 4 3   <span style="color: #BBBBBB;">(8.) serious               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">     socially minded (.9)</span>   2 1 3 2 4 5 4 1 3 2 6 3 3 3 3   <span style="color: #BBBBBB;">(9.) selfish               </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">        quarrelsome (.10)</span>   5 5 5 5 5 2 5 2 4 4 1 6 5 5 5   <span style="color: #BBBBBB;">(10.) peaceful             </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">           artistic (.11)</span>   5 1 2 4 3 5 3 2 4 3 3 4 4 4 4   <span style="color: #BBBBBB;">(11.) technical            </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">         scientific (.12)</span>   2 1 5 3 4 4 5 3 4 1 6 4 2 3 3   <span style="color: #BBBBBB;">(12.) emotional            </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">          introvert (.13)</span>   4 5 4 6 5 3 5 3 5 2 5 2 2 2 3   <span style="color: #BBBBBB;">(13.) extrovert            </span></span></span>
+<span><span class="co"># <span style="color: #BBBBBB;">         wanderlust (.14)</span>   1 1 4 2 4 5 2 5 5 3 6 1 1 2 1   <span style="color: #BBBBBB;">(14.) home oriented        </span></span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Poles: <span style="color: #00BB00;">(+) = preferred</span> , <span style="color: #BB0000;">(-) = non-preferred</span> , <span style="color: #BBBBBB;">(/) = none</span> , <span style="color: #BBBBBB;">(.) = not defined</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="making-data-available-to-public">Making data available to public<a class="anchor" aria-label="anchor" href="#making-data-available-to-public"></a>

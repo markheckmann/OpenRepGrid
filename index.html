@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Tools to Analyze Repertory Grid Data • OpenRepGrid</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -29,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">OpenRepGrid</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,9 +80,9 @@
 </h2>
 <p>Install the latest release version from <a href="https://cran.r-project.org/web/packages/OpenRepGrid/index.html" class="external-link">CRAN</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"OpenRepGrid"</span>, <span class="at">dep =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p>Install a development version from github by referencing a the dev branch (e.g., <code>0.1.18</code>):</p>
+<p>Install a development version from github by referencing a the dev branch (e.g., <code>0.1.19</code>):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"markheckmann/OpenRepGrid@01.1.18"</span>) </span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"markheckmann/OpenRepGrid@01.1.19"</span>) </span></code></pre></div>
 <p>To load the OpenRepGrid package after installation type</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(OpenRepGrid) </span></code></pre></div>
 <p>And for a first impression of the package features type</p>
@@ -95,17 +94,32 @@
 <p>Visit the package documentation website: <a href="https://docs.openrepgrid.org/" class="uri">https://docs.openrepgrid.org/</a></p>
 </div>
 <div class="section level2">
+<h2 id="questions">Questions<a class="anchor" aria-label="anchor" href="#questions"></a>
+</h2>
+<p>If you get stuck, you can get help on <a href="https://stackoverflow.com/" class="external-link">StackOverflow</a>:</p>
+<ul>
+<li>Make sure to read <a href="https://stackoverflow.com/collectives/r-language/articles/76995406/how-to-write-a-good-r-question-with-a-reproducible-example" class="external-link">How to write a good R question with a reproducible example</a> before posting your question</li>
+<li>Add the tags <code>R</code> and <code>openrepgrid</code> to your question</li>
+</ul>
+</div>
+<div class="section level2">
 <h2 id="contributing-to-openrepgrid">Contributing to OpenRepGrid<a class="anchor" aria-label="anchor" href="#contributing-to-openrepgrid"></a>
 </h2>
 <p>You can contribute to OpenRepGrid in various ways. You can, for example, file a bug report, help improve the documentation or write code. See the our <a href="https://docs.openrepgrid.org/CONTRIBUTING.html">contributing guide</a> for detailed information.</p>
 <p>Anyone getting involved in this package agrees to our <a href="https://github.com/markheckmann/OpenRepGrid/blob/master/CODE_OF_CONDUCT.md" class="external-link">Code of Conduct</a>.</p>
 <p>If our software makes your life easier, consider sponsoring us — think of it as buying us a coffee while we keep hacking away! <a href="https://github.com/sponsors/markheckmann" class="external-link"><img src="https://img.shields.io/badge/Donate-%E2%9D%A4-EA4AAA" alt="Donate"></a></p>
 <div class="section level4">
-<h4 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
+<h4 id="authors">Authors<a class="anchor" aria-label="anchor" href="#authors"></a>
 </h4>
 <ul>
 <li>
 <a href="https://markheckmann.de" class="external-link">Mark Heckmann</a> (package maintainer)</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
+</h4>
+<ul>
 <li>Richard C. Bell</li>
 <li>Alejandro García Gutiérrez (<a href="https://github.com/j4n7" class="external-link">@j4n7</a>)</li>
 <li>Diego Vitali (<a href="https://github.com/artoo-git" class="external-link">@artoo-git</a>)</li>
@@ -162,7 +176,7 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://markheckmann.de" class="external-link">Mark Heckmann</a> <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0002-0736-7417" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://markheckmann.de" class="external-link">Mark Heckmann</a> <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0002-0736-7417" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>

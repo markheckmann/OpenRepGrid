@@ -40,6 +40,7 @@
 <url><loc>https://docs.openrepgrid.org/reference/addVarianceExplainedToBiplot2d.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/alignByIdeal.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/alignByLoadings.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/alignByPreferredPole.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/angleOrderIndexes2d.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/apply_pb.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/bertin.html</loc></url>
@@ -66,7 +67,6 @@
 <url><loc>https://docs.openrepgrid.org/reference/clearRatings.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/cluster.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/clusterBoot.html</loc></url>
-<url><loc>https://docs.openrepgrid.org/reference/colorize_matrix_rows.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/constructCor.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/constructD.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/constructPca.html</loc></url>
@@ -86,6 +86,9 @@
 <url><loc>https://docs.openrepgrid.org/reference/data-slater1977a.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/data-slater1977b.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/decouple.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/df_construct_columns.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/df_element_columns.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/df_long.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/dim.gridlist.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/dim.repgrid.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/dist_minmax.html</loc></url>
@@ -109,10 +112,12 @@
 <url><loc>https://docs.openrepgrid.org/reference/getRatingLayer.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/getScale.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/getScaleMidpoint.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/grid_to_df_long.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/grid_to_df_wide.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/gridlist.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/home.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/importDataframe.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/importExcel.html</loc></url>
-<url><loc>https://docs.openrepgrid.org/reference/importExcelInternal.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/importGridcor.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/importGridcorInternal.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/importGridstat.html</loc></url>
@@ -122,7 +127,6 @@
 <url><loc>https://docs.openrepgrid.org/reference/importScivesco.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/importScivescoInternal.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/importTxt.html</loc></url>
-<url><loc>https://docs.openrepgrid.org/reference/importTxtInternal.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/index.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/indexBias.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/indexBieri.html</loc></url>
@@ -160,6 +164,8 @@
 <url><loc>https://docs.openrepgrid.org/reference/permuteGrid.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/perturbate.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/plot.indexDilemma.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/preferred-pole.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/preferredPolesByIdeal.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/prepareBiplotData.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/print.alignByLoadings.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/print.constructCor.html</loc></url>
@@ -206,6 +212,7 @@
 <url><loc>https://docs.openrepgrid.org/reference/sapply_pb.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/saveAsExcel.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/saveAsTxt.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/saveAsWorksheet.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/setConstructAttr.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/setElementAttr.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/setMeta.html</loc></url>
@@ -215,13 +222,13 @@
 <url><loc>https://docs.openrepgrid.org/reference/settingsSave.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/shift.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/show-repgrid-method.html</loc></url>
-<url><loc>https://docs.openrepgrid.org/reference/showMeta.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/showScale.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/slaterStandardization.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/ssq.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/stats.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/stepChart.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/stop_if_not_0_1_ratings_only.html</loc></url>
+<url><loc>https://docs.openrepgrid.org/reference/stop_if_not_in_element_range.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/stop_if_not_is_repgrid.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/stop_if_scale_not_defined.html</loc></url>
 <url><loc>https://docs.openrepgrid.org/reference/strReverse.html</loc></url>
