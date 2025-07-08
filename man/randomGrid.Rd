@@ -11,7 +11,8 @@ randomGrid(
   nwe = 5,
   range = c(1, 5),
   prob = NULL,
-  options = 1
+  options = 1,
+  preferred = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ If \code{NULL} (default) the distribution is uniform.}
 \item{options}{Use random sentences as constructs and elements (1) or
 not (0). If not, the elements and constructs are given
 default names and are numbered.}
+
+\item{preferred}{Add preferred pole info? (default \code{TRUE})}
 }
 \value{
 \code{repgrid} object.
@@ -41,10 +44,9 @@ exploring distributions of indexes etc.
 }
 \examples{
 \dontrun{
-
 x <- randomGrid()
 x
-x <- randomGrid(10, 25)
+x <- randomGrid(10, 25, preferred = FALSE)
 x
 x <- randomGrid(10, 25, options = 0)
 x

@@ -22,37 +22,37 @@
 #' @param options   Use random sentences as constructs and elements (1) or
 #'                  not (0). If not, the elements and constructs are given
 #'                  default names and are numbered.
+#' @param preferred Add preferred pole info? (default `TRUE`)
 #' @return `repgrid` object.
 #'
 #' @export
 #' @examples \dontrun{
-#'
 #' x <- randomGrid()
 #' x
-#' x <- randomGrid(10, 25)
+#' x <- randomGrid(10, 25, preferred = FALSE)
 #' x
 #' x <- randomGrid(10, 25, options = 0)
 #' x
 #' }
 #'
-randomGrid <- function(nc = 10, ne = 15, nwc = 8, nwe = 5, range = c(1, 5), prob = NULL, options = 1) {
+randomGrid <- function(nc = 10, ne = 15, nwc = 8, nwe = 5, range = c(1, 5), prob = NULL, options = 1, preferred = TRUE) {
   if (options == 1) { # full constructs and element names
     elem <- randomSentences(ne, nwe)
     left <- randomSentences(nc, nwc)
     right <- randomSentences(nc, nwc)
   } else { # short element and construct names
-    elem <- paste("element", seq_len(ne), sep = "")
-    left <- paste("lconstruct", seq_len(nc), sep = "")
-    right <- paste("rconstruct", seq_len(nc), sep = "")
+    elem <- paste("element", seq_len(ne))
+    left <- paste("left pole", seq_len(nc))
+    right <- paste("right pole", seq_len(nc))
   }
-  scores <- sample(range[1]:range[2], nc * ne,
-    replace = TRUE, prob = prob
-  )
+  scores <- sample(range[1]:range[2], nc * ne, replace = TRUE, prob = prob)
+  preferred_pole <- sample(c("left", "right", NA_character_), replace = TRUE, size = nc, prob = c(.7, .2, .1))
   args <- list(
     name = elem,
     l.name = left,
     r.name = right,
-    scores = scores
+    scores = scores,
+    preferred_pole = if (preferred) preferred_pole else NULL
   )
   x <- makeRepgrid(args)
   setScale(x, min = range[1], max = range[2])

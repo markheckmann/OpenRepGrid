@@ -1458,6 +1458,7 @@ makeRepgrid <- function(args) {
   x <- do.call(rg.setCoupled, l) # if no coupled argument then coupled=TRUE
   l <- c(list(x = x), args) # make a new repgrid object
   x <- do.call(setScale, l) # set scale if min and max arg is provided
+  preferredPoles(x) <- l$preferred_pole
   x
 }
 # args <- list( name=c("element_1", "element_2", "element_3", "element_4"),
