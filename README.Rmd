@@ -49,10 +49,10 @@ Install the latest release version from [CRAN](https://cran.r-project.org/web/pa
 
     install.packages("OpenRepGrid", dep = TRUE)
     
-Install a development version from github by referencing a the dev branch (e.g., `0.1.18`):
+Install a development version from github by referencing a the dev branch (e.g., `0.1.19`):
     
     library(devtools)
-    install_github("markheckmann/OpenRepGrid@01.1.18") 
+    install_github("markheckmann/OpenRepGrid@01.1.19") 
 
 To load the OpenRepGrid package after installation type
 

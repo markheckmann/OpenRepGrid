@@ -1,5 +1,11 @@
 test_that("gridlist works correctly", {
+  l <- list(boeker, feixas2004)
+  expect_true(is_list_of_repgrids(l))
+  l2 <- append(l, "hello")
+  expect_false(is_list_of_repgrids(l2))
+
   gl <- gridlist(boeker, feixas2004)
+  expect_true(is_list_of_repgrids(gl))
   expect_s3_class(gl, "gridlist")
   expect_length(gl, 2)
 

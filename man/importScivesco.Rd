@@ -59,6 +59,12 @@ Menzel, F., Rosenberger, M., Buve, J. (2007). Emotionale, intuitive und
 rationale Konstrukte verstehen. \emph{Personalfuehrung, 4}(7), 91-99.
 }
 \seealso{
-\code{\link[=importGridcor]{importGridcor()}}, \code{\link[=importGridstat]{importGridstat()}}, \code{\link[=importScivesco]{importScivesco()}}, \code{\link[=importGridsuite]{importGridsuite()}}, \code{\link[=importTxt]{importTxt()}},
-\code{\link[=importExcel]{importExcel()}}
+Import data
+\code{\link{importDataframe}()},
+\code{\link{importExcel}()},
+\code{\link{importGridcor}()},
+\code{\link{importGridstat}()},
+\code{\link{importGridsuite}()},
+\code{\link{importTxt}()}
 }
+\concept{import}

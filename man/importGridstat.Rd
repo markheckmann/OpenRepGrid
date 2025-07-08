@@ -69,6 +69,12 @@ rg <- importGridstat(file, dir, min = 1, max = 6)
 Bell, R. C. (1998)  GRIDSTAT: A program for analyzing the data of a repertory grid. Melbourne: Author.
 }
 \seealso{
-\code{\link[=importGridcor]{importGridcor()}}, \code{\link[=importGridstat]{importGridstat()}}, \code{\link[=importScivesco]{importScivesco()}}, \code{\link[=importGridsuite]{importGridsuite()}}, \code{\link[=importTxt]{importTxt()}},
-\code{\link[=importExcel]{importExcel()}}
+Import data
+\code{\link{importDataframe}()},
+\code{\link{importExcel}()},
+\code{\link{importGridcor}()},
+\code{\link{importGridsuite}()},
+\code{\link{importScivesco}()},
+\code{\link{importTxt}()}
 }
+\concept{import}

@@ -51,6 +51,12 @@ Walter, O. B., Bacher, A., & Fromm, M. (2004). A proposal  for a common data exc
 data.\emph{Journal of Constructivist Psychology, 17}(3), 247. \doi{doi:10.1080/10720530490447167}
 }
 \seealso{
-\code{\link[=importGridcor]{importGridcor()}}, \code{\link[=importGridstat]{importGridstat()}}, \code{\link[=importScivesco]{importScivesco()}}, \code{\link[=importGridsuite]{importGridsuite()}}, \code{\link[=importTxt]{importTxt()}},
-\code{\link[=importExcel]{importExcel()}}
+Import data
+\code{\link{importDataframe}()},
+\code{\link{importExcel}()},
+\code{\link{importGridcor}()},
+\code{\link{importGridstat}()},
+\code{\link{importScivesco}()},
+\code{\link{importTxt}()}
 }
+\concept{import}

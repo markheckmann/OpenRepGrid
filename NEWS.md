@@ -1,5 +1,13 @@
-# OpenRepGrid 0.1.18 (dev version)
+# OpenRepGrid 0.1.18
 
+* `saveAsExcel` can export a list of grids now (#67)
+* `saveAsWorksheet` adds a grid as a new sheet to a `openxlsx` `Workbook` object.
+* `makeGrid` and `randomGrid` can add construct pole preference.
+* `importExcel` now also understands the long format (#65) and can import from several sheets at once (#68)
+* `importDataframe` converts a dataframe into a repgrid. Three different formats can be read in. See the sample 
+   dataframes `df_element_columns`, `df_construct_columns`, and `df_long` (#61)
+* `saveAsExcel` now supports output in wide and long format. The output is also formatted now (#64)
+* `bertinCluster`: now restores the original `par()` settings after changing the plot layout (#63)
 * `importTxt` reads preferred poles from section `PREFERRED`, `importExcel` reads rightmost column `preferred_poles` (#57)
 * `preferredPoles` sets the preferred construct poles, `preferredPolesByIdeal` sets the preferred pole bases on the 
   ideal elements ratings, `alignByPreferredPole` aligns constructs by pole preference (#57)

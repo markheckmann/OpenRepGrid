@@ -4,8 +4,10 @@
 #
 # //////////////////////////////////////////////////////////////////////////////
 
+# _____________ ----
+# REPGRID ----
 
-# Bell (2010) ----
+## Bell (2010) ----
 
 #' Grid data from Bell (2010).
 #'
@@ -54,7 +56,7 @@ NULL
 # save("bell2010", file="../data/bell2010.RData")
 
 
-# Bell and McGorry (1992) ----
+## Bell and McGorry (1992) ----
 
 #' Grid data from Bell and McGorry (1992).
 #'
@@ -112,7 +114,7 @@ NULL
 # save("bellmcgorry1992", file="../data/bellmcgorry1992.RData")
 
 
-# Boeker (1996) ----
+## Boeker (1996) ----
 
 #' Grid data from Boeker (1996).
 #'
@@ -171,7 +173,7 @@ NULL
 # saveAsExcel(boeker, "inst/extdata/boeker.xlsx")
 
 
-# Fransella, Bell & Bannister (2003) ----
+## Fransella, Bell & Bannister (2003) ----
 
 #' Grid data from Fransella, Bell and Bannister (2003).
 #'
@@ -211,7 +213,7 @@ NULL
 # save("fbb2003", file="../data/fbb2003.RData")
 
 
-# Feixas and Saul (2004) ----
+## Feixas and Saul (2004) ----
 
 #' Grid data from Feixas and Saul (2004).
 #'
@@ -277,7 +279,7 @@ NULL
 
 
 
-# Leach et al. (2001) ----
+## Leach et al. (2001) ----
 
 #' Pre- and post therapy dataset from Leach et al. (2001).
 #'
@@ -368,7 +370,7 @@ NULL
 
 
 
-# Mackay (1992) ----
+## Mackay (1992) ----
 
 #' Grid data from Mackay (1992).
 #'
@@ -405,7 +407,7 @@ NULL
 # save("mackay1992", file="../data/mackay1992.RData")
 
 
-# Raeithel (1998) ----
+## Raeithel (1998) ----
 
 #' Grid data from Raeithel (1998).
 #'
@@ -457,7 +459,7 @@ NULL
 
 
 
-# Slater (1977a) ----
+## Slater (1977a) ----
 
 #' Drug addict's grid data set from Slater (1977, p. 32).
 #'
@@ -509,7 +511,7 @@ NULL
 # save("slater1977a", file="../data/slater1977a.RData")
 
 
-# Slater (1977b) ----
+## Slater (1977b) ----
 
 #' Grid data from Slater (1977).
 #'
@@ -555,3 +557,118 @@ NULL
 # slater1977b <- makeRepgrid(args)
 # slater1977b <- setScale(slater1977b, 1, 10)
 # save("slater1977b", file="../data/slater1977b.RData")
+
+
+# _____________ ----
+# DATAFRAME ----
+
+##  df_element_columns ----
+
+#' Sample dataframe with grid data (elements are columns)
+#'
+#' This dataframe can be converted into a `repgrid` object via [importDataframe()]. The dataframe column names are the
+#' minimum of the rating scale (`1`), the element names (`element_1` to `element_4`), the maximum of the rating scale
+#' (`5`), and optionally a column indicating the `preferred` pole. Each row contains the constructs' entries (left
+#' pole, ratings, right pole, preferred pole). The preferred pole must be one of `left`, `right`, `none`, `NA` (see
+#' [preferredPoles()]). See sample data [df_element_columns].
+#'
+#' \tabular{lccccrr}{
+#' `1`           \tab `element_1` \tab `element_2` \tab `element_3` \tab `element_4` \tab `5`            \tab `preferred` \cr
+#' `left_pole_1` \tab `1`         \tab `5`         \tab `3`         \tab `4`         \tab `right_pole_1` \tab `left`      \cr
+#' `left_pole_2` \tab `3`         \tab `1`         \tab `1`         \tab `3`         \tab `right_pole_2` \tab `right`     \cr
+#' `left_pole_3` \tab `4`         \tab `2`         \tab `5`         \tab `1`         \tab `right_pole_3` \tab `none`        \cr
+#' }
+#' @name df_element_columns
+#' @family grid_dataframe
+#' @docType data
+#' @seealso [importDataframe()]
+#' @keywords data
+#' @examples
+#' df_element_columns
+#' importDataframe(df_element_columns)
+NULL
+
+# # dataframe with columns as elements
+# file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
+# x <- importExcel(file)
+# x <- x[1:3, 1:4]  # smaller version
+# df_element_columns <- grid_to_wide_format(x)
+# save("df_element_columns", file="data/df_element_columns.RData")
+# rg2 <- importDataframe(df_element_columns)
+
+
+## df_construct_columns ----
+
+#' Sample dataframe with grid data (constructs are columns)
+#'
+#' This dataframe can be converted into a `repgrid` object via [importDataframe()]. The columns names are `elements`
+#' followed by the constructs (`left_pole_1:right_pole_1` to `left_pole_3:right_pole_3`). The poles are separated by a
+#' colon by default (change via arg `pole_sep`). The rows contain the elements' entries (element name and ratings). The
+#' min and max of the rating scale should be passed explicitly via the args `rmin` and `rmax`. See sample data
+#' [df_construct_columns].
+#'
+#' \tabular{lrrrr}{
+#' `elements`  \tab `left_pole_1:right_pole_1` \tab `left_pole_2:right_pole_2` \tab `left_pole_3:right_pole_3` \cr
+#' `element_1` \tab `5`                        \tab `3`                        \tab `2`                        \cr
+#' `element_2` \tab `3`                        \tab `3`                        \tab `4`                        \cr
+#' `element_3` \tab `1`                        \tab `5`                        \tab `2`                        \cr
+#' `element_4` \tab `4`                        \tab `3`                        \tab `3`                        \cr
+#' }
+#' @name df_construct_columns
+#' @family grid_dataframe
+#' @seealso [importDataframe()]
+#' @docType data
+#' @keywords data
+#' @examples
+#' df_construct_columns
+#' importDataframe(df_construct_columns, format = "construct_columns", rmin = 1, rmax = 5)
+NULL
+
+# # dataframe with columns as constructs
+# file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
+# x <- importExcel(file)
+# x <- x[1:3, 1:4]  # smaller version
+# df_construct_columns <- grid_to_long_format(x) %>%
+#   mutate(construct = paste0(left_pole, ":", right_pole)) %>%
+#   pivot_wider(id_cols = "element", names_from = "construct", values_from = "rating")
+# save("df_construct_columns", file="data/df_construct_columns.RData")
+# rg2 <- importDataframe(df_construct_columns, format = "c", rmin = 1, rmax = 5)
+
+
+## df_long ----
+
+#' Sample dataframe with grid data (long)
+#'
+#' This dataframe can be converted into a `repgrid` object via [importDataframe()].
+#' The `long` format has this name because it has few columns and many rows. It is a common format
+#' in data analytics. Here, each row contains a different element-construct combination and the corresponding rating
+#' value. The format looks like this:
+#'
+#' \tabular{lllrlrr}{
+#' `element`   \tab `left_pole`   \tab `right_pole`   \tab `rating` \tab `preferred_pole` \tab `rmin` \tab `rmax` \cr
+#' `element 1` \tab `left pole 1` \tab `right pole 1` \tab `5`      \tab `left`           \tab `1`    \tab `5`   \cr
+#' `element_2` \tab `left pole 1` \tab `right pole 1` \tab `3`      \tab `left`           \tab `1`    \tab `5`   \cr
+#' `element_3` \tab `left pole 1` \tab `right pole 1` \tab `1`      \tab `left`           \tab `1`    \tab `5`   \cr
+#' }
+#'
+#' The columns `element`, `left_pole`, `right_pole`, and `rating` are mandatory, the columns `preferred_pole`, `rmin`,
+#' and `rmax` are optional. `rmin` and `rmax` contain the min and max of the rating scale. Alternatively, you may
+#' pass `rmin` and `rmax` as arguments in the function call.
+#'
+#' @name df_long
+#' @family grid_dataframe
+#' @seealso [importDataframe()]
+#' @docType data
+#' @keywords data
+#' @examples
+#' df_long
+#' importDataframe(df_long, format = "long")
+NULL
+
+# # # dataframe with columns as constructs
+# file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
+# x <- importExcel(file)
+# x <- x[1:3, 1:4]  # smaller version
+# df_long <- grid_to_long_format(x)
+# save("df_long", file="data/df_long.RData")
+# rg2 <- importDataframe(df_long, format = "long")

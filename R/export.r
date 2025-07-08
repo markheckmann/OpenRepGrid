@@ -171,44 +171,252 @@ saveAsTxt <- function(x, file = NA) {
 ############################# EXPORT EXCEL ####################################
 
 
-#' Save grid in a Microsoft Excel file (.xlsx)
+#' Save grids as Microsoft Excel file (.xlsx)
 #'
-#' `saveAsExcel` will save the grid as a Microsoft Excel file
-#' (`.xlsx`).
+#' `saveAsExcel` will save one or more grids in an Excel file (`.xlsx`).
 #'
-#' @param x     A `repgrid` object.
-#' @param file  Filename to save the grid to. The name should have
-#'              the suffix `.xlsx`.
-#' @param sheet Index of the sheet to write to.
-#' @return  Invisibly returns the name of the file.
+#' @param x A `repgrid` object or a list of grids.
+#' @param file File path. Suffix must be `.xlsx`.
+#' @param format Two output formats are supported: `wide` (default) where each column represents one element, each row
+#'   represent one constructs (a common grid representation), and `long` where each row contains an element-construct
+#'   combination and the corresponding rating value. See [importExcel()] for details and examples.
+#' @param sheet Vector of sheet names with same length as `x`. If `NULL` (default), `default_sheet` is used. If `x`
+#'   is a list if grids, a sequential index is appended. For named list entries (if `x` is a list of grids), the name
+#'   overwrites the default sheet name.
+#' @param default_sheet Default sheet name to use if not supplied in `sheet` or via list names of `x`.
+#' @return  Invisibly returns file path.
 #' @export
-#' @seealso  [importExcel()]
-#' @examples \dontrun{
+#' @seealso  [importExcel()], [saveAsWorksheet()]
+#' @example inst/examples/example-save-as-excel.R
 #'
-#' x <- randomGrid(options = 0)
-#' saveAsExcel(x, "grid.xlsx")
-#' }
-#'
-saveAsExcel <- function(x, file, sheet = 1) {
-  # check for correct file extension
+saveAsExcel <- function(x, file, format = "wide", sheet = NULL, default_sheet = "grid") {
   ext <- tools::file_ext(file)
   if (ext != "xlsx") {
-    stop("The file extension must be '.xlsx' but you have '.", ext, "'", call. = FALSE)
+    stop("The file extension must be '.xlsx'. Found '", ext, "' instead.", call. = FALSE)
+  }
+  wb <- openxlsx::createWorkbook()
+  wb <- saveAsWorksheet(x, wb = wb, format = format, sheet = sheet, default_sheet = default_sheet)
+  openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
+  invisible(file)
+}
+
+
+#' Add grids as sheets to an openxlsx Workbook
+#'
+#' `saveAsWorksheet` will add one or more grids to an a [openxlsx](https://CRAN.R-project.org/package=openxlsx)
+#' `Workbook` object.
+#'
+#' @param wb A [openxlsx](https://CRAN.R-project.org/package=openxlsx) `Workbook` object.
+#' @inheritParams saveAsExcel
+#' @return  Invisibly returns Workbook object.
+#' @export
+#' @seealso  [saveAsExcel()]
+#' @example inst/examples/example-save-as-worksheet.R
+#'
+saveAsWorksheet <- function(x, wb, format = "wide", sheet = NULL, default_sheet = "grid") {
+  stop_if_not_inherits(wb, "Workbook")
+  if (!is_list_of_repgrids(x)) {
+    sheet <- sheet %||% default_sheet
+    wb <- add_one_sheet_with_grid(x, wb = wb, format = format, sheet = sheet)
+  } else {
+    ii <- seq_along(x)
+    list_names <- get_names_na(x)
+    # sheet name precedence: sheet, list, default
+    if (length(sheet) == length(x)) {
+      sheets <- sheet
+    } else { # if (is.null(sheet)
+      default_names <- paste(default_sheet, ii)
+      sheets <- ifelse(is.na(list_names), default_names, list_names)
+    }
+    for (i in ii) {
+      wb <- add_one_sheet_with_grid(x[[i]], wb = wb, format = format, sheet = sheets[i])
+    }
+  }
+  invisible(wb)
+}
+
+
+
+# saveAsExcelv2 <- function(x, file, format = "wide", sheet = "grid") {
+#   ext <- tools::file_ext(file)
+#   if (ext != "xlsx") {
+#     stop("The file extension must be '.xlsx'. Found '", ext, "' instead.", call. = FALSE)
+#   }
+#   if (is.null(wb)) {
+#     wb <- openxlsx::createWorkbook()
+#   }
+#   if (!is_list_of_repgrids(x)) {
+#     wb <- add_one_sheet_with_grid(x, wb = wb, format = format, sheet = sheet)
+#   } else {
+#     ii <- seq_along(x)
+#     list_names <- get_names_na(x)
+#     sheets_numbered <- paste(sheet %||% "grid", ii)
+#     sheets <- ifelse(is.na(list_names), sheets_numbered)
+#     for (i in ii) {
+#       wb <- add_one_sheet_with_grid(x[[i]], wb = wb, format = format, sheet = sheets[i])
+#     }
+#   }
+#   openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
+#   invisible(file)
+# }
+#
+# saveAsExcel_v1 <- function(x, file, format = "wide", sheet = NULL) {
+#   if (is_list_of_repgrids(x)) {
+#
+#   }
+#
+#   stop_if_not_is_repgrid(x)
+#   ext <- tools::file_ext(file)
+#   if (ext != "xlsx") {
+#     stop("The file extension must be '.xlsx'. Found '", ext, "' instead.", call. = FALSE)
+#   }
+#   format <- match.arg(tolower(format), c("wide", "long"))
+#
+#   if (format == "wide") {
+#     df <- grid_to_df_wide(x)
+#     sheet <- sheet %||% "grid (wide format)"
+#     jj_rows <- seq_len(nrow(df) + 1)
+#     jj_elements <- seq_len(ncol(x)) + 1
+#     j_left_pole <- 1
+#     j_right_pole <- ncol(x) + 2
+#     j_preferred <- ncol(df)
+#
+#     style_header <- openxlsx::createStyle(textDecoration = "bold", fgFill = "grey90", border = "bottom")
+#     style_center <- openxlsx::createStyle(halign = "center")
+#     style_pole_left <- openxlsx::createStyle(textDecoration = "bold", halign = "right", border = "right")
+#     style_pole_right <- openxlsx::createStyle(textDecoration = "bold", halign = "left", border = "left")
+#     style_text_grey <- openxlsx::createStyle(fontColour = "grey50")
+#
+#     wb <- openxlsx::createWorkbook()
+#
+#     openxlsx::addWorksheet(wb, sheet)
+#     openxlsx::writeData(wb, sheet, x = df, headerStyle = style_header, rowNames = FALSE, colNames = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_center, rows = jj_rows, cols = jj_elements, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_pole_left, rows = jj_rows, cols = j_left_pole, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_pole_right, rows = jj_rows, cols = j_right_pole, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_text_grey, rows = jj_rows, cols = j_preferred, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::setColWidths(wb, sheet, cols = c(j_left_pole, j_right_pole, j_preferred), widths = c(20, 20, 13))
+#     openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
+#   } else {
+#     df <- grid_to_df_long(x)
+#     sheet <- sheet %||% "grid (long format)"
+#     jj_rows <- seq_len(nrow(df) + 1)
+#     jj_cols <- seq_len(ncol(df))
+#     jj_cols_optional <- 5:7
+#     j_preferred <- 5
+#     ii_end_construct <- rle(df$left_pole)$lengths %>% cumsum() %>% head(-1) + 1
+#
+#     style_header <- openxlsx::createStyle(textDecoration = "bold", fgFill = "grey90", border = "bottom")
+#     style_border_left <- openxlsx::createStyle(border = "left")
+#     style_border_bottom <- openxlsx::createStyle(border = "bottom", borderStyle = "dashed")
+#     style_text_grey <- openxlsx::createStyle(fontColour = "grey50")
+#
+#     wb <- openxlsx::createWorkbook()
+#     openxlsx::addWorksheet(wb, sheet)
+#     openxlsx::writeData(wb, sheet, x = df, headerStyle = style_header, rowNames = FALSE, colNames = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_border_left, rows = jj_rows, cols = j_preferred, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_text_grey, rows = jj_rows, cols = jj_cols_optional, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::addStyle(wb, sheet, style = style_border_bottom, rows = ii_end_construct, cols = jj_cols, stack = TRUE, gridExpand = TRUE)
+#     openxlsx::setColWidths(wb, sheet, cols = jj_cols, widths = c(20, 20, 20, 10, 13, 10, 10))
+#     openxlsx::freezePane(wb, sheet, firstActiveRow = 2)
+#     openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
+#   }
+#   invisible(file)
+# }
+
+add_one_sheet_with_grid <- function(x, wb, format = "wide", sheet = "grid") {
+  stop_if_not_is_repgrid(x)
+  stop_if_not_inherits(wb, "Workbook")
+
+  format <- match.arg(tolower(format), c("wide", "long"))
+
+  sheet <- sheet %||% "grid"
+  if (sheet %in% names(wb)) {
+    stop("Worksheet ", shQuote(sheet), " already exists", call. = FALSE)
   }
 
-  # build matrix to write to Excel
+  if (format == "wide") {
+    df <- grid_to_df_wide(x)
+    jj_rows <- seq_len(nrow(df) + 1)
+    jj_elements <- seq_len(ncol(x)) + 1
+    j_left_pole <- 1
+    j_right_pole <- ncol(x) + 2
+    j_preferred <- ncol(df)
+
+    style_header <- openxlsx::createStyle(textDecoration = "bold", fgFill = "grey90", border = "bottom")
+    style_center <- openxlsx::createStyle(halign = "center")
+    style_pole_left <- openxlsx::createStyle(textDecoration = "bold", halign = "right", border = "right")
+    style_pole_right <- openxlsx::createStyle(textDecoration = "bold", halign = "left", border = "left")
+    style_text_grey <- openxlsx::createStyle(fontColour = "grey50")
+
+    openxlsx::addWorksheet(wb, sheet)
+    openxlsx::writeData(wb, sheet, x = df, headerStyle = style_header, rowNames = FALSE, colNames = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_center, rows = jj_rows, cols = jj_elements, stack = TRUE, gridExpand = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_pole_left, rows = jj_rows, cols = j_left_pole, stack = TRUE, gridExpand = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_pole_right, rows = jj_rows, cols = j_right_pole, stack = TRUE, gridExpand = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_text_grey, rows = jj_rows, cols = j_preferred, stack = TRUE, gridExpand = TRUE)
+    openxlsx::setColWidths(wb, sheet, cols = c(j_left_pole, j_right_pole, j_preferred), widths = c(20, 20, 13))
+  } else {
+    df <- grid_to_df_long(x)
+    jj_rows <- seq_len(nrow(df) + 1)
+    jj_cols <- seq_len(ncol(df))
+    jj_cols_optional <- 5:7
+    j_preferred <- 5
+    ii_end_construct <- rle(df$left_pole)$lengths %>%
+      cumsum() %>%
+      head(-1) + 1
+
+    style_header <- openxlsx::createStyle(textDecoration = "bold", fgFill = "grey90", border = "bottom")
+    style_border_left <- openxlsx::createStyle(border = "left")
+    style_border_bottom <- openxlsx::createStyle(border = "bottom", borderStyle = "dashed")
+    style_text_grey <- openxlsx::createStyle(fontColour = "grey50")
+
+    openxlsx::addWorksheet(wb, sheet)
+    openxlsx::writeData(wb, sheet, x = df, headerStyle = style_header, rowNames = FALSE, colNames = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_border_left, rows = jj_rows, cols = j_preferred, stack = TRUE, gridExpand = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_text_grey, rows = jj_rows, cols = jj_cols_optional, stack = TRUE, gridExpand = TRUE)
+    openxlsx::addStyle(wb, sheet, style = style_border_bottom, rows = ii_end_construct, cols = jj_cols, stack = TRUE, gridExpand = TRUE)
+    openxlsx::setColWidths(wb, sheet, cols = jj_cols, widths = c(20, 20, 20, 10, 13, 10, 10))
+    openxlsx::freezePane(wb, sheet, firstActiveRow = 2)
+  }
+  wb
+}
+
+
+
+#' Export a grid to dataframe with wide format
+#' @param x A `repgrid` object.
+#' @export
+#' @keywords internal
+grid_to_df_wide <- function(x) {
+  stop_if_not_is_repgrid(x)
   enames <- elements(x)
   cnames <- constructs(x)
-  scores <- ratings(x, names = FALSE)
-  mm <- getScale(x) # min, max
+  ratings <- ratings(x, names = FALSE)
+  min_max <- getScale(x)
+  preferred_pole <- preferredPoles(x)
 
-  part1 <- c(mm[1], enames, mm[2])
-  part2 <- cbind(cnames$leftpole, scores, cnames$rightpole)
-  m <- rbind(part1, part2)
-  m <- unname(m)
+  df <- cbind(cnames$leftpole, as.data.frame(ratings), cnames$rightpole, preferred_pole)
+  names(df) <- c(min_max[1], enames, min_max[2], "preferred_pole")
+  df
+}
 
-  # write to disk
-  openxlsx::write.xlsx(m, file, colNames = FALSE, rowNames = FALSE, sheet = sheet)
 
-  invisible(file)
+#' Export a grid to dataframe with long format
+#' @param x A `repgrid` object.
+#' @export
+#' @keywords internal
+grid_to_df_long <- function(x) {
+  stop_if_not_is_repgrid(x)
+  element <- left_pole <- right_pole <- preferred_pole <- NULL # register for R CMD CHECK
+  df <- grid_to_df_wide(x)
+  names(df)[c(1L, ncol(x) + 2)] <- c("left_pole", "right_pole")
+  df_long <- df %>%
+    tidyr::pivot_longer(-c(left_pole, right_pole, preferred_pole), names_to = "element", values_to = "rating")
+  rmin <- getScale(x)["min"]
+  rmax <- getScale(x)["max"]
+  df_long <- df_long %>%
+    dplyr::select(element, left_pole, right_pole, rating, preferred_pole) %>%
+    dplyr::mutate(rmin = rmin, rmax = rmax)
+  df_long
 }

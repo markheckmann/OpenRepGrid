@@ -1021,3 +1021,32 @@ list_to_dataframe <- function(l) {
   # plyr:::list_to_dataframe(l)
   do.call(rbind.data.frame, l)
 }
+
+
+`%||%` <- function(a, b) {
+  if (!is.null(a)) {
+    a
+  } else {
+    b
+  }
+}
+
+
+# Get list names
+# returns vector with same length as list. NA if list entry has no name.
+get_names_na <- function(x) {
+  nm <- names(x)
+  if (is.null(nm)) {
+    rep(NA_character_, length(x))
+  } else {
+    ifelse(nzchar(nm), nm, NA_character_)
+  }
+}
+
+# from tools::file_path_sans_ext
+file_path_sans_ext <- function(x, compression = FALSE) {
+  if (compression) {
+    x <- sub("[.](gz|bz2|xz)$", "", x)
+  }
+  sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
+}

@@ -32,6 +32,8 @@ data set name   | description and source
 `slater1977a`  | 	drug addict’s grid dataset from (Slater, 1977, p. 32).
 `slater1977b`   | 	grid dataset (ranked) from a seventeen year old female psychiatric patient (Slater, 1977, p. 110) showing depression, anxiety and self-mutilation. The data was originally reported by Watson (1970).
 
+You can also get an overview by typing `data(package = "OpenRepGrid")` into the console.
+
 ### R-Code
 
 To display one of the grid just type the grid's name into the R console.

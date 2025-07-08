@@ -212,12 +212,6 @@ functions for these purposes.
 \code{\link[=bindConstructs]{bindConstructs()}}       \tab Concatenate the constructs of two grids.   \cr
 \code{\link[=doubleEntry]{doubleEntry()}}          \tab  Join the constructs of a grid with the same reversed constructs.  \cr
 }
-
-\strong{Other internal functions} \cr
-
-\tabular{ll}{
-\code{\link[=importTxtInternal]{importTxtInternal()}}  \tab  \cr
-}
 }
 
 \seealso{
