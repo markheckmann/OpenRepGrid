@@ -1668,27 +1668,29 @@ importDataframe <- function(x, format = "element_columns", rmin = NULL, rmax = N
 #' pass `rmin` and `rmax` as arguments in the function call.
 #'
 #' @param file      Path(s) to Excel file(s) (suffix `.xlsx`).
-#' @param sheet     Name or index of sheet with grid data.
+#' @param sheet     Names or indexes of sheet with grid data to import.
 #' @param format    Two formats are supported. `wide` (default): each column represents one element, each row represent
 #'                  one constructs. `long`: each row contains one rating value for a element-construct combination. See
 #'                  sections below and examples.
 #' @param rmin,rmax Min and max of the rating scale (`numeric`, default `NULL`).
-#' @return A single `repgrid` object (one inpput file) or a list of `repgrid` objects (several input files).
+#' @return A `repgrid` object (one input file) or a named list with `repgrid` objects (several input files). List names are
+#'   filename + sheet.
 #' @export
 #' @family import
 #' @example inst/examples/example-importExcel.R
 #'
 importExcel <- function(file, sheet = 1, format = "wide", rmin = NULL, rmax = NULL) {
   format <- match.arg(tolower(format), c("wide", "long"))
-
-  rgs <- if (format == "wide") {
-    lapply(file, import_excel_wide, sheet = sheet, rmin = rmin, rmax = rmax)
-  } else {
-    lapply(file, import_excel_long, sheet = sheet, rmin = rmin, rmax = rmax)
-  }
-
+  import_fun <- ifelse(format == "wide", import_excel_wide, import_excel_long)
+  df_import <- expand.grid(file = file, sheet = sheet, stringsAsFactors = FALSE) # read all file-sheet combinations
+  rgs <- mapply(import_fun,
+    file = df_import$file, sheet = df_import$sheet,
+    MoreArgs = list(rmin = rmin, rmax = rmax)
+  )
+  filenames <- file_path_sans_ext(basename(df_import$file))
+  names(rgs) <- paste0(filenames, "-", df_import$sheet)
   if (length(rgs) == 1) {
-    return(rgs[[1]]) # no list, just a single repgrid object
+    return(rgs[[1]]) # no list, just single repgrid object
   } else {
     return(rgs) # list of repgrid objects
   }

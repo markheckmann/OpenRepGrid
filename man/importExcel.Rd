@@ -9,7 +9,7 @@ importExcel(file, sheet = 1, format = "wide", rmin = NULL, rmax = NULL)
 \arguments{
 \item{file}{Path(s) to Excel file(s) (suffix \code{.xlsx}).}
 
-\item{sheet}{Name or index of sheet with grid data.}
+\item{sheet}{Names or indexes of sheet with grid data to import.}
 
 \item{format}{Two formats are supported. \code{wide} (default): each column represents one element, each row represent
 one constructs. \code{long}: each row contains one rating value for a element-construct combination. See
@@ -18,7 +18,8 @@ sections below and examples.}
 \item{rmin, rmax}{Min and max of the rating scale (\code{numeric}, default \code{NULL}).}
 }
 \value{
-A single \code{repgrid} object (one inpput file) or a list of \code{repgrid} objects (several input files).
+A \code{repgrid} object (one input file) or a named list with \code{repgrid} objects (several input files). List names are
+filename + sheet.
 }
 \description{
 You can define a grid in a Microsoft Excel file (suffix \code{.xlsx}). The file must have one of
@@ -67,13 +68,18 @@ file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
 rg_1 <- importExcel(file, sheet = "wide")
 rg_2 <- importExcel(file, sheet = "long", format = "long")
 
-# Open Sample file to inspect the two (requires Excel to be installed).
+# Open sample file to inspect it (requires Excel to be installed).
 \dontrun{
 browseURL(file) # may not work on all systems }
 
 # Import more than one Excel file
 files <- system.file("extdata", c("grid_01.xlsx", "grid_02.xlsx"), package = "OpenRepGrid")
 rgs <- importExcel(files) # returns a list of grids
+
+# Impoort from several sheets at once (all must have same format)
+file <- system.file("extdata", "grid_03.xlsx", package = "OpenRepGrid")
+rgs <- importExcel(file, sheet = 1:3) # by index
+rgs <- importExcel(file, sheet = c("grid 1", "grid 2", "grid 3")) # or by name
 }
 \seealso{
 Import data

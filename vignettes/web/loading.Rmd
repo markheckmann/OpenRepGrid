@@ -24,29 +24,34 @@ The `OpenRepGrid` R package is able to read files from different other grid prog
 
 #### Microsoft Excel files
 
-You can define a grid file using Microsoft Excel. The `.xlsx` file has to be in a fixed format. See an example of a correct file below. The first row contains the minimum of the rating scale (red), the names of the elements (green) and the maximum of the rating scale (red). Below, every row contains the left construct pole (blue), the ratings (black) and the right construct pole (blue). The rightmost columns (purple) is optional and contains the preferred pole. Allowed values are 
+You can define a grid file using Excel. The `.xlsx` file has to be in a fixed format. See an example of a correct file below. The first row contains the minimum of the rating scale (red), the names of the elements (green) and the maximum of the rating scale (red). Below, every row contains the left construct pole (blue), the ratings (black) and the right construct pole (blue). The rightmost columns (purple) is optional and contains the preferred pole. Allowed values are 
 `left`, `right`, `none` or an empty cell.
 
 <img src="images/excel3.png" width="700px" alt="reference diagram" />
 
-To load an `.xlsx` file and save it into the object `x` type the following code to the R console (assuming your file is
-named `sample.xlsx`).
+The `OpenRepGrid` package comes with several sample Excel files. If you have Excel installed, you can try opening the sample file `grid_01.xlsx` as follows.
 
 ```{r eval=FALSE}
-x <- importExcel("sample.xlsx")
+file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid") # path to sample file
+browseURL(file) # may not work on all systems
 ```
 
-The `OpenRepGrid` package comes with an example Excel file. If you have Excel installed, you should be able to open it
-by typing
+You can import the sample file as follows:
 
 ```{r eval=FALSE}
-file <- system.file("extdata", "grid_01.xlsx", package = "OpenRepGrid")
-browseURL(file) # may not work on all systems
+x <- importExcel(file)
+```
+
+If ax Excel file contains mutliple sheet with grid data (`grid_03.xlsx` has three sheets), you can import them like so.
+
+```{r eval=FALSE}
+file <- system.file("extdata", "grid_03.xlsx", package = "OpenRepGrid") # path to sample file
+x <- importExcel(file, sheet = 1:3) # indexes or sheet names to import
 ```
 
 #### .txt files
 
-If you do not have a grid program at hand you can define a grid using a standard text editor and by saving it as a
+If you do not have Excel installed, you can define a grid using a text editor and by saving it as a
 `.txt` file. The `.txt` file has to be in a fixed format. There are three mandatory blocks each starting and ending
 with a predefined tag in uppercase letters. The first block starts with `ELEMENTS` and ends with` ⁠END ELEMENTS`⁠. It
 contains one element per line. The other mandatory blocks are `CONSTRUCTS` and `RATINGS` (see below). In the block
@@ -165,6 +170,13 @@ The most convenient format is probably an Excel file. You can save one or more g
 
 ```{r eval=FALSE}
 saveAsExcel(boeker, file = "boeker.xlsx") # save it to the file "boeker.xlsx"
+```
+
+You can save a list of grids to several sheets as follows.
+
+```{r eval=FALSE}
+l <- list(boeker, bell2010)
+saveAsExcel(l, file = "grids.xlsx") # save it to the file "boeker.xlsx"
 ```
 
 #### .txt file

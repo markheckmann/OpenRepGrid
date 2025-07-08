@@ -4,7 +4,7 @@
 \alias{saveAsExcel}
 \title{Save grids as Microsoft Excel file (.xlsx)}
 \usage{
-saveAsExcel(x, file, format = "wide", sheet = "grid")
+saveAsExcel(x, file, format = "wide", sheet = NULL, default_sheet = "grid")
 }
 \arguments{
 \item{x}{A \code{repgrid} object or a list of grids.}
@@ -15,14 +15,17 @@ saveAsExcel(x, file, format = "wide", sheet = "grid")
 represent one constructs (a common grid representation), and \code{long} where each row contains an element-construct
 combination and the corresponding rating value. See \code{\link[=importExcel]{importExcel()}} for details and examples.}
 
-\item{sheet}{Sheet name (defaults to \code{grid}). If \code{x} is a list of grids, the name of the list entry is used.
-If it has no name, a sequential index is appended to \code{sheet}.}
+\item{sheet}{Vector of sheet names with same length as \code{x}. If \code{NULL} (default), \code{default_sheet} is used. If \code{x}
+is a list if grids, a sequential index is appended. For named list entries (if \code{x} is a list of grids), the name
+overwrites the default sheet name.}
+
+\item{default_sheet}{Default sheet name to use if not supplied in \code{sheet} or via list names of \code{x}.}
 }
 \value{
 Invisibly returns file path.
 }
 \description{
-\code{saveAsExcel} will save one or more grids as MS Excel file (\code{.xlsx}).
+\code{saveAsExcel} will save one or more grids in an Excel file (\code{.xlsx}).
 }
 \examples{
 # save one grid in wide format (default)

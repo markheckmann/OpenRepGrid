@@ -6,15 +6,18 @@ test_that("saveAsExcel", {
   expect_equal(getSheetNames(file), "grid")
 
   rgs <- randomGrids(nc = 3)
-  file <- saveAsExcel(rgs, tempfile(fileext = ".xlsx"))
+  file <- tempfile(fileext = ".xlsx")
+  saveAsExcel(rgs, file)
   expect_equal(getSheetNames(file), paste("grid", 1:3))
 
   rgs <- randomGrids(nc = 3)
-  file <- saveAsExcel(rgs, tempfile(fileext = ".xlsx"), sheet = "xxxx")
+  file <- tempfile(fileext = ".xlsx")
+  saveAsExcel(rgs, file, default_sheet = "xxxx")
   expect_equal(getSheetNames(file), paste("xxxx", 1:3))
 
   names(rgs) <- c("my grid", NA, NA)
-  file <- saveAsExcel(rgs, tempfile(fileext = ".xlsx"))
+  file <- tempfile(fileext = ".xlsx")
+  saveAsExcel(rgs, file)
   expect_equal(getSheetNames(file), c("my grid", "grid 2", "grid 3"))
 })
 
@@ -31,7 +34,7 @@ test_that("saveAsWorkbook", {
 
   wb <- createWorkbook()
   names(rgs) <- c("my grid", NA, NA)
-  saveAsWorksheet(rgs, wb, sheet = "xxxx")
+  saveAsWorksheet(rgs, wb, default_sheet = "xxxx")
   expect_equal(names(wb), c("my grid", "xxxx 2", "xxxx 3"))
 
   wb <- createWorkbook()

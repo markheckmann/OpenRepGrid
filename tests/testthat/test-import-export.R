@@ -34,6 +34,7 @@ test_that("importTxt - RATINGS", {
 test_that("export-import - roundtrip", {
   g_orig <- boeker
 
+  # one grid
   file_wide <- saveAsExcel(g_orig, file = tempfile(fileext = ".xlsx"), format = "wide")
   g_wide <- importExcel(file_wide, format = "wide")
   expect_identical(g_orig, g_wide)
@@ -41,6 +42,22 @@ test_that("export-import - roundtrip", {
   file_long <- saveAsExcel(g_orig, file = tempfile(fileext = ".xlsx"), format = "long")
   g_long <- importExcel(file_long, format = "long")
   expect_identical(g_orig, g_long)
+
+  # several grids / sheets
+  g_orig <- randomGrids(options = 0)
+  file_several <- saveAsExcel(g_orig, tempfile(fileext = ".xlsx"))
+
+  sheets <- seq_along(g_orig)
+  g_many <- importExcel(file_several, sheet = sheets)
+  filename <- file_path_sans_ext(basename(file_several))
+  expect_equal(names(g_many), paste0(filename, "-", sheets)) # names contain file + sheet index
+  expect_equal(g_orig, unname(g_many)) # somewhat unclear why not identical
+
+  sheets <- paste("grid", seq_along(g_orig))
+  g_many <- importExcel(file_several, sheet = sheets)
+  filename <- file_path_sans_ext(basename(file_several))
+  expect_equal(names(g_many), paste0(filename, "-", sheets)) # names contain file + sheet name
+  expect_equal(g_orig, unname(g_many)) # somewhat unclear why not identical
 })
 
 

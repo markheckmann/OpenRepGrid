@@ -173,27 +173,29 @@ saveAsTxt <- function(x, file = NA) {
 
 #' Save grids as Microsoft Excel file (.xlsx)
 #'
-#' `saveAsExcel` will save one or more grids as MS Excel file (`.xlsx`).
+#' `saveAsExcel` will save one or more grids in an Excel file (`.xlsx`).
 #'
 #' @param x A `repgrid` object or a list of grids.
 #' @param file File path. Suffix must be `.xlsx`.
 #' @param format Two output formats are supported: `wide` (default) where each column represents one element, each row
 #'   represent one constructs (a common grid representation), and `long` where each row contains an element-construct
 #'   combination and the corresponding rating value. See [importExcel()] for details and examples.
-#' @param sheet Sheet name (defaults to `grid`). If `x` is a list of grids, the name of the list entry is used.
-#'   If it has no name, a sequential index is appended to `sheet`.
+#' @param sheet Vector of sheet names with same length as `x`. If `NULL` (default), `default_sheet` is used. If `x`
+#'   is a list if grids, a sequential index is appended. For named list entries (if `x` is a list of grids), the name
+#'   overwrites the default sheet name.
+#' @param default_sheet Default sheet name to use if not supplied in `sheet` or via list names of `x`.
 #' @return  Invisibly returns file path.
 #' @export
 #' @seealso  [importExcel()], [saveAsWorksheet()]
 #' @example inst/examples/example-save-as-excel.R
 #'
-saveAsExcel <- function(x, file, format = "wide", sheet = "grid") {
+saveAsExcel <- function(x, file, format = "wide", sheet = NULL, default_sheet = "grid") {
   ext <- tools::file_ext(file)
   if (ext != "xlsx") {
     stop("The file extension must be '.xlsx'. Found '", ext, "' instead.", call. = FALSE)
   }
   wb <- openxlsx::createWorkbook()
-  wb <- saveAsWorksheet(x, wb = wb, format = format, sheet = sheet)
+  wb <- saveAsWorksheet(x, wb = wb, format = format, sheet = sheet, default_sheet = default_sheet)
   openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
   invisible(file)
 }
@@ -204,7 +206,6 @@ saveAsExcel <- function(x, file, format = "wide", sheet = "grid") {
 #' `saveAsWorksheet` will add one or more grids to an a [openxlsx](https://CRAN.R-project.org/package=openxlsx)
 #' `Workbook` object.
 #'
-#' @param x A `repgrid` object or a list of grids.
 #' @param wb A [openxlsx](https://CRAN.R-project.org/package=openxlsx) `Workbook` object.
 #' @inheritParams saveAsExcel
 #' @return  Invisibly returns Workbook object.
@@ -212,16 +213,21 @@ saveAsExcel <- function(x, file, format = "wide", sheet = "grid") {
 #' @seealso  [saveAsExcel()]
 #' @example inst/examples/example-save-as-worksheet.R
 #'
-saveAsWorksheet <- function(x, wb, format = "wide", sheet = "grid") {
+saveAsWorksheet <- function(x, wb, format = "wide", sheet = NULL, default_sheet = "grid") {
   stop_if_not_inherits(wb, "Workbook")
-
   if (!is_list_of_repgrids(x)) {
+    sheet <- sheet %||% default_sheet
     wb <- add_one_sheet_with_grid(x, wb = wb, format = format, sheet = sheet)
   } else {
     ii <- seq_along(x)
     list_names <- get_names_na(x)
-    sheets_numbered <- paste(sheet %||% "grid", ii)
-    sheets <- ifelse(!is.na(list_names), list_names, sheets_numbered)
+    # sheet name precedence: sheet, list, default
+    if (length(sheet) == length(x)) {
+      sheets <- sheet
+    } else { # if (is.null(sheet)
+      default_names <- paste(default_sheet, ii)
+      sheets <- ifelse(is.na(list_names), default_names, list_names)
+    }
     for (i in ii) {
       wb <- add_one_sheet_with_grid(x[[i]], wb = wb, format = format, sheet = sheets[i])
     }

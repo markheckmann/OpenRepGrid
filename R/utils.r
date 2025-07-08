@@ -1042,3 +1042,10 @@ get_names_na <- function(x) {
     ifelse(nzchar(nm), nm, NA_character_)
   }
 }
+
+# from tools::file_path_sans_ext
+file_path_sans_ext <- function (x, compression = FALSE) {
+  if (compression)
+    x <- sub("[.](gz|bz2|xz)$", "", x)
+  sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
+}

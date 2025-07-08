@@ -4,7 +4,7 @@
 \alias{saveAsWorksheet}
 \title{Add grids as sheets to an openxlsx Workbook}
 \usage{
-saveAsWorksheet(x, wb, format = "wide", sheet = "grid")
+saveAsWorksheet(x, wb, format = "wide", sheet = NULL, default_sheet = "grid")
 }
 \arguments{
 \item{x}{A \code{repgrid} object or a list of grids.}
@@ -15,8 +15,11 @@ saveAsWorksheet(x, wb, format = "wide", sheet = "grid")
 represent one constructs (a common grid representation), and \code{long} where each row contains an element-construct
 combination and the corresponding rating value. See \code{\link[=importExcel]{importExcel()}} for details and examples.}
 
-\item{sheet}{Sheet name (defaults to \code{grid}). If \code{x} is a list of grids, the name of the list entry is used.
-If it has no name, a sequential index is appended to \code{sheet}.}
+\item{sheet}{Vector of sheet names with same length as \code{x}. If \code{NULL} (default), \code{default_sheet} is used. If \code{x}
+is a list if grids, a sequential index is appended. For named list entries (if \code{x} is a list of grids), the name
+overwrites the default sheet name.}
+
+\item{default_sheet}{Default sheet name to use if not supplied in \code{sheet} or via list names of \code{x}.}
 }
 \value{
 Invisibly returns Workbook object.
@@ -33,13 +36,18 @@ wb <- createWorkbook()
 # add grid to worksheet
 saveAsWorksheet(boeker, wb, sheet = "boeker")
 
-# add several grids (2nd has a name)
-l <- list(boeker, "feixas' grid" = feixas2004) #
-saveAsWorksheet(l, wb) # name sheet
+# add several grids with explicit sheet names
+l <- list(bell2010, feixas2004)
+saveAsWorksheet(l, wb, sheet = c("Bell 2010", "Feixas 2004"))
 
+# list names are used as sheet names. Without name, the default applies.
+l <- list(boeker, "Fransella et al. 2003" = fbb2003)
+saveAsWorksheet(l, wb)
+
+
+# save as Excel file
 file <- tempfile(fileext = ".xlsx")
 saveWorkbook(wb, file)
-
 \dontrun{
   browseURL(file) # may not work on all systems
 }

@@ -1,9 +1,9 @@
 # OpenRepGrid 0.1.18
 
-* `makeGrid` and `randomGrid` can add construct pole preference.
 * `saveAsExcel` can export a list of grids now (#67)
-* `saveAsWorksheet` to add grid as anew to an in `openxlsx` `Workbook` object.
-* `importExcel` now also understands the long format (#65)
+* `saveAsWorksheet` adds a grid as a new sheet to a `openxlsx` `Workbook` object.
+* `makeGrid` and `randomGrid` can add construct pole preference.
+* `importExcel` now also understands the long format (#65) and can import from several sheets at once (#68)
 * `importDataframe` converts a dataframe into a repgrid. Three different formats can be read in. See the sample 
    dataframes `df_element_columns`, `df_construct_columns`, and `df_long` (#61)
 * `saveAsExcel` now supports output in wide and long format. The output is also formatted now (#64)
