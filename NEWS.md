@@ -1,3 +1,7 @@
+# OpenRepGrid 0.1.19 (dev version)
+
+* drop `{styler}` dependency (#72)
+
 # OpenRepGrid 0.1.18
 
 * `saveAsExcel` can export a list of grids now (#67)
