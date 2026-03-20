@@ -1674,7 +1674,7 @@ focus <- function(x, trim = NA, grid_only = TRUE) {
 
   # Build result
   if (grid_only) {
-    return(invisible(x))
+    return(x)
   }
 
   res <- list(
@@ -1694,7 +1694,7 @@ focus <- function(x, trim = NA, grid_only = TRUE) {
     )
   )
   class(res) <- "focus"
-  invisible(res)
+  res
 }
 
 
