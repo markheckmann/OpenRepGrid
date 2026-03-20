@@ -4,7 +4,7 @@
 \alias{focus}
 \title{FOCUS: Two-way cluster analysis of a repertory grid}
 \usage{
-focus(x, trim = NA, print = TRUE)
+focus(x, trim = NA, grid_only = TRUE)
 }
 \arguments{
 \item{x}{A \code{repgrid} object. Must have a defined scale (see \code{\link[=setScale]{setScale()}}) and
@@ -14,10 +14,14 @@ no missing ratings.}
 (default is \code{NA}, no trimming). Trimming is only applied to the rating matrix
 extraction, not the returned grid.}
 
-\item{print}{Logical. Whether to print the results (default \code{TRUE}).}
+\item{grid_only}{Logical. If \code{TRUE} (default), only the focused \code{repgrid}
+object is returned. If \code{FALSE}, a list of class \code{"focus"} with additional
+details is returned (see Value).}
 }
 \value{
-Invisibly returns a list of class \code{"focus"} with components:
+If \code{grid_only = TRUE} (default), the reordered and aligned \code{repgrid}
+object is returned invisibly. If \code{grid_only = FALSE}, a list of class
+\code{"focus"} is returned invisibly with components:
 \describe{
 \item{grid}{The reordered and aligned \code{repgrid} object.}
 \item{construct_matching}{Construct matching score matrix.}
@@ -30,6 +34,9 @@ refer to the original grid).}
 that were reversed.}
 \item{construct_merges}{Data frame of construct merge steps.}
 \item{element_merges}{Data frame of element merge steps.}
+\item{avg_adjacent}{A list with average matching scores between adjacent
+pairs for constructs and elements, both for the original and focused
+ordering. Higher values indicate better clustering.}
 }
 }
 \description{

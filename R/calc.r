@@ -1297,7 +1297,7 @@ align <- function(x, along = 0, dmethod = "euclidean",
 #' @param R Numeric matrix of ratings (constructs x elements).
 #' @param scale_min Minimum scale value.
 #' @param scale_max Maximum scale value.
-#' @return A numeric matching score matrix with values in [0, 100].
+#' @return A numeric matching score matrix with values in `[0, 100]`.
 #' @keywords internal
 #'
 .focus_element_matching_scores <- function(R, scale_min, scale_max) {

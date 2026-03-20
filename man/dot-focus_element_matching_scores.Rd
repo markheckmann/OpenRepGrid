@@ -14,7 +14,7 @@
 \item{scale_max}{Maximum scale value.}
 }
 \value{
-A numeric matching score matrix with values in \link{0, 100}.
+A numeric matching score matrix with values in \verb{[0, 100]}.
 }
 \description{
 Computes matching scores between all element pairs using city block distance.
