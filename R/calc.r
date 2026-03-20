@@ -1251,16 +1251,27 @@ align <- function(x, along = 0, dmethod = "euclidean",
   needs_reversal <- matrix(FALSE, nc, nc)
 
   for (i in seq_len(nc)) {
-    scores[i, i] <- 100 # self-match is perfect
+    scores[i, i] <- 100
     if (i < nc) {
       for (j in (i + 1):nc) {
+        # City block (Manhattan) distance between construct ratings
         d_orig <- sum(abs(R[i, ] - R[j, ]))
+
+        # Reversed construct j: flip ratings around scale midpoint.
+        # E.g. on a 1-5 scale: 1->5, 2->4, 3->3, 4->2, 5->1
         R_rev <- scale_max + scale_min - R[j, ]
         d_rev <- sum(abs(R[i, ] - R_rev))
 
+        # Convert distances to matching scores in [-100, 100].
+        # Formula from Jankowicz & Thomas (1982):
+        #   ms = (-200 * d) / (scale_range * ne) + 100
+        # A score of 100 = identical, 0 = unrelated, -100 = maximally opposite.
+        # The factor 200 (vs 100 for elements) accounts for both construct
+        # orientations being tested, doubling the effective range.
         ms_orig <- (-200 * d_orig) / (scale_range * ne) + 100
         ms_rev <- (-200 * d_rev) / (scale_range * ne) + 100
 
+        # Keep whichever orientation yields the better match
         if (ms_rev > ms_orig) {
           scores[i, j] <- ms_rev
           scores[j, i] <- ms_rev
@@ -1294,7 +1305,12 @@ align <- function(x, along = 0, dmethod = "euclidean",
   nc <- nrow(R)
   scale_range <- scale_max - scale_min
 
+  # City block distance between all element pairs (columns of R)
   d <- as.matrix(dist(t(R), method = "manhattan"))
+
+  # Convert to matching scores in [0, 100]. No bipolarity for elements, so
+  # the factor is 100 (not 200). Formula: ms = (-100 * d) / (range * nc) + 100
+  # A score of 100 = identical, 0 = maximally different.
   scores <- (-100 * d) / (scale_range * nc) + 100
 
   diag(scores) <- 100
@@ -1328,32 +1344,35 @@ align <- function(x, along = 0, dmethod = "euclidean",
     ))
   }
 
-  # Working copy: set diagonal to -Inf
+  # Working copy of score matrix. Diagonal set to -Inf so self-pairs are
+  # never selected as the "highest score".
   ws <- scores
   diag(ws) <- -Inf
 
-  # Track chain as an ordered list of items
+  # The chain is a linear ordering of items, built up incrementally.
+  # New items can only be appended to either end (not inserted in the middle).
   chain <- integer(0)
   in_chain <- logical(n)
 
-  # Cluster membership: each item starts as its own cluster
-  cluster_id <- seq_len(n) # which cluster each item belongs to
-  cluster_size <- rep(1L, n) # size of each cluster
+  # Track cluster membership for average linkage updates. When two items or
+  # clusters merge, their scores to all other items are recalculated as the
+  # weighted average of the component scores (= average linkage).
+  cluster_id <- seq_len(n)
+  cluster_size <- rep(1L, n)
 
-  # Record merges
   merge_steps <- list()
   merge_heights <- numeric(0)
   step <- 0L
 
-  # Get all unique pairs sorted by decreasing score (upper triangle)
+  # Pre-sort all unique pairs by decreasing score. The algorithm processes
+  # pairs from highest to lowest score, deciding how to incorporate each pair
+  # into the chain. Ties are broken by smallest row, then column index.
   pairs <- which(upper.tri(scores), arr.ind = TRUE)
   pair_scores <- scores[pairs]
-  # Sort by decreasing score, ties broken by smallest row then column
   ord <- order(-pair_scores, pairs[, 1], pairs[, 2])
   pairs <- pairs[ord, , drop = FALSE]
   pair_scores <- pair_scores[ord]
 
-  # Deferred pairs
   deferred <- list()
 
   for (k in seq_len(nrow(pairs))) {
@@ -1365,8 +1384,9 @@ align <- function(x, along = 0, dmethod = "euclidean",
     j_in <- in_chain[j]
 
     if (!i_in && !j_in) {
+      # Case 1: Neither item is in the chain yet
       if (length(chain) == 0) {
-        # Start the chain
+        # First pair seeds the chain
         chain <- c(i, j)
         in_chain[i] <- TRUE
         in_chain[j] <- TRUE
@@ -1374,10 +1394,13 @@ align <- function(x, along = 0, dmethod = "euclidean",
         merge_steps[[step]] <- c(i = i, j = j, score = s)
         merge_heights <- c(merge_heights, s)
       } else {
+        # Chain already started; can't insert a disconnected pair, defer
         deferred[[length(deferred) + 1]] <- c(i, j, s)
       }
     } else if (i_in && j_in) {
-      # Both in chain - record as internal merge but don't reorder
+      # Case 2: Both items already in chain. This is an "internal" merge:
+      # it records the hierarchical relationship but does not change the
+      # chain ordering, since both items are already placed.
       ci <- cluster_id[i]
       cj <- cluster_id[j]
       if (ci != cj) {
@@ -1385,27 +1408,22 @@ align <- function(x, along = 0, dmethod = "euclidean",
         merge_steps[[step]] <- c(i = i, j = j, score = s)
         merge_heights <- c(merge_heights, s)
 
-        # Merge clusters: update cluster_id and scores using average linkage
+        # Average linkage update: merge the two clusters and recalculate
+        # scores to all other clusters as weighted averages
         new_size <- cluster_size[ci] + cluster_size[cj]
-        # Update scores for all other clusters
         for (p in seq_len(n)) {
           cp <- cluster_id[p]
           if (cp != ci && cp != cj) {
-            # Average linkage: weighted average of scores to the two merging clusters
-            # Find representative items for each cluster
             items_ci <- which(cluster_id == ci)
             items_cj <- which(cluster_id == cj)
-            # Use average of all pairwise scores
             avg_score <- (cluster_size[ci] * ws[items_ci[1], p] +
               cluster_size[cj] * ws[items_cj[1], p]) / new_size
-            # Update working scores for all items in both clusters
             for (item in c(items_ci, items_cj)) {
               ws[item, p] <- avg_score
               ws[p, item] <- avg_score
             }
           }
         }
-        # Merge cluster ids
         old_cj <- cj
         for (item in which(cluster_id == old_cj)) {
           cluster_id[item] <- ci
@@ -1413,7 +1431,9 @@ align <- function(x, along = 0, dmethod = "euclidean",
         cluster_size[ci] <- new_size
       }
     } else {
-      # One in chain, one not
+      # Case 3: One item in chain, one not. The new item can only be
+      # attached if the in-chain item is at one of the chain ends (or
+      # belongs to a cluster at a chain end). Otherwise, defer.
       if (i_in) {
         in_item <- i
         out_item <- j
@@ -1422,11 +1442,12 @@ align <- function(x, along = 0, dmethod = "euclidean",
         out_item <- i
       }
 
-      # Check if in_item is at a chain end
+      # Check if in_item (or its cluster) occupies a chain end
       at_start <- chain[1] == in_item || cluster_id[chain[1]] == cluster_id[in_item]
       at_end <- chain[length(chain)] == in_item || cluster_id[chain[length(chain)]] == cluster_id[in_item]
 
       if (at_start || at_end) {
+        # Attach the new item to the appropriate chain end
         if (at_start) {
           chain <- c(out_item, chain)
         } else {
@@ -1438,7 +1459,7 @@ align <- function(x, along = 0, dmethod = "euclidean",
         merge_steps[[step]] <- c(i = in_item, j = out_item, score = s)
         merge_heights <- c(merge_heights, s)
 
-        # Update scores using average linkage
+        # Average linkage update for the newly merged item
         ci <- cluster_id[in_item]
         new_size <- cluster_size[ci] + 1L
         for (p in seq_len(n)) {
@@ -1455,15 +1476,17 @@ align <- function(x, along = 0, dmethod = "euclidean",
         cluster_id[out_item] <- ci
         cluster_size[ci] <- new_size
       } else {
+        # in_item is in the interior of the chain, can't attach here
         deferred[[length(deferred) + 1]] <- c(in_item, out_item, s)
       }
     }
   }
 
-  # Process deferred pairs: force-attach remaining unchained items to nearest chain end
+  # Fallback: any items still not in the chain (e.g. because all their
+  # high-scoring partners were interior) are force-attached to whichever
+  # chain end they match best.
   remaining <- which(!in_chain)
   for (item in remaining) {
-    # Find which chain end has highest score to this item
     start_item <- chain[1]
     end_item <- chain[length(chain)]
     score_start <- ws[item, start_item]
@@ -1599,8 +1622,12 @@ focus <- function(x, trim = NA, grid_only = TRUE) {
   # Step 2: Chain-cluster constructs
   cc <- .focus_chain_cluster(cm$scores)
 
-  # Step 3: Determine construct reversals during chain building
-  # Walk the chain and determine which constructs need reversal for global consistency
+  # Step 3: Determine which constructs need reversal for global consistency.
+  # The needs_reversal matrix tells us, for each *pair*, whether reversing one
+  # improves the match. But reversals must be globally consistent along the
+  # chain: if construct A was reversed, and A-B needs reversal, then B should
+  # NOT be reversed (the two reversals cancel out). This is achieved via XOR
+  # propagation along the chain order.
   chain <- cc$chain_order
   is_reversed <- logical(nc)
 
@@ -1608,32 +1635,31 @@ focus <- function(x, trim = NA, grid_only = TRUE) {
     for (pos in 2:length(chain)) {
       curr <- chain[pos]
       prev <- chain[pos - 1]
-      # If the previous construct in the chain was reversed, XOR with needs_reversal
       is_reversed[curr] <- xor(is_reversed[prev], cm$needs_reversal[prev, curr])
     }
   }
 
   reversed_indices <- which(is_reversed)
 
-  # Step 4: Apply construct reversals and reorder
+  # Step 4: Apply reversals (swaps poles + flips ratings) and reorder constructs
   if (length(reversed_indices) > 0) {
     x <- reverse(x, pos = reversed_indices)
   }
   x <- x[chain, ]
 
-  # Step 5: Compute element matching scores on the aligned grid
+  # Step 5: Element clustering is done AFTER construct alignment, so that
+  # element distances reflect the aligned (reversed + reordered) ratings.
   R_aligned <- getRatingLayer(x, trim = trim, names = FALSE)
   em <- .focus_element_matching_scores(R_aligned, scale_min, scale_max)
 
-  # Step 6: Chain-cluster elements
+  # Step 6: Chain-cluster elements (same algorithm, no bipolarity)
   ec <- .focus_chain_cluster(em)
 
   # Step 7: Reorder elements
   x <- x[, ec$chain_order]
 
-  # Compute average adjacent matching scores for focused vs original ordering
-  # Constructs: use cm$scores (original construct indices), compare chain order vs 1:nc
-  # Elements: use em (after alignment), compare ec$chain_order vs 1:ne
+  # Average matching score between adjacent pairs in the chain. Compares
+  # focused ordering vs original (input) ordering to quantify improvement.
   .avg_adjacent <- function(scores, order) {
     n <- length(order)
     if (n < 2) return(100)
