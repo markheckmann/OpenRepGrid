@@ -1,5 +1,7 @@
 # OpenRepGrid 0.1.19 (dev version)
 
+* `focus`: FOCUS two-way cluster analysis (Shaw & Thomas, 1978). Reorders constructs and elements 
+  to minimize variation between adjacent rows/columns (#74)
 * drop `{styler}` dependency (#72)
 
 # OpenRepGrid 0.1.18

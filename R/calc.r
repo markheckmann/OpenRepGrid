@@ -1224,6 +1224,507 @@ align <- function(x, along = 0, dmethod = "euclidean",
 }
 
 
+# ============================================================================ #
+#                            FOCUS algorithm                                   #
+# ============================================================================ #
+
+
+#' Compute construct matching scores with bipolarity handling
+#'
+#' For each construct pair, computes matching scores using city block distance
+#' for both the original and reversed orientation. The higher score is used,
+#' and a logical matrix flags which pairs need reversal.
+#'
+#' @param R Numeric matrix of ratings (constructs x elements).
+#' @param scale_min Minimum scale value.
+#' @param scale_max Maximum scale value.
+#' @return A list with components `scores` (matching score matrix) and
+#'   `needs_reversal` (logical matrix indicating if reversal yields higher score).
+#' @keywords internal
+#'
+.focus_construct_matching_scores <- function(R, scale_min, scale_max) {
+  nc <- nrow(R)
+  ne <- ncol(R)
+  scale_range <- scale_max - scale_min
+
+  scores <- matrix(NA_real_, nc, nc)
+  needs_reversal <- matrix(FALSE, nc, nc)
+
+  for (i in seq_len(nc)) {
+    scores[i, i] <- 100 # self-match is perfect
+    if (i < nc) {
+      for (j in (i + 1):nc) {
+        d_orig <- sum(abs(R[i, ] - R[j, ]))
+        R_rev <- scale_max + scale_min - R[j, ]
+        d_rev <- sum(abs(R[i, ] - R_rev))
+
+        ms_orig <- (-200 * d_orig) / (scale_range * ne) + 100
+        ms_rev <- (-200 * d_rev) / (scale_range * ne) + 100
+
+        if (ms_rev > ms_orig) {
+          scores[i, j] <- ms_rev
+          scores[j, i] <- ms_rev
+          needs_reversal[i, j] <- TRUE
+          needs_reversal[j, i] <- TRUE
+        } else {
+          scores[i, j] <- ms_orig
+          scores[j, i] <- ms_orig
+        }
+      }
+    }
+  }
+
+  list(scores = scores, needs_reversal = needs_reversal)
+}
+
+
+#' Compute element matching scores
+#'
+#' Computes matching scores between all element pairs using city block distance.
+#' No bipolarity handling is needed for elements.
+#'
+#' @param R Numeric matrix of ratings (constructs x elements).
+#' @param scale_min Minimum scale value.
+#' @param scale_max Maximum scale value.
+#' @return A numeric matching score matrix with values in [0, 100].
+#' @keywords internal
+#'
+.focus_element_matching_scores <- function(R, scale_min, scale_max) {
+  ne <- ncol(R)
+  nc <- nrow(R)
+  scale_range <- scale_max - scale_min
+
+  d <- as.matrix(dist(t(R), method = "manhattan"))
+  scores <- (-100 * d) / (scale_range * nc) + 100
+
+  diag(scores) <- 100
+  scores
+}
+
+
+#' Chain-building cluster algorithm for FOCUS
+#'
+#' Implements the chain-building clustering approach used in FOCUS.
+#' Items are iteratively added to a chain based on highest matching scores,
+#' using average linkage to update scores when items merge into clusters.
+#'
+#' @param scores Symmetric matching score matrix.
+#' @return A list with `chain_order` (integer vector of item indices in chain order),
+#'   `merges` (data frame of merge steps), and `heights` (merge heights as scores).
+#' @keywords internal
+#'
+.focus_chain_cluster <- function(scores) {
+  n <- nrow(scores)
+
+  if (n == 1) {
+    return(list(chain_order = 1L, merges = data.frame(), heights = numeric(0)))
+  }
+
+  if (n == 2) {
+    return(list(
+      chain_order = 1:2,
+      merges = data.frame(step = 1L, item1 = 1L, item2 = 2L, score = scores[1, 2]),
+      heights = scores[1, 2]
+    ))
+  }
+
+  # Working copy: set diagonal to -Inf
+  ws <- scores
+  diag(ws) <- -Inf
+
+  # Track chain as an ordered list of items
+  chain <- integer(0)
+  in_chain <- logical(n)
+
+  # Cluster membership: each item starts as its own cluster
+  cluster_id <- seq_len(n) # which cluster each item belongs to
+  cluster_size <- rep(1L, n) # size of each cluster
+
+  # Record merges
+  merge_steps <- list()
+  merge_heights <- numeric(0)
+  step <- 0L
+
+  # Get all unique pairs sorted by decreasing score (upper triangle)
+  pairs <- which(upper.tri(scores), arr.ind = TRUE)
+  pair_scores <- scores[pairs]
+  # Sort by decreasing score, ties broken by smallest row then column
+  ord <- order(-pair_scores, pairs[, 1], pairs[, 2])
+  pairs <- pairs[ord, , drop = FALSE]
+  pair_scores <- pair_scores[ord]
+
+  # Deferred pairs
+  deferred <- list()
+
+  for (k in seq_len(nrow(pairs))) {
+    i <- pairs[k, 1]
+    j <- pairs[k, 2]
+    s <- pair_scores[k]
+
+    i_in <- in_chain[i]
+    j_in <- in_chain[j]
+
+    if (!i_in && !j_in) {
+      if (length(chain) == 0) {
+        # Start the chain
+        chain <- c(i, j)
+        in_chain[i] <- TRUE
+        in_chain[j] <- TRUE
+        step <- step + 1L
+        merge_steps[[step]] <- c(i = i, j = j, score = s)
+        merge_heights <- c(merge_heights, s)
+      } else {
+        deferred[[length(deferred) + 1]] <- c(i, j, s)
+      }
+    } else if (i_in && j_in) {
+      # Both in chain - record as internal merge but don't reorder
+      ci <- cluster_id[i]
+      cj <- cluster_id[j]
+      if (ci != cj) {
+        step <- step + 1L
+        merge_steps[[step]] <- c(i = i, j = j, score = s)
+        merge_heights <- c(merge_heights, s)
+
+        # Merge clusters: update cluster_id and scores using average linkage
+        new_size <- cluster_size[ci] + cluster_size[cj]
+        # Update scores for all other clusters
+        for (p in seq_len(n)) {
+          cp <- cluster_id[p]
+          if (cp != ci && cp != cj) {
+            # Average linkage: weighted average of scores to the two merging clusters
+            # Find representative items for each cluster
+            items_ci <- which(cluster_id == ci)
+            items_cj <- which(cluster_id == cj)
+            # Use average of all pairwise scores
+            avg_score <- (cluster_size[ci] * ws[items_ci[1], p] +
+              cluster_size[cj] * ws[items_cj[1], p]) / new_size
+            # Update working scores for all items in both clusters
+            for (item in c(items_ci, items_cj)) {
+              ws[item, p] <- avg_score
+              ws[p, item] <- avg_score
+            }
+          }
+        }
+        # Merge cluster ids
+        old_cj <- cj
+        for (item in which(cluster_id == old_cj)) {
+          cluster_id[item] <- ci
+        }
+        cluster_size[ci] <- new_size
+      }
+    } else {
+      # One in chain, one not
+      if (i_in) {
+        in_item <- i
+        out_item <- j
+      } else {
+        in_item <- j
+        out_item <- i
+      }
+
+      # Check if in_item is at a chain end
+      at_start <- chain[1] == in_item || cluster_id[chain[1]] == cluster_id[in_item]
+      at_end <- chain[length(chain)] == in_item || cluster_id[chain[length(chain)]] == cluster_id[in_item]
+
+      if (at_start || at_end) {
+        if (at_start) {
+          chain <- c(out_item, chain)
+        } else {
+          chain <- c(chain, out_item)
+        }
+        in_chain[out_item] <- TRUE
+
+        step <- step + 1L
+        merge_steps[[step]] <- c(i = in_item, j = out_item, score = s)
+        merge_heights <- c(merge_heights, s)
+
+        # Update scores using average linkage
+        ci <- cluster_id[in_item]
+        new_size <- cluster_size[ci] + 1L
+        for (p in seq_len(n)) {
+          cp <- cluster_id[p]
+          if (cp != ci && p != out_item) {
+            items_ci <- which(cluster_id == ci)
+            avg_score <- (cluster_size[ci] * ws[items_ci[1], p] + ws[out_item, p]) / new_size
+            for (item in c(items_ci, out_item)) {
+              ws[item, p] <- avg_score
+              ws[p, item] <- avg_score
+            }
+          }
+        }
+        cluster_id[out_item] <- ci
+        cluster_size[ci] <- new_size
+      } else {
+        deferred[[length(deferred) + 1]] <- c(in_item, out_item, s)
+      }
+    }
+  }
+
+  # Process deferred pairs: force-attach remaining unchained items to nearest chain end
+  remaining <- which(!in_chain)
+  for (item in remaining) {
+    # Find which chain end has highest score to this item
+    start_item <- chain[1]
+    end_item <- chain[length(chain)]
+    score_start <- ws[item, start_item]
+    score_end <- ws[item, end_item]
+
+    if (score_start >= score_end) {
+      chain <- c(item, chain)
+    } else {
+      chain <- c(chain, item)
+    }
+    in_chain[item] <- TRUE
+
+    best_score <- max(score_start, score_end)
+    step <- step + 1L
+    merge_steps[[step]] <- c(i = item, j = ifelse(score_start >= score_end, start_item, end_item), score = best_score)
+    merge_heights <- c(merge_heights, best_score)
+  }
+
+  # Build merges data frame
+  if (length(merge_steps) > 0) {
+    merges <- data.frame(
+      step = seq_along(merge_steps),
+      item1 = vapply(merge_steps, function(x) x["i"], numeric(1)),
+      item2 = vapply(merge_steps, function(x) x["j"], numeric(1)),
+      score = vapply(merge_steps, function(x) x["score"], numeric(1))
+    )
+  } else {
+    merges <- data.frame(step = integer(0), item1 = integer(0), item2 = integer(0), score = numeric(0))
+  }
+
+  list(chain_order = chain, merges = merges, heights = merge_heights)
+}
+
+
+#' FOCUS: Two-way cluster analysis of a repertory grid
+#'
+#' FOCUS (Shaw & Thomas, 1978) is a two-way hierarchical cluster analysis that
+#' reorders both constructs and elements of a repertory grid to minimize variation
+#' between adjacent rows and columns. It differs from standard hierarchical
+#' clustering in three key ways: (1) it uses city block distance with a custom
+#' matching score formula, (2) it handles construct bipolarity (reversed constructs),
+#' and (3) it uses a chain-building clustering approach.
+#'
+#' The algorithm computes matching scores between all construct pairs and all
+#' element pairs. Matching scores range from -100 to 100 for constructs (since
+#' bipolarity allows negative correlation) and from 0 to 100 for elements.
+#' For constructs, the algorithm checks whether reversing a construct yields a
+#' better match, and if so, reverses it. A chain-building procedure then orders
+#' constructs and elements so that the most similar items are adjacent.
+#'
+#' @param x A `repgrid` object. Must have a defined scale (see [setScale()]) and
+#'   no missing ratings.
+#' @param trim The number of characters a construct or element name is trimmed to
+#'   (default is `NA`, no trimming). Trimming is only applied to the rating matrix
+#'   extraction, not the returned grid.
+#' @param grid_only Logical. If `TRUE` (default), only the focused `repgrid`
+#'   object is returned. If `FALSE`, a list of class `"focus"` with additional
+#'   details is returned (see Value).
+#'
+#' @return If `grid_only = TRUE` (default), the reordered and aligned `repgrid`
+#'   object is returned invisibly. If `grid_only = FALSE`, a list of class
+#'   `"focus"` is returned invisibly with components:
+#'   \describe{
+#'     \item{grid}{The reordered and aligned `repgrid` object.}
+#'     \item{construct_matching}{Construct matching score matrix.}
+#'     \item{element_matching}{Element matching score matrix.}
+#'     \item{construct_chain_order}{Integer vector of construct chain order (indices
+#'       refer to the original grid).}
+#'     \item{element_chain_order}{Integer vector of element chain order (indices
+#'       refer to the original grid).}
+#'     \item{reversed_constructs}{Integer vector of construct indices (original grid)
+#'       that were reversed.}
+#'     \item{construct_merges}{Data frame of construct merge steps.}
+#'     \item{element_merges}{Data frame of element merge steps.}
+#'     \item{avg_adjacent}{A list with average matching scores between adjacent
+#'       pairs for constructs and elements, both for the original and focused
+#'       ordering. Higher values indicate better clustering.}
+#'   }
+#'
+#' @references
+#' Shaw, M. L. G., & Thomas, L. F. (1978). FOCUS on education: An interactive
+#' computer system for the development and analysis of repertory grids.
+#' *International Journal of Man-Machine Studies, 10*(2), 139-173.
+#'
+#' Jankowicz, D., & Thomas, L. (1982). An algorithm for the cluster analysis of
+#' repertory grids in human resource development. *Personnel Review, 11*(4), 15-22.
+#'
+#' @export
+#' @examples
+#' \dontrun{
+#' focus(bell2010)
+#' focus(boeker)
+#' }
+#'
+focus <- function(x, trim = NA, grid_only = TRUE) {
+  # Input validation
+  stop_if_not_is_repgrid(x)
+  stop_if_scale_not_defined(x)
+
+  R <- getRatingLayer(x, trim = trim, names = FALSE)
+  if (anyNA(R)) {
+    stop("FOCUS requires complete data (no NA ratings)", call. = FALSE)
+  }
+
+  sc <- getScale(x)
+  scale_min <- sc["min"]
+  scale_max <- sc["max"]
+  nc <- nrow(R)
+  ne <- ncol(R)
+
+  # Trivial case
+  if (nc <= 1 && ne <= 1) {
+    if (grid_only) {
+      return(invisible(x))
+    }
+    res <- list(
+      grid = x,
+      construct_matching = matrix(100, nc, nc),
+      element_matching = matrix(100, ne, ne),
+      construct_chain_order = seq_len(nc),
+      element_chain_order = seq_len(ne),
+      reversed_constructs = integer(0),
+      construct_merges = data.frame(),
+      element_merges = data.frame()
+    )
+    class(res) <- "focus"
+    return(invisible(res))
+  }
+
+  # Step 1: Compute construct matching scores (with bipolarity)
+  cm <- .focus_construct_matching_scores(R, scale_min, scale_max)
+
+  # Step 2: Chain-cluster constructs
+  cc <- .focus_chain_cluster(cm$scores)
+
+  # Step 3: Determine construct reversals during chain building
+  # Walk the chain and determine which constructs need reversal for global consistency
+  chain <- cc$chain_order
+  is_reversed <- logical(nc)
+
+  if (length(chain) >= 2) {
+    for (pos in 2:length(chain)) {
+      curr <- chain[pos]
+      prev <- chain[pos - 1]
+      # If the previous construct in the chain was reversed, XOR with needs_reversal
+      is_reversed[curr] <- xor(is_reversed[prev], cm$needs_reversal[prev, curr])
+    }
+  }
+
+  reversed_indices <- which(is_reversed)
+
+  # Step 4: Apply construct reversals and reorder
+  if (length(reversed_indices) > 0) {
+    x <- reverse(x, pos = reversed_indices)
+  }
+  x <- x[chain, ]
+
+  # Step 5: Compute element matching scores on the aligned grid
+  R_aligned <- getRatingLayer(x, trim = trim, names = FALSE)
+  em <- .focus_element_matching_scores(R_aligned, scale_min, scale_max)
+
+  # Step 6: Chain-cluster elements
+  ec <- .focus_chain_cluster(em)
+
+  # Step 7: Reorder elements
+  x <- x[, ec$chain_order]
+
+  # Compute average adjacent matching scores for focused vs original ordering
+  # Constructs: use cm$scores (original construct indices), compare chain order vs 1:nc
+  # Elements: use em (after alignment), compare ec$chain_order vs 1:ne
+  .avg_adjacent <- function(scores, order) {
+    n <- length(order)
+    if (n < 2) return(100)
+    adj_scores <- vapply(seq_len(n - 1), function(k) scores[order[k], order[k + 1]], numeric(1))
+    mean(adj_scores)
+  }
+
+  avg_construct_focused <- .avg_adjacent(cm$scores, chain)
+  avg_construct_original <- .avg_adjacent(cm$scores, seq_len(nc))
+  avg_element_focused <- .avg_adjacent(em, ec$chain_order)
+  avg_element_original <- .avg_adjacent(em, seq_len(ne))
+
+  # Build result
+  if (grid_only) {
+    return(invisible(x))
+  }
+
+  res <- list(
+    grid = x,
+    construct_matching = cm$scores,
+    element_matching = em,
+    construct_chain_order = chain,
+    element_chain_order = ec$chain_order,
+    reversed_constructs = reversed_indices,
+    construct_merges = cc$merges,
+    element_merges = ec$merges,
+    avg_adjacent = list(
+      constructs_original = avg_construct_original,
+      constructs_focused = avg_construct_focused,
+      elements_original = avg_element_original,
+      elements_focused = avg_element_focused
+    )
+  )
+  class(res) <- "focus"
+  invisible(res)
+}
+
+
+#' Print method for focus objects
+#'
+#' @param x A `focus` object as returned by [focus()].
+#' @param digits Number of decimal digits for matching scores (default `1`).
+#' @param ... Not used.
+#' @export
+#'
+print.focus <- function(x, digits = 1, ...) {
+  cat("\n")
+  cat("FOCUS: Two-way cluster analysis of repertory grid\n")
+  cat("=================================================\n\n")
+
+  # Reversed constructs
+  if (length(x$reversed_constructs) > 0) {
+    cat("Reversed constructs:", paste(x$reversed_constructs, collapse = ", "), "\n\n")
+  }
+
+  # Construct matching scores
+  cm <- x$construct_matching
+  cat("Construct matching scores:\n")
+  cm_print <- round(cm, digits)
+  cm_print[lower.tri(cm_print, diag = TRUE)] <- NA
+  rownames(cm_print) <- colnames(cm_print) <- seq_len(nrow(cm_print))
+  print(cm_print, na.print = "", quote = FALSE)
+  cat("\n")
+
+  # Element matching scores
+  em <- x$element_matching
+  cat("Element matching scores:\n")
+  em_print <- round(em, digits)
+  em_print[lower.tri(em_print, diag = TRUE)] <- NA
+  rownames(em_print) <- colnames(em_print) <- seq_len(nrow(em_print))
+  print(em_print, na.print = "", quote = FALSE)
+  cat("\n")
+
+  # Average adjacent matching scores
+  aa <- x$avg_adjacent
+  cat("Average adjacent matching scores:\n")
+  cat(sprintf("  Constructs:  original = %.*f,  focused = %.*f\n",
+    digits, aa$constructs_original, digits, aa$constructs_focused))
+  cat(sprintf("  Elements:    original = %.*f,  focused = %.*f\n",
+    digits, aa$elements_original, digits, aa$elements_focused))
+  cat("\n")
+
+  # Focused grid
+  cat("Focused grid:\n")
+  print(x$grid)
+  cat("\n")
+
+  invisible(x)
+}
+
+
 #' Multiscale bootstrap cluster analysis.
 #'
 #' p-values are calculated for each branch of the cluster dendrogram to indicate the stability of a specific partition.

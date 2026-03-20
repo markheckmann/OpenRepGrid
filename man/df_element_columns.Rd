@@ -26,7 +26,7 @@ importDataframe(df_element_columns)
 \seealso{
 \code{\link[=importDataframe]{importDataframe()}}
 
-Other grid dataframes: 
+Other grid dataframes:
 \code{\link{df_construct_columns}},
 \code{\link{df_long}}
 }
