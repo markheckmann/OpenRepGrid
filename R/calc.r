@@ -1318,206 +1318,176 @@ align <- function(x, along = 0, dmethod = "euclidean",
 }
 
 
-#' Chain-building cluster algorithm for FOCUS
+#' Greedy Hamiltonian path algorithm for FOCUS chain clustering
 #'
-#' Implements the chain-building clustering approach used in FOCUS.
-#' Items are iteratively added to a chain based on highest matching scores,
-#' using average linkage to update scores when items merge into clusters.
+#' Implements the chain-building algorithm described in Jankowicz & Thomas (1982).
+#' Pairs of items are processed in order of decreasing matching score (= increasing
+#' difference sum). An edge is added between two items provided: (a) neither already
+#' has two neighbors (degree <= 2 in a path), and (b) the edge would not create a
+#' cycle (checked via Union-Find). Multiple disconnected fragments may form and are
+#' joined when a later edge connects them. Tie-breaking follows rule 4.3.4 of the
+#' paper: choose the pair nearest to the top-left corner of the matrix.
 #'
 #' @param scores Symmetric matching score matrix.
-#' @return A list with `chain_order` (integer vector of item indices in chain order),
-#'   `merges` (data frame of merge steps), and `heights` (merge heights as scores).
+#' @return A list with `chain_order` (integer vector of item indices in chain order)
+#'   and `merges` (data frame of merge steps with columns step, item1, item2, score).
 #' @keywords internal
 #'
 .focus_chain_cluster <- function(scores) {
   n <- nrow(scores)
 
   if (n == 1) {
-    return(list(chain_order = 1L, merges = data.frame(), heights = numeric(0)))
+    return(list(
+      chain_order = 1L,
+      merges = data.frame(step = integer(0), item1 = integer(0), item2 = integer(0), score = numeric(0))
+    ))
   }
 
   if (n == 2) {
     return(list(
       chain_order = 1:2,
-      merges = data.frame(step = 1L, item1 = 1L, item2 = 2L, score = scores[1, 2]),
-      heights = scores[1, 2]
+      merges = data.frame(step = 1L, item1 = 1L, item2 = 2L, score = scores[1, 2])
     ))
   }
 
-  # Working copy of score matrix. Diagonal set to -Inf so self-pairs are
-  # never selected as the "highest score".
-  ws <- scores
-  diag(ws) <- -Inf
-
-  # The chain is a linear ordering of items, built up incrementally.
-  # New items can only be appended to either end (not inserted in the middle).
-  chain <- integer(0)
-  in_chain <- logical(n)
-
-  # Track cluster membership for average linkage updates. When two items or
-  # clusters merge, their scores to all other items are recalculated as the
-  # weighted average of the component scores (= average linkage).
-  cluster_id <- seq_len(n)
-  cluster_size <- rep(1L, n)
-
-  merge_steps <- list()
-  merge_heights <- numeric(0)
-  step <- 0L
-
-  # Pre-sort all unique pairs by decreasing score. The algorithm processes
-  # pairs from highest to lowest score, deciding how to incorporate each pair
-  # into the chain. Ties are broken by smallest row, then column index.
+  # Sort all unique pairs by decreasing score. Ties are broken by proximity
+  # to the top-left corner of the matrix (smallest row index, then column).
   pairs <- which(upper.tri(scores), arr.ind = TRUE)
   pair_scores <- scores[pairs]
   ord <- order(-pair_scores, pairs[, 1], pairs[, 2])
   pairs <- pairs[ord, , drop = FALSE]
   pair_scores <- pair_scores[ord]
 
-  deferred <- list()
+  # Degree of each node in the path graph (max 2 for a Hamiltonian path).
+  degree <- integer(n)
+
+  # Union-Find (disjoint set) for O(~1) cycle detection.
+  uf_parent <- seq_len(n)
+  uf_find <- function(x) {
+    while (uf_parent[x] != x) {
+      uf_parent[x] <<- uf_parent[uf_parent[x]]
+      x <- uf_parent[x]
+    }
+    x
+  }
+  uf_union <- function(a, b) {
+    ra <- uf_find(a)
+    rb <- uf_find(b)
+    if (ra != rb) uf_parent[ra] <<- rb
+  }
+
+  # Fragment tracking. Each fragment is an ordered vector of item indices
+  # representing a sub-chain. Items in the interior of a fragment have
+  # degree 2; items at the ends have degree 1.
+  fragments <- list()
+  fragment_of <- integer(n) # which fragment ID contains each item (0 = none)
+
+  merge_steps <- list()
+  edges_added <- 0L
 
   for (k in seq_len(nrow(pairs))) {
+    if (edges_added >= n - 1L) break
+
     i <- pairs[k, 1]
     j <- pairs[k, 2]
     s <- pair_scores[k]
 
-    i_in <- in_chain[i]
-    j_in <- in_chain[j]
+    # Constraint (a): both endpoints must have room for another neighbor
+    if (degree[i] >= 2L || degree[j] >= 2L) next
 
-    if (!i_in && !j_in) {
-      # Case 1: Neither item is in the chain yet
-      if (length(chain) == 0) {
-        # First pair seeds the chain
-        chain <- c(i, j)
-        in_chain[i] <- TRUE
-        in_chain[j] <- TRUE
-        step <- step + 1L
-        merge_steps[[step]] <- c(i = i, j = j, score = s)
-        merge_heights <- c(merge_heights, s)
+    # Constraint (b): must not create a cycle (items already connected)
+    if (uf_find(i) == uf_find(j)) next
+
+    # Add edge (i, j)
+    degree[i] <- degree[i] + 1L
+    degree[j] <- degree[j] + 1L
+    uf_union(i, j)
+    edges_added <- edges_added + 1L
+    merge_steps[[edges_added]] <- c(i, j, s)
+
+    fi <- fragment_of[i]
+    fj <- fragment_of[j]
+
+    if (fi == 0L && fj == 0L) {
+      # Neither in a fragment yet: create a new one
+      new_id <- length(fragments) + 1L
+      fragments[[new_id]] <- c(i, j)
+      fragment_of[i] <- new_id
+      fragment_of[j] <- new_id
+    } else if (fi == 0L) {
+      # i is new; j is at an end of its fragment (guaranteed by degree < 2)
+      frag <- fragments[[fj]]
+      if (j == frag[1L]) {
+        frag <- c(i, frag)
       } else {
-        # Chain already started; can't insert a disconnected pair, defer
-        deferred[[length(deferred) + 1]] <- c(i, j, s)
+        frag <- c(frag, i)
       }
-    } else if (i_in && j_in) {
-      # Case 2: Both items already in chain. This is an "internal" merge:
-      # it records the hierarchical relationship but does not change the
-      # chain ordering, since both items are already placed.
-      ci <- cluster_id[i]
-      cj <- cluster_id[j]
-      if (ci != cj) {
-        step <- step + 1L
-        merge_steps[[step]] <- c(i = i, j = j, score = s)
-        merge_heights <- c(merge_heights, s)
-
-        # Average linkage update: merge the two clusters and recalculate
-        # scores to all other clusters as weighted averages
-        new_size <- cluster_size[ci] + cluster_size[cj]
-        for (p in seq_len(n)) {
-          cp <- cluster_id[p]
-          if (cp != ci && cp != cj) {
-            items_ci <- which(cluster_id == ci)
-            items_cj <- which(cluster_id == cj)
-            avg_score <- (cluster_size[ci] * ws[items_ci[1], p] +
-              cluster_size[cj] * ws[items_cj[1], p]) / new_size
-            for (item in c(items_ci, items_cj)) {
-              ws[item, p] <- avg_score
-              ws[p, item] <- avg_score
-            }
-          }
-        }
-        old_cj <- cj
-        for (item in which(cluster_id == old_cj)) {
-          cluster_id[item] <- ci
-        }
-        cluster_size[ci] <- new_size
+      fragments[[fj]] <- frag
+      fragment_of[i] <- fj
+    } else if (fj == 0L) {
+      # j is new; i is at an end of its fragment
+      frag <- fragments[[fi]]
+      if (i == frag[1L]) {
+        frag <- c(j, frag)
+      } else {
+        frag <- c(frag, j)
       }
+      fragments[[fi]] <- frag
+      fragment_of[j] <- fi
     } else {
-      # Case 3: One item in chain, one not. The new item can only be
-      # attached if the in-chain item is at one of the chain ends (or
-      # belongs to a cluster at a chain end). Otherwise, defer.
-      if (i_in) {
-        in_item <- i
-        out_item <- j
+      # Both in different fragments: join them at edge (i, j).
+      # Put the larger fragment on the left; break ties by earlier ID.
+      frag_a <- fragments[[fi]] # contains i
+      frag_b <- fragments[[fj]] # contains j
+      a_left <- length(frag_a) > length(frag_b) ||
+        (length(frag_a) == length(frag_b) && fi < fj)
+
+      if (a_left) {
+        # frag_a on left: i at its right end; frag_b on right: j at its left end
+        if (i == frag_a[1L]) frag_a <- rev(frag_a)
+        if (j == frag_b[length(frag_b)]) frag_b <- rev(frag_b)
+        merged <- c(frag_a, frag_b)
+        keep_id <- fi
+        drop_id <- fj
       } else {
-        in_item <- j
-        out_item <- i
+        # frag_b on left: j at its right end; frag_a on right: i at its left end
+        if (j == frag_b[1L]) frag_b <- rev(frag_b)
+        if (i == frag_a[length(frag_a)]) frag_a <- rev(frag_a)
+        merged <- c(frag_b, frag_a)
+        keep_id <- fj
+        drop_id <- fi
       }
 
-      # Check if in_item (or its cluster) occupies a chain end
-      at_start <- chain[1] == in_item || cluster_id[chain[1]] == cluster_id[in_item]
-      at_end <- chain[length(chain)] == in_item || cluster_id[chain[length(chain)]] == cluster_id[in_item]
-
-      if (at_start || at_end) {
-        # Attach the new item to the appropriate chain end
-        if (at_start) {
-          chain <- c(out_item, chain)
-        } else {
-          chain <- c(chain, out_item)
-        }
-        in_chain[out_item] <- TRUE
-
-        step <- step + 1L
-        merge_steps[[step]] <- c(i = in_item, j = out_item, score = s)
-        merge_heights <- c(merge_heights, s)
-
-        # Average linkage update for the newly merged item
-        ci <- cluster_id[in_item]
-        new_size <- cluster_size[ci] + 1L
-        for (p in seq_len(n)) {
-          cp <- cluster_id[p]
-          if (cp != ci && p != out_item) {
-            items_ci <- which(cluster_id == ci)
-            avg_score <- (cluster_size[ci] * ws[items_ci[1], p] + ws[out_item, p]) / new_size
-            for (item in c(items_ci, out_item)) {
-              ws[item, p] <- avg_score
-              ws[p, item] <- avg_score
-            }
-          }
-        }
-        cluster_id[out_item] <- ci
-        cluster_size[ci] <- new_size
-      } else {
-        # in_item is in the interior of the chain, can't attach here
-        deferred[[length(deferred) + 1]] <- c(in_item, out_item, s)
+      fragments[[keep_id]] <- merged
+      fragments[[drop_id]] <- integer(0)
+      for (item in merged) {
+        fragment_of[item] <- keep_id
       }
     }
   }
 
-  # Fallback: any items still not in the chain (e.g. because all their
-  # high-scoring partners were interior) are force-attached to whichever
-  # chain end they match best.
-  remaining <- which(!in_chain)
-  for (item in remaining) {
-    start_item <- chain[1]
-    end_item <- chain[length(chain)]
-    score_start <- ws[item, start_item]
-    score_end <- ws[item, end_item]
-
-    if (score_start >= score_end) {
-      chain <- c(item, chain)
-    } else {
-      chain <- c(chain, item)
+  # Extract the single non-empty fragment as the final chain
+  chain <- NULL
+  for (frag in fragments) {
+    if (length(frag) == n) {
+      chain <- frag
+      break
     }
-    in_chain[item] <- TRUE
-
-    best_score <- max(score_start, score_end)
-    step <- step + 1L
-    merge_steps[[step]] <- c(i = item, j = ifelse(score_start >= score_end, start_item, end_item), score = best_score)
-    merge_heights <- c(merge_heights, best_score)
   }
 
   # Build merges data frame
   if (length(merge_steps) > 0) {
     merges <- data.frame(
       step = seq_along(merge_steps),
-      item1 = vapply(merge_steps, function(x) x["i"], numeric(1)),
-      item2 = vapply(merge_steps, function(x) x["j"], numeric(1)),
-      score = vapply(merge_steps, function(x) x["score"], numeric(1))
+      item1 = vapply(merge_steps, function(x) x[1L], numeric(1)),
+      item2 = vapply(merge_steps, function(x) x[2L], numeric(1)),
+      score = vapply(merge_steps, function(x) x[3L], numeric(1))
     )
   } else {
     merges <- data.frame(step = integer(0), item1 = integer(0), item2 = integer(0), score = numeric(0))
   }
 
-  list(chain_order = chain, merges = merges, heights = merge_heights)
+  list(chain_order = as.integer(chain), merges = merges)
 }
 
 

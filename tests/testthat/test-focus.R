@@ -277,6 +277,97 @@ test_that("focus() handles identical constructs", {
 })
 
 
+# --- Validation against Jankowicz & Thomas (1982) worked example -----------
+
+test_that("focus() reproduces Jankowicz & Thomas (1982) element results", {
+  # Table I raw grid: 5 constructs, 5 elements (JH, RD, PP, EA, GB), scale 1-5
+  # Grid values verified against paper's Table II element difference sums
+  # and Table VIII construct difference sums
+  x <- makeRepgrid(list(
+    name = c("JH", "RD", "PP", "EA", "GB"),
+    l.name = c("Effective admin", "Task orientated", "Specialist", "Innovator", "Safety net"),
+    r.name = c("Less effective", "People orientated", "General mgmt", "Consolidator", "No safety net"),
+    scores = c(
+      1, 1, 5, 3, 1,
+      4, 5, 2, 1, 2,
+      1, 3, 5, 1, 1,
+      5, 1, 5, 5, 4,
+      1, 1, 5, 3, 2
+    ),
+    min = 1, max = 5
+  ))
+
+  res <- focus(x, grid_only = FALSE)
+
+  # --- Element difference sums (Table II) ---
+  # Verify a few entries from the paper's Table II
+  R <- getRatingLayer(x, names = FALSE)
+  sc <- getScale(x)
+  em_raw <- OpenRepGrid:::.focus_element_matching_scores(R, sc["min"], sc["max"])
+
+  # Paper formula: % matching score = [(-100 * DS) / (c * (n-1))] + 100
+  # where c = 5 constructs, n = 5 (max rating), so c*(n-1) = 20
+  # JH-RD: DS=7, ms = (-100*7)/20 + 100 = 65
+  expect_equal(em_raw[1, 2], 65)
+  # JH-GB: DS=4, ms = (-100*4)/20 + 100 = 80
+  expect_equal(em_raw[1, 5], 80)
+  # EA-GB: DS=5, ms = (-100*5)/20 + 100 = 75
+  expect_equal(em_raw[4, 5], 75)
+  # PP-GB: DS=12, ms = (-100*12)/20 + 100 = 40
+  expect_equal(em_raw[3, 5], 40)
+
+  # --- Element chain order (from paper) ---
+  # Paper result: RD-(7)-JH-(4)-GB-(5)-EA-(9)-PP
+  # i.e. element order: RD=2, JH=1, GB=5, EA=4, PP=3
+  expect_equal(unname(res$element_chain_order), c(2L, 1L, 5L, 4L, 3L))
+})
+
+
+test_that("focus() reproduces Jankowicz & Thomas (1982) construct results", {
+  x <- makeRepgrid(list(
+    name = c("JH", "RD", "PP", "EA", "GB"),
+    l.name = c("Effective admin", "Task orientated", "Specialist", "Innovator", "Safety net"),
+    r.name = c("Less effective", "People orientated", "General mgmt", "Consolidator", "No safety net"),
+    scores = c(
+      1, 1, 5, 3, 1,
+      4, 5, 2, 1, 2,
+      1, 3, 5, 1, 1,
+      5, 1, 5, 5, 4,
+      1, 1, 5, 3, 2
+    ),
+    min = 1, max = 5
+  ))
+
+  res <- focus(x, grid_only = FALSE)
+
+  # --- Construct matching scores ---
+  # Paper formula: ms = (-200*DS)/(e*(n-1)) + 100
+  # where e = 5 elements, n = 5 (max rating), so e*(n-1) = 20
+  cm <- res$construct_matching
+
+  # C1 vs C5: UU DS=1, ms = (-200*1)/20+100 = 90; UR DS=19, ms=-90. Best=90
+  expect_equal(cm[1, 5], 90)
+
+  # C1 vs C3: UU DS=4, ms = (-200*4)/20+100 = 60; UR DS=16, ms=-60. Best=60
+  expect_equal(cm[1, 3], 60)
+
+  # C5 vs C2: UU DS=12, ms=-20; UR DS=6, ms = (-200*6)/20+100 = 40. Best=40
+  expect_equal(cm[2, 5], 40)
+
+  # C2 vs C4: UU DS=14, ms=-40; UR DS=4, ms = (-200*4)/20+100 = 60. Best=60
+  expect_equal(cm[2, 4], 60)
+
+  # --- Construct chain order (from paper) ---
+  # Paper result: C3-(60%UR)-C1-(90%UR)-C5-(40%R)-C2-(60%R)-C4
+  expect_equal(unname(res$construct_chain_order), c(3L, 1L, 5L, 2L, 4L))
+
+  # --- Reversed constructs ---
+  # Paper Table XIV version A: C3=UR, C1=UR, C5=UR, C2=R, C4=UR
+  # So only C2 is reversed
+  expect_equal(unname(res$reversed_constructs), 2L)
+})
+
+
 test_that("avg_adjacent scores show improvement", {
   res <- focus(bell2010, grid_only = FALSE)
   aa <- res$avg_adjacent
