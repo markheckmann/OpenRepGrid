@@ -47,6 +47,7 @@ Collate:
     'dev-functions.r'
     'distance.R'
     'double-entry.R'
+    'egtsp_standalone.R'
     'export.r'
     'globals.R'
     'gmMain.r'

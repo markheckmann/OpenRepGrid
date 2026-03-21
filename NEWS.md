@@ -1,6 +1,9 @@
 # OpenRepGrid 0.1.19 (dev version)
 
-* `focus`: FOCUS two-way cluster analysis (Shaw & Thomas, 1978). Reorders constructs and elements 
+* `focusOpt`: Optimal FOCUS reordering via E-GTSP (Equality Generalized Traveling Salesman Problem).
+  Unlike the greedy heuristic in `focus`, `focusOpt` finds provably optimal construct and element
+  orderings using an exact MILP solver (default) or a TSP heuristic (#76)
+* `focus`: FOCUS two-way cluster analysis (Shaw & Thomas, 1978). Reorders constructs and elements
   to minimize variation between adjacent rows/columns (#74)
 * drop `{styler}` dependency (#72)
 

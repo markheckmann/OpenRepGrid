@@ -1632,7 +1632,9 @@ focus <- function(x, trim = NA, grid_only = TRUE) {
   # focused ordering vs original (input) ordering to quantify improvement.
   .avg_adjacent <- function(scores, order) {
     n <- length(order)
-    if (n < 2) return(100)
+    if (n < 2) {
+      return(100)
+    }
     adj_scores <- vapply(seq_len(n - 1), function(k) scores[order[k], order[k + 1]], numeric(1))
     mean(adj_scores)
   }
@@ -1706,13 +1708,297 @@ print.focus <- function(x, digits = 1, ...) {
   # Average adjacent matching scores
   aa <- x$avg_adjacent
   cat("Average adjacent matching scores:\n")
-  cat(sprintf("  Constructs:  original = %.*f,  focused = %.*f\n",
-    digits, aa$constructs_original, digits, aa$constructs_focused))
-  cat(sprintf("  Elements:    original = %.*f,  focused = %.*f\n",
-    digits, aa$elements_original, digits, aa$elements_focused))
+  cat(sprintf(
+    "  Constructs:  original = %.*f,  focused = %.*f\n",
+    digits, aa$constructs_original, digits, aa$constructs_focused
+  ))
+  cat(sprintf(
+    "  Elements:    original = %.*f,  focused = %.*f\n",
+    digits, aa$elements_original, digits, aa$elements_focused
+  ))
   cat("\n")
 
   # Focused grid
+  cat("Focused grid:\n")
+  print(x$grid)
+  cat("\n")
+
+  invisible(x)
+}
+
+
+# ============================================================================ #
+#                  FOCUS with E-GTSP optimal reordering                        #
+# ============================================================================ #
+
+
+#' Remove dummy node from E-GTSP tour to obtain a Hamiltonian path
+#'
+#' A dummy node with zero-cost edges is used to convert a TSP cycle into a
+#' Hamiltonian path. This helper removes the dummy and returns the remaining
+#' path, starting from the node after the dummy in tour order.
+#'
+#' @param tour Integer vector of node indices forming a cycle.
+#' @param dummy_node Index of the dummy node to remove.
+#' @return Integer vector forming a path.
+#' @keywords internal
+#'
+.egtsp_tour_to_path <- function(tour, dummy_node) {
+  pos <- which(tour == dummy_node)
+  n <- length(tour)
+  if (pos == 1L) {
+    tour[2:n]
+  } else if (pos == n) {
+    tour[1:(n - 1L)]
+  } else {
+    c(tour[(pos + 1L):n], tour[1:(pos - 1L)])
+  }
+}
+
+
+#' FOCUS with optimal reordering via E-GTSP
+#'
+#' Similar to [focus()] but uses the E-GTSP (Equality Generalized Traveling
+#' Salesman Problem) solver for construct and element ordering. While [focus()]
+#' uses a greedy heuristic (Jankowicz & Thomas, 1982) that may not find the
+#' global optimum, `focusOpt` formulates the ordering problem as an E-GTSP and
+#' solves it using either a TSP heuristic or an exact MILP solver.
+#'
+#' For constructs, each construct forms a cluster with two nodes representing
+#' its original and reversed orientation. The solver selects one orientation per
+#' construct and finds the ordering that minimizes total city block distance
+#' between adjacent constructs. For elements, each element is a singleton
+#' cluster, reducing to a standard TSP.
+#'
+#' A dummy node with zero-cost edges is added to convert the TSP cycle into a
+#' Hamiltonian path (open tour).
+#'
+#' @param x A `repgrid` object. Must have a defined scale (see [setScale()]) and
+#'   no missing ratings.
+#' @param trim The number of characters a construct or element name is trimmed to
+#'   (default is `NA`, no trimming). Trimming is only applied to the rating matrix
+#'   extraction, not the returned grid.
+#' @param grid_only Logical. If `TRUE` (default), only the reordered `repgrid`
+#'   object is returned. If `FALSE`, a list of class `"focusOpt"` with additional
+#'   details is returned (see Value).
+#' @param backend `"MILP"` (exact, default) or `"TSP"` (heuristic). Passed to
+#'   `solve_egtsp()`.
+#' @param ... Additional arguments passed to `solve_egtsp()` (e.g. `method`,
+#'   `control` for the TSP backend).
+#'
+#' @return If `grid_only = TRUE` (default), the reordered and aligned `repgrid`
+#'   object is returned invisibly. If `grid_only = FALSE`, a list of class
+#'   `"focusOpt"` is returned invisibly with components:
+#'   \describe{
+#'     \item{grid}{The reordered and aligned `repgrid` object.}
+#'     \item{construct_matching}{Construct matching score matrix (indices refer
+#'       to original grid).}
+#'     \item{element_matching}{Element matching score matrix (computed on aligned
+#'       ratings).}
+#'     \item{construct_order}{Integer vector of construct order (indices refer to
+#'       the original grid).}
+#'     \item{element_order}{Integer vector of element order (indices refer to
+#'       the original grid after construct alignment).}
+#'     \item{reversed_constructs}{Integer vector of construct indices (original
+#'       grid) that were reversed.}
+#'     \item{avg_adjacent}{A list with average matching scores between adjacent
+#'       pairs for constructs and elements, both for the original and optimized
+#'       ordering.}
+#'   }
+#'
+#' @references
+#' Shaw, M. L. G., & Thomas, L. F. (1978). FOCUS on education: An interactive
+#' computer system for the development and analysis of repertory grids.
+#' *International Journal of Man-Machine Studies, 10*(2), 139-173.
+#'
+#' @export
+#' @examples
+#' \dontrun{
+#' focusOpt(bell2010)
+#' focusOpt(bell2010, backend = "MILP")
+#' }
+#'
+focusOpt <- function(x, trim = NA, grid_only = TRUE, backend = "MILP", ...) {
+  stop_if_not_is_repgrid(x)
+  stop_if_scale_not_defined(x)
+
+  R <- getRatingLayer(x, trim = trim, names = FALSE)
+  if (anyNA(R)) {
+    stop("focusOpt requires complete data (no NA ratings)", call. = FALSE)
+  }
+
+  sc <- getScale(x)
+  scale_min <- sc["min"]
+  scale_max <- sc["max"]
+  nc <- nrow(R)
+  ne <- ncol(R)
+
+  # Trivial case
+  if (nc <= 1 && ne <= 1) {
+    if (grid_only) {
+      return(invisible(x))
+    }
+    res <- list(
+      grid = x,
+      construct_matching = matrix(100, nc, nc),
+      element_matching = matrix(100, ne, ne),
+      construct_order = seq_len(nc),
+      element_order = seq_len(ne),
+      reversed_constructs = integer(0),
+      avg_adjacent = list(
+        constructs_original = 100, constructs_optimized = 100,
+        elements_original = 100, elements_optimized = 100
+      )
+    )
+    class(res) <- "focusOpt"
+    return(invisible(res))
+  }
+
+  # Construct matching scores (same formula as focus(), for output)
+  cm <- .focus_construct_matching_scores(R, scale_min, scale_max)
+
+  # === Construct ordering with bipolarity via E-GTSP ===
+  #
+  # Each construct k is a cluster with 2 nodes:
+  #   node 2k-1 = original orientation
+  #   node 2k   = reversed orientation
+  # A dummy node (cluster nc+1) with zero-cost edges converts the cycle to a path.
+
+  if (nc >= 2) {
+    R_all <- matrix(0, nrow = 2 * nc, ncol = ne)
+    for (k in seq_len(nc)) {
+      R_all[2 * k - 1, ] <- R[k, ]
+      R_all[2 * k, ] <- scale_max + scale_min - R[k, ]
+    }
+
+    cost_c <- as.matrix(dist(R_all, method = "manhattan"))
+
+    n_c <- 2 * nc + 1
+    cost_c_ext <- matrix(0, n_c, n_c)
+    cost_c_ext[seq_len(2 * nc), seq_len(2 * nc)] <- cost_c
+
+    cluster_c <- integer(n_c)
+    for (k in seq_len(nc)) {
+      cluster_c[2 * k - 1] <- k
+      cluster_c[2 * k] <- k
+    }
+    cluster_c[n_c] <- nc + 1
+
+    sol_c <- solve_egtsp(new_egtsp(cost_c_ext, cluster_c), backend = backend, ...)
+    path_c <- .egtsp_tour_to_path(sol_c$gtour, n_c)
+
+    construct_order <- ceiling(path_c / 2)
+    reversed_indices <- construct_order[path_c %% 2 == 0]
+  } else {
+    construct_order <- 1L
+    reversed_indices <- integer(0)
+  }
+
+  # Apply reversals and reorder constructs
+  if (length(reversed_indices) > 0) {
+    x <- reverse(x, pos = reversed_indices)
+  }
+  x <- x[construct_order, ]
+
+  # === Element ordering via E-GTSP (singleton clusters = standard TSP) ===
+  #
+  # Element distances are computed on the aligned ratings (after construct
+  # reversal and reordering), same as focus().
+
+  R_aligned <- getRatingLayer(x, trim = trim, names = FALSE)
+  em <- .focus_element_matching_scores(R_aligned, scale_min, scale_max)
+
+  if (ne >= 2) {
+    cost_e <- as.matrix(dist(t(R_aligned), method = "manhattan"))
+
+    n_e <- ne + 1
+    cost_e_ext <- matrix(0, n_e, n_e)
+    cost_e_ext[seq_len(ne), seq_len(ne)] <- cost_e
+
+    sol_e <- solve_egtsp(new_egtsp(cost_e_ext, seq_len(n_e)), backend = backend, ...)
+    element_order <- .egtsp_tour_to_path(sol_e$gtour, n_e)
+  } else {
+    element_order <- 1L
+  }
+
+  x <- x[, element_order]
+
+  if (grid_only) {
+    return(x)
+  }
+
+  # Average adjacent matching scores (same metric as focus() for comparability)
+  .avg_adj <- function(scores, order) {
+    n <- length(order)
+    if (n < 2) {
+      return(100)
+    }
+    mean(vapply(seq_len(n - 1), function(k) scores[order[k], order[k + 1]], numeric(1)))
+  }
+
+  res <- list(
+    grid = x,
+    construct_matching = cm$scores,
+    element_matching = em,
+    construct_order = construct_order,
+    element_order = element_order,
+    reversed_constructs = reversed_indices,
+    avg_adjacent = list(
+      constructs_original = .avg_adj(cm$scores, seq_len(nc)),
+      constructs_optimized = .avg_adj(cm$scores, construct_order),
+      elements_original = .avg_adj(em, seq_len(ne)),
+      elements_optimized = .avg_adj(em, element_order)
+    )
+  )
+  class(res) <- "focusOpt"
+  res
+}
+
+
+#' Print method for focusOpt objects
+#'
+#' @param x A `focusOpt` object as returned by `focusOpt()`.
+#' @param digits Number of decimal digits for matching scores (default `1`).
+#' @param ... Not used.
+#' @export
+#'
+print.focusOpt <- function(x, digits = 1, ...) {
+  cat("\n")
+  cat("FOCUS (E-GTSP optimized): Two-way cluster analysis of repertory grid\n")
+  cat("=====================================================================\n\n")
+
+  if (length(x$reversed_constructs) > 0) {
+    cat("Reversed constructs:", paste(x$reversed_constructs, collapse = ", "), "\n\n")
+  }
+
+  cm <- x$construct_matching
+  cat("Construct matching scores:\n")
+  cm_print <- round(cm, digits)
+  cm_print[lower.tri(cm_print, diag = TRUE)] <- NA
+  rownames(cm_print) <- colnames(cm_print) <- seq_len(nrow(cm_print))
+  print(cm_print, na.print = "", quote = FALSE)
+  cat("\n")
+
+  em <- x$element_matching
+  cat("Element matching scores:\n")
+  em_print <- round(em, digits)
+  em_print[lower.tri(em_print, diag = TRUE)] <- NA
+  rownames(em_print) <- colnames(em_print) <- seq_len(nrow(em_print))
+  print(em_print, na.print = "", quote = FALSE)
+  cat("\n")
+
+  aa <- x$avg_adjacent
+  cat("Average adjacent matching scores:\n")
+  cat(sprintf(
+    "  Constructs:  original = %.*f,  optimized = %.*f\n",
+    digits, aa$constructs_original, digits, aa$constructs_optimized
+  ))
+  cat(sprintf(
+    "  Elements:    original = %.*f,  optimized = %.*f\n",
+    digits, aa$elements_original, digits, aa$elements_optimized
+  ))
+  cat("\n")
+
   cat("Focused grid:\n")
   print(x$grid)
   cat("\n")

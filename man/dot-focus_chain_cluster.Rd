@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc.r
 \name{.focus_chain_cluster}
 \alias{.focus_chain_cluster}
-\title{Chain-building cluster algorithm for FOCUS}
+\title{Greedy Hamiltonian path algorithm for FOCUS chain clustering}
 \usage{
 .focus_chain_cluster(scores)
 }
@@ -10,12 +10,16 @@
 \item{scores}{Symmetric matching score matrix.}
 }
 \value{
-A list with \code{chain_order} (integer vector of item indices in chain order),
-\code{merges} (data frame of merge steps), and \code{heights} (merge heights as scores).
+A list with \code{chain_order} (integer vector of item indices in chain order)
+and \code{merges} (data frame of merge steps with columns step, item1, item2, score).
 }
 \description{
-Implements the chain-building clustering approach used in FOCUS.
-Items are iteratively added to a chain based on highest matching scores,
-using average linkage to update scores when items merge into clusters.
+Implements the chain-building algorithm described in Jankowicz & Thomas (1982).
+Pairs of items are processed in order of decreasing matching score (= increasing
+difference sum). An edge is added between two items provided: (a) neither already
+has two neighbors (degree <= 2 in a path), and (b) the edge would not create a
+cycle (checked via Union-Find). Multiple disconnected fragments may form and are
+joined when a later edge connects them. Tie-breaking follows rule 4.3.4 of the
+paper: choose the pair nearest to the top-left corner of the matrix.
 }
 \keyword{internal}
