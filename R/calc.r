@@ -1491,6 +1491,88 @@ align <- function(x, along = 0, dmethod = "euclidean",
 }
 
 
+#' Matching scores for the current grid ordering
+#'
+#' Computes the average matching score between adjacent constructs and adjacent
+#' elements for a grid's current ordering. This allows comparing the quality of
+#' different orderings (e.g. original vs. [focus()] vs. [focusOpt()]).
+#'
+#' Construct matching scores use city block distance and range from \code{-100}
+#' (maximally different) to \code{100} (identical). Element matching scores
+#' range from \code{0} to \code{100}. Higher values indicate more similar
+#' adjacent items, i.e. a better ordering.
+#'
+#' @param x A `repgrid` object. Must have a defined scale (see [setScale()]) and
+#'   no missing ratings.
+#' @return A list with components:
+#'   \describe{
+#'     \item{constructs}{Average matching score between adjacent constructs.}
+#'     \item{elements}{Average matching score between adjacent elements.}
+#'     \item{total}{Sum of `constructs` and `elements`.}
+#'     \item{construct_scores}{Numeric vector of matching scores for each
+#'       adjacent construct pair.}
+#'     \item{element_scores}{Numeric vector of matching scores for each
+#'       adjacent element pair.}
+#'   }
+#'
+#' @export
+#' @examples
+#' \dontrun{
+#' matchScores(bell2010)              # original ordering
+#' matchScores(focus(bell2010))       # after greedy FOCUS
+#' matchScores(focusOpt(bell2010))    # after E-GTSP optimal
+#' }
+#'
+matchScores <- function(x) {
+  stop_if_not_is_repgrid(x)
+  stop_if_scale_not_defined(x)
+
+  R <- getRatingLayer(x, trim = NA, names = FALSE)
+  if (anyNA(R)) {
+    stop("matchScores requires complete data (no NA ratings)", call. = FALSE)
+  }
+
+  sc <- getScale(x)
+  scale_min <- sc["min"]
+  scale_max <- sc["max"]
+  scale_range <- scale_max - scale_min
+  nc <- nrow(R)
+  ne <- ncol(R)
+
+  # Matching scores between adjacent constructs (rows)
+  if (nc >= 2) {
+    construct_scores <- vapply(seq_len(nc - 1), function(k) {
+      d <- sum(abs(R[k, ] - R[k + 1, ]))
+      (-200 * d) / (scale_range * ne) + 100
+    }, numeric(1))
+    avg_c <- mean(construct_scores)
+  } else {
+    construct_scores <- numeric(0)
+    avg_c <- 100
+  }
+
+  # Matching scores between adjacent elements (columns)
+  if (ne >= 2) {
+    element_scores <- vapply(seq_len(ne - 1), function(k) {
+      d <- sum(abs(R[, k] - R[, k + 1]))
+      (-100 * d) / (scale_range * nc) + 100
+    }, numeric(1))
+    avg_e <- mean(element_scores)
+  } else {
+    element_scores <- numeric(0)
+    avg_e <- 100
+  }
+
+  list(
+    constructs = avg_c,
+    elements = avg_e,
+    total = avg_c + avg_e,
+    construct_scores = construct_scores,
+    element_scores = element_scores
+  )
+}
+
+
 #' FOCUS: Two-way cluster analysis of a repertory grid
 #'
 #' FOCUS (Shaw & Thomas, 1978) is a two-way hierarchical cluster analysis that

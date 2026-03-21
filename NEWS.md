@@ -1,5 +1,7 @@
 # OpenRepGrid 0.1.19 (dev version)
 
+* `matchScores`: Compute average adjacent matching scores for a grid's current ordering, allowing
+  comparison of different reorderings (e.g. original vs. `focus` vs. `focusOpt`) (#76)
 * `focusOpt`: Optimal FOCUS reordering via E-GTSP (Equality Generalized Traveling Salesman Problem).
   Unlike the greedy heuristic in `focus`, `focusOpt` finds provably optimal construct and element
   orderings using an exact MILP solver (default) or a TSP heuristic (#76)
