@@ -236,7 +236,6 @@ saveAsWorksheet <- function(x, wb, format = "wide", sheet = NULL, default_sheet 
 }
 
 
-
 # saveAsExcelv2 <- function(x, file, format = "wide", sheet = "grid") {
 #   ext <- tools::file_ext(file)
 #   if (ext != "xlsx") {
@@ -381,7 +380,6 @@ add_one_sheet_with_grid <- function(x, wb, format = "wide", sheet = "grid") {
   }
   wb
 }
-
 
 
 #' Export a grid to dataframe with wide format

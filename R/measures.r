@@ -374,7 +374,6 @@ indexPvaff <- function(x, method = 1) {
 # }
 
 
-
 #' Bieri's index of cognitive complexity
 #'
 #' The index builds on the number of rating matches between pairs of constructs. It is the relation between the total
@@ -2304,7 +2303,6 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 }
 
 
-
 #' Implicative Dilemmas
 #'
 #' Implicative dilemmas are closely related to the notion of conflict. An implicative dilemma arises when a desired
@@ -2487,7 +2485,6 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 }
 
 
-
 #' Plot method for indexDilemma (network graph)
 #'
 #' Produces a network graph using of the detected implicative dilemmas using the
@@ -2510,21 +2507,22 @@ indexDilemma <- function(x, self = 1, ideal = ncol(x),
 #' @export
 #'
 plot.indexDilemma <- function(
-    x,
-    layout = "rows",
-    both.poles = TRUE,
-    node.size = 50,
-    node.text.cex = 1,
-    node.label.color = "black",
-    node.color.discrepant = "darkolivegreen3",
-    node.color.congruent = "lightcoral",
-    edge.label.color = grey(.4),
-    edge.label.cex = 1,
-    edge.digits = 2,
-    edge.arrow.size = .5,
-    edge.color = grey(.6),
-    edge.lty = 2,
-    ...) {
+  x,
+  layout = "rows",
+  both.poles = TRUE,
+  node.size = 50,
+  node.text.cex = 1,
+  node.label.color = "black",
+  node.color.discrepant = "darkolivegreen3",
+  node.color.congruent = "lightcoral",
+  edge.label.color = grey(.4),
+  edge.label.cex = 1,
+  edge.digits = 2,
+  edge.arrow.size = .5,
+  edge.color = grey(.6),
+  edge.lty = 2,
+  ...
+) {
   id <- x # renamed from 'id' to 'x' to match arg in print generic
 
   # response in case no dilemmas were found
@@ -2649,8 +2647,6 @@ plot.indexDilemma <- function(
 #
 #
 # }
-
-
 
 
 # //////////////////////////////////////////////////////////////////////////////

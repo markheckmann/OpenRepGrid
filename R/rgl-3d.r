@@ -48,7 +48,6 @@ rglDrawStandardEllipses <- function(max.dim = 1, lwd = 1, col = "black") {
 }
 
 
-
 rglDrawElementPoints <- function(coords, dim = 1:3, e.radius = .1, e.sphere.col = "black", ...) {
   if (!requireNamespace("rgl", quietly = TRUE)) {
     stop("The 'rgl' package is required to use OpenRepGrid's 3D features => please install 'rgl'.", call. = FALSE)
@@ -286,7 +285,6 @@ biplot3dBase2 <- function(x, dim = 1:3, labels.e = TRUE, labels.c = TRUE, lines.
     )
   }
 }
-
 
 
 #' Draw grid in rgl (3D device).
@@ -572,8 +570,6 @@ home <- function(view = 1, theta = NULL, phi = NULL) {
 }
 
 
-
-
 # //////////////////////////////////////////////////////////////////////////////
 ###                              EXAMPLES                                   ###
 # //////////////////////////////////////////////////////////////////////////////
@@ -598,8 +594,6 @@ home <- function(view = 1, theta = NULL, phi = NULL) {
 # lines3d(c(0, 1), c(0,0), c(0,0))
 # lines3d(c(0,0), c(0, 1), c(0,0))
 # lines3d(c(0,0), c(0,0), c(0, 1))
-
-
 
 
 # mouseTrackballOrigin <- function(button = 1, dev = cur3d(), origin=c(0,0,0) ) {

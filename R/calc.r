@@ -154,7 +154,6 @@ statsDiscrepancy <- function(x, disc, sort = TRUE) {
 }
 
 
-
 # /////////////////////////////////////////////////////////////////////////////
 # order elements and constructs by angles in first two dimensions from
 # singular value decomposition approach (cf. Raeithel ???)
@@ -271,7 +270,6 @@ reorder2d <- function(x, dim = c(1, 2), center = 1, normalize = 0, g = 0, h = 1 
   }
   x
 }
-
 
 
 #### __________________ ####
@@ -545,7 +543,6 @@ print.constructCor <- function(x, digits = 2, col.index = TRUE,
   }
   print(d)
 }
-
 
 
 #' Root mean square (RMS) of inter-construct correlations.

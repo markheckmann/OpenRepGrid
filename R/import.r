@@ -20,7 +20,6 @@
 #
 
 
-
 #' convertImportObjectToRepGridObject.
 #'
 #' Convert the returned object from an import function into a `repgrid`
@@ -426,7 +425,6 @@ importGridstat <- function(file, dir = NULL, min = NULL, max = NULL) {
     return(rgs) # return a list of repgrid objects
   }
 }
-
 
 
 ## GRIDCOR ------------------------------------------------------------------------------------

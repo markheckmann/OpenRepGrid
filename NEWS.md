@@ -1,3 +1,9 @@
+# OpenRepGrid 0.1.19
+
+* `biplot2d`: Construct pole labels are automatically colorized by preference status (green = preferred,
+  red = non-preferred, dark gray = neutral/undefined) when preferred poles are set in the repgrid object.
+  New arg `c.color.preferred` controls the behavior (`NULL` = auto-detect, `TRUE` = always, `FALSE` = never) (#71).
+
 # OpenRepGrid 0.1.18
 
 * `saveAsExcel` can export a list of grids now (#67)

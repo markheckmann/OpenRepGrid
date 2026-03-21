@@ -5,7 +5,6 @@
 # //////////////////////////////////////////////////////////////////////////////
 
 
-
 constructCellGrob <- function(text, gp = gpar(), horiz = TRUE) {
   gp <- modifyList(gpar(fill = grey(.95)), gp)
   col <- gmSelectTextColorByLuminance(gp$fill)
@@ -17,7 +16,6 @@ constructCellGrob <- function(text, gp = gpar(), horiz = TRUE) {
     gmSplitTextGrob(text = text, horiz = horiz, gp = modifyList(gp, gpar(col = col)))
   ))
 }
-
 
 
 bertin1 <- function(x, draw = TRUE) {
@@ -86,9 +84,6 @@ bertin1 <- function(x, draw = TRUE) {
   main.fg <- placeGrob(main.fg, left.c.fg, row = 3, col = 3)
   if (draw) grid.draw(main.fg) else main.fg
 }
-
-
-
 
 
 bertin2 <- function(x, ratings = TRUE, top = unit(40, "mm"), sides = unit(40, "mm"),
@@ -176,7 +171,6 @@ bertin2 <- function(x, ratings = TRUE, top = unit(40, "mm"), sides = unit(40, "m
 }
 
 
-
 bertin2PlusLegend <- function(x, ratings = TRUE, top = unit(40, "mm"),
                               sides = unit(40, "mm"), left = sides, right = sides,
                               cell = unit(6, "mm"), cell.height = cell, cell.width = cell,
@@ -213,8 +207,6 @@ bertin2PlusLegend <- function(x, ratings = TRUE, top = unit(40, "mm"),
 
 # bertin2PlusLegend(rg2, colors=c("darkred", "white"))
 # bertin2PlusLegend(rg2, colors=c("darkred", "white"), top=unit(4, "cm"), sides=unit(4, "cm"))
-
-
 
 
 # TODO: -may work with closures here to store old row and column when marking

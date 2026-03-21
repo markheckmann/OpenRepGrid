@@ -317,7 +317,6 @@ insertAt <- function(index.base, index.insert, side = "pre") {
 }
 
 
-
 # insertAt(1:4, c(1,3))
 # insertAt(c(1,2,3,4), c(1,3), side="pre")
 # insertAt(c(1,2,3,4), c(1,2), side="pre")
@@ -338,7 +337,6 @@ insertAt <- function(index.base, index.insert, side = "pre") {
 # insertAt(numeric(0), c(1,3), side="post")
 
 
-
 # There was once question on r-help asking if apply could be used with a progress bar.
 # The plyr package provides several apply like functions also including progress bars,
 # so one could have a look here and use a plyr function instead of apply if possible.
@@ -348,9 +346,6 @@ insertAt <- function(index.base, index.insert, side = "pre") {
 
 # STATUS: WOKRING, but only tested once or twice, tested with ?apply examples
 # ISSUES/TODO: MARGIN argument not always correct when vector like c(1,2) is used
-
-
-
 
 
 #' apply with a progress bar
@@ -405,7 +400,6 @@ apply_pb <- function(X, MARGIN, FUN, ...) {
 # head(apply_pb(df, 1, sd))
 
 
-
 #' lapply with a progress bar
 #'
 #' Can be used like standard base:::lapply. The only thing
@@ -444,7 +438,6 @@ lapply_pb <- function(X, FUN, ...) {
 
 # l <- lapply(1:20000, function(x) list(rnorm(1000)))
 # head(lapply_pb(l, mean))
-
 
 
 #' sapply with a progress bar
@@ -536,8 +529,6 @@ trim_val <- function(x, minmax = c(-Inf, Inf), na = FALSE) {
 }
 
 
-
-
 #' recycle vector to given length
 #'
 #' @param vec       vector to be recycled
@@ -582,7 +573,6 @@ recycle <- function(vec, length, na.fill = FALSE) {
 }
 
 
-
 #' variation of recycle that recycles one vector x or y to the length of the
 #' longer one
 #'
@@ -609,8 +599,6 @@ recycle2 <- function(x, y, na.fill = FALSE) {
   }
   list(x = x, y = y)
 }
-
-
 
 
 #' generate a random words
@@ -707,7 +695,6 @@ orderByString <- function(x, y) {
 }
 
 
-
 ### Thanks to Marc Schwartz for supplying the code for the Somer's d measure
 
 # Calculate Concordant Pairs in a table
@@ -787,7 +774,6 @@ calc.Sd <- function(x) {
 ## example from Kaehler book, p.123 table, p.129 results
 # m <- matrix(c(4,6,0,11,146,22,2,20,39), 3)
 # calc.Sd(m)    # correct
-
 
 
 # ellipse and angle code from: Dr P.D.M. Macdonald

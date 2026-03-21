@@ -122,7 +122,6 @@ test_that("indexBieri works correctly", {
 })
 
 
-
 test_that("indexDDI works correctly", {
   files <- system.file("extdata", c("dep_grid_walker_1988_1.xlsx", "dep_grid_walker_1988_2.xlsx"), package = "OpenRepGrid")
 

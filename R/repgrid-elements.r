@@ -62,8 +62,6 @@ eNames <- getElementNames
 # getElementNames(rg1)
 
 
-
-
 #' Retrieves the element names from a `repgrid`.
 #'
 #' Different features like trimming, indexing and choices of separators
@@ -114,8 +112,6 @@ getElementNames2 <- function(x, trim = 20, index = F,
   enames.new <- paste(ind, enames, sep = "")
   enames.new
 }
-
-
 
 
 #' Get or replace element names
@@ -241,7 +237,6 @@ e.setElements <- function(x, name = NA, abbreviation = NA, status = NA, index = 
 #  x <- e.setElements(x, name="test", index=3)  # error due to wholes in element list
 
 
-
 # internal: e.addElements adds elements to the grid. All elements that do not have
 # a position specified are added at the end.
 e.addElements <- function(x, name = NA, abbreviation = NA, status = NA, position = NA, side = "pre") {
@@ -282,14 +277,6 @@ e.addElements <- function(x, name = NA, abbreviation = NA, status = NA, position
 # x <- makeEmptyRepgrid()
 # x <- addElements(x, name=c("element 1", "element 2"), abb=c("e1","e2"))
 # insertAt(numeric(0), 1:2)
-
-
-
-
-
-
-
-
 
 
 ### maybe unnecessary functions ###

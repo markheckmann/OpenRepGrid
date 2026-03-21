@@ -105,7 +105,6 @@ bind_matrices_horizontally <- function(um, lm, anchors = c(1, 1)) {
 }
 
 
-
 # break at any point possible
 break_output <- function(mat, ncolkeep = 14, keeprows = TRUE) {
   availchar <- options()$width # get console size (problematic update)
@@ -460,23 +459,9 @@ df_out <- function(df, # data frame
   }
 
   # colorize constructs by pole preference
-  preferred <- preferredPoles(grid)
-  colors_pole_left <- case_when(
-    preferred == "left" ~ "green",
-    preferred == "both" ~ "green",
-    preferred == "none" ~ "white",
-    preferred == "right" ~ "red",
-    is.na(NA) ~ "white"
-  )
-  colors_pole_right <- case_when(
-    preferred == "right" ~ "green",
-    preferred == "both" ~ "green",
-    preferred == "none" ~ "white",
-    preferred == "left" ~ "red",
-    is.na(NA) ~ "white"
-  )
-  mat.left.atomic <- colorize_matrix_rows(mat.left.atomic, colors_pole_left)
-  mat.right.atomic <- colorize_matrix_rows(mat.right.atomic, colors_pole_right)
+  pref_colors <- preferred_pole_colors(grid, col_neutral = "white")
+  mat.left.atomic <- colorize_matrix_rows(mat.left.atomic, pref_colors$left)
+  mat.right.atomic <- colorize_matrix_rows(mat.right.atomic, pref_colors$right)
 
   # same part for both types
   mat.sep2.atomic <- make_sep_mat_atomic(sep2, nr = nrow(df)) # matrix to separate left and main, or main and right
@@ -535,7 +520,6 @@ df_out <- function(df, # data frame
 # df_out(df, left, right, h=T, cut=25, id=T, show=1)
 
 
-
 # Show method -------------------------------------------------
 
 
@@ -591,7 +575,6 @@ setMethod("show", "repgrid", function(object) {
 #   showMeta(x)
 #   showScale(x)    #print scale info
 # })
-
 
 
 # output version for repertory grids:
