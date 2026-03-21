@@ -78,7 +78,6 @@ gmSelectTextColorByLuminance <- function(hex, breaks = c(-1, 50, 101), breakColo
 # //////////////////////////////////////////////////////////////////////////////
 
 
-
 # //////////////////////////////////////////////////////////////////////////////
 
 # like a gmTextBox
@@ -324,7 +323,6 @@ gmSplitTextBox <- function(text, x = unit(0.5, "npc"), y = unit(0.5, "npc"), jus
 }
 
 
-
 ### NOT RUN
 # text <- "some random longer text that might be the label of an item"
 # grid.draw(gmSplitTextGrob(text, horiz=T, just=c("center", "center")))
@@ -350,7 +348,6 @@ gmSplitTextBox <- function(text, x = unit(0.5, "npc"), y = unit(0.5, "npc"), jus
 # 		}
 # 	}
 # popViewport()
-
 
 
 ## matrix of text with random orientation and random fore- and background color
@@ -428,7 +425,6 @@ gmMakeVpBorders <- function(side, col, lwd, ...) {
 # popViewport()
 
 
-
 # //////////////////////////////////////////////////////////////////////////////
 
 # gmBulletPointsBox
@@ -436,12 +432,10 @@ gmMakeVpBorders <- function(side, col, lwd, ...) {
 # Bullets can be chosen any pch, numbers, letters or any other vector.
 
 
-
 # //////////////////////////////////////////////////////////////////////////////
 
 # gmProfileLines
 # ask Hadley first if he already implicitly has it...
-
 
 
 # //////////////////////////////////////////////////////////////////////////////
@@ -477,7 +471,6 @@ gmRandomColor <- function(n = 1, h = runif(n) * 360, s = runif(n), v = runif(n),
 # gmRandomColor(20, plot=T)
 # gmRandomColor(30, h=100:200, v=3:10/10, p=T, shuffle=F)
 # gmRandomColor(30, h=100:200, v=3:10/10, p=T)
-
 
 
 # //////////////////////////////////////////////////////////////////////////////
@@ -516,7 +509,6 @@ gmRandomColor <- function(n = 1, h = runif(n) * 360, s = runif(n), v = runif(n),
 # 		popViewport()
 # 	popViewport()
 # }
-
 
 
 gmArrowIndicatorGrob <- function(angle = 0, col = "black", size = 5, circle = FALSE, initangle = 0, ...) {
@@ -715,11 +707,12 @@ gmSelectColorByValue <- function(x, breaks = seq(0, 100, by = 10),
 # TODO: automatic deterination of wFirstRow by max stringwidth
 
 gmLegend <- function(
-    x, y, pch, symbol = FALSE, col, labels, hgap = unit(
-      0.5,
-      "lines"
-    ), wFirstCol = unit(2, "lines"), vgap = unit(0.3, "lines"), default_units = "lines",
-    gpRect = gpar(), gpText = gpar(), draw = TRUE, title = "Legend:") {
+  x, y, pch, symbol = FALSE, col, labels, hgap = unit(
+    0.5,
+    "lines"
+  ), wFirstCol = unit(2, "lines"), vgap = unit(0.3, "lines"), default_units = "lines",
+  gpRect = gpar(), gpText = gpar(), draw = TRUE, title = "Legend:"
+) {
   labels <- as.character(labels)
   if (is.logical(title) && !title) {
     title <- NULL
@@ -805,7 +798,6 @@ gmLegend <- function(
 # gmLegend(x=0.75, y=0.5, wFirstCol=unit(3, "lines"), hgap = unit(1, "lines"),
 # 		 pch=paste(LETTERS[1:20], labels, sep=""), labels=LETTERS[1:20], col=rep(rainbow(20), length(labels)),
 # 		 gpRect=gpar(col=1, fill=grey(.95), lty=3), gpText=gpar(col=grey(.5), cex=.7), title = NULL)
-
 
 
 # //////////////////////////////////////////////////////////////////////////////

@@ -143,3 +143,29 @@ preferredPolesByIdeal <- function(x, ideal, none_range = NULL, align = FALSE) {
   }
   x
 }
+
+
+# Map preferred pole status to colors for each construct.
+# Returns list(left = <color vector>, right = <color vector>).
+# @keywords internal
+preferred_pole_colors <- function(x,
+                                  col_preferred = "green",
+                                  col_nonpreferred = "red",
+                                  col_neutral = grey(.4)) {
+  preferred <- preferredPoles(x)
+  colors_left <- case_when(
+    preferred == "left" ~ col_preferred,
+    preferred == "both" ~ col_preferred,
+    preferred == "none" ~ col_neutral,
+    preferred == "right" ~ col_nonpreferred,
+    is.na(preferred) ~ col_neutral
+  )
+  colors_right <- case_when(
+    preferred == "right" ~ col_preferred,
+    preferred == "both" ~ col_preferred,
+    preferred == "none" ~ col_neutral,
+    preferred == "left" ~ col_nonpreferred,
+    is.na(preferred) ~ col_neutral
+  )
+  list(left = colors_left, right = colors_right)
+}

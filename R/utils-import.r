@@ -286,15 +286,16 @@ interleave <- function(..., append.source = TRUE, sep = ": ", drop = FALSE) {
 # function errbar form Hmisc package by Frank E Harrell Jr.
 #
 errbar <- function(
-    x, y, yplus, yminus, cap = 0.015, main = NULL, sub = NULL,
-    xlab = as.character(substitute(x)), ylab = if (is.factor(x) ||
-      is.character(x)) {
-      ""
-    } else {
-      as.character(substitute(y))
-    },
-    add = FALSE, lty = 1, type = "p", ylim = NULL, lwd = 1, pch = 16,
-    Type = rep(1, length(y)), ...) {
+  x, y, yplus, yminus, cap = 0.015, main = NULL, sub = NULL,
+  xlab = as.character(substitute(x)), ylab = if (is.factor(x) ||
+    is.character(x)) {
+    ""
+  } else {
+    as.character(substitute(y))
+  },
+  add = FALSE, lty = 1, type = "p", ylim = NULL, lwd = 1, pch = 16,
+  Type = rep(1, length(y)), ...
+) {
   if (is.null(ylim)) {
     ylim <- range(y[Type == 1], yplus[Type == 1], yminus[Type ==
       1], na.rm = TRUE)
@@ -393,8 +394,6 @@ errbar <- function(
 # {
 #     (exp(2 * z) - 1)/(1 + exp(2 * z))
 # }
-
-
 
 
 # //////////////////////////////////////////////////////////////////////////////

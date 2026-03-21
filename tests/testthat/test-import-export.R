@@ -28,7 +28,6 @@ test_that("importTxt - RATINGS", {
 })
 
 
-
 # EXCEL --------------------------------------------
 
 test_that("export-import - roundtrip", {

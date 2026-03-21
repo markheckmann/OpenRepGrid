@@ -429,7 +429,6 @@ ratings_df <- function(x, long = FALSE, names = TRUE, trim = NA) {
 }
 
 
-
 #' Get number of constructs
 #'
 #' @param x `repgrid` object
@@ -915,13 +914,11 @@ shift <- function(x, c = 1, e = 1) {
 }
 
 
-
 #############################      CHANGE CONTENT      #################################
 
 # rating <- function(x, scores=NA, rows=NA, cols=NA){
 #   #x <- r.setRatings(x, scores=scores, rows=rows, cols=cols, layer=1)
 # }
-
 
 
 r.setRatings <- function(x, scores = NA, rows = NA, cols = NA, layer = 1, ...) {
@@ -1134,7 +1131,6 @@ addConstruct <- function(x, l.name = NA, r.name = NA, scores = NA,
 # x <- addConstruct(x)
 
 
-
 #### RENAMING ####
 
 
@@ -1237,7 +1233,6 @@ setConstructAttr <- function(x, pos, l.name, r.name, l.preferred, r.preferred,
 # setConstructAttr(x, 1, l.n="halle")
 
 
-
 # MAYBE OBSOLETE as setConstructAttr does the same.
 # modifyConstructs() allows to change the properties of a construct (left and
 # right pole as well as preferred and emergent property). By default the new
@@ -1328,9 +1323,6 @@ modifyElement <- function(x, pos, name = NA, abbreviation = NA, status = NA,
 # x <- modifyElement(x, pos=2, name="test")
 
 
-
-
-
 #' Print scale range information to the console.
 #'
 #' @param x     `repgrid` object.
@@ -1379,8 +1371,6 @@ setCoupled <- function(x, coupled = TRUE) {
 
 # x <- bell2010
 # x <- setCoupled(x)
-
-
 
 
 #' showMeta
@@ -1470,7 +1460,6 @@ makeRepgrid <- function(args) {
 #               min=0, max=1, coupled=T)
 # x <- makeRepgrid(args)
 # x <- setScale(x, 0,1)
-
 
 
 #' Concatenate the constructs of two grids.

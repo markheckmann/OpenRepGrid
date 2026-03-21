@@ -278,7 +278,6 @@ NULL
 # save("feixas2004", file="../data/feixas2004.RData")
 
 
-
 ## Leach et al. (2001) ----
 
 #' Pre- and post therapy dataset from Leach et al. (2001).
@@ -335,7 +334,6 @@ NULL
 # save("leach2001a", file="../data/leach2001a.RData")
 
 
-
 # name.abb <- c("CS", "SN", "WG", "MG", "Fa", "Pa", "IS", "Mo", "AC") # not included yet
 # args <- list(
 #   name= c("Child self", "Self now",  "Women in general",
@@ -367,7 +365,6 @@ NULL
 # leach2001b <- makeRepgrid(args)
 # leach2001b <- setScale(leach2001b, 1, 7)
 # save("leach2001b", file="../data/leach2001b.RData")
-
 
 
 ## Mackay (1992) ----
@@ -456,7 +453,6 @@ NULL
 # raeithel <- makeRepgrid(args)
 # raeithel <- setScale(raeithel, -1, 1)
 # save("raeithel", file="../data/raeithel.RData")
-
 
 
 ## Slater (1977a) ----

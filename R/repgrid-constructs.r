@@ -23,7 +23,6 @@
 # 		+--emerged
 
 
-
 ##############   FUNCTIONS TO RETRIEVE INFORMATION FROM REPGRID OBJECTS   ##################
 
 #' Get construct names
@@ -270,7 +269,6 @@ rightpoles <- function(x) {
 }
 
 
-
 constructInfo <- function(x, all = TRUE) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'.")
@@ -306,8 +304,6 @@ getNoOfConstructs <- function(x) {
 nc <- getNoOfConstructs
 
 
-
-
 # internal. c_makeNewConstruct is the constructor for construct object (simple list)
 c_makeNewConstruct <- function(x = NULL, l.name = NA, l.preferred = NA, l.emerged = NA,
                                r.name = NA, r.preferred = NA, r.emerged = NA, ...) {
@@ -325,7 +321,6 @@ c_makeNewConstruct <- function(x = NULL, l.name = NA, l.preferred = NA, l.emerge
   )
 }
 # str(c_makeNewConstruct())
-
 
 
 # internal: c_setConstructs sets constructs by index
@@ -395,7 +390,6 @@ c_addConstruct <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
 # str(x@constructs, m=3)
 
 
-
 # internal: c_addConstructs. all elements that do not have a position specified are added at the end
 c_addConstructs <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
                             r.name = NA, r.preferred = NA, r.emerged = NA,
@@ -430,16 +424,6 @@ c_addConstructs <- function(x, l.name = NA, l.preferred = NA, l.emerged = NA,
 # x <- c_addConstructs(x, l.name="construct right inserted at position 1", pos=1)
 # x <- c_addConstructs(x, l.name=c("construct 10", "element 11"), pos=10:11)
 # str(x@constructs, m=3)
-
-
-
-
-
-
-
-
-
-
 
 
 ###  maybe unnecessary functions ###

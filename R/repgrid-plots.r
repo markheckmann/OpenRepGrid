@@ -449,7 +449,6 @@ biplotSimple <- function(x, dim = 1:2, center = 1, normalize = 0,
 # print(res, table.placement="H", hline.after=c(-1,0,nrow(ssq.table)-1, nrow(ssq.table)))
 
 
-
 #' Prepare dataframe passed to drawing functions for biplots.
 #'
 #' Data frame contains the variables `type, show, x, y,
@@ -1154,8 +1153,6 @@ biplotDraw <- function(x,
 # biplotDraw(x))    # add amount explained variance to the axes
 
 
-
-
 #' Adds the percentage of the sum-of-squares explained by each axis to the plot.
 #'
 #' @param x               `repgrid` object containing the biplot coords, i.e. after
@@ -1305,8 +1302,6 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
 # addVarianceExplainedToBiplot(x, xb, dim=c(1,4,2))
 
 
-
-
 #' Draw a two-dimensional biplot.
 #'
 #' The biplot is the central way to create a joint plot of elements and constructs. Depending on the parameters chosen
@@ -1397,6 +1392,14 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
 #'                            irrespective of their value on the `map.dim` dimension.
 #' @param c.label.col.left,c.label.col.right Explicit color values for left and right construct poles.
 #'                      `NULL` by default. Will overwrite `c.label.col`.
+#' @param c.color.preferred   Logical or `NULL`. If `TRUE`, construct pole labels are colored by
+#'                            preference status: green for the preferred pole, red for
+#'                            the non-preferred pole, and dark gray for neutral or undefined.
+#'                            Overrides `c.label.col.left` and `c.label.col.right` when
+#'                            enabled. If `NULL` (the default), auto-detects: colors are
+#'                            shown whenever preferred poles have been set via
+#'                            [preferredPoles()] or [preferredPolesByIdeal()].
+#'                            Set to `FALSE` to suppress colorization.
 #' @param c.label.cex         Size of the construct labels. The default is `.7`.
 #'                            Two values can be entered that will create a size ramp. The values of
 #'                            `map.dim` are mapped onto the ramp.
@@ -1530,6 +1533,10 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
 #' biplot2d(boeker, outer.positioning = F) # no positioning of con.-labels
 #'
 #' biplot2d(boeker, c.labels.devangle = 20) # only con. within 20 degree angle
+#'
+#' # colorize construct poles by preference
+#' x <- preferredPolesByIdeal(boeker, "ideal self")
+#' biplot2d(x, c.color.preferred = TRUE)
 #' }
 #'
 biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
@@ -1551,6 +1558,7 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      c.label.col = "black",
                      c.label.col.left = NULL,
                      c.label.col.right = NULL,
+                     c.color.preferred = NULL,
                      c.label.cex = .7,
                      c.color.map = c(.4, 1),
                      # e.cex.map=.7,
@@ -1587,6 +1595,18 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     g = g, h = h,
     col.active = col.active, col.passive = col.passive, ...
   )
+  # auto-detect: colorize if preferred poles are defined in the repgrid object
+  if (is.null(c.color.preferred)) {
+    c.color.preferred <- any(!is.na(preferredPoles(x)))
+  }
+  if (isTRUE(c.color.preferred)) {
+    pref_colors <- preferred_pole_colors(x)
+    # Note: internal label ordering in prepareBiplotData has right pole labels
+    # at type "cl" position and left pole labels at type "cr" position,
+    # so we swap left/right here to match.
+    c.label.col.left <- pref_colors$right
+    c.label.col.right <- pref_colors$left
+  }
   x <- prepareBiplotData(x,
     dim = dim, map.dim = map.dim,
     e.label.cex = e.label.cex, c.label.cex = c.label.cex,
@@ -1832,7 +1852,6 @@ biplotSlaterPseudo3d <- function(x, center = 1, g = 1, h = 1, ...) {
 }
 
 
-
 #' Plot an eigenstructure analysis (ESA) biplot in 2D.
 #'
 #' The ESA is a special type of biplot suggested by Raeithel (e.g. 1998).
@@ -1925,8 +1944,6 @@ biplotEsa2d <- function(x, center = 4, g = 1, h = 1, ...) {
 biplotEsaPseudo3d <- function(x, center = 4, g = 1, h = 1, ...) {
   biplotPseudo3d(x = x, center = center, g = g, h = h, ...)
 }
-
-
 
 
 # //////////////////////////////////////////////////////////

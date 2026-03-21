@@ -47,7 +47,6 @@ test_that("reverse works correctly", {
 })
 
 
-
 test_that("extract element by name", {
   x <- boeker[, 1:2]
   y <- boeker[, c("self", "ideal self")]

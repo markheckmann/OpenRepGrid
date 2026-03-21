@@ -322,7 +322,6 @@ quasiDistributionDistanceSlater <- function(reps, nc, ne, range,
 # }
 
 
-
 # Return a list with the mean and sd as indicated in Hartmann's (1992) paper.
 #
 getSlaterPaperPars <- function(nc) {

@@ -5,7 +5,6 @@
 # //////////////////////////////////////////////////////////////////////////////
 
 
-
 # sets up an array of proper dimension and dim names to be filled with ratings
 # if no dimensions are supplied, the proper dimensions are calculated from
 # the present number of elements and constructs
@@ -69,7 +68,6 @@ r.setRatings <- function(x, scores = NA, rows = NA, cols = NA, layer = 1, ...) {
 # rg <- setRatings(rg, matrix(1:4,2), r=1:2, c=1:2, l=2)  						# insert a matrix
 # rg <- setRatings(rg, as.data.frame(matrix(1:4,2)), r=1:2, c=2:3, l=3) 			# insert dataframe
 #
-
 
 
 # a <- array(NA, c(3, 3, 3)) 				# ,,1 = coupled ratings; decoupled ratings: ,,2 left pole  ,,3 right pole
@@ -139,7 +137,6 @@ r.makeNewElementColumn <- function(x, pos = NA) {
 }
 # x <- makeEmptyRepgrid()
 # x <- r.makeNewElementColumn(x, pos=1)
-
 
 
 r_makeNewConstructRow <- function(x, pos = NA) {
@@ -216,7 +213,6 @@ r.changeRatingsOrder <- function(x, order = NA, along = 1) {
 # r.changeRatingsOrder(x, 3:1, a=2)
 
 
-
 r.deleteRatingsRow <- function(x, pos = NA) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'.")
@@ -267,7 +263,6 @@ r.deleteRatings <- function(x, rows = NA, cols = NA) {
 }
 # r.deleteRatings(x, 1)
 # r.deleteRatings(rg,1)
-
 
 
 # r.swopRatingsRows <- function(x, pos1, pos2){

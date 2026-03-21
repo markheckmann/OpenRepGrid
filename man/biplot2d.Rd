@@ -24,6 +24,7 @@ biplot2d(
   c.label.col = "black",
   c.label.col.left = NULL,
   c.label.col.right = NULL,
+  c.color.preferred = NULL,
   c.label.cex = 0.7,
   c.color.map = c(0.4, 1),
   c.points.devangle = 91,
@@ -147,6 +148,15 @@ irrespective of their value on the \code{map.dim} dimension.}
 
 \item{c.label.col.left, c.label.col.right}{Explicit color values for left and right construct poles.
 \code{NULL} by default. Will overwrite \code{c.label.col}.}
+
+\item{c.color.preferred}{Logical or \code{NULL}. If \code{TRUE}, construct pole labels are colored by
+preference status: green for the preferred pole, red for
+the non-preferred pole, and dark gray for neutral or undefined.
+Overrides \code{c.label.col.left} and \code{c.label.col.right} when
+enabled. If \code{NULL} (the default), auto-detects: colors are
+shown whenever preferred poles have been set via
+\code{\link[=preferredPoles]{preferredPoles()}} or \code{\link[=preferredPolesByIdeal]{preferredPolesByIdeal()}}.
+Set to \code{FALSE} to suppress colorization.}
 
 \item{c.label.cex}{Size of the construct labels. The default is \code{.7}.
 Two values can be entered that will create a size ramp. The values of
@@ -325,6 +335,10 @@ biplot2d(boeker, flipaxes = c(T, T)) # flip x and y axis
 biplot2d(boeker, outer.positioning = F) # no positioning of con.-labels
 
 biplot2d(boeker, c.labels.devangle = 20) # only con. within 20 degree angle
+
+# colorize construct poles by preference
+x <- preferredPolesByIdeal(boeker, "ideal self")
+biplot2d(x, c.color.preferred = TRUE)
 }
 
 }
