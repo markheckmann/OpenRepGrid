@@ -1375,9 +1375,13 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 #'                        or a numeric vector of construct indices (default `TRUE`).
 #' @param projections.e   Logical or numeric. `TRUE` for all elements (default),
 #'                        or a numeric vector of element indices.
-#' @param projections.col Color of projection lines (default `grey(0.5)`).
-#' @param projections.lty Line type for projection lines (default `3`, dotted).
-#' @param projections.lwd Line width for projection lines (default `1`).
+#' @param projections.col Color(s) of projection lines (default `grey(0.5)`).
+#'                        A vector of colors is recycled to match the number of selected elements,
+#'                        so each element's projections can have a distinct color.
+#' @param projections.lty Line type(s) for projection lines (default `3`, dotted).
+#'                        Recycled per element like `projections.col`.
+#' @param projections.lwd Line width(s) for projection lines (default `1`).
+#'                        Recycled per element like `projections.col`.
 #' @param ...             Not evaluated.
 #' @keywords internal
 #' @export
@@ -1398,6 +1402,12 @@ addProjectionsToBiplot2d <- function(x,
 
   # which elements to project
   e_idx <- if (isTRUE(projections.e)) seq_len(ne) else as.integer(projections.e)
+  n_e <- length(e_idx)
+
+  # recycle col, lty, lwd to match number of selected elements
+  projections.col <- rep_len(projections.col, n_e)
+  projections.lty <- rep_len(projections.lty, n_e)
+  projections.lwd <- rep_len(projections.lwd, n_e)
 
   # element display coordinates (type "e" rows are first ne rows in plotdata)
   e_rows <- which(pd$type == "e")
@@ -1416,7 +1426,8 @@ addProjectionsToBiplot2d <- function(x,
     # unit direction vector
     u <- ax / sqrt(norm2)
 
-    for (ei in e_idx) {
+    for (k in seq_along(e_idx)) {
+      ei <- e_idx[k]
       if (ei < 1 || ei > ne) next
 
       e_row <- e_rows[ei]
@@ -1432,7 +1443,7 @@ addProjectionsToBiplot2d <- function(x,
 
       # draw projection line from element to projection point
       segments(ex, ey, px, py,
-        col = projections.col, lty = projections.lty, lwd = projections.lwd
+        col = projections.col[k], lty = projections.lty[k], lwd = projections.lwd[k]
       )
     }
   }
@@ -1702,9 +1713,13 @@ addProjectionsToBiplot2d <- function(x,
 #' @param projections.e       Logical or numeric. Which elements to project. `TRUE` (default
 #'                            when `projections` is active) projects all elements. A numeric
 #'                            vector selects specific elements by index (e.g. `c(1, 5)`).
-#' @param projections.col     Color of projection lines (default `grey(0.5)`).
-#' @param projections.lty     Line type for projection lines (default `3`, dotted).
-#' @param projections.lwd     Line width for projection lines (default `1`).
+#' @param projections.col     Color(s) of projection lines (default `grey(0.5)`).
+#'                            A vector is recycled per element, so each element can have
+#'                            a distinct color (e.g. `c("red", "blue")` for two elements).
+#' @param projections.lty     Line type(s) for projection lines (default `3`, dotted).
+#'                            Recycled per element like `projections.col`.
+#' @param projections.lwd     Line width(s) for projection lines (default `1`).
+#'                            Recycled per element like `projections.col`.
 #' @param ...                 parameters passed on to  come.
 #' @export
 #' @seealso

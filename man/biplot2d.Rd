@@ -57,6 +57,15 @@ biplot2d(
   var.show = TRUE,
   var.cex = 0.7,
   var.col = grey(0.1),
+  calibrated = FALSE,
+  calibrated.tick.length = 0.02,
+  calibrated.cex = 0.6,
+  calibrated.col = grey(0.4),
+  projections = FALSE,
+  projections.e = TRUE,
+  projections.col = grey(0.5),
+  projections.lty = 3,
+  projections.lwd = 1,
   ...
 )
 }
@@ -269,6 +278,40 @@ the plot in and out (default \code{1}).}
 \item{var.cex}{The cex value for the percentages shown in the plot.}
 
 \item{var.col}{The color value of the percentages shown in the plot.}
+
+\item{calibrated}{Logical or numeric. If \code{TRUE}, draw calibrated axes with tick marks
+showing original scale values on all construct axes. If a numeric
+vector, only draw calibrated axes for constructs with these indices
+(e.g. \code{c(1, 3)} for constructs 1 and 3). Default is \code{FALSE}.
+Calibrated axes allow reading off approximated original ratings
+by projecting element points onto construct axes.}
+
+\item{calibrated.tick.length}{Length of calibrated axis tick marks in plot coordinates
+(default \code{0.02}).}
+
+\item{calibrated.cex}{Text size for calibrated axis tick labels (default \code{0.6}).}
+
+\item{calibrated.col}{Color for calibrated axis tick marks and labels
+(default \code{grey(0.4)}).}
+
+\item{projections}{Logical or numeric. If \code{TRUE}, draw perpendicular projection
+lines from elements onto all construct axes. If a numeric vector,
+only project onto constructs with these indices (e.g. \code{c(1, 3)}).
+Default is \code{FALSE}.}
+
+\item{projections.e}{Logical or numeric. Which elements to project. \code{TRUE} (default
+when \code{projections} is active) projects all elements. A numeric
+vector selects specific elements by index (e.g. \code{c(1, 5)}).}
+
+\item{projections.col}{Color(s) of projection lines (default \code{grey(0.5)}).
+A vector is recycled per element, so each element can have
+a distinct color (e.g. \code{c("red", "blue")} for two elements).}
+
+\item{projections.lty}{Line type(s) for projection lines (default \code{3}, dotted).
+Recycled per element like \code{projections.col}.}
+
+\item{projections.lwd}{Line width(s) for projection lines (default \code{1}).
+Recycled per element like \code{projections.col}.}
 
 \item{...}{parameters passed on to  come.}
 }
