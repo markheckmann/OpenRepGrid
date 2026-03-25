@@ -1,5 +1,10 @@
 # OpenRepGrid 0.1.19 (dev version)
 
+* `biplot2d`: New arg `calibrated` draws calibrated axes with tick marks showing original rating scale
+  values on construct axes. Supports `TRUE` (all constructs) or a numeric vector of construct indices.
+* `biplot2d`: New arg `projections` draws perpendicular projection lines from elements onto construct
+  axes. Supports `TRUE` (all) or numeric indices. `projections.e` selects which elements to project (#77)
+  `projections.col`, `projections.lty`, and `projections.lwd` accept per-element vectors for distinct styling.
 * `biplot2d`: Construct pole labels are automatically colorized by preference status (green = preferred,
   red = non-preferred, dark gray = neutral/undefined) when preferred poles are set in the repgrid object.
   New arg `c.color.preferred` controls the behavior (`NULL` = auto-detect, `TRUE` = always, `FALSE` = never) (#71).
