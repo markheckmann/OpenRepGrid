@@ -1364,6 +1364,81 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 }
 
 
+#' Add projection lines from elements onto construct axes in a 2D biplot.
+#'
+#' Draws perpendicular projection lines from element points onto construct axes,
+#' showing where each element projects on the axis. This visualizes the
+#' approximated original rating for each element-construct combination.
+#'
+#' @param x               `repgrid` object after [calcBiplotCoords()] and [prepareBiplotData()].
+#' @param projections     Logical or numeric. `TRUE` for all construct axes,
+#'                        or a numeric vector of construct indices (default `TRUE`).
+#' @param projections.e   Logical or numeric. `TRUE` for all elements (default),
+#'                        or a numeric vector of element indices.
+#' @param projections.col Color of projection lines (default `grey(0.5)`).
+#' @param projections.lty Line type for projection lines (default `3`, dotted).
+#' @param projections.lwd Line width for projection lines (default `1`).
+#' @param ...             Not evaluated.
+#' @keywords internal
+#' @export
+#'
+addProjectionsToBiplot2d <- function(x,
+                                     projections = TRUE,
+                                     projections.e = TRUE,
+                                     projections.col = grey(0.5),
+                                     projections.lty = 3,
+                                     projections.lwd = 1,
+                                     ...) {
+  pd <- x@plotdata
+  nc <- getNoOfConstructs(x)
+  ne <- getNoOfElements(x)
+
+  # which construct axes to project onto
+  c_idx <- if (isTRUE(projections)) seq_len(nc) else as.integer(projections)
+
+  # which elements to project
+  e_idx <- if (isTRUE(projections.e)) seq_len(ne) else as.integer(projections.e)
+
+  # element display coordinates (type "e" rows are first ne rows in plotdata)
+  e_rows <- which(pd$type == "e")
+  # construct right-pole rows give axis direction (type "cr" rows)
+  cr_rows <- which(pd$type == "cr")
+
+  for (ci in c_idx) {
+    if (ci < 1 || ci > nc) next
+
+    # construct axis direction from "cr" entry
+    cr_row <- cr_rows[ci]
+    ax <- c(pd$x[cr_row], pd$y[cr_row])
+    norm2 <- sum(ax^2)
+    if (norm2 < 1e-10) next
+
+    # unit direction vector
+    u <- ax / sqrt(norm2)
+
+    for (ei in e_idx) {
+      if (ei < 1 || ei > ne) next
+
+      e_row <- e_rows[ei]
+      ex <- pd$x[e_row]
+      ey <- pd$y[e_row]
+
+      # scalar projection onto axis
+      s <- ex * u[1] + ey * u[2]
+
+      # projection point on axis
+      px <- s * u[1]
+      py <- s * u[2]
+
+      # draw projection line from element to projection point
+      segments(ex, ey, px, py,
+        col = projections.col, lty = projections.lty, lwd = projections.lwd
+      )
+    }
+  }
+}
+
+
 # x <- randomGrid(20, 40)
 # x <- boeker
 # x <- raeithel
@@ -1620,6 +1695,16 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 #' @param calibrated.cex      Text size for calibrated axis tick labels (default `0.6`).
 #' @param calibrated.col      Color for calibrated axis tick marks and labels
 #'                            (default `grey(0.4)`).
+#' @param projections         Logical or numeric. If `TRUE`, draw perpendicular projection
+#'                            lines from elements onto all construct axes. If a numeric vector,
+#'                            only project onto constructs with these indices (e.g. `c(1, 3)`).
+#'                            Default is `FALSE`.
+#' @param projections.e       Logical or numeric. Which elements to project. `TRUE` (default
+#'                            when `projections` is active) projects all elements. A numeric
+#'                            vector selects specific elements by index (e.g. `c(1, 5)`).
+#' @param projections.col     Color of projection lines (default `grey(0.5)`).
+#' @param projections.lty     Line type for projection lines (default `3`, dotted).
+#' @param projections.lwd     Line width for projection lines (default `1`).
 #' @param ...                 parameters passed on to  come.
 #' @export
 #' @seealso
@@ -1733,6 +1818,11 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      calibrated.tick.length = 0.02,
                      calibrated.cex = 0.6,
                      calibrated.col = grey(0.4),
+                     projections = FALSE,
+                     projections.e = TRUE,
+                     projections.col = grey(0.5),
+                     projections.lty = 3,
+                     projections.lwd = 1,
                      ...) {
   x <- calcBiplotCoords(x,
     center = center, normalize = normalize,
@@ -1786,6 +1876,15 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
       calibrated.tick.length = calibrated.tick.length,
       calibrated.cex = calibrated.cex,
       calibrated.col = calibrated.col, ...
+    )
+  }
+  if (!identical(projections, FALSE)) {
+    addProjectionsToBiplot2d(x,
+      projections = projections,
+      projections.e = projections.e,
+      projections.col = projections.col,
+      projections.lty = projections.lty,
+      projections.lwd = projections.lwd, ...
     )
   }
   addVarianceExplainedToBiplot2d(x,
