@@ -1266,6 +1266,7 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
                                         g = 0, h = 1 - g,
                                         col.active = NA,
                                         col.passive = NA,
+                                        calibrated = TRUE,
                                         calibrated.tick.length = 0.02,
                                         calibrated.cex = 0.6,
                                         calibrated.col = grey(0.4),
@@ -1294,10 +1295,14 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
   v_max <- x@scale$max
   values <- seq(v_min, v_max)
 
+  # determine which constructs to calibrate
+  # calibrated = TRUE: all visible constructs
+  # calibrated = numeric vector: only those construct indices
+  calibrate_idx <- if (isTRUE(calibrated)) seq_len(nc) else as.integer(calibrated)
+
   # determine which constructs are visible from plotdata
   pd <- x@plotdata
   visible <- pd$type == "cr" & pd$showlabel == TRUE
-  visible_idx <- which(visible)
   # map plotdata row index back to construct index (cr rows are in order)
   cr_rows <- which(pd$type == "cr")
 
@@ -1307,6 +1312,7 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 
   for (k in seq_along(cr_rows)) {
     if (!visible[cr_rows[k]]) next
+    if (!(k %in% calibrate_idx)) next
 
     i <- k # construct index
     Ci <- C[i, dim[1:2]]
@@ -1603,10 +1609,12 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 #' @param var.show            Show explained sum-of-squares in biplot? (default `TRUE`).
 #' @param var.cex             The cex value for the percentages shown in the plot.
 #' @param var.col             The color value of the percentages shown in the plot.
-#' @param calibrated          Logical. Whether to draw calibrated axes with tick marks showing
-#'                            original scale values on each construct axis (default `FALSE`).
-#'                            This allows to read off approximated original ratings by projecting
-#'                            element points onto construct axes.
+#' @param calibrated          Logical or numeric. If `TRUE`, draw calibrated axes with tick marks
+#'                            showing original scale values on all construct axes. If a numeric
+#'                            vector, only draw calibrated axes for constructs with these indices
+#'                            (e.g. `c(1, 3)` for constructs 1 and 3). Default is `FALSE`.
+#'                            Calibrated axes allow reading off approximated original ratings
+#'                            by projecting element points onto construct axes.
 #' @param calibrated.tick.length  Length of calibrated axis tick marks in plot coordinates
 #'                            (default `0.02`).
 #' @param calibrated.cex      Text size for calibrated axis tick labels (default `0.6`).
@@ -1769,11 +1777,12 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     axis.ext = axis.ext, mai = mai, rect.margins = rect.margins,
     srt = srt, cex.pos = cex.pos, xpd = xpd, zoom = zoom
   )
-  if (calibrated) {
+  if (!identical(calibrated, FALSE)) {
     addCalibratedAxesToBiplot2d(x,
       dim = dim, center = center, normalize = normalize,
       g = g, h = h, col.active = col.active,
       col.passive = col.passive,
+      calibrated = calibrated,
       calibrated.tick.length = calibrated.tick.length,
       calibrated.cex = calibrated.cex,
       calibrated.col = calibrated.col, ...
