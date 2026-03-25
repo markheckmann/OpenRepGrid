@@ -655,6 +655,9 @@ prepareBiplotData <- function(x, dim = c(1, 2), map.dim = 3,
     se <- 1
     sc <- 1
   }
+  x@calcs$biplot$se <- se
+  x@calcs$biplot$sc <- sc
+
   Cu <- C * sc
   Eu <- E * se
 
@@ -1235,6 +1238,126 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
   }
 }
 
+
+#' Add calibrated axes (tick marks with original scale values) to a 2D biplot.
+#'
+#' Calibrated axes allow reading off approximated original ratings by projecting
+#' element points onto construct axes. Each tick mark corresponds to a value on
+#' the original rating scale.
+#'
+#' @param x               `repgrid` object after [calcBiplotCoords()] and [prepareBiplotData()].
+#' @param dim             Dimensions displayed in the biplot (default `c(1, 2)`).
+#' @param center          Centering type used (must match the biplot calculation).
+#' @param normalize       Normalization type used.
+#' @param g               Power for left singular vectors.
+#' @param h               Power for right singular vectors.
+#' @param col.active      Active columns.
+#' @param col.passive     Passive columns.
+#' @param calibrated.tick.length  Length of tick marks in plot coordinates (default `0.02`).
+#' @param calibrated.cex  Text size for tick labels (default `0.6`).
+#' @param calibrated.col  Color for tick marks and labels (default `grey(0.4)`).
+#' @param ...             Not evaluated.
+#' @keywords internal
+#' @export
+#'
+addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
+                                        center = 1,
+                                        normalize = 0,
+                                        g = 0, h = 1 - g,
+                                        col.active = NA,
+                                        col.passive = NA,
+                                        calibrated.tick.length = 0.02,
+                                        calibrated.cex = 0.6,
+                                        calibrated.col = grey(0.4),
+                                        ...) {
+  # get unscaled construct coords and element scaling factor
+  C <- x@calcs$biplot$con
+  se <- x@calcs$biplot$se
+  nc <- nrow(C)
+
+  # compute centering offsets per construct
+  dat <- x@ratings[, , 1]
+  if (center == 0) {
+    offsets <- rep(0, nc)
+  } else if (center == 1) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 2) {
+    offsets <- rep(0, nc)
+  } else if (center == 3) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 4) {
+    offsets <- rep(getScaleMidpoint(x), nc)
+  }
+
+  # scale values
+  v_min <- x@scale$min
+  v_max <- x@scale$max
+  values <- seq(v_min, v_max)
+
+  # determine which constructs are visible from plotdata
+  pd <- x@plotdata
+  visible <- pd$type == "cr" & pd$showlabel == TRUE
+  visible_idx <- which(visible)
+  # map plotdata row index back to construct index (cr rows are in order)
+  cr_rows <- which(pd$type == "cr")
+
+  # determine plot extent for clipping
+  max.all <- max(abs(pd$x), abs(pd$y))
+  max.ext <- max.all * 1.1
+
+  for (k in seq_along(cr_rows)) {
+    if (!visible[cr_rows[k]]) next
+
+    i <- k # construct index
+    Ci <- C[i, dim[1:2]]
+    norm2 <- sum(Ci^2)
+    if (norm2 < 1e-10) next # skip degenerate constructs
+
+    # perpendicular unit vector for tick marks
+    perp <- c(-Ci[2], Ci[1]) / sqrt(norm2)
+
+    # axis angle for text rotation (perpendicular to axis)
+    axis_angle <- atan2(Ci[2], Ci[1]) * 180 / pi
+    label_srt <- axis_angle + 90
+    # keep angle in readable range
+    if (label_srt > 90) label_srt <- label_srt - 180
+    if (label_srt < -90) label_srt <- label_srt + 180
+
+    for (v in values) {
+      v_centered <- v - offsets[i]
+      tick_x <- se * v_centered * Ci[1] / norm2
+      tick_y <- se * v_centered * Ci[2] / norm2
+
+      # skip ticks too close to origin (avoids clutter in center)
+      tick_dist <- sqrt(tick_x^2 + tick_y^2)
+      if (tick_dist < max.ext * 0.03) next
+
+      # clip to plot area
+      if (abs(tick_x) > max.ext || abs(tick_y) > max.ext) next
+
+      # draw tick mark
+      segments(
+        tick_x - perp[1] * calibrated.tick.length,
+        tick_y - perp[2] * calibrated.tick.length,
+        tick_x + perp[1] * calibrated.tick.length,
+        tick_y + perp[2] * calibrated.tick.length,
+        col = calibrated.col
+      )
+
+      # draw label offset slightly from tick
+      label_offset <- 2.0 * calibrated.tick.length
+      text(
+        tick_x + perp[1] * label_offset,
+        tick_y + perp[2] * label_offset,
+        labels = v, srt = label_srt,
+        cex = calibrated.cex, col = calibrated.col,
+        adj = c(0.5, 0)
+      )
+    }
+  }
+}
+
+
 # x <- randomGrid(20, 40)
 # x <- boeker
 # x <- raeithel
@@ -1480,6 +1603,15 @@ addVarianceExplainedToBiplot2d <- function(x, dim = c(1, 2, 3), var.cex = .7,
 #' @param var.show            Show explained sum-of-squares in biplot? (default `TRUE`).
 #' @param var.cex             The cex value for the percentages shown in the plot.
 #' @param var.col             The color value of the percentages shown in the plot.
+#' @param calibrated          Logical. Whether to draw calibrated axes with tick marks showing
+#'                            original scale values on each construct axis (default `FALSE`).
+#'                            This allows to read off approximated original ratings by projecting
+#'                            element points onto construct axes.
+#' @param calibrated.tick.length  Length of calibrated axis tick marks in plot coordinates
+#'                            (default `0.02`).
+#' @param calibrated.cex      Text size for calibrated axis tick labels (default `0.6`).
+#' @param calibrated.col      Color for calibrated axis tick marks and labels
+#'                            (default `grey(0.4)`).
 #' @param ...                 parameters passed on to  come.
 #' @export
 #' @seealso
@@ -1589,6 +1721,10 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      var.show = TRUE,
                      var.cex = .7,
                      var.col = grey(.1),
+                     calibrated = FALSE,
+                     calibrated.tick.length = 0.02,
+                     calibrated.cex = 0.6,
+                     calibrated.col = grey(0.4),
                      ...) {
   x <- calcBiplotCoords(x,
     center = center, normalize = normalize,
@@ -1633,6 +1769,16 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     axis.ext = axis.ext, mai = mai, rect.margins = rect.margins,
     srt = srt, cex.pos = cex.pos, xpd = xpd, zoom = zoom
   )
+  if (calibrated) {
+    addCalibratedAxesToBiplot2d(x,
+      dim = dim, center = center, normalize = normalize,
+      g = g, h = h, col.active = col.active,
+      col.passive = col.passive,
+      calibrated.tick.length = calibrated.tick.length,
+      calibrated.cex = calibrated.cex,
+      calibrated.col = calibrated.col, ...
+    )
+  }
   addVarianceExplainedToBiplot2d(x,
     dim = dim, center = center, normalize = normalize,
     g = g, h = h, col.active = col.active,
