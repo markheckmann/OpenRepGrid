@@ -1712,6 +1712,16 @@
       }
       if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
     });
+    var hasProj = elementProjections[elemIdx];
+    addMenuItem(hasProj ? "Hide projections" : "Show projections", function () {
+      elementProjections[elemIdx] = !elementProjections[elemIdx];
+      buildProjectionsForElement(elemIdx);
+    });
+    var labelVis = elementLabelVisible[elemIdx];
+    addMenuItem(labelVis ? "Hide label" : "Show label", function () {
+      elementLabelVisible[elemIdx] = !elementLabelVisible[elemIdx];
+      elementObjects[elemIdx].label.visible = elementLabelVisible[elemIdx] && elementVisible[elemIdx];
+    });
     addMenuItem("Hide element", function () {
       elemCheckboxes[elemIdx].checked = false;
       elemCheckboxes[elemIdx].dispatchEvent(new Event("change"));
