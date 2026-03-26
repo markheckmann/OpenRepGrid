@@ -24,7 +24,8 @@
   var height = sceneContainer.clientHeight;
 
   var scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff);
+  document.body.classList.add("dark");
+  scene.background = new THREE.Color(0x1a1a1a);
 
   var camera = new THREE.PerspectiveCamera(50, width / height, 0.01, 100);
   camera.position.set(0, 0, 3.5);
@@ -86,7 +87,7 @@
   var hoveredConstructIndex = -1;
 
   // --- Colors ---
-  var elementColor = 0x2266aa;
+  var elementColor = 0xbbbbbb;
   var preferredPoleColor = 0x226644;   // green for preferred pole
   var nonpreferredPoleColor = 0xaa4422; // red for non-preferred pole
   var neutralPoleColor = 0x888888;      // gray when no preference set
@@ -104,7 +105,7 @@
   var gridPointsPerCurve = 96; // smooth curves regardless of line count
   var wireUniforms = {
     uColor: { value: new THREE.Color(0x4a4a4a) },
-    uOpacityFront: { value: 0.15 },
+    uOpacityFront: { value: 0.25 },
     uOpacityBack: { value: 0.04 },
     uCamDir: { value: new THREE.Vector3(0, 0, -1) },
     uDepthFade: { value: 0.0 }
@@ -299,6 +300,7 @@
     var labelDiv = document.createElement("div");
     labelDiv.className = "label-element";
     labelDiv.textContent = el.name;
+    labelDiv.style.color = "#bbbbbb";
     var label = new THREE.CSS2DObject(labelDiv);
     label.position.set(el.x, el.y + 0.05, el.z);
     elementLabelsGroup.add(label);
@@ -1136,7 +1138,7 @@
   // --- Display section ---
   var displaySection = addSectionTitle("Display");
   var displayBody = displaySection.body;
-  addToggle(displayBody, "Dark Mode", false, function (v) {
+  addToggle(displayBody, "Dark Mode", true, function (v) {
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
     wireUniforms.uOpacityFront.value = v ? 0.25 : 0.15;
@@ -1178,7 +1180,7 @@
   var elemColorLabel = document.createElement("label");
   var elemColorInput = document.createElement("input");
   elemColorInput.type = "color";
-  elemColorInput.value = "#2266aa";
+  elemColorInput.value = "#bbbbbb";
   elemColorInput.addEventListener("input", function () {
     var c = elemColorInput.value;
     for (var i = 0; i < elementObjects.length; i++) {
@@ -1571,6 +1573,10 @@
         benchmarkElements.push(elemIdx);
       }
       if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
+    });
+    addMenuItem("Hide element", function () {
+      elemCheckboxes[elemIdx].checked = false;
+      elemCheckboxes[elemIdx].dispatchEvent(new Event("change"));
     });
     showContextMenuAt(x, y);
   }

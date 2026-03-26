@@ -19,7 +19,7 @@ body {
 
 /* Left panel: grid table */
 #left-panel {
-  width: 300px;
+  width: 420px;
   height: 100vh;
   overflow: auto;
   border-right: 1px solid #ddd;
