@@ -350,14 +350,18 @@ low quality = transparent).}
 \item{...}{parameters passed on to  come.}
 }
 \value{
-Invisibly returns a list with biplot data:
+Invisibly returns a \code{biplot2d} object (list) with:
 \describe{
-\item{\code{element.coords}}{Element coordinates in the biplot (unscaled).}
-\item{\code{construct.coords}}{Construct coordinates in the biplot (unscaled).}
+\item{\code{elements}}{Data frame with element names, scaled/unscaled 2D coordinates, and quality.}
+\item{\code{constructs}}{Data frame with construct pole names, scaled/unscaled 2D coordinates, and quality.}
+\item{\code{element.coords}}{Full element coordinate matrix (unscaled, all dimensions).}
+\item{\code{construct.coords}}{Full construct coordinate matrix (unscaled, all dimensions).}
 \item{\code{element.coords.scaled}}{Element coordinates after unity scaling.}
 \item{\code{construct.coords.scaled}}{Construct coordinates after unity scaling.}
 \item{\code{element.quality}}{Cos² representation quality for each element (0 to 1).}
 \item{\code{construct.quality}}{Cos² representation quality for each construct (0 to 1).}
+\item{\code{projection.errors}}{Matrix (constructs x elements) of absolute differences
+between 2D-approximated and actual ratings in original scale units.}
 \item{\code{dim}}{Dimensions displayed.}
 \item{\code{var.explained}}{Proportion of variance explained by each singular value.}
 \item{\code{D}}{Singular values from SVD.}

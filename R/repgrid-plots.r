@@ -1894,14 +1894,18 @@ addQualityToBiplot2d <- function(x, draw_pd = NULL, dim = c(1, 2),
 #' @param quality.cex         Text size for quality annotations (default `0.5`).
 #' @param quality.col         Color for quality annotations (default `grey(0.4)`).
 #' @param ...                 parameters passed on to  come.
-#' @return Invisibly returns a list with biplot data:
+#' @return Invisibly returns a `biplot2d` object (list) with:
 #'   \describe{
-#'     \item{`element.coords`}{Element coordinates in the biplot (unscaled).}
-#'     \item{`construct.coords`}{Construct coordinates in the biplot (unscaled).}
+#'     \item{`elements`}{Data frame with element names, scaled/unscaled 2D coordinates, and quality.}
+#'     \item{`constructs`}{Data frame with construct pole names, scaled/unscaled 2D coordinates, and quality.}
+#'     \item{`element.coords`}{Full element coordinate matrix (unscaled, all dimensions).}
+#'     \item{`construct.coords`}{Full construct coordinate matrix (unscaled, all dimensions).}
 #'     \item{`element.coords.scaled`}{Element coordinates after unity scaling.}
 #'     \item{`construct.coords.scaled`}{Construct coordinates after unity scaling.}
 #'     \item{`element.quality`}{Cos² representation quality for each element (0 to 1).}
 #'     \item{`construct.quality`}{Cos² representation quality for each construct (0 to 1).}
+#'     \item{`projection.errors`}{Matrix (constructs x elements) of absolute differences
+#'       between 2D-approximated and actual ratings in original scale units.}
 #'     \item{`dim`}{Dimensions displayed.}
 #'     \item{`var.explained`}{Proportion of variance explained by each singular value.}
 #'     \item{`D`}{Singular values from SVD.}
@@ -2220,6 +2224,29 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     stringsAsFactors = FALSE
   )
 
+  # compute projection errors: difference between 2D-approximated and actual ratings
+  # biplot projection property: x_ij_centered ≈ C_i · E_j (dot product of 2D coords)
+  dat <- x@ratings[, , 1]
+  nc <- nrow(dat)
+  if (center == 0) {
+    offsets <- rep(0, nc)
+  } else if (center == 1) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 2) {
+    offsets <- rep(0, nc)
+  } else if (center == 3) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 4) {
+    offsets <- rep(getScaleMidpoint(x), nc)
+  }
+  C_2d <- C[, dim[1:2], drop = FALSE]
+  E_2d <- E[, dim[1:2], drop = FALSE]
+  projected_centered <- C_2d %*% t(E_2d)  # nc x ne matrix
+  projected_ratings <- projected_centered + offsets
+  projection_errors <- abs(projected_ratings - dat)
+  rownames(projection_errors) <- constructs(x)[, 2]
+  colnames(projection_errors) <- elements(x)
+
   res <- list(
     elements = elements_df,
     constructs = constructs_df,
@@ -2229,6 +2256,7 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     construct.coords.scaled = Cu,
     element.quality = e_quality,
     construct.quality = c_quality,
+    projection.errors = projection_errors,
     dim = dim,
     var.explained = var.explained,
     D = D,
@@ -2263,6 +2291,12 @@ print.biplot2d <- function(x, ...) {
   cat(sprintf("  Construct quality range: %.2f - %.2f\n",
     min(x$construct.quality), max(x$construct.quality)
   ))
+  pe <- x$projection.errors
+  if (!is.null(pe)) {
+    cat(sprintf("  Projection errors:      mean=%.2f, max=%.2f (rating scale units)\n",
+      mean(pe, na.rm = TRUE), max(pe, na.rm = TRUE)
+    ))
+  }
   cat("\nList elements:\n")
   for (nm in names(x)) {
     obj <- x[[nm]]
