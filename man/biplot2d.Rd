@@ -71,6 +71,9 @@ biplot2d(
   projections.error.lwd = 1,
   projections.error.dot = TRUE,
   projections.error.dot.cex = 0.5,
+  quality = FALSE,
+  quality.cex = 0.5,
+  quality.col = grey(0.4),
   ...
 )
 }
@@ -334,7 +337,33 @@ position on each construct axis (default \code{TRUE}).}
 \item{projections.error.dot.cex}{Size(s) of the error dots (default \code{0.7}).
 Recycled per element.}
 
+\item{quality}{Logical. Whether to show representation quality (cos²) for
+elements and constructs (default \code{FALSE}). When \code{TRUE}, quality
+values are shown as text annotations below labels AND element/construct
+colors are faded proportionally (high quality = full opacity,
+low quality = transparent).}
+
+\item{quality.cex}{Text size for quality annotations (default \code{0.5}).}
+
+\item{quality.col}{Color for quality annotations (default \code{grey(0.4)}).}
+
 \item{...}{parameters passed on to  come.}
+}
+\value{
+Invisibly returns a list with biplot data:
+\describe{
+\item{\code{element.coords}}{Element coordinates in the biplot (unscaled).}
+\item{\code{construct.coords}}{Construct coordinates in the biplot (unscaled).}
+\item{\code{element.coords.scaled}}{Element coordinates after unity scaling.}
+\item{\code{construct.coords.scaled}}{Construct coordinates after unity scaling.}
+\item{\code{element.quality}}{Cos² representation quality for each element (0 to 1).}
+\item{\code{construct.quality}}{Cos² representation quality for each construct (0 to 1).}
+\item{\code{dim}}{Dimensions displayed.}
+\item{\code{var.explained}}{Proportion of variance explained by each singular value.}
+\item{\code{D}}{Singular values from SVD.}
+\item{\code{se}}{Element scaling factor.}
+\item{\code{sc}}{Construct scaling factor.}
+}
 }
 \description{
 The biplot is the central way to create a joint plot of elements and constructs. Depending on the parameters chosen

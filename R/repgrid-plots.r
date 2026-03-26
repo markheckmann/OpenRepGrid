@@ -1528,6 +1528,83 @@ addProjectionsToBiplot2d <- function(x,
 }
 
 
+#' Add representation quality annotations to a 2D biplot.
+#'
+#' Draws quality values (cos²) next to element and construct labels. Cos² measures
+#' the proportion of each item's total variance captured in the displayed 2D plane,
+#' ranging from 0 (not represented) to 1 (perfectly represented).
+#'
+#' @param x               `repgrid` object after [calcBiplotCoords()] and [prepareBiplotData()].
+#' @param dim             Dimensions displayed (default `c(1, 2)`).
+#' @param quality.cex     Text size for quality annotations (default `0.5`).
+#' @param quality.col     Color for quality annotations (default `grey(0.4)`).
+#' @param ...             Not evaluated.
+#' @keywords internal
+#' @export
+#'
+addQualityToBiplot2d <- function(x, draw_pd = NULL, dim = c(1, 2),
+                                  g = 0, h = 1 - g,
+                                  quality.cex = 0.5,
+                                  quality.col = grey(0.4),
+                                  ...) {
+  E <- x@calcs$biplot$el
+  C <- x@calcs$biplot$con
+  D <- x@calcs$biplot$D
+  pd <- x@plotdata
+
+  # cos² uses D-weighted coordinates (U*D, V*D) so quality reflects
+  # variance captured, independent of biplot display scaling (g/h)
+  E_w <- sweep(E, 2, D^(1 - h), "*")
+  C_w <- sweep(C, 2, D^(1 - g), "*")
+
+  e_ssq_2d <- rowSums(E_w[, dim[1:2], drop = FALSE]^2)
+  e_ssq_total <- rowSums(E_w^2)
+  e_quality <- ifelse(e_ssq_total > 0, e_ssq_2d / e_ssq_total, 0)
+
+  c_ssq_2d <- rowSums(C_w[, dim[1:2], drop = FALSE]^2)
+  c_ssq_total <- rowSums(C_w^2)
+  c_quality <- ifelse(c_ssq_total > 0, c_ssq_2d / c_ssq_total, 0)
+
+  # annotate elements (inside plot, below labels)
+  e_rows <- which(pd$type == "e" & pd$showlabel == TRUE)
+  for (i in seq_along(e_rows)) {
+    row <- e_rows[i]
+    label <- formatC(round(e_quality[i], 2), format = "f", digits = 2)
+    text(pd$x[row], pd$y[row], labels = label, cex = quality.cex,
+      col = quality.col, pos = 1, offset = 0.3
+    )
+  }
+
+  # annotate constructs outside, next to border labels
+  # use draw_pd from biplotDraw() which has outer stroke coordinates
+  if (!is.null(draw_pd)) {
+    pd <- x@plotdata
+    ne <- ncol(x)
+    nc <- nrow(x)
+    # original plotdata ordering (before biplotDraw angle sort):
+    #   rows 1..ne = elements
+    #   rows (ne+1)..(ne+nc) = type "cl" for constructs 1..nc
+    #   rows (ne+nc+1)..(ne+2*nc) = type "cr" for constructs 1..nc
+    cl_labels <- pd$label[(ne + 1):(ne + nc)]
+    cr_labels <- pd$label[(ne + nc + 1):(ne + 2 * nc)]
+
+    vis <- which(draw_pd$type %in% c("cl", "cr") & draw_pd$showlabel == TRUE)
+    for (row in vis) {
+      lbl <- draw_pd$label[row]
+      tp <- as.character(draw_pd$type[row])
+      ci <- if (tp == "cl") match(lbl, cl_labels) else match(lbl, cr_labels)
+      if (is.na(ci)) next
+      label <- formatC(round(c_quality[ci], 2), format = "f", digits = 2)
+      adj <- if (draw_pd$str.3.x[row] < 0) c(1, 1) else c(0, 1)
+      text(draw_pd$str.3.x[row], draw_pd$str.3.y0[row],
+        labels = label, cex = quality.cex, col = quality.col,
+        adj = adj, xpd = TRUE
+      )
+    }
+  }
+}
+
+
 # x <- randomGrid(20, 40)
 # x <- boeker
 # x <- raeithel
@@ -1809,7 +1886,28 @@ addProjectionsToBiplot2d <- function(x,
 #'                            position on each construct axis (default `TRUE`).
 #' @param projections.error.dot.cex  Size(s) of the error dots (default `0.7`).
 #'                            Recycled per element.
+#' @param quality             Logical. Whether to show representation quality (cos²) for
+#'                            elements and constructs (default `FALSE`). When `TRUE`, quality
+#'                            values are shown as text annotations below labels AND element/construct
+#'                            colors are faded proportionally (high quality = full opacity,
+#'                            low quality = transparent).
+#' @param quality.cex         Text size for quality annotations (default `0.5`).
+#' @param quality.col         Color for quality annotations (default `grey(0.4)`).
 #' @param ...                 parameters passed on to  come.
+#' @return Invisibly returns a list with biplot data:
+#'   \describe{
+#'     \item{`element.coords`}{Element coordinates in the biplot (unscaled).}
+#'     \item{`construct.coords`}{Construct coordinates in the biplot (unscaled).}
+#'     \item{`element.coords.scaled`}{Element coordinates after unity scaling.}
+#'     \item{`construct.coords.scaled`}{Construct coordinates after unity scaling.}
+#'     \item{`element.quality`}{Cos² representation quality for each element (0 to 1).}
+#'     \item{`construct.quality`}{Cos² representation quality for each construct (0 to 1).}
+#'     \item{`dim`}{Dimensions displayed.}
+#'     \item{`var.explained`}{Proportion of variance explained by each singular value.}
+#'     \item{`D`}{Singular values from SVD.}
+#'     \item{`se`}{Element scaling factor.}
+#'     \item{`sc`}{Construct scaling factor.}
+#'   }
 #' @export
 #' @seealso
 #' - Unsophisticated biplot: [biplotSimple()];
@@ -1938,6 +2036,9 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      projections.error.lwd = 1,
                      projections.error.dot = TRUE,
                      projections.error.dot.cex = 0.5,
+                     quality = FALSE,
+                     quality.cex = 0.5,
+                     quality.col = grey(0.4),
                      ...) {
   x <- calcBiplotCoords(x,
     center = center, normalize = normalize,
@@ -1956,6 +2057,58 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     c.label.col.left <- pref_colors$right
     c.label.col.right <- pref_colors$left
   }
+
+  # quality-based color mapping: adjust alpha based on cos²
+  if (quality) {
+    E_raw <- x@calcs$biplot$el
+    C_raw <- x@calcs$biplot$con
+    D_raw <- x@calcs$biplot$D
+    ne <- ncol(x)
+    nc <- nrow(x)
+
+    # cos² uses D-weighted coordinates (U*D for constructs, V*D for elements)
+    # so quality reflects variance captured, independent of biplot scaling (g/h)
+    E_w <- sweep(E_raw, 2, D_raw^(1 - h), "*")
+    C_w <- sweep(C_raw, 2, D_raw^(1 - g), "*")
+
+    e_ssq_2d <- rowSums(E_w[, dim[1:2], drop = FALSE]^2)
+    e_ssq_total <- rowSums(E_w^2)
+    e_q <- ifelse(e_ssq_total > 0, e_ssq_2d / e_ssq_total, 0)
+
+    c_ssq_2d <- rowSums(C_w[, dim[1:2], drop = FALSE]^2)
+    c_ssq_total <- rowSums(C_w^2)
+    c_q <- ifelse(c_ssq_total > 0, c_ssq_2d / c_ssq_total, 0)
+
+    # map quality [0,1] to alpha [0.2, 1.0]
+    e_alpha <- 0.2 + 0.8 * e_q
+    c_alpha <- 0.2 + 0.8 * c_q
+
+    # adjust element colors
+    e.point.col <- rep_len(e.point.col, ne)
+    e.label.col <- rep_len(e.label.col, ne)
+    for (i in seq_len(ne)) {
+      e.point.col[i] <- adjustcolor(e.point.col[i], alpha.f = e_alpha[i])
+      e.label.col[i] <- adjustcolor(e.label.col[i], alpha.f = e_alpha[i])
+    }
+
+    # adjust construct label colors
+    base_c_col <- rep_len(c.label.col, nc)
+    if (is.null(c.label.col.left)) {
+      c.label.col.left <- base_c_col
+    } else {
+      c.label.col.left <- rep_len(c.label.col.left, nc)
+    }
+    if (is.null(c.label.col.right)) {
+      c.label.col.right <- base_c_col
+    } else {
+      c.label.col.right <- rep_len(c.label.col.right, nc)
+    }
+    for (i in seq_len(nc)) {
+      c.label.col.left[i] <- adjustcolor(c.label.col.left[i], alpha.f = c_alpha[i])
+      c.label.col.right[i] <- adjustcolor(c.label.col.right[i], alpha.f = c_alpha[i])
+    }
+  }
+
   x <- prepareBiplotData(x,
     dim = dim, map.dim = map.dim,
     e.label.cex = e.label.cex, c.label.cex = c.label.cex,
@@ -1973,7 +2126,7 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     e.labels.show = e.labels.show,
     unity = unity, unity3d = unity3d, scale.e = scale.e, ...
   )
-  biplotDraw(x,
+  draw_pd <- biplotDraw(x,
     inner.positioning = inner.positioning, outer.positioning = outer.positioning,
     c.labels.inside = c.labels.inside,
     c.lines = c.lines, col.c.lines = col.c.lines, flipaxes = flipaxes,
@@ -2008,13 +2161,125 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
       dim = dim, center = center, ...
     )
   }
+  # compute representation quality (cos²) for elements and constructs
+  # cos² uses D-weighted coordinates (U*D, V*D) so quality reflects
+  # variance captured, independent of biplot display scaling (g/h)
+  E <- x@calcs$biplot$el
+  C <- x@calcs$biplot$con
+  D <- x@calcs$biplot$D
+  se <- x@calcs$biplot$se
+  sc <- x@calcs$biplot$sc
+
+  E_w <- sweep(E, 2, D^(1 - h), "*")
+  C_w <- sweep(C, 2, D^(1 - g), "*")
+
+  e_ssq_2d <- rowSums(E_w[, dim[1:2], drop = FALSE]^2)
+  e_ssq_total <- rowSums(E_w^2)
+  e_quality <- ifelse(e_ssq_total > 0, e_ssq_2d / e_ssq_total, 0)
+
+  c_ssq_2d <- rowSums(C_w[, dim[1:2], drop = FALSE]^2)
+  c_ssq_total <- rowSums(C_w^2)
+  c_quality <- ifelse(c_ssq_total > 0, c_ssq_2d / c_ssq_total, 0)
+
+  if (quality) {
+    addQualityToBiplot2d(x, draw_pd = draw_pd, dim = dim,
+      g = g, h = h,
+      quality.cex = quality.cex, quality.col = quality.col, ...
+    )
+  }
+
   addVarianceExplainedToBiplot2d(x,
     dim = dim, center = center, normalize = normalize,
     g = g, h = h, col.active = col.active,
     col.passive = col.passive, var.show = var.show,
     var.cex = var.cex, var.col = var.col, ...
   )
-  invisible(NULL)
+
+  # build return list
+  var.explained <- D^2 / sum(D^2)
+  Eu <- E * se
+  Cu <- C * sc
+
+  elements_df <- data.frame(
+    name = elements(x),
+    x = Eu[, dim[1]],
+    y = Eu[, dim[2]],
+    x.unscaled = E[, dim[1]],
+    y.unscaled = E[, dim[2]],
+    quality = e_quality,
+    stringsAsFactors = FALSE
+  )
+  constructs_df <- data.frame(
+    name = constructs(x)[, 2],
+    name.left = constructs(x)[, 1],
+    x = Cu[, dim[1]],
+    y = Cu[, dim[2]],
+    x.unscaled = C[, dim[1]],
+    y.unscaled = C[, dim[2]],
+    quality = c_quality,
+    stringsAsFactors = FALSE
+  )
+
+  res <- list(
+    elements = elements_df,
+    constructs = constructs_df,
+    element.coords = E,
+    construct.coords = C,
+    element.coords.scaled = Eu,
+    construct.coords.scaled = Cu,
+    element.quality = e_quality,
+    construct.quality = c_quality,
+    dim = dim,
+    var.explained = var.explained,
+    D = D,
+    se = se,
+    sc = sc
+  )
+  class(res) <- "biplot2d"
+  invisible(res)
+}
+
+
+#' Print method for biplot2d objects
+#'
+#' @param x A `biplot2d` object returned by [biplot2d()].
+#' @param ... Not used.
+#' @export
+#' @method print biplot2d
+print.biplot2d <- function(x, ...) {
+  ne <- nrow(x$elements)
+  nc <- nrow(x$constructs)
+  d <- x$dim
+  ve <- x$var.explained
+  cat("biplot2d object\n")
+  cat(sprintf("  %d elements, %d constructs\n", ne, nc))
+  cat(sprintf("  Dimensions: %d, %d (%.1f%% + %.1f%% = %.1f%% variance)\n",
+    d[1], d[2], ve[d[1]] * 100, ve[d[2]] * 100,
+    (ve[d[1]] + ve[d[2]]) * 100
+  ))
+  cat(sprintf("  Element quality range:   %.2f - %.2f\n",
+    min(x$element.quality), max(x$element.quality)
+  ))
+  cat(sprintf("  Construct quality range: %.2f - %.2f\n",
+    min(x$construct.quality), max(x$construct.quality)
+  ))
+  cat("\nList elements:\n")
+  for (nm in names(x)) {
+    obj <- x[[nm]]
+    desc <- if (is.data.frame(obj)) {
+      sprintf("data.frame [%d x %d]", nrow(obj), ncol(obj))
+    } else if (is.matrix(obj)) {
+      sprintf("matrix [%d x %d]", nrow(obj), ncol(obj))
+    } else if (is.numeric(obj) && length(obj) > 1) {
+      sprintf("numeric [%d]", length(obj))
+    } else if (is.numeric(obj) && length(obj) == 1) {
+      sprintf("%.4g", obj)
+    } else {
+      class(obj)[1]
+    }
+    cat(sprintf("  $%-25s %s\n", nm, desc))
+  }
+  invisible(x)
 }
 
 
