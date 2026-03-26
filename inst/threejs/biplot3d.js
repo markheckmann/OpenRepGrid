@@ -824,6 +824,7 @@
     benchmarkElements = [];
     removeBenchmarksBtn.style.display = "none";
     updateElementGlows();
+    updateDifferenceSortVisibility();
     if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
   });
   var selectedElementIndex = -1;
@@ -841,12 +842,79 @@
     return { index: i, angle: Math.atan2(c.y, c.x) };
   });
   constructOrderAngular.sort(function (a, b) { return a.angle - b.angle; });
-  var constructSortMode = "angular"; // "original" or "angular"
+  var constructSortMode = "angular"; // "original", "angular", or "difference"
   var constructOrder = constructOrderAngular;
+
+  // Add "Difference" radio button dynamically
+  var sortToggle = document.querySelector(".sort-toggle");
+  var diffSortLabel = document.createElement("label");
+  diffSortLabel.title = "Sort constructs by rating difference (descending)";
+  var diffSortRadio = document.createElement("input");
+  diffSortRadio.type = "radio";
+  diffSortRadio.name = "construct-sort";
+  diffSortRadio.value = "difference";
+  diffSortLabel.appendChild(diffSortRadio);
+  diffSortLabel.appendChild(document.createTextNode(" Difference"));
+  diffSortLabel.style.display = "none";
+  sortToggle.appendChild(diffSortLabel);
+
+  function computeDifferenceOrder(elemIdxA, elemIdxB) {
+    return constructs.map(function (c, i) {
+      var rA = ratings.values[i][elemIdxA];
+      var rB = ratings.values[i][elemIdxB];
+      var diff = (rA != null && rB != null) ? Math.abs(rA - rB) : 0;
+      return { index: i, diff: diff };
+    }).sort(function (a, b) { return b.diff - a.diff; });
+  }
+
+  function getDifferenceTargets() {
+    // Two selected elements → compare them
+    if (selectedElements.length === 2) {
+      return { a: selectedElements[0], b: selectedElements[1] };
+    }
+    // One benchmark + current profile element → compare profile element to benchmark
+    if (benchmarkElements.length === 1 && selectedElementIndex >= 0 &&
+        selectedElementIndex !== benchmarkElements[0]) {
+      return { a: selectedElementIndex, b: benchmarkElements[0] };
+    }
+    return null;
+  }
+
+  function updateDifferenceSortVisibility() {
+    var targets = getDifferenceTargets();
+    var available = targets !== null;
+    diffSortLabel.style.display = available ? "" : "none";
+    // If currently using difference sort but it's no longer available, fall back
+    if (!available && constructSortMode === "difference") {
+      diffSortRadio.checked = false;
+      var angularRadio = document.querySelector('input[name="construct-sort"][value="angular"]');
+      if (angularRadio) angularRadio.checked = true;
+      setConstructSort("angular");
+    }
+    // If available, update the tooltip
+    if (available) {
+      var nameA = elements[targets.a].name;
+      var nameB = elements[targets.b].name;
+      diffSortLabel.title = "Sort by |" + nameA + " − " + nameB + "| (descending)";
+    }
+    // If currently in difference mode, refresh the order
+    if (available && constructSortMode === "difference") {
+      setConstructSort("difference");
+    }
+  }
 
   function setConstructSort(mode) {
     constructSortMode = mode;
-    constructOrder = (mode === "angular") ? constructOrderAngular : constructOrderOriginal;
+    if (mode === "difference") {
+      var targets = getDifferenceTargets();
+      if (targets) {
+        constructOrder = computeDifferenceOrder(targets.a, targets.b);
+      } else {
+        constructOrder = constructOrderAngular;
+      }
+    } else {
+      constructOrder = (mode === "angular") ? constructOrderAngular : constructOrderOriginal;
+    }
     // Reorder grid table rows
     var tbody = document.querySelector("#grid-table tbody");
     if (tbody) {
@@ -1185,6 +1253,7 @@
       }
     }
     updateElementGlows();
+    updateDifferenceSortVisibility();
   }
 
   function selectConstruct(idx, multiSelect) {
@@ -1237,6 +1306,7 @@
   function updateProfilePlot(elemIdx) {
     selectedElementIndex = elemIdx;
     updateElementGlows();
+    updateDifferenceSortVisibility();
     var profileTab = document.querySelector('.tab-content[data-tab="profile"]');
     if (profileTab && profileTab.classList.contains("active")) {
       if (elemIdx >= 0) {
@@ -1838,7 +1908,7 @@
         updateProfilePlot(ud.index);
       } else if (ud.type === "construct") {
         selectConstruct(ud.index, event.metaKey || event.ctrlKey);
-        if (!(event.metaKey || event.ctrlKey)) { selectedElements = []; updateElementGlows(); }
+        if (!(event.metaKey || event.ctrlKey)) { selectedElements = []; updateElementGlows(); updateDifferenceSortVisibility(); }
       }
     } else {
       // Click on background: clear selection
@@ -1847,6 +1917,7 @@
         selectedConstructs = [];
         updateElementGlows();
         updateConstructSelection();
+        updateDifferenceSortVisibility();
       }
     }
   }
@@ -2120,6 +2191,7 @@
       selectedElementIndex = -1;
       updateElementGlows();
       updateConstructSelection();
+      updateDifferenceSortVisibility();
       buildCalibration();
       rebuildAllProjections();
       profileCanvas.style.display = "none";
