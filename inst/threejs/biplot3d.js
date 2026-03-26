@@ -666,6 +666,8 @@
   var profileHint = document.querySelector("#profile-container .profile-hint");
   profileCanvas.style.display = "none";
   var selectedElementIndex = -1;
+  var profileLayout = { topPad: 0, rowHeight: 0, nc: 0 };
+  var profileHoveredConstruct = -1;
 
   // Compute construct order by angle in PC1-PC2 plane
   var constructOrder = constructs.map(function (c, i) {
@@ -867,6 +869,7 @@
 
     profileHint.style.display = "none";
     profileCanvas.style.display = "block";
+    profileLayout = { topPad: topPad, rowHeight: rowHeight, nc: nc };
   }
 
   function updateProfilePlot(elemIdx) {
@@ -878,6 +881,41 @@
       }
     }
   }
+
+  // --- Profile plot hover → highlight construct in 3D ---
+  profileCanvas.addEventListener("mousemove", function (e) {
+    var rect = profileCanvas.getBoundingClientRect();
+    var scaleY = profileCanvas.height / (window.devicePixelRatio || 1) / rect.height;
+    var y = (e.clientY - rect.top) * scaleY;
+    var row = Math.floor((y - profileLayout.topPad) / profileLayout.rowHeight);
+    var newIdx = -1;
+    if (row >= 0 && row < profileLayout.nc) {
+      newIdx = constructOrder[row].index;
+    }
+    if (newIdx !== profileHoveredConstruct) {
+      if (profileHoveredConstruct >= 0) {
+        unhighlightConstruct(profileHoveredConstruct);
+        highlightGridRow(-1);
+      }
+      profileHoveredConstruct = newIdx;
+      hoveredConstructIndex = newIdx;
+      if (profileHoveredConstruct >= 0) {
+        highlightConstruct(profileHoveredConstruct);
+        highlightGridRow(profileHoveredConstruct);
+      }
+    }
+    profileCanvas.style.cursor = newIdx >= 0 ? "pointer" : "default";
+  });
+
+  profileCanvas.addEventListener("mouseleave", function () {
+    if (profileHoveredConstruct >= 0) {
+      unhighlightConstruct(profileHoveredConstruct);
+      highlightGridRow(-1);
+      profileHoveredConstruct = -1;
+      hoveredConstructIndex = -1;
+    }
+    profileCanvas.style.cursor = "default";
+  });
 
   function highlightGridColumn(elementIndex) {
     var table = document.getElementById("grid-table");
@@ -1178,7 +1216,7 @@
       constructLabelVisible[i] = v;
     }
   });
-  addToggle(displayBody, "Deconflict Labels", false, function (v) {
+  addToggle(displayBody, "Deconflict Labels", true, function (v) {
     labelDeconflict = v;
   });
 
@@ -1514,7 +1552,7 @@
   // =============================================
   // 14. LABEL DECONFLICTION
   // =============================================
-  var labelDeconflict = false;
+  var labelDeconflict = true;
 
   function deconflictLabels() {
     if (!labelDeconflict) return;
