@@ -84,7 +84,7 @@
   var hoveredConstructIndex = -1;
 
   // --- Colors ---
-  var elementColor = 0x2c3e50;
+  var elementColor = 0x2266aa;
   var preferredPoleColor = 0x226644;   // green for preferred pole
   var nonpreferredPoleColor = 0xaa4422; // red for non-preferred pole
   var neutralPoleColor = 0x888888;      // gray when no preference set
@@ -126,15 +126,21 @@
     var con = constructs[i];
     var sc = constructSphereCoords[i];
 
-    // Line from left to right pole (on sphere) - initially hidden, toggled by double-click
-    var lineGeom = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(sc.lx, sc.ly, sc.lz),
-      new THREE.Vector3(sc.rx, sc.ry, sc.rz)
-    ]);
-    var lineMat = new THREE.LineBasicMaterial({
+    // Line from left to right pole (on sphere) — uses cylinder mesh for variable thickness
+    var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+    var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+    var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+    var lineLen = from.distanceTo(to);
+    var cylGeom = new THREE.CylinderBufferGeometry(0.002, 0.002, lineLen, 4, 1);
+    var lineMat = new THREE.MeshBasicMaterial({
       color: 0x888888, opacity: 0.6, transparent: true
     });
-    var line = new THREE.Line(lineGeom, lineMat);
+    var line = new THREE.Mesh(cylGeom, lineMat);
+    line.position.copy(mid);
+    // Orient cylinder from default Y-axis to the from→to direction
+    var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+    var quat = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+    line.quaternion.copy(quat);
     line.visible = false;
     constructLinesGroup.add(line);
 
@@ -241,19 +247,27 @@
   var axisLength = 1.3;
   var axisColors = [0xcc4444, 0x44aa44, 0x4444cc];
   var axisLabels = [];
+  var pcAxisMeshes = [];
 
   for (var a = 0; a < 3; a++) {
-    var start = new THREE.Vector3(0, 0, 0);
     var end = new THREE.Vector3(0, 0, 0);
     var negEnd = new THREE.Vector3(0, 0, 0);
     end.setComponent(a, axisLength);
     negEnd.setComponent(a, -axisLength);
 
-    var axGeom = new THREE.BufferGeometry().setFromPoints([start, end]);
-    var axMat = new THREE.LineBasicMaterial({ color: axisColors[a], opacity: 0.4, transparent: true });
-    axesGroup.add(new THREE.Line(axGeom, axMat));
+    // Positive half — solid cylinder
+    var posMid = end.clone().multiplyScalar(0.5);
+    var posCyl = new THREE.CylinderBufferGeometry(0.0015, 0.0015, axisLength, 4, 1);
+    var posMat = new THREE.MeshBasicMaterial({ color: axisColors[a], opacity: 0.4, transparent: true });
+    var posMesh = new THREE.Mesh(posCyl, posMat);
+    posMesh.position.copy(posMid);
+    var posDir = end.clone().normalize();
+    posMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), posDir);
+    axesGroup.add(posMesh);
+    pcAxisMeshes.push(posMesh);
 
-    var negGeom = new THREE.BufferGeometry().setFromPoints([start, negEnd]);
+    // Negative half — dashed line (keep as line, thickness not critical for dashed)
+    var negGeom = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), negEnd]);
     var negMat = new THREE.LineDashedMaterial({
       color: axisColors[a], opacity: 0.2, transparent: true,
       dashSize: 0.03, gapSize: 0.02
@@ -279,6 +293,7 @@
   // 5. PROJECTIONS (per-element, toggled by double-click)
   // =============================================
   // Per-element projection groups stored here
+  var projLineScale = 1;
   var elementProjectionGroups = [];
   for (var i = 0; i < elements.length; i++) {
     var g = new THREE.Group();
@@ -309,12 +324,19 @@
       var cDir = cVec.clone().normalize();
       var foot = cDir.clone().multiplyScalar(eVec.dot(cDir));
 
-      // Projection line from element to foot
-      var projGeom = new THREE.BufferGeometry().setFromPoints([eVec, foot]);
-      var projMat = new THREE.LineBasicMaterial({
+      // Projection line from element to foot (cylinder mesh for variable thickness)
+      var projDist = eVec.distanceTo(foot);
+      if (projDist < 0.0001) continue;
+      var projMid = new THREE.Vector3().addVectors(eVec, foot).multiplyScalar(0.5);
+      var projCylGeom = new THREE.CylinderBufferGeometry(0.0015, 0.0015, projDist, 4, 1);
+      var projMat = new THREE.MeshBasicMaterial({
         color: projColor, opacity: 0.7, transparent: true
       });
-      var projLine = new THREE.Line(projGeom, projMat);
+      var projLine = new THREE.Mesh(projCylGeom, projMat);
+      projLine.position.copy(projMid);
+      var projDir = new THREE.Vector3().subVectors(foot, eVec).normalize();
+      projLine.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), projDir);
+      projLine.scale.set(projLineScale, 1, projLineScale);
       group.add(projLine);
 
       // Small dot at projection foot
@@ -403,6 +425,11 @@
         var tickLabelDiv = document.createElement("div");
         tickLabelDiv.className = "label-calibration";
         tickLabelDiv.textContent = v;
+        if (typeof calSizeRange !== "undefined") {
+          var calVal = parseInt(calSizeRange.value);
+          tickLabelDiv.style.fontSize = calVal + "px";
+          if (calVal === 0) tickLabelDiv.style.display = "none";
+        }
         var tickLabel = new THREE.CSS2DObject(tickLabelDiv);
         tickLabel.position.set(
           tx + perp1.x * tickLen * 2.5,
@@ -628,7 +655,142 @@
 
   // --- Display section ---
   addSectionTitle("Display");
+  addToggle(guiPanel, "Dark Mode", false, function (v) {
+    document.body.classList.toggle("dark", v);
+    scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
+    wireMat.opacity = v ? 0.25 : 0.15;
+  });
   addToggle(guiPanel, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
+
+  // Sphere color chooser
+  var sphereColorLabel = document.createElement("label");
+  var sphereColorInput = document.createElement("input");
+  sphereColorInput.type = "color";
+  sphereColorInput.value = "#cccccc";
+  sphereColorInput.addEventListener("input", function () {
+    wireMat.color.set(sphereColorInput.value);
+  });
+  sphereColorLabel.appendChild(sphereColorInput);
+  sphereColorLabel.appendChild(document.createTextNode(" Sphere Color"));
+  guiPanel.appendChild(sphereColorLabel);
+  // Element color chooser
+  var elemColorLabel = document.createElement("label");
+  var elemColorInput = document.createElement("input");
+  elemColorInput.type = "color";
+  elemColorInput.value = "#2266aa";
+  elemColorInput.addEventListener("input", function () {
+    var c = elemColorInput.value;
+    for (var i = 0; i < elementObjects.length; i++) {
+      elementObjects[i].sphere.material.color.set(c);
+      elementObjects[i].label.element.style.color = c;
+    }
+  });
+  elemColorLabel.appendChild(elemColorInput);
+  elemColorLabel.appendChild(document.createTextNode(" Element Color"));
+  guiPanel.appendChild(elemColorLabel);
+
+  // Element label size
+  var elemSizeLabel = document.createElement("label");
+  var elemSizeRange = document.createElement("input");
+  elemSizeRange.type = "range";
+  elemSizeRange.min = "7";
+  elemSizeRange.max = "18";
+  elemSizeRange.value = "11";
+  elemSizeRange.addEventListener("input", function () {
+    var sz = elemSizeRange.value + "px";
+    for (var i = 0; i < elementObjects.length; i++) {
+      elementObjects[i].label.element.style.fontSize = sz;
+    }
+  });
+  elemSizeLabel.appendChild(elemSizeRange);
+  elemSizeLabel.appendChild(document.createTextNode(" Element Labels"));
+  guiPanel.appendChild(elemSizeLabel);
+
+  // Construct label size
+  var conSizeLabel = document.createElement("label");
+  var conSizeRange = document.createElement("input");
+  conSizeRange.type = "range";
+  conSizeRange.min = "7";
+  conSizeRange.max = "18";
+  conSizeRange.value = "10";
+  conSizeRange.addEventListener("input", function () {
+    var sz = conSizeRange.value + "px";
+    for (var i = 0; i < constructObjects.length; i++) {
+      constructObjects[i].rightLabel.element.style.fontSize = sz;
+      constructObjects[i].leftLabel.element.style.fontSize = sz;
+    }
+  });
+  conSizeLabel.appendChild(conSizeRange);
+  conSizeLabel.appendChild(document.createTextNode(" Construct Labels"));
+  guiPanel.appendChild(conSizeLabel);
+
+  // Construct axis color chooser
+  var axisColorLabel = document.createElement("label");
+  var axisColorInput = document.createElement("input");
+  axisColorInput.type = "color";
+  axisColorInput.value = "#888888";
+  axisColorInput.addEventListener("input", function () {
+    for (var i = 0; i < constructObjects.length; i++) {
+      constructObjects[i].line.material.color.set(axisColorInput.value);
+    }
+  });
+  axisColorLabel.appendChild(axisColorInput);
+  axisColorLabel.appendChild(document.createTextNode(" Construct Axis Color"));
+  guiPanel.appendChild(axisColorLabel);
+
+  // Construct axis thickness
+  var axisWidthLabel = document.createElement("label");
+  var axisWidthRange = document.createElement("input");
+  axisWidthRange.type = "range";
+  axisWidthRange.min = "0.5";
+  axisWidthRange.max = "5";
+  axisWidthRange.step = "0.5";
+  axisWidthRange.value = "1";
+  axisWidthRange.addEventListener("input", function () {
+    var s = parseFloat(axisWidthRange.value);
+    for (var i = 0; i < constructObjects.length; i++) {
+      var ln = constructObjects[i].line;
+      ln.scale.set(s, 1, s);
+    }
+  });
+  axisWidthLabel.appendChild(axisWidthRange);
+  axisWidthLabel.appendChild(document.createTextNode(" Axis Thickness"));
+  guiPanel.appendChild(axisWidthLabel);
+
+  // Projection line thickness
+  var projWidthLabel = document.createElement("label");
+  var projWidthRange = document.createElement("input");
+  projWidthRange.type = "range";
+  projWidthRange.min = "0.5";
+  projWidthRange.max = "5";
+  projWidthRange.step = "0.5";
+  projWidthRange.value = "1";
+  projWidthRange.addEventListener("input", function () {
+    projLineScale = parseFloat(projWidthRange.value);
+    rebuildAllProjections();
+  });
+  projWidthLabel.appendChild(projWidthRange);
+  projWidthLabel.appendChild(document.createTextNode(" Projection Thickness"));
+  guiPanel.appendChild(projWidthLabel);
+
+  // PC axis thickness
+  var pcAxisLabel = document.createElement("label");
+  var pcAxisRange = document.createElement("input");
+  pcAxisRange.type = "range";
+  pcAxisRange.min = "0.5";
+  pcAxisRange.max = "5";
+  pcAxisRange.step = "0.5";
+  pcAxisRange.value = "1";
+  pcAxisRange.addEventListener("input", function () {
+    var s = parseFloat(pcAxisRange.value);
+    for (var i = 0; i < pcAxisMeshes.length; i++) {
+      pcAxisMeshes[i].scale.set(s, 1, s);
+    }
+  });
+  pcAxisLabel.appendChild(pcAxisRange);
+  pcAxisLabel.appendChild(document.createTextNode(" PC Axis Thickness"));
+  guiPanel.appendChild(pcAxisLabel);
+
   addToggle(guiPanel, "Axes", true, function (v) {
     axesGroup.visible = v;
     for (var a = 0; a < axisLabels.length; a++) {
@@ -641,6 +803,24 @@
       calibrationLabelsGroup.children[k].visible = v;
     }
   });
+
+  // Calibration label size
+  var calSizeLabel = document.createElement("label");
+  var calSizeRange = document.createElement("input");
+  calSizeRange.type = "range";
+  calSizeRange.min = "0";
+  calSizeRange.max = "14";
+  calSizeRange.value = "8";
+  calSizeRange.addEventListener("input", function () {
+    var val = parseInt(calSizeRange.value);
+    for (var k = 0; k < calibrationLabelsGroup.children.length; k++) {
+      calibrationLabelsGroup.children[k].element.style.fontSize = val + "px";
+      calibrationLabelsGroup.children[k].element.style.display = val === 0 ? "none" : "";
+    }
+  });
+  calSizeLabel.appendChild(calSizeRange);
+  calSizeLabel.appendChild(document.createTextNode(" Calibration Size"));
+  guiPanel.appendChild(calSizeLabel);
 
   // Hint text
   var hint = document.createElement("div");
@@ -707,7 +887,7 @@
     elementObjects[idx].sphere.scale.setScalar(1.8);
     elementObjects[idx].sphere.material.emissive.setHex(0x444444);
     elementObjects[idx].label.element.style.fontWeight = "800";
-    elementObjects[idx].label.element.style.color = "#000";
+    elementObjects[idx].label.element.style.color = "";
   }
 
   function unhighlightElement(idx) {

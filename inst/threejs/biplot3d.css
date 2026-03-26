@@ -277,6 +277,25 @@ body {
   cursor: pointer;
 }
 
+#gui-panel input[type="color"] {
+  width: 22px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  background: none;
+}
+
+body.dark #gui-panel input[type="color"] {
+  border-color: #555;
+}
+
+#gui-panel input[type="range"] {
+  width: 80px;
+  cursor: pointer;
+}
+
 #gui-panel button.action-btn {
   margin-top: 8px;
   width: 100%;
@@ -310,7 +329,7 @@ body {
 
 /* CSS2D labels for elements */
 .label-element {
-  color: #2c3e50;
+  color: #2266aa;
   font-size: 11px;
   font-weight: 600;
   padding: 1px 4px;
@@ -392,4 +411,140 @@ body {
   font-size: 11px;
   pointer-events: none;
   z-index: 100;
+}
+
+/* ===== DARK MODE ===== */
+body.dark {
+  background: #1a1a1a;
+}
+
+body.dark #left-panel,
+body.dark #right-panel {
+  background: #222;
+  border-color: #444;
+}
+
+body.dark .panel-toggle {
+  background: rgba(40, 40, 40, 0.85);
+  border-color: #555;
+  color: #ccc;
+}
+
+body.dark .panel-toggle:hover {
+  background: #333;
+  color: #fff;
+}
+
+body.dark #grid-table-container h3,
+body.dark #gui-panel h3 {
+  color: #bbb;
+}
+
+body.dark .grid-table th,
+body.dark .grid-table td {
+  border-color: #444;
+}
+
+body.dark .grid-table th {
+  background: #333;
+  color: #ccc;
+}
+
+body.dark .grid-table .col-preferred-pole,
+body.dark .grid-table .col-nonpreferred-pole,
+body.dark .grid-table .col-neutral-pole {
+  background: #2a2a2a;
+}
+
+body.dark .grid-table .col-preferred-pole {
+  color: #44bb77;
+}
+
+body.dark .grid-table .col-nonpreferred-pole {
+  color: #dd7755;
+}
+
+body.dark .grid-table .col-neutral-pole {
+  color: #999;
+}
+
+body.dark .grid-table td.rating-cell {
+  color: #ccc;
+}
+
+body.dark .grid-table .col-highlight {
+  background: #3a3520 !important;
+}
+
+body.dark .grid-table .row-highlight {
+  background: #1e3a28 !important;
+}
+
+body.dark #gui-panel {
+  color: #ccc;
+}
+
+body.dark #gui-panel .section-title {
+  color: #999;
+  border-top-color: #444;
+}
+
+body.dark #gui-panel .toggle-all-btn {
+  color: #6ab0e0;
+}
+
+body.dark #gui-panel label:hover {
+  color: #fff;
+}
+
+body.dark #gui-panel button.action-btn {
+  background: #333;
+  border-color: #555;
+  color: #ccc;
+}
+
+body.dark #gui-panel button.action-btn:hover {
+  background: #444;
+}
+
+body.dark .hint-text {
+  color: #666;
+}
+
+body.dark .resize-handle:hover,
+body.dark .resize-handle.active {
+  background: rgba(80, 160, 255, 0.3);
+}
+
+body.dark #info-bar {
+  color: #666;
+}
+
+body.dark #tooltip {
+  background: rgba(255, 255, 255, 0.85);
+  color: #111;
+}
+
+body.dark .label-element {
+  color: #5599dd;
+}
+
+body.dark .label-construct-preferred {
+  color: #44bb77;
+}
+
+body.dark .label-construct-nonpreferred {
+  color: #dd7755;
+}
+
+body.dark .label-construct-neutral {
+  color: #aaa;
+}
+
+body.dark .label-axis {
+  color: #999;
+}
+
+body.dark .label-calibration {
+  color: #777;
 }
