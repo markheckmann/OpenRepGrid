@@ -711,6 +711,36 @@
   }
   setupGridTableConstructEvents();
 
+  // --- Grid table cell double-click → show projection ---
+  (function () {
+    var cells = document.querySelectorAll("#grid-table td.rating-cell");
+    for (var c = 0; c < cells.length; c++) {
+      (function (td) {
+        td.addEventListener("dblclick", function (e) {
+          e.stopPropagation(); // prevent row dblclick
+          var ei = parseInt(td.dataset.elementIndex);
+          var ci = parseInt(td.dataset.constructIndex);
+          // Ensure construct axis is visible
+          if (!constructVisible[ci]) {
+            conCheckboxes[ci].checked = true;
+            conCheckboxes[ci].dispatchEvent(new Event("change"));
+          }
+          if (!constructLineVisible[ci]) {
+            constructLineVisible[ci] = true;
+            buildCalibration();
+          }
+          // Enable projections for this element
+          if (!elementProjections[ei]) {
+            elementProjections[ei] = true;
+            buildProjectionsForElement(ei);
+          } else {
+            rebuildAllProjections();
+          }
+        });
+      })(cells[c]);
+    }
+  })();
+
   // --- Grid table element header interactions ---
   var gridHoveredElement = -1;
   (function () {
@@ -1699,6 +1729,56 @@
     showContextMenuAt(x, y);
   }
 
+  function showBackgroundContextMenu(x, y) {
+    contextMenu.innerHTML = "";
+    addMenuItem("Hide all projections", function () {
+      for (var i = 0; i < elements.length; i++) {
+        elementProjections[i] = false;
+        buildProjectionsForElement(i);
+      }
+    });
+    addMenuItem("Hide all calibrated axes", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        constructLineVisible[i] = false;
+      }
+      buildCalibration();
+      rebuildAllProjections();
+    });
+    addMenuItem("Hide all elements", function () {
+      for (var i = 0; i < elements.length; i++) {
+        if (elemCheckboxes[i].checked) {
+          elemCheckboxes[i].checked = false;
+          elemCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    });
+    addMenuItem("Hide all constructs", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        if (conCheckboxes[i].checked) {
+          conCheckboxes[i].checked = false;
+          conCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    });
+    addMenuItem("Show all elements", function () {
+      for (var i = 0; i < elements.length; i++) {
+        if (!elemCheckboxes[i].checked) {
+          elemCheckboxes[i].checked = true;
+          elemCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    });
+    addMenuItem("Show all constructs", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        if (!conCheckboxes[i].checked) {
+          conCheckboxes[i].checked = true;
+          conCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    });
+    showContextMenuAt(x, y);
+  }
+
   renderer.domElement.addEventListener("contextmenu", function (event) {
     event.preventDefault();
     var rect = renderer.domElement.getBoundingClientRect();
@@ -1719,7 +1799,7 @@
         return;
       }
     }
-    hideContextMenu();
+    showBackgroundContextMenu(event.clientX, event.clientY);
   });
 
   document.addEventListener("click", function () { hideContextMenu(); });
