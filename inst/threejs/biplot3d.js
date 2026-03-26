@@ -523,7 +523,8 @@
   function updateLabelVisibility() {
     camera.getWorldDirection(_camDir);
     for (var i = 0; i < constructs.length; i++) {
-      if (!constructVisible[i]) {
+      var isTempVisible = (profileTempVisibleConstruct === i);
+      if (!constructVisible[i] && !isTempVisible) {
         constructObjects[i].rightLabel.visible = false;
         constructObjects[i].leftLabel.visible = false;
         constructObjects[i].rightMarker.visible = false;
@@ -531,7 +532,7 @@
         constructObjects[i].line.visible = false;
         continue;
       }
-      // Construct line: visible if permanently toggled (double-click) or hovered
+      // Construct line: visible if permanently toggled (double-click), hovered, or temp-visible
       var isHovered = (hoveredConstructIndex === i);
       constructObjects[i].line.visible = constructLineVisible[i] || isHovered;
 
@@ -675,6 +676,7 @@
   var selectedElementIndex = -1;
   var profileLayout = { topPad: 0, rowHeight: 0, nc: 0 };
   var profileHoveredConstruct = -1;
+  var profileTempVisibleConstruct = -1; // construct temporarily made visible by profile hover
   var benchmarkElements = []; // indices of benchmark elements
 
   // Compute construct order by angle in PC1-PC2 plane
@@ -979,6 +981,7 @@
         unhighlightConstruct(profileHoveredConstruct);
         highlightGridRow(-1);
       }
+      profileTempVisibleConstruct = newIdx;
       profileHoveredConstruct = newIdx;
       hoveredConstructIndex = newIdx;
       if (profileHoveredConstruct >= 0) {
@@ -1012,6 +1015,7 @@
     if (profileHoveredConstruct >= 0) {
       unhighlightConstruct(profileHoveredConstruct);
       highlightGridRow(-1);
+      profileTempVisibleConstruct = -1;
       profileHoveredConstruct = -1;
       hoveredConstructIndex = -1;
       if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
