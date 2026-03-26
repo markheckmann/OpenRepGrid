@@ -39,9 +39,11 @@ Imports:
     tidyr,
     dplyr,
     scales,
-    igraph
+    igraph,
+    jsonlite
 Collate:
     'bertin.r'
+    'biplot-threejs.r'
     'calc.r'
     'data-openrepgrid.r'
     'dev-functions.r'

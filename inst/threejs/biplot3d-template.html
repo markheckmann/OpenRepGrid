@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>OpenRepGrid 3D Biplot</title>
+  <style>
+{{APP_CSS}}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="left-panel">
+      <div id="grid-table-container"></div>
+    </div>
+    <div id="right-panel">
+      <div id="scene-container"></div>
+      <div id="gui-panel"></div>
+      <div id="tooltip"></div>
+      <div id="info-bar">Drag to rotate | Scroll to zoom | Right-drag to pan</div>
+    </div>
+  </div>
+
+  <script>
+{{THREEJS_LIB}}
+  </script>
+  <script>
+{{ORBIT_LIB}}
+  </script>
+  <script>
+{{CSS2D_LIB}}
+  </script>
+  <script>
+    var BIPLOT_DATA = {{BIPLOT_DATA}};
+  </script>
+  <script>
+{{APP_JS}}
+  </script>
+</body>
+</html>

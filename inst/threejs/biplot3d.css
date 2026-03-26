@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #ffffff;
+}
+
+/* Split-screen layout */
+#app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+#left-panel {
+  width: 35%;
+  min-width: 280px;
+  max-width: 500px;
+  height: 100vh;
+  overflow: auto;
+  border-right: 1px solid #ddd;
+  background: #fafafa;
+}
+
+#right-panel {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#scene-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Grid table */
+#grid-table-container {
+  padding: 12px;
+}
+
+#grid-table-container h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.grid-table {
+  border-collapse: collapse;
+  font-size: 11px;
+  width: 100%;
+}
+
+.grid-table th,
+.grid-table td {
+  padding: 3px 6px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.grid-table th {
+  background: #f0f0f0;
+  font-weight: 600;
+  color: #444;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.grid-table .col-left-pole,
+.grid-table .col-right-pole {
+  text-align: left;
+  font-weight: 500;
+  background: #f8f8f8;
+  position: sticky;
+  z-index: 1;
+}
+
+.grid-table .col-left-pole {
+  color: #aa4422;
+  left: 0;
+}
+
+.grid-table .col-right-pole {
+  color: #226644;
+}
+
+.grid-table .element-header {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 10px;
+  padding: 6px 3px;
+  min-height: 60px;
+  vertical-align: bottom;
+}
+
+.grid-table td.rating-cell {
+  color: #333;
+  font-variant-numeric: tabular-nums;
+}
+
+.grid-table .col-highlight {
+  background: #fff3cd !important;
+}
+
+.grid-table .row-highlight {
+  background: #d4edda !important;
+}
+
+/* GUI control panel */
+#gui-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  color: #333;
+  min-width: 200px;
+  z-index: 100;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+}
+
+#gui-panel h3 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#gui-panel .section-title {
+  margin: 10px 0 4px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#gui-panel .toggle-all-btn {
+  font-size: 10px;
+  color: #4488bb;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0 2px;
+  margin: 0;
+  width: auto;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: normal;
+}
+
+#gui-panel .toggle-all-btn:hover {
+  text-decoration: underline;
+}
+
+#gui-panel label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 0;
+  cursor: pointer;
+  user-select: none;
+  font-size: 11px;
+}
+
+#gui-panel label:hover {
+  color: #000;
+}
+
+#gui-panel input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+#gui-panel button.action-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f8f8f8;
+  color: #333;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#gui-panel button.action-btn:hover {
+  background: #eee;
+}
+
+.item-list {
+  max-height: 150px;
+  overflow-y: auto;
+  margin: 2px 0;
+  padding-left: 4px;
+}
+
+/* CSS2D labels for elements */
+.label-element {
+  color: #2c3e50;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 4px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CSS2D labels for constructs (right pole) */
+.label-construct-right {
+  color: #226644;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 3px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CSS2D labels for constructs (left pole) */
+.label-construct-left {
+  color: #aa4422;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 3px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CSS2D labels for axes */
+.label-axis {
+  color: #666;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 4px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Tooltip */
+#tooltip {
+  position: fixed;
+  display: none;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 200;
+  white-space: nowrap;
+}
+
+/* Info bar at bottom */
+#info-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #999;
+  font-size: 11px;
+  pointer-events: none;
+  z-index: 100;
+}
