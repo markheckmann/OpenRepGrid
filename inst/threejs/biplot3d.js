@@ -1776,6 +1776,36 @@
         }
       }
     });
+    addMenuItem("Reset to initial state", function () {
+      camera.position.copy(initialCameraPosition);
+      controls.target.copy(initialControlsTarget);
+      controls.update();
+      for (var i = 0; i < elements.length; i++) {
+        if (!elemCheckboxes[i].checked) {
+          elemCheckboxes[i].checked = true;
+          elemCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+        elementProjections[i] = false;
+        elementLabelVisible[i] = true;
+        elementObjects[i].label.visible = true;
+      }
+      for (var i = 0; i < constructs.length; i++) {
+        if (!conCheckboxes[i].checked) {
+          conCheckboxes[i].checked = true;
+          conCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+        constructLineVisible[i] = false;
+        constructLabelVisible[i] = true;
+      }
+      benchmarkElements = [];
+      selectedElementIndex = -1;
+      updateElementGlows();
+      buildCalibration();
+      rebuildAllProjections();
+      profileCanvas.style.display = "none";
+      profileHint.style.display = "";
+      removeBenchmarksBtn.style.display = "none";
+    });
     showContextMenuAt(x, y);
   }
 
