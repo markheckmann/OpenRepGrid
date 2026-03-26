@@ -720,6 +720,11 @@
           e.stopPropagation(); // prevent row dblclick
           var ei = parseInt(td.dataset.elementIndex);
           var ci = parseInt(td.dataset.constructIndex);
+          // Ensure element is visible
+          if (!elemCheckboxes[ei].checked) {
+            elemCheckboxes[ei].checked = true;
+            elemCheckboxes[ei].dispatchEvent(new Event("change"));
+          }
           // Ensure construct axis is visible
           if (!constructVisible[ci]) {
             conCheckboxes[ci].checked = true;
