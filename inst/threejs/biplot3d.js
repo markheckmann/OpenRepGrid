@@ -541,10 +541,10 @@
       // When hovered, force both poles visible; otherwise back-face cull with 10° tolerance
       var clv = constructLabelVisible[i];
       if (isHovered) {
-        constructObjects[i].rightLabel.visible = clv;
-        constructObjects[i].rightMarker.visible = constructPointsGroup.visible;
-        constructObjects[i].leftLabel.visible = clv;
-        constructObjects[i].leftMarker.visible = constructPointsGroup.visible;
+        constructObjects[i].rightLabel.visible = true;
+        constructObjects[i].rightMarker.visible = true;
+        constructObjects[i].leftLabel.visible = true;
+        constructObjects[i].leftMarker.visible = true;
       } else {
         _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
         var rightFacing = _poleDir.dot(_camDir) < facingThreshold;
@@ -991,6 +991,18 @@
       if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
     }
     profileCanvas.style.cursor = newIdx >= 0 ? "pointer" : "default";
+  });
+
+  profileCanvas.addEventListener("click", function (e) {
+    var rect = profileCanvas.getBoundingClientRect();
+    var scaleY = profileCanvas.height / (window.devicePixelRatio || 1) / rect.height;
+    var y = (e.clientY - rect.top) * scaleY;
+    var row = Math.floor((y - profileLayout.topPad) / profileLayout.rowHeight);
+    if (row >= 0 && row < profileLayout.nc) {
+      var ci = constructOrder[row].index;
+      conCheckboxes[ci].checked = !conCheckboxes[ci].checked;
+      conCheckboxes[ci].dispatchEvent(new Event("change"));
+    }
   });
 
   profileCanvas.addEventListener("dblclick", function (e) {
