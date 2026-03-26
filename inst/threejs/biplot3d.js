@@ -420,6 +420,8 @@
   // =============================================
   var _camDir = new THREE.Vector3();
   var _poleDir = new THREE.Vector3();
+  // Allow poles up to 10° behind the view plane to remain visible
+  var facingThreshold = Math.sin(10 * Math.PI / 180); // ~0.174
 
   function updateLabelVisibility() {
     camera.getWorldDirection(_camDir);
@@ -438,7 +440,7 @@
 
       var sc = constructSphereCoords[i];
 
-      // When hovered, force both poles visible; otherwise back-face cull
+      // When hovered, force both poles visible; otherwise back-face cull with 10° tolerance
       if (isHovered) {
         constructObjects[i].rightLabel.visible = constructLabelsGroup.visible;
         constructObjects[i].rightMarker.visible = constructPointsGroup.visible;
@@ -446,12 +448,12 @@
         constructObjects[i].leftMarker.visible = constructPointsGroup.visible;
       } else {
         _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
-        var rightFacing = _poleDir.dot(_camDir) < 0;
+        var rightFacing = _poleDir.dot(_camDir) < facingThreshold;
         constructObjects[i].rightLabel.visible = rightFacing && constructLabelsGroup.visible;
         constructObjects[i].rightMarker.visible = rightFacing && constructPointsGroup.visible;
 
         _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
-        var leftFacing = _poleDir.dot(_camDir) < 0;
+        var leftFacing = _poleDir.dot(_camDir) < facingThreshold;
         constructObjects[i].leftLabel.visible = leftFacing && constructLabelsGroup.visible;
         constructObjects[i].leftMarker.visible = leftFacing && constructPointsGroup.visible;
       }
