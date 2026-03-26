@@ -1752,6 +1752,17 @@
         buildProjectionsForElement(i);
       }
     });
+    addMenuItem("Show all calibrated axes", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        if (!constructVisible[i]) {
+          conCheckboxes[i].checked = true;
+          conCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+        constructLineVisible[i] = true;
+      }
+      buildCalibration();
+      rebuildAllProjections();
+    });
     addMenuItem("Hide all calibrated axes", function () {
       for (var i = 0; i < constructs.length; i++) {
         constructLineVisible[i] = false;
