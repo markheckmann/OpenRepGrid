@@ -11,6 +11,7 @@
 
   // --- State ---
   var elementVisible = elements.map(function () { return true; });
+  var elementLabelVisible = elements.map(function () { return true; });
   var constructVisible = constructs.map(function () { return true; });
   var elementProjections = elements.map(function () { return false; }); // per-element projection toggle
   var constructLineVisible = constructs.map(function () { return false; }); // per-construct line toggle
@@ -324,7 +325,7 @@
 
     // Positive half — solid cylinder
     var posMid = end.clone().multiplyScalar(0.5);
-    var posCyl = new THREE.CylinderBufferGeometry(0.0015, 0.0015, axisLength, 4, 1);
+    var posCyl = new THREE.CylinderBufferGeometry(0.003, 0.003, axisLength, 4, 1);
     var posMat = new THREE.MeshBasicMaterial({ color: axisColors[a], opacity: 0.4, transparent: true });
     var posMesh = new THREE.Mesh(posCyl, posMat);
     posMesh.position.copy(posMid);
@@ -909,6 +910,13 @@
   calSizeLabel.appendChild(document.createTextNode(" Calibration Size"));
   guiPanel.appendChild(calSizeLabel);
 
+  addToggle(guiPanel, "Element Labels", true, function (v) {
+    for (var i = 0; i < elements.length; i++) {
+      elementLabelVisible[i] = v;
+      elementObjects[i].label.visible = v && elementVisible[i];
+    }
+  });
+
   // Hint text
   var hint = document.createElement("div");
   hint.className = "hint-text";
@@ -927,7 +935,7 @@
       var cb = addToggle(elemListDiv, elements[idx].name, true, function (v) {
         elementVisible[idx] = v;
         elementObjects[idx].sphere.visible = v;
-        elementObjects[idx].label.visible = v;
+        elementObjects[idx].label.visible = v && elementLabelVisible[idx];
         buildProjectionsForElement(idx);
       });
       elemCheckboxes.push(cb);
@@ -1076,6 +1084,25 @@
     }
   }
 
+  // Single click: toggle element label visibility
+  function onClick(event) {
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    var intersects = raycaster.intersectObjects(hoverTargets);
+
+    if (intersects.length > 0) {
+      var ud = intersects[0].object.userData;
+      if (ud.type === "element") {
+        elementLabelVisible[ud.index] = !elementLabelVisible[ud.index];
+        elementObjects[ud.index].label.visible = elementLabelVisible[ud.index] && elementVisible[ud.index];
+      }
+    }
+  }
+
+  renderer.domElement.addEventListener("click", onClick, false);
   renderer.domElement.addEventListener("mousemove", onMouseMove, false);
   renderer.domElement.addEventListener("dblclick", onDblClick, false);
   renderer.domElement.addEventListener("mouseleave", function () {
