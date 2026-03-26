@@ -681,14 +681,32 @@
   guiTitle.textContent = "3D Biplot";
   guiPanel.appendChild(guiTitle);
 
-  function addSectionTitle(text) {
+  function addSectionTitle(text, startCollapsed) {
     var div = document.createElement("div");
-    div.className = "section-title";
+    div.className = "section-title" + (startCollapsed ? " collapsed" : "");
+    var arrow = document.createElement("span");
+    arrow.className = "fold-arrow";
+    arrow.textContent = "\u25BC";
     var span = document.createElement("span");
     span.textContent = text;
-    div.appendChild(span);
+    var leftPart = document.createElement("span");
+    leftPart.appendChild(arrow);
+    leftPart.appendChild(span);
+    div.appendChild(leftPart);
     guiPanel.appendChild(div);
-    return div;
+
+    var body = document.createElement("div");
+    body.className = "section-body" + (startCollapsed ? " collapsed" : "");
+    guiPanel.appendChild(body);
+
+    div.addEventListener("click", function (e) {
+      // Don't fold when clicking toggle-all button
+      if (e.target.classList.contains("toggle-all-btn")) return;
+      div.classList.toggle("collapsed");
+      body.classList.toggle("collapsed");
+    });
+
+    return { title: div, body: body };
   }
 
   function addToggle(parent, labelText, checked, onChange) {
@@ -722,14 +740,15 @@
   }
 
   // --- Display section ---
-  addSectionTitle("Display");
-  addToggle(guiPanel, "Dark Mode", false, function (v) {
+  var displaySection = addSectionTitle("Display");
+  var displayBody = displaySection.body;
+  addToggle(displayBody, "Dark Mode", false, function (v) {
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
     wireUniforms.uOpacityFront.value = v ? 0.25 : 0.15;
   });
-  addToggle(guiPanel, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
-  addToggle(guiPanel, "Depth Fade", false, function (v) {
+  addToggle(displayBody, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
+  addToggle(displayBody, "Depth Fade", false, function (v) {
     wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
   });
 
@@ -743,7 +762,7 @@
   });
   sphereColorLabel.appendChild(sphereColorInput);
   sphereColorLabel.appendChild(document.createTextNode(" Sphere Color"));
-  guiPanel.appendChild(sphereColorLabel);
+  displayBody.appendChild(sphereColorLabel);
 
   // Sphere grid density
   var gridDensityLabel = document.createElement("label");
@@ -759,7 +778,7 @@
   });
   gridDensityLabel.appendChild(gridDensityRange);
   gridDensityLabel.appendChild(document.createTextNode(" Grid Lines"));
-  guiPanel.appendChild(gridDensityLabel);
+  displayBody.appendChild(gridDensityLabel);
 
   // Element color chooser
   var elemColorLabel = document.createElement("label");
@@ -775,7 +794,7 @@
   });
   elemColorLabel.appendChild(elemColorInput);
   elemColorLabel.appendChild(document.createTextNode(" Element Color"));
-  guiPanel.appendChild(elemColorLabel);
+  displayBody.appendChild(elemColorLabel);
 
   // Element label size
   var elemSizeLabel = document.createElement("label");
@@ -792,7 +811,7 @@
   });
   elemSizeLabel.appendChild(elemSizeRange);
   elemSizeLabel.appendChild(document.createTextNode(" Element Labels"));
-  guiPanel.appendChild(elemSizeLabel);
+  displayBody.appendChild(elemSizeLabel);
 
   // Construct label size
   var conSizeLabel = document.createElement("label");
@@ -810,7 +829,7 @@
   });
   conSizeLabel.appendChild(conSizeRange);
   conSizeLabel.appendChild(document.createTextNode(" Construct Labels"));
-  guiPanel.appendChild(conSizeLabel);
+  displayBody.appendChild(conSizeLabel);
 
   // Construct axis color chooser
   var axisColorLabel = document.createElement("label");
@@ -824,7 +843,7 @@
   });
   axisColorLabel.appendChild(axisColorInput);
   axisColorLabel.appendChild(document.createTextNode(" Construct Axis Color"));
-  guiPanel.appendChild(axisColorLabel);
+  displayBody.appendChild(axisColorLabel);
 
   // Construct axis thickness
   var axisWidthLabel = document.createElement("label");
@@ -843,7 +862,7 @@
   });
   axisWidthLabel.appendChild(axisWidthRange);
   axisWidthLabel.appendChild(document.createTextNode(" Axis Thickness"));
-  guiPanel.appendChild(axisWidthLabel);
+  displayBody.appendChild(axisWidthLabel);
 
   // Projection line thickness
   var projWidthLabel = document.createElement("label");
@@ -859,7 +878,7 @@
   });
   projWidthLabel.appendChild(projWidthRange);
   projWidthLabel.appendChild(document.createTextNode(" Projection Thickness"));
-  guiPanel.appendChild(projWidthLabel);
+  displayBody.appendChild(projWidthLabel);
 
   // PC axis thickness
   var pcAxisLabel = document.createElement("label");
@@ -877,15 +896,15 @@
   });
   pcAxisLabel.appendChild(pcAxisRange);
   pcAxisLabel.appendChild(document.createTextNode(" PC Axis Thickness"));
-  guiPanel.appendChild(pcAxisLabel);
+  displayBody.appendChild(pcAxisLabel);
 
-  addToggle(guiPanel, "Axes", true, function (v) {
+  addToggle(displayBody, "Axes", true, function (v) {
     axesGroup.visible = v;
     for (var a = 0; a < axisLabels.length; a++) {
       axisLabels[a].visible = v;
     }
   });
-  addToggle(guiPanel, "Calibration Labels", true, function (v) {
+  addToggle(displayBody, "Calibration Labels", true, function (v) {
     calibrationLabelsVisible = v;
     for (var k = 0; k < calibrationLabelsGroup.children.length; k++) {
       calibrationLabelsGroup.children[k].visible = v;
@@ -908,9 +927,9 @@
   });
   calSizeLabel.appendChild(calSizeRange);
   calSizeLabel.appendChild(document.createTextNode(" Calibration Size"));
-  guiPanel.appendChild(calSizeLabel);
+  displayBody.appendChild(calSizeLabel);
 
-  addToggle(guiPanel, "Element Labels", true, function (v) {
+  addToggle(displayBody, "Element Labels", true, function (v) {
     for (var i = 0; i < elements.length; i++) {
       elementLabelVisible[i] = v;
       elementObjects[i].label.visible = v && elementVisible[i];
@@ -928,7 +947,7 @@
   var elemCheckboxes = [];
   var elemListDiv = document.createElement("div");
   elemListDiv.className = "item-list";
-  addToggleAllButton(elemSection, function () { return elemCheckboxes; });
+  addToggleAllButton(elemSection.title, function () { return elemCheckboxes; });
 
   for (var i = 0; i < elements.length; i++) {
     (function (idx) {
@@ -941,14 +960,14 @@
       elemCheckboxes.push(cb);
     })(i);
   }
-  guiPanel.appendChild(elemListDiv);
+  elemSection.body.appendChild(elemListDiv);
 
   // --- Constructs section ---
   var conSection = addSectionTitle("Constructs");
   var conCheckboxes = [];
   var conListDiv = document.createElement("div");
   conListDiv.className = "item-list";
-  addToggleAllButton(conSection, function () { return conCheckboxes; });
+  addToggleAllButton(conSection.title, function () { return conCheckboxes; });
 
   for (var i = 0; i < constructs.length; i++) {
     (function (idx) {
@@ -961,7 +980,7 @@
       conCheckboxes.push(cb);
     })(i);
   }
-  guiPanel.appendChild(conListDiv);
+  conSection.body.appendChild(conListDiv);
 
   // Reset camera
   var resetBtn = document.createElement("button");

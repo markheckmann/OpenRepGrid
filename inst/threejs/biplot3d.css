@@ -238,6 +238,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+#gui-panel .section-title .fold-arrow {
+  font-size: 9px;
+  margin-right: 4px;
+  display: inline-block;
+  transition: transform 0.15s;
+}
+
+#gui-panel .section-title.collapsed .fold-arrow {
+  transform: rotate(-90deg);
+}
+
+#gui-panel .section-body {
+  overflow: hidden;
+}
+
+#gui-panel .section-body.collapsed {
+  display: none;
 }
 
 #gui-panel .toggle-all-btn {
