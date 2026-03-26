@@ -6,7 +6,7 @@
   axes. Supports `TRUE` (all) or numeric indices. `projections.e` selects which elements to project (#77)
   `projections.col`, `projections.lty`, and `projections.lwd` accept per-element vectors for distinct styling.
   New arg `projections.error` draws error segments showing the difference between projected and actual
-  rating values on construct axes.
+  rating values on construct axes. (#79)
 * `biplot2d`: Construct pole labels are automatically colorized by preference status (green = preferred,
   red = non-preferred, dark gray = neutral/undefined) when preferred poles are set in the repgrid object.
   New arg `c.color.preferred` controls the behavior (`NULL` = auto-detect, `TRUE` = always, `FALSE` = never) (#71).
