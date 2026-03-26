@@ -10,33 +10,122 @@ body {
   background: #ffffff;
 }
 
-/* Split-screen layout */
+/* Three-panel layout: Grid | Globe | Options */
 #app {
   display: flex;
   width: 100vw;
   height: 100vh;
 }
 
+/* Left panel: grid table */
 #left-panel {
-  width: 35%;
-  min-width: 280px;
-  max-width: 500px;
+  width: 300px;
   height: 100vh;
   overflow: auto;
   border-right: 1px solid #ddd;
   background: #fafafa;
+  flex-shrink: 0;
 }
 
-#right-panel {
+#left-panel.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-right: none;
+}
+
+#left-panel.collapsed + .resize-handle {
+  display: none;
+}
+
+/* Center panel: 3D scene */
+#center-panel {
   flex: 1;
   height: 100vh;
   position: relative;
   overflow: hidden;
+  min-width: 200px;
 }
 
 #scene-container {
   width: 100%;
   height: 100%;
+}
+
+/* Right panel: options */
+#right-panel {
+  width: 220px;
+  height: 100vh;
+  overflow-y: auto;
+  border-left: 1px solid #ddd;
+  background: #fafafa;
+  flex-shrink: 0;
+}
+
+#right-panel.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+/* Resize handles between panels */
+.resize-handle {
+  width: 5px;
+  height: 100vh;
+  cursor: col-resize;
+  background: transparent;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.resize-handle:hover,
+.resize-handle.active {
+  background: rgba(0, 120, 215, 0.3);
+}
+
+#resize-right {
+  display: flex;
+}
+
+#right-panel.collapsed ~ #resize-right {
+  display: none;
+}
+
+/* Hide right resize handle when right panel is collapsed
+   (sibling selector won't work here since resize is before panel,
+    so we handle this in JS) */
+
+/* Toggle buttons */
+.panel-toggle {
+  position: absolute;
+  top: 10px;
+  z-index: 110;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  user-select: none;
+}
+
+.panel-toggle:hover {
+  background: #fff;
+  color: #333;
+}
+
+.toggle-left {
+  left: 10px;
+}
+
+.toggle-right {
+  right: 10px;
 }
 
 /* Grid table */
@@ -119,20 +208,9 @@ body {
 
 /* GUI control panel */
 #gui-panel {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #ddd;
-  border-radius: 6px;
   padding: 14px 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   font-size: 12px;
   color: #333;
-  min-width: 200px;
-  z-index: 100;
-  max-height: calc(100vh - 24px);
-  overflow-y: auto;
 }
 
 #gui-panel h3 {
@@ -219,6 +297,13 @@ body {
   padding-left: 4px;
 }
 
+.hint-text {
+  font-size: 10px;
+  color: #999;
+  margin-top: 6px;
+  font-style: italic;
+}
+
 /* CSS2D labels for elements */
 .label-element {
   color: #2c3e50;
@@ -255,6 +340,16 @@ body {
   font-size: 10px;
   font-weight: 600;
   padding: 1px 4px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CSS2D labels for calibration ticks */
+.label-calibration {
+  color: #888;
+  font-size: 8px;
+  font-weight: 400;
+  padding: 0 2px;
   pointer-events: none;
   white-space: nowrap;
 }

@@ -7,10 +7,13 @@
   var constructs = data.constructs;
   var meta = data.meta;
   var ratings = data.ratings;
+  var calibration = data.calibration;
 
-  // --- State: per-item visibility ---
+  // --- State ---
   var elementVisible = elements.map(function () { return true; });
   var constructVisible = constructs.map(function () { return true; });
+  var elementProjections = elements.map(function () { return false; }); // per-element projection toggle
+  var constructLineVisible = constructs.map(function () { return false; }); // per-construct line toggle
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -21,7 +24,7 @@
   scene.background = new THREE.Color(0xffffff);
 
   var camera = new THREE.PerspectiveCamera(50, width / height, 0.01, 100);
-  camera.position.set(2.2, 1.5, 2.2);
+  camera.position.set(0, 0, 3.5);
   camera.lookAt(0, 0, 0);
 
   var renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -29,7 +32,6 @@
   renderer.setPixelRatio(window.devicePixelRatio);
   sceneContainer.appendChild(renderer.domElement);
 
-  // CSS2D renderer for labels
   var labelRenderer = new THREE.CSS2DRenderer();
   labelRenderer.setSize(width, height);
   labelRenderer.domElement.style.position = "absolute";
@@ -38,7 +40,6 @@
   labelRenderer.domElement.style.pointerEvents = "none";
   sceneContainer.appendChild(labelRenderer.domElement);
 
-  // Orbit controls
   var controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
@@ -50,15 +51,16 @@
   var initialControlsTarget = controls.target.clone();
 
   // --- Groups ---
-  var sphereGroup = new THREE.Group();        // wireframe sphere
+  var sphereGroup = new THREE.Group();
   var elementPointsGroup = new THREE.Group();
   var elementLabelsGroup = new THREE.Group();
-  var constructPointsGroup = new THREE.Group(); // small markers at pole positions
+  var constructPointsGroup = new THREE.Group();
   var constructLinesGroup = new THREE.Group();
   var constructLabelsGroup = new THREE.Group();
   var axesGroup = new THREE.Group();
   var projectionsGroup = new THREE.Group();
-  projectionsGroup.visible = false;
+  var calibrationGroup = new THREE.Group();
+  calibrationGroup.visible = true;
 
   scene.add(sphereGroup);
   scene.add(elementPointsGroup);
@@ -68,6 +70,7 @@
   scene.add(constructLabelsGroup);
   scene.add(axesGroup);
   scene.add(projectionsGroup);
+  scene.add(calibrationGroup);
 
   // --- Raycaster ---
   var raycaster = new THREE.Raycaster();
@@ -75,11 +78,18 @@
   var tooltip = document.getElementById("tooltip");
   var hoverTargets = [];
   var hoveredElementIndex = -1;
+  var hoveredConstructIndex = -1;
 
-  // --- Colors (matching the reference image) ---
+  // --- Colors ---
   var elementColor = 0x2c3e50;
-  var rightPoleColor = 0x226644;  // green
-  var leftPoleColor = 0xaa4422;   // red/brown
+  var rightPoleColor = 0x226644;
+  var leftPoleColor = 0xaa4422;
+  // Palette for per-element projection lines
+  var projColors = [
+    0xe6194b, 0x3cb44b, 0x4363d8, 0xf58231, 0x911eb4,
+    0x42d4f4, 0xf032e6, 0xbfef45, 0xfabed4, 0x469990,
+    0xdcbeff, 0x9a6324, 0x800000, 0xaaffc3, 0x808000
+  ];
 
   // =============================================
   // 1. WIREFRAME SPHERE
@@ -87,73 +97,58 @@
   var sphereRadius = 1.0;
   var wireGeom = new THREE.SphereBufferGeometry(sphereRadius, 32, 24);
   var wireMat = new THREE.MeshBasicMaterial({
-    color: 0xcccccc,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.15
+    color: 0xcccccc, wireframe: true, transparent: true, opacity: 0.15
   });
-  var wireSphere = new THREE.Mesh(wireGeom, wireMat);
-  sphereGroup.add(wireSphere);
+  sphereGroup.add(new THREE.Mesh(wireGeom, wireMat));
 
   // =============================================
   // 2. CONSTRUCT POLES on sphere surface
   // =============================================
-  // Normalize construct vectors to unit length (sphere surface)
   var constructSphereCoords = [];
   for (var i = 0; i < constructs.length; i++) {
     var con = constructs[i];
     var len = Math.sqrt(con.x * con.x + con.y * con.y + con.z * con.z);
     if (len === 0) len = 1;
     constructSphereCoords.push({
-      rx: con.x / len * sphereRadius,
-      ry: con.y / len * sphereRadius,
-      rz: con.z / len * sphereRadius,
-      lx: -con.x / len * sphereRadius,
-      ly: -con.y / len * sphereRadius,
-      lz: -con.z / len * sphereRadius
+      rx: con.x / len * sphereRadius, ry: con.y / len * sphereRadius, rz: con.z / len * sphereRadius,
+      lx: -con.x / len * sphereRadius, ly: -con.y / len * sphereRadius, lz: -con.z / len * sphereRadius
     });
   }
 
-  // Per-construct scene objects
-  var constructObjects = []; // {line, rightLabel, leftLabel, rightMarker, leftMarker}
-
+  var constructObjects = [];
   var crossGeom = new THREE.SphereBufferGeometry(0.015, 6, 4);
 
   for (var i = 0; i < constructs.length; i++) {
     var con = constructs[i];
     var sc = constructSphereCoords[i];
 
-    // Line from left pole through origin to right pole (on sphere)
+    // Line from left to right pole (on sphere) - initially hidden, toggled by double-click
     var lineGeom = new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(sc.lx, sc.ly, sc.lz),
       new THREE.Vector3(sc.rx, sc.ry, sc.rz)
     ]);
-    var lineMat = new THREE.LineDashedMaterial({
-      color: 0xaabbaa,
-      opacity: 0.3,
-      transparent: true,
-      dashSize: 0.03,
-      gapSize: 0.02
+    var lineMat = new THREE.LineBasicMaterial({
+      color: 0x888888, opacity: 0.6, transparent: true
     });
     var line = new THREE.Line(lineGeom, lineMat);
-    line.computeLineDistances();
+    line.visible = false;
     constructLinesGroup.add(line);
 
-    // Right pole marker (green)
+    // Right pole marker
     var rMat = new THREE.MeshBasicMaterial({ color: rightPoleColor });
     var rMarker = new THREE.Mesh(crossGeom, rMat);
     rMarker.position.set(sc.rx, sc.ry, sc.rz);
     rMarker.userData = { type: "construct", index: i, pole: "right",
-      name: con.right_pole + " - " + con.left_pole, quality: con.quality };
+      name: con.right_pole + " \u2014 " + con.left_pole, quality: con.quality };
     constructPointsGroup.add(rMarker);
     hoverTargets.push(rMarker);
 
-    // Left pole marker (red)
+    // Left pole marker
     var lMat = new THREE.MeshBasicMaterial({ color: leftPoleColor });
     var lMarker = new THREE.Mesh(crossGeom, lMat);
     lMarker.position.set(sc.lx, sc.ly, sc.lz);
     lMarker.userData = { type: "construct", index: i, pole: "left",
-      name: con.left_pole + " - " + con.right_pole, quality: con.quality };
+      name: con.left_pole + " \u2014 " + con.right_pole, quality: con.quality };
     constructPointsGroup.add(lMarker);
     hoverTargets.push(lMarker);
 
@@ -180,17 +175,15 @@
   }
 
   // =============================================
-  // 3. ELEMENTS (spheres inside + labels)
+  // 3. ELEMENTS
   // =============================================
   var elSphereGeom = new THREE.SphereBufferGeometry(0.03, 16, 12);
-  var elementObjects = []; // {sphere, label}
+  var elementObjects = [];
 
   for (var i = 0; i < elements.length; i++) {
     var el = elements[i];
     var mat = new THREE.MeshPhongMaterial({
-      color: elementColor,
-      shininess: 60,
-      specular: 0x444444
+      color: elementColor, shininess: 60, specular: 0x444444
     });
     var sphere = new THREE.Mesh(elSphereGeom, mat);
     sphere.position.set(el.x, el.y, el.z);
@@ -208,7 +201,6 @@
     elementObjects.push({ sphere: sphere, label: label });
   }
 
-  // Simple ambient + directional light for Phong material
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
   var dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
   dirLight.position.set(2, 3, 2);
@@ -219,6 +211,7 @@
   // =============================================
   var axisLength = 1.3;
   var axisColors = [0xcc4444, 0x44aa44, 0x4444cc];
+  var axisLabels = [];
 
   for (var a = 0; a < 3; a++) {
     var start = new THREE.Vector3(0, 0, 0);
@@ -250,42 +243,144 @@
     labelPos.setComponent(a, axisLength + 0.05);
     axLabel.position.copy(labelPos);
     axesGroup.add(axLabel);
+    axisLabels.push(axLabel);
   }
 
   // =============================================
-  // 5. PROJECTIONS
+  // 5. PROJECTIONS (per-element, toggled by double-click)
   // =============================================
-  function buildProjections() {
-    while (projectionsGroup.children.length > 0) {
-      projectionsGroup.remove(projectionsGroup.children[0]);
+  // Per-element projection groups stored here
+  var elementProjectionGroups = [];
+  for (var i = 0; i < elements.length; i++) {
+    var g = new THREE.Group();
+    g.visible = false;
+    projectionsGroup.add(g);
+    elementProjectionGroups.push(g);
+  }
+
+  function buildProjectionsForElement(idx) {
+    var group = elementProjectionGroups[idx];
+    // Clear existing
+    while (group.children.length > 0) {
+      group.remove(group.children[0]);
     }
+    if (!elementProjections[idx] || !elementVisible[idx]) {
+      group.visible = false;
+      return;
+    }
+    group.visible = true;
+    var el = elements[idx];
+    var eVec = new THREE.Vector3(el.x, el.y, el.z);
+    var projColor = projColors[idx % projColors.length];
+
+    for (var j = 0; j < constructs.length; j++) {
+      if (!constructVisible[j] || !constructLineVisible[j]) continue;
+      var con = constructs[j];
+      var cVec = new THREE.Vector3(con.x, con.y, con.z);
+      var cDir = cVec.clone().normalize();
+      var foot = cDir.clone().multiplyScalar(eVec.dot(cDir));
+
+      // Projection line from element to foot
+      var projGeom = new THREE.BufferGeometry().setFromPoints([eVec, foot]);
+      var projMat = new THREE.LineBasicMaterial({
+        color: projColor, opacity: 0.7, transparent: true
+      });
+      var projLine = new THREE.Line(projGeom, projMat);
+      group.add(projLine);
+
+      // Small dot at projection foot
+      var dotGeom = new THREE.SphereBufferGeometry(0.008, 6, 4);
+      var dotMat = new THREE.MeshBasicMaterial({ color: projColor });
+      var dot = new THREE.Mesh(dotGeom, dotMat);
+      dot.position.copy(foot);
+      group.add(dot);
+    }
+  }
+
+  function rebuildAllProjections() {
     for (var i = 0; i < elements.length; i++) {
-      if (!elementVisible[i]) continue;
-      var el = elements[i];
-      var eVec = new THREE.Vector3(el.x, el.y, el.z);
-      for (var j = 0; j < constructs.length; j++) {
-        if (!constructVisible[j]) continue;
-        var con = constructs[j];
-        var cVec = new THREE.Vector3(con.x, con.y, con.z);
-        var cDir = cVec.clone().normalize();
-        var foot = cDir.clone().multiplyScalar(eVec.dot(cDir));
-        var projGeom = new THREE.BufferGeometry().setFromPoints([eVec, foot]);
-        var projMat = new THREE.LineDashedMaterial({
-          color: 0xaaaaaa, opacity: 0.3, transparent: true,
-          dashSize: 0.02, gapSize: 0.015
-        });
-        var projLine = new THREE.Line(projGeom, projMat);
-        projLine.computeLineDistances();
-        projectionsGroup.add(projLine);
+      buildProjectionsForElement(i);
+    }
+  }
+
+  function toggleElementProjection(idx) {
+    elementProjections[idx] = !elementProjections[idx];
+    buildProjectionsForElement(idx);
+  }
+
+  // =============================================
+  // 6. CALIBRATED AXES
+  // =============================================
+  function buildCalibration() {
+    while (calibrationGroup.children.length > 0) {
+      calibrationGroup.remove(calibrationGroup.children[0]);
+    }
+    if (!calibration) return;
+
+    var se = calibration.se;
+    var offsets = calibration.offsets;
+    var cCoords = calibration.construct_coords; // [nc][3] unscaled
+    var vMin = meta.scale_min;
+    var vMax = meta.scale_max;
+
+    for (var i = 0; i < constructs.length; i++) {
+      if (!constructVisible[i] || !constructLineVisible[i]) continue;
+
+      var Ci = [cCoords[i][0], cCoords[i][1], cCoords[i][2]];
+      var norm2 = Ci[0] * Ci[0] + Ci[1] * Ci[1] + Ci[2] * Ci[2];
+      if (norm2 < 1e-10) continue;
+
+      // Direction vector for tick perpendicular (we pick a world-up cross product)
+      var cDir = new THREE.Vector3(Ci[0], Ci[1], Ci[2]).normalize();
+      var up = new THREE.Vector3(0, 1, 0);
+      var perp1 = new THREE.Vector3().crossVectors(cDir, up);
+      if (perp1.length() < 0.01) {
+        up.set(1, 0, 0);
+        perp1.crossVectors(cDir, up);
+      }
+      perp1.normalize();
+      var tickLen = 0.02;
+
+      for (var v = vMin; v <= vMax; v++) {
+        var vc = v - offsets[i];
+        var factor = se * vc / norm2;
+        var tx = factor * Ci[0];
+        var ty = factor * Ci[1];
+        var tz = factor * Ci[2];
+
+        // Skip ticks too close to origin
+        var dist = Math.sqrt(tx * tx + ty * ty + tz * tz);
+        if (dist < 0.03) continue;
+
+        // Tick line
+        var t1 = new THREE.Vector3(
+          tx - perp1.x * tickLen, ty - perp1.y * tickLen, tz - perp1.z * tickLen
+        );
+        var t2 = new THREE.Vector3(
+          tx + perp1.x * tickLen, ty + perp1.y * tickLen, tz + perp1.z * tickLen
+        );
+        var tickGeom = new THREE.BufferGeometry().setFromPoints([t1, t2]);
+        var tickMat = new THREE.LineBasicMaterial({ color: 0x666666, opacity: 0.5, transparent: true });
+        calibrationGroup.add(new THREE.Line(tickGeom, tickMat));
+
+        // Tick label
+        var tickLabelDiv = document.createElement("div");
+        tickLabelDiv.className = "label-calibration";
+        tickLabelDiv.textContent = v;
+        var tickLabel = new THREE.CSS2DObject(tickLabelDiv);
+        tickLabel.position.set(
+          tx + perp1.x * tickLen * 2.5,
+          ty + perp1.y * tickLen * 2.5,
+          tz + perp1.z * tickLen * 2.5
+        );
+        calibrationGroup.add(tickLabel);
       }
     }
   }
-  buildProjections();
 
   // =============================================
-  // 6. BACK-FACE CULLING for construct labels
+  // 7. BACK-FACE CULLING for construct labels
   // =============================================
-  // Only show labels on poles facing the camera
   var _camDir = new THREE.Vector3();
   var _poleDir = new THREE.Vector3();
 
@@ -300,17 +395,16 @@
         constructObjects[i].line.visible = false;
         continue;
       }
-      constructObjects[i].line.visible = constructLinesGroup.visible;
+      // Construct line toggled by double-click (independent of back-face)
+      constructObjects[i].line.visible = constructLineVisible[i];
 
       var sc = constructSphereCoords[i];
 
-      // Right pole: visible if facing camera
       _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
       var rightFacing = _poleDir.dot(_camDir) < 0;
       constructObjects[i].rightLabel.visible = rightFacing && constructLabelsGroup.visible;
       constructObjects[i].rightMarker.visible = rightFacing && constructPointsGroup.visible;
 
-      // Left pole
       _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
       var leftFacing = _poleDir.dot(_camDir) < 0;
       constructObjects[i].leftLabel.visible = leftFacing && constructLabelsGroup.visible;
@@ -319,7 +413,7 @@
   }
 
   // =============================================
-  // 7. GRID TABLE (left panel)
+  // 8. GRID TABLE
   // =============================================
   function buildGridTable() {
     var container = document.getElementById("grid-table-container");
@@ -331,7 +425,6 @@
     table.className = "grid-table";
     table.id = "grid-table";
 
-    // Header row: left pole | ratings... | right pole
     var thead = document.createElement("thead");
     var headerRow = document.createElement("tr");
 
@@ -356,9 +449,7 @@
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
-    // Body rows: one per construct
     var tbody = document.createElement("tbody");
-
     for (var c = 0; c < ratings.left_poles.length; c++) {
       var tr = document.createElement("tr");
       tr.dataset.constructIndex = c;
@@ -368,7 +459,7 @@
       tdLeft.textContent = ratings.left_poles[c];
       tr.appendChild(tdLeft);
 
-      var rowValues = ratings.values[c]; // 2D array: ratings.values[construct][element]
+      var rowValues = ratings.values[c];
       for (var e = 0; e < ratings.element_names.length; e++) {
         var td = document.createElement("td");
         td.className = "rating-cell";
@@ -391,61 +482,39 @@
   }
   buildGridTable();
 
-  // Highlight column in grid table
   function highlightGridColumn(elementIndex) {
     var table = document.getElementById("grid-table");
     if (!table) return;
-
-    // Clear previous highlights
     var highlighted = table.querySelectorAll(".col-highlight");
-    for (var k = 0; k < highlighted.length; k++) {
-      highlighted[k].classList.remove("col-highlight");
-    }
-
+    for (var k = 0; k < highlighted.length; k++) highlighted[k].classList.remove("col-highlight");
     if (elementIndex < 0) return;
-
-    // Highlight header
     var headers = table.querySelectorAll("th.element-header");
     for (var k = 0; k < headers.length; k++) {
-      if (parseInt(headers[k].dataset.elementIndex) === elementIndex) {
-        headers[k].classList.add("col-highlight");
-      }
+      if (parseInt(headers[k].dataset.elementIndex) === elementIndex) headers[k].classList.add("col-highlight");
     }
-
-    // Highlight data cells
     var cells = table.querySelectorAll("td.rating-cell");
     for (var k = 0; k < cells.length; k++) {
-      if (parseInt(cells[k].dataset.elementIndex) === elementIndex) {
-        cells[k].classList.add("col-highlight");
-      }
+      if (parseInt(cells[k].dataset.elementIndex) === elementIndex) cells[k].classList.add("col-highlight");
     }
   }
 
-  // Highlight row in grid table
   function highlightGridRow(constructIndex) {
     var table = document.getElementById("grid-table");
     if (!table) return;
-
     var highlighted = table.querySelectorAll(".row-highlight");
-    for (var k = 0; k < highlighted.length; k++) {
-      highlighted[k].classList.remove("row-highlight");
-    }
-
+    for (var k = 0; k < highlighted.length; k++) highlighted[k].classList.remove("row-highlight");
     if (constructIndex < 0) return;
-
     var rows = table.querySelectorAll("tbody tr");
     for (var k = 0; k < rows.length; k++) {
       if (parseInt(rows[k].dataset.constructIndex) === constructIndex) {
         var cells = rows[k].querySelectorAll("td");
-        for (var j = 0; j < cells.length; j++) {
-          cells[j].classList.add("row-highlight");
-        }
+        for (var j = 0; j < cells.length; j++) cells[j].classList.add("row-highlight");
       }
     }
   }
 
   // =============================================
-  // 8. GUI PANEL
+  // 9. GUI PANEL
   // =============================================
   var guiPanel = document.getElementById("gui-panel");
 
@@ -494,20 +563,26 @@
   }
 
   // --- Display section ---
-  var displaySection = addSectionTitle("Display");
+  addSectionTitle("Display");
   addToggle(guiPanel, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
-  addToggle(guiPanel, "Axes", true, function (v) { axesGroup.visible = v; });
-  addToggle(guiPanel, "Projections", false, function (v) {
-    projectionsGroup.visible = v;
-    if (v) buildProjections();
+  addToggle(guiPanel, "Axes", true, function (v) {
+    axesGroup.visible = v;
+    for (var a = 0; a < axisLabels.length; a++) {
+      axisLabels[a].visible = v;
+    }
   });
+
+  // Hint text
+  var hint = document.createElement("div");
+  hint.className = "hint-text";
+  hint.textContent = "Double-click element \u2192 projections. Double-click construct \u2192 axis + calibration.";
+  guiPanel.appendChild(hint);
 
   // --- Elements section ---
   var elemSection = addSectionTitle("Elements");
   var elemCheckboxes = [];
   var elemListDiv = document.createElement("div");
   elemListDiv.className = "item-list";
-
   addToggleAllButton(elemSection, function () { return elemCheckboxes; });
 
   for (var i = 0; i < elements.length; i++) {
@@ -516,7 +591,7 @@
         elementVisible[idx] = v;
         elementObjects[idx].sphere.visible = v;
         elementObjects[idx].label.visible = v;
-        if (projectionsGroup.visible) buildProjections();
+        buildProjectionsForElement(idx);
       });
       elemCheckboxes.push(cb);
     })(i);
@@ -528,16 +603,15 @@
   var conCheckboxes = [];
   var conListDiv = document.createElement("div");
   conListDiv.className = "item-list";
-
   addToggleAllButton(conSection, function () { return conCheckboxes; });
 
   for (var i = 0; i < constructs.length; i++) {
     (function (idx) {
-      var label = constructs[idx].left_pole + " - " + constructs[idx].right_pole;
-      var cb = addToggle(conListDiv, label, true, function (v) {
+      var labelText = constructs[idx].left_pole + " \u2014 " + constructs[idx].right_pole;
+      var cb = addToggle(conListDiv, labelText, true, function (v) {
         constructVisible[idx] = v;
-        // visibility will be managed by updateLabelVisibility()
-        if (projectionsGroup.visible) buildProjections();
+        rebuildAllProjections();
+        buildCalibration();
       });
       conCheckboxes.push(cb);
     })(i);
@@ -556,8 +630,44 @@
   guiPanel.appendChild(resetBtn);
 
   // =============================================
-  // 9. HOVER + TOOLTIP + GRID HIGHLIGHT
+  // 10. HOVER + TOOLTIP + DOUBLE-CLICK
   // =============================================
+  function highlightElement(idx) {
+    if (idx < 0) return;
+    elementObjects[idx].sphere.scale.setScalar(1.8);
+    elementObjects[idx].sphere.material.emissive.setHex(0x444444);
+    elementObjects[idx].label.element.style.fontWeight = "800";
+    elementObjects[idx].label.element.style.color = "#000";
+  }
+
+  function unhighlightElement(idx) {
+    if (idx < 0) return;
+    elementObjects[idx].sphere.scale.setScalar(1.0);
+    elementObjects[idx].sphere.material.emissive.setHex(0x000000);
+    elementObjects[idx].label.element.style.fontWeight = "";
+    elementObjects[idx].label.element.style.color = "";
+  }
+
+  function highlightConstruct(idx) {
+    if (idx < 0) return;
+    constructObjects[idx].rightMarker.scale.setScalar(2.5);
+    constructObjects[idx].leftMarker.scale.setScalar(2.5);
+    constructObjects[idx].rightLabel.element.style.fontWeight = "800";
+    constructObjects[idx].leftLabel.element.style.fontWeight = "800";
+    constructObjects[idx].rightLabel.element.style.textShadow = "0 0 3px rgba(0,0,0,0.3)";
+    constructObjects[idx].leftLabel.element.style.textShadow = "0 0 3px rgba(0,0,0,0.3)";
+  }
+
+  function unhighlightConstruct(idx) {
+    if (idx < 0) return;
+    constructObjects[idx].rightMarker.scale.setScalar(1.0);
+    constructObjects[idx].leftMarker.scale.setScalar(1.0);
+    constructObjects[idx].rightLabel.element.style.fontWeight = "";
+    constructObjects[idx].leftLabel.element.style.fontWeight = "";
+    constructObjects[idx].rightLabel.element.style.textShadow = "";
+    constructObjects[idx].leftLabel.element.style.textShadow = "";
+  }
+
   function onMouseMove(event) {
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -574,13 +684,11 @@
       var ud = obj.userData;
       if (ud && ud.name) {
         var qualStr = ud.quality !== undefined
-          ? " (quality: " + (ud.quality * 100).toFixed(1) + "%)"
-          : "";
+          ? " (quality: " + (ud.quality * 100).toFixed(1) + "%)" : "";
         tooltip.textContent = ud.name + qualStr;
         tooltip.style.display = "block";
         tooltip.style.left = (event.clientX + 12) + "px";
         tooltip.style.top = (event.clientY - 8) + "px";
-
         if (ud.type === "element") newHoveredElement = ud.index;
         if (ud.type === "construct") newHoveredConstruct = ud.index;
       }
@@ -589,22 +697,56 @@
     }
 
     if (newHoveredElement !== hoveredElementIndex) {
+      unhighlightElement(hoveredElementIndex);
       hoveredElementIndex = newHoveredElement;
+      highlightElement(hoveredElementIndex);
       highlightGridColumn(hoveredElementIndex);
     }
-    highlightGridRow(newHoveredConstruct);
+    if (newHoveredConstruct !== hoveredConstructIndex) {
+      unhighlightConstruct(hoveredConstructIndex);
+      hoveredConstructIndex = newHoveredConstruct;
+      highlightConstruct(hoveredConstructIndex);
+      highlightGridRow(hoveredConstructIndex);
+    }
+    renderer.domElement.style.cursor = (newHoveredElement >= 0 || newHoveredConstruct >= 0) ? "pointer" : "default";
+  }
+
+  // Double-click: toggle projections for element, toggle line for construct
+  function onDblClick(event) {
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    var intersects = raycaster.intersectObjects(hoverTargets);
+
+    if (intersects.length > 0) {
+      var ud = intersects[0].object.userData;
+      if (ud.type === "element") {
+        toggleElementProjection(ud.index);
+      } else if (ud.type === "construct") {
+        constructLineVisible[ud.index] = !constructLineVisible[ud.index];
+        buildCalibration();
+        rebuildAllProjections();
+      }
+    }
   }
 
   renderer.domElement.addEventListener("mousemove", onMouseMove, false);
+  renderer.domElement.addEventListener("dblclick", onDblClick, false);
   renderer.domElement.addEventListener("mouseleave", function () {
     tooltip.style.display = "none";
+    unhighlightElement(hoveredElementIndex);
+    unhighlightConstruct(hoveredConstructIndex);
     hoveredElementIndex = -1;
+    hoveredConstructIndex = -1;
     highlightGridColumn(-1);
     highlightGridRow(-1);
+    renderer.domElement.style.cursor = "default";
   });
 
   // =============================================
-  // 10. RESIZE
+  // 11. RESIZE
   // =============================================
   function onResize() {
     width = sceneContainer.clientWidth;
@@ -617,7 +759,65 @@
   window.addEventListener("resize", onResize);
 
   // =============================================
-  // 11. RENDER LOOP
+  // 12. PANEL TOGGLES + RESIZABLE DIVIDERS
+  // =============================================
+  var leftPanel = document.getElementById("left-panel");
+  var rightPanel = document.getElementById("right-panel");
+  var toggleLeftBtn = document.getElementById("toggle-left");
+  var toggleRightBtn = document.getElementById("toggle-right");
+  var resizeLeft = document.getElementById("resize-left");
+  var resizeRight = document.getElementById("resize-right");
+
+  toggleLeftBtn.addEventListener("click", function () {
+    leftPanel.classList.toggle("collapsed");
+    resizeLeft.style.display = leftPanel.classList.contains("collapsed") ? "none" : "";
+    onResize();
+  });
+
+  toggleRightBtn.addEventListener("click", function () {
+    rightPanel.classList.toggle("collapsed");
+    resizeRight.style.display = rightPanel.classList.contains("collapsed") ? "none" : "";
+    onResize();
+  });
+
+  // Draggable dividers to resize panels
+  function makeResizable(handle, panel, side) {
+    var isDragging = false;
+
+    handle.addEventListener("mousedown", function (e) {
+      isDragging = true;
+      handle.classList.add("active");
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+      e.preventDefault();
+    });
+
+    document.addEventListener("mousemove", function (e) {
+      if (!isDragging) return;
+      if (side === "left") {
+        var newWidth = Math.max(150, Math.min(e.clientX, window.innerWidth - 400));
+        panel.style.width = newWidth + "px";
+      } else {
+        var newWidth = Math.max(150, Math.min(window.innerWidth - e.clientX, window.innerWidth - 400));
+        panel.style.width = newWidth + "px";
+      }
+      onResize();
+    });
+
+    document.addEventListener("mouseup", function () {
+      if (!isDragging) return;
+      isDragging = false;
+      handle.classList.remove("active");
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    });
+  }
+
+  makeResizable(resizeLeft, leftPanel, "left");
+  makeResizable(resizeRight, rightPanel, "right");
+
+  // =============================================
+  // 13. RENDER LOOP
   // =============================================
   function animate() {
     requestAnimationFrame(animate);

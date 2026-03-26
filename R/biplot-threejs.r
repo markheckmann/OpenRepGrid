@@ -128,9 +128,31 @@ biplotThreejs <- function(x, dim = 1:3,
     right_poles = constructs(x)$rightpole
   )
 
+  # calibration data: centering offsets and unscaled construct coords
+  dat <- x@ratings[, , 1]
+  nc <- nrow(dat)
+  if (center == 0) {
+    offsets <- rep(0, nc)
+  } else if (center == 1) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 2) {
+    offsets <- rep(0, nc)
+  } else if (center == 3) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 4) {
+    offsets <- rep(getScaleMidpoint(x), nc)
+  }
+
+  calibration_list <- list(
+    offsets = round(offsets, 6),
+    construct_coords = round(unname(C[, dim]), 6),
+    se = round(se, 6)
+  )
+
   json_str <- jsonlite::toJSON(
     list(elements = elements_list, constructs = constructs_list,
-         meta = meta_list, ratings = ratings_list),
+         meta = meta_list, ratings = ratings_list,
+         calibration = calibration_list),
     auto_unbox = TRUE, digits = 6, dataframe = "rows"
   )
 
