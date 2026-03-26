@@ -74,6 +74,7 @@
   scene.add(constructPointsGroup);
   scene.add(constructLinesGroup);
   scene.add(constructLabelsGroup);
+  axesGroup.visible = false;
   scene.add(axesGroup);
   scene.add(projectionsGroup);
   scene.add(calibrationGroup);
@@ -367,6 +368,7 @@
     var labelPos = new THREE.Vector3(0, 0, 0);
     labelPos.setComponent(a, axisLength + 0.05);
     axLabel.position.copy(labelPos);
+    axLabel.visible = false;
     axesGroup.add(axLabel);
     axisLabels.push(axLabel);
   }
@@ -386,6 +388,14 @@
 
   function buildProjectionsForElement(idx) {
     var group = elementProjectionGroups[idx];
+    // Remove old foot dots from hoverTargets
+    for (var k = group.children.length - 1; k >= 0; k--) {
+      var child = group.children[k];
+      if (child.userData && child.userData.type === "projectionFoot") {
+        var htIdx = hoverTargets.indexOf(child);
+        if (htIdx >= 0) hoverTargets.splice(htIdx, 1);
+      }
+    }
     // Clear existing
     while (group.children.length > 0) {
       group.remove(group.children[0]);
@@ -422,11 +432,13 @@
       group.add(projLine);
 
       // Small dot at projection foot
-      var dotGeom = new THREE.SphereBufferGeometry(0.008, 6, 4);
+      var dotGeom = new THREE.SphereBufferGeometry(0.012, 8, 6);
       var dotMat = new THREE.MeshBasicMaterial({ color: projColor });
       var dot = new THREE.Mesh(dotGeom, dotMat);
       dot.position.copy(foot);
+      dot.userData = { type: "projectionFoot", elementIndex: idx, constructIndex: j };
       group.add(dot);
+      hoverTargets.push(dot);
     }
   }
 
@@ -770,6 +782,11 @@
             highlightGridColumn(-1);
             gridHoveredElement = -1;
           }
+        });
+
+        th.addEventListener("click", function () {
+          elemCheckboxes[ei].checked = !elemCheckboxes[ei].checked;
+          elemCheckboxes[ei].dispatchEvent(new Event("change"));
         });
       })(headers[h]);
     }
@@ -1246,6 +1263,24 @@
     }
   }
 
+  function highlightGridCell(elementIndex, constructIndex) {
+    var table = document.getElementById("grid-table");
+    if (!table) return;
+    unhighlightGridCell();
+    if (elementIndex < 0 || constructIndex < 0) return;
+    var cell = table.querySelector(
+      'td.rating-cell[data-element-index="' + elementIndex + '"][data-construct-index="' + constructIndex + '"]'
+    );
+    if (cell) cell.classList.add("cell-highlight");
+  }
+
+  function unhighlightGridCell() {
+    var table = document.getElementById("grid-table");
+    if (!table) return;
+    var highlighted = table.querySelectorAll(".cell-highlight");
+    for (var k = 0; k < highlighted.length; k++) highlighted[k].classList.remove("cell-highlight");
+  }
+
   // =============================================
   // 9. GUI PANEL
   // =============================================
@@ -1474,7 +1509,7 @@
   pcAxisLabel.appendChild(document.createTextNode(" PC Axis Thickness"));
   displayBody.appendChild(pcAxisLabel);
 
-  addToggle(displayBody, "Axes", true, function (v) {
+  addToggle(displayBody, "Axes", false, function (v) {
     axesGroup.visible = v;
     for (var a = 0; a < axisLabels.length; a++) {
       axisLabels[a].visible = v;
@@ -1631,6 +1666,8 @@
 
     var newHoveredElement = -1;
     var newHoveredConstruct = -1;
+    var newHoveredFootElem = -1;
+    var newHoveredFootCon = -1;
 
     if (intersects.length > 0) {
       var obj = intersects[0].object;
@@ -1644,6 +1681,16 @@
         tooltip.style.top = (event.clientY - 8) + "px";
         if (ud.type === "element") newHoveredElement = ud.index;
         if (ud.type === "construct") newHoveredConstruct = ud.index;
+      } else if (ud && ud.type === "projectionFoot") {
+        var eName = elements[ud.elementIndex].name;
+        var cLeft = constructs[ud.constructIndex].left_pole;
+        var cRight = constructs[ud.constructIndex].right_pole;
+        tooltip.textContent = eName + " → " + cLeft + " – " + cRight;
+        tooltip.style.display = "block";
+        tooltip.style.left = (event.clientX + 12) + "px";
+        tooltip.style.top = (event.clientY - 8) + "px";
+        newHoveredFootElem = ud.elementIndex;
+        newHoveredFootCon = ud.constructIndex;
       }
     } else {
       tooltip.style.display = "none";
@@ -1663,7 +1710,15 @@
       highlightGridRow(hoveredConstructIndex);
       if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
     }
-    renderer.domElement.style.cursor = (newHoveredElement >= 0 || newHoveredConstruct >= 0) ? "pointer" : "default";
+
+    // Highlight grid cell when hovering projection foot dot
+    if (newHoveredFootElem >= 0 && newHoveredFootCon >= 0) {
+      highlightGridCell(newHoveredFootElem, newHoveredFootCon);
+    } else {
+      unhighlightGridCell();
+    }
+
+    renderer.domElement.style.cursor = (newHoveredElement >= 0 || newHoveredConstruct >= 0 || newHoveredFootElem >= 0) ? "pointer" : "default";
   }
 
   // Double-click: toggle projections for element, toggle line for construct

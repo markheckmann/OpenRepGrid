@@ -313,6 +313,12 @@ body {
   background: #d4edda !important;
 }
 
+.grid-table .cell-highlight {
+  background: #f8b4b4 !important;
+  outline: 2px solid #e05050;
+  outline-offset: -1px;
+}
+
 /* GUI control panel */
 #gui-panel {
   padding: 14px 16px;
@@ -719,6 +725,12 @@ body.dark .grid-table .col-highlight {
 
 body.dark .grid-table .row-highlight {
   background: #1e3a28 !important;
+}
+
+body.dark .grid-table .cell-highlight {
+  background: #5a2020 !important;
+  outline: 2px solid #c04040;
+  outline-offset: -1px;
 }
 
 body.dark #gui-panel {
