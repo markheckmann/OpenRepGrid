@@ -935,6 +935,9 @@
       elementObjects[i].label.visible = v && elementVisible[i];
     }
   });
+  addToggle(displayBody, "Deconflict Labels", false, function (v) {
+    labelDeconflict = v;
+  });
 
   // Hint text
   var hint = document.createElement("div");
@@ -1261,7 +1264,84 @@
   }
 
   // =============================================
-  // 14. RENDER LOOP
+  // 14. LABEL DECONFLICTION
+  // =============================================
+  var labelDeconflict = false;
+
+  function deconflictLabels() {
+    if (!labelDeconflict) return;
+
+    var items = [];
+
+    // Collect visible element labels
+    for (var i = 0; i < elementObjects.length; i++) {
+      if (!elementVisible[i] || !elementLabelVisible[i] || !elementObjects[i].label.visible) continue;
+      items.push(elementObjects[i].label.element);
+    }
+
+    // Collect visible construct labels
+    for (var i = 0; i < constructObjects.length; i++) {
+      if (!constructVisible[i]) continue;
+      if (constructObjects[i].rightLabel.visible)
+        items.push(constructObjects[i].rightLabel.element);
+      if (constructObjects[i].leftLabel.visible)
+        items.push(constructObjects[i].leftLabel.element);
+    }
+
+    if (items.length < 2) return;
+
+    // Batch-read all bounding rects
+    var rects = [];
+    for (var i = 0; i < items.length; i++) {
+      var r = items[i].getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) continue;
+      rects.push({
+        el: items[i],
+        cx: r.left + r.width / 2,
+        cy: r.top + r.height / 2,
+        hw: r.width / 2,
+        hh: r.height / 2,
+        dx: 0,
+        dy: 0
+      });
+    }
+
+    // Iteratively resolve overlaps
+    for (var iter = 0; iter < 4; iter++) {
+      for (var i = 0; i < rects.length; i++) {
+        for (var j = i + 1; j < rects.length; j++) {
+          var a = rects[i], b = rects[j];
+          var ax = a.cx + a.dx, ay = a.cy + a.dy;
+          var bx = b.cx + b.dx, by = b.cy + b.dy;
+          var ox = (a.hw + b.hw) - Math.abs(ax - bx);
+          var oy = (a.hh + b.hh) - Math.abs(ay - by);
+          if (ox > 0 && oy > 0) {
+            // Push along smaller overlap axis
+            if (oy < ox) {
+              var py = oy / 2 + 0.5;
+              if (ay <= by) { a.dy -= py; b.dy += py; }
+              else { a.dy += py; b.dy -= py; }
+            } else {
+              var px = ox / 2 + 0.5;
+              if (ax <= bx) { a.dx -= px; b.dx += px; }
+              else { a.dx += px; b.dx -= px; }
+            }
+          }
+        }
+      }
+    }
+
+    // Batch-write nudge offsets
+    for (var i = 0; i < rects.length; i++) {
+      var r = rects[i];
+      if (r.dx !== 0 || r.dy !== 0) {
+        r.el.style.transform += " translate(" + r.dx.toFixed(1) + "px," + r.dy.toFixed(1) + "px)";
+      }
+    }
+  }
+
+  // =============================================
+  // 15. RENDER LOOP
   // =============================================
   function animate() {
     requestAnimationFrame(animate);
@@ -1271,6 +1351,7 @@
     renderer.render(scene, camera);
     labelRenderer.render(scene, camera);
     updateLabelAlignment();
+    deconflictLabels();
   }
   animate();
 
