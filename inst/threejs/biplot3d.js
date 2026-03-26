@@ -1369,7 +1369,6 @@
     elementObjects[idx].sphere.scale.setScalar(1.8);
     elementObjects[idx].sphere.material.emissive.setHex(0x444444);
     elementObjects[idx].label.element.style.fontWeight = "800";
-    elementObjects[idx].label.element.style.color = "";
   }
 
   function unhighlightElement(idx) {
@@ -1377,7 +1376,6 @@
     elementObjects[idx].sphere.scale.setScalar(1.0);
     elementObjects[idx].sphere.material.emissive.setHex(0x000000);
     elementObjects[idx].label.element.style.fontWeight = "";
-    elementObjects[idx].label.element.style.color = "";
   }
 
   function highlightConstruct(idx) {
