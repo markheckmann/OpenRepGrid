@@ -643,6 +643,242 @@
   }
   buildGridTable();
 
+  // --- Tab switching ---
+  var tabBtns = document.querySelectorAll(".tab-btn");
+  var tabContents = document.querySelectorAll(".tab-content");
+  for (var t = 0; t < tabBtns.length; t++) {
+    (function (btn) {
+      btn.addEventListener("click", function () {
+        for (var k = 0; k < tabBtns.length; k++) tabBtns[k].classList.remove("active");
+        for (var k = 0; k < tabContents.length; k++) tabContents[k].classList.remove("active");
+        btn.classList.add("active");
+        var tab = btn.dataset.tab;
+        var content = document.querySelector('.tab-content[data-tab="' + tab + '"]');
+        if (content) content.classList.add("active");
+        if (tab === "profile" && selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+      });
+    })(tabBtns[t]);
+  }
+
+  // --- Profile plot ---
+  var profileCanvas = document.getElementById("profile-canvas");
+  var profileCtx = profileCanvas.getContext("2d");
+  var profileHint = document.querySelector("#profile-container .profile-hint");
+  profileCanvas.style.display = "none";
+  var selectedElementIndex = -1;
+
+  // Compute construct order by angle in PC1-PC2 plane
+  var constructOrder = constructs.map(function (c, i) {
+    return { index: i, angle: Math.atan2(c.y, c.x) };
+  });
+  constructOrder.sort(function (a, b) { return a.angle - b.angle; });
+
+  // Word-wrap text into up to maxLines lines fitting within maxWidth.
+  // Last line is truncated with "…" if it still overflows.
+  function wrapText(ctx, text, maxWidth, maxLines) {
+    var words = text.split(/\s+/);
+    var lines = [];
+    var current = words[0] || "";
+    for (var i = 1; i < words.length; i++) {
+      var test = current + " " + words[i];
+      if (ctx.measureText(test).width <= maxWidth) {
+        current = test;
+      } else {
+        lines.push(current);
+        current = words[i];
+        if (lines.length >= maxLines) { current = ""; break; }
+      }
+    }
+    if (current) lines.push(current);
+    if (lines.length === 0) lines.push(text);
+    // Truncate last line if needed
+    var last = lines[lines.length - 1];
+    if (ctx.measureText(last).width > maxWidth) {
+      while (last.length > 1 && ctx.measureText(last + "\u2026").width > maxWidth) {
+        last = last.slice(0, -1);
+      }
+      lines[lines.length - 1] = last + "\u2026";
+    }
+    return lines.slice(0, maxLines);
+  }
+
+  function drawProfilePlot(elemIdx) {
+    if (elemIdx < 0) return;
+    var isDark = document.body.classList.contains("dark");
+    var container = document.getElementById("profile-container");
+    var containerWidth = container.clientWidth - 24; // subtract padding
+    if (containerWidth < 100) containerWidth = 280;
+
+    var nc = constructs.length;
+    var scaleMin = meta.scale_min;
+    var scaleMax = meta.scale_max;
+    var scaleRange = scaleMax - scaleMin;
+
+    // Layout — give poles ~35% of width each, at least 60px center
+    var marginFrac = 0.35;
+    var leftMargin = Math.max(60, Math.floor(containerWidth * marginFrac));
+    var rightMargin = leftMargin;
+    var plotWidth = containerWidth - leftMargin - rightMargin;
+    if (plotWidth < 60) { leftMargin = Math.floor((containerWidth - 60) / 2); rightMargin = leftMargin; plotWidth = containerWidth - leftMargin - rightMargin; }
+    var poleFont = "10px -apple-system, BlinkMacSystemFont, sans-serif";
+    var lineHeight = 12;
+    var rowHeight = 32;
+    var topPad = 42;
+    var bottomPad = 20;
+    var canvasHeight = topPad + nc * rowHeight + bottomPad;
+
+    var dpr = window.devicePixelRatio || 1;
+    profileCanvas.width = containerWidth * dpr;
+    profileCanvas.height = canvasHeight * dpr;
+    profileCanvas.style.width = containerWidth + "px";
+    profileCanvas.style.height = canvasHeight + "px";
+    profileCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Clear
+    profileCtx.clearRect(0, 0, containerWidth, canvasHeight);
+
+    // Colors
+    var textColor = isDark ? "#ccc" : "#333";
+    var lineColor = isDark ? "#5599dd" : "#2266aa";
+    var gridColor = isDark ? "#444" : "#e0e0e0";
+    var bgColor = isDark ? "transparent" : "transparent";
+    var prefColor = isDark ? "#44bb77" : "#226644";
+    var nonprefColor = isDark ? "#dd7755" : "#aa4422";
+    var neutralColor = isDark ? "#999" : "#777";
+    var dotFill = isDark ? "#5599dd" : "#2266aa";
+    var midColor = isDark ? "#555" : "#ccc";
+
+    // Title
+    profileCtx.font = "bold 14px -apple-system, BlinkMacSystemFont, sans-serif";
+    profileCtx.fillStyle = isDark ? "#ddd" : "#222";
+    profileCtx.textAlign = "center";
+    profileCtx.fillText(elements[elemIdx].name, containerWidth / 2, 18);
+
+    // Scale ticks at top
+    profileCtx.font = "9px -apple-system, BlinkMacSystemFont, sans-serif";
+    profileCtx.fillStyle = isDark ? "#888" : "#999";
+    profileCtx.textAlign = "center";
+    for (var s = scaleMin; s <= scaleMax; s++) {
+      var sx = leftMargin + (s - scaleMin) / scaleRange * plotWidth;
+      profileCtx.fillText(s, sx, topPad - 4);
+    }
+
+    // Draw rows
+    var points = [];
+    for (var r = 0; r < nc; r++) {
+      var ci = constructOrder[r].index;
+      var y = topPad + r * rowHeight + rowHeight / 2;
+      var rating = ratings.values[ci][elemIdx];
+
+      // Horizontal grid line
+      profileCtx.strokeStyle = gridColor;
+      profileCtx.lineWidth = 0.5;
+      profileCtx.beginPath();
+      profileCtx.moveTo(leftMargin, y);
+      profileCtx.lineTo(leftMargin + plotWidth, y);
+      profileCtx.stroke();
+
+      // Midpoint marker
+      var midX = leftMargin + ((scaleMin + scaleMax) / 2 - scaleMin) / scaleRange * plotWidth;
+      profileCtx.strokeStyle = midColor;
+      profileCtx.lineWidth = 0.5;
+      profileCtx.beginPath();
+      profileCtx.moveTo(midX, y - rowHeight / 2 + 2);
+      profileCtx.lineTo(midX, y + rowHeight / 2 - 2);
+      profileCtx.stroke();
+
+      // Pole labels
+      var cPref = constructs[ci].preferred;
+      var leftPoleColor, rightPoleColor;
+      if (cPref === "left") {
+        leftPoleColor = prefColor;
+        rightPoleColor = nonprefColor;
+      } else if (cPref === "right") {
+        leftPoleColor = nonprefColor;
+        rightPoleColor = prefColor;
+      } else if (cPref === "both") {
+        leftPoleColor = prefColor;
+        rightPoleColor = prefColor;
+      } else {
+        leftPoleColor = neutralColor;
+        rightPoleColor = neutralColor;
+      }
+
+      // Left pole — word-wrap up to 2 lines, then truncate
+      profileCtx.font = poleFont;
+      profileCtx.textAlign = "right";
+      profileCtx.fillStyle = leftPoleColor;
+      var leftLines = wrapText(profileCtx, constructs[ci].left_pole, leftMargin - 10, 2);
+      var lyStart = y - (leftLines.length - 1) * lineHeight / 2 + 3;
+      for (var li = 0; li < leftLines.length; li++) {
+        profileCtx.fillText(leftLines[li], leftMargin - 6, lyStart + li * lineHeight);
+      }
+
+      // Right pole
+      profileCtx.textAlign = "left";
+      profileCtx.fillStyle = rightPoleColor;
+      var rightLines = wrapText(profileCtx, constructs[ci].right_pole, rightMargin - 10, 2);
+      var ryStart = y - (rightLines.length - 1) * lineHeight / 2 + 3;
+      for (var ri = 0; ri < rightLines.length; ri++) {
+        profileCtx.fillText(rightLines[ri], leftMargin + plotWidth + 6, ryStart + ri * lineHeight);
+      }
+
+      // Compute dot position
+      if (rating != null && !isNaN(rating)) {
+        var dx = leftMargin + (rating - scaleMin) / scaleRange * plotWidth;
+        points.push({ x: dx, y: y, rating: rating });
+      }
+    }
+
+    // Draw connecting line
+    if (points.length > 1) {
+      profileCtx.strokeStyle = lineColor;
+      profileCtx.lineWidth = 1.5;
+      profileCtx.beginPath();
+      profileCtx.moveTo(points[0].x, points[0].y);
+      for (var p = 1; p < points.length; p++) {
+        profileCtx.lineTo(points[p].x, points[p].y);
+      }
+      profileCtx.stroke();
+    }
+
+    // Draw dots
+    for (var p = 0; p < points.length; p++) {
+      profileCtx.beginPath();
+      profileCtx.arc(points[p].x, points[p].y, 3.5, 0, Math.PI * 2);
+      profileCtx.fillStyle = dotFill;
+      profileCtx.fill();
+      profileCtx.strokeStyle = isDark ? "#222" : "#fff";
+      profileCtx.lineWidth = 1;
+      profileCtx.stroke();
+    }
+
+    // Vertical border lines at scale edges
+    profileCtx.strokeStyle = gridColor;
+    profileCtx.lineWidth = 0.5;
+    profileCtx.beginPath();
+    profileCtx.moveTo(leftMargin, topPad);
+    profileCtx.lineTo(leftMargin, topPad + nc * rowHeight);
+    profileCtx.stroke();
+    profileCtx.beginPath();
+    profileCtx.moveTo(leftMargin + plotWidth, topPad);
+    profileCtx.lineTo(leftMargin + plotWidth, topPad + nc * rowHeight);
+    profileCtx.stroke();
+
+    profileHint.style.display = "none";
+    profileCanvas.style.display = "block";
+  }
+
+  function updateProfilePlot(elemIdx) {
+    selectedElementIndex = elemIdx;
+    var profileTab = document.querySelector('.tab-content[data-tab="profile"]');
+    if (profileTab && profileTab.classList.contains("active")) {
+      if (elemIdx >= 0) {
+        drawProfilePlot(elemIdx);
+      }
+    }
+  }
+
   function highlightGridColumn(elementIndex) {
     var table = document.getElementById("grid-table");
     if (!table) return;
@@ -1082,6 +1318,7 @@
       hoveredElementIndex = newHoveredElement;
       highlightElement(hoveredElementIndex);
       highlightGridColumn(hoveredElementIndex);
+      if (newHoveredElement >= 0) updateProfilePlot(newHoveredElement);
     }
     if (newHoveredConstruct !== hoveredConstructIndex) {
       unhighlightConstruct(hoveredConstructIndex);
@@ -1127,6 +1364,7 @@
       if (ud.type === "element") {
         elementLabelVisible[ud.index] = !elementLabelVisible[ud.index];
         elementObjects[ud.index].label.visible = elementLabelVisible[ud.index] && elementVisible[ud.index];
+        updateProfilePlot(ud.index);
       } else if (ud.type === "construct") {
         constructLabelVisible[ud.index] = !constructLabelVisible[ud.index];
       }
@@ -1157,6 +1395,7 @@
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
     labelRenderer.setSize(width, height);
+    if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
   }
   window.addEventListener("resize", onResize);
 

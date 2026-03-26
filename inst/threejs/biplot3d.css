@@ -128,6 +128,69 @@ body {
   right: 10px;
 }
 
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  background: #f0f0f0;
+}
+
+.tab-bar button {
+  flex: 1;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-bar button:hover {
+  color: #444;
+}
+
+.tab-bar button.active {
+  color: #333;
+  border-bottom-color: #2266aa;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Profile plot */
+#profile-container {
+  padding: 12px;
+}
+
+#profile-container h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+#profile-container .profile-hint {
+  font-size: 11px;
+  color: #999;
+  font-style: italic;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#profile-canvas {
+  width: 100%;
+}
+
 /* Grid table */
 #grid-table-container {
   padding: 12px;
@@ -443,6 +506,32 @@ body.dark #left-panel,
 body.dark #right-panel {
   background: #222;
   border-color: #444;
+}
+
+body.dark .tab-bar {
+  background: #2a2a2a;
+  border-bottom-color: #444;
+}
+
+body.dark .tab-bar button {
+  color: #888;
+}
+
+body.dark .tab-bar button:hover {
+  color: #ccc;
+}
+
+body.dark .tab-bar button.active {
+  color: #ddd;
+  border-bottom-color: #5599dd;
+}
+
+body.dark #profile-container h3 {
+  color: #bbb;
+}
+
+body.dark #profile-container .profile-hint {
+  color: #666;
 }
 
 body.dark .panel-toggle {
