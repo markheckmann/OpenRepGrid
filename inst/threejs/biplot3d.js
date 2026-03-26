@@ -657,6 +657,60 @@
   }
   buildGridTable();
 
+  // --- Grid table construct interactions ---
+  var gridHoveredConstruct = -1;
+
+  function setupGridTableConstructEvents() {
+    var rows = document.querySelectorAll("#grid-table tbody tr");
+    for (var r = 0; r < rows.length; r++) {
+      (function (row) {
+        var ci = parseInt(row.dataset.constructIndex);
+
+        row.addEventListener("mouseenter", function () {
+          if (ci === gridHoveredConstruct) return;
+          if (gridHoveredConstruct >= 0) {
+            unhighlightConstruct(gridHoveredConstruct);
+          }
+          gridHoveredConstruct = ci;
+          profileTempVisibleConstruct = ci;
+          hoveredConstructIndex = ci;
+          highlightConstruct(ci);
+          highlightGridRow(ci);
+          if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
+        });
+
+        row.addEventListener("mouseleave", function () {
+          if (gridHoveredConstruct >= 0) {
+            unhighlightConstruct(gridHoveredConstruct);
+            highlightGridRow(-1);
+            profileTempVisibleConstruct = -1;
+            hoveredConstructIndex = -1;
+            gridHoveredConstruct = -1;
+            if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
+          }
+        });
+
+        row.addEventListener("click", function () {
+          conCheckboxes[ci].checked = !conCheckboxes[ci].checked;
+          conCheckboxes[ci].dispatchEvent(new Event("change"));
+        });
+
+        row.addEventListener("dblclick", function () {
+          if (!constructVisible[ci]) {
+            conCheckboxes[ci].checked = true;
+            conCheckboxes[ci].dispatchEvent(new Event("change"));
+          }
+          constructLineVisible[ci] = !constructLineVisible[ci];
+          buildCalibration();
+          rebuildAllProjections();
+        });
+
+        row.style.cursor = "pointer";
+      })(rows[r]);
+    }
+  }
+  setupGridTableConstructEvents();
+
   // --- Tab switching ---
   var tabBtns = document.querySelectorAll(".tab-btn");
   var tabContents = document.querySelectorAll(".tab-content");
@@ -1155,7 +1209,7 @@
   }
 
   // --- Display section ---
-  var displaySection = addSectionTitle("Display");
+  var displaySection = addSectionTitle("Display", true);
   var displayBody = displaySection.body;
   addToggle(displayBody, "Dark Mode", true, function (v) {
     document.body.classList.toggle("dark", v);
