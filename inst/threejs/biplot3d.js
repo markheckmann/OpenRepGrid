@@ -15,6 +15,7 @@
   var constructVisible = constructs.map(function () { return true; });
   var elementProjections = elements.map(function () { return false; }); // per-element projection toggle
   var constructLineVisible = constructs.map(function () { return false; }); // per-construct line toggle
+  var constructLabelVisible = constructs.map(function () { return true; }); // per-construct label toggle
   var calibrationLabelsVisible = true;
 
   // --- Scene setup ---
@@ -536,20 +537,21 @@
       var sc = constructSphereCoords[i];
 
       // When hovered, force both poles visible; otherwise back-face cull with 10° tolerance
+      var clv = constructLabelVisible[i];
       if (isHovered) {
-        constructObjects[i].rightLabel.visible = constructLabelsGroup.visible;
+        constructObjects[i].rightLabel.visible = clv;
         constructObjects[i].rightMarker.visible = constructPointsGroup.visible;
-        constructObjects[i].leftLabel.visible = constructLabelsGroup.visible;
+        constructObjects[i].leftLabel.visible = clv;
         constructObjects[i].leftMarker.visible = constructPointsGroup.visible;
       } else {
         _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
         var rightFacing = _poleDir.dot(_camDir) < facingThreshold;
-        constructObjects[i].rightLabel.visible = rightFacing && constructLabelsGroup.visible;
+        constructObjects[i].rightLabel.visible = rightFacing && clv;
         constructObjects[i].rightMarker.visible = rightFacing && constructPointsGroup.visible;
 
         _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
         var leftFacing = _poleDir.dot(_camDir) < facingThreshold;
-        constructObjects[i].leftLabel.visible = leftFacing && constructLabelsGroup.visible;
+        constructObjects[i].leftLabel.visible = leftFacing && clv;
         constructObjects[i].leftMarker.visible = leftFacing && constructPointsGroup.visible;
       }
     }
@@ -935,6 +937,11 @@
       elementObjects[i].label.visible = v && elementVisible[i];
     }
   });
+  addToggle(displayBody, "Construct Labels", true, function (v) {
+    for (var i = 0; i < constructs.length; i++) {
+      constructLabelVisible[i] = v;
+    }
+  });
   addToggle(displayBody, "Deconflict Labels", false, function (v) {
     labelDeconflict = v;
   });
@@ -1120,6 +1127,8 @@
       if (ud.type === "element") {
         elementLabelVisible[ud.index] = !elementLabelVisible[ud.index];
         elementObjects[ud.index].label.visible = elementLabelVisible[ud.index] && elementVisible[ud.index];
+      } else if (ud.type === "construct") {
+        constructLabelVisible[ud.index] = !constructLabelVisible[ud.index];
       }
     }
   }
