@@ -809,6 +809,7 @@
   var profileHoveredConstruct = -1;
   var profileTempVisibleConstruct = -1; // construct temporarily made visible by profile hover
   var benchmarkElements = []; // indices of benchmark elements
+  var benchColors = ["#e6194b", "#f58231", "#911eb4", "#42d4f4", "#3cb44b"];
 
   // Compute construct order by angle in PC1-PC2 plane
   var constructOrder = constructs.map(function (c, i) {
@@ -980,7 +981,6 @@
     }
 
     // Draw benchmark profiles (behind main profile)
-    var benchColors = ["#e6194b", "#f58231", "#911eb4", "#42d4f4", "#3cb44b"];
     for (var bi = 0; bi < benchmarkElements.length; bi++) {
       var bIdx = benchmarkElements[bi];
       if (bIdx === elemIdx) continue; // skip if same as main
@@ -1089,8 +1089,15 @@
 
   function updateElementGlows() {
     for (var i = 0; i < elementObjects.length; i++) {
-      var active = (i === selectedElementIndex) || (benchmarkElements.indexOf(i) >= 0);
+      var bi = benchmarkElements.indexOf(i);
+      var isBenchmark = bi >= 0;
+      var active = (i === selectedElementIndex) || isBenchmark;
       elementObjects[i].glow.visible = active && elementVisible[i];
+      if (isBenchmark) {
+        elementObjects[i].glow.material.color.set(benchColors[bi % benchColors.length]);
+      } else {
+        elementObjects[i].glow.material.color.set(elemColorInput ? elemColorInput.value : "#bbbbbb");
+      }
     }
   }
 
