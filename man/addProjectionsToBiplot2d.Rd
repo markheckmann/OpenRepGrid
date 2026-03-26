@@ -16,6 +16,8 @@ addProjectionsToBiplot2d(
   projections.error.lwd = 2,
   projections.error.dot = TRUE,
   projections.error.dot.cex = 0.7,
+  projections.error.label = FALSE,
+  projections.error.label.cex = 0.5,
   dim = c(1, 2),
   center = 1,
   ...

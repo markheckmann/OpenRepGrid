@@ -71,6 +71,8 @@ biplot2d(
   projections.error.lwd = 1,
   projections.error.dot = TRUE,
   projections.error.dot.cex = 0.5,
+  projections.error.label = FALSE,
+  projections.error.label.cex = 0.5,
   quality = FALSE,
   quality.cex = 0.5,
   quality.col = grey(0.4),
@@ -336,6 +338,11 @@ position on each construct axis (default \code{TRUE}).}
 
 \item{projections.error.dot.cex}{Size(s) of the error dots (default \code{0.7}).
 Recycled per element.}
+
+\item{projections.error.label}{Logical. Whether to show the absolute projection
+error size as a text label next to each error segment (default \code{FALSE}).}
+
+\item{projections.error.label.cex}{Text size for error labels (default \code{0.5}).}
 
 \item{quality}{Logical. Whether to show representation quality (cos²) for
 elements and constructs (default \code{FALSE}). When \code{TRUE}, quality

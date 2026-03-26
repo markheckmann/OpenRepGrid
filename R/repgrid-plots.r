@@ -1412,6 +1412,8 @@ addProjectionsToBiplot2d <- function(x,
                                      projections.error.lwd = 2,
                                      projections.error.dot = TRUE,
                                      projections.error.dot.cex = 0.7,
+                                     projections.error.label = FALSE,
+                                     projections.error.label.cex = 0.5,
                                      dim = c(1, 2),
                                      center = 1,
                                      ...) {
@@ -1448,8 +1450,10 @@ addProjectionsToBiplot2d <- function(x,
   # precompute data for error segments if needed
   if (draw_error) {
     C <- x@calcs$biplot$con
+    E <- x@calcs$biplot$el
     se <- x@calcs$biplot$se
     dat <- x@ratings[, , 1]
+    projections.error.label.cex <- rep_len(projections.error.label.cex, n_e)
     if (center == 0) {
       offsets <- rep(0, nc)
     } else if (center == 1) {
@@ -1520,6 +1524,17 @@ addProjectionsToBiplot2d <- function(x,
           points(ax_actual[1], ax_actual[2],
             pch = 19, cex = projections.error.dot.cex[k],
             col = projections.error.col[k]
+          )
+        }
+        # label with absolute error size
+        if (projections.error.label) {
+          err_val <- abs(actual_rating - (sum(C[ci, dim[1:2]] * E[ei, dim[1:2]]) + offsets[ci]))
+          mid_x <- (px + ax_actual[1]) / 2
+          mid_y <- (py + ax_actual[2]) / 2
+          text(mid_x, mid_y,
+            labels = formatC(round(err_val, 2), format = "f", digits = 2),
+            cex = projections.error.label.cex, col = projections.error.col[k],
+            pos = 1, offset = 0.2
           )
         }
       }
@@ -1886,6 +1901,9 @@ addQualityToBiplot2d <- function(x, draw_pd = NULL, dim = c(1, 2),
 #'                            position on each construct axis (default `TRUE`).
 #' @param projections.error.dot.cex  Size(s) of the error dots (default `0.7`).
 #'                            Recycled per element.
+#' @param projections.error.label  Logical. Whether to show the absolute projection
+#'                            error size as a text label next to each error segment (default `FALSE`).
+#' @param projections.error.label.cex  Text size for error labels (default `0.5`).
 #' @param quality             Logical. Whether to show representation quality (cos²) for
 #'                            elements and constructs (default `FALSE`). When `TRUE`, quality
 #'                            values are shown as text annotations below labels AND element/construct
@@ -2040,6 +2058,8 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      projections.error.lwd = 1,
                      projections.error.dot = TRUE,
                      projections.error.dot.cex = 0.5,
+                     projections.error.label = FALSE,
+                     projections.error.label.cex = 0.5,
                      quality = FALSE,
                      quality.cex = 0.5,
                      quality.col = grey(0.4),
@@ -2162,6 +2182,8 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
       projections.error.lwd = projections.error.lwd,
       projections.error.dot = projections.error.dot,
       projections.error.dot.cex = projections.error.dot.cex,
+      projections.error.label = projections.error.label,
+      projections.error.label.cex = projections.error.label.cex,
       dim = dim, center = center, ...
     )
   }
