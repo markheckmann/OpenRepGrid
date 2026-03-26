@@ -1382,23 +1382,56 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 #'                        Recycled per element like `projections.col`.
 #' @param projections.lwd Line width(s) for projection lines (default `1`).
 #'                        Recycled per element like `projections.col`.
+#' @param projections.error Logical or numeric. If `TRUE`, draw error segments on all
+#'                        construct axes. If a numeric vector, only on those construct indices.
+#'                        Shows the difference between the projected (approximated) value and
+#'                        the actual rating (default `FALSE`). Can be used independently of
+#'                        `projections`.
+#' @param projections.error.col Color(s) of error segments (default `"red"`).
+#'                        Recycled per element like `projections.col`.
+#' @param projections.error.lwd Line width(s) of error segments (default `2`).
+#'                        Recycled per element like `projections.col`.
+#' @param projections.error.dot Logical. Whether to draw a dot at the actual rating
+#'                        position on the axis (default `TRUE` when error is shown).
+#' @param projections.error.dot.cex Size(s) of the error dots (default `0.7`).
+#'                        Recycled per element like `projections.col`.
+#' @param dim             Dimensions displayed (default `c(1, 2)`). Required for error computation.
+#' @param center          Centering type (default `1`). Required for error computation.
 #' @param ...             Not evaluated.
 #' @keywords internal
 #' @export
 #'
 addProjectionsToBiplot2d <- function(x,
-                                     projections = TRUE,
+                                     projections = FALSE,
                                      projections.e = TRUE,
                                      projections.col = grey(0.5),
                                      projections.lty = 3,
                                      projections.lwd = 1,
+                                     projections.error = FALSE,
+                                     projections.error.col = "red",
+                                     projections.error.lwd = 2,
+                                     projections.error.dot = TRUE,
+                                     projections.error.dot.cex = 0.7,
+                                     dim = c(1, 2),
+                                     center = 1,
                                      ...) {
   pd <- x@plotdata
   nc <- getNoOfConstructs(x)
   ne <- getNoOfElements(x)
 
-  # which construct axes to project onto
-  c_idx <- if (isTRUE(projections)) seq_len(nc) else as.integer(projections)
+  # determine which constructs need projection lines
+  draw_proj <- !identical(projections, FALSE)
+  proj_c_idx <- if (isTRUE(projections)) seq_len(nc) else if (draw_proj) as.integer(projections) else integer(0)
+
+  # determine which constructs need error segments
+  draw_error <- !identical(projections.error, FALSE)
+  error_c_idx <- if (isTRUE(projections.error)) seq_len(nc) else if (draw_error) as.integer(projections.error) else integer(0)
+
+  # union of all constructs that need processing
+  all_c_idx <- sort(unique(c(proj_c_idx, error_c_idx)))
+  if (length(all_c_idx) == 0) {
+    return(invisible(NULL))
+  }
 
   # which elements to project
   e_idx <- if (isTRUE(projections.e)) seq_len(ne) else as.integer(projections.e)
@@ -1408,23 +1441,44 @@ addProjectionsToBiplot2d <- function(x,
   projections.col <- rep_len(projections.col, n_e)
   projections.lty <- rep_len(projections.lty, n_e)
   projections.lwd <- rep_len(projections.lwd, n_e)
+  projections.error.col <- rep_len(projections.error.col, n_e)
+  projections.error.lwd <- rep_len(projections.error.lwd, n_e)
+  projections.error.dot.cex <- rep_len(projections.error.dot.cex, n_e)
+
+  # precompute data for error segments if needed
+  if (draw_error) {
+    C <- x@calcs$biplot$con
+    se <- x@calcs$biplot$se
+    dat <- x@ratings[, , 1]
+    if (center == 0) {
+      offsets <- rep(0, nc)
+    } else if (center == 1) {
+      offsets <- rowMeans(dat, na.rm = TRUE)
+    } else if (center == 2) {
+      offsets <- rep(0, nc)
+    } else if (center == 3) {
+      offsets <- rowMeans(dat, na.rm = TRUE)
+    } else if (center == 4) {
+      offsets <- rep(getScaleMidpoint(x), nc)
+    }
+  }
 
   # element display coordinates (type "e" rows are first ne rows in plotdata)
   e_rows <- which(pd$type == "e")
   # construct right-pole rows give axis direction (type "cr" rows)
   cr_rows <- which(pd$type == "cr")
 
-  for (ci in c_idx) {
+  for (ci in all_c_idx) {
     if (ci < 1 || ci > nc) next
 
     # construct axis direction from "cr" entry
     cr_row <- cr_rows[ci]
     ax <- c(pd$x[cr_row], pd$y[cr_row])
-    norm2 <- sum(ax^2)
-    if (norm2 < 1e-10) next
+    norm2_ax <- sum(ax^2)
+    if (norm2_ax < 1e-10) next
 
     # unit direction vector
-    u <- ax / sqrt(norm2)
+    u <- ax / sqrt(norm2_ax)
 
     for (k in seq_along(e_idx)) {
       ei <- e_idx[k]
@@ -1437,14 +1491,38 @@ addProjectionsToBiplot2d <- function(x,
       # scalar projection onto axis
       s <- ex * u[1] + ey * u[2]
 
-      # projection point on axis
+      # projection point on axis (approximated value position)
       px <- s * u[1]
       py <- s * u[2]
 
       # draw projection line from element to projection point
-      segments(ex, ey, px, py,
-        col = projections.col[k], lty = projections.lty[k], lwd = projections.lwd[k]
-      )
+      if (ci %in% proj_c_idx) {
+        segments(ex, ey, px, py,
+          col = projections.col[k], lty = projections.lty[k], lwd = projections.lwd[k]
+        )
+      }
+
+      # draw error segment between projected and actual value position
+      if (ci %in% error_c_idx) {
+        Ci <- C[ci, dim[1:2]]
+        norm2_C <- sum(Ci^2)
+        if (norm2_C < 1e-10) next
+        actual_rating <- dat[ci, ei]
+        if (is.na(actual_rating)) next
+        v_centered <- actual_rating - offsets[ci]
+        # actual value position on the calibrated axis
+        ax_actual <- se * v_centered * Ci / norm2_C
+        segments(px, py, ax_actual[1], ax_actual[2],
+          col = projections.error.col[k], lwd = projections.error.lwd[k]
+        )
+        # draw dot at actual value position
+        if (projections.error.dot) {
+          points(ax_actual[1], ax_actual[2],
+            pch = 19, cex = projections.error.dot.cex[k],
+            col = projections.error.col[k]
+          )
+        }
+      }
     }
   }
 }
@@ -1720,6 +1798,17 @@ addProjectionsToBiplot2d <- function(x,
 #'                            Recycled per element like `projections.col`.
 #' @param projections.lwd     Line width(s) for projection lines (default `1`).
 #'                            Recycled per element like `projections.col`.
+#' @param projections.error   Logical or numeric. If `TRUE`, draw error segments on all
+#'                            construct axes. If a numeric vector, only on those construct indices.
+#'                            Can be used independently of `projections` (default `FALSE`).
+#' @param projections.error.col  Color(s) of error segments (default `"red"`).
+#'                            Recycled per element.
+#' @param projections.error.lwd  Line width(s) of error segments (default `2`).
+#'                            Recycled per element.
+#' @param projections.error.dot  Logical. Whether to draw a dot at the actual rating
+#'                            position on each construct axis (default `TRUE`).
+#' @param projections.error.dot.cex  Size(s) of the error dots (default `0.7`).
+#'                            Recycled per element.
 #' @param ...                 parameters passed on to  come.
 #' @export
 #' @seealso
@@ -1777,6 +1866,12 @@ addProjectionsToBiplot2d <- function(x,
 #' # colorize construct poles by preference
 #' x <- preferredPolesByIdeal(boeker, "ideal self")
 #' biplot2d(x, c.color.preferred = TRUE)
+#'
+#' # projections and errors for ideal self (2) on calibrated exes
+#' biplot2d(boeker,
+#'   calibrated = TRUE, projections = TRUE, projections.e = 2,
+#'   e.points.show = 2, projections.error = TRUE
+#' )
 #' }
 #'
 biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
@@ -1836,8 +1931,13 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      projections = FALSE,
                      projections.e = TRUE,
                      projections.col = grey(0.5),
-                     projections.lty = 3,
+                     projections.lty = 5,
                      projections.lwd = 1,
+                     projections.error = FALSE,
+                     projections.error.col = "red",
+                     projections.error.lwd = 1,
+                     projections.error.dot = TRUE,
+                     projections.error.dot.cex = 0.5,
                      ...) {
   x <- calcBiplotCoords(x,
     center = center, normalize = normalize,
@@ -1893,13 +1993,19 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
       calibrated.col = calibrated.col, ...
     )
   }
-  if (!identical(projections, FALSE)) {
+  if (!identical(projections, FALSE) || !identical(projections.error, FALSE)) {
     addProjectionsToBiplot2d(x,
       projections = projections,
       projections.e = projections.e,
       projections.col = projections.col,
       projections.lty = projections.lty,
-      projections.lwd = projections.lwd, ...
+      projections.lwd = projections.lwd,
+      projections.error = projections.error,
+      projections.error.col = projections.error.col,
+      projections.error.lwd = projections.error.lwd,
+      projections.error.dot = projections.error.dot,
+      projections.error.dot.cex = projections.error.dot.cex,
+      dim = dim, center = center, ...
     )
   }
   addVarianceExplainedToBiplot2d(x,

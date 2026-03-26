@@ -64,8 +64,13 @@ biplot2d(
   projections = FALSE,
   projections.e = TRUE,
   projections.col = grey(0.5),
-  projections.lty = 3,
+  projections.lty = 5,
   projections.lwd = 1,
+  projections.error = FALSE,
+  projections.error.col = "red",
+  projections.error.lwd = 1,
+  projections.error.dot = TRUE,
+  projections.error.dot.cex = 0.5,
   ...
 )
 }
@@ -313,6 +318,22 @@ Recycled per element like \code{projections.col}.}
 \item{projections.lwd}{Line width(s) for projection lines (default \code{1}).
 Recycled per element like \code{projections.col}.}
 
+\item{projections.error}{Logical or numeric. If \code{TRUE}, draw error segments on all
+construct axes. If a numeric vector, only on those construct indices.
+Can be used independently of \code{projections} (default \code{FALSE}).}
+
+\item{projections.error.col}{Color(s) of error segments (default \code{"red"}).
+Recycled per element.}
+
+\item{projections.error.lwd}{Line width(s) of error segments (default \code{2}).
+Recycled per element.}
+
+\item{projections.error.dot}{Logical. Whether to draw a dot at the actual rating
+position on each construct axis (default \code{TRUE}).}
+
+\item{projections.error.dot.cex}{Size(s) of the error dots (default \code{0.7}).
+Recycled per element.}
+
 \item{...}{parameters passed on to  come.}
 }
 \description{
@@ -382,6 +403,12 @@ biplot2d(boeker, c.labels.devangle = 20) # only con. within 20 degree angle
 # colorize construct poles by preference
 x <- preferredPolesByIdeal(boeker, "ideal self")
 biplot2d(x, c.color.preferred = TRUE)
+
+# projections and errors for ideal self (2) on calibrated exes
+biplot2d(boeker,
+  calibrated = TRUE, projections = TRUE, projections.e = 2,
+  e.points.show = 2, projections.error = TRUE
+)
 }
 
 }
