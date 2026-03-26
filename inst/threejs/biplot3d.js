@@ -432,20 +432,29 @@
         constructObjects[i].line.visible = false;
         continue;
       }
-      // Construct line toggled by double-click (independent of back-face)
-      constructObjects[i].line.visible = constructLineVisible[i];
+      // Construct line: visible if permanently toggled (double-click) or hovered
+      var isHovered = (hoveredConstructIndex === i);
+      constructObjects[i].line.visible = constructLineVisible[i] || isHovered;
 
       var sc = constructSphereCoords[i];
 
-      _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
-      var rightFacing = _poleDir.dot(_camDir) < 0;
-      constructObjects[i].rightLabel.visible = rightFacing && constructLabelsGroup.visible;
-      constructObjects[i].rightMarker.visible = rightFacing && constructPointsGroup.visible;
+      // When hovered, force both poles visible; otherwise back-face cull
+      if (isHovered) {
+        constructObjects[i].rightLabel.visible = constructLabelsGroup.visible;
+        constructObjects[i].rightMarker.visible = constructPointsGroup.visible;
+        constructObjects[i].leftLabel.visible = constructLabelsGroup.visible;
+        constructObjects[i].leftMarker.visible = constructPointsGroup.visible;
+      } else {
+        _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
+        var rightFacing = _poleDir.dot(_camDir) < 0;
+        constructObjects[i].rightLabel.visible = rightFacing && constructLabelsGroup.visible;
+        constructObjects[i].rightMarker.visible = rightFacing && constructPointsGroup.visible;
 
-      _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
-      var leftFacing = _poleDir.dot(_camDir) < 0;
-      constructObjects[i].leftLabel.visible = leftFacing && constructLabelsGroup.visible;
-      constructObjects[i].leftMarker.visible = leftFacing && constructPointsGroup.visible;
+        _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
+        var leftFacing = _poleDir.dot(_camDir) < 0;
+        constructObjects[i].leftLabel.visible = leftFacing && constructLabelsGroup.visible;
+        constructObjects[i].leftMarker.visible = leftFacing && constructPointsGroup.visible;
+      }
     }
   }
 
@@ -709,22 +718,29 @@
 
   function highlightConstruct(idx) {
     if (idx < 0) return;
-    constructObjects[idx].rightMarker.scale.setScalar(2.5);
-    constructObjects[idx].leftMarker.scale.setScalar(2.5);
-    constructObjects[idx].rightLabel.element.style.fontWeight = "800";
-    constructObjects[idx].leftLabel.element.style.fontWeight = "800";
-    constructObjects[idx].rightLabel.element.style.textShadow = "0 0 3px rgba(0,0,0,0.3)";
-    constructObjects[idx].leftLabel.element.style.textShadow = "0 0 3px rgba(0,0,0,0.3)";
+    var obj = constructObjects[idx];
+    obj.rightMarker.scale.setScalar(2.5);
+    obj.leftMarker.scale.setScalar(2.5);
+    obj.rightLabel.element.style.fontWeight = "800";
+    obj.leftLabel.element.style.fontWeight = "800";
+    obj.rightLabel.element.style.textShadow = "0 0 3px rgba(0,0,0,0.3)";
+    obj.leftLabel.element.style.textShadow = "0 0 3px rgba(0,0,0,0.3)";
+    // Force both poles visible while hovering (including back-facing one)
+    obj.rightLabel.visible = true;
+    obj.leftLabel.visible = true;
+    obj.rightMarker.visible = true;
+    obj.leftMarker.visible = true;
   }
 
   function unhighlightConstruct(idx) {
     if (idx < 0) return;
-    constructObjects[idx].rightMarker.scale.setScalar(1.0);
-    constructObjects[idx].leftMarker.scale.setScalar(1.0);
-    constructObjects[idx].rightLabel.element.style.fontWeight = "";
-    constructObjects[idx].leftLabel.element.style.fontWeight = "";
-    constructObjects[idx].rightLabel.element.style.textShadow = "";
-    constructObjects[idx].leftLabel.element.style.textShadow = "";
+    var obj = constructObjects[idx];
+    obj.rightMarker.scale.setScalar(1.0);
+    obj.leftMarker.scale.setScalar(1.0);
+    obj.rightLabel.element.style.fontWeight = "";
+    obj.leftLabel.element.style.fontWeight = "";
+    obj.rightLabel.element.style.textShadow = "";
+    obj.leftLabel.element.style.textShadow = "";
   }
 
   function onMouseMove(event) {
