@@ -1,0 +1,9 @@
+Please read all the papers (one after another from) the following folder:
+  '/Users/markheckmann/Dropbox/_mh/literatur/Psychologie/PCP/papers a'
+
+Have a look if the paper contains the raw repertory grid data.
+If yes, please extract the grid and save it as a grid object in an R file
+in the folder dev/grids. Create a new file for each grid and also save
+the context, i.e. two sentences of explanation of what the background for that
+grid is and from whioch paper it comes (citation).
+
