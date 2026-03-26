@@ -64,8 +64,18 @@ biplot2d(
   projections = FALSE,
   projections.e = TRUE,
   projections.col = grey(0.5),
-  projections.lty = 3,
+  projections.lty = 5,
   projections.lwd = 1,
+  projections.error = FALSE,
+  projections.error.col = "red",
+  projections.error.lwd = 1,
+  projections.error.dot = TRUE,
+  projections.error.dot.cex = 0.5,
+  projections.error.label = FALSE,
+  projections.error.label.cex = 0.5,
+  quality = FALSE,
+  quality.cex = 0.5,
+  quality.col = grey(0.4),
   ...
 )
 }
@@ -313,7 +323,58 @@ Recycled per element like \code{projections.col}.}
 \item{projections.lwd}{Line width(s) for projection lines (default \code{1}).
 Recycled per element like \code{projections.col}.}
 
+\item{projections.error}{Logical or numeric. If \code{TRUE}, draw error segments on all
+construct axes. If a numeric vector, only on those construct indices.
+Can be used independently of \code{projections} (default \code{FALSE}).}
+
+\item{projections.error.col}{Color(s) of error segments (default \code{"red"}).
+Recycled per element.}
+
+\item{projections.error.lwd}{Line width(s) of error segments (default \code{2}).
+Recycled per element.}
+
+\item{projections.error.dot}{Logical. Whether to draw a dot at the actual rating
+position on each construct axis (default \code{TRUE}).}
+
+\item{projections.error.dot.cex}{Size(s) of the error dots (default \code{0.7}).
+Recycled per element.}
+
+\item{projections.error.label}{Logical. Whether to show the absolute projection
+error size as a text label next to each error segment (default \code{FALSE}).}
+
+\item{projections.error.label.cex}{Text size for error labels (default \code{0.5}).}
+
+\item{quality}{Logical. Whether to show representation quality (cos²) for
+elements and constructs (default \code{FALSE}). When \code{TRUE}, quality
+values are shown as text annotations below labels AND element/construct
+colors are faded proportionally (high quality = full opacity,
+low quality = transparent).}
+
+\item{quality.cex}{Text size for quality annotations (default \code{0.5}).}
+
+\item{quality.col}{Color for quality annotations (default \code{grey(0.4)}).}
+
 \item{...}{parameters passed on to  come.}
+}
+\value{
+Invisibly returns a \code{biplot2d} object (list) with:
+\describe{
+\item{\code{elements}}{Data frame with element names, scaled/unscaled 2D coordinates, and quality.}
+\item{\code{constructs}}{Data frame with construct pole names, scaled/unscaled 2D coordinates, and quality.}
+\item{\code{element.coords}}{Full element coordinate matrix (unscaled, all dimensions).}
+\item{\code{construct.coords}}{Full construct coordinate matrix (unscaled, all dimensions).}
+\item{\code{element.coords.scaled}}{Element coordinates after unity scaling.}
+\item{\code{construct.coords.scaled}}{Construct coordinates after unity scaling.}
+\item{\code{element.quality}}{Cos² representation quality for each element (0 to 1).}
+\item{\code{construct.quality}}{Cos² representation quality for each construct (0 to 1).}
+\item{\code{projection.errors}}{Matrix (constructs x elements) of absolute differences
+between 2D-approximated and actual ratings in original scale units.}
+\item{\code{dim}}{Dimensions displayed.}
+\item{\code{var.explained}}{Proportion of variance explained by each singular value.}
+\item{\code{D}}{Singular values from SVD.}
+\item{\code{se}}{Element scaling factor.}
+\item{\code{sc}}{Construct scaling factor.}
+}
 }
 \description{
 The biplot is the central way to create a joint plot of elements and constructs. Depending on the parameters chosen
@@ -382,6 +443,12 @@ biplot2d(boeker, c.labels.devangle = 20) # only con. within 20 degree angle
 # colorize construct poles by preference
 x <- preferredPolesByIdeal(boeker, "ideal self")
 biplot2d(x, c.color.preferred = TRUE)
+
+# projections and errors for ideal self (2) on calibrated exes
+biplot2d(boeker,
+  calibrated = TRUE, projections = TRUE, projections.e = 2,
+  e.points.show = 2, projections.error = TRUE
+)
 }
 
 }

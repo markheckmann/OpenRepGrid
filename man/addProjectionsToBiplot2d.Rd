@@ -6,11 +6,20 @@
 \usage{
 addProjectionsToBiplot2d(
   x,
-  projections = TRUE,
+  projections = FALSE,
   projections.e = TRUE,
   projections.col = grey(0.5),
   projections.lty = 3,
   projections.lwd = 1,
+  projections.error = FALSE,
+  projections.error.col = "red",
+  projections.error.lwd = 2,
+  projections.error.dot = TRUE,
+  projections.error.dot.cex = 0.7,
+  projections.error.label = FALSE,
+  projections.error.label.cex = 0.5,
+  dim = c(1, 2),
+  center = 1,
   ...
 )
 }
@@ -32,6 +41,28 @@ Recycled per element like \code{projections.col}.}
 
 \item{projections.lwd}{Line width(s) for projection lines (default \code{1}).
 Recycled per element like \code{projections.col}.}
+
+\item{projections.error}{Logical or numeric. If \code{TRUE}, draw error segments on all
+construct axes. If a numeric vector, only on those construct indices.
+Shows the difference between the projected (approximated) value and
+the actual rating (default \code{FALSE}). Can be used independently of
+\code{projections}.}
+
+\item{projections.error.col}{Color(s) of error segments (default \code{"red"}).
+Recycled per element like \code{projections.col}.}
+
+\item{projections.error.lwd}{Line width(s) of error segments (default \code{2}).
+Recycled per element like \code{projections.col}.}
+
+\item{projections.error.dot}{Logical. Whether to draw a dot at the actual rating
+position on the axis (default \code{TRUE} when error is shown).}
+
+\item{projections.error.dot.cex}{Size(s) of the error dots (default \code{0.7}).
+Recycled per element like \code{projections.col}.}
+
+\item{dim}{Dimensions displayed (default \code{c(1, 2)}). Required for error computation.}
+
+\item{center}{Centering type (default \code{1}). Required for error computation.}
 
 \item{...}{Not evaluated.}
 }

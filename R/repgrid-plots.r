@@ -1382,23 +1382,58 @@ addCalibratedAxesToBiplot2d <- function(x, dim = c(1, 2),
 #'                        Recycled per element like `projections.col`.
 #' @param projections.lwd Line width(s) for projection lines (default `1`).
 #'                        Recycled per element like `projections.col`.
+#' @param projections.error Logical or numeric. If `TRUE`, draw error segments on all
+#'                        construct axes. If a numeric vector, only on those construct indices.
+#'                        Shows the difference between the projected (approximated) value and
+#'                        the actual rating (default `FALSE`). Can be used independently of
+#'                        `projections`.
+#' @param projections.error.col Color(s) of error segments (default `"red"`).
+#'                        Recycled per element like `projections.col`.
+#' @param projections.error.lwd Line width(s) of error segments (default `2`).
+#'                        Recycled per element like `projections.col`.
+#' @param projections.error.dot Logical. Whether to draw a dot at the actual rating
+#'                        position on the axis (default `TRUE` when error is shown).
+#' @param projections.error.dot.cex Size(s) of the error dots (default `0.7`).
+#'                        Recycled per element like `projections.col`.
+#' @param dim             Dimensions displayed (default `c(1, 2)`). Required for error computation.
+#' @param center          Centering type (default `1`). Required for error computation.
 #' @param ...             Not evaluated.
 #' @keywords internal
 #' @export
 #'
 addProjectionsToBiplot2d <- function(x,
-                                     projections = TRUE,
+                                     projections = FALSE,
                                      projections.e = TRUE,
                                      projections.col = grey(0.5),
                                      projections.lty = 3,
                                      projections.lwd = 1,
+                                     projections.error = FALSE,
+                                     projections.error.col = "red",
+                                     projections.error.lwd = 2,
+                                     projections.error.dot = TRUE,
+                                     projections.error.dot.cex = 0.7,
+                                     projections.error.label = FALSE,
+                                     projections.error.label.cex = 0.5,
+                                     dim = c(1, 2),
+                                     center = 1,
                                      ...) {
   pd <- x@plotdata
   nc <- getNoOfConstructs(x)
   ne <- getNoOfElements(x)
 
-  # which construct axes to project onto
-  c_idx <- if (isTRUE(projections)) seq_len(nc) else as.integer(projections)
+  # determine which constructs need projection lines
+  draw_proj <- !identical(projections, FALSE)
+  proj_c_idx <- if (isTRUE(projections)) seq_len(nc) else if (draw_proj) as.integer(projections) else integer(0)
+
+  # determine which constructs need error segments
+  draw_error <- !identical(projections.error, FALSE)
+  error_c_idx <- if (isTRUE(projections.error)) seq_len(nc) else if (draw_error) as.integer(projections.error) else integer(0)
+
+  # union of all constructs that need processing
+  all_c_idx <- sort(unique(c(proj_c_idx, error_c_idx)))
+  if (length(all_c_idx) == 0) {
+    return(invisible(NULL))
+  }
 
   # which elements to project
   e_idx <- if (isTRUE(projections.e)) seq_len(ne) else as.integer(projections.e)
@@ -1408,23 +1443,46 @@ addProjectionsToBiplot2d <- function(x,
   projections.col <- rep_len(projections.col, n_e)
   projections.lty <- rep_len(projections.lty, n_e)
   projections.lwd <- rep_len(projections.lwd, n_e)
+  projections.error.col <- rep_len(projections.error.col, n_e)
+  projections.error.lwd <- rep_len(projections.error.lwd, n_e)
+  projections.error.dot.cex <- rep_len(projections.error.dot.cex, n_e)
+
+  # precompute data for error segments if needed
+  if (draw_error) {
+    C <- x@calcs$biplot$con
+    E <- x@calcs$biplot$el
+    se <- x@calcs$biplot$se
+    dat <- x@ratings[, , 1]
+    projections.error.label.cex <- rep_len(projections.error.label.cex, n_e)
+    if (center == 0) {
+      offsets <- rep(0, nc)
+    } else if (center == 1) {
+      offsets <- rowMeans(dat, na.rm = TRUE)
+    } else if (center == 2) {
+      offsets <- rep(0, nc)
+    } else if (center == 3) {
+      offsets <- rowMeans(dat, na.rm = TRUE)
+    } else if (center == 4) {
+      offsets <- rep(getScaleMidpoint(x), nc)
+    }
+  }
 
   # element display coordinates (type "e" rows are first ne rows in plotdata)
   e_rows <- which(pd$type == "e")
   # construct right-pole rows give axis direction (type "cr" rows)
   cr_rows <- which(pd$type == "cr")
 
-  for (ci in c_idx) {
+  for (ci in all_c_idx) {
     if (ci < 1 || ci > nc) next
 
     # construct axis direction from "cr" entry
     cr_row <- cr_rows[ci]
     ax <- c(pd$x[cr_row], pd$y[cr_row])
-    norm2 <- sum(ax^2)
-    if (norm2 < 1e-10) next
+    norm2_ax <- sum(ax^2)
+    if (norm2_ax < 1e-10) next
 
     # unit direction vector
-    u <- ax / sqrt(norm2)
+    u <- ax / sqrt(norm2_ax)
 
     for (k in seq_along(e_idx)) {
       ei <- e_idx[k]
@@ -1437,13 +1495,125 @@ addProjectionsToBiplot2d <- function(x,
       # scalar projection onto axis
       s <- ex * u[1] + ey * u[2]
 
-      # projection point on axis
+      # projection point on axis (approximated value position)
       px <- s * u[1]
       py <- s * u[2]
 
       # draw projection line from element to projection point
-      segments(ex, ey, px, py,
-        col = projections.col[k], lty = projections.lty[k], lwd = projections.lwd[k]
+      if (ci %in% proj_c_idx) {
+        segments(ex, ey, px, py,
+          col = projections.col[k], lty = projections.lty[k], lwd = projections.lwd[k]
+        )
+      }
+
+      # draw error segment between projected and actual value position
+      if (ci %in% error_c_idx) {
+        Ci <- C[ci, dim[1:2]]
+        norm2_C <- sum(Ci^2)
+        if (norm2_C < 1e-10) next
+        actual_rating <- dat[ci, ei]
+        if (is.na(actual_rating)) next
+        v_centered <- actual_rating - offsets[ci]
+        # actual value position on the calibrated axis
+        ax_actual <- se * v_centered * Ci / norm2_C
+        segments(px, py, ax_actual[1], ax_actual[2],
+          col = projections.error.col[k], lwd = projections.error.lwd[k]
+        )
+        # draw dot at actual value position
+        if (projections.error.dot) {
+          points(ax_actual[1], ax_actual[2],
+            pch = 19, cex = projections.error.dot.cex[k],
+            col = projections.error.col[k]
+          )
+        }
+        # label with absolute error size
+        if (projections.error.label) {
+          err_val <- abs(actual_rating - (sum(C[ci, dim[1:2]] * E[ei, dim[1:2]]) + offsets[ci]))
+          mid_x <- (px + ax_actual[1]) / 2
+          mid_y <- (py + ax_actual[2]) / 2
+          text(mid_x, mid_y,
+            labels = formatC(round(err_val, 2), format = "f", digits = 2),
+            cex = projections.error.label.cex, col = projections.error.col[k],
+            pos = 1, offset = 0.2
+          )
+        }
+      }
+    }
+  }
+}
+
+
+#' Add representation quality annotations to a 2D biplot.
+#'
+#' Draws quality values (cos²) next to element and construct labels. Cos² measures
+#' the proportion of each item's total variance captured in the displayed 2D plane,
+#' ranging from 0 (not represented) to 1 (perfectly represented).
+#'
+#' @param x               `repgrid` object after [calcBiplotCoords()] and [prepareBiplotData()].
+#' @param dim             Dimensions displayed (default `c(1, 2)`).
+#' @param quality.cex     Text size for quality annotations (default `0.5`).
+#' @param quality.col     Color for quality annotations (default `grey(0.4)`).
+#' @param ...             Not evaluated.
+#' @keywords internal
+#' @export
+#'
+addQualityToBiplot2d <- function(x, draw_pd = NULL, dim = c(1, 2),
+                                  g = 0, h = 1 - g,
+                                  quality.cex = 0.5,
+                                  quality.col = grey(0.4),
+                                  ...) {
+  E <- x@calcs$biplot$el
+  C <- x@calcs$biplot$con
+  D <- x@calcs$biplot$D
+  pd <- x@plotdata
+
+  # cos² uses D-weighted coordinates (U*D, V*D) so quality reflects
+  # variance captured, independent of biplot display scaling (g/h)
+  E_w <- sweep(E, 2, D^(1 - h), "*")
+  C_w <- sweep(C, 2, D^(1 - g), "*")
+
+  e_ssq_2d <- rowSums(E_w[, dim[1:2], drop = FALSE]^2)
+  e_ssq_total <- rowSums(E_w^2)
+  e_quality <- ifelse(e_ssq_total > 0, e_ssq_2d / e_ssq_total, 0)
+
+  c_ssq_2d <- rowSums(C_w[, dim[1:2], drop = FALSE]^2)
+  c_ssq_total <- rowSums(C_w^2)
+  c_quality <- ifelse(c_ssq_total > 0, c_ssq_2d / c_ssq_total, 0)
+
+  # annotate elements (inside plot, below labels)
+  e_rows <- which(pd$type == "e" & pd$showlabel == TRUE)
+  for (i in seq_along(e_rows)) {
+    row <- e_rows[i]
+    label <- formatC(round(e_quality[i], 2), format = "f", digits = 2)
+    text(pd$x[row], pd$y[row], labels = label, cex = quality.cex,
+      col = quality.col, pos = 1, offset = 0.3
+    )
+  }
+
+  # annotate constructs outside, next to border labels
+  # use draw_pd from biplotDraw() which has outer stroke coordinates
+  if (!is.null(draw_pd)) {
+    pd <- x@plotdata
+    ne <- ncol(x)
+    nc <- nrow(x)
+    # original plotdata ordering (before biplotDraw angle sort):
+    #   rows 1..ne = elements
+    #   rows (ne+1)..(ne+nc) = type "cl" for constructs 1..nc
+    #   rows (ne+nc+1)..(ne+2*nc) = type "cr" for constructs 1..nc
+    cl_labels <- pd$label[(ne + 1):(ne + nc)]
+    cr_labels <- pd$label[(ne + nc + 1):(ne + 2 * nc)]
+
+    vis <- which(draw_pd$type %in% c("cl", "cr") & draw_pd$showlabel == TRUE)
+    for (row in vis) {
+      lbl <- draw_pd$label[row]
+      tp <- as.character(draw_pd$type[row])
+      ci <- if (tp == "cl") match(lbl, cl_labels) else match(lbl, cr_labels)
+      if (is.na(ci)) next
+      label <- formatC(round(c_quality[ci], 2), format = "f", digits = 2)
+      adj <- if (draw_pd$str.3.x[row] < 0) c(1, 1) else c(0, 1)
+      text(draw_pd$str.3.x[row], draw_pd$str.3.y0[row],
+        labels = label, cex = quality.cex, col = quality.col,
+        adj = adj, xpd = TRUE
       )
     }
   }
@@ -1720,7 +1890,46 @@ addProjectionsToBiplot2d <- function(x,
 #'                            Recycled per element like `projections.col`.
 #' @param projections.lwd     Line width(s) for projection lines (default `1`).
 #'                            Recycled per element like `projections.col`.
+#' @param projections.error   Logical or numeric. If `TRUE`, draw error segments on all
+#'                            construct axes. If a numeric vector, only on those construct indices.
+#'                            Can be used independently of `projections` (default `FALSE`).
+#' @param projections.error.col  Color(s) of error segments (default `"red"`).
+#'                            Recycled per element.
+#' @param projections.error.lwd  Line width(s) of error segments (default `2`).
+#'                            Recycled per element.
+#' @param projections.error.dot  Logical. Whether to draw a dot at the actual rating
+#'                            position on each construct axis (default `TRUE`).
+#' @param projections.error.dot.cex  Size(s) of the error dots (default `0.7`).
+#'                            Recycled per element.
+#' @param projections.error.label  Logical. Whether to show the absolute projection
+#'                            error size as a text label next to each error segment (default `FALSE`).
+#' @param projections.error.label.cex  Text size for error labels (default `0.5`).
+#' @param quality             Logical. Whether to show representation quality (cos²) for
+#'                            elements and constructs (default `FALSE`). When `TRUE`, quality
+#'                            values are shown as text annotations below labels AND element/construct
+#'                            colors are faded proportionally (high quality = full opacity,
+#'                            low quality = transparent).
+#' @param quality.cex         Text size for quality annotations (default `0.5`).
+#' @param quality.col         Color for quality annotations (default `grey(0.4)`).
 #' @param ...                 parameters passed on to  come.
+#' @return Invisibly returns a `biplot2d` object (list) with:
+#'   \describe{
+#'     \item{`elements`}{Data frame with element names, scaled/unscaled 2D coordinates, and quality.}
+#'     \item{`constructs`}{Data frame with construct pole names, scaled/unscaled 2D coordinates, and quality.}
+#'     \item{`element.coords`}{Full element coordinate matrix (unscaled, all dimensions).}
+#'     \item{`construct.coords`}{Full construct coordinate matrix (unscaled, all dimensions).}
+#'     \item{`element.coords.scaled`}{Element coordinates after unity scaling.}
+#'     \item{`construct.coords.scaled`}{Construct coordinates after unity scaling.}
+#'     \item{`element.quality`}{Cos² representation quality for each element (0 to 1).}
+#'     \item{`construct.quality`}{Cos² representation quality for each construct (0 to 1).}
+#'     \item{`projection.errors`}{Matrix (constructs x elements) of absolute differences
+#'       between 2D-approximated and actual ratings in original scale units.}
+#'     \item{`dim`}{Dimensions displayed.}
+#'     \item{`var.explained`}{Proportion of variance explained by each singular value.}
+#'     \item{`D`}{Singular values from SVD.}
+#'     \item{`se`}{Element scaling factor.}
+#'     \item{`sc`}{Construct scaling factor.}
+#'   }
 #' @export
 #' @seealso
 #' - Unsophisticated biplot: [biplotSimple()];
@@ -1777,6 +1986,12 @@ addProjectionsToBiplot2d <- function(x,
 #' # colorize construct poles by preference
 #' x <- preferredPolesByIdeal(boeker, "ideal self")
 #' biplot2d(x, c.color.preferred = TRUE)
+#'
+#' # projections and errors for ideal self (2) on calibrated exes
+#' biplot2d(boeker,
+#'   calibrated = TRUE, projections = TRUE, projections.e = 2,
+#'   e.points.show = 2, projections.error = TRUE
+#' )
 #' }
 #'
 biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
@@ -1836,8 +2051,18 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
                      projections = FALSE,
                      projections.e = TRUE,
                      projections.col = grey(0.5),
-                     projections.lty = 3,
+                     projections.lty = 5,
                      projections.lwd = 1,
+                     projections.error = FALSE,
+                     projections.error.col = "red",
+                     projections.error.lwd = 1,
+                     projections.error.dot = TRUE,
+                     projections.error.dot.cex = 0.5,
+                     projections.error.label = FALSE,
+                     projections.error.label.cex = 0.5,
+                     quality = FALSE,
+                     quality.cex = 0.5,
+                     quality.col = grey(0.4),
                      ...) {
   x <- calcBiplotCoords(x,
     center = center, normalize = normalize,
@@ -1856,6 +2081,58 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     c.label.col.left <- pref_colors$right
     c.label.col.right <- pref_colors$left
   }
+
+  # quality-based color mapping: adjust alpha based on cos²
+  if (quality) {
+    E_raw <- x@calcs$biplot$el
+    C_raw <- x@calcs$biplot$con
+    D_raw <- x@calcs$biplot$D
+    ne <- ncol(x)
+    nc <- nrow(x)
+
+    # cos² uses D-weighted coordinates (U*D for constructs, V*D for elements)
+    # so quality reflects variance captured, independent of biplot scaling (g/h)
+    E_w <- sweep(E_raw, 2, D_raw^(1 - h), "*")
+    C_w <- sweep(C_raw, 2, D_raw^(1 - g), "*")
+
+    e_ssq_2d <- rowSums(E_w[, dim[1:2], drop = FALSE]^2)
+    e_ssq_total <- rowSums(E_w^2)
+    e_q <- ifelse(e_ssq_total > 0, e_ssq_2d / e_ssq_total, 0)
+
+    c_ssq_2d <- rowSums(C_w[, dim[1:2], drop = FALSE]^2)
+    c_ssq_total <- rowSums(C_w^2)
+    c_q <- ifelse(c_ssq_total > 0, c_ssq_2d / c_ssq_total, 0)
+
+    # map quality [0,1] to alpha [0.2, 1.0]
+    e_alpha <- 0.2 + 0.8 * e_q
+    c_alpha <- 0.2 + 0.8 * c_q
+
+    # adjust element colors
+    e.point.col <- rep_len(e.point.col, ne)
+    e.label.col <- rep_len(e.label.col, ne)
+    for (i in seq_len(ne)) {
+      e.point.col[i] <- adjustcolor(e.point.col[i], alpha.f = e_alpha[i])
+      e.label.col[i] <- adjustcolor(e.label.col[i], alpha.f = e_alpha[i])
+    }
+
+    # adjust construct label colors
+    base_c_col <- rep_len(c.label.col, nc)
+    if (is.null(c.label.col.left)) {
+      c.label.col.left <- base_c_col
+    } else {
+      c.label.col.left <- rep_len(c.label.col.left, nc)
+    }
+    if (is.null(c.label.col.right)) {
+      c.label.col.right <- base_c_col
+    } else {
+      c.label.col.right <- rep_len(c.label.col.right, nc)
+    }
+    for (i in seq_len(nc)) {
+      c.label.col.left[i] <- adjustcolor(c.label.col.left[i], alpha.f = c_alpha[i])
+      c.label.col.right[i] <- adjustcolor(c.label.col.right[i], alpha.f = c_alpha[i])
+    }
+  }
+
   x <- prepareBiplotData(x,
     dim = dim, map.dim = map.dim,
     e.label.cex = e.label.cex, c.label.cex = c.label.cex,
@@ -1873,7 +2150,7 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
     e.labels.show = e.labels.show,
     unity = unity, unity3d = unity3d, scale.e = scale.e, ...
   )
-  biplotDraw(x,
+  draw_pd <- biplotDraw(x,
     inner.positioning = inner.positioning, outer.positioning = outer.positioning,
     c.labels.inside = c.labels.inside,
     c.lines = c.lines, col.c.lines = col.c.lines, flipaxes = flipaxes,
@@ -1893,22 +2170,172 @@ biplot2d <- function(x, dim = c(1, 2), map.dim = 3,
       calibrated.col = calibrated.col, ...
     )
   }
-  if (!identical(projections, FALSE)) {
+  if (!identical(projections, FALSE) || !identical(projections.error, FALSE)) {
     addProjectionsToBiplot2d(x,
       projections = projections,
       projections.e = projections.e,
       projections.col = projections.col,
       projections.lty = projections.lty,
-      projections.lwd = projections.lwd, ...
+      projections.lwd = projections.lwd,
+      projections.error = projections.error,
+      projections.error.col = projections.error.col,
+      projections.error.lwd = projections.error.lwd,
+      projections.error.dot = projections.error.dot,
+      projections.error.dot.cex = projections.error.dot.cex,
+      projections.error.label = projections.error.label,
+      projections.error.label.cex = projections.error.label.cex,
+      dim = dim, center = center, ...
     )
   }
+  # compute representation quality (cos²) for elements and constructs
+  # cos² uses D-weighted coordinates (U*D, V*D) so quality reflects
+  # variance captured, independent of biplot display scaling (g/h)
+  E <- x@calcs$biplot$el
+  C <- x@calcs$biplot$con
+  D <- x@calcs$biplot$D
+  se <- x@calcs$biplot$se
+  sc <- x@calcs$biplot$sc
+
+  E_w <- sweep(E, 2, D^(1 - h), "*")
+  C_w <- sweep(C, 2, D^(1 - g), "*")
+
+  e_ssq_2d <- rowSums(E_w[, dim[1:2], drop = FALSE]^2)
+  e_ssq_total <- rowSums(E_w^2)
+  e_quality <- ifelse(e_ssq_total > 0, e_ssq_2d / e_ssq_total, 0)
+
+  c_ssq_2d <- rowSums(C_w[, dim[1:2], drop = FALSE]^2)
+  c_ssq_total <- rowSums(C_w^2)
+  c_quality <- ifelse(c_ssq_total > 0, c_ssq_2d / c_ssq_total, 0)
+
+  if (quality) {
+    addQualityToBiplot2d(x, draw_pd = draw_pd, dim = dim,
+      g = g, h = h,
+      quality.cex = quality.cex, quality.col = quality.col, ...
+    )
+  }
+
   addVarianceExplainedToBiplot2d(x,
     dim = dim, center = center, normalize = normalize,
     g = g, h = h, col.active = col.active,
     col.passive = col.passive, var.show = var.show,
     var.cex = var.cex, var.col = var.col, ...
   )
-  invisible(NULL)
+
+  # build return list
+  var.explained <- D^2 / sum(D^2)
+  Eu <- E * se
+  Cu <- C * sc
+
+  elements_df <- data.frame(
+    name = elements(x),
+    x = Eu[, dim[1]],
+    y = Eu[, dim[2]],
+    x.unscaled = E[, dim[1]],
+    y.unscaled = E[, dim[2]],
+    quality = e_quality,
+    stringsAsFactors = FALSE
+  )
+  constructs_df <- data.frame(
+    name = constructs(x)[, 2],
+    name.left = constructs(x)[, 1],
+    x = Cu[, dim[1]],
+    y = Cu[, dim[2]],
+    x.unscaled = C[, dim[1]],
+    y.unscaled = C[, dim[2]],
+    quality = c_quality,
+    stringsAsFactors = FALSE
+  )
+
+  # compute projection errors: difference between 2D-approximated and actual ratings
+  # biplot projection property: x_ij_centered ≈ C_i · E_j (dot product of 2D coords)
+  dat <- x@ratings[, , 1]
+  nc <- nrow(dat)
+  if (center == 0) {
+    offsets <- rep(0, nc)
+  } else if (center == 1) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 2) {
+    offsets <- rep(0, nc)
+  } else if (center == 3) {
+    offsets <- rowMeans(dat, na.rm = TRUE)
+  } else if (center == 4) {
+    offsets <- rep(getScaleMidpoint(x), nc)
+  }
+  C_2d <- C[, dim[1:2], drop = FALSE]
+  E_2d <- E[, dim[1:2], drop = FALSE]
+  projected_centered <- C_2d %*% t(E_2d)  # nc x ne matrix
+  projected_ratings <- projected_centered + offsets
+  projection_errors <- abs(projected_ratings - dat)
+  rownames(projection_errors) <- constructs(x)[, 2]
+  colnames(projection_errors) <- elements(x)
+
+  res <- list(
+    elements = elements_df,
+    constructs = constructs_df,
+    element.coords = E,
+    construct.coords = C,
+    element.coords.scaled = Eu,
+    construct.coords.scaled = Cu,
+    element.quality = e_quality,
+    construct.quality = c_quality,
+    projection.errors = projection_errors,
+    dim = dim,
+    var.explained = var.explained,
+    D = D,
+    se = se,
+    sc = sc
+  )
+  class(res) <- "biplot2d"
+  invisible(res)
+}
+
+
+#' Print method for biplot2d objects
+#'
+#' @param x A `biplot2d` object returned by [biplot2d()].
+#' @param ... Not used.
+#' @export
+#' @method print biplot2d
+print.biplot2d <- function(x, ...) {
+  ne <- nrow(x$elements)
+  nc <- nrow(x$constructs)
+  d <- x$dim
+  ve <- x$var.explained
+  cat("biplot2d object\n")
+  cat(sprintf("  %d elements, %d constructs\n", ne, nc))
+  cat(sprintf("  Dimensions: %d, %d (%.1f%% + %.1f%% = %.1f%% variance)\n",
+    d[1], d[2], ve[d[1]] * 100, ve[d[2]] * 100,
+    (ve[d[1]] + ve[d[2]]) * 100
+  ))
+  cat(sprintf("  Element quality range:   %.2f - %.2f\n",
+    min(x$element.quality), max(x$element.quality)
+  ))
+  cat(sprintf("  Construct quality range: %.2f - %.2f\n",
+    min(x$construct.quality), max(x$construct.quality)
+  ))
+  pe <- x$projection.errors
+  if (!is.null(pe)) {
+    cat(sprintf("  Projection errors:      mean=%.2f, max=%.2f (rating scale units)\n",
+      mean(pe, na.rm = TRUE), max(pe, na.rm = TRUE)
+    ))
+  }
+  cat("\nList elements:\n")
+  for (nm in names(x)) {
+    obj <- x[[nm]]
+    desc <- if (is.data.frame(obj)) {
+      sprintf("data.frame [%d x %d]", nrow(obj), ncol(obj))
+    } else if (is.matrix(obj)) {
+      sprintf("matrix [%d x %d]", nrow(obj), ncol(obj))
+    } else if (is.numeric(obj) && length(obj) > 1) {
+      sprintf("numeric [%d]", length(obj))
+    } else if (is.numeric(obj) && length(obj) == 1) {
+      sprintf("%.4g", obj)
+    } else {
+      class(obj)[1]
+    }
+    cat(sprintf("  $%-25s %s\n", nm, desc))
+  }
+  invisible(x)
 }
 
 
