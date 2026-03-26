@@ -751,13 +751,13 @@
 
     // Colors
     var textColor = isDark ? "#ccc" : "#333";
-    var lineColor = isDark ? "#5599dd" : "#2266aa";
+    var lineColor = elemColorInput ? elemColorInput.value : (isDark ? "#5599dd" : "#2266aa");
     var gridColor = isDark ? "#444" : "#e0e0e0";
     var bgColor = isDark ? "transparent" : "transparent";
     var prefColor = isDark ? "#44bb77" : "#226644";
     var nonprefColor = isDark ? "#dd7755" : "#aa4422";
     var neutralColor = isDark ? "#999" : "#777";
-    var dotFill = isDark ? "#5599dd" : "#2266aa";
+    var dotFill = lineColor;
     var midColor = isDark ? "#555" : "#ccc";
 
     // Title
@@ -1185,6 +1185,7 @@
       elementObjects[i].sphere.material.color.set(c);
       elementObjects[i].label.element.style.color = c;
     }
+    if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
   });
   elemColorLabel.appendChild(elemColorInput);
   elemColorLabel.appendChild(document.createTextNode(" Element Color"));
