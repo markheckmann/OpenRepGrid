@@ -89,6 +89,7 @@
 
   // --- Selection ---
   var selectedElements = []; // indices of selected elements
+  var selectedConstructs = []; // indices of selected constructs
 
   // --- Colors ---
   var elementColor = 0xbbbbbb;
@@ -1186,6 +1187,53 @@
     updateElementGlows();
   }
 
+  function selectConstruct(idx, multiSelect) {
+    if (multiSelect) {
+      var pos = selectedConstructs.indexOf(idx);
+      if (pos >= 0) {
+        selectedConstructs.splice(pos, 1);
+      } else {
+        selectedConstructs.push(idx);
+      }
+    } else {
+      if (selectedConstructs.length === 1 && selectedConstructs[0] === idx) {
+        selectedConstructs = [];
+      } else {
+        selectedConstructs = [idx];
+      }
+    }
+    updateConstructSelection();
+  }
+
+  function updateConstructSelection() {
+    var selHex = "#" + new THREE.Color(selectionColor).getHexString();
+    for (var i = 0; i < constructObjects.length; i++) {
+      var obj = constructObjects[i];
+      var isSelected = selectedConstructs.indexOf(i) >= 0;
+      if (isSelected) {
+        obj.rightMarker.material.color.set(selectionColor);
+        obj.leftMarker.material.color.set(selectionColor);
+        obj.rightLabel.element.style.color = selHex;
+        obj.leftLabel.element.style.color = selHex;
+        obj.line.material.color.set(selectionColor);
+      } else {
+        // Restore original colors
+        var con = constructs[i];
+        var pref = con.preferred;
+        var rColor, lColor;
+        if (pref === "right") { rColor = preferredPoleColor; lColor = nonpreferredPoleColor; }
+        else if (pref === "left") { rColor = nonpreferredPoleColor; lColor = preferredPoleColor; }
+        else if (pref === "both") { rColor = preferredPoleColor; lColor = preferredPoleColor; }
+        else { rColor = neutralPoleColor; lColor = neutralPoleColor; }
+        obj.rightMarker.material.color.set(rColor);
+        obj.leftMarker.material.color.set(lColor);
+        obj.rightLabel.element.style.color = "";
+        obj.leftLabel.element.style.color = "";
+        obj.line.material.color.set(axisColorInput ? axisColorInput.value : "#888888");
+      }
+    }
+  }
+
   function updateProfilePlot(elemIdx) {
     selectedElementIndex = elemIdx;
     updateElementGlows();
@@ -1478,7 +1526,9 @@
   axisColorInput.value = "#888888";
   axisColorInput.addEventListener("input", function () {
     for (var i = 0; i < constructObjects.length; i++) {
-      constructObjects[i].line.material.color.set(axisColorInput.value);
+      if (selectedConstructs.indexOf(i) < 0) {
+        constructObjects[i].line.material.color.set(axisColorInput.value);
+      }
     }
   });
   axisColorLabel.appendChild(axisColorInput);
@@ -1784,15 +1834,19 @@
       var ud = intersects[0].object.userData;
       if (ud.type === "element") {
         selectElement(ud.index, event.metaKey || event.ctrlKey);
+        if (!(event.metaKey || event.ctrlKey)) { selectedConstructs = []; updateConstructSelection(); }
         updateProfilePlot(ud.index);
       } else if (ud.type === "construct") {
-        constructLabelVisible[ud.index] = !constructLabelVisible[ud.index];
+        selectConstruct(ud.index, event.metaKey || event.ctrlKey);
+        if (!(event.metaKey || event.ctrlKey)) { selectedElements = []; updateElementGlows(); }
       }
     } else {
       // Click on background: clear selection
       if (!event.metaKey && !event.ctrlKey) {
         selectedElements = [];
+        selectedConstructs = [];
         updateElementGlows();
+        updateConstructSelection();
       }
     }
   }
@@ -1915,16 +1969,51 @@
 
   function showConstructContextMenu(x, y, conIdx) {
     contextMenu.innerHTML = "";
-    var hasAxis = constructLineVisible[conIdx];
-    addMenuItem(hasAxis ? "Hide calibrated axis" : "Show calibrated axis", function () {
-      constructLineVisible[conIdx] = !constructLineVisible[conIdx];
+
+    // Determine target set: use selection if right-clicked construct is part of it
+    var targets = (selectedConstructs.length > 1 && selectedConstructs.indexOf(conIdx) >= 0)
+      ? selectedConstructs.slice()
+      : [conIdx];
+    var isMulti = targets.length > 1;
+    var suffix = isMulti ? " (" + targets.length + " constructs)" : "";
+
+    // Calibrated axis
+    var allAxis = targets.every(function (i) { return constructLineVisible[i]; });
+    addMenuItem((allAxis ? "Hide calibrated axis" : "Show calibrated axis") + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        constructLineVisible[targets[t]] = !allAxis;
+      }
       buildCalibration();
       rebuildAllProjections();
     });
-    addMenuItem("Hide construct", function () {
-      conCheckboxes[conIdx].checked = false;
-      conCheckboxes[conIdx].dispatchEvent(new Event("change"));
+
+    // Labels
+    var allLabelsVis = targets.every(function (i) { return constructLabelVisible[i]; });
+    addMenuItem((allLabelsVis ? "Hide labels" : "Show labels") + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        constructLabelVisible[targets[t]] = !allLabelsVis;
+      }
     });
+
+    // Hide
+    addMenuItem("Hide" + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        conCheckboxes[targets[t]].checked = false;
+        conCheckboxes[targets[t]].dispatchEvent(new Event("change"));
+      }
+    });
+
+    // Keep (hide all others)
+    addMenuItem("Keep only" + suffix, function () {
+      for (var i = 0; i < constructs.length; i++) {
+        var keep = targets.indexOf(i) >= 0;
+        if (conCheckboxes[i].checked !== keep) {
+          conCheckboxes[i].checked = keep;
+          conCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    });
+
     showContextMenuAt(x, y);
   }
 
@@ -2027,8 +2116,10 @@
       }
       benchmarkElements = [];
       selectedElements = [];
+      selectedConstructs = [];
       selectedElementIndex = -1;
       updateElementGlows();
+      updateConstructSelection();
       buildCalibration();
       rebuildAllProjections();
       profileCanvas.style.display = "none";
