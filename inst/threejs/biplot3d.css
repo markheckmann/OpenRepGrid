@@ -165,8 +165,9 @@ body {
   z-index: 2;
 }
 
-.grid-table .col-left-pole,
-.grid-table .col-right-pole {
+.grid-table .col-preferred-pole,
+.grid-table .col-nonpreferred-pole,
+.grid-table .col-neutral-pole {
   text-align: left;
   font-weight: 500;
   background: #f8f8f8;
@@ -174,13 +175,16 @@ body {
   z-index: 1;
 }
 
-.grid-table .col-left-pole {
-  color: #aa4422;
-  left: 0;
+.grid-table .col-preferred-pole {
+  color: #226644;
 }
 
-.grid-table .col-right-pole {
-  color: #226644;
+.grid-table .col-nonpreferred-pole {
+  color: #aa4422;
+}
+
+.grid-table .col-neutral-pole {
+  color: #777777;
 }
 
 .grid-table .element-header {
@@ -314,8 +318,8 @@ body {
   white-space: nowrap;
 }
 
-/* CSS2D labels for constructs (right pole) */
-.label-construct-right {
+/* CSS2D labels for constructs (preferred pole = green) */
+.label-construct-preferred {
   color: #226644;
   font-size: 10px;
   font-weight: 600;
@@ -324,9 +328,19 @@ body {
   white-space: nowrap;
 }
 
-/* CSS2D labels for constructs (left pole) */
-.label-construct-left {
+/* CSS2D labels for constructs (non-preferred pole = red) */
+.label-construct-nonpreferred {
   color: #aa4422;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 3px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CSS2D labels for constructs (no preference set = gray) */
+.label-construct-neutral {
+  color: #777777;
   font-size: 10px;
   font-weight: 600;
   padding: 1px 3px;

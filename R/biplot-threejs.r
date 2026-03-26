@@ -107,6 +107,7 @@ biplotThreejs <- function(x, dim = 1:3,
     y = Cu[, dim[2]],
     z = Cu[, dim[3]],
     quality = round(c_quality, 4),
+    preferred = preferredPoles(x),
     stringsAsFactors = FALSE
   )
   meta_list <- list(

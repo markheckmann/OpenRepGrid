@@ -82,8 +82,9 @@
 
   // --- Colors ---
   var elementColor = 0x2c3e50;
-  var rightPoleColor = 0x226644;
-  var leftPoleColor = 0xaa4422;
+  var preferredPoleColor = 0x226644;   // green for preferred pole
+  var nonpreferredPoleColor = 0xaa4422; // red for non-preferred pole
+  var neutralPoleColor = 0x888888;      // gray when no preference set
   // Palette for per-element projection lines
   var projColors = [
     0xe6194b, 0x3cb44b, 0x4363d8, 0xf58231, 0x911eb4,
@@ -134,8 +135,33 @@
     line.visible = false;
     constructLinesGroup.add(line);
 
+    // Determine colors based on which pole is preferred
+    var pref = con.preferred;  // "left", "right", "both", "none", or null
+    var rColor, lColor, rClass, lClass;
+    if (pref === "right") {
+      rColor = preferredPoleColor;
+      lColor = nonpreferredPoleColor;
+      rClass = "label-construct-preferred";
+      lClass = "label-construct-nonpreferred";
+    } else if (pref === "left") {
+      rColor = nonpreferredPoleColor;
+      lColor = preferredPoleColor;
+      rClass = "label-construct-nonpreferred";
+      lClass = "label-construct-preferred";
+    } else if (pref === "both") {
+      rColor = preferredPoleColor;
+      lColor = preferredPoleColor;
+      rClass = "label-construct-preferred";
+      lClass = "label-construct-preferred";
+    } else {
+      rColor = neutralPoleColor;
+      lColor = neutralPoleColor;
+      rClass = "label-construct-neutral";
+      lClass = "label-construct-neutral";
+    }
+
     // Right pole marker
-    var rMat = new THREE.MeshBasicMaterial({ color: rightPoleColor });
+    var rMat = new THREE.MeshBasicMaterial({ color: rColor });
     var rMarker = new THREE.Mesh(crossGeom, rMat);
     rMarker.position.set(sc.rx, sc.ry, sc.rz);
     rMarker.userData = { type: "construct", index: i, pole: "right",
@@ -144,7 +170,7 @@
     hoverTargets.push(rMarker);
 
     // Left pole marker
-    var lMat = new THREE.MeshBasicMaterial({ color: leftPoleColor });
+    var lMat = new THREE.MeshBasicMaterial({ color: lColor });
     var lMarker = new THREE.Mesh(crossGeom, lMat);
     lMarker.position.set(sc.lx, sc.ly, sc.lz);
     lMarker.userData = { type: "construct", index: i, pole: "left",
@@ -154,7 +180,7 @@
 
     // Right pole label
     var rightDiv = document.createElement("div");
-    rightDiv.className = "label-construct-right";
+    rightDiv.className = rClass;
     rightDiv.textContent = con.right_pole;
     var rightLabel = new THREE.CSS2DObject(rightDiv);
     rightLabel.position.set(sc.rx, sc.ry, sc.rz);
@@ -162,7 +188,7 @@
 
     // Left pole label
     var leftDiv = document.createElement("div");
-    leftDiv.className = "label-construct-left";
+    leftDiv.className = lClass;
     leftDiv.textContent = con.left_pole;
     var leftLabel = new THREE.CSS2DObject(leftDiv);
     leftLabel.position.set(sc.lx, sc.ly, sc.lz);
@@ -430,7 +456,7 @@
 
     var thLeft = document.createElement("th");
     thLeft.textContent = "Left Pole";
-    thLeft.className = "col-left-pole";
+    thLeft.className = "col-neutral-pole";
     headerRow.appendChild(thLeft);
 
     for (var e = 0; e < ratings.element_names.length; e++) {
@@ -443,7 +469,7 @@
 
     var thRight = document.createElement("th");
     thRight.textContent = "Right Pole";
-    thRight.className = "col-right-pole";
+    thRight.className = "col-neutral-pole";
     headerRow.appendChild(thRight);
 
     thead.appendChild(headerRow);
@@ -454,8 +480,24 @@
       var tr = document.createElement("tr");
       tr.dataset.constructIndex = c;
 
+      var cPref = constructs[c] ? constructs[c].preferred : null;
+      var leftPoleClass, rightPoleClass;
+      if (cPref === "left") {
+        leftPoleClass = "col-preferred-pole";
+        rightPoleClass = "col-nonpreferred-pole";
+      } else if (cPref === "right") {
+        leftPoleClass = "col-nonpreferred-pole";
+        rightPoleClass = "col-preferred-pole";
+      } else if (cPref === "both") {
+        leftPoleClass = "col-preferred-pole";
+        rightPoleClass = "col-preferred-pole";
+      } else {
+        leftPoleClass = "col-neutral-pole";
+        rightPoleClass = "col-neutral-pole";
+      }
+
       var tdLeft = document.createElement("td");
-      tdLeft.className = "col-left-pole";
+      tdLeft.className = leftPoleClass;
       tdLeft.textContent = ratings.left_poles[c];
       tr.appendChild(tdLeft);
 
@@ -470,7 +512,7 @@
       }
 
       var tdRight = document.createElement("td");
-      tdRight.className = "col-right-pole";
+      tdRight.className = rightPoleClass;
       tdRight.textContent = ratings.right_poles[c];
       tr.appendChild(tdRight);
 
