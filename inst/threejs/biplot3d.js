@@ -811,14 +811,30 @@
   var resizeRight = document.getElementById("resize-right");
 
   toggleLeftBtn.addEventListener("click", function () {
-    leftPanel.classList.toggle("collapsed");
-    resizeLeft.style.display = leftPanel.classList.contains("collapsed") ? "none" : "";
+    if (leftPanel.classList.contains("collapsed")) {
+      leftPanel.classList.remove("collapsed");
+      leftPanel.style.width = leftPanel._savedWidth || "";
+      resizeLeft.style.display = "";
+    } else {
+      leftPanel._savedWidth = leftPanel.style.width;
+      leftPanel.style.width = "";
+      leftPanel.classList.add("collapsed");
+      resizeLeft.style.display = "none";
+    }
     onResize();
   });
 
   toggleRightBtn.addEventListener("click", function () {
-    rightPanel.classList.toggle("collapsed");
-    resizeRight.style.display = rightPanel.classList.contains("collapsed") ? "none" : "";
+    if (rightPanel.classList.contains("collapsed")) {
+      rightPanel.classList.remove("collapsed");
+      rightPanel.style.width = rightPanel._savedWidth || "";
+      resizeRight.style.display = "";
+    } else {
+      rightPanel._savedWidth = rightPanel.style.width;
+      rightPanel.style.width = "";
+      rightPanel.classList.add("collapsed");
+      resizeRight.style.display = "none";
+    }
     onResize();
   });
 
