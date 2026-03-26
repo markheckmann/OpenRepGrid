@@ -211,6 +211,7 @@
     var quat = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
     line.quaternion.copy(quat);
     line.visible = false;
+    line.scale.set(2, 1, 2);
     constructLinesGroup.add(line);
 
     // Determine colors based on which pole is preferred
@@ -362,7 +363,7 @@
   // 5. PROJECTIONS (per-element, toggled by double-click)
   // =============================================
   // Per-element projection groups stored here
-  var projLineScale = 1;
+  var projLineScale = 2;
   var elementProjectionGroups = [];
   for (var i = 0; i < elements.length; i++) {
     var g = new THREE.Group();
@@ -779,6 +780,12 @@
       var y = topPad + r * rowHeight + rowHeight / 2;
       var rating = ratings.values[ci][elemIdx];
 
+      // Row highlight when construct is hovered
+      if (ci === hoveredConstructIndex) {
+        profileCtx.fillStyle = isDark ? "rgba(80,160,255,0.12)" : "rgba(0,100,200,0.08)";
+        profileCtx.fillRect(0, y - rowHeight / 2, containerWidth, rowHeight);
+      }
+
       // Horizontal grid line
       profileCtx.strokeStyle = gridColor;
       profileCtx.lineWidth = 0.5;
@@ -978,6 +985,7 @@
         highlightConstruct(profileHoveredConstruct);
         highlightGridRow(profileHoveredConstruct);
       }
+      if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
     }
     profileCanvas.style.cursor = newIdx >= 0 ? "pointer" : "default";
   });
@@ -988,6 +996,7 @@
       highlightGridRow(-1);
       profileHoveredConstruct = -1;
       hoveredConstructIndex = -1;
+      if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
     }
     profileCanvas.style.cursor = "default";
   });
@@ -1203,7 +1212,7 @@
   axisWidthRange.min = "0.5";
   axisWidthRange.max = "5";
   axisWidthRange.step = "0.5";
-  axisWidthRange.value = "1";
+  axisWidthRange.value = "2";
   axisWidthRange.addEventListener("input", function () {
     var s = parseFloat(axisWidthRange.value);
     for (var i = 0; i < constructObjects.length; i++) {
@@ -1222,7 +1231,7 @@
   projWidthRange.min = "0.5";
   projWidthRange.max = "5";
   projWidthRange.step = "0.5";
-  projWidthRange.value = "1";
+  projWidthRange.value = "2";
   projWidthRange.addEventListener("input", function () {
     projLineScale = parseFloat(projWidthRange.value);
     rebuildAllProjections();
@@ -1438,6 +1447,7 @@
       hoveredConstructIndex = newHoveredConstruct;
       highlightConstruct(hoveredConstructIndex);
       highlightGridRow(hoveredConstructIndex);
+      if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
     }
     renderer.domElement.style.cursor = (newHoveredElement >= 0 || newHoveredConstruct >= 0) ? "pointer" : "default";
   }
@@ -1560,6 +1570,7 @@
     highlightGridColumn(-1);
     highlightGridRow(-1);
     renderer.domElement.style.cursor = "default";
+    if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
   });
 
   // =============================================
