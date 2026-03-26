@@ -824,7 +824,7 @@
     benchmarkElements = [];
     removeBenchmarksBtn.style.display = "none";
     updateElementGlows();
-    updateDifferenceSortVisibility();
+    updateDynamicSortVisibility();
     if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
   });
   var selectedElementIndex = -1;
@@ -845,8 +845,22 @@
   var constructSortMode = "angular"; // "original", "angular", or "difference"
   var constructOrder = constructOrderAngular;
 
-  // Add "Difference" radio button dynamically
+  // Add dynamic sort radio buttons
   var sortToggle = document.querySelector(".sort-toggle");
+
+  // "Value" radio — visible when one element selected, no benchmark
+  var valueSortLabel = document.createElement("label");
+  valueSortLabel.title = "Sort constructs by rating value (descending)";
+  var valueSortRadio = document.createElement("input");
+  valueSortRadio.type = "radio";
+  valueSortRadio.name = "construct-sort";
+  valueSortRadio.value = "value";
+  valueSortLabel.appendChild(valueSortRadio);
+  valueSortLabel.appendChild(document.createTextNode(" Value"));
+  valueSortLabel.style.display = "none";
+  sortToggle.appendChild(valueSortLabel);
+
+  // "Difference" radio — visible when two elements selected or one benchmark
   var diffSortLabel = document.createElement("label");
   diffSortLabel.title = "Sort constructs by rating difference (descending)";
   var diffSortRadio = document.createElement("input");
@@ -857,6 +871,13 @@
   diffSortLabel.appendChild(document.createTextNode(" Difference"));
   diffSortLabel.style.display = "none";
   sortToggle.appendChild(diffSortLabel);
+
+  function computeValueOrder(elemIdx) {
+    return constructs.map(function (c, i) {
+      var val = ratings.values[i][elemIdx];
+      return { index: i, val: (val != null) ? val : 0 };
+    }).sort(function (a, b) { return b.val - a.val; });
+  }
 
   function computeDifferenceOrder(elemIdxA, elemIdxB) {
     return constructs.map(function (c, i) {
@@ -880,32 +901,62 @@
     return null;
   }
 
-  function updateDifferenceSortVisibility() {
+  function getValueSortTarget() {
+    // Available when exactly one profile element, no benchmark
+    if (selectedElementIndex >= 0 && benchmarkElements.length === 0) {
+      return selectedElementIndex;
+    }
+    return -1;
+  }
+
+  function updateDynamicSortVisibility() {
+    // Value sort
+    var valueTarget = getValueSortTarget();
+    var valueAvailable = valueTarget >= 0;
+    valueSortLabel.style.display = valueAvailable ? "" : "none";
+    if (!valueAvailable && constructSortMode === "value") {
+      valueSortRadio.checked = false;
+      var angularRadio = document.querySelector('input[name="construct-sort"][value="angular"]');
+      if (angularRadio) angularRadio.checked = true;
+      setConstructSort("angular");
+    }
+    if (valueAvailable) {
+      valueSortLabel.title = "Sort by " + elements[valueTarget].name + " rating (descending)";
+    }
+    if (valueAvailable && constructSortMode === "value") {
+      setConstructSort("value");
+    }
+
+    // Difference sort
     var targets = getDifferenceTargets();
-    var available = targets !== null;
-    diffSortLabel.style.display = available ? "" : "none";
-    // If currently using difference sort but it's no longer available, fall back
-    if (!available && constructSortMode === "difference") {
+    var diffAvailable = targets !== null;
+    diffSortLabel.style.display = diffAvailable ? "" : "none";
+    if (!diffAvailable && constructSortMode === "difference") {
       diffSortRadio.checked = false;
       var angularRadio = document.querySelector('input[name="construct-sort"][value="angular"]');
       if (angularRadio) angularRadio.checked = true;
       setConstructSort("angular");
     }
-    // If available, update the tooltip
-    if (available) {
+    if (diffAvailable) {
       var nameA = elements[targets.a].name;
       var nameB = elements[targets.b].name;
       diffSortLabel.title = "Sort by |" + nameA + " − " + nameB + "| (descending)";
     }
-    // If currently in difference mode, refresh the order
-    if (available && constructSortMode === "difference") {
+    if (diffAvailable && constructSortMode === "difference") {
       setConstructSort("difference");
     }
   }
 
   function setConstructSort(mode) {
     constructSortMode = mode;
-    if (mode === "difference") {
+    if (mode === "value") {
+      var vt = getValueSortTarget();
+      if (vt >= 0) {
+        constructOrder = computeValueOrder(vt);
+      } else {
+        constructOrder = constructOrderAngular;
+      }
+    } else if (mode === "difference") {
       var targets = getDifferenceTargets();
       if (targets) {
         constructOrder = computeDifferenceOrder(targets.a, targets.b);
@@ -1253,7 +1304,7 @@
       }
     }
     updateElementGlows();
-    updateDifferenceSortVisibility();
+    updateDynamicSortVisibility();
   }
 
   function selectConstruct(idx, multiSelect) {
@@ -1306,7 +1357,7 @@
   function updateProfilePlot(elemIdx) {
     selectedElementIndex = elemIdx;
     updateElementGlows();
-    updateDifferenceSortVisibility();
+    updateDynamicSortVisibility();
     var profileTab = document.querySelector('.tab-content[data-tab="profile"]');
     if (profileTab && profileTab.classList.contains("active")) {
       if (elemIdx >= 0) {
@@ -1908,7 +1959,7 @@
         updateProfilePlot(ud.index);
       } else if (ud.type === "construct") {
         selectConstruct(ud.index, event.metaKey || event.ctrlKey);
-        if (!(event.metaKey || event.ctrlKey)) { selectedElements = []; updateElementGlows(); updateDifferenceSortVisibility(); }
+        if (!(event.metaKey || event.ctrlKey)) { selectedElements = []; updateElementGlows(); updateDynamicSortVisibility(); }
       }
     } else {
       // Click on background: clear selection
@@ -1917,7 +1968,7 @@
         selectedConstructs = [];
         updateElementGlows();
         updateConstructSelection();
-        updateDifferenceSortVisibility();
+        updateDynamicSortVisibility();
       }
     }
   }
@@ -2191,7 +2242,7 @@
       selectedElementIndex = -1;
       updateElementGlows();
       updateConstructSelection();
-      updateDifferenceSortVisibility();
+      updateDynamicSortVisibility();
       buildCalibration();
       rebuildAllProjections();
       profileCanvas.style.display = "none";
