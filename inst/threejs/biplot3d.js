@@ -665,9 +665,16 @@
   var profileCtx = profileCanvas.getContext("2d");
   var profileHint = document.querySelector("#profile-container .profile-hint");
   profileCanvas.style.display = "none";
+  var removeBenchmarksBtn = document.getElementById("remove-benchmarks-btn");
+  removeBenchmarksBtn.addEventListener("click", function () {
+    benchmarkElements = [];
+    removeBenchmarksBtn.style.display = "none";
+    if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+  });
   var selectedElementIndex = -1;
   var profileLayout = { topPad: 0, rowHeight: 0, nc: 0 };
   var profileHoveredConstruct = -1;
+  var benchmarkElements = []; // indices of benchmark elements
 
   // Compute construct order by angle in PC1-PC2 plane
   var constructOrder = constructs.map(function (c, i) {
@@ -726,7 +733,7 @@
     var lineHeight = 12;
     var rowHeight = 32;
     var topPad = 42;
-    var bottomPad = 20;
+    var bottomPad = benchmarkElements.length > 0 ? 36 : 20;
     var canvasHeight = topPad + nc * rowHeight + bottomPad;
 
     var dpr = window.devicePixelRatio || 1;
@@ -832,7 +839,49 @@
       }
     }
 
-    // Draw connecting line
+    // Draw benchmark profiles (behind main profile)
+    var benchColors = ["#e6194b", "#f58231", "#911eb4", "#42d4f4", "#3cb44b"];
+    for (var bi = 0; bi < benchmarkElements.length; bi++) {
+      var bIdx = benchmarkElements[bi];
+      if (bIdx === elemIdx) continue; // skip if same as main
+      var bPoints = [];
+      for (var r = 0; r < nc; r++) {
+        var ci = constructOrder[r].index;
+        var bRating = ratings.values[ci][bIdx];
+        var by = topPad + r * rowHeight + rowHeight / 2;
+        if (bRating != null && !isNaN(bRating)) {
+          var bx = leftMargin + (bRating - scaleMin) / scaleRange * plotWidth;
+          bPoints.push({ x: bx, y: by });
+        }
+      }
+      var bColor = benchColors[bi % benchColors.length];
+      // Dashed line
+      if (bPoints.length > 1) {
+        profileCtx.strokeStyle = bColor;
+        profileCtx.lineWidth = 1.2;
+        profileCtx.setLineDash([4, 3]);
+        profileCtx.globalAlpha = 0.7;
+        profileCtx.beginPath();
+        profileCtx.moveTo(bPoints[0].x, bPoints[0].y);
+        for (var bp = 1; bp < bPoints.length; bp++) {
+          profileCtx.lineTo(bPoints[bp].x, bPoints[bp].y);
+        }
+        profileCtx.stroke();
+        profileCtx.setLineDash([]);
+        profileCtx.globalAlpha = 1.0;
+      }
+      // Small dots
+      for (var bp = 0; bp < bPoints.length; bp++) {
+        profileCtx.beginPath();
+        profileCtx.arc(bPoints[bp].x, bPoints[bp].y, 2.5, 0, Math.PI * 2);
+        profileCtx.fillStyle = bColor;
+        profileCtx.globalAlpha = 0.7;
+        profileCtx.fill();
+        profileCtx.globalAlpha = 1.0;
+      }
+    }
+
+    // Draw connecting line (main element)
     if (points.length > 1) {
       profileCtx.strokeStyle = lineColor;
       profileCtx.lineWidth = 1.5;
@@ -844,7 +893,7 @@
       profileCtx.stroke();
     }
 
-    // Draw dots
+    // Draw dots (main element)
     for (var p = 0; p < points.length; p++) {
       profileCtx.beginPath();
       profileCtx.arc(points[p].x, points[p].y, 3.5, 0, Math.PI * 2);
@@ -853,6 +902,31 @@
       profileCtx.strokeStyle = isDark ? "#222" : "#fff";
       profileCtx.lineWidth = 1;
       profileCtx.stroke();
+    }
+
+    // Legend for benchmarks
+    if (benchmarkElements.length > 0) {
+      var legendY = topPad + nc * rowHeight + 10;
+      profileCtx.font = "9px -apple-system, BlinkMacSystemFont, sans-serif";
+      var legendX = leftMargin;
+      for (var bi = 0; bi < benchmarkElements.length; bi++) {
+        var bIdx = benchmarkElements[bi];
+        var bColor = benchColors[bi % benchColors.length];
+        profileCtx.setLineDash([4, 3]);
+        profileCtx.strokeStyle = bColor;
+        profileCtx.lineWidth = 1.2;
+        profileCtx.globalAlpha = 0.7;
+        profileCtx.beginPath();
+        profileCtx.moveTo(legendX, legendY);
+        profileCtx.lineTo(legendX + 16, legendY);
+        profileCtx.stroke();
+        profileCtx.setLineDash([]);
+        profileCtx.globalAlpha = 1.0;
+        profileCtx.fillStyle = isDark ? "#bbb" : "#555";
+        profileCtx.textAlign = "left";
+        profileCtx.fillText(elements[bIdx].name, legendX + 20, legendY + 3);
+        legendX += 24 + profileCtx.measureText(elements[bIdx].name).width + 10;
+      }
     }
 
     // Vertical border lines at scale edges
@@ -869,6 +943,7 @@
 
     profileHint.style.display = "none";
     profileCanvas.style.display = "block";
+    removeBenchmarksBtn.style.display = benchmarkElements.length > 0 ? "block" : "none";
     profileLayout = { topPad: topPad, rowHeight: rowHeight, nc: nc };
   }
 
@@ -1408,6 +1483,70 @@
       }
     }
   }
+
+  // --- Context menu ---
+  var contextMenu = document.getElementById("context-menu");
+  var contextTargetElement = -1;
+
+  function hideContextMenu() {
+    contextMenu.style.display = "none";
+    contextTargetElement = -1;
+  }
+
+  function showContextMenu(x, y, elemIdx) {
+    contextTargetElement = elemIdx;
+    contextMenu.innerHTML = "";
+
+    var isBenchmark = benchmarkElements.indexOf(elemIdx) >= 0;
+    var item = document.createElement("div");
+    item.className = "menu-item";
+    item.textContent = isBenchmark ? "Remove benchmark" : "Add as benchmark";
+    item.addEventListener("click", function () {
+      if (isBenchmark) {
+        benchmarkElements = benchmarkElements.filter(function (i) { return i !== elemIdx; });
+      } else {
+        benchmarkElements.push(elemIdx);
+      }
+      hideContextMenu();
+      if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
+    });
+    contextMenu.appendChild(item);
+
+    contextMenu.style.display = "block";
+    contextMenu.style.left = x + "px";
+    contextMenu.style.top = y + "px";
+
+    // Keep menu within viewport
+    var menuRect = contextMenu.getBoundingClientRect();
+    if (menuRect.right > window.innerWidth) {
+      contextMenu.style.left = (x - menuRect.width) + "px";
+    }
+    if (menuRect.bottom > window.innerHeight) {
+      contextMenu.style.top = (y - menuRect.height) + "px";
+    }
+  }
+
+  renderer.domElement.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    var intersects = raycaster.intersectObjects(hoverTargets);
+
+    if (intersects.length > 0) {
+      var ud = intersects[0].object.userData;
+      if (ud.type === "element") {
+        showContextMenu(event.clientX, event.clientY, ud.index);
+        return;
+      }
+    }
+    hideContextMenu();
+  });
+
+  document.addEventListener("click", function () { hideContextMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") hideContextMenu(); });
 
   renderer.domElement.addEventListener("click", onClick, false);
   renderer.domElement.addEventListener("mousemove", onMouseMove, false);
