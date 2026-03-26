@@ -990,6 +990,24 @@
     profileCanvas.style.cursor = newIdx >= 0 ? "pointer" : "default";
   });
 
+  profileCanvas.addEventListener("dblclick", function (e) {
+    var rect = profileCanvas.getBoundingClientRect();
+    var scaleY = profileCanvas.height / (window.devicePixelRatio || 1) / rect.height;
+    var y = (e.clientY - rect.top) * scaleY;
+    var row = Math.floor((y - profileLayout.topPad) / profileLayout.rowHeight);
+    if (row >= 0 && row < profileLayout.nc) {
+      var ci = constructOrder[row].index;
+      // Make construct visible if it's not
+      if (!constructVisible[ci]) {
+        conCheckboxes[ci].checked = true;
+        conCheckboxes[ci].dispatchEvent(new Event("change"));
+      }
+      constructLineVisible[ci] = !constructLineVisible[ci];
+      buildCalibration();
+      rebuildAllProjections();
+    }
+  });
+
   profileCanvas.addEventListener("mouseleave", function () {
     if (profileHoveredConstruct >= 0) {
       unhighlightConstruct(profileHoveredConstruct);
