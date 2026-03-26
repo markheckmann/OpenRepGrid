@@ -284,6 +284,7 @@
   // 3. ELEMENTS
   // =============================================
   var elSphereGeom = new THREE.SphereBufferGeometry(0.03, 16, 12);
+  var glowSphereGeom = new THREE.SphereBufferGeometry(0.055, 16, 12);
   var elementObjects = [];
 
   for (var i = 0; i < elements.length; i++) {
@@ -297,6 +298,15 @@
     elementPointsGroup.add(sphere);
     hoverTargets.push(sphere);
 
+    var glowMat = new THREE.MeshBasicMaterial({
+      color: elementColor, transparent: true, opacity: 0.25,
+      blending: THREE.AdditiveBlending, depthWrite: false
+    });
+    var glow = new THREE.Mesh(glowSphereGeom, glowMat);
+    glow.position.set(el.x, el.y, el.z);
+    glow.visible = false;
+    elementPointsGroup.add(glow);
+
     var labelDiv = document.createElement("div");
     labelDiv.className = "label-element";
     labelDiv.textContent = el.name;
@@ -305,7 +315,7 @@
     label.position.set(el.x, el.y + 0.05, el.z);
     elementLabelsGroup.add(label);
 
-    elementObjects.push({ sphere: sphere, label: label });
+    elementObjects.push({ sphere: sphere, label: label, glow: glow });
   }
 
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
@@ -673,6 +683,7 @@
   removeBenchmarksBtn.addEventListener("click", function () {
     benchmarkElements = [];
     removeBenchmarksBtn.style.display = "none";
+    updateElementGlows();
     if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
   });
   var selectedElementIndex = -1;
@@ -958,8 +969,16 @@
     profileLayout = { topPad: topPad, rowHeight: rowHeight, nc: nc };
   }
 
+  function updateElementGlows() {
+    for (var i = 0; i < elementObjects.length; i++) {
+      var active = (i === selectedElementIndex) || (benchmarkElements.indexOf(i) >= 0);
+      elementObjects[i].glow.visible = active && elementVisible[i];
+    }
+  }
+
   function updateProfilePlot(elemIdx) {
     selectedElementIndex = elemIdx;
+    updateElementGlows();
     var profileTab = document.querySelector('.tab-content[data-tab="profile"]');
     if (profileTab && profileTab.classList.contains("active")) {
       if (elemIdx >= 0) {
@@ -1185,6 +1204,7 @@
     var c = elemColorInput.value;
     for (var i = 0; i < elementObjects.length; i++) {
       elementObjects[i].sphere.material.color.set(c);
+      elementObjects[i].glow.material.color.set(c);
       elementObjects[i].label.element.style.color = c;
     }
     if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
