@@ -1717,15 +1717,31 @@
     contextTargetElement = -1;
   }
 
-  function addMenuItem(text, onClick) {
+  function addMenuItem(text, onClick, parent) {
+    var container = parent || contextMenu;
     var item = document.createElement("div");
     item.className = "menu-item";
     item.textContent = text;
-    item.addEventListener("click", function () {
+    item.addEventListener("click", function (e) {
+      e.stopPropagation();
       onClick();
       hideContextMenu();
     });
-    contextMenu.appendChild(item);
+    container.appendChild(item);
+  }
+
+  function addSubmenu(text) {
+    var wrapper = document.createElement("div");
+    wrapper.className = "menu-submenu";
+    var trigger = document.createElement("div");
+    trigger.className = "menu-item";
+    trigger.textContent = text;
+    wrapper.appendChild(trigger);
+    var panel = document.createElement("div");
+    panel.className = "submenu-panel";
+    wrapper.appendChild(panel);
+    contextMenu.appendChild(wrapper);
+    return panel;
   }
 
   function showContextMenuAt(x, y) {
@@ -1787,6 +1803,7 @@
 
   function showBackgroundContextMenu(x, y) {
     contextMenu.innerHTML = "";
+
     var pcVisible = axesGroup.visible;
     addMenuItem(pcVisible ? "Hide PC axes" : "Show PC axes", function () {
       axesGroup.visible = !pcVisible;
@@ -1794,13 +1811,17 @@
         axisLabels[a].visible = !pcVisible;
       }
     });
+
     addMenuItem("Hide all projections", function () {
       for (var i = 0; i < elements.length; i++) {
         elementProjections[i] = false;
         buildProjectionsForElement(i);
       }
     });
-    addMenuItem("Show all calibrated axes", function () {
+
+    // Calibrated axes submenu
+    var axesSub = addSubmenu("Calibrated axes");
+    addMenuItem("Show all", function () {
       for (var i = 0; i < constructs.length; i++) {
         if (!constructVisible[i]) {
           conCheckboxes[i].checked = true;
@@ -1810,46 +1831,52 @@
       }
       buildCalibration();
       rebuildAllProjections();
-    });
-    addMenuItem("Hide all calibrated axes", function () {
+    }, axesSub);
+    addMenuItem("Hide all", function () {
       for (var i = 0; i < constructs.length; i++) {
         constructLineVisible[i] = false;
       }
       buildCalibration();
       rebuildAllProjections();
-    });
-    addMenuItem("Hide all elements", function () {
-      for (var i = 0; i < elements.length; i++) {
-        if (elemCheckboxes[i].checked) {
-          elemCheckboxes[i].checked = false;
-          elemCheckboxes[i].dispatchEvent(new Event("change"));
-        }
-      }
-    });
-    addMenuItem("Hide all constructs", function () {
-      for (var i = 0; i < constructs.length; i++) {
-        if (conCheckboxes[i].checked) {
-          conCheckboxes[i].checked = false;
-          conCheckboxes[i].dispatchEvent(new Event("change"));
-        }
-      }
-    });
-    addMenuItem("Show all elements", function () {
+    }, axesSub);
+
+    // Elements submenu
+    var elemSub = addSubmenu("Elements");
+    addMenuItem("Show all", function () {
       for (var i = 0; i < elements.length; i++) {
         if (!elemCheckboxes[i].checked) {
           elemCheckboxes[i].checked = true;
           elemCheckboxes[i].dispatchEvent(new Event("change"));
         }
       }
-    });
-    addMenuItem("Show all constructs", function () {
+    }, elemSub);
+    addMenuItem("Hide all", function () {
+      for (var i = 0; i < elements.length; i++) {
+        if (elemCheckboxes[i].checked) {
+          elemCheckboxes[i].checked = false;
+          elemCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    }, elemSub);
+
+    // Constructs submenu
+    var conSub = addSubmenu("Constructs");
+    addMenuItem("Show all", function () {
       for (var i = 0; i < constructs.length; i++) {
         if (!conCheckboxes[i].checked) {
           conCheckboxes[i].checked = true;
           conCheckboxes[i].dispatchEvent(new Event("change"));
         }
       }
-    });
+    }, conSub);
+    addMenuItem("Hide all", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        if (conCheckboxes[i].checked) {
+          conCheckboxes[i].checked = false;
+          conCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    }, conSub);
     addMenuItem("Reset to initial state", function () {
       camera.position.copy(initialCameraPosition);
       controls.target.copy(initialControlsTarget);

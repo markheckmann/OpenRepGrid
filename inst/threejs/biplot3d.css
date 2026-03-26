@@ -538,6 +538,35 @@ body.dark #gui-panel input[type="color"] {
   color: #1a56db;
 }
 
+#context-menu .menu-submenu {
+  position: relative;
+}
+
+#context-menu .menu-submenu > .menu-item::after {
+  content: "\25B8";
+  float: right;
+  margin-left: 12px;
+  font-size: 10px;
+}
+
+#context-menu .submenu-panel {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  padding: 4px 0;
+  z-index: 301;
+}
+
+#context-menu .menu-submenu:hover > .submenu-panel {
+  display: block;
+}
+
 body.dark #context-menu {
   background: #2a2a2a;
   border-color: #555;
@@ -551,6 +580,12 @@ body.dark #context-menu .menu-item {
 body.dark #context-menu .menu-item:hover {
   background: #3a3a4a;
   color: #7ab8ff;
+}
+
+body.dark #context-menu .submenu-panel {
+  background: #2a2a2a;
+  border-color: #555;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Tooltip */
