@@ -1536,30 +1536,21 @@
     contextTargetElement = -1;
   }
 
-  function showContextMenu(x, y, elemIdx) {
-    contextTargetElement = elemIdx;
-    contextMenu.innerHTML = "";
-
-    var isBenchmark = benchmarkElements.indexOf(elemIdx) >= 0;
+  function addMenuItem(text, onClick) {
     var item = document.createElement("div");
     item.className = "menu-item";
-    item.textContent = isBenchmark ? "Remove benchmark" : "Add as benchmark";
+    item.textContent = text;
     item.addEventListener("click", function () {
-      if (isBenchmark) {
-        benchmarkElements = benchmarkElements.filter(function (i) { return i !== elemIdx; });
-      } else {
-        benchmarkElements.push(elemIdx);
-      }
+      onClick();
       hideContextMenu();
-      if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
     });
     contextMenu.appendChild(item);
+  }
 
+  function showContextMenuAt(x, y) {
     contextMenu.style.display = "block";
     contextMenu.style.left = x + "px";
     contextMenu.style.top = y + "px";
-
-    // Keep menu within viewport
     var menuRect = contextMenu.getBoundingClientRect();
     if (menuRect.right > window.innerWidth) {
       contextMenu.style.left = (x - menuRect.width) + "px";
@@ -1567,6 +1558,36 @@
     if (menuRect.bottom > window.innerHeight) {
       contextMenu.style.top = (y - menuRect.height) + "px";
     }
+  }
+
+  function showElementContextMenu(x, y, elemIdx) {
+    contextTargetElement = elemIdx;
+    contextMenu.innerHTML = "";
+    var isBenchmark = benchmarkElements.indexOf(elemIdx) >= 0;
+    addMenuItem(isBenchmark ? "Remove benchmark" : "Add as benchmark", function () {
+      if (isBenchmark) {
+        benchmarkElements = benchmarkElements.filter(function (i) { return i !== elemIdx; });
+      } else {
+        benchmarkElements.push(elemIdx);
+      }
+      if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
+    });
+    showContextMenuAt(x, y);
+  }
+
+  function showConstructContextMenu(x, y, conIdx) {
+    contextMenu.innerHTML = "";
+    var hasAxis = constructLineVisible[conIdx];
+    addMenuItem(hasAxis ? "Hide calibrated axis" : "Show calibrated axis", function () {
+      constructLineVisible[conIdx] = !constructLineVisible[conIdx];
+      buildCalibration();
+      rebuildAllProjections();
+    });
+    addMenuItem("Hide construct", function () {
+      conCheckboxes[conIdx].checked = false;
+      conCheckboxes[conIdx].dispatchEvent(new Event("change"));
+    });
+    showContextMenuAt(x, y);
   }
 
   renderer.domElement.addEventListener("contextmenu", function (event) {
@@ -1581,7 +1602,11 @@
     if (intersects.length > 0) {
       var ud = intersects[0].object.userData;
       if (ud.type === "element") {
-        showContextMenu(event.clientX, event.clientY, ud.index);
+        showElementContextMenu(event.clientX, event.clientY, ud.index);
+        return;
+      }
+      if (ud.type === "construct") {
+        showConstructContextMenu(event.clientX, event.clientY, ud.index);
         return;
       }
     }
