@@ -99,11 +99,49 @@
   // 1. WIREFRAME SPHERE
   // =============================================
   var sphereRadius = 1.0;
-  var wireGeom = new THREE.SphereBufferGeometry(sphereRadius, 32, 24);
-  var wireMat = new THREE.MeshBasicMaterial({
-    color: 0xcccccc, wireframe: true, transparent: true, opacity: 0.15
+  var gridPointsPerCurve = 96; // smooth curves regardless of line count
+  var wireMat = new THREE.LineBasicMaterial({
+    color: 0xcccccc, transparent: true, opacity: 0.15
   });
-  sphereGroup.add(new THREE.Mesh(wireGeom, wireMat));
+
+  function buildGridLines(nLon, nLat) {
+    // Clear existing lines
+    while (sphereGroup.children.length > 0) {
+      sphereGroup.children[0].geometry.dispose();
+      sphereGroup.remove(sphereGroup.children[0]);
+    }
+    // Longitude lines (vertical great circles)
+    for (var i = 0; i < nLon; i++) {
+      var phi = (i / nLon) * Math.PI * 2;
+      var pts = [];
+      for (var j = 0; j <= gridPointsPerCurve; j++) {
+        var theta = (j / gridPointsPerCurve) * Math.PI;
+        pts.push(new THREE.Vector3(
+          sphereRadius * Math.sin(theta) * Math.cos(phi),
+          sphereRadius * Math.cos(theta),
+          sphereRadius * Math.sin(theta) * Math.sin(phi)
+        ));
+      }
+      var geom = new THREE.BufferGeometry().setFromPoints(pts);
+      sphereGroup.add(new THREE.Line(geom, wireMat));
+    }
+    // Latitude lines (horizontal circles)
+    for (var i = 1; i < nLat; i++) {
+      var theta = (i / nLat) * Math.PI;
+      var r = sphereRadius * Math.sin(theta);
+      var y = sphereRadius * Math.cos(theta);
+      var pts = [];
+      for (var j = 0; j <= gridPointsPerCurve; j++) {
+        var phi = (j / gridPointsPerCurve) * Math.PI * 2;
+        pts.push(new THREE.Vector3(r * Math.cos(phi), y, r * Math.sin(phi)));
+      }
+      var geom = new THREE.BufferGeometry().setFromPoints(pts);
+      sphereGroup.add(new THREE.Line(geom, wireMat));
+    }
+  }
+  var defaultLon = 16;
+  var defaultLat = 12;
+  buildGridLines(defaultLon, defaultLat);
 
   // =============================================
   // 2. CONSTRUCT POLES on sphere surface
@@ -673,6 +711,23 @@
   sphereColorLabel.appendChild(sphereColorInput);
   sphereColorLabel.appendChild(document.createTextNode(" Sphere Color"));
   guiPanel.appendChild(sphereColorLabel);
+
+  // Sphere grid density
+  var gridDensityLabel = document.createElement("label");
+  var gridDensityRange = document.createElement("input");
+  gridDensityRange.type = "range";
+  gridDensityRange.min = "0";
+  gridDensityRange.max = "48";
+  gridDensityRange.step = "2";
+  gridDensityRange.value = "16";
+  gridDensityRange.addEventListener("input", function () {
+    var seg = parseInt(gridDensityRange.value);
+    buildGridLines(seg, Math.round(seg * 0.75));
+  });
+  gridDensityLabel.appendChild(gridDensityRange);
+  gridDensityLabel.appendChild(document.createTextNode(" Grid Lines"));
+  guiPanel.appendChild(gridDensityLabel);
+
   // Element color chooser
   var elemColorLabel = document.createElement("label");
   var elemColorInput = document.createElement("input");
