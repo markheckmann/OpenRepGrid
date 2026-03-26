@@ -2196,6 +2196,24 @@
         }
       }
     }, elemSub);
+    addMenuItem("Select all", function () {
+      selectedElements = [];
+      for (var i = 0; i < elements.length; i++) selectedElements.push(i);
+      updateElementGlows();
+      updateDynamicSortVisibility();
+    }, elemSub);
+    addMenuItem("Show all labels", function () {
+      for (var i = 0; i < elements.length; i++) {
+        elementLabelVisible[i] = true;
+        elementObjects[i].label.visible = elementVisible[i];
+      }
+    }, elemSub);
+    addMenuItem("Hide all labels", function () {
+      for (var i = 0; i < elements.length; i++) {
+        elementLabelVisible[i] = false;
+        elementObjects[i].label.visible = false;
+      }
+    }, elemSub);
 
     // Constructs submenu
     var conSub = addSubmenu("Constructs");
@@ -2213,6 +2231,21 @@
           conCheckboxes[i].checked = false;
           conCheckboxes[i].dispatchEvent(new Event("change"));
         }
+      }
+    }, conSub);
+    addMenuItem("Select all", function () {
+      selectedConstructs = [];
+      for (var i = 0; i < constructs.length; i++) selectedConstructs.push(i);
+      updateConstructSelection();
+    }, conSub);
+    addMenuItem("Show all labels", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        constructLabelVisible[i] = true;
+      }
+    }, conSub);
+    addMenuItem("Hide all labels", function () {
+      for (var i = 0; i < constructs.length; i++) {
+        constructLabelVisible[i] = false;
       }
     }, conSub);
     addMenuItem("Reset to initial state", function () {
