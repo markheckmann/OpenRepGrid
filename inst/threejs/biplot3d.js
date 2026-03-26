@@ -811,11 +811,45 @@
   var benchmarkElements = []; // indices of benchmark elements
   var benchColors = ["#e6194b", "#f58231", "#911eb4", "#42d4f4", "#3cb44b"];
 
-  // Compute construct order by angle in PC1-PC2 plane
-  var constructOrder = constructs.map(function (c, i) {
+  // Construct sort orders
+  var constructOrderOriginal = constructs.map(function (c, i) {
+    return { index: i };
+  });
+  var constructOrderAngular = constructs.map(function (c, i) {
     return { index: i, angle: Math.atan2(c.y, c.x) };
   });
-  constructOrder.sort(function (a, b) { return a.angle - b.angle; });
+  constructOrderAngular.sort(function (a, b) { return a.angle - b.angle; });
+  var constructSortMode = "angular"; // "original" or "angular"
+  var constructOrder = constructOrderAngular;
+
+  function setConstructSort(mode) {
+    constructSortMode = mode;
+    constructOrder = (mode === "angular") ? constructOrderAngular : constructOrderOriginal;
+    // Reorder grid table rows
+    var tbody = document.querySelector("#grid-table tbody");
+    if (tbody) {
+      var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
+      var rowMap = {};
+      for (var r = 0; r < rows.length; r++) {
+        rowMap[rows[r].dataset.constructIndex] = rows[r];
+      }
+      for (var r = 0; r < constructOrder.length; r++) {
+        tbody.appendChild(rowMap[constructOrder[r].index]);
+      }
+    }
+    // Redraw profile plot
+    if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+  }
+
+  // Wire up sort radio buttons
+  var sortRadios = document.querySelectorAll('input[name="construct-sort"]');
+  for (var sr = 0; sr < sortRadios.length; sr++) {
+    sortRadios[sr].addEventListener("change", function () {
+      setConstructSort(this.value);
+    });
+  }
+  // Apply initial angular sort to grid table
+  setConstructSort("angular");
 
   // Word-wrap text into up to maxLines lines fitting within maxWidth.
   // Last line is truncated with "…" if it still overflows.

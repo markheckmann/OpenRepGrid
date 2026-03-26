@@ -157,6 +157,29 @@ body {
   border-bottom-color: #2266aa;
 }
 
+.sort-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding-right: 8px;
+  font-size: 10px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.sort-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.sort-toggle input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+}
+
 .tab-content {
   display: none;
 }
@@ -583,6 +606,10 @@ body.dark .tab-bar button:hover {
 body.dark .tab-bar button.active {
   color: #ddd;
   border-bottom-color: #5599dd;
+}
+
+body.dark .sort-toggle {
+  color: #888;
 }
 
 body.dark #profile-container h3 {

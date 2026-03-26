@@ -13,6 +13,14 @@
       <div class="tab-bar">
         <button class="tab-btn" data-tab="grid">Grid</button>
         <button class="tab-btn active" data-tab="profile">Profile</button>
+        <span class="sort-toggle">
+          <label title="Sort constructs by original order">
+            <input type="radio" name="construct-sort" value="original"> Original
+          </label>
+          <label title="Sort constructs by angle in PC1-PC2 plane">
+            <input type="radio" name="construct-sort" value="angular" checked> Angular
+          </label>
+        </span>
       </div>
       <div id="grid-table-container" class="tab-content" data-tab="grid"></div>
       <div id="profile-container" class="tab-content active" data-tab="profile">
