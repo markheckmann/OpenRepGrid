@@ -87,8 +87,12 @@
   var hoveredElementIndex = -1;
   var hoveredConstructIndex = -1;
 
+  // --- Selection ---
+  var selectedElements = []; // indices of selected elements
+
   // --- Colors ---
   var elementColor = 0xbbbbbb;
+  var selectionColor = 0x44aaff; // bright blue for selected elements
   var preferredPoleColor = 0x226644;   // green for preferred pole
   var nonpreferredPoleColor = 0xaa4422; // red for non-preferred pole
   var neutralPoleColor = 0x888888;      // gray when no preference set
@@ -1139,17 +1143,47 @@
   }
 
   function updateElementGlows() {
+    var baseColor = elemColorInput ? elemColorInput.value : "#bbbbbb";
     for (var i = 0; i < elementObjects.length; i++) {
       var bi = benchmarkElements.indexOf(i);
       var isBenchmark = bi >= 0;
-      var active = (i === selectedElementIndex) || isBenchmark;
+      var isSelected = selectedElements.indexOf(i) >= 0;
+      var active = (i === selectedElementIndex) || isBenchmark || isSelected;
       elementObjects[i].glow.visible = active && elementVisible[i];
       if (isBenchmark) {
         elementObjects[i].glow.material.color.set(benchColors[bi % benchColors.length]);
+      } else if (isSelected) {
+        elementObjects[i].glow.material.color.set(selectionColor);
       } else {
-        elementObjects[i].glow.material.color.set(elemColorInput ? elemColorInput.value : "#bbbbbb");
+        elementObjects[i].glow.material.color.set(baseColor);
+      }
+      // Update sphere and label color based on selection
+      if (isSelected) {
+        elementObjects[i].sphere.material.color.set(selectionColor);
+        elementObjects[i].label.element.style.color = "#" + new THREE.Color(selectionColor).getHexString();
+      } else {
+        elementObjects[i].sphere.material.color.set(baseColor);
+        elementObjects[i].label.element.style.color = baseColor;
       }
     }
+  }
+
+  function selectElement(idx, multiSelect) {
+    if (multiSelect) {
+      var pos = selectedElements.indexOf(idx);
+      if (pos >= 0) {
+        selectedElements.splice(pos, 1);
+      } else {
+        selectedElements.push(idx);
+      }
+    } else {
+      if (selectedElements.length === 1 && selectedElements[0] === idx) {
+        selectedElements = [];
+      } else {
+        selectedElements = [idx];
+      }
+    }
+    updateElementGlows();
   }
 
   function updateProfilePlot(elemIdx) {
@@ -1395,12 +1429,7 @@
   elemColorInput.type = "color";
   elemColorInput.value = "#bbbbbb";
   elemColorInput.addEventListener("input", function () {
-    var c = elemColorInput.value;
-    for (var i = 0; i < elementObjects.length; i++) {
-      elementObjects[i].sphere.material.color.set(c);
-      elementObjects[i].glow.material.color.set(c);
-      elementObjects[i].label.element.style.color = c;
-    }
+    updateElementGlows();
     if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
   });
   elemColorLabel.appendChild(elemColorInput);
@@ -1742,7 +1771,7 @@
     }
   }
 
-  // Single click: toggle element label visibility
+  // Single click: select element (Cmd/Ctrl+click for multi-select)
   function onClick(event) {
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -1754,11 +1783,16 @@
     if (intersects.length > 0) {
       var ud = intersects[0].object.userData;
       if (ud.type === "element") {
-        elementLabelVisible[ud.index] = !elementLabelVisible[ud.index];
-        elementObjects[ud.index].label.visible = elementLabelVisible[ud.index] && elementVisible[ud.index];
+        selectElement(ud.index, event.metaKey || event.ctrlKey);
         updateProfilePlot(ud.index);
       } else if (ud.type === "construct") {
         constructLabelVisible[ud.index] = !constructLabelVisible[ud.index];
+      }
+    } else {
+      // Click on background: clear selection
+      if (!event.metaKey && !event.ctrlKey) {
+        selectedElements = [];
+        updateElementGlows();
       }
     }
   }
@@ -1815,29 +1849,67 @@
   function showElementContextMenu(x, y, elemIdx) {
     contextTargetElement = elemIdx;
     contextMenu.innerHTML = "";
-    var isBenchmark = benchmarkElements.indexOf(elemIdx) >= 0;
-    addMenuItem(isBenchmark ? "Remove benchmark" : "Add as benchmark", function () {
-      if (isBenchmark) {
-        benchmarkElements = benchmarkElements.filter(function (i) { return i !== elemIdx; });
-      } else {
-        benchmarkElements.push(elemIdx);
+
+    // Determine target set: use selection if right-clicked element is part of it
+    var targets = (selectedElements.length > 1 && selectedElements.indexOf(elemIdx) >= 0)
+      ? selectedElements.slice()
+      : [elemIdx];
+    var isMulti = targets.length > 1;
+    var suffix = isMulti ? " (" + targets.length + " elements)" : "";
+
+    // Benchmark
+    var allBenchmarked = targets.every(function (i) { return benchmarkElements.indexOf(i) >= 0; });
+    addMenuItem((allBenchmarked ? "Remove benchmark" : "Add as benchmark") + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        var idx = targets[t];
+        var bi = benchmarkElements.indexOf(idx);
+        if (allBenchmarked) {
+          if (bi >= 0) benchmarkElements.splice(bi, 1);
+        } else {
+          if (bi < 0) benchmarkElements.push(idx);
+        }
       }
       if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
     });
-    var hasProj = elementProjections[elemIdx];
-    addMenuItem(hasProj ? "Hide projections" : "Show projections", function () {
-      elementProjections[elemIdx] = !elementProjections[elemIdx];
-      buildProjectionsForElement(elemIdx);
+
+    // Projections
+    var allProj = targets.every(function (i) { return elementProjections[i]; });
+    addMenuItem((allProj ? "Hide projections" : "Show projections") + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        elementProjections[targets[t]] = !allProj;
+        buildProjectionsForElement(targets[t]);
+      }
     });
-    var labelVis = elementLabelVisible[elemIdx];
-    addMenuItem(labelVis ? "Hide label" : "Show label", function () {
-      elementLabelVisible[elemIdx] = !elementLabelVisible[elemIdx];
-      elementObjects[elemIdx].label.visible = elementLabelVisible[elemIdx] && elementVisible[elemIdx];
+
+    // Labels
+    var allLabelsVis = targets.every(function (i) { return elementLabelVisible[i]; });
+    addMenuItem((allLabelsVis ? "Hide labels" : "Show labels") + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        var idx = targets[t];
+        elementLabelVisible[idx] = !allLabelsVis;
+        elementObjects[idx].label.visible = elementLabelVisible[idx] && elementVisible[idx];
+      }
     });
-    addMenuItem("Hide element", function () {
-      elemCheckboxes[elemIdx].checked = false;
-      elemCheckboxes[elemIdx].dispatchEvent(new Event("change"));
+
+    // Hide
+    addMenuItem("Hide" + suffix, function () {
+      for (var t = 0; t < targets.length; t++) {
+        elemCheckboxes[targets[t]].checked = false;
+        elemCheckboxes[targets[t]].dispatchEvent(new Event("change"));
+      }
     });
+
+    // Keep (hide all others)
+    addMenuItem("Keep only" + suffix, function () {
+      for (var i = 0; i < elements.length; i++) {
+        var keep = targets.indexOf(i) >= 0;
+        if (elemCheckboxes[i].checked !== keep) {
+          elemCheckboxes[i].checked = keep;
+          elemCheckboxes[i].dispatchEvent(new Event("change"));
+        }
+      }
+    });
+
     showContextMenuAt(x, y);
   }
 
@@ -1954,6 +2026,7 @@
         constructLabelVisible[i] = true;
       }
       benchmarkElements = [];
+      selectedElements = [];
       selectedElementIndex = -1;
       updateElementGlows();
       buildCalibration();
