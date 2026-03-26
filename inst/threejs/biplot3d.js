@@ -892,7 +892,45 @@
   makeResizable(resizeRight, rightPanel, "right");
 
   // =============================================
-  // 13. RENDER LOOP
+  // 13. CONSTRUCT LABEL ALIGNMENT (outward-facing)
+  // =============================================
+  var _projVec = new THREE.Vector3();
+
+  function updateLabelAlignment() {
+    // Project globe center to screen (NDC x)
+    _projVec.set(0, 0, 0).project(camera);
+    var centerX = _projVec.x;
+    // Regex handles browser normalization: translate(-50%,-50%) may become translate(-50%, -50%)
+    var alignRe = /translate\(-50%,\s*-50%\)/;
+
+    for (var i = 0; i < constructs.length; i++) {
+      if (!constructVisible[i]) continue;
+      var sc = constructSphereCoords[i];
+
+      // Right pole label — nudge outward by a few pixels so text doesn't overlap the marker
+      if (constructObjects[i].rightLabel.visible) {
+        _projVec.set(sc.rx, sc.ry, sc.rz).project(camera);
+        var rLeft = _projVec.x < centerX;
+        var rAlign = rLeft ? "-100%" : "0%";
+        var rNudge = rLeft ? -3 : 3;
+        var rEl = constructObjects[i].rightLabel.element;
+        rEl.style.transform = rEl.style.transform.replace(alignRe, "translate(" + rAlign + ", -50%) translate(" + rNudge + "px, 0px)");
+      }
+
+      // Left pole label
+      if (constructObjects[i].leftLabel.visible) {
+        _projVec.set(sc.lx, sc.ly, sc.lz).project(camera);
+        var lLeft = _projVec.x < centerX;
+        var lAlign = lLeft ? "-100%" : "0%";
+        var lNudge = lLeft ? -3 : 3;
+        var lEl = constructObjects[i].leftLabel.element;
+        lEl.style.transform = lEl.style.transform.replace(alignRe, "translate(" + lAlign + ", -50%) translate(" + lNudge + "px, 0px)");
+      }
+    }
+  }
+
+  // =============================================
+  // 14. RENDER LOOP
   // =============================================
   function animate() {
     requestAnimationFrame(animate);
@@ -900,6 +938,7 @@
     updateLabelVisibility();
     renderer.render(scene, camera);
     labelRenderer.render(scene, camera);
+    updateLabelAlignment();
   }
   animate();
 
