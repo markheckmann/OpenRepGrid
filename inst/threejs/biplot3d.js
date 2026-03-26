@@ -100,8 +100,37 @@
   // =============================================
   var sphereRadius = 1.0;
   var gridPointsPerCurve = 96; // smooth curves regardless of line count
-  var wireMat = new THREE.LineBasicMaterial({
-    color: 0xcccccc, transparent: true, opacity: 0.15
+  var wireUniforms = {
+    uColor: { value: new THREE.Color(0xcccccc) },
+    uOpacityFront: { value: 0.15 },
+    uOpacityBack: { value: 0.04 },
+    uCamDir: { value: new THREE.Vector3(0, 0, -1) },
+    uDepthFade: { value: 0.0 }
+  };
+  var wireMat = new THREE.ShaderMaterial({
+    transparent: true,
+    uniforms: wireUniforms,
+    vertexShader: [
+      "varying vec3 vWorldNormal;",
+      "void main() {",
+      "  vWorldNormal = normalize((modelMatrix * vec4(position, 1.0)).xyz);",
+      "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
+      "}"
+    ].join("\n"),
+    fragmentShader: [
+      "uniform vec3 uColor;",
+      "uniform float uOpacityFront;",
+      "uniform float uOpacityBack;",
+      "uniform vec3 uCamDir;",
+      "uniform float uDepthFade;",
+      "varying vec3 vWorldNormal;",
+      "void main() {",
+      "  float facing = dot(vWorldNormal, -uCamDir);",
+      "  float t = clamp(facing * 0.5 + 0.5, 0.0, 1.0);",
+      "  float opacity = mix(uOpacityFront, mix(uOpacityBack, uOpacityFront, t), uDepthFade);",
+      "  gl_FragColor = vec4(uColor, opacity);",
+      "}"
+    ].join("\n")
   });
 
   function buildGridLines(nLon, nLat) {
@@ -696,9 +725,12 @@
   addToggle(guiPanel, "Dark Mode", false, function (v) {
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
-    wireMat.opacity = v ? 0.25 : 0.15;
+    wireUniforms.uOpacityFront.value = v ? 0.25 : 0.15;
   });
   addToggle(guiPanel, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
+  addToggle(guiPanel, "Depth Fade", false, function (v) {
+    wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
+  });
 
   // Sphere color chooser
   var sphereColorLabel = document.createElement("label");
@@ -706,7 +738,7 @@
   sphereColorInput.type = "color";
   sphereColorInput.value = "#cccccc";
   sphereColorInput.addEventListener("input", function () {
-    wireMat.color.set(sphereColorInput.value);
+    wireUniforms.uColor.value.set(sphereColorInput.value);
   });
   sphereColorLabel.appendChild(sphereColorInput);
   sphereColorLabel.appendChild(document.createTextNode(" Sphere Color"));
@@ -717,7 +749,7 @@
   var gridDensityRange = document.createElement("input");
   gridDensityRange.type = "range";
   gridDensityRange.min = "0";
-  gridDensityRange.max = "48";
+  gridDensityRange.max = "72";
   gridDensityRange.step = "2";
   gridDensityRange.value = "16";
   gridDensityRange.addEventListener("input", function () {
@@ -1189,6 +1221,7 @@
     requestAnimationFrame(animate);
     controls.update();
     updateLabelVisibility();
+    camera.getWorldDirection(wireUniforms.uCamDir.value);
     renderer.render(scene, camera);
     labelRenderer.render(scene, camera);
     updateLabelAlignment();
