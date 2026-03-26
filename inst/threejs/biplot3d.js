@@ -14,6 +14,7 @@
   var constructVisible = constructs.map(function () { return true; });
   var elementProjections = elements.map(function () { return false; }); // per-element projection toggle
   var constructLineVisible = constructs.map(function () { return false; }); // per-construct line toggle
+  var calibrationLabelsVisible = true;
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -61,6 +62,8 @@
   var projectionsGroup = new THREE.Group();
   var calibrationGroup = new THREE.Group();
   calibrationGroup.visible = true;
+  var calibrationLabelsGroup = new THREE.Group();
+  calibrationGroup.add(calibrationLabelsGroup);
 
   scene.add(sphereGroup);
   scene.add(elementPointsGroup);
@@ -338,8 +341,15 @@
   // 6. CALIBRATED AXES
   // =============================================
   function buildCalibration() {
-    while (calibrationGroup.children.length > 0) {
-      calibrationGroup.remove(calibrationGroup.children[0]);
+    // Clear tick lines (direct children of calibrationGroup, skip labelsGroup)
+    for (var k = calibrationGroup.children.length - 1; k >= 0; k--) {
+      if (calibrationGroup.children[k] !== calibrationLabelsGroup) {
+        calibrationGroup.remove(calibrationGroup.children[k]);
+      }
+    }
+    // Clear tick labels
+    while (calibrationLabelsGroup.children.length > 0) {
+      calibrationLabelsGroup.remove(calibrationLabelsGroup.children[0]);
     }
     if (!calibration) return;
 
@@ -399,7 +409,8 @@
           ty + perp1.y * tickLen * 2.5,
           tz + perp1.z * tickLen * 2.5
         );
-        calibrationGroup.add(tickLabel);
+        tickLabel.visible = calibrationLabelsVisible;
+        calibrationLabelsGroup.add(tickLabel);
       }
     }
   }
@@ -611,6 +622,12 @@
     axesGroup.visible = v;
     for (var a = 0; a < axisLabels.length; a++) {
       axisLabels[a].visible = v;
+    }
+  });
+  addToggle(guiPanel, "Calibration Labels", true, function (v) {
+    calibrationLabelsVisible = v;
+    for (var k = 0; k < calibrationLabelsGroup.children.length; k++) {
+      calibrationLabelsGroup.children[k].visible = v;
     }
   });
 
