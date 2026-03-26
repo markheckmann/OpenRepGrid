@@ -101,7 +101,7 @@
   var sphereRadius = 1.0;
   var gridPointsPerCurve = 96; // smooth curves regardless of line count
   var wireUniforms = {
-    uColor: { value: new THREE.Color(0xcccccc) },
+    uColor: { value: new THREE.Color(0x4a4a4a) },
     uOpacityFront: { value: 0.15 },
     uOpacityBack: { value: 0.04 },
     uCamDir: { value: new THREE.Vector3(0, 0, -1) },
@@ -168,8 +168,8 @@
       sphereGroup.add(new THREE.Line(geom, wireMat));
     }
   }
-  var defaultLon = 16;
-  var defaultLat = 12;
+  var defaultLon = 32;
+  var defaultLat = 24;
   buildGridLines(defaultLon, defaultLat);
 
   // =============================================
@@ -736,7 +736,7 @@
   var sphereColorLabel = document.createElement("label");
   var sphereColorInput = document.createElement("input");
   sphereColorInput.type = "color";
-  sphereColorInput.value = "#cccccc";
+  sphereColorInput.value = "#4a4a4a";
   sphereColorInput.addEventListener("input", function () {
     wireUniforms.uColor.value.set(sphereColorInput.value);
   });
@@ -751,7 +751,7 @@
   gridDensityRange.min = "0";
   gridDensityRange.max = "72";
   gridDensityRange.step = "2";
-  gridDensityRange.value = "16";
+  gridDensityRange.value = "32";
   gridDensityRange.addEventListener("input", function () {
     var seg = parseInt(gridDensityRange.value);
     buildGridLines(seg, Math.round(seg * 0.75));
