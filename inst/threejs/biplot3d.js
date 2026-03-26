@@ -711,6 +711,35 @@
   }
   setupGridTableConstructEvents();
 
+  // --- Grid table element header interactions ---
+  var gridHoveredElement = -1;
+  (function () {
+    var headers = document.querySelectorAll("#grid-table th.element-header");
+    for (var h = 0; h < headers.length; h++) {
+      (function (th) {
+        var ei = parseInt(th.dataset.elementIndex);
+        th.style.cursor = "pointer";
+
+        th.addEventListener("mouseenter", function () {
+          if (ei === gridHoveredElement) return;
+          if (gridHoveredElement >= 0) unhighlightElement(gridHoveredElement);
+          gridHoveredElement = ei;
+          highlightElement(ei);
+          highlightGridColumn(ei);
+          updateProfilePlot(ei);
+        });
+
+        th.addEventListener("mouseleave", function () {
+          if (gridHoveredElement >= 0) {
+            unhighlightElement(gridHoveredElement);
+            highlightGridColumn(-1);
+            gridHoveredElement = -1;
+          }
+        });
+      })(headers[h]);
+    }
+  })();
+
   // --- Tab switching ---
   var tabBtns = document.querySelectorAll(".tab-btn");
   var tabContents = document.querySelectorAll(".tab-content");
