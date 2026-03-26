@@ -1787,6 +1787,13 @@
 
   function showBackgroundContextMenu(x, y) {
     contextMenu.innerHTML = "";
+    var pcVisible = axesGroup.visible;
+    addMenuItem(pcVisible ? "Hide PC axes" : "Show PC axes", function () {
+      axesGroup.visible = !pcVisible;
+      for (var a = 0; a < axisLabels.length; a++) {
+        axisLabels[a].visible = !pcVisible;
+      }
+    });
     addMenuItem("Hide all projections", function () {
       for (var i = 0; i < elements.length; i++) {
         elementProjections[i] = false;
