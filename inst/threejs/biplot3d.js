@@ -1944,7 +1944,7 @@
 
   // Single click: select element (Cmd/Ctrl+click for multi-select)
   function onClick(event) {
-    if (marqueeJustFinished) { marqueeJustFinished = false; return; }
+    if (lassoJustFinished) { lassoJustFinished = false; return; }
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -2312,15 +2312,15 @@
   document.addEventListener("click", function () { hideContextMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") hideContextMenu(); });
 
-  // --- Marquee (rectangle) selection ---
-  var marqueeDiv = document.createElement("div");
-  marqueeDiv.style.cssText = "position:absolute;border:1.5px dashed #44aaff;background:rgba(68,170,255,0.1);pointer-events:none;display:none;z-index:1000;";
-  sceneContainer.appendChild(marqueeDiv);
+  // --- Lasso (freeform) selection ---
+  var lassoCanvas = document.createElement("canvas");
+  lassoCanvas.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;display:none;";
+  sceneContainer.appendChild(lassoCanvas);
+  var lassoCtx = lassoCanvas.getContext("2d");
 
-  var marqueeActive = false;
-  var marqueeJustFinished = false;
-  var marqueeStart = { x: 0, y: 0 };
-  var marqueeCurrent = { x: 0, y: 0 };
+  var lassoActive = false;
+  var lassoJustFinished = false;
+  var lassoPoints = [];
 
   function getScreenPos(obj3d) {
     var v = new THREE.Vector3();
@@ -2333,54 +2333,68 @@
     };
   }
 
+  function pointInPolygon(px, py, polygon) {
+    var inside = false;
+    for (var i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      var xi = polygon[i].x, yi = polygon[i].y;
+      var xj = polygon[j].x, yj = polygon[j].y;
+      if (((yi > py) !== (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi)) {
+        inside = !inside;
+      }
+    }
+    return inside;
+  }
+
+  function drawLasso() {
+    var dpr = window.devicePixelRatio || 1;
+    lassoCanvas.width = lassoCanvas.clientWidth * dpr;
+    lassoCanvas.height = lassoCanvas.clientHeight * dpr;
+    lassoCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    lassoCtx.clearRect(0, 0, lassoCanvas.clientWidth, lassoCanvas.clientHeight);
+    if (lassoPoints.length < 2) return;
+    lassoCtx.beginPath();
+    lassoCtx.moveTo(lassoPoints[0].x, lassoPoints[0].y);
+    for (var i = 1; i < lassoPoints.length; i++) {
+      lassoCtx.lineTo(lassoPoints[i].x, lassoPoints[i].y);
+    }
+    lassoCtx.closePath();
+    lassoCtx.fillStyle = "rgba(68,170,255,0.1)";
+    lassoCtx.fill();
+    lassoCtx.strokeStyle = "#44aaff";
+    lassoCtx.lineWidth = 1.5;
+    lassoCtx.setLineDash([5, 3]);
+    lassoCtx.stroke();
+  }
+
   renderer.domElement.addEventListener("mousedown", function (e) {
     if (e.shiftKey && e.button === 0) {
-      marqueeActive = true;
+      lassoActive = true;
       controls.enabled = false;
       var rect = renderer.domElement.getBoundingClientRect();
-      marqueeStart.x = e.clientX - rect.left;
-      marqueeStart.y = e.clientY - rect.top;
-      marqueeCurrent.x = marqueeStart.x;
-      marqueeCurrent.y = marqueeStart.y;
-      marqueeDiv.style.display = "block";
-      marqueeDiv.style.left = marqueeStart.x + "px";
-      marqueeDiv.style.top = marqueeStart.y + "px";
-      marqueeDiv.style.width = "0px";
-      marqueeDiv.style.height = "0px";
+      lassoPoints = [{ x: e.clientX - rect.left, y: e.clientY - rect.top }];
+      lassoCanvas.style.display = "block";
+      drawLasso();
       e.preventDefault();
     }
   }, false);
 
   renderer.domElement.addEventListener("mousemove", function (e) {
-    if (!marqueeActive) return;
+    if (!lassoActive) return;
     var rect = renderer.domElement.getBoundingClientRect();
-    marqueeCurrent.x = e.clientX - rect.left;
-    marqueeCurrent.y = e.clientY - rect.top;
-    var x1 = Math.min(marqueeStart.x, marqueeCurrent.x);
-    var y1 = Math.min(marqueeStart.y, marqueeCurrent.y);
-    var x2 = Math.max(marqueeStart.x, marqueeCurrent.x);
-    var y2 = Math.max(marqueeStart.y, marqueeCurrent.y);
-    marqueeDiv.style.left = x1 + "px";
-    marqueeDiv.style.top = y1 + "px";
-    marqueeDiv.style.width = (x2 - x1) + "px";
-    marqueeDiv.style.height = (y2 - y1) + "px";
+    lassoPoints.push({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    drawLasso();
   }, false);
 
   window.addEventListener("mouseup", function (e) {
-    if (!marqueeActive) return;
-    marqueeActive = false;
+    if (!lassoActive) return;
+    lassoActive = false;
     controls.enabled = true;
-    marqueeDiv.style.display = "none";
+    lassoCanvas.style.display = "none";
 
-    var x1 = Math.min(marqueeStart.x, marqueeCurrent.x);
-    var y1 = Math.min(marqueeStart.y, marqueeCurrent.y);
-    var x2 = Math.max(marqueeStart.x, marqueeCurrent.x);
-    var y2 = Math.max(marqueeStart.y, marqueeCurrent.y);
+    // Need at least a small polygon
+    if (lassoPoints.length < 5) return;
 
-    // Ignore tiny drags (likely accidental)
-    if ((x2 - x1) < 3 && (y2 - y1) < 3) return;
-
-    marqueeJustFinished = true;
+    lassoJustFinished = true;
 
     var newSelectedElements = [];
     var newSelectedConstructs = [];
@@ -2389,18 +2403,17 @@
     for (var i = 0; i < elementObjects.length; i++) {
       if (!elementVisible[i]) continue;
       var sp = getScreenPos(elementObjects[i].sphere);
-      if (sp.x >= x1 && sp.x <= x2 && sp.y >= y1 && sp.y <= y2) {
+      if (pointInPolygon(sp.x, sp.y, lassoPoints)) {
         newSelectedElements.push(i);
       }
     }
 
-    // Check constructs (both pole markers)
+    // Check constructs (either pole marker inside)
     for (var i = 0; i < constructObjects.length; i++) {
       if (!constructVisible[i]) continue;
       var rp = getScreenPos(constructObjects[i].rightMarker);
       var lp = getScreenPos(constructObjects[i].leftMarker);
-      if ((rp.x >= x1 && rp.x <= x2 && rp.y >= y1 && rp.y <= y2) ||
-          (lp.x >= x1 && lp.x <= x2 && lp.y >= y1 && lp.y <= y2)) {
+      if (pointInPolygon(rp.x, rp.y, lassoPoints) || pointInPolygon(lp.x, lp.y, lassoPoints)) {
         newSelectedConstructs.push(i);
       }
     }
@@ -2432,7 +2445,7 @@
     }
   });
   document.addEventListener("keyup", function (e) {
-    if (e.key === "Shift" && !marqueeActive) {
+    if (e.key === "Shift" && !lassoActive) {
       controls.enabled = true;
       renderer.domElement.style.cursor = "default";
     }
