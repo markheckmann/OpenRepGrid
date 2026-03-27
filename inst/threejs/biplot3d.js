@@ -822,6 +822,27 @@
   var profileCtx = profileCanvas.getContext("2d");
   var profileHint = document.querySelector("#profile-container .profile-hint");
   profileCanvas.style.display = "none";
+
+  // Profile font size control
+  var profileFontSize = 10;
+  var profileFontControl = document.createElement("div");
+  profileFontControl.className = "profile-font-control";
+  var pfRange = document.createElement("input");
+  pfRange.type = "range";
+  pfRange.min = "7";
+  pfRange.max = "14";
+  pfRange.step = "1";
+  pfRange.value = "10";
+  var pfLabel = document.createElement("span");
+  pfLabel.textContent = "Font";
+  profileFontControl.appendChild(pfLabel);
+  profileFontControl.appendChild(pfRange);
+  var profileContainer = document.getElementById("profile-container");
+  profileContainer.insertBefore(profileFontControl, profileCanvas);
+  pfRange.addEventListener("input", function () {
+    profileFontSize = parseInt(pfRange.value);
+    if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+  });
   var removeBenchmarksBtn = document.getElementById("remove-benchmarks-btn");
   removeBenchmarksBtn.addEventListener("click", function () {
     benchmarkElements = [];
@@ -1042,11 +1063,11 @@
     var rightMargin = leftMargin;
     var plotWidth = containerWidth - leftMargin - rightMargin;
     if (plotWidth < 60) { leftMargin = Math.floor((containerWidth - 60) / 2); rightMargin = leftMargin; plotWidth = containerWidth - leftMargin - rightMargin; }
-    var poleFont = "10px -apple-system, BlinkMacSystemFont, sans-serif";
-    var lineHeight = 12;
+    var poleFont = profileFontSize + "px -apple-system, BlinkMacSystemFont, sans-serif";
+    var lineHeight = Math.round(profileFontSize * 1.2);
     var rowHeight = 32;
     var topPad = 42;
-    var bottomPad = benchmarkElements.length > 0 ? 36 : 20;
+    var bottomPad = benchmarkElements.length > 0 ? 42 : 20;
     var canvasHeight = topPad + nc * rowHeight + bottomPad;
 
     var dpr = window.devicePixelRatio || 1;
@@ -1077,7 +1098,7 @@
     profileCtx.fillText(elements[elemIdx].name, containerWidth / 2, 18);
 
     // Scale ticks at top
-    profileCtx.font = "9px -apple-system, BlinkMacSystemFont, sans-serif";
+    profileCtx.font = "11px -apple-system, BlinkMacSystemFont, sans-serif";
     profileCtx.fillStyle = isDark ? "#888" : "#999";
     profileCtx.textAlign = "center";
     for (var s = scaleMin; s <= scaleMax; s++) {
@@ -1224,8 +1245,8 @@
 
     // Legend for benchmarks
     if (benchmarkElements.length > 0) {
-      var legendY = topPad + nc * rowHeight + 10;
-      profileCtx.font = "9px -apple-system, BlinkMacSystemFont, sans-serif";
+      var legendY = topPad + nc * rowHeight + 12;
+      profileCtx.font = "bold 12px -apple-system, BlinkMacSystemFont, sans-serif";
       var legendX = leftMargin;
       for (var bi = 0; bi < benchmarkElements.length; bi++) {
         var bIdx = benchmarkElements[bi];
@@ -1887,7 +1908,8 @@
       axisWidth: axisWidthRange.value,
       projWidth: projWidthRange.value,
       pcAxisWidth: pcAxisRange.value,
-      gridDensity: gridDensityRange.value
+      gridDensity: gridDensityRange.value,
+      profileFontSize: pfRange.value
     };
   }
 
@@ -1935,6 +1957,10 @@
     pcAxisRange.dispatchEvent(new Event("input"));
     gridDensityRange.value = s.gridDensity;
     gridDensityRange.dispatchEvent(new Event("input"));
+    if (s.profileFontSize) {
+      pfRange.value = s.profileFontSize;
+      pfRange.dispatchEvent(new Event("input"));
+    }
 
     // Element/construct visibility
     for (var i = 0; i < elements.length; i++) {
