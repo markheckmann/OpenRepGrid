@@ -1944,6 +1944,7 @@
 
   // Single click: select element (Cmd/Ctrl+click for multi-select)
   function onClick(event) {
+    if (marqueeJustFinished) { marqueeJustFinished = false; return; }
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -2310,6 +2311,132 @@
 
   document.addEventListener("click", function () { hideContextMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") hideContextMenu(); });
+
+  // --- Marquee (rectangle) selection ---
+  var marqueeDiv = document.createElement("div");
+  marqueeDiv.style.cssText = "position:absolute;border:1.5px dashed #44aaff;background:rgba(68,170,255,0.1);pointer-events:none;display:none;z-index:1000;";
+  sceneContainer.appendChild(marqueeDiv);
+
+  var marqueeActive = false;
+  var marqueeJustFinished = false;
+  var marqueeStart = { x: 0, y: 0 };
+  var marqueeCurrent = { x: 0, y: 0 };
+
+  function getScreenPos(obj3d) {
+    var v = new THREE.Vector3();
+    v.setFromMatrixPosition(obj3d.matrixWorld);
+    v.project(camera);
+    var rect = renderer.domElement.getBoundingClientRect();
+    return {
+      x: (v.x * 0.5 + 0.5) * rect.width,
+      y: (-v.y * 0.5 + 0.5) * rect.height
+    };
+  }
+
+  renderer.domElement.addEventListener("mousedown", function (e) {
+    if (e.shiftKey && e.button === 0) {
+      marqueeActive = true;
+      controls.enabled = false;
+      var rect = renderer.domElement.getBoundingClientRect();
+      marqueeStart.x = e.clientX - rect.left;
+      marqueeStart.y = e.clientY - rect.top;
+      marqueeCurrent.x = marqueeStart.x;
+      marqueeCurrent.y = marqueeStart.y;
+      marqueeDiv.style.display = "block";
+      marqueeDiv.style.left = marqueeStart.x + "px";
+      marqueeDiv.style.top = marqueeStart.y + "px";
+      marqueeDiv.style.width = "0px";
+      marqueeDiv.style.height = "0px";
+      e.preventDefault();
+    }
+  }, false);
+
+  renderer.domElement.addEventListener("mousemove", function (e) {
+    if (!marqueeActive) return;
+    var rect = renderer.domElement.getBoundingClientRect();
+    marqueeCurrent.x = e.clientX - rect.left;
+    marqueeCurrent.y = e.clientY - rect.top;
+    var x1 = Math.min(marqueeStart.x, marqueeCurrent.x);
+    var y1 = Math.min(marqueeStart.y, marqueeCurrent.y);
+    var x2 = Math.max(marqueeStart.x, marqueeCurrent.x);
+    var y2 = Math.max(marqueeStart.y, marqueeCurrent.y);
+    marqueeDiv.style.left = x1 + "px";
+    marqueeDiv.style.top = y1 + "px";
+    marqueeDiv.style.width = (x2 - x1) + "px";
+    marqueeDiv.style.height = (y2 - y1) + "px";
+  }, false);
+
+  window.addEventListener("mouseup", function (e) {
+    if (!marqueeActive) return;
+    marqueeActive = false;
+    controls.enabled = true;
+    marqueeDiv.style.display = "none";
+
+    var x1 = Math.min(marqueeStart.x, marqueeCurrent.x);
+    var y1 = Math.min(marqueeStart.y, marqueeCurrent.y);
+    var x2 = Math.max(marqueeStart.x, marqueeCurrent.x);
+    var y2 = Math.max(marqueeStart.y, marqueeCurrent.y);
+
+    // Ignore tiny drags (likely accidental)
+    if ((x2 - x1) < 3 && (y2 - y1) < 3) return;
+
+    marqueeJustFinished = true;
+
+    var newSelectedElements = [];
+    var newSelectedConstructs = [];
+
+    // Check elements
+    for (var i = 0; i < elementObjects.length; i++) {
+      if (!elementVisible[i]) continue;
+      var sp = getScreenPos(elementObjects[i].sphere);
+      if (sp.x >= x1 && sp.x <= x2 && sp.y >= y1 && sp.y <= y2) {
+        newSelectedElements.push(i);
+      }
+    }
+
+    // Check constructs (both pole markers)
+    for (var i = 0; i < constructObjects.length; i++) {
+      if (!constructVisible[i]) continue;
+      var rp = getScreenPos(constructObjects[i].rightMarker);
+      var lp = getScreenPos(constructObjects[i].leftMarker);
+      if ((rp.x >= x1 && rp.x <= x2 && rp.y >= y1 && rp.y <= y2) ||
+          (lp.x >= x1 && lp.x <= x2 && lp.y >= y1 && lp.y <= y2)) {
+        newSelectedConstructs.push(i);
+      }
+    }
+
+    // Apply selection: if we caught elements, select elements; if constructs, select constructs
+    // If both, prefer whichever has more hits
+    if (newSelectedElements.length > 0 || newSelectedConstructs.length > 0) {
+      if (newSelectedElements.length >= newSelectedConstructs.length) {
+        selectedElements = newSelectedElements;
+        selectedConstructs = [];
+        updateElementGlows();
+        updateConstructSelection();
+        updateDynamicSortVisibility();
+      } else {
+        selectedConstructs = newSelectedConstructs;
+        selectedElements = [];
+        updateConstructSelection();
+        updateElementGlows();
+        updateDynamicSortVisibility();
+      }
+    }
+  }, false);
+
+  // Disable orbit controls while Shift is held (must happen before OrbitControls captures mousedown)
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Shift") {
+      controls.enabled = false;
+      renderer.domElement.style.cursor = "crosshair";
+    }
+  });
+  document.addEventListener("keyup", function (e) {
+    if (e.key === "Shift" && !marqueeActive) {
+      controls.enabled = true;
+      renderer.domElement.style.cursor = "default";
+    }
+  });
 
   renderer.domElement.addEventListener("click", onClick, false);
   renderer.domElement.addEventListener("mousemove", onMouseMove, false);
