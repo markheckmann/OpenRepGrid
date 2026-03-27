@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  // Capture original HTML before any DOM manipulation for Save As
+  var _savedHTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
   // --- Data ---
   var data = BIPLOT_DATA;
   var elements = data.elements;
@@ -110,11 +113,11 @@
   var sphereRadius = 1.0;
   var gridPointsPerCurve = 96; // smooth curves regardless of line count
   var wireUniforms = {
-    uColor: { value: new THREE.Color(0x4a4a4a) },
+    uColor: { value: new THREE.Color(0xededed) },
     uOpacityFront: { value: 0.25 },
     uOpacityBack: { value: 0.04 },
     uCamDir: { value: new THREE.Vector3(0, 0, -1) },
-    uDepthFade: { value: 0.0 }
+    uDepthFade: { value: 1.0 }
   };
   var wireMat = new THREE.ShaderMaterial({
     transparent: true,
@@ -305,8 +308,8 @@
     hoverTargets.push(sphere);
 
     var glowMat = new THREE.MeshBasicMaterial({
-      color: elementColor, transparent: true, opacity: 0.25,
-      blending: THREE.AdditiveBlending, depthWrite: false
+      color: elementColor, transparent: true, opacity: 0.35,
+      depthWrite: false
     });
     var glow = new THREE.Mesh(glowSphereGeom, glowMat);
     glow.position.set(el.x, el.y, el.z);
@@ -1558,9 +1561,22 @@
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
     wireUniforms.uOpacityFront.value = v ? 0.25 : 0.15;
+    var sphereCol = v ? "#ededed" : "#000000";
+    wireUniforms.uColor.value.set(sphereCol);
+    sphereColorInput.value = sphereCol;
+    // Switch element color: light colors for dark mode, dark colors for light mode
+    var curElem = new THREE.Color(elemColorInput.value);
+    var brightness = curElem.r * 0.299 + curElem.g * 0.587 + curElem.b * 0.114;
+    if (v && brightness <= 0.5) {
+      elemColorInput.value = "#bbbbbb";
+      updateElementGlows();
+    } else if (!v && brightness > 0.5) {
+      elemColorInput.value = "#505050";
+      updateElementGlows();
+    }
   });
   addToggle(displayBody, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
-  addToggle(displayBody, "Depth Fade", false, function (v) {
+  addToggle(displayBody, "Depth Fade", true, function (v) {
     wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
   });
 
@@ -1568,7 +1584,7 @@
   var sphereColorLabel = document.createElement("label");
   var sphereColorInput = document.createElement("input");
   sphereColorInput.type = "color";
-  sphereColorInput.value = "#4a4a4a";
+  sphereColorInput.value = "#ededed";
   sphereColorInput.addEventListener("input", function () {
     wireUniforms.uColor.value.set(sphereColorInput.value);
   });
@@ -1811,6 +1827,22 @@
     controls.update();
   });
   guiPanel.appendChild(resetBtn);
+
+  var saveBtn = document.createElement("button");
+  saveBtn.className = "action-btn";
+  saveBtn.textContent = "Save As\u2026";
+  saveBtn.addEventListener("click", function () {
+    var blob = new Blob([_savedHTML], { type: "text/html;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "biplot3d.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+  guiPanel.appendChild(saveBtn);
 
   // =============================================
   // 10. HOVER + TOOLTIP + DOUBLE-CLICK
