@@ -1557,7 +1557,7 @@
   // --- Display section ---
   var displaySection = addSectionTitle("Display", true);
   var displayBody = displaySection.body;
-  addToggle(displayBody, "Dark Mode", true, function (v) {
+  var cbDarkMode = addToggle(displayBody, "Dark Mode", true, function (v) {
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
     wireUniforms.uOpacityFront.value = v ? 0.25 : 0.15;
@@ -1575,8 +1575,8 @@
       updateElementGlows();
     }
   });
-  addToggle(displayBody, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
-  addToggle(displayBody, "Depth Fade", true, function (v) {
+  var cbWireframe = addToggle(displayBody, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
+  var cbDepthFade = addToggle(displayBody, "Depth Fade", true, function (v) {
     wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
   });
 
@@ -1725,13 +1725,13 @@
   pcAxisLabel.appendChild(document.createTextNode(" PC Axis Thickness"));
   displayBody.appendChild(pcAxisLabel);
 
-  addToggle(displayBody, "Axes", false, function (v) {
+  var cbAxes = addToggle(displayBody, "Axes", false, function (v) {
     axesGroup.visible = v;
     for (var a = 0; a < axisLabels.length; a++) {
       axisLabels[a].visible = v;
     }
   });
-  addToggle(displayBody, "Calibration Labels", true, function (v) {
+  var cbCalLabels = addToggle(displayBody, "Calibration Labels", true, function (v) {
     calibrationLabelsVisible = v;
     for (var k = 0; k < calibrationLabelsGroup.children.length; k++) {
       calibrationLabelsGroup.children[k].visible = v;
@@ -1756,18 +1756,18 @@
   calSizeLabel.appendChild(document.createTextNode(" Calibration Size"));
   displayBody.appendChild(calSizeLabel);
 
-  addToggle(displayBody, "Element Labels", true, function (v) {
+  var cbElemLabels = addToggle(displayBody, "Element Labels", true, function (v) {
     for (var i = 0; i < elements.length; i++) {
       elementLabelVisible[i] = v;
       elementObjects[i].label.visible = v && elementVisible[i];
     }
   });
-  addToggle(displayBody, "Construct Labels", true, function (v) {
+  var cbConLabels = addToggle(displayBody, "Construct Labels", true, function (v) {
     for (var i = 0; i < constructs.length; i++) {
       constructLabelVisible[i] = v;
     }
   });
-  addToggle(displayBody, "Deconflict Labels", true, function (v) {
+  var cbDeconflict = addToggle(displayBody, "Deconflict Labels", true, function (v) {
     labelDeconflict = v;
   });
 
@@ -1843,6 +1843,184 @@
     URL.revokeObjectURL(url);
   });
   guiPanel.appendChild(saveBtn);
+
+  // --- Snapshots ---
+  var snapshotSection = addSectionTitle("Snapshots");
+  var snapshots = [];
+  var snapshotListDiv = document.createElement("div");
+  snapshotListDiv.className = "snapshot-list";
+  snapshotSection.body.appendChild(snapshotListDiv);
+
+  var snapshotBtn = document.createElement("button");
+  snapshotBtn.className = "action-btn";
+  snapshotBtn.textContent = "Take Snapshot";
+  snapshotSection.body.appendChild(snapshotBtn);
+
+  function captureState() {
+    return {
+      camera: { px: camera.position.x, py: camera.position.y, pz: camera.position.z,
+                 tx: controls.target.x, ty: controls.target.y, tz: controls.target.z },
+      elementVisible: elementVisible.slice(),
+      elementLabelVisible: elementLabelVisible.slice(),
+      constructVisible: constructVisible.slice(),
+      constructLabelVisible: constructLabelVisible.slice(),
+      elementProjections: elementProjections.slice(),
+      constructLineVisible: constructLineVisible.slice(),
+      selectedElements: selectedElements.slice(),
+      selectedConstructs: selectedConstructs.slice(),
+      benchmarkElements: benchmarkElements.slice(),
+      selectedElementIndex: selectedElementIndex,
+      darkMode: cbDarkMode.checked,
+      wireframe: cbWireframe.checked,
+      depthFade: cbDepthFade.checked,
+      axes: cbAxes.checked,
+      calLabels: cbCalLabels.checked,
+      elemLabels: cbElemLabels.checked,
+      conLabels: cbConLabels.checked,
+      deconflict: cbDeconflict.checked,
+      sphereColor: sphereColorInput.value,
+      elemColor: elemColorInput.value,
+      axisColor: axisColorInput.value,
+      elemLabelSize: elemSizeRange.value,
+      conLabelSize: conSizeRange.value,
+      calLabelSize: calSizeRange.value,
+      axisWidth: axisWidthRange.value,
+      projWidth: projWidthRange.value,
+      pcAxisWidth: pcAxisRange.value,
+      gridDensity: gridDensityRange.value
+    };
+  }
+
+  function setCheckbox(cb, val) {
+    if (cb.checked !== val) {
+      cb.checked = val;
+      cb.dispatchEvent(new Event("change"));
+    }
+  }
+
+  function restoreState(s) {
+    // Camera
+    camera.position.set(s.camera.px, s.camera.py, s.camera.pz);
+    controls.target.set(s.camera.tx, s.camera.ty, s.camera.tz);
+    controls.update();
+
+    // Display toggles
+    setCheckbox(cbDarkMode, s.darkMode);
+    setCheckbox(cbWireframe, s.wireframe);
+    setCheckbox(cbDepthFade, s.depthFade);
+    setCheckbox(cbAxes, s.axes);
+    setCheckbox(cbCalLabels, s.calLabels);
+    setCheckbox(cbElemLabels, s.elemLabels);
+    setCheckbox(cbConLabels, s.conLabels);
+    setCheckbox(cbDeconflict, s.deconflict);
+
+    // Colors
+    sphereColorInput.value = s.sphereColor;
+    wireUniforms.uColor.value.set(s.sphereColor);
+    elemColorInput.value = s.elemColor;
+    axisColorInput.value = s.axisColor;
+
+    // Sliders
+    elemSizeRange.value = s.elemLabelSize;
+    elemSizeRange.dispatchEvent(new Event("input"));
+    conSizeRange.value = s.conLabelSize;
+    conSizeRange.dispatchEvent(new Event("input"));
+    calSizeRange.value = s.calLabelSize;
+    calSizeRange.dispatchEvent(new Event("input"));
+    axisWidthRange.value = s.axisWidth;
+    axisWidthRange.dispatchEvent(new Event("input"));
+    projWidthRange.value = s.projWidth;
+    projWidthRange.dispatchEvent(new Event("input"));
+    pcAxisRange.value = s.pcAxisWidth;
+    pcAxisRange.dispatchEvent(new Event("input"));
+    gridDensityRange.value = s.gridDensity;
+    gridDensityRange.dispatchEvent(new Event("input"));
+
+    // Element/construct visibility
+    for (var i = 0; i < elements.length; i++) {
+      setCheckbox(elemCheckboxes[i], s.elementVisible[i]);
+      elementLabelVisible[i] = s.elementLabelVisible[i];
+      elementObjects[i].label.visible = s.elementLabelVisible[i] && s.elementVisible[i];
+      elementProjections[i] = s.elementProjections[i];
+    }
+    for (var i = 0; i < constructs.length; i++) {
+      setCheckbox(conCheckboxes[i], s.constructVisible[i]);
+      constructLabelVisible[i] = s.constructLabelVisible[i];
+      constructLineVisible[i] = s.constructLineVisible[i];
+    }
+    buildCalibration();
+    rebuildAllProjections();
+
+    // Selection & benchmarks
+    benchmarkElements = s.benchmarkElements.slice();
+    selectedElements = s.selectedElements.slice();
+    selectedConstructs = s.selectedConstructs.slice();
+    selectedElementIndex = s.selectedElementIndex;
+    updateElementGlows();
+    updateConstructSelection();
+    updateDynamicSortVisibility();
+    if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
+    removeBenchmarksBtn.style.display = benchmarkElements.length > 0 ? "" : "none";
+  }
+
+  function renderSnapshotList() {
+    snapshotListDiv.innerHTML = "";
+    for (var i = 0; i < snapshots.length; i++) {
+      (function (idx) {
+        var row = document.createElement("div");
+        row.className = "snapshot-row";
+
+        var nameSpan = document.createElement("span");
+        nameSpan.className = "snapshot-name";
+        nameSpan.textContent = snapshots[idx].name;
+        nameSpan.title = "Click to restore, double-click to rename";
+        nameSpan.addEventListener("click", function () {
+          restoreState(snapshots[idx].state);
+        });
+        nameSpan.addEventListener("dblclick", function (e) {
+          e.stopPropagation();
+          var input = document.createElement("input");
+          input.type = "text";
+          input.className = "snapshot-rename";
+          input.value = snapshots[idx].name;
+          row.replaceChild(input, nameSpan);
+          input.focus();
+          input.select();
+          function finishRename() {
+            var val = input.value.trim();
+            if (val) snapshots[idx].name = val;
+            nameSpan.textContent = snapshots[idx].name;
+            row.replaceChild(nameSpan, input);
+          }
+          input.addEventListener("blur", finishRename);
+          input.addEventListener("keydown", function (ke) {
+            if (ke.key === "Enter") { input.blur(); }
+            if (ke.key === "Escape") { input.value = snapshots[idx].name; input.blur(); }
+          });
+        });
+
+        var delBtn = document.createElement("button");
+        delBtn.className = "snapshot-del";
+        delBtn.textContent = "\u00D7";
+        delBtn.title = "Delete snapshot";
+        delBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          snapshots.splice(idx, 1);
+          renderSnapshotList();
+        });
+
+        row.appendChild(nameSpan);
+        row.appendChild(delBtn);
+        snapshotListDiv.appendChild(row);
+      })(i);
+    }
+  }
+
+  snapshotBtn.addEventListener("click", function () {
+    var name = "Snapshot " + (snapshots.length + 1);
+    snapshots.push({ name: name, state: captureState() });
+    renderSnapshotList();
+  });
 
   // =============================================
   // 10. HOVER + TOOLTIP + DOUBLE-CLICK

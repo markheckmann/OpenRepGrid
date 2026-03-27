@@ -450,6 +450,55 @@ body.dark #gui-panel input[type="color"] {
   padding-left: 4px;
 }
 
+.snapshot-list {
+  margin: 4px 0;
+}
+
+.snapshot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.snapshot-row:hover {
+  background: rgba(0,100,200,0.08);
+}
+
+.snapshot-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.snapshot-rename {
+  flex: 1;
+  font-size: 11px;
+  padding: 1px 4px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  outline: none;
+}
+
+.snapshot-del {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  margin-left: 4px;
+  line-height: 1;
+}
+
+.snapshot-del:hover {
+  color: #e44;
+}
+
 .hint-text {
   font-size: 10px;
   color: #999;
@@ -762,6 +811,24 @@ body.dark #gui-panel button.action-btn:hover {
 
 body.dark .hint-text {
   color: #666;
+}
+
+body.dark .snapshot-row:hover {
+  background: rgba(80,160,255,0.12);
+}
+
+body.dark .snapshot-rename {
+  background: #2a2a2a;
+  border-color: #555;
+  color: #ccc;
+}
+
+body.dark .snapshot-del {
+  color: #666;
+}
+
+body.dark .snapshot-del:hover {
+  color: #e44;
 }
 
 body.dark .resize-handle:hover,
