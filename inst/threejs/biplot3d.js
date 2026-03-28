@@ -577,13 +577,14 @@
       var norm2 = Ci[0] * Ci[0] + Ci[1] * Ci[1] + Ci[2] * Ci[2];
       if (norm2 < 1e-10) continue;
 
-      // Direction vector for tick perpendicular (we pick a world-up cross product)
+      // Direction vector for tick perpendicular (use camera direction for view-facing ticks)
       var cDir = new THREE.Vector3(Ci[0], Ci[1], Ci[2]).normalize();
-      var up = new THREE.Vector3(0, 1, 0);
-      var perp1 = new THREE.Vector3().crossVectors(cDir, up);
+      var camDir = new THREE.Vector3();
+      camera.getWorldDirection(camDir);
+      var perp1 = new THREE.Vector3().crossVectors(cDir, camDir);
       if (perp1.length() < 0.01) {
-        up.set(1, 0, 0);
-        perp1.crossVectors(cDir, up);
+        // Axis aligned with camera — fall back to camera up
+        perp1.crossVectors(cDir, camera.up);
       }
       perp1.normalize();
       var tickLen = calibrationTickSize;
@@ -3449,14 +3450,14 @@
       }
     }
 
-    // When elevation filter is active, rebuild projections & calibration on camera move
-    if (elevationFilterAngle < 90) {
-      var camMoved = !camera.position.equals(_prevCamPos) ||
-                     !controls.target.equals(_prevCamTarget);
-      if (camMoved) {
-        _prevCamPos.copy(camera.position);
-        _prevCamTarget.copy(controls.target);
-        buildCalibration();
+    // Rebuild calibration on camera move (ticks face viewer), and projections if elevation filter active
+    var camMoved = !camera.position.equals(_prevCamPos) ||
+                   !controls.target.equals(_prevCamTarget);
+    if (camMoved) {
+      _prevCamPos.copy(camera.position);
+      _prevCamTarget.copy(controls.target);
+      buildCalibration();
+      if (elevationFilterAngle < 90) {
         rebuildAllProjections();
       }
     }
