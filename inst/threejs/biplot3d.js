@@ -100,6 +100,11 @@
   var initialCameraPosition = camera.position.clone();
   var initialControlsTarget = controls.target.clone();
 
+  // Save original coordinates for reset after rotation
+  var initialElements = elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; });
+  var initialConstructs = constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; });
+  var initialCalibCoords = calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null;
+
   // --- Groups ---
   var sphereGroup = new THREE.Group();
   var elementPointsGroup = new THREE.Group();
@@ -2884,6 +2889,171 @@
     }
   }
 
+  // --- Rotate to construct ---
+  function restoreOriginalCoords() {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].x = initialElements[i].x;
+      elements[i].y = initialElements[i].y;
+      elements[i].z = initialElements[i].z;
+      elementObjects[i].sphere.position.set(elements[i].x, elements[i].y, elements[i].z);
+      elementObjects[i].label.position.set(elements[i].x, elements[i].y + 0.05, elements[i].z);
+      elementObjects[i].glow.position.set(elements[i].x, elements[i].y, elements[i].z);
+    }
+    for (var i = 0; i < constructs.length; i++) {
+      constructs[i].x = initialConstructs[i].x;
+      constructs[i].y = initialConstructs[i].y;
+      constructs[i].z = initialConstructs[i].z;
+      var r = constructs[i];
+      var len = Math.sqrt(r.x * r.x + r.y * r.y + r.z * r.z);
+      if (len === 0) len = 1;
+      var sc = constructSphereCoords[i];
+      sc.rx = r.x / len * sphereRadius; sc.ry = r.y / len * sphereRadius; sc.rz = r.z / len * sphereRadius;
+      sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
+
+      var obj = constructObjects[i];
+      obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+      obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+      obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+      obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+
+      var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+      var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+      var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+      var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+      var q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+      obj.line.position.copy(mid);
+      obj.line.quaternion.copy(q);
+      obj._origLinePos = mid.clone();
+      obj._origLineQuat = q.clone();
+    }
+    if (calibration && initialCalibCoords) {
+      for (var i = 0; i < calibration.construct_coords.length; i++) {
+        calibration.construct_coords[i][0] = initialCalibCoords[i][0];
+        calibration.construct_coords[i][1] = initialCalibCoords[i][1];
+        calibration.construct_coords[i][2] = initialCalibCoords[i][2];
+      }
+    }
+    buildCalibration();
+    rebuildAllProjections();
+  }
+
+  function rotateToConstruct(conIdx) {
+    var con = constructs[conIdx];
+
+    // New x-axis: construct direction (normalized)
+    var newX = new THREE.Vector3(con.x, con.y, con.z).normalize();
+
+    // Project element coordinates onto plane perpendicular to newX
+    // to find the direction of maximum variance → new y-axis
+    var projected = [];
+    for (var i = 0; i < elements.length; i++) {
+      var e = new THREE.Vector3(elements[i].x, elements[i].y, elements[i].z);
+      var along = e.dot(newX);
+      projected.push(e.clone().addScaledVector(newX, -along));
+    }
+
+    // 2D PCA in the perpendicular plane: find two orthonormal basis vectors
+    var arbUp = new THREE.Vector3(0, 1, 0);
+    if (Math.abs(newX.dot(arbUp)) > 0.9) arbUp.set(0, 0, 1);
+    var basisA = new THREE.Vector3().crossVectors(newX, arbUp).normalize();
+    var basisB = new THREE.Vector3().crossVectors(newX, basisA).normalize();
+
+    // Compute 2x2 covariance matrix of projections in (basisA, basisB) coords
+    var saa = 0, sab = 0, sbb = 0;
+    for (var i = 0; i < projected.length; i++) {
+      var a = projected[i].dot(basisA);
+      var b = projected[i].dot(basisB);
+      saa += a * a;
+      sab += a * b;
+      sbb += b * b;
+    }
+
+    // Eigendecomposition of 2x2 symmetric matrix to find max-variance direction
+    var trace = saa + sbb;
+    var det = saa * sbb - sab * sab;
+    var disc = Math.sqrt(Math.max(0, trace * trace / 4 - det));
+    var lambda1 = trace / 2 + disc; // largest eigenvalue
+    var evA, evB;
+    if (Math.abs(sab) > 1e-12) {
+      evA = lambda1 - sbb;
+      evB = sab;
+    } else if (saa >= sbb) {
+      evA = 1; evB = 0;
+    } else {
+      evA = 0; evB = 1;
+    }
+    var evLen = Math.sqrt(evA * evA + evB * evB);
+    evA /= evLen; evB /= evLen;
+
+    // New y-axis: max-variance direction in perpendicular plane
+    var newY = basisA.clone().multiplyScalar(evA).addScaledVector(basisB, evB);
+    newY.normalize();
+
+    // New z-axis: complete right-handed system
+    var newZ = new THREE.Vector3().crossVectors(newX, newY).normalize();
+
+    // Rotation matrix: columns are newX, newY, newZ (maps old → new)
+    // To rotate point p: new_p = [newX·p, newY·p, newZ·p]
+    function rotatePoint(x, y, z) {
+      return {
+        x: newX.x * x + newX.y * y + newX.z * z,
+        y: newY.x * x + newY.y * y + newY.z * z,
+        z: newZ.x * x + newZ.y * y + newZ.z * z
+      };
+    }
+
+    // Rotate element coordinates
+    for (var i = 0; i < elements.length; i++) {
+      var r = rotatePoint(elements[i].x, elements[i].y, elements[i].z);
+      elements[i].x = r.x; elements[i].y = r.y; elements[i].z = r.z;
+      elementObjects[i].sphere.position.set(r.x, r.y, r.z);
+      elementObjects[i].label.position.set(r.x, r.y + 0.05, r.z);
+      elementObjects[i].glow.position.set(r.x, r.y, r.z);
+    }
+
+    // Rotate construct coordinates and rebuild sphere coords + 3D objects
+    for (var i = 0; i < constructs.length; i++) {
+      var r = rotatePoint(constructs[i].x, constructs[i].y, constructs[i].z);
+      constructs[i].x = r.x; constructs[i].y = r.y; constructs[i].z = r.z;
+
+      var len = Math.sqrt(r.x * r.x + r.y * r.y + r.z * r.z);
+      if (len === 0) len = 1;
+      var sc = constructSphereCoords[i];
+      sc.rx = r.x / len * sphereRadius; sc.ry = r.y / len * sphereRadius; sc.rz = r.z / len * sphereRadius;
+      sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
+
+      var obj = constructObjects[i];
+      obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+      obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+      obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+      obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+
+      // Rebuild line
+      var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+      var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+      var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+      var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+      var q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+      obj.line.position.copy(mid);
+      obj.line.quaternion.copy(q);
+      obj._origLinePos = mid.clone();
+      obj._origLineQuat = q.clone();
+    }
+
+    // Rotate calibration construct coords
+    if (calibration) {
+      for (var i = 0; i < calibration.construct_coords.length; i++) {
+        var cc = calibration.construct_coords[i];
+        var r = rotatePoint(cc[0], cc[1], cc[2]);
+        cc[0] = r.x; cc[1] = r.y; cc[2] = r.z;
+      }
+    }
+
+    // Rebuild everything
+    buildCalibration();
+    rebuildAllProjections();
+  }
+
   // --- Context menu ---
   var contextMenu = document.getElementById("context-menu");
   var contextTargetElement = -1;
@@ -3047,6 +3217,13 @@
       }
     });
 
+    // Rotate to align construct with PC1 (only for single construct)
+    if (!isMulti) {
+      addMenuItem("Align to PC1", function () {
+        rotateToConstruct(conIdx);
+      });
+    }
+
     showContextMenuAt(x, y);
   }
 
@@ -3184,11 +3361,10 @@
       selectedElements = [];
       selectedConstructs = [];
       selectedElementIndex = -1;
+      restoreOriginalCoords();
       updateElementGlows();
       updateConstructSelection();
       updateDynamicSortVisibility();
-      buildCalibration();
-      rebuildAllProjections();
       profileCanvas.style.display = "none";
       profileHint.style.display = "";
       removeBenchmarksBtn.style.display = "none";
