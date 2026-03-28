@@ -570,6 +570,15 @@
     var vMin = meta.scale_min;
     var vMax = meta.scale_max;
 
+    // Count visible calibrated axes to decide center-skip threshold
+    var visibleAxisCount = 0;
+    for (var i = 0; i < constructs.length; i++) {
+      if (constructVisible[i] && constructLineVisible[i] && !isConstructElevationFiltered(i)) {
+        visibleAxisCount++;
+      }
+    }
+    var centerSkip = visibleAxisCount <= 1 ? 0 : 0.03;
+
     for (var i = 0; i < constructs.length; i++) {
       if (!constructVisible[i] || !constructLineVisible[i] || isConstructElevationFiltered(i)) continue;
 
@@ -596,9 +605,9 @@
         var ty = factor * Ci[1];
         var tz = factor * Ci[2];
 
-        // Skip ticks too close to origin or outside the sphere
+        // Skip ticks outside the sphere, and near center only when multiple axes shown
         var dist = Math.sqrt(tx * tx + ty * ty + tz * tz);
-        if (dist < 0.03 || dist > 1.0) continue;
+        if (dist > 1.0 || dist < centerSkip) continue;
 
         // Tick line (cylinder for variable thickness)
         var t1 = new THREE.Vector3(
