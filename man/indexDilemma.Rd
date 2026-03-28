@@ -7,7 +7,7 @@
 indexDilemma(
   x,
   self = 1,
-  ideal = ncol(x),
+  ideal = NULL,
   diff.mode = 1,
   diff.congruent = NA,
   diff.discrepant = NA,
@@ -26,7 +26,8 @@ indexDilemma(
 
 \item{self}{Numeric. Index of self element.}
 
-\item{ideal}{Numeric. Index of ideal self element.}
+\item{ideal}{Numeric. Index of ideal self element (default \code{NULL}). If \code{NULL},
+the ideal element stored in the grid is used (see \code{\link[=ideal]{ideal()}}).}
 
 \item{diff.mode}{Numeric. Method adopted to classify construct pairs into congruent and discrepant. With
 \code{diff.mode=1}, the minimal and maximal score difference criterion is applied. With \code{diff.mode=0} the Mid-point

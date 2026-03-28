@@ -4,12 +4,13 @@
 \alias{alignByIdeal}
 \title{Align constructs using the ideal element to gain pole preferences.}
 \usage{
-alignByIdeal(x, ideal, high = TRUE)
+alignByIdeal(x, ideal = NULL, high = TRUE)
 }
 \arguments{
 \item{x}{\code{repgrid} object}
 
-\item{ideal}{Number of the element that is used for alignment (the ideal).}
+\item{ideal}{Number of the element that is used for alignment (the ideal) (default \code{NULL}). If \code{NULL}, the
+ideal element stored in the grid is used (see \code{\link[=ideal]{ideal()}}).}
 
 \item{high}{Logical. Whether to align the constructs so the ideal will have high ratings on the constructs (i.e.
 \code{TRUE}, default) or low ratings (\code{FALSE}). High scores will lead to the preference pole on the right side, low

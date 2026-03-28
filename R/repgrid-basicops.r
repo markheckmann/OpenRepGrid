@@ -185,9 +185,25 @@ setMethod(
         "Index must not exceed the number of elements or equal zero."
       )
     }
+    # update ideal element after subsetting
+    old_ideal <- x@meta$ideal
+    n_orig <- length(x@elements)
     x@constructs <- x@constructs[i]
     x@elements <- x@elements[j]
     x@ratings <- x@ratings[i, j, layer, drop = FALSE]
+    if (!is.null(old_ideal)) {
+      if (all(j > 0)) {
+        kept <- j
+      } else {
+        kept <- setdiff(seq_len(n_orig), abs(j))
+      }
+      new_pos <- match(old_ideal, kept)
+      if (is.na(new_pos)) {
+        x@meta$ideal <- NULL
+      } else {
+        x@meta$ideal <- as.integer(new_pos)
+      }
+    }
     x
   }
 )
@@ -1400,8 +1416,7 @@ showMeta <- function(x) {
   cat("Preferred poles defined: ", paste0(sum(!is.na(pp)), "/", length(pp)), "\n")
   idx <- x@meta$ideal
   if (!is.null(idx)) {
-    star <- if (crayon::has_color()) yellow("(\u2605) ") else "(*)  "
-    cat("Ideal element: ", idx, " - ", star, elements(x)[idx], "\n", sep = "")
+    cat("Ideal element: ", idx, " - ", elements(x)[idx], "\n", sep = "")
   } else {
     cat("Ideal element:  not defined\n")
   }

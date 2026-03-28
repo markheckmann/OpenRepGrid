@@ -7,8 +7,8 @@
 indexSelfConstruction(
   x,
   self,
-  ideal,
-  others = c(-self, -ideal),
+  ideal = NULL,
+  others = NULL,
   method = "euclidean",
   p = 2,
   normalize = TRUE,
@@ -20,9 +20,11 @@ indexSelfConstruction(
 
 \item{self}{Numeric. Index of self element.}
 
-\item{ideal}{Numeric. Index of ideal element.}
+\item{ideal}{Numeric. Index of ideal element (default \code{NULL}). If \code{NULL}, the
+ideal element stored in the grid is used (see \code{\link[=ideal]{ideal()}}).}
 
-\item{others}{Numeric. Index(es) of self related "other" elements (e.g. father, friend).}
+\item{others}{Numeric. Index(es) of self related "other" elements (e.g. father, friend).
+Default \code{NULL} means all elements except self and ideal.}
 
 \item{method}{The distance or correlation measure:
 \itemize{

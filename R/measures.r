@@ -469,7 +469,8 @@ print.indexBieri <- function(x, output = "I", digits = 3, ...) {
 #' midpoint to indicate that both poles are equally desirable.
 #'
 #' @param x A `repgrid` object.
-#' @param ideal Index of ideal element.
+#' @param ideal Index of ideal element (default `NULL`). If `NULL`, the ideal
+#'   element stored in the grid is used (see [ideal()]).
 #' @param deviation The maximal deviation from the scale midpoint for an ideal rating to be considered dilemmatic
 #'   (default = `0`). For scales larger than a 17-point rating scale a warning is raised, if deviation is `0` (see
 #'   details).
@@ -491,14 +492,11 @@ print.indexBieri <- function(x, output = "I", digits = 3, ...) {
 #' @example inst/examples/example-indexDilemmatic.R
 #' @export
 #'
-indexDilemmatic <- function(x, ideal, deviation = 0, warn = TRUE) {
+indexDilemmatic <- function(x, ideal = NULL, deviation = 0, warn = TRUE) {
   if (!is.repgrid(x)) {
     stop("'x' must be 'repgrid' object", call. = FALSE)
   }
-  ne <- ncol(x)
-  if (ideal < 1 || ideal > ncol(x)) {
-    stop("'ideal' must be in the range from 1 to ", ne, call. = FALSE)
-  }
+  ideal <- resolve_ideal(x, ideal)
 
   # warn if uneven number of rating options
   n_options <- diff(getScale(x)) + 1
@@ -861,8 +859,10 @@ print.indexPolarization <- function(x, output = "ITCE", ...) {
 #'
 #' @param x A `repgrid` object.
 #' @param self Numeric. Index of self element.
-#' @param ideal Numeric. Index of ideal element.
+#' @param ideal Numeric. Index of ideal element (default `NULL`). If `NULL`, the
+#'   ideal element stored in the grid is used (see [ideal()]).
 #' @param others Numeric. Index(es) of self related "other" elements (e.g. father, friend).
+#'   Default `NULL` means all elements except self and ideal.
 #' @param method The distance or correlation measure:
 #'   * Distances:  `euclidean`, `manhattan`, `maximum`,  `canberra`, `binary`, `minkowski`
 #'   * Correlations: `pearson`, `kendall`, `spearman`
@@ -887,19 +887,20 @@ print.indexPolarization <- function(x, output = "ITCE", ...) {
 #' @export
 #' @example inst/examples/example-indexSelfConstruction.R
 #'
-indexSelfConstruction <- function(x, self, ideal, others = c(-self, -ideal),
+indexSelfConstruction <- function(x, self, ideal = NULL, others = NULL,
                                   method = "euclidean", p = 2, normalize = TRUE,
                                   round = FALSE) {
   # sanity/arg checks
   if (!is.repgrid(x)) {
     stop("'x' must be a repgrid object", call. = FALSE)
   }
+  ideal <- resolve_ideal(x, ideal)
+  if (is.null(others)) {
+    others <- c(-self, -ideal)
+  }
   nc <- ncol(x)
   if (!is.numeric(self) || !length(self) == 1 || !(self >= 1 && self <= nc)) {
     stop("'self' must be ONE numeric value in the range from 1 to ", nc, call. = FALSE)
-  }
-  if (!is.numeric(ideal) || !length(ideal) == 1 || !(ideal >= 1 && ideal <= nc)) {
-    stop("'ideal' must be ONE numeric value in the range from 1 to ", nc, call. = FALSE)
   }
   if (!is.numeric(others) || !length(others) >= 1) {
     stop("'others' must be a numeric vector with at least one entry", call. = FALSE)
@@ -1787,7 +1788,7 @@ indexDilemmaShowCorrelationDistribution <- function(x, e1, e2) {
 #                        calculation.
 #
 #
-indexDilemmaInternal <- function(x, self, ideal,
+indexDilemmaInternal <- function(x, self, ideal = NULL,
                                  diff.mode = 1, diff.congruent = 1,
                                  diff.discrepant = 4, diff.poles = 1,
                                  r.min, exclude = FALSE, digits = 2,
@@ -1796,12 +1797,10 @@ indexDilemmaInternal <- function(x, self, ideal,
   ne <- ncol(x)
   enames <- elements(x)
   e_ii <- seq_len(ne) # possible element indexes
+  ideal <- resolve_ideal(x, ideal)
 
   if (!self %in% e_ii) {
     stop("'self' element index must be within interval [", 1, ",", ne, "]", call. = FALSE)
-  }
-  if (!ideal %in% e_ii) {
-    stop("'ideal' element index must be within interval [", 1, ",", ne, "]", call. = FALSE)
   }
   if (diff.congruent < 0) {
     stop("'diff.congruent' must be non-negative", call. = FALSE)
@@ -2408,7 +2407,8 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #'
 #' @param x A `repgrid` object.
 #' @param self Numeric. Index of self element.
-#' @param ideal Numeric. Index of ideal self element.
+#' @param ideal Numeric. Index of ideal self element (default `NULL`). If `NULL`,
+#'   the ideal element stored in the grid is used (see [ideal()]).
 #' @param diff.mode Numeric. Method adopted to classify construct pairs into congruent and discrepant. With
 #'   `diff.mode=1`, the minimal and maximal score difference criterion is applied. With `diff.mode=0` the Mid-point
 #'   rating criterion is applied. Default is `diff.mode=1`.
@@ -2455,11 +2455,12 @@ print.indexDilemma <- function(x, digits = 2, output = "SPCD", ...) {
 #' @export
 #' @example inst/examples/example-implicative-dilemmas.R
 #'
-indexDilemma <- function(x, self = 1, ideal = ncol(x),
+indexDilemma <- function(x, self = 1, ideal = NULL,
                          diff.mode = 1, diff.congruent = NA,
                          diff.discrepant = NA, diff.poles = 1,
                          r.min = .35, exclude = FALSE, digits = 2, show = FALSE,
                          output = 1, index = TRUE, trim = 20) {
+  ideal <- resolve_ideal(x, ideal)
   # automatic selection of a priori criteria
   sc <- getScale(x)
   if (is.na(diff.congruent)) {

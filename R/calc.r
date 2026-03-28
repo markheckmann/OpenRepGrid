@@ -1031,7 +1031,8 @@ print.alignByLoadings <- function(x, digits = 2, col.index = TRUE, ...) {
 #' cannot be determined definitely, the construct direction remains unchanged (a warning is issued in that case).
 #'
 #' @param x `repgrid` object
-#' @param ideal Number of the element that is used for alignment (the ideal).
+#' @param ideal Number of the element that is used for alignment (the ideal) (default `NULL`). If `NULL`, the
+#'   ideal element stored in the grid is used (see [ideal()]).
 #' @param high Logical. Whether to align the constructs so the ideal will have high ratings on the constructs (i.e.
 #'   `TRUE`, default) or low ratings (`FALSE`). High scores will lead to the preference pole on the right side, low
 #'   scores will align the preference pole on the left side.
@@ -1055,10 +1056,11 @@ print.alignByLoadings <- function(x, digits = 2, col.index = TRUE, ...) {
 #' raeithel # original grid
 #' alignByIdeal(raeithel, 3, high = FALSE) # aligned with preference pole on the left
 #'
-alignByIdeal <- function(x, ideal, high = TRUE) {
+alignByIdeal <- function(x, ideal = NULL, high = TRUE) {
   if (!inherits(x, "repgrid")) { # check if x is repgrid object
     stop("Object x must be of class 'repgrid'")
   }
+  ideal <- resolve_ideal(x, ideal)
 
   idealRatings <- getRatingLayer(x)[, ideal]
   unclear <- which(idealRatings == getScaleMidpoint(x))

@@ -113,14 +113,14 @@ alignByPreferredPole <- function(x, side_positive = "right") {
 #' scale midpoint (or within `none_range`), none of the poles is preferred.
 #'
 #' @param x A `repgrid` object.
-#' @param ideal Index or name of ideal element.
+#' @param ideal Index or name of ideal element (default `NULL`). If `NULL`, the
+#'   ideal element stored in the grid is used (see [ideal()]).
 #' @param none_range Range of ratings that do not allow assining a preferred pole (`NULL` be default).
 #' @param align Align preferred poles on same side (default `FALSE`). See [alignByPreferredPole()].
 #' @export
-preferredPolesByIdeal <- function(x, ideal, none_range = NULL, align = FALSE) {
+preferredPolesByIdeal <- function(x, ideal = NULL, none_range = NULL, align = FALSE) {
   stop_if_not_is_repgrid(x)
-  stop_if_not_in_element_range(x, ideal)
-  ideal <- fortify_element_id(x, ideal)
+  ideal <- resolve_ideal(x, ideal)
   midpoint <- getScaleMidpoint(x)
   sc <- getScale(x)
   if (is.null(none_range)) {

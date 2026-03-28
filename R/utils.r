@@ -835,6 +835,26 @@ is_integerish <- function(x) {
 }
 
 
+#' Resolve ideal element argument
+#'
+#' If `ideal` is NULL, falls back to the ideal stored in the grid via `ideal(x)`.
+#' Throws an error if neither is available.
+#' @return Integer element index.
+#' @noRd
+resolve_ideal <- function(x, ideal = NULL, argname = "ideal") {
+  if (is.null(ideal)) {
+    ideal <- ideal(x)
+    if (is.na(ideal)) {
+      stop("No '", argname, "' argument supplied and no ideal element set in the grid. ",
+        "Use ideal(x) <- value to set it.",
+        call. = FALSE
+      )
+    }
+  }
+  fortify_element_id(x, ideal)
+}
+
+
 #' convert element index or name to index
 #' @examples
 #' fortify_element_id(boeker, "self")

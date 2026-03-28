@@ -4,12 +4,13 @@
 \alias{preferredPolesByIdeal}
 \title{Set preferred pole by ideal element}
 \usage{
-preferredPolesByIdeal(x, ideal, none_range = NULL, align = FALSE)
+preferredPolesByIdeal(x, ideal = NULL, none_range = NULL, align = FALSE)
 }
 \arguments{
 \item{x}{A \code{repgrid} object.}
 
-\item{ideal}{Index or name of ideal element.}
+\item{ideal}{Index or name of ideal element (default \code{NULL}). If \code{NULL}, the
+ideal element stored in the grid is used (see \code{\link[=ideal]{ideal()}}).}
 
 \item{none_range}{Range of ratings that do not allow assining a preferred pole (\code{NULL} be default).}
 
