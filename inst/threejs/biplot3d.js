@@ -2943,72 +2943,12 @@
   function computeRotationQuat(conIdx) {
     var con = constructs[conIdx];
 
-    // New x-axis: construct direction (normalized)
-    // Choose the sign closest to +x to minimize rotation
-    var newX = new THREE.Vector3(con.x, con.y, con.z).normalize();
-    if (newX.x < 0) newX.negate();
+    // Construct direction — choose the sign closest to +x for minimal rotation
+    var cDir = new THREE.Vector3(con.x, con.y, con.z).normalize();
+    if (cDir.x < 0) cDir.negate();
 
-    // Project element coordinates onto plane perpendicular to newX
-    var projected = [];
-    for (var i = 0; i < elements.length; i++) {
-      var e = new THREE.Vector3(elements[i].x, elements[i].y, elements[i].z);
-      var along = e.dot(newX);
-      projected.push(e.clone().addScaledVector(newX, -along));
-    }
-
-    // 2D PCA in the perpendicular plane
-    var arbUp = new THREE.Vector3(0, 1, 0);
-    if (Math.abs(newX.dot(arbUp)) > 0.9) arbUp.set(0, 0, 1);
-    var basisA = new THREE.Vector3().crossVectors(newX, arbUp).normalize();
-    var basisB = new THREE.Vector3().crossVectors(newX, basisA).normalize();
-
-    var saa = 0, sab = 0, sbb = 0;
-    for (var i = 0; i < projected.length; i++) {
-      var a = projected[i].dot(basisA);
-      var b = projected[i].dot(basisB);
-      saa += a * a;
-      sab += a * b;
-      sbb += b * b;
-    }
-
-    var trace = saa + sbb;
-    var det = saa * sbb - sab * sab;
-    var disc = Math.sqrt(Math.max(0, trace * trace / 4 - det));
-    var lambda1 = trace / 2 + disc;
-    var evA, evB;
-    if (Math.abs(sab) > 1e-12) {
-      evA = lambda1 - sbb;
-      evB = sab;
-    } else if (saa >= sbb) {
-      evA = 1; evB = 0;
-    } else {
-      evA = 0; evB = 1;
-    }
-    var evLen = Math.sqrt(evA * evA + evB * evB);
-    evA /= evLen; evB /= evLen;
-
-    var newY = basisA.clone().multiplyScalar(evA).addScaledVector(basisB, evB).normalize();
-
-    // Choose newY sign closest to +y to minimize flipping
-    if (newY.y < 0) newY.negate();
-
-    var newZ = new THREE.Vector3().crossVectors(newX, newY).normalize();
-
-    // Choose newZ sign closest to +z; if wrong, flip newY to fix handedness
-    if (newZ.z < 0) {
-      newY.negate();
-      newZ.negate();
-    }
-
-    // Build rotation matrix (rows are newX, newY, newZ)
-    var m = new THREE.Matrix4();
-    m.set(
-      newX.x, newX.y, newX.z, 0,
-      newY.x, newY.y, newY.z, 0,
-      newZ.x, newZ.y, newZ.z, 0,
-      0,      0,      0,      1
-    );
-    var quat = new THREE.Quaternion().setFromRotationMatrix(m);
+    // Shortest-arc rotation from cDir to +x axis
+    var quat = new THREE.Quaternion().setFromUnitVectors(cDir, new THREE.Vector3(1, 0, 0));
     return quat;
   }
 
