@@ -874,6 +874,7 @@
 
   // --- Grid table element header interactions ---
   var gridHoveredElement = -1;
+  var gridHoverElemWasHidden = false;
   (function () {
     var headers = document.querySelectorAll("#grid-table th.element-header");
     for (var h = 0; h < headers.length; h++) {
@@ -883,8 +884,24 @@
 
         th.addEventListener("mouseenter", function () {
           if (ei === gridHoveredElement) return;
-          if (gridHoveredElement >= 0) unhighlightElement(gridHoveredElement);
+          // Clean up previous
+          if (gridHoveredElement >= 0) {
+            unhighlightElement(gridHoveredElement);
+            if (gridHoverElemWasHidden) {
+              elementVisible[gridHoveredElement] = false;
+              elementObjects[gridHoveredElement].sphere.visible = false;
+              elementObjects[gridHoveredElement].label.visible = false;
+              gridHoverElemWasHidden = false;
+            }
+          }
           gridHoveredElement = ei;
+          // Temporarily show hidden element
+          if (!elementVisible[ei]) {
+            gridHoverElemWasHidden = true;
+            elementVisible[ei] = true;
+            elementObjects[ei].sphere.visible = true;
+            elementObjects[ei].label.visible = elementLabelVisible[ei];
+          }
           highlightElement(ei);
           highlightGridColumn(ei);
           updateProfilePlot(ei);
@@ -893,12 +910,20 @@
         th.addEventListener("mouseleave", function () {
           if (gridHoveredElement >= 0) {
             unhighlightElement(gridHoveredElement);
+            if (gridHoverElemWasHidden) {
+              elementVisible[gridHoveredElement] = false;
+              elementObjects[gridHoveredElement].sphere.visible = false;
+              elementObjects[gridHoveredElement].label.visible = false;
+              gridHoverElemWasHidden = false;
+            }
             highlightGridColumn(-1);
             gridHoveredElement = -1;
           }
         });
 
         th.addEventListener("click", function () {
+          // If making permanent via click, don't revert on leave
+          if (gridHoverElemWasHidden) gridHoverElemWasHidden = false;
           elemCheckboxes[ei].checked = !elemCheckboxes[ei].checked;
           elemCheckboxes[ei].dispatchEvent(new Event("change"));
         });
