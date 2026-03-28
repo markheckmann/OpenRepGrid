@@ -83,9 +83,37 @@
   var silhouetteRingMesh = new THREE.Mesh(silhouetteRingGeom, silhouetteRingMat);
   silhouetteGroup.add(silhouetteRingMesh);
 
-  var silhouetteGlowGeom = new THREE.TorusBufferGeometry(1, 0.02, 8, 128);
-  var silhouetteGlowMat = new THREE.MeshBasicMaterial({
-    color: 0x888888, opacity: 0.0, transparent: true, depthWrite: false
+  var silhouetteGlowGeom = new THREE.TorusBufferGeometry(1, 0.02, 32, 128);
+  var silhouetteGlowUniforms = {
+    uColor: { value: new THREE.Color(0x888888) },
+    uOpacity: { value: 0.0 }
+  };
+  var silhouetteGlowMat = new THREE.ShaderMaterial({
+    uniforms: silhouetteGlowUniforms,
+    transparent: true,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    vertexShader: [
+      "varying vec3 vNormal;",
+      "varying vec3 vViewDir;",
+      "void main() {",
+      "  vNormal = normalize(normalMatrix * normal);",
+      "  vec4 mvPos = modelViewMatrix * vec4(position, 1.0);",
+      "  vViewDir = normalize(-mvPos.xyz);",
+      "  gl_Position = projectionMatrix * mvPos;",
+      "}"
+    ].join("\n"),
+    fragmentShader: [
+      "uniform vec3 uColor;",
+      "uniform float uOpacity;",
+      "varying vec3 vNormal;",
+      "varying vec3 vViewDir;",
+      "void main() {",
+      "  float facing = abs(dot(vNormal, vViewDir));",
+      "  float alpha = pow(facing, 1.5) * uOpacity;",
+      "  gl_FragColor = vec4(uColor, alpha);",
+      "}"
+    ].join("\n")
   });
   var silhouetteGlowMesh = new THREE.Mesh(silhouetteGlowGeom, silhouetteGlowMat);
   silhouetteGroup.add(silhouetteGlowMesh);
@@ -1810,7 +1838,7 @@
   silColorInput.value = "#888888";
   silColorInput.addEventListener("input", function () {
     silhouetteRingMat.color.set(silColorInput.value);
-    silhouetteGlowMat.color.set(silColorInput.value);
+    silhouetteGlowUniforms.uColor.value.set(silColorInput.value);
   });
   silColorLabel.appendChild(silColorInput);
   silColorLabel.appendChild(document.createTextNode(" Ring Color"));
@@ -1843,7 +1871,7 @@
   silGlowRange.step = "1";
   silGlowRange.value = "0";
   silGlowRange.addEventListener("input", function () {
-    silhouetteGlowMat.opacity = parseInt(silGlowRange.value) / 100 * 0.35;
+    silhouetteGlowUniforms.uOpacity.value = parseInt(silGlowRange.value) / 100 * 0.5;
   });
   silGlowLabel.appendChild(silGlowRange);
   silGlowLabel.appendChild(document.createTextNode(" Ring Glow"));
@@ -1859,7 +1887,7 @@
   silGlowSizeRange.value = "20";
   silGlowSizeRange.addEventListener("input", function () {
     var r = parseInt(silGlowSizeRange.value) / 1000;
-    var newGeom = new THREE.TorusBufferGeometry(1, r, 8, 128);
+    var newGeom = new THREE.TorusBufferGeometry(1, r, 32, 128);
     silhouetteGlowMesh.geometry.dispose();
     silhouetteGlowMesh.geometry = newGeom;
   });
