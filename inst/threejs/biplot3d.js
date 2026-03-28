@@ -177,6 +177,7 @@
   var hoverTargets = [];
   var hoveredElementIndex = -1;
   var hoveredConstructIndex = -1;
+  var hoveredFootConstructIndex = -1; // construct index when hovering a projection foot in 3D
 
   // --- Selection ---
   var selectedElements = []; // indices of selected elements
@@ -1545,7 +1546,8 @@
 
     // Draw dots (main element)
     for (var p = 0; p < points.length; p++) {
-      var isHoveredPoint = profilePointHover && constructOrder[p].index === profilePointHover.ci;
+      var isHoveredPoint = (profilePointHover && constructOrder[p].index === profilePointHover.ci) ||
+        (hoveredFootConstructIndex >= 0 && constructOrder[p].index === hoveredFootConstructIndex);
       var dotRadius = isHoveredPoint ? 6 : 3.5;
       if (isHoveredPoint) {
         // Glow ring behind hovered point
@@ -2763,6 +2765,14 @@
       unhighlightGridCell();
     }
 
+    // Highlight corresponding point in profile plot when hovering projection foot
+    var newFootCon = (newHoveredFootElem >= 0 && newHoveredFootCon >= 0 &&
+      newHoveredFootElem === selectedElementIndex) ? newHoveredFootCon : -1;
+    if (newFootCon !== hoveredFootConstructIndex) {
+      hoveredFootConstructIndex = newFootCon;
+      if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+    }
+
     renderer.domElement.style.cursor = (newHoveredElement >= 0 || newHoveredConstruct >= 0 || newHoveredFootElem >= 0) ? "pointer" : "default";
   }
 
@@ -3305,6 +3315,8 @@
     unhighlightConstruct(hoveredConstructIndex);
     hoveredElementIndex = -1;
     hoveredConstructIndex = -1;
+    hoveredFootConstructIndex = -1;
+    unhighlightGridCell();
     highlightGridColumn(-1);
     highlightGridRow(-1);
     renderer.domElement.style.cursor = "default";
