@@ -1565,8 +1565,10 @@
         profileCtx.globalAlpha = 1.0;
       }
       // Small dots
+      var bProfileHovered = profilePointHover && profilePointHover.ei === bIdx;
       for (var bp = 0; bp < bPoints.length; bp++) {
-        var bIsHovered = bFootHovered && bPoints[bp].ci === hoveredFootConstructIndex;
+        var bIsHovered = (bFootHovered && bPoints[bp].ci === hoveredFootConstructIndex) ||
+          (bProfileHovered && bPoints[bp].ci === profilePointHover.ci);
         if (bIsHovered) {
           profileCtx.beginPath();
           profileCtx.arc(bPoints[bp].x, bPoints[bp].y, 10, 0, Math.PI * 2);
@@ -1596,7 +1598,7 @@
 
     // Draw dots (main element)
     for (var p = 0; p < points.length; p++) {
-      var isHoveredPoint = (profilePointHover && constructOrder[p].index === profilePointHover.ci) ||
+      var isHoveredPoint = (profilePointHover && profilePointHover.ei === elemIdx && constructOrder[p].index === profilePointHover.ci) ||
         (hoveredFootConstructIndex >= 0 && hoveredFootElementIndex === elemIdx && constructOrder[p].index === hoveredFootConstructIndex);
       var dotRadius = isHoveredPoint ? 6 : 3.5;
       if (isHoveredPoint) {
@@ -1655,11 +1657,30 @@
     profileHint.style.display = "none";
     profileCanvas.style.display = "block";
     removeBenchmarksBtn.style.display = benchmarkElements.length > 0 ? "block" : "none";
+    // Collect benchmark point positions for hit detection
+    var benchPointSets = [];
+    for (var bi = 0; bi < benchmarkElements.length; bi++) {
+      var bIdx = benchmarkElements[bi];
+      if (bIdx === elemIdx) continue;
+      var bPts = [];
+      for (var r = 0; r < nc; r++) {
+        var ci = constructOrder[r].index;
+        var bRating = ratings.values[ci][bIdx];
+        var by = topPad + r * rowHeight + rowHeight / 2;
+        if (bRating != null && !isNaN(bRating)) {
+          var bx = leftMargin + (bRating - scaleMin) / scaleRange * plotWidth;
+          bPts.push({ x: bx, y: by, ci: ci, ei: bIdx });
+        }
+      }
+      benchPointSets.push(bPts);
+    }
+
     profileLayout = {
       topPad: topPad, rowHeight: rowHeight, nc: nc,
       leftMargin: leftMargin, plotWidth: plotWidth,
       scaleMin: scaleMin, scaleRange: scaleRange,
-      points: points
+      points: points,
+      benchPointSets: benchPointSets
     };
   }
 
@@ -1770,8 +1791,8 @@
   // --- Profile plot hover → highlight construct in 3D ---
   var profilePointHover = null; // { ci, prevLineVisible, prevProjections }
 
-  function profilePointHoverEnter(ci) {
-    var ei = selectedElementIndex;
+  function profilePointHoverEnter(ci, ei) {
+    if (ei == null) ei = selectedElementIndex;
     if (ei < 0) return;
     profilePointHover = {
       ci: ci, ei: ei,
@@ -1825,8 +1846,9 @@
       }
     }
 
-    // Detect proximity to a profile point
+    // Detect proximity to a profile point (main element or benchmark)
     var nearPoint = -1;
+    var nearElem = -1;
     var hitRadius = 10;
     if (profileLayout.points) {
       for (var pi = 0; pi < profileLayout.points.length; pi++) {
@@ -1835,16 +1857,34 @@
         var ddy = y - pt.y;
         if (ddx * ddx + ddy * ddy <= hitRadius * hitRadius) {
           nearPoint = constructOrder[pi].index;
+          nearElem = selectedElementIndex;
           break;
         }
+      }
+    }
+    // Check benchmark points if no main point hit
+    if (nearPoint < 0 && profileLayout.benchPointSets) {
+      for (var bs = 0; bs < profileLayout.benchPointSets.length; bs++) {
+        var bPts = profileLayout.benchPointSets[bs];
+        for (var bp = 0; bp < bPts.length; bp++) {
+          var bpt = bPts[bp];
+          var ddx = mx - bpt.x;
+          var ddy = y - bpt.y;
+          if (ddx * ddx + ddy * ddy <= hitRadius * hitRadius) {
+            nearPoint = bpt.ci;
+            nearElem = bpt.ei;
+            break;
+          }
+        }
+        if (nearPoint >= 0) break;
       }
     }
 
     // Handle point hover state
     var pointChanged = false;
-    if (nearPoint >= 0 && (!profilePointHover || profilePointHover.ci !== nearPoint)) {
+    if (nearPoint >= 0 && (!profilePointHover || profilePointHover.ci !== nearPoint || profilePointHover.ei !== nearElem)) {
       profilePointHoverLeave();
-      profilePointHoverEnter(nearPoint);
+      profilePointHoverEnter(nearPoint, nearElem);
       pointChanged = true;
     } else if (nearPoint < 0 && profilePointHover) {
       profilePointHoverLeave();
@@ -2969,7 +3009,9 @@
       elemStart: elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; }),
       conStart: constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; }),
       calibStart: calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null,
-      axesQuatStart: axesGroup.quaternion.clone()
+      axesQuatStart: axesGroup.quaternion.clone(),
+      posStart: camera.position.clone(),
+      posEnd: initialCameraPosition.clone().normalize().multiplyScalar(camera.position.length())
     };
   }
 
@@ -3042,6 +3084,16 @@
       // Rotate PC axes along with data
       var axesQuat = quat.clone().multiply(_anim.axesQuatStart);
       axesGroup.quaternion.copy(axesQuat);
+
+      // Also reset camera to default viewing angle (preserving zoom)
+      if (_anim.posStart && _anim.posEnd) {
+        var startDir = _anim.posStart.clone().normalize();
+        var endDir = _anim.posEnd.clone().normalize();
+        var posQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
+        var interpPosQuat = new THREE.Quaternion().slerp(posQuat, ease);
+        camera.position.copy(_anim.posStart).applyQuaternion(interpPosQuat);
+        controls.update();
+      }
 
     } else if (_anim.type === "camera") {
       // Slerp camera position on sphere (constant distance)
