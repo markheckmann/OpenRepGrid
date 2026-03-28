@@ -20,6 +20,7 @@
   var constructLineVisible = constructs.map(function () { return false; }); // per-construct line toggle
   var constructLabelVisible = constructs.map(function () { return true; }); // per-construct label toggle
   var calibrationLabelsVisible = true;
+  var elevationFilterAngle = 90; // max elevation from view plane in degrees
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -418,7 +419,7 @@
     var projColor = projColors[idx % projColors.length];
 
     for (var j = 0; j < constructs.length; j++) {
-      if (!constructVisible[j] || !constructLineVisible[j]) continue;
+      if (!constructVisible[j] || !constructLineVisible[j] || isConstructElevationFiltered(j)) continue;
       var con = constructs[j];
       var cVec = new THREE.Vector3(con.x, con.y, con.z);
       var cDir = cVec.clone().normalize();
@@ -484,7 +485,7 @@
     var vMax = meta.scale_max;
 
     for (var i = 0; i < constructs.length; i++) {
-      if (!constructVisible[i] || !constructLineVisible[i]) continue;
+      if (!constructVisible[i] || !constructLineVisible[i] || isConstructElevationFiltered(i)) continue;
 
       var Ci = [cCoords[i][0], cCoords[i][1], cCoords[i][2]];
       var norm2 = Ci[0] * Ci[0] + Ci[1] * Ci[1] + Ci[2] * Ci[2];
@@ -552,11 +553,21 @@
   // Allow poles up to 10° behind the view plane to remain visible
   var facingThreshold = Math.sin(10 * Math.PI / 180); // ~0.174
 
+  function isConstructElevationFiltered(i) {
+    if (elevationFilterAngle >= 90) return false; // fast path: no filtering
+    camera.getWorldDirection(_camDir);
+    var c = constructs[i];
+    _poleDir.set(c.x, c.y, c.z).normalize();
+    var dot = Math.abs(_poleDir.dot(_camDir));
+    var elevDeg = Math.asin(Math.min(dot, 1)) * (180 / Math.PI);
+    return elevDeg > elevationFilterAngle;
+  }
+
   function updateLabelVisibility() {
     camera.getWorldDirection(_camDir);
     for (var i = 0; i < constructs.length; i++) {
       var isTempVisible = (profileTempVisibleConstruct === i);
-      if (!constructVisible[i] && !isTempVisible) {
+      if ((!constructVisible[i] || isConstructElevationFiltered(i)) && !isTempVisible) {
         constructObjects[i].rightLabel.visible = false;
         constructObjects[i].leftLabel.visible = false;
         constructObjects[i].rightMarker.visible = false;
@@ -1792,6 +1803,26 @@
     labelDeconflict = v;
   });
 
+  // Elevation filter slider
+  var elevLabel = document.createElement("label");
+  var elevRange = document.createElement("input");
+  elevRange.type = "range";
+  elevRange.min = "0";
+  elevRange.max = "90";
+  elevRange.step = "1";
+  elevRange.value = "90";
+  elevRange.addEventListener("input", function () {
+    elevationFilterAngle = parseInt(elevRange.value);
+    buildCalibration();
+    rebuildAllProjections();
+  });
+  elevLabel.appendChild(elevRange);
+  elevLabel.appendChild(document.createTextNode(" Elevation Filter (" + elevRange.value + "\u00B0)"));
+  elevRange.addEventListener("input", function () {
+    elevLabel.lastChild.textContent = " Elevation Filter (" + elevRange.value + "\u00B0)";
+  });
+  displayBody.appendChild(elevLabel);
+
   // Hint text
   var hint = document.createElement("div");
   hint.className = "hint-text";
@@ -1909,7 +1940,8 @@
       projWidth: projWidthRange.value,
       pcAxisWidth: pcAxisRange.value,
       gridDensity: gridDensityRange.value,
-      profileFontSize: pfRange.value
+      profileFontSize: pfRange.value,
+      elevationFilter: elevRange.value
     };
   }
 
@@ -1960,6 +1992,10 @@
     if (s.profileFontSize) {
       pfRange.value = s.profileFontSize;
       pfRange.dispatchEvent(new Event("input"));
+    }
+    if (s.elevationFilter !== undefined) {
+      elevRange.value = s.elevationFilter;
+      elevRange.dispatchEvent(new Event("input"));
     }
 
     // Element/construct visibility
@@ -2908,11 +2944,27 @@
   // =============================================
   // 15. RENDER LOOP
   // =============================================
+  var _prevCamPos = new THREE.Vector3();
+  var _prevCamTarget = new THREE.Vector3();
+
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
     updateLabelVisibility();
     camera.getWorldDirection(wireUniforms.uCamDir.value);
+
+    // When elevation filter is active, rebuild projections & calibration on camera move
+    if (elevationFilterAngle < 90) {
+      var camMoved = !camera.position.equals(_prevCamPos) ||
+                     !controls.target.equals(_prevCamTarget);
+      if (camMoved) {
+        _prevCamPos.copy(camera.position);
+        _prevCamTarget.copy(controls.target);
+        buildCalibration();
+        rebuildAllProjections();
+      }
+    }
+
     renderer.render(scene, camera);
     labelRenderer.render(scene, camera);
     updateLabelAlignment();
