@@ -2478,7 +2478,7 @@
       calibStart: calibStart,
       axesQuatStart: accumulated,
       camPosStart: camera.position.clone(),
-      camPosEnd: initialCameraPosition.clone(),
+      camPosEnd: initialCameraPosition.clone().normalize().multiplyScalar(camera.position.length()),
       camTargetStart: controls.target.clone(),
       camTargetEnd: initialControlsTarget.clone()
     };
