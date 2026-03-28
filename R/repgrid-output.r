@@ -458,6 +458,19 @@ df_out <- function(df, # data frame
     } # TODO: right side one row too much, maybe erase
   }
 
+  # colorize ideal element label in header
+  if (hatform && !is.null(grid@meta$ideal) && crayon::has_color()) {
+    j <- grid@meta$ideal
+    if (j < ceiling((nc + 1) / 2)) {
+      row_idx <- bottom.row - j
+      col_range <- (columns.start.offsetted[j] - lengths.colnames[j] + 1):columns.start.offsetted[j]
+    } else {
+      row_idx <- bottom.row - (nc - j) - 1
+      col_range <- columns.start.offsetted[j]:(columns.start.offsetted[j] + lengths.colnames[j] - 1)
+    }
+    mat.u.atomic[row_idx, col_range] <- yellow(mat.u.atomic[row_idx, col_range])
+  }
+
   # colorize constructs by pole preference
   pref_colors <- preferred_pole_colors(grid, col_neutral = "white")
   mat.left.atomic <- colorize_matrix_rows(mat.left.atomic, pref_colors$left)
@@ -553,7 +566,12 @@ setMethod("show", "repgrid", function(object) {
 
   # make data frame for data
   df.ratings <- as.data.frame(x@ratings[, , 1, drop = FALSE]) # extract scores
-  colnames(df.ratings) <- elements(x) # name columns
+  e_names <- elements(x)
+  idx <- x@meta$ideal
+  if (!is.null(idx)) {
+    e_names[idx] <- paste0("(\u2605) ", e_names[idx])
+  }
+  colnames(df.ratings) <- e_names # name columns
   left <- con[, 1]
   right <- con[, 2]
   df_out(df.ratings, left, right,

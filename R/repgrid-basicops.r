@@ -1398,6 +1398,13 @@ showMeta <- function(x) {
   cat("Number of constructs: ", length(x@constructs), "\n")
   pp <- preferredPoles(x)
   cat("Preferred poles defined: ", paste0(sum(!is.na(pp)), "/", length(pp)), "\n")
+  idx <- x@meta$ideal
+  if (!is.null(idx)) {
+    star <- if (crayon::has_color()) yellow("(\u2605) ") else "(*)  "
+    cat("Ideal element: ", idx, " - ", star, elements(x)[idx], "\n", sep = "")
+  } else {
+    cat("Ideal element:  not defined\n")
+  }
 }
 
 

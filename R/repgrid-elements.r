@@ -279,6 +279,101 @@ e.addElements <- function(x, name = NA, abbreviation = NA, status = NA, position
 # insertAt(numeric(0), 1:2)
 
 
+#' Get or set the ideal element of a repgrid
+#'
+#' The ideal element is stored as a grid property so it does not need to be
+#' passed to every function that uses it. The ideal can be set by element index
+#' (numeric) or by element name (character).
+#'
+#' @param x A `repgrid` object.
+#' @param value Numeric or character. Element index or name to set as ideal.
+#'   If `NULL` (default), the function acts as a getter. If `NA`, the ideal
+#'   element is cleared.
+#' @param index Logical. If `TRUE` (default), the getter returns the element
+#'   index. If `FALSE`, returns the element name.
+#' @return When used as a getter (no `value`): the ideal element index or name,
+#'   or `NA` if not set. When used as a setter (`value` provided): the modified
+#'   `repgrid` object (invisibly).
+#' @rdname ideal
+#' @export
+#' @examples
+#'
+#' x <- boeker
+#'
+#' ## set ideal element by index
+#' ideal(x) <- 1
+#' ideal(x)
+#'
+#' ## set ideal element by name
+#' ideal(x) <- "ideal self"
+#'
+#' ## functional form
+#' x <- ideal(x, 1)
+#'
+#' ## get ideal element index or name
+#' ideal(x)
+#' ideal(x, index = TRUE) # element index
+#' ideal(x, index = FALSE) # element name
+#'
+#' ## clear ideal element
+#' ideal(x) <- NA
+#'
+ideal <- function(x, value = NULL, index = TRUE) {
+  stop_if_not_is_repgrid(x)
+
+  # SETTER mode
+  if (!is.null(value)) {
+    # clear ideal
+    if (length(value) == 1 && is.na(value)) {
+      x@meta$ideal <- NULL
+      return(invisible(x))
+    }
+
+    # resolve character name to index
+    if (is.character(value)) {
+      e_names <- elements(x)
+      idx <- match(value, e_names)
+      if (is.na(idx)) {
+        stop("Element '", value, "' not found.")
+      }
+      value <- idx
+    }
+
+    if (!is.numeric(value) || length(value) != 1) {
+      stop("'value' must be a single numeric index or element name.")
+    }
+    ne <- getNoOfElements(x)
+    if (value < 1 || value > ne) {
+      stop("Element index out of range. Must be between 1 and ", ne, ".")
+    }
+    x@meta$ideal <- as.integer(value)
+    return(invisible(x))
+  }
+
+  # GETTER mode
+  idx <- x@meta$ideal
+  if (is.null(idx)) {
+    return(NA)
+  }
+  if (index) {
+    return(idx)
+  } else {
+    return(elements(x)[idx])
+  }
+}
+
+
+#' @param value Numeric or character. Element index or name to set as ideal.
+#'   Also accepts `NA` to clear the ideal element.
+#' @rdname ideal
+#' @export
+#'
+`ideal<-` <- function(x, value) {
+  if (is.null(value)) value <- NA
+  ideal(x, value)
+}
+
+
 ### maybe unnecessary functions ###
 
 # internal: e.removeNullElements removes non exsiting elements
