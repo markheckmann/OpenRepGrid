@@ -2457,13 +2457,18 @@
   resetBtn.className = "action-btn";
   resetBtn.textContent = "Reset Camera";
   resetBtn.addEventListener("click", function () {
-    _camAnim = {
+    var inverseQuat = _dataQuat.clone().invert();
+    _anim = {
+      type: "reset",
       startTime: performance.now(),
       duration: 800,
+      quatTarget: inverseQuat,
+      elemStart: elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; }),
+      conStart: constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; }),
+      calibStart: calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null,
+      axesQuatStart: axesGroup.quaternion.clone(),
       posStart: camera.position.clone(),
-      posEnd: initialCameraPosition.clone().normalize().multiplyScalar(camera.position.length()),
-      upStart: camera.up.clone(),
-      upEnd: new THREE.Vector3(0, 1, 0)
+      posEnd: initialCameraPosition.clone().normalize().multiplyScalar(camera.position.length())
     };
   });
   guiPanel.appendChild(resetBtn);
@@ -2940,29 +2945,31 @@
     }
     buildCalibration();
     rebuildAllProjections();
+    _dataQuat.identity();
+    axesGroup.quaternion.identity();
   }
 
-  // Camera-only animation: orbit the camera instead of rotating data.
-  // Visually identical to rotating the globe by hand.
-  var _camAnim = null; // { startTime, duration, posStart, posEnd, upStart, upEnd }
+  // Smooth animation state (data rotation, camera-only, or combined reset)
+  var _anim = null;
+  var _dataQuat = new THREE.Quaternion(); // accumulated data rotation (identity = original)
 
   function rotateToConstruct(conIdx) {
     var con = constructs[conIdx];
     var cDir = new THREE.Vector3(con.x, con.y, con.z).normalize();
     if (cDir.x < 0) cDir.negate(); // pick pole closer to +x for minimal rotation
 
-    // Q maps construct direction → +x. Applying Q^-1 to the camera gives
-    // the viewpoint from which the construct appears along the x-axis.
-    var Q = new THREE.Quaternion().setFromUnitVectors(cDir, new THREE.Vector3(1, 0, 0));
-    var Qinv = Q.clone().conjugate();
+    // Rotation that maps construct direction → +x axis
+    var targetQuat = new THREE.Quaternion().setFromUnitVectors(cDir, new THREE.Vector3(1, 0, 0));
 
-    _camAnim = {
+    _anim = {
+      type: "data",
       startTime: performance.now(),
       duration: 800,
-      posStart: camera.position.clone(),
-      posEnd: camera.position.clone().applyQuaternion(Qinv),
-      upStart: camera.up.clone(),
-      upEnd: camera.up.clone().applyQuaternion(Qinv)
+      quatTarget: targetQuat,
+      elemStart: elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; }),
+      conStart: constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; }),
+      calibStart: calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null,
+      axesQuatStart: axesGroup.quaternion.clone()
     };
   }
 
@@ -2971,31 +2978,155 @@
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  function tickCameraAnimation(now) {
-    if (!_camAnim) return;
-    var t = (now - _camAnim.startTime) / _camAnim.duration;
+  function tickAnimation(now) {
+    if (!_anim) return;
+    var t = (now - _anim.startTime) / _anim.duration;
     if (t >= 1) t = 1;
     var ease = easeInOutCubic(t);
 
-    // Slerp camera position on sphere (constant distance)
-    var startDir = _camAnim.posStart.clone().normalize();
-    var endDir = _camAnim.posEnd.clone().normalize();
-    var posQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
-    var interpPosQuat = new THREE.Quaternion().slerp(posQuat, ease);
-    camera.position.copy(_camAnim.posStart).applyQuaternion(interpPosQuat);
+    if (_anim.type === "data") {
+      // Slerp data rotation from identity to target
+      var quat = new THREE.Quaternion().slerp(_anim.quatTarget, ease);
+      var v = new THREE.Vector3();
 
-    // Slerp camera up vector
-    var upQuat = new THREE.Quaternion().setFromUnitVectors(
-      _camAnim.upStart.clone().normalize(),
-      _camAnim.upEnd.clone().normalize()
-    );
-    var interpUpQuat = new THREE.Quaternion().slerp(upQuat, ease);
-    camera.up.copy(_camAnim.upStart).applyQuaternion(interpUpQuat).normalize();
+      for (var i = 0; i < elements.length; i++) {
+        var s = _anim.elemStart[i];
+        v.set(s.x, s.y, s.z).applyQuaternion(quat);
+        elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
+        elementObjects[i].sphere.position.copy(v);
+        elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
+        elementObjects[i].glow.position.copy(v);
+      }
 
-    controls.update();
+      for (var i = 0; i < constructs.length; i++) {
+        var s = _anim.conStart[i];
+        v.set(s.x, s.y, s.z).applyQuaternion(quat);
+        constructs[i].x = v.x; constructs[i].y = v.y; constructs[i].z = v.z;
+
+        var len = v.length();
+        if (len === 0) len = 1;
+        var sc = constructSphereCoords[i];
+        sc.rx = v.x / len * sphereRadius; sc.ry = v.y / len * sphereRadius; sc.rz = v.z / len * sphereRadius;
+        sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
+
+        var obj = constructObjects[i];
+        obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+        obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+        obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+        obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+
+        var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+        var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+        var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+        var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+        var lq = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+        obj.line.position.copy(mid);
+        obj.line.quaternion.copy(lq);
+        obj._origLinePos = mid.clone();
+        obj._origLineQuat = lq.clone();
+      }
+
+      if (calibration && _anim.calibStart) {
+        for (var i = 0; i < calibration.construct_coords.length; i++) {
+          var s = _anim.calibStart[i];
+          v.set(s[0], s[1], s[2]).applyQuaternion(quat);
+          calibration.construct_coords[i][0] = v.x;
+          calibration.construct_coords[i][1] = v.y;
+          calibration.construct_coords[i][2] = v.z;
+        }
+      }
+
+      buildCalibration();
+      rebuildAllProjections();
+
+      // Rotate PC axes along with data
+      var axesQuat = quat.clone().multiply(_anim.axesQuatStart);
+      axesGroup.quaternion.copy(axesQuat);
+
+    } else if (_anim.type === "camera") {
+      // Slerp camera position on sphere (constant distance)
+      var startDir = _anim.posStart.clone().normalize();
+      var endDir = _anim.posEnd.clone().normalize();
+      var posQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
+      var interpPosQuat = new THREE.Quaternion().slerp(posQuat, ease);
+      camera.position.copy(_anim.posStart).applyQuaternion(interpPosQuat);
+      controls.update();
+
+    } else if (_anim.type === "reset") {
+      // Combined: animate data back to original + camera back to initial direction
+      var quat = new THREE.Quaternion().slerp(_anim.quatTarget, ease);
+      var v = new THREE.Vector3();
+
+      for (var i = 0; i < elements.length; i++) {
+        var s = _anim.elemStart[i];
+        v.set(s.x, s.y, s.z).applyQuaternion(quat);
+        elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
+        elementObjects[i].sphere.position.copy(v);
+        elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
+        elementObjects[i].glow.position.copy(v);
+      }
+
+      for (var i = 0; i < constructs.length; i++) {
+        var s = _anim.conStart[i];
+        v.set(s.x, s.y, s.z).applyQuaternion(quat);
+        constructs[i].x = v.x; constructs[i].y = v.y; constructs[i].z = v.z;
+
+        var len = v.length();
+        if (len === 0) len = 1;
+        var sc = constructSphereCoords[i];
+        sc.rx = v.x / len * sphereRadius; sc.ry = v.y / len * sphereRadius; sc.rz = v.z / len * sphereRadius;
+        sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
+
+        var obj = constructObjects[i];
+        obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+        obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+        obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+        obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+
+        var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+        var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+        var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+        var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+        var lq = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+        obj.line.position.copy(mid);
+        obj.line.quaternion.copy(lq);
+        obj._origLinePos = mid.clone();
+        obj._origLineQuat = lq.clone();
+      }
+
+      if (calibration && _anim.calibStart) {
+        for (var i = 0; i < calibration.construct_coords.length; i++) {
+          var s = _anim.calibStart[i];
+          v.set(s[0], s[1], s[2]).applyQuaternion(quat);
+          calibration.construct_coords[i][0] = v.x;
+          calibration.construct_coords[i][1] = v.y;
+          calibration.construct_coords[i][2] = v.z;
+        }
+      }
+
+      buildCalibration();
+      rebuildAllProjections();
+
+      // Rotate PC axes back along with data
+      var axesQuat = quat.clone().multiply(_anim.axesQuatStart);
+      axesGroup.quaternion.copy(axesQuat);
+
+      // Camera slerp
+      var startDir = _anim.posStart.clone().normalize();
+      var endDir = _anim.posEnd.clone().normalize();
+      var posQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
+      var interpPosQuat = new THREE.Quaternion().slerp(posQuat, ease);
+      camera.position.copy(_anim.posStart).applyQuaternion(interpPosQuat);
+      controls.update();
+    }
 
     if (t >= 1) {
-      _camAnim = null;
+      if (_anim.type === "data") {
+        _dataQuat.premultiply(_anim.quatTarget);
+      } else if (_anim.type === "reset") {
+        _dataQuat.identity();
+      }
+      _anim = null;
     }
   }
 
@@ -3749,8 +3880,8 @@
     }
 
     // Smooth rotation animation
-    if (_camAnim) {
-      tickCameraAnimation(performance.now());
+    if (_anim) {
+      tickAnimation(performance.now());
     }
 
     // Rebuild calibration on camera move (throttled, ticks face viewer)
