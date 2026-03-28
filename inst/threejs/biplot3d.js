@@ -511,9 +511,9 @@
         var ty = factor * Ci[1];
         var tz = factor * Ci[2];
 
-        // Skip ticks too close to origin
+        // Skip ticks too close to origin or outside the sphere
         var dist = Math.sqrt(tx * tx + ty * ty + tz * tz);
-        if (dist < 0.03) continue;
+        if (dist < 0.03 || dist > 1.0) continue;
 
         // Tick line (cylinder for variable thickness)
         var t1 = new THREE.Vector3(
