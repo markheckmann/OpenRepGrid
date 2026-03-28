@@ -14,6 +14,15 @@
   When enabled, cos² values are annotated below labels and colors are faded proportionally to quality
   (well-represented items are opaque, poorly represented ones are transparent). `biplot2d` now
   invisibly returns a rich list with coordinates, quality values, variance explained, and scaling factors.
+* `biplotThreejs`: New interactive 3D biplot using three.js. Includes calibrated axes, element
+  projections with error visualization, profile plots with benchmarks, construct alignment to PC1,
+  preference-aware pole coloring, and a three-panel layout with grid table, 3D scene, and options.
+  Wrappers `biplotSlaterThreejs` and `biplotEsaThreejs` provide common presets.
+* `ideal` / `ideal<-`: New getter/setter to store the ideal element as a grid property. Once set,
+  functions `alignByIdeal`, `preferredPolesByIdeal`, `indexDilemmatic`, `indexSelfConstruction`,
+  `indexDilemma`, and `indexDilemmaInternal` use it as the default, so the ideal does not need to be
+  passed repeatedly. The ideal element is shown in the grid's console output with a (★) marker.
+  Subsetting a grid updates or clears the ideal automatically (#81).
 * drop `{styler}` dependency (#72)
 
 # OpenRepGrid 0.1.18
