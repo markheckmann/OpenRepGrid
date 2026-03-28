@@ -2700,9 +2700,20 @@
     var newHoveredFootElem = -1;
     var newHoveredFootCon = -1;
 
-    if (intersects.length > 0) {
-      var obj = intersects[0].object;
-      var ud = obj.userData;
+    // Find first visible intersect
+    var hit = null;
+    for (var hi = 0; hi < intersects.length; hi++) {
+      var hObj = intersects[hi].object;
+      if (!hObj.visible) continue;
+      var hud = hObj.userData;
+      if (hud && hud.type === "element" && !elementVisible[hud.index]) continue;
+      if (hud && hud.type === "construct" && !constructVisible[hud.index]) continue;
+      hit = hObj;
+      break;
+    }
+
+    if (hit) {
+      var ud = hit.userData;
       if (ud && ud.name) {
         var qualStr = ud.quality !== undefined
           ? " (quality: " + (ud.quality * 100).toFixed(1) + "%)" : "";
