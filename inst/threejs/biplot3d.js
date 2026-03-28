@@ -2457,10 +2457,31 @@
   resetBtn.className = "action-btn";
   resetBtn.textContent = "Reset Camera";
   resetBtn.addEventListener("click", function () {
-    restoreOriginalCoords();
-    camera.position.copy(initialCameraPosition);
-    controls.target.copy(initialControlsTarget);
-    controls.update();
+    // Compute quaternion that rotates current coords back to initial
+    // Current state = initialCoords rotated by some accumulated Q
+    // We need Q^-1 to get back. Find it by comparing a construct direction.
+    // Use axesGroup.quaternion which tracks the accumulated rotation.
+    var accumulated = axesGroup.quaternion.clone();
+    var inverseQuat = accumulated.clone().conjugate();
+
+    // Save current coords as start for animation
+    var elemStart = elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; });
+    var conStart = constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; });
+    var calibStart = calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null;
+
+    _rotAnim = {
+      startTime: performance.now(),
+      duration: 800,
+      quatTarget: inverseQuat,
+      elemStart: elemStart,
+      conStart: conStart,
+      calibStart: calibStart,
+      axesQuatStart: accumulated,
+      camPosStart: camera.position.clone(),
+      camPosEnd: initialCameraPosition.clone(),
+      camTargetStart: controls.target.clone(),
+      camTargetEnd: initialControlsTarget.clone()
+    };
   });
   guiPanel.appendChild(resetBtn);
 
@@ -3089,6 +3110,13 @@
 
     // Rotate PC axes group along with everything else
     axesGroup.quaternion.copy(_rotAnim.axesQuatStart).multiply(quat);
+
+    // Optionally animate camera position and target
+    if (_rotAnim.camPosStart) {
+      camera.position.lerpVectors(_rotAnim.camPosStart, _rotAnim.camPosEnd, ease);
+      controls.target.lerpVectors(_rotAnim.camTargetStart, _rotAnim.camTargetEnd, ease);
+      controls.update();
+    }
 
     buildCalibration();
     rebuildAllProjections();
