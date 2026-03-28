@@ -719,6 +719,7 @@
             gridHoveredConstruct = -1;
             if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
           }
+          cellHoverLeave();
         });
 
         row.addEventListener("click", function () {
@@ -742,15 +743,98 @@
   }
   setupGridTableConstructEvents();
 
-  // --- Grid table cell double-click → show projection ---
+  // --- Grid table cell interactions (hover + double-click) ---
+  var cellHoverState = null; // tracks transient state for cleanup
+
+  function cellHoverEnter(ei, ci) {
+    // Save prior state
+    var prev = {
+      ei: ei, ci: ci,
+      constructLineVisible: constructLineVisible[ci],
+      constructVisible: constructVisible[ci],
+      elementProjections: elementProjections[ei]
+    };
+    cellHoverState = prev;
+
+    // Temporarily show construct (if hidden) and its axis
+    if (!constructVisible[ci]) {
+      constructVisible[ci] = true;
+    }
+    if (!constructLineVisible[ci]) {
+      constructLineVisible[ci] = true;
+    }
+    buildCalibration();
+
+    // Temporarily show projections for this element
+    if (!elementProjections[ei]) {
+      elementProjections[ei] = true;
+    }
+    buildProjectionsForElement(ei);
+
+    // Highlight element and cell
+    highlightElement(ei);
+    highlightGridCell(ei, ci);
+  }
+
+  function cellHoverLeave() {
+    if (!cellHoverState) return;
+    var prev = cellHoverState;
+    cellHoverState = null;
+
+    // Restore construct visibility
+    if (!prev.constructVisible) {
+      constructVisible[prev.ci] = false;
+    }
+    if (!prev.constructLineVisible) {
+      constructLineVisible[prev.ci] = false;
+    }
+    buildCalibration();
+
+    // Restore element projection state
+    if (!prev.elementProjections) {
+      elementProjections[prev.ei] = false;
+    }
+    buildProjectionsForElement(prev.ei);
+
+    // Un-highlight element and cell
+    unhighlightElement(prev.ei);
+    unhighlightGridCell();
+  }
+
   (function () {
     var cells = document.querySelectorAll("#grid-table td.rating-cell");
     for (var c = 0; c < cells.length; c++) {
       (function (td) {
+        td.addEventListener("mouseenter", function () {
+          var ei = parseInt(td.dataset.elementIndex);
+          var ci = parseInt(td.dataset.constructIndex);
+          // Clean up previous cell hover if moving between cells
+          if (cellHoverState && (cellHoverState.ei !== ei || cellHoverState.ci !== ci)) {
+            cellHoverLeave();
+          }
+          if (!cellHoverState) {
+            cellHoverEnter(ei, ci);
+          }
+        });
+
+        td.addEventListener("mouseleave", function (e) {
+          // Only leave if moving to a non-rating-cell (row leave handles cleanup too)
+          var related = e.relatedTarget;
+          if (related && related.classList && related.classList.contains("rating-cell")) return;
+          cellHoverLeave();
+        });
+
         td.addEventListener("dblclick", function (e) {
           e.stopPropagation(); // prevent row dblclick
           var ei = parseInt(td.dataset.elementIndex);
           var ci = parseInt(td.dataset.constructIndex);
+
+          // On double-click, make the state permanent — clear transient tracking
+          if (cellHoverState) {
+            cellHoverState.constructLineVisible = true;
+            cellHoverState.elementProjections = true;
+          }
+
           // Ensure element is visible
           if (!elemCheckboxes[ei].checked) {
             elemCheckboxes[ei].checked = true;
