@@ -1586,10 +1586,45 @@
     sectionDiv.appendChild(btn);
   }
 
-  // --- Display section ---
+  // --- Display section with sub-tabs ---
   var displaySection = addSectionTitle("Display", true);
   var displayBody = displaySection.body;
-  var cbDarkMode = addToggle(displayBody, "Dark Mode", true, function (v) {
+
+  // Sub-tab bar
+  var displayTabBar = document.createElement("div");
+  displayTabBar.className = "sub-tab-bar";
+  var subTabNames = ["General", "Elements", "Constructs", "Axes"];
+  var subTabBtns = [];
+  var subTabPanels = [];
+
+  subTabNames.forEach(function (name, ti) {
+    var btn = document.createElement("button");
+    btn.className = "sub-tab-btn" + (ti === 0 ? " active" : "");
+    btn.textContent = name;
+    btn.addEventListener("click", function () {
+      subTabBtns.forEach(function (b) { b.classList.remove("active"); });
+      subTabPanels.forEach(function (p) { p.classList.remove("active"); });
+      btn.classList.add("active");
+      subTabPanels[ti].classList.add("active");
+    });
+    displayTabBar.appendChild(btn);
+    subTabBtns.push(btn);
+
+    var panel = document.createElement("div");
+    panel.className = "sub-tab-panel" + (ti === 0 ? " active" : "");
+    subTabPanels.push(panel);
+  });
+
+  displayBody.appendChild(displayTabBar);
+  subTabPanels.forEach(function (p) { displayBody.appendChild(p); });
+
+  var tabGeneral = subTabPanels[0];
+  var tabElements = subTabPanels[1];
+  var tabConstructs = subTabPanels[2];
+  var tabAxes = subTabPanels[3];
+
+  // === General tab ===
+  var cbDarkMode = addToggle(tabGeneral, "Dark Mode", true, function (v) {
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
     wireUniforms.uOpacityFront.value = v ? 0.25 : 0.15;
@@ -1607,8 +1642,8 @@
       updateElementGlows();
     }
   });
-  var cbWireframe = addToggle(displayBody, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
-  var cbDepthFade = addToggle(displayBody, "Depth Fade", true, function (v) {
+  var cbWireframe = addToggle(tabGeneral, "Wireframe Sphere", true, function (v) { sphereGroup.visible = v; });
+  var cbDepthFade = addToggle(tabGeneral, "Depth Fade", true, function (v) {
     wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
   });
 
@@ -1622,7 +1657,7 @@
   });
   sphereColorLabel.appendChild(sphereColorInput);
   sphereColorLabel.appendChild(document.createTextNode(" Sphere Color"));
-  displayBody.appendChild(sphereColorLabel);
+  tabGeneral.appendChild(sphereColorLabel);
 
   // Sphere grid density
   var gridDensityLabel = document.createElement("label");
@@ -1638,8 +1673,13 @@
   });
   gridDensityLabel.appendChild(gridDensityRange);
   gridDensityLabel.appendChild(document.createTextNode(" Grid Lines"));
-  displayBody.appendChild(gridDensityLabel);
+  tabGeneral.appendChild(gridDensityLabel);
 
+  var cbDeconflict = addToggle(tabGeneral, "Deconflict Labels", true, function (v) {
+    labelDeconflict = v;
+  });
+
+  // === Elements tab ===
   // Element color chooser
   var elemColorLabel = document.createElement("label");
   var elemColorInput = document.createElement("input");
@@ -1651,7 +1691,14 @@
   });
   elemColorLabel.appendChild(elemColorInput);
   elemColorLabel.appendChild(document.createTextNode(" Element Color"));
-  displayBody.appendChild(elemColorLabel);
+  tabElements.appendChild(elemColorLabel);
+
+  var cbElemLabels = addToggle(tabElements, "Element Labels", true, function (v) {
+    for (var i = 0; i < elements.length; i++) {
+      elementLabelVisible[i] = v;
+      elementObjects[i].label.visible = v && elementVisible[i];
+    }
+  });
 
   // Element label size
   var elemSizeLabel = document.createElement("label");
@@ -1667,8 +1714,31 @@
     }
   });
   elemSizeLabel.appendChild(elemSizeRange);
-  elemSizeLabel.appendChild(document.createTextNode(" Element Labels"));
-  displayBody.appendChild(elemSizeLabel);
+  elemSizeLabel.appendChild(document.createTextNode(" Label Size"));
+  tabElements.appendChild(elemSizeLabel);
+
+  // Projection line thickness
+  var projWidthLabel = document.createElement("label");
+  var projWidthRange = document.createElement("input");
+  projWidthRange.type = "range";
+  projWidthRange.min = "0.5";
+  projWidthRange.max = "5";
+  projWidthRange.step = "0.5";
+  projWidthRange.value = "2";
+  projWidthRange.addEventListener("input", function () {
+    projLineScale = parseFloat(projWidthRange.value);
+    rebuildAllProjections();
+  });
+  projWidthLabel.appendChild(projWidthRange);
+  projWidthLabel.appendChild(document.createTextNode(" Projection Thickness"));
+  tabElements.appendChild(projWidthLabel);
+
+  // === Constructs tab ===
+  var cbConLabels = addToggle(tabConstructs, "Construct Labels", true, function (v) {
+    for (var i = 0; i < constructs.length; i++) {
+      constructLabelVisible[i] = v;
+    }
+  });
 
   // Construct label size
   var conSizeLabel = document.createElement("label");
@@ -1685,8 +1755,8 @@
     }
   });
   conSizeLabel.appendChild(conSizeRange);
-  conSizeLabel.appendChild(document.createTextNode(" Construct Labels"));
-  displayBody.appendChild(conSizeLabel);
+  conSizeLabel.appendChild(document.createTextNode(" Label Size"));
+  tabConstructs.appendChild(conSizeLabel);
 
   // Construct axis color chooser
   var axisColorLabel = document.createElement("label");
@@ -1701,8 +1771,8 @@
     }
   });
   axisColorLabel.appendChild(axisColorInput);
-  axisColorLabel.appendChild(document.createTextNode(" Construct Axis Color"));
-  displayBody.appendChild(axisColorLabel);
+  axisColorLabel.appendChild(document.createTextNode(" Axis Color"));
+  tabConstructs.appendChild(axisColorLabel);
 
   // Construct axis thickness
   var axisWidthLabel = document.createElement("label");
@@ -1721,49 +1791,9 @@
   });
   axisWidthLabel.appendChild(axisWidthRange);
   axisWidthLabel.appendChild(document.createTextNode(" Axis Thickness"));
-  displayBody.appendChild(axisWidthLabel);
+  tabConstructs.appendChild(axisWidthLabel);
 
-  // Projection line thickness
-  var projWidthLabel = document.createElement("label");
-  var projWidthRange = document.createElement("input");
-  projWidthRange.type = "range";
-  projWidthRange.min = "0.5";
-  projWidthRange.max = "5";
-  projWidthRange.step = "0.5";
-  projWidthRange.value = "2";
-  projWidthRange.addEventListener("input", function () {
-    projLineScale = parseFloat(projWidthRange.value);
-    rebuildAllProjections();
-  });
-  projWidthLabel.appendChild(projWidthRange);
-  projWidthLabel.appendChild(document.createTextNode(" Projection Thickness"));
-  displayBody.appendChild(projWidthLabel);
-
-  // PC axis thickness
-  var pcAxisLabel = document.createElement("label");
-  var pcAxisRange = document.createElement("input");
-  pcAxisRange.type = "range";
-  pcAxisRange.min = "0.5";
-  pcAxisRange.max = "5";
-  pcAxisRange.step = "0.5";
-  pcAxisRange.value = "1";
-  pcAxisRange.addEventListener("input", function () {
-    var s = parseFloat(pcAxisRange.value);
-    for (var i = 0; i < pcAxisMeshes.length; i++) {
-      pcAxisMeshes[i].scale.set(s, 1, s);
-    }
-  });
-  pcAxisLabel.appendChild(pcAxisRange);
-  pcAxisLabel.appendChild(document.createTextNode(" PC Axis Thickness"));
-  displayBody.appendChild(pcAxisLabel);
-
-  var cbAxes = addToggle(displayBody, "Axes", false, function (v) {
-    axesGroup.visible = v;
-    for (var a = 0; a < axisLabels.length; a++) {
-      axisLabels[a].visible = v;
-    }
-  });
-  var cbCalLabels = addToggle(displayBody, "Calibration Labels", true, function (v) {
+  var cbCalLabels = addToggle(tabConstructs, "Calibration Labels", true, function (v) {
     calibrationLabelsVisible = v;
     for (var k = 0; k < calibrationLabelsGroup.children.length; k++) {
       calibrationLabelsGroup.children[k].visible = v;
@@ -1786,22 +1816,7 @@
   });
   calSizeLabel.appendChild(calSizeRange);
   calSizeLabel.appendChild(document.createTextNode(" Calibration Size"));
-  displayBody.appendChild(calSizeLabel);
-
-  var cbElemLabels = addToggle(displayBody, "Element Labels", true, function (v) {
-    for (var i = 0; i < elements.length; i++) {
-      elementLabelVisible[i] = v;
-      elementObjects[i].label.visible = v && elementVisible[i];
-    }
-  });
-  var cbConLabels = addToggle(displayBody, "Construct Labels", true, function (v) {
-    for (var i = 0; i < constructs.length; i++) {
-      constructLabelVisible[i] = v;
-    }
-  });
-  var cbDeconflict = addToggle(displayBody, "Deconflict Labels", true, function (v) {
-    labelDeconflict = v;
-  });
+  tabConstructs.appendChild(calSizeLabel);
 
   // Elevation filter slider
   var elevLabel = document.createElement("label");
@@ -1821,7 +1836,33 @@
   elevRange.addEventListener("input", function () {
     elevLabel.lastChild.textContent = " Elevation Filter (" + elevRange.value + "\u00B0)";
   });
-  displayBody.appendChild(elevLabel);
+  tabConstructs.appendChild(elevLabel);
+
+  // === Axes tab ===
+  var cbAxes = addToggle(tabAxes, "Axes", false, function (v) {
+    axesGroup.visible = v;
+    for (var a = 0; a < axisLabels.length; a++) {
+      axisLabels[a].visible = v;
+    }
+  });
+
+  // PC axis thickness
+  var pcAxisLabel = document.createElement("label");
+  var pcAxisRange = document.createElement("input");
+  pcAxisRange.type = "range";
+  pcAxisRange.min = "0.5";
+  pcAxisRange.max = "5";
+  pcAxisRange.step = "0.5";
+  pcAxisRange.value = "1";
+  pcAxisRange.addEventListener("input", function () {
+    var s = parseFloat(pcAxisRange.value);
+    for (var i = 0; i < pcAxisMeshes.length; i++) {
+      pcAxisMeshes[i].scale.set(s, 1, s);
+    }
+  });
+  pcAxisLabel.appendChild(pcAxisRange);
+  pcAxisLabel.appendChild(document.createTextNode(" PC Axis Thickness"));
+  tabAxes.appendChild(pcAxisLabel);
 
   // Hint text
   var hint = document.createElement("div");
