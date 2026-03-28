@@ -33,9 +33,21 @@
   document.body.classList.add("dark");
   scene.background = new THREE.Color(0x1a1a1a);
 
-  var camera = new THREE.PerspectiveCamera(50, width / height, 0.01, 100);
-  camera.position.set(0, 0, 3.5);
-  camera.lookAt(0, 0, 0);
+  var perspCamera = new THREE.PerspectiveCamera(50, width / height, 0.01, 100);
+  perspCamera.position.set(0, 0, 3.5);
+  perspCamera.lookAt(0, 0, 0);
+
+  var orthoHalfSize = 2.0;
+  var aspect = width / height;
+  var orthoCamera = new THREE.OrthographicCamera(
+    -orthoHalfSize * aspect, orthoHalfSize * aspect,
+    orthoHalfSize, -orthoHalfSize, 0.01, 100
+  );
+  orthoCamera.position.set(0, 0, 3.5);
+  orthoCamera.lookAt(0, 0, 0);
+
+  var camera = perspCamera;
+  var isOrthographic = false;
 
   var renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(width, height);
@@ -56,6 +68,32 @@
   controls.rotateSpeed = 0.8;
   controls.zoomSpeed = 1.0;
   controls.panSpeed = 0.8;
+
+  function switchCamera(toOrtho) {
+    isOrthographic = toOrtho;
+    var oldCam = camera;
+    camera = toOrtho ? orthoCamera : perspCamera;
+
+    // Copy position and orientation from old camera
+    camera.position.copy(oldCam.position);
+    camera.quaternion.copy(oldCam.quaternion);
+    camera.up.copy(oldCam.up);
+
+    if (toOrtho) {
+      // Match ortho frustum to current perspective view
+      var dist = oldCam.position.length();
+      var halfH = dist * Math.tan(THREE.Math.degToRad(perspCamera.fov / 2));
+      var asp = width / height;
+      orthoCamera.left = -halfH * asp;
+      orthoCamera.right = halfH * asp;
+      orthoCamera.top = halfH;
+      orthoCamera.bottom = -halfH;
+      orthoCamera.updateProjectionMatrix();
+    }
+
+    controls.object = camera;
+    controls.update();
+  }
 
   var initialCameraPosition = camera.position.clone();
   var initialControlsTarget = controls.target.clone();
@@ -1805,6 +1843,9 @@
   var tabAxes = subTabPanels[3];
 
   // === General tab ===
+  var cbOrtho = addToggle(tabGeneral, "Orthographic", false, function (v) {
+    switchCamera(v);
+  });
   var cbDarkMode = addToggle(tabGeneral, "Dark Mode", true, function (v) {
     document.body.classList.toggle("dark", v);
     scene.background = new THREE.Color(v ? 0x1a1a1a : 0xffffff);
@@ -2243,6 +2284,7 @@
       selectedConstructs: selectedConstructs.slice(),
       benchmarkElements: benchmarkElements.slice(),
       selectedElementIndex: selectedElementIndex,
+      orthographic: cbOrtho.checked,
       darkMode: cbDarkMode.checked,
       wireframe: cbWireframe.checked,
       depthFade: cbDepthFade.checked,
@@ -2287,6 +2329,7 @@
     controls.update();
 
     // Display toggles
+    if (s.orthographic !== undefined) setCheckbox(cbOrtho, s.orthographic);
     setCheckbox(cbDarkMode, s.darkMode);
     setCheckbox(cbWireframe, s.wireframe);
     setCheckbox(cbDepthFade, s.depthFade);
@@ -3097,8 +3140,14 @@
   function onResize() {
     width = sceneContainer.clientWidth;
     height = sceneContainer.clientHeight;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    var asp = width / height;
+    perspCamera.aspect = asp;
+    perspCamera.updateProjectionMatrix();
+    // Update ortho frustum on resize
+    var halfH = orthoCamera.top;
+    orthoCamera.left = -halfH * asp;
+    orthoCamera.right = halfH * asp;
+    orthoCamera.updateProjectionMatrix();
     renderer.setSize(width, height);
     labelRenderer.setSize(width, height);
     if (selectedElementIndex >= 0) updateProfilePlot(selectedElementIndex);
@@ -3309,9 +3358,13 @@
     // Orient and scale silhouette ring to match sphere's visible edge
     if (silhouetteGroup.visible) {
       silhouetteGroup.quaternion.setFromRotationMatrix(camera.matrixWorld);
-      var camDist = camera.position.length();
-      var silR = camDist > 1 ? camDist / Math.sqrt(camDist * camDist - 1) : 1;
-      silhouetteGroup.scale.setScalar(silR);
+      if (isOrthographic) {
+        silhouetteGroup.scale.setScalar(1);
+      } else {
+        var camDist = camera.position.length();
+        var silR = camDist > 1 ? camDist / Math.sqrt(camDist * camDist - 1) : 1;
+        silhouetteGroup.scale.setScalar(silR);
+      }
     }
 
     // When elevation filter is active, rebuild projections & calibration on camera move
