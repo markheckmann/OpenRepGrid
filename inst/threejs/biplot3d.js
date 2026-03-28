@@ -178,6 +178,7 @@
   var hoveredElementIndex = -1;
   var hoveredConstructIndex = -1;
   var hoveredFootConstructIndex = -1; // construct index when hovering a projection foot in 3D
+  var hoveredFootElementIndex = -1;   // element index of the hovered projection foot
 
   // --- Selection ---
   var selectedElements = []; // indices of selected elements
@@ -1502,10 +1503,11 @@
         var by = topPad + r * rowHeight + rowHeight / 2;
         if (bRating != null && !isNaN(bRating)) {
           var bx = leftMargin + (bRating - scaleMin) / scaleRange * plotWidth;
-          bPoints.push({ x: bx, y: by });
+          bPoints.push({ x: bx, y: by, ci: ci });
         }
       }
       var bColor = benchColors[bi % benchColors.length];
+      var bFootHovered = hoveredFootConstructIndex >= 0 && hoveredFootElementIndex === bIdx;
       // Dashed line
       if (bPoints.length > 1) {
         profileCtx.strokeStyle = bColor;
@@ -1523,10 +1525,17 @@
       }
       // Small dots
       for (var bp = 0; bp < bPoints.length; bp++) {
+        var bIsHovered = bFootHovered && bPoints[bp].ci === hoveredFootConstructIndex;
+        if (bIsHovered) {
+          profileCtx.beginPath();
+          profileCtx.arc(bPoints[bp].x, bPoints[bp].y, 10, 0, Math.PI * 2);
+          profileCtx.fillStyle = isDark ? "rgba(80,160,255,0.2)" : "rgba(0,100,200,0.15)";
+          profileCtx.fill();
+        }
         profileCtx.beginPath();
-        profileCtx.arc(bPoints[bp].x, bPoints[bp].y, 2.5, 0, Math.PI * 2);
+        profileCtx.arc(bPoints[bp].x, bPoints[bp].y, bIsHovered ? 5 : 2.5, 0, Math.PI * 2);
         profileCtx.fillStyle = bColor;
-        profileCtx.globalAlpha = 0.7;
+        profileCtx.globalAlpha = bIsHovered ? 1.0 : 0.7;
         profileCtx.fill();
         profileCtx.globalAlpha = 1.0;
       }
@@ -1547,7 +1556,7 @@
     // Draw dots (main element)
     for (var p = 0; p < points.length; p++) {
       var isHoveredPoint = (profilePointHover && constructOrder[p].index === profilePointHover.ci) ||
-        (hoveredFootConstructIndex >= 0 && constructOrder[p].index === hoveredFootConstructIndex);
+        (hoveredFootConstructIndex >= 0 && hoveredFootElementIndex === elemIdx && constructOrder[p].index === hoveredFootConstructIndex);
       var dotRadius = isHoveredPoint ? 6 : 3.5;
       if (isHoveredPoint) {
         // Glow ring behind hovered point
@@ -2766,10 +2775,13 @@
     }
 
     // Highlight corresponding point in profile plot when hovering projection foot
-    var newFootCon = (newHoveredFootElem >= 0 && newHoveredFootCon >= 0 &&
-      newHoveredFootElem === selectedElementIndex) ? newHoveredFootCon : -1;
-    if (newFootCon !== hoveredFootConstructIndex) {
+    var footIsDisplayed = newHoveredFootElem >= 0 && newHoveredFootCon >= 0 &&
+      (newHoveredFootElem === selectedElementIndex || benchmarkElements.indexOf(newHoveredFootElem) >= 0);
+    var newFootCon = footIsDisplayed ? newHoveredFootCon : -1;
+    var newFootElem = footIsDisplayed ? newHoveredFootElem : -1;
+    if (newFootCon !== hoveredFootConstructIndex || newFootElem !== hoveredFootElementIndex) {
       hoveredFootConstructIndex = newFootCon;
+      hoveredFootElementIndex = newFootElem;
       if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
     }
 
@@ -3316,6 +3328,7 @@
     hoveredElementIndex = -1;
     hoveredConstructIndex = -1;
     hoveredFootConstructIndex = -1;
+    hoveredFootElementIndex = -1;
     unhighlightGridCell();
     highlightGridColumn(-1);
     highlightGridRow(-1);
