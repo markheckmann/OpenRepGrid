@@ -420,7 +420,7 @@
     labelDiv.textContent = el.name;
     labelDiv.style.color = "#bbbbbb";
     var label = new THREE.CSS2DObject(labelDiv);
-    label.position.set(el.x, el.y + 0.05, el.z);
+    label.position.set(el.x, el.y, el.z);
     elementLabelsGroup.add(label);
 
     elementObjects.push({ sphere: sphere, label: label, glow: glow });
@@ -2982,7 +2982,7 @@
       elements[i].y = initialElements[i].y;
       elements[i].z = initialElements[i].z;
       elementObjects[i].sphere.position.set(elements[i].x, elements[i].y, elements[i].z);
-      elementObjects[i].label.position.set(elements[i].x, elements[i].y + 0.05, elements[i].z);
+      elementObjects[i].label.position.set(elements[i].x, elements[i].y, elements[i].z);
       elementObjects[i].glow.position.set(elements[i].x, elements[i].y, elements[i].z);
     }
     for (var i = 0; i < constructs.length; i++) {
@@ -3072,7 +3072,7 @@
         v.set(s.x, s.y, s.z).applyQuaternion(quat);
         elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
         elementObjects[i].sphere.position.copy(v);
-        elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
+        elementObjects[i].label.position.set(v.x, v.y, v.z);
         elementObjects[i].glow.position.copy(v);
       }
 
@@ -3150,7 +3150,7 @@
         v.set(s.x, s.y, s.z).applyQuaternion(quat);
         elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
         elementObjects[i].sphere.position.copy(v);
-        elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
+        elementObjects[i].label.position.set(v.x, v.y, v.z);
         elementObjects[i].glow.position.copy(v);
       }
 
@@ -3833,8 +3833,23 @@
     // Project globe center to screen (NDC x)
     _projVec.set(0, 0, 0).project(camera);
     var centerX = _projVec.x;
+    var centerY = _projVec.y;
     // Regex handles browser normalization: translate(-50%,-50%) may become translate(-50%, -50%)
     var alignRe = /translate\(-50%,\s*-50%\)/;
+
+    // Element labels: offset away from globe center in screen space
+    var elNudge = 8; // pixels
+    for (var i = 0; i < elementObjects.length; i++) {
+      if (!elementObjects[i].label.visible) continue;
+      var el = elementObjects[i];
+      var pos = el.label.position;
+      _projVec.set(pos.x, pos.y, pos.z).project(camera);
+      var above = _projVec.y >= centerY;
+      var vAlign = above ? "-100%" : "0%";
+      var vNudge = above ? -elNudge : elNudge;
+      var elEl = el.label.element;
+      elEl.style.transform = elEl.style.transform.replace(alignRe, "translate(-50%, " + vAlign + ") translate(0px, " + vNudge + "px)");
+    }
 
     for (var i = 0; i < constructs.length; i++) {
       if (!constructVisible[i]) continue;
