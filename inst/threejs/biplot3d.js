@@ -608,7 +608,8 @@
         );
         var tickDist = t1.distanceTo(t2);
         var tickCylGeom = new THREE.CylinderBufferGeometry(0.001, 0.001, tickDist, 4, 1);
-        var tickMat = new THREE.MeshBasicMaterial({ color: 0x666666, opacity: 0.5, transparent: true });
+        var axisCol = constructObjects[i].line.material.color;
+        var tickMat = new THREE.MeshBasicMaterial({ color: axisCol.clone(), opacity: 0.5, transparent: true });
         var tickMesh = new THREE.Mesh(tickCylGeom, tickMat);
         var tickMid = new THREE.Vector3().addVectors(t1, t2).multiplyScalar(0.5);
         tickMesh.position.copy(tickMid);
@@ -622,6 +623,7 @@
         // Tick label
         var tickLabelDiv = document.createElement("div");
         tickLabelDiv.className = "label-calibration";
+        tickLabelDiv.style.color = "#" + axisCol.getHexString();
         tickLabelDiv.textContent = v;
         if (typeof calSizeRange !== "undefined") {
           var calVal = parseInt(calSizeRange.value);
@@ -2137,6 +2139,7 @@
         constructObjects[i].line.material.color.set(axisColorInput.value);
       }
     }
+    buildCalibration();
   });
   axisColorLabel.appendChild(axisColorInput);
   axisColorLabel.appendChild(document.createTextNode(" Axis Color"));
