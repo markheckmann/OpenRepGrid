@@ -2937,14 +2937,16 @@
     rebuildAllProjections();
   }
 
-  function rotateToConstruct(conIdx) {
+  // Animation state for smooth rotation
+  var _rotAnim = null; // { startTime, duration, quatStart, quatTarget, elemStart, conStart, calibStart }
+
+  function computeRotationQuat(conIdx) {
     var con = constructs[conIdx];
 
     // New x-axis: construct direction (normalized)
     var newX = new THREE.Vector3(con.x, con.y, con.z).normalize();
 
     // Project element coordinates onto plane perpendicular to newX
-    // to find the direction of maximum variance → new y-axis
     var projected = [];
     for (var i = 0; i < elements.length; i++) {
       var e = new THREE.Vector3(elements[i].x, elements[i].y, elements[i].z);
@@ -2952,13 +2954,12 @@
       projected.push(e.clone().addScaledVector(newX, -along));
     }
 
-    // 2D PCA in the perpendicular plane: find two orthonormal basis vectors
+    // 2D PCA in the perpendicular plane
     var arbUp = new THREE.Vector3(0, 1, 0);
     if (Math.abs(newX.dot(arbUp)) > 0.9) arbUp.set(0, 0, 1);
     var basisA = new THREE.Vector3().crossVectors(newX, arbUp).normalize();
     var basisB = new THREE.Vector3().crossVectors(newX, basisA).normalize();
 
-    // Compute 2x2 covariance matrix of projections in (basisA, basisB) coords
     var saa = 0, sab = 0, sbb = 0;
     for (var i = 0; i < projected.length; i++) {
       var a = projected[i].dot(basisA);
@@ -2968,11 +2969,10 @@
       sbb += b * b;
     }
 
-    // Eigendecomposition of 2x2 symmetric matrix to find max-variance direction
     var trace = saa + sbb;
     var det = saa * sbb - sab * sab;
     var disc = Math.sqrt(Math.max(0, trace * trace / 4 - det));
-    var lambda1 = trace / 2 + disc; // largest eigenvalue
+    var lambda1 = trace / 2 + disc;
     var evA, evB;
     if (Math.abs(sab) > 1e-12) {
       evA = lambda1 - sbb;
@@ -2985,41 +2985,40 @@
     var evLen = Math.sqrt(evA * evA + evB * evB);
     evA /= evLen; evB /= evLen;
 
-    // New y-axis: max-variance direction in perpendicular plane
-    var newY = basisA.clone().multiplyScalar(evA).addScaledVector(basisB, evB);
-    newY.normalize();
-
-    // New z-axis: complete right-handed system
+    var newY = basisA.clone().multiplyScalar(evA).addScaledVector(basisB, evB).normalize();
     var newZ = new THREE.Vector3().crossVectors(newX, newY).normalize();
 
-    // Rotation matrix: columns are newX, newY, newZ (maps old → new)
-    // To rotate point p: new_p = [newX·p, newY·p, newZ·p]
-    function rotatePoint(x, y, z) {
-      return {
-        x: newX.x * x + newX.y * y + newX.z * z,
-        y: newY.x * x + newY.y * y + newY.z * z,
-        z: newZ.x * x + newZ.y * y + newZ.z * z
-      };
-    }
+    // Build rotation matrix (rows are newX, newY, newZ)
+    var m = new THREE.Matrix4();
+    m.set(
+      newX.x, newX.y, newX.z, 0,
+      newY.x, newY.y, newY.z, 0,
+      newZ.x, newZ.y, newZ.z, 0,
+      0,      0,      0,      1
+    );
+    var quat = new THREE.Quaternion().setFromRotationMatrix(m);
+    return quat;
+  }
 
-    // Rotate element coordinates
+  function applyRotationQuaternion(quat) {
+    var v = new THREE.Vector3();
+
     for (var i = 0; i < elements.length; i++) {
-      var r = rotatePoint(elements[i].x, elements[i].y, elements[i].z);
-      elements[i].x = r.x; elements[i].y = r.y; elements[i].z = r.z;
-      elementObjects[i].sphere.position.set(r.x, r.y, r.z);
-      elementObjects[i].label.position.set(r.x, r.y + 0.05, r.z);
-      elementObjects[i].glow.position.set(r.x, r.y, r.z);
+      v.set(elements[i].x, elements[i].y, elements[i].z).applyQuaternion(quat);
+      elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
+      elementObjects[i].sphere.position.copy(v);
+      elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
+      elementObjects[i].glow.position.copy(v);
     }
 
-    // Rotate construct coordinates and rebuild sphere coords + 3D objects
     for (var i = 0; i < constructs.length; i++) {
-      var r = rotatePoint(constructs[i].x, constructs[i].y, constructs[i].z);
-      constructs[i].x = r.x; constructs[i].y = r.y; constructs[i].z = r.z;
+      v.set(constructs[i].x, constructs[i].y, constructs[i].z).applyQuaternion(quat);
+      constructs[i].x = v.x; constructs[i].y = v.y; constructs[i].z = v.z;
 
-      var len = Math.sqrt(r.x * r.x + r.y * r.y + r.z * r.z);
+      var len = v.length();
       if (len === 0) len = 1;
       var sc = constructSphereCoords[i];
-      sc.rx = r.x / len * sphereRadius; sc.ry = r.y / len * sphereRadius; sc.rz = r.z / len * sphereRadius;
+      sc.rx = v.x / len * sphereRadius; sc.ry = v.y / len * sphereRadius; sc.rz = v.z / len * sphereRadius;
       sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
 
       var obj = constructObjects[i];
@@ -3028,7 +3027,6 @@
       obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
       obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
 
-      // Rebuild line
       var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
       var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
       var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
@@ -3040,18 +3038,106 @@
       obj._origLineQuat = q.clone();
     }
 
-    // Rotate calibration construct coords
     if (calibration) {
       for (var i = 0; i < calibration.construct_coords.length; i++) {
         var cc = calibration.construct_coords[i];
-        var r = rotatePoint(cc[0], cc[1], cc[2]);
-        cc[0] = r.x; cc[1] = r.y; cc[2] = r.z;
+        v.set(cc[0], cc[1], cc[2]).applyQuaternion(quat);
+        cc[0] = v.x; cc[1] = v.y; cc[2] = v.z;
       }
     }
 
-    // Rebuild everything
     buildCalibration();
     rebuildAllProjections();
+  }
+
+  function rotateToConstruct(conIdx) {
+    // Compute target quaternion from current state
+    var targetQuat = computeRotationQuat(conIdx);
+
+    // Save starting coordinates for interpolation
+    var elemStart = elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; });
+    var conStart = constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; });
+    var calibStart = calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null;
+
+    _rotAnim = {
+      startTime: performance.now(),
+      duration: 800, // ms
+      quatTarget: targetQuat,
+      elemStart: elemStart,
+      conStart: conStart,
+      calibStart: calibStart
+    };
+  }
+
+  // Easing: smooth ease-in-out
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function tickRotationAnimation(now) {
+    if (!_rotAnim) return;
+    var t = (now - _rotAnim.startTime) / _rotAnim.duration;
+    if (t >= 1) t = 1;
+    var ease = easeInOutCubic(t);
+
+    // Slerp from identity to target quaternion
+    var quat = new THREE.Quaternion().slerp(_rotAnim.quatTarget, ease);
+    var v = new THREE.Vector3();
+
+    // Apply interpolated rotation to starting coordinates
+    for (var i = 0; i < elements.length; i++) {
+      var s = _rotAnim.elemStart[i];
+      v.set(s.x, s.y, s.z).applyQuaternion(quat);
+      elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
+      elementObjects[i].sphere.position.copy(v);
+      elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
+      elementObjects[i].glow.position.copy(v);
+    }
+
+    for (var i = 0; i < constructs.length; i++) {
+      var s = _rotAnim.conStart[i];
+      v.set(s.x, s.y, s.z).applyQuaternion(quat);
+      constructs[i].x = v.x; constructs[i].y = v.y; constructs[i].z = v.z;
+
+      var len = v.length();
+      if (len === 0) len = 1;
+      var sc = constructSphereCoords[i];
+      sc.rx = v.x / len * sphereRadius; sc.ry = v.y / len * sphereRadius; sc.rz = v.z / len * sphereRadius;
+      sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
+
+      var obj = constructObjects[i];
+      obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+      obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+      obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+      obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+
+      var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+      var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+      var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+      var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+      var lq = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+      obj.line.position.copy(mid);
+      obj.line.quaternion.copy(lq);
+      obj._origLinePos = mid.clone();
+      obj._origLineQuat = lq.clone();
+    }
+
+    if (calibration && _rotAnim.calibStart) {
+      for (var i = 0; i < calibration.construct_coords.length; i++) {
+        var s = _rotAnim.calibStart[i];
+        v.set(s[0], s[1], s[2]).applyQuaternion(quat);
+        calibration.construct_coords[i][0] = v.x;
+        calibration.construct_coords[i][1] = v.y;
+        calibration.construct_coords[i][2] = v.z;
+      }
+    }
+
+    buildCalibration();
+    rebuildAllProjections();
+
+    if (t >= 1) {
+      _rotAnim = null;
+    }
   }
 
   // --- Context menu ---
@@ -3790,6 +3876,11 @@
         var silR = camDist > 1 ? camDist / Math.sqrt(camDist * camDist - 1) : 1;
         silhouetteGroup.scale.setScalar(silR);
       }
+    }
+
+    // Smooth rotation animation
+    if (_rotAnim) {
+      tickRotationAnimation(performance.now());
     }
 
     // Rebuild calibration on camera move (throttled, ticks face viewer)
