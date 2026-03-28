@@ -20,6 +20,8 @@
   var constructLineVisible = constructs.map(function () { return false; }); // per-construct line toggle
   var constructLabelVisible = constructs.map(function () { return true; }); // per-construct label toggle
   var calibrationLabelsVisible = true;
+  var calibrationTickSize = 0.02;
+  var calibrationTickWidth = 1.0;
   var elevationFilterAngle = 90; // max elevation from view plane in degrees
 
   // --- Scene setup ---
@@ -500,7 +502,7 @@
         perp1.crossVectors(cDir, up);
       }
       perp1.normalize();
-      var tickLen = 0.02;
+      var tickLen = calibrationTickSize;
 
       for (var v = vMin; v <= vMax; v++) {
         var vc = v - offsets[i];
@@ -513,16 +515,25 @@
         var dist = Math.sqrt(tx * tx + ty * ty + tz * tz);
         if (dist < 0.03) continue;
 
-        // Tick line
+        // Tick line (cylinder for variable thickness)
         var t1 = new THREE.Vector3(
           tx - perp1.x * tickLen, ty - perp1.y * tickLen, tz - perp1.z * tickLen
         );
         var t2 = new THREE.Vector3(
           tx + perp1.x * tickLen, ty + perp1.y * tickLen, tz + perp1.z * tickLen
         );
-        var tickGeom = new THREE.BufferGeometry().setFromPoints([t1, t2]);
-        var tickMat = new THREE.LineBasicMaterial({ color: 0x666666, opacity: 0.5, transparent: true });
-        calibrationGroup.add(new THREE.Line(tickGeom, tickMat));
+        var tickDist = t1.distanceTo(t2);
+        var tickCylGeom = new THREE.CylinderBufferGeometry(0.001, 0.001, tickDist, 4, 1);
+        var tickMat = new THREE.MeshBasicMaterial({ color: 0x666666, opacity: 0.5, transparent: true });
+        var tickMesh = new THREE.Mesh(tickCylGeom, tickMat);
+        var tickMid = new THREE.Vector3().addVectors(t1, t2).multiplyScalar(0.5);
+        tickMesh.position.copy(tickMid);
+        tickMesh.quaternion.setFromUnitVectors(
+          new THREE.Vector3(0, 1, 0),
+          new THREE.Vector3().subVectors(t2, t1).normalize()
+        );
+        tickMesh.scale.set(calibrationTickWidth, 1, calibrationTickWidth);
+        calibrationGroup.add(tickMesh);
 
         // Tick label
         var tickLabelDiv = document.createElement("div");
@@ -535,9 +546,9 @@
         }
         var tickLabel = new THREE.CSS2DObject(tickLabelDiv);
         tickLabel.position.set(
-          tx + perp1.x * tickLen * 2.5,
-          ty + perp1.y * tickLen * 2.5,
-          tz + perp1.z * tickLen * 2.5
+          tx + perp1.x * tickLen * 1.4,
+          ty + perp1.y * tickLen * 1.4,
+          tz + perp1.z * tickLen * 1.4
         );
         tickLabel.visible = calibrationLabelsVisible;
         calibrationLabelsGroup.add(tickLabel);
@@ -1902,6 +1913,38 @@
   calSizeLabel.appendChild(document.createTextNode(" Calibration Size"));
   tabConstructs.appendChild(calSizeLabel);
 
+  // Calibration tick size slider
+  var tickSizeLabel = document.createElement("label");
+  var tickSizeRange = document.createElement("input");
+  tickSizeRange.type = "range";
+  tickSizeRange.min = "0";
+  tickSizeRange.max = "60";
+  tickSizeRange.step = "1";
+  tickSizeRange.value = "20";
+  tickSizeRange.addEventListener("input", function () {
+    calibrationTickSize = parseInt(tickSizeRange.value) / 1000;
+    buildCalibration();
+  });
+  tickSizeLabel.appendChild(tickSizeRange);
+  tickSizeLabel.appendChild(document.createTextNode(" Tick Size"));
+  tabConstructs.appendChild(tickSizeLabel);
+
+  // Calibration tick thickness slider
+  var tickWidthLabel = document.createElement("label");
+  var tickWidthRange = document.createElement("input");
+  tickWidthRange.type = "range";
+  tickWidthRange.min = "0.5";
+  tickWidthRange.max = "5";
+  tickWidthRange.step = "0.5";
+  tickWidthRange.value = "1";
+  tickWidthRange.addEventListener("input", function () {
+    calibrationTickWidth = parseFloat(tickWidthRange.value);
+    buildCalibration();
+  });
+  tickWidthLabel.appendChild(tickWidthRange);
+  tickWidthLabel.appendChild(document.createTextNode(" Tick Thickness"));
+  tabConstructs.appendChild(tickWidthLabel);
+
   // Elevation filter slider
   var elevLabel = document.createElement("label");
   var elevRange = document.createElement("input");
@@ -2061,6 +2104,8 @@
       elemLabelSize: elemSizeRange.value,
       conLabelSize: conSizeRange.value,
       calLabelSize: calSizeRange.value,
+      tickSize: tickSizeRange.value,
+      tickWidth: tickWidthRange.value,
       axisWidth: axisWidthRange.value,
       projWidth: projWidthRange.value,
       pcAxisWidth: pcAxisRange.value,
@@ -2106,6 +2151,14 @@
     conSizeRange.dispatchEvent(new Event("input"));
     calSizeRange.value = s.calLabelSize;
     calSizeRange.dispatchEvent(new Event("input"));
+    if (s.tickSize !== undefined) {
+      tickSizeRange.value = s.tickSize;
+      tickSizeRange.dispatchEvent(new Event("input"));
+    }
+    if (s.tickWidth !== undefined) {
+      tickWidthRange.value = s.tickWidth;
+      tickWidthRange.dispatchEvent(new Event("input"));
+    }
     axisWidthRange.value = s.axisWidth;
     axisWidthRange.dispatchEvent(new Event("input"));
     projWidthRange.value = s.projWidth;
