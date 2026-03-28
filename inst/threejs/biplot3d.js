@@ -1464,12 +1464,21 @@
 
     // Draw dots (main element)
     for (var p = 0; p < points.length; p++) {
+      var isHoveredPoint = profilePointHover && constructOrder[p].index === profilePointHover.ci;
+      var dotRadius = isHoveredPoint ? 6 : 3.5;
+      if (isHoveredPoint) {
+        // Glow ring behind hovered point
+        profileCtx.beginPath();
+        profileCtx.arc(points[p].x, points[p].y, 10, 0, Math.PI * 2);
+        profileCtx.fillStyle = isDark ? "rgba(80,160,255,0.2)" : "rgba(0,100,200,0.15)";
+        profileCtx.fill();
+      }
       profileCtx.beginPath();
-      profileCtx.arc(points[p].x, points[p].y, 3.5, 0, Math.PI * 2);
-      profileCtx.fillStyle = dotFill;
+      profileCtx.arc(points[p].x, points[p].y, dotRadius, 0, Math.PI * 2);
+      profileCtx.fillStyle = isHoveredPoint ? (isDark ? "#66bbff" : "#2266cc") : dotFill;
       profileCtx.fill();
       profileCtx.strokeStyle = isDark ? "#222" : "#fff";
-      profileCtx.lineWidth = 1;
+      profileCtx.lineWidth = isHoveredPoint ? 2 : 1;
       profileCtx.stroke();
     }
 
@@ -1513,7 +1522,12 @@
     profileHint.style.display = "none";
     profileCanvas.style.display = "block";
     removeBenchmarksBtn.style.display = benchmarkElements.length > 0 ? "block" : "none";
-    profileLayout = { topPad: topPad, rowHeight: rowHeight, nc: nc };
+    profileLayout = {
+      topPad: topPad, rowHeight: rowHeight, nc: nc,
+      leftMargin: leftMargin, plotWidth: plotWidth,
+      scaleMin: scaleMin, scaleRange: scaleRange,
+      points: points
+    };
   }
 
   function updateElementGlows() {
@@ -1621,16 +1635,50 @@
   }
 
   // --- Profile plot hover → highlight construct in 3D ---
+  var profilePointHover = null; // { ci, prevLineVisible, prevProjections }
+
+  function profilePointHoverEnter(ci) {
+    var ei = selectedElementIndex;
+    if (ei < 0) return;
+    profilePointHover = {
+      ci: ci, ei: ei,
+      constructLineVisible: constructLineVisible[ci],
+      constructVisible: constructVisible[ci],
+      elementProjections: elementProjections[ei]
+    };
+    if (!constructVisible[ci]) constructVisible[ci] = true;
+    if (!constructLineVisible[ci]) constructLineVisible[ci] = true;
+    buildCalibration();
+    if (!elementProjections[ei]) elementProjections[ei] = true;
+    buildProjectionsForElement(ei);
+    highlightGridCell(ei, ci);
+  }
+
+  function profilePointHoverLeave() {
+    if (!profilePointHover) return;
+    var p = profilePointHover;
+    profilePointHover = null;
+    if (!p.constructVisible) constructVisible[p.ci] = false;
+    if (!p.constructLineVisible) constructLineVisible[p.ci] = false;
+    buildCalibration();
+    if (!p.elementProjections) elementProjections[p.ei] = false;
+    buildProjectionsForElement(p.ei);
+    unhighlightGridCell();
+  }
+
   profileCanvas.addEventListener("mousemove", function (e) {
     var rect = profileCanvas.getBoundingClientRect();
+    var scaleX = profileCanvas.width / (window.devicePixelRatio || 1) / rect.width;
     var scaleY = profileCanvas.height / (window.devicePixelRatio || 1) / rect.height;
+    var mx = (e.clientX - rect.left) * scaleX;
     var y = (e.clientY - rect.top) * scaleY;
     var row = Math.floor((y - profileLayout.topPad) / profileLayout.rowHeight);
     var newIdx = -1;
     if (row >= 0 && row < profileLayout.nc) {
       newIdx = constructOrder[row].index;
     }
-    if (newIdx !== profileHoveredConstruct) {
+    var constructChanged = newIdx !== profileHoveredConstruct;
+    if (constructChanged) {
       if (profileHoveredConstruct >= 0) {
         unhighlightConstruct(profileHoveredConstruct);
         highlightGridRow(-1);
@@ -1642,8 +1690,38 @@
         highlightConstruct(profileHoveredConstruct);
         highlightGridRow(profileHoveredConstruct);
       }
+    }
+
+    // Detect proximity to a profile point
+    var nearPoint = -1;
+    var hitRadius = 10;
+    if (profileLayout.points) {
+      for (var pi = 0; pi < profileLayout.points.length; pi++) {
+        var pt = profileLayout.points[pi];
+        var ddx = mx - pt.x;
+        var ddy = y - pt.y;
+        if (ddx * ddx + ddy * ddy <= hitRadius * hitRadius) {
+          nearPoint = constructOrder[pi].index;
+          break;
+        }
+      }
+    }
+
+    // Handle point hover state
+    var pointChanged = false;
+    if (nearPoint >= 0 && (!profilePointHover || profilePointHover.ci !== nearPoint)) {
+      profilePointHoverLeave();
+      profilePointHoverEnter(nearPoint);
+      pointChanged = true;
+    } else if (nearPoint < 0 && profilePointHover) {
+      profilePointHoverLeave();
+      pointChanged = true;
+    }
+
+    if (constructChanged || pointChanged) {
       if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
     }
+
     profileCanvas.style.cursor = newIdx >= 0 ? "pointer" : "default";
   });
 
@@ -1678,6 +1756,7 @@
   });
 
   profileCanvas.addEventListener("mouseleave", function () {
+    profilePointHoverLeave();
     if (profileHoveredConstruct >= 0) {
       unhighlightConstruct(profileHoveredConstruct);
       highlightGridRow(-1);
