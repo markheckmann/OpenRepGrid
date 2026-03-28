@@ -558,8 +558,11 @@
   function buildCalibration() {
     // Clear tick lines (direct children of calibrationGroup, skip labelsGroup)
     for (var k = calibrationGroup.children.length - 1; k >= 0; k--) {
-      if (calibrationGroup.children[k] !== calibrationLabelsGroup) {
-        calibrationGroup.remove(calibrationGroup.children[k]);
+      var child = calibrationGroup.children[k];
+      if (child !== calibrationLabelsGroup) {
+        if (child.geometry) child.geometry.dispose();
+        if (child.material) child.material.dispose();
+        calibrationGroup.remove(child);
       }
     }
     // Clear tick labels
@@ -3522,9 +3525,13 @@
   // =============================================
   var _prevCamPos = new THREE.Vector3();
   var _prevCamTarget = new THREE.Vector3();
+  var _animId = null;
+  var _calDirty = false;
+  var _lastCalTime = 0;
+  var _calThrottleMs = 80;
 
   function animate() {
-    requestAnimationFrame(animate);
+    _animId = requestAnimationFrame(animate);
     controls.update();
     updateLabelVisibility();
     camera.getWorldDirection(wireUniforms.uCamDir.value);
@@ -3541,15 +3548,23 @@
       }
     }
 
-    // Rebuild calibration on camera move (ticks face viewer), and projections if elevation filter active
+    // Rebuild calibration on camera move (throttled, ticks face viewer)
     var camMoved = !camera.position.equals(_prevCamPos) ||
                    !controls.target.equals(_prevCamTarget);
     if (camMoved) {
       _prevCamPos.copy(camera.position);
       _prevCamTarget.copy(controls.target);
-      buildCalibration();
-      if (elevationFilterAngle < 90) {
-        rebuildAllProjections();
+      _calDirty = true;
+    }
+    if (_calDirty) {
+      var now = performance.now();
+      if (now - _lastCalTime > _calThrottleMs) {
+        _calDirty = false;
+        _lastCalTime = now;
+        buildCalibration();
+        if (elevationFilterAngle < 90) {
+          rebuildAllProjections();
+        }
       }
     }
 
@@ -3558,6 +3573,22 @@
     updateLabelAlignment();
     deconflictLabels();
   }
+
+  // Pause rendering when tab is hidden to save CPU/GPU
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      if (_animId) {
+        cancelAnimationFrame(_animId);
+        _animId = null;
+      }
+    } else {
+      if (!_animId) {
+        _prevCamPos.set(NaN, NaN, NaN); // force recalc on resume
+        animate();
+      }
+    }
+  });
+
   animate();
 
 })();
