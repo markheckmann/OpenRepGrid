@@ -3236,6 +3236,15 @@
       }
     });
 
+    var anyProjAll = elementProjections.some(function (v) { return v; });
+    addMenuItem(anyProjAll ? "Hide all projections" : "Show all projections", function () {
+      var newVal = !anyProjAll;
+      for (var i = 0; i < elements.length; i++) {
+        elementProjections[i] = newVal;
+        buildProjectionsForElement(i);
+      }
+    });
+
     // Labels
     var allLabelsVis = targets.every(function (i) { return elementLabelVisible[i]; });
     addMenuItem((allLabelsVis ? "Hide labels" : "Show labels") + suffix, function () {
@@ -3336,9 +3345,11 @@
       }
     });
 
-    addMenuItem("Hide all projections", function () {
+    var anyProj = elementProjections.some(function (v) { return v; });
+    addMenuItem(anyProj ? "Hide all projections" : "Show all projections", function () {
+      var newVal = !anyProj;
       for (var i = 0; i < elements.length; i++) {
-        elementProjections[i] = false;
+        elementProjections[i] = newVal;
         buildProjectionsForElement(i);
       }
     });
