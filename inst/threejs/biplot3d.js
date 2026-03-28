@@ -3111,9 +3111,13 @@
     // Rotate PC axes group along with everything else
     axesGroup.quaternion.copy(_rotAnim.axesQuatStart).multiply(quat);
 
-    // Optionally animate camera position and target
+    // Optionally animate camera position (slerp on sphere to keep constant distance)
     if (_rotAnim.camPosStart) {
-      camera.position.lerpVectors(_rotAnim.camPosStart, _rotAnim.camPosEnd, ease);
+      var startDir = _rotAnim.camPosStart.clone().normalize();
+      var endDir = _rotAnim.camPosEnd.clone().normalize();
+      var camQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
+      var interpCamQuat = new THREE.Quaternion().slerp(camQuat, ease);
+      camera.position.copy(_rotAnim.camPosStart).applyQuaternion(interpCamQuat);
       controls.target.lerpVectors(_rotAnim.camTargetStart, _rotAnim.camTargetEnd, ease);
       controls.update();
     }
