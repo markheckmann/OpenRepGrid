@@ -3271,7 +3271,7 @@
 
     // Rotate to align construct with PC1 (only for single construct)
     if (!isMulti) {
-      addMenuItem("Align to PC1", function () {
+      addMenuItem("Rotate to x-axis", function () {
         rotateToConstruct(conIdx);
       });
     }
