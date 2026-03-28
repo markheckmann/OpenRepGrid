@@ -21,7 +21,7 @@
   var constructLabelVisible = constructs.map(function () { return true; }); // per-construct label toggle
   var calibrationLabelsVisible = true;
   var calibrationTickSize = 0.02;
-  var calibrationTickWidth = 1.0;
+  var calibrationTickWidth = 2.0;
   var elevationFilterAngle = 90; // max elevation from view plane in degrees
 
   // --- Scene setup ---
@@ -388,7 +388,7 @@
   // 5. PROJECTIONS (per-element, toggled by double-click)
   // =============================================
   // Per-element projection groups stored here
-  var projLineScale = 2;
+  var projLineScale = 3;
   var elementProjectionGroups = [];
   for (var i = 0; i < elements.length; i++) {
     var g = new THREE.Group();
@@ -1859,7 +1859,7 @@
   projWidthRange.min = "0.5";
   projWidthRange.max = "5";
   projWidthRange.step = "0.5";
-  projWidthRange.value = "2";
+  projWidthRange.value = "3";
   projWidthRange.addEventListener("input", function () {
     projLineScale = parseFloat(projWidthRange.value);
     rebuildAllProjections();
@@ -1940,8 +1940,8 @@
   var calSizeRange = document.createElement("input");
   calSizeRange.type = "range";
   calSizeRange.min = "0";
-  calSizeRange.max = "14";
-  calSizeRange.value = "8";
+  calSizeRange.max = "24";
+  calSizeRange.value = "11";
   calSizeRange.addEventListener("input", function () {
     var val = parseInt(calSizeRange.value);
     for (var k = 0; k < calibrationLabelsGroup.children.length; k++) {
@@ -1976,7 +1976,7 @@
   tickWidthRange.min = "0.5";
   tickWidthRange.max = "5";
   tickWidthRange.step = "0.5";
-  tickWidthRange.value = "1";
+  tickWidthRange.value = "2";
   tickWidthRange.addEventListener("input", function () {
     calibrationTickWidth = parseFloat(tickWidthRange.value);
     buildCalibration();
