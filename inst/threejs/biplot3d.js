@@ -700,6 +700,39 @@
         calibrationLabelsGroup.add(tickLabel);
       }
     }
+    updateGridTableBoldState();
+  }
+
+  // Check whether construct i has a visible calibrated axis
+  function isCalibAxisVisible(i) {
+    return calibration && constructVisible[i] && constructLineVisible[i] && !isConstructElevationFiltered(i);
+  }
+
+  // Mark visible calibrated axes and elements in the grid table with
+  // colored borders (left border on left pole, right on right pole,
+  // top on element headers). Also redraw the profile plot.
+  function updateGridTableBoldState() {
+    var borderWidth = "3px solid ";
+    // Construct rows: border on pole cells when calibrated axis is visible
+    var rows = document.querySelectorAll("#grid-table tbody tr");
+    for (var r = 0; r < rows.length; r++) {
+      var ci = parseInt(rows[r].dataset.constructIndex);
+      var vis = isCalibAxisVisible(ci);
+      var color = vis ? "#" + constructObjects[ci].line.material.color.getHexString() : "";
+      var cells = rows[r].children;
+      cells[0].style.borderLeft = vis ? borderWidth + color : "";
+      cells[cells.length - 1].style.borderRight = vis ? borderWidth + color : "";
+    }
+    // Element headers: top border when element is visible in the 3D scene
+    var headers = document.querySelectorAll("#grid-table thead th.element-header");
+    for (var h = 0; h < headers.length; h++) {
+      var ei = parseInt(headers[h].dataset.elementIndex);
+      var vis = elementVisible[ei];
+      var color = vis ? "#" + elementObjects[ei].sphere.material.color.getHexString() : "";
+      headers[h].style.borderTop = vis ? borderWidth + color : "";
+    }
+    // Redraw profile plot so pole labels update
+    if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
   }
 
   // =============================================
@@ -1418,6 +1451,7 @@
     var plotWidth = containerWidth - leftMargin - rightMargin;
     if (plotWidth < 60) { leftMargin = Math.floor((containerWidth - 60) / 2); rightMargin = leftMargin; plotWidth = containerWidth - leftMargin - rightMargin; }
     var poleFont = profileFontSize + "px -apple-system, BlinkMacSystemFont, sans-serif";
+    var poleFontBold = "bold " + poleFont;
     var lineHeight = Math.round(profileFontSize * 1.2);
     var rowHeight = 32;
     var topPad = 42;
@@ -1508,7 +1542,8 @@
       }
 
       // Left pole — word-wrap up to 2 lines, then truncate
-      profileCtx.font = poleFont;
+      var calibBold = isCalibAxisVisible(ci);
+      profileCtx.font = calibBold ? poleFontBold : poleFont;
       profileCtx.textAlign = "right";
       profileCtx.fillStyle = leftPoleColor;
       var leftLines = wrapText(profileCtx, constructs[ci].left_pole, leftMargin - 10, 2);
@@ -2466,6 +2501,7 @@
         elementObjects[idx].sphere.visible = v;
         elementObjects[idx].label.visible = v && elementLabelVisible[idx];
         buildProjectionsForElement(idx);
+        updateGridTableBoldState();
       });
       elemCheckboxes.push(cb);
     })(i);

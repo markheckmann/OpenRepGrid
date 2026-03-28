@@ -312,6 +312,7 @@ body {
   padding: 6px 3px;
   min-height: 60px;
   vertical-align: bottom;
+  text-align: start;
 }
 
 .grid-table td.rating-cell {
