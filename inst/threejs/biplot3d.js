@@ -763,9 +763,17 @@
       ei: ei, ci: ci,
       constructLineVisible: constructLineVisible[ci],
       constructVisible: constructVisible[ci],
-      elementProjections: elementProjections[ei]
+      elementProjections: elementProjections[ei],
+      elementVisible: elementVisible[ei]
     };
     cellHoverState = prev;
+
+    // Temporarily show element (if hidden)
+    if (!elementVisible[ei]) {
+      elementVisible[ei] = true;
+      elementObjects[ei].sphere.visible = true;
+      elementObjects[ei].label.visible = elementLabelVisible[ei];
+    }
 
     // Temporarily show construct (if hidden) and its axis
     if (!constructVisible[ci]) {
@@ -791,6 +799,13 @@
     if (!cellHoverState) return;
     var prev = cellHoverState;
     cellHoverState = null;
+
+    // Restore element visibility
+    if (!prev.elementVisible) {
+      elementVisible[prev.ei] = false;
+      elementObjects[prev.ei].sphere.visible = false;
+      elementObjects[prev.ei].label.visible = false;
+    }
 
     // Restore construct visibility
     if (!prev.constructVisible) {
