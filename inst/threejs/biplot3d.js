@@ -2457,6 +2457,7 @@
   resetBtn.className = "action-btn";
   resetBtn.textContent = "Reset Camera";
   resetBtn.addEventListener("click", function () {
+    restoreOriginalCoords();
     camera.position.copy(initialCameraPosition);
     controls.target.copy(initialControlsTarget);
     controls.update();
