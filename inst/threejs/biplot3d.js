@@ -74,6 +74,24 @@
   var calibrationLabelsGroup = new THREE.Group();
   calibrationGroup.add(calibrationLabelsGroup);
 
+  // Silhouette ring — billboard circle at sphere edge
+  var silhouetteGroup = new THREE.Group();
+  silhouetteGroup.visible = false;
+
+  var silhouetteRingGeom = new THREE.TorusBufferGeometry(1, 0.002, 8, 128);
+  var silhouetteRingMat = new THREE.MeshBasicMaterial({ color: 0x888888, opacity: 0.6, transparent: true });
+  var silhouetteRingMesh = new THREE.Mesh(silhouetteRingGeom, silhouetteRingMat);
+  silhouetteGroup.add(silhouetteRingMesh);
+
+  var silhouetteGlowGeom = new THREE.TorusBufferGeometry(1, 0.02, 8, 128);
+  var silhouetteGlowMat = new THREE.MeshBasicMaterial({
+    color: 0x888888, opacity: 0.0, transparent: true, depthWrite: false
+  });
+  var silhouetteGlowMesh = new THREE.Mesh(silhouetteGlowGeom, silhouetteGlowMat);
+  silhouetteGroup.add(silhouetteGlowMesh);
+
+  scene.add(silhouetteGroup);
+
   scene.add(sphereGroup);
   scene.add(elementPointsGroup);
   scene.add(elementLabelsGroup);
@@ -1781,6 +1799,73 @@
   var cbDepthFade = addToggle(tabGeneral, "Depth Fade", true, function (v) {
     wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
   });
+  var cbSilhouette = addToggle(tabGeneral, "Silhouette Ring", false, function (v) {
+    silhouetteGroup.visible = v;
+  });
+
+  // Silhouette ring color
+  var silColorLabel = document.createElement("label");
+  var silColorInput = document.createElement("input");
+  silColorInput.type = "color";
+  silColorInput.value = "#888888";
+  silColorInput.addEventListener("input", function () {
+    silhouetteRingMat.color.set(silColorInput.value);
+    silhouetteGlowMat.color.set(silColorInput.value);
+  });
+  silColorLabel.appendChild(silColorInput);
+  silColorLabel.appendChild(document.createTextNode(" Ring Color"));
+  tabGeneral.appendChild(silColorLabel);
+
+  // Silhouette ring thickness
+  var silThickLabel = document.createElement("label");
+  var silThickRange = document.createElement("input");
+  silThickRange.type = "range";
+  silThickRange.min = "1";
+  silThickRange.max = "20";
+  silThickRange.step = "1";
+  silThickRange.value = "2";
+  silThickRange.addEventListener("input", function () {
+    var r = parseInt(silThickRange.value) / 1000;
+    var newGeom = new THREE.TorusBufferGeometry(1, r, 8, 128);
+    silhouetteRingMesh.geometry.dispose();
+    silhouetteRingMesh.geometry = newGeom;
+  });
+  silThickLabel.appendChild(silThickRange);
+  silThickLabel.appendChild(document.createTextNode(" Ring Thickness"));
+  tabGeneral.appendChild(silThickLabel);
+
+  // Silhouette glow strength
+  var silGlowLabel = document.createElement("label");
+  var silGlowRange = document.createElement("input");
+  silGlowRange.type = "range";
+  silGlowRange.min = "0";
+  silGlowRange.max = "100";
+  silGlowRange.step = "1";
+  silGlowRange.value = "0";
+  silGlowRange.addEventListener("input", function () {
+    silhouetteGlowMat.opacity = parseInt(silGlowRange.value) / 100 * 0.35;
+  });
+  silGlowLabel.appendChild(silGlowRange);
+  silGlowLabel.appendChild(document.createTextNode(" Ring Glow"));
+  tabGeneral.appendChild(silGlowLabel);
+
+  // Silhouette glow size
+  var silGlowSizeLabel = document.createElement("label");
+  var silGlowSizeRange = document.createElement("input");
+  silGlowSizeRange.type = "range";
+  silGlowSizeRange.min = "5";
+  silGlowSizeRange.max = "80";
+  silGlowSizeRange.step = "1";
+  silGlowSizeRange.value = "20";
+  silGlowSizeRange.addEventListener("input", function () {
+    var r = parseInt(silGlowSizeRange.value) / 1000;
+    var newGeom = new THREE.TorusBufferGeometry(1, r, 8, 128);
+    silhouetteGlowMesh.geometry.dispose();
+    silhouetteGlowMesh.geometry = newGeom;
+  });
+  silGlowSizeLabel.appendChild(silGlowSizeRange);
+  silGlowSizeLabel.appendChild(document.createTextNode(" Glow Size"));
+  tabGeneral.appendChild(silGlowSizeLabel);
 
   // Sphere color chooser
   var sphereColorLabel = document.createElement("label");
@@ -2133,6 +2218,11 @@
       darkMode: cbDarkMode.checked,
       wireframe: cbWireframe.checked,
       depthFade: cbDepthFade.checked,
+      silhouette: cbSilhouette.checked,
+      silColor: silColorInput.value,
+      silThickness: silThickRange.value,
+      silGlow: silGlowRange.value,
+      silGlowSize: silGlowSizeRange.value,
       axes: cbAxes.checked,
       calLabels: cbCalLabels.checked,
       elemLabels: cbElemLabels.checked,
@@ -2172,6 +2262,23 @@
     setCheckbox(cbDarkMode, s.darkMode);
     setCheckbox(cbWireframe, s.wireframe);
     setCheckbox(cbDepthFade, s.depthFade);
+    if (s.silhouette !== undefined) setCheckbox(cbSilhouette, s.silhouette);
+    if (s.silColor !== undefined) {
+      silColorInput.value = s.silColor;
+      silColorInput.dispatchEvent(new Event("input"));
+    }
+    if (s.silThickness !== undefined) {
+      silThickRange.value = s.silThickness;
+      silThickRange.dispatchEvent(new Event("input"));
+    }
+    if (s.silGlow !== undefined) {
+      silGlowRange.value = s.silGlow;
+      silGlowRange.dispatchEvent(new Event("input"));
+    }
+    if (s.silGlowSize !== undefined) {
+      silGlowSizeRange.value = s.silGlowSize;
+      silGlowSizeRange.dispatchEvent(new Event("input"));
+    }
     setCheckbox(cbAxes, s.axes);
     setCheckbox(cbCalLabels, s.calLabels);
     setCheckbox(cbElemLabels, s.elemLabels);
@@ -3170,6 +3277,14 @@
     controls.update();
     updateLabelVisibility();
     camera.getWorldDirection(wireUniforms.uCamDir.value);
+
+    // Orient and scale silhouette ring to match sphere's visible edge
+    if (silhouetteGroup.visible) {
+      silhouetteGroup.quaternion.setFromRotationMatrix(camera.matrixWorld);
+      var camDist = camera.position.length();
+      var silR = camDist > 1 ? camDist / Math.sqrt(camDist * camDist - 1) : 1;
+      silhouetteGroup.scale.setScalar(silR);
+    }
 
     // When elevation filter is active, rebuild projections & calibration on camera move
     if (elevationFilterAngle < 90) {
