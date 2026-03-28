@@ -2457,30 +2457,13 @@
   resetBtn.className = "action-btn";
   resetBtn.textContent = "Reset Camera";
   resetBtn.addEventListener("click", function () {
-    // Compute quaternion that rotates current coords back to initial
-    // Current state = initialCoords rotated by some accumulated Q
-    // We need Q^-1 to get back. Find it by comparing a construct direction.
-    // Use axesGroup.quaternion which tracks the accumulated rotation.
-    var accumulated = axesGroup.quaternion.clone();
-    var inverseQuat = accumulated.clone().conjugate();
-
-    // Save current coords as start for animation
-    var elemStart = elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; });
-    var conStart = constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; });
-    var calibStart = calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null;
-
-    _rotAnim = {
+    _camAnim = {
       startTime: performance.now(),
       duration: 800,
-      quatTarget: inverseQuat,
-      elemStart: elemStart,
-      conStart: conStart,
-      calibStart: calibStart,
-      axesQuatStart: accumulated,
-      camPosStart: camera.position.clone(),
-      camPosEnd: initialCameraPosition.clone().normalize().multiplyScalar(camera.position.length()),
-      camTargetStart: controls.target.clone(),
-      camTargetEnd: initialControlsTarget.clone()
+      posStart: camera.position.clone(),
+      posEnd: initialCameraPosition.clone().normalize().multiplyScalar(camera.position.length()),
+      upStart: camera.up.clone(),
+      upEnd: new THREE.Vector3(0, 1, 0)
     };
   });
   guiPanel.appendChild(resetBtn);
@@ -2955,93 +2938,31 @@
         calibration.construct_coords[i][2] = initialCalibCoords[i][2];
       }
     }
-    axesGroup.quaternion.set(0, 0, 0, 1); // reset PC axes rotation
     buildCalibration();
     rebuildAllProjections();
   }
 
-  // Animation state for smooth rotation
-  var _rotAnim = null; // { startTime, duration, quatStart, quatTarget, elemStart, conStart, calibStart }
-
-  function computeRotationQuat(conIdx) {
-    var con = constructs[conIdx];
-
-    // Construct direction — choose the sign closest to +x for minimal rotation
-    var cDir = new THREE.Vector3(con.x, con.y, con.z).normalize();
-    if (cDir.x < 0) cDir.negate();
-
-    // Shortest-arc rotation from cDir to +x axis
-    var quat = new THREE.Quaternion().setFromUnitVectors(cDir, new THREE.Vector3(1, 0, 0));
-    return quat;
-  }
-
-  function applyRotationQuaternion(quat) {
-    var v = new THREE.Vector3();
-
-    for (var i = 0; i < elements.length; i++) {
-      v.set(elements[i].x, elements[i].y, elements[i].z).applyQuaternion(quat);
-      elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
-      elementObjects[i].sphere.position.copy(v);
-      elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
-      elementObjects[i].glow.position.copy(v);
-    }
-
-    for (var i = 0; i < constructs.length; i++) {
-      v.set(constructs[i].x, constructs[i].y, constructs[i].z).applyQuaternion(quat);
-      constructs[i].x = v.x; constructs[i].y = v.y; constructs[i].z = v.z;
-
-      var len = v.length();
-      if (len === 0) len = 1;
-      var sc = constructSphereCoords[i];
-      sc.rx = v.x / len * sphereRadius; sc.ry = v.y / len * sphereRadius; sc.rz = v.z / len * sphereRadius;
-      sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
-
-      var obj = constructObjects[i];
-      obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
-      obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
-      obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
-      obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
-
-      var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
-      var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
-      var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
-      var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
-      var q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
-      obj.line.position.copy(mid);
-      obj.line.quaternion.copy(q);
-      obj._origLinePos = mid.clone();
-      obj._origLineQuat = q.clone();
-    }
-
-    if (calibration) {
-      for (var i = 0; i < calibration.construct_coords.length; i++) {
-        var cc = calibration.construct_coords[i];
-        v.set(cc[0], cc[1], cc[2]).applyQuaternion(quat);
-        cc[0] = v.x; cc[1] = v.y; cc[2] = v.z;
-      }
-    }
-
-    buildCalibration();
-    rebuildAllProjections();
-  }
+  // Camera-only animation: orbit the camera instead of rotating data.
+  // Visually identical to rotating the globe by hand.
+  var _camAnim = null; // { startTime, duration, posStart, posEnd, upStart, upEnd }
 
   function rotateToConstruct(conIdx) {
-    // Compute target quaternion from current state
-    var targetQuat = computeRotationQuat(conIdx);
+    var con = constructs[conIdx];
+    var cDir = new THREE.Vector3(con.x, con.y, con.z).normalize();
+    if (cDir.x < 0) cDir.negate(); // pick pole closer to +x for minimal rotation
 
-    // Save starting coordinates for interpolation
-    var elemStart = elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; });
-    var conStart = constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; });
-    var calibStart = calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null;
+    // Q maps construct direction → +x. Applying Q^-1 to the camera gives
+    // the viewpoint from which the construct appears along the x-axis.
+    var Q = new THREE.Quaternion().setFromUnitVectors(cDir, new THREE.Vector3(1, 0, 0));
+    var Qinv = Q.clone().conjugate();
 
-    _rotAnim = {
+    _camAnim = {
       startTime: performance.now(),
-      duration: 800, // ms
-      quatTarget: targetQuat,
-      elemStart: elemStart,
-      conStart: conStart,
-      calibStart: calibStart,
-      axesQuatStart: axesGroup.quaternion.clone()
+      duration: 800,
+      posStart: camera.position.clone(),
+      posEnd: camera.position.clone().applyQuaternion(Qinv),
+      upStart: camera.up.clone(),
+      upEnd: camera.up.clone().applyQuaternion(Qinv)
     };
   }
 
@@ -3050,83 +2971,31 @@
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  function tickRotationAnimation(now) {
-    if (!_rotAnim) return;
-    var t = (now - _rotAnim.startTime) / _rotAnim.duration;
+  function tickCameraAnimation(now) {
+    if (!_camAnim) return;
+    var t = (now - _camAnim.startTime) / _camAnim.duration;
     if (t >= 1) t = 1;
     var ease = easeInOutCubic(t);
 
-    // Slerp from identity to target quaternion
-    var quat = new THREE.Quaternion().slerp(_rotAnim.quatTarget, ease);
-    var v = new THREE.Vector3();
+    // Slerp camera position on sphere (constant distance)
+    var startDir = _camAnim.posStart.clone().normalize();
+    var endDir = _camAnim.posEnd.clone().normalize();
+    var posQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
+    var interpPosQuat = new THREE.Quaternion().slerp(posQuat, ease);
+    camera.position.copy(_camAnim.posStart).applyQuaternion(interpPosQuat);
 
-    // Apply interpolated rotation to starting coordinates
-    for (var i = 0; i < elements.length; i++) {
-      var s = _rotAnim.elemStart[i];
-      v.set(s.x, s.y, s.z).applyQuaternion(quat);
-      elements[i].x = v.x; elements[i].y = v.y; elements[i].z = v.z;
-      elementObjects[i].sphere.position.copy(v);
-      elementObjects[i].label.position.set(v.x, v.y + 0.05, v.z);
-      elementObjects[i].glow.position.copy(v);
-    }
+    // Slerp camera up vector
+    var upQuat = new THREE.Quaternion().setFromUnitVectors(
+      _camAnim.upStart.clone().normalize(),
+      _camAnim.upEnd.clone().normalize()
+    );
+    var interpUpQuat = new THREE.Quaternion().slerp(upQuat, ease);
+    camera.up.copy(_camAnim.upStart).applyQuaternion(interpUpQuat).normalize();
 
-    for (var i = 0; i < constructs.length; i++) {
-      var s = _rotAnim.conStart[i];
-      v.set(s.x, s.y, s.z).applyQuaternion(quat);
-      constructs[i].x = v.x; constructs[i].y = v.y; constructs[i].z = v.z;
-
-      var len = v.length();
-      if (len === 0) len = 1;
-      var sc = constructSphereCoords[i];
-      sc.rx = v.x / len * sphereRadius; sc.ry = v.y / len * sphereRadius; sc.rz = v.z / len * sphereRadius;
-      sc.lx = -sc.rx; sc.ly = -sc.ry; sc.lz = -sc.rz;
-
-      var obj = constructObjects[i];
-      obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
-      obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
-      obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
-      obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
-
-      var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
-      var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
-      var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
-      var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
-      var lq = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
-      obj.line.position.copy(mid);
-      obj.line.quaternion.copy(lq);
-      obj._origLinePos = mid.clone();
-      obj._origLineQuat = lq.clone();
-    }
-
-    if (calibration && _rotAnim.calibStart) {
-      for (var i = 0; i < calibration.construct_coords.length; i++) {
-        var s = _rotAnim.calibStart[i];
-        v.set(s[0], s[1], s[2]).applyQuaternion(quat);
-        calibration.construct_coords[i][0] = v.x;
-        calibration.construct_coords[i][1] = v.y;
-        calibration.construct_coords[i][2] = v.z;
-      }
-    }
-
-    // Rotate PC axes group along with everything else
-    axesGroup.quaternion.copy(quat).multiply(_rotAnim.axesQuatStart);
-
-    // Optionally animate camera position (slerp on sphere to keep constant distance)
-    if (_rotAnim.camPosStart) {
-      var startDir = _rotAnim.camPosStart.clone().normalize();
-      var endDir = _rotAnim.camPosEnd.clone().normalize();
-      var camQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
-      var interpCamQuat = new THREE.Quaternion().slerp(camQuat, ease);
-      camera.position.copy(_rotAnim.camPosStart).applyQuaternion(interpCamQuat);
-      controls.target.lerpVectors(_rotAnim.camTargetStart, _rotAnim.camTargetEnd, ease);
-      controls.update();
-    }
-
-    buildCalibration();
-    rebuildAllProjections();
+    controls.update();
 
     if (t >= 1) {
-      _rotAnim = null;
+      _camAnim = null;
     }
   }
 
@@ -3880,8 +3749,8 @@
     }
 
     // Smooth rotation animation
-    if (_rotAnim) {
-      tickRotationAnimation(performance.now());
+    if (_camAnim) {
+      tickCameraAnimation(performance.now());
     }
 
     // Rebuild calibration on camera move (throttled, ticks face viewer)
