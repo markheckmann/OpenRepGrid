@@ -2933,6 +2933,7 @@
         calibration.construct_coords[i][2] = initialCalibCoords[i][2];
       }
     }
+    axesGroup.quaternion.set(0, 0, 0, 1); // reset PC axes rotation
     buildCalibration();
     rebuildAllProjections();
   }
@@ -3017,7 +3018,8 @@
       quatTarget: targetQuat,
       elemStart: elemStart,
       conStart: conStart,
-      calibStart: calibStart
+      calibStart: calibStart,
+      axesQuatStart: axesGroup.quaternion.clone()
     };
   }
 
@@ -3083,6 +3085,9 @@
         calibration.construct_coords[i][2] = v.z;
       }
     }
+
+    // Rotate PC axes group along with everything else
+    axesGroup.quaternion.copy(_rotAnim.axesQuatStart).multiply(quat);
 
     buildCalibration();
     rebuildAllProjections();
