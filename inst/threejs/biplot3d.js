@@ -24,6 +24,7 @@
   var calibrationTickWidth = 2.0;
   var elevationFilterAngle = 90; // max elevation from view plane in degrees
   var ringProjectionMode = false;
+  var showProjectionErrors = false;
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -540,6 +541,41 @@
       dot.userData = { type: "projectionFoot", elementIndex: idx, constructIndex: j };
       group.add(dot);
       hoverTargets.push(dot);
+
+      // Projection error segment: foot → actual value position on axis
+      if (showProjectionErrors && calibration) {
+        var rating = ratings.values[j][idx];
+        if (rating != null && !isNaN(rating)) {
+          var Ci = calibration.construct_coords[j];
+          var norm2 = Ci[0] * Ci[0] + Ci[1] * Ci[1] + Ci[2] * Ci[2];
+          if (norm2 > 1e-10) {
+            var vc = rating - calibration.offsets[j];
+            var factor = calibration.se * vc / norm2;
+            var actual = new THREE.Vector3(factor * Ci[0], factor * Ci[1], factor * Ci[2]);
+            var errDist = foot.distanceTo(actual);
+            if (errDist > 0.001) {
+              var errMid = new THREE.Vector3().addVectors(foot, actual).multiplyScalar(0.5);
+              var errGeom = new THREE.CylinderBufferGeometry(0.003, 0.003, errDist, 4, 1);
+              var errMat = new THREE.MeshBasicMaterial({ color: 0xff4444, opacity: 0.85, transparent: true });
+              var errMesh = new THREE.Mesh(errGeom, errMat);
+              errMesh.position.copy(errMid);
+              errMesh.quaternion.setFromUnitVectors(
+                new THREE.Vector3(0, 1, 0),
+                new THREE.Vector3().subVectors(actual, foot).normalize()
+              );
+              errMesh.scale.set(projLineScale, 1, projLineScale);
+              group.add(errMesh);
+
+              // Small dot at actual value position
+              var actDotGeom = new THREE.SphereBufferGeometry(0.012, 8, 6);
+              var actDotMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+              var actDot = new THREE.Mesh(actDotGeom, actDotMat);
+              actDot.position.copy(actual);
+              group.add(actDot);
+            }
+          }
+        }
+      }
     }
   }
 
@@ -2193,6 +2229,11 @@
   projWidthLabel.appendChild(document.createTextNode(" Projection Thickness"));
   tabElements.appendChild(projWidthLabel);
 
+  var cbProjError = addToggle(tabElements, "Projection Errors", false, function (v) {
+    showProjectionErrors = v;
+    rebuildAllProjections();
+  });
+
   // === Constructs tab ===
   var cbConLabels = addToggle(tabConstructs, "Construct Labels", true, function (v) {
     for (var i = 0; i < constructs.length; i++) {
@@ -2473,6 +2514,7 @@
       elemLabels: cbElemLabels.checked,
       conLabels: cbConLabels.checked,
       ringProjection: cbRingProjection.checked,
+      projErrors: cbProjError.checked,
       deconflict: cbDeconflict.checked,
       sphereColor: sphereColorInput.value,
       elemColor: elemColorInput.value,
@@ -2531,6 +2573,7 @@
     setCheckbox(cbElemLabels, s.elemLabels);
     setCheckbox(cbConLabels, s.conLabels);
     if (s.ringProjection !== undefined) setCheckbox(cbRingProjection, s.ringProjection);
+    if (s.projErrors !== undefined) setCheckbox(cbProjError, s.projErrors);
     setCheckbox(cbDeconflict, s.deconflict);
 
     // Colors
