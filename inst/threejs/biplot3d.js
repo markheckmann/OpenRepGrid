@@ -2944,7 +2944,9 @@
     var con = constructs[conIdx];
 
     // New x-axis: construct direction (normalized)
+    // Choose the sign closest to +x to minimize rotation
     var newX = new THREE.Vector3(con.x, con.y, con.z).normalize();
+    if (newX.x < 0) newX.negate();
 
     // Project element coordinates onto plane perpendicular to newX
     var projected = [];
@@ -2986,7 +2988,17 @@
     evA /= evLen; evB /= evLen;
 
     var newY = basisA.clone().multiplyScalar(evA).addScaledVector(basisB, evB).normalize();
+
+    // Choose newY sign closest to +y to minimize flipping
+    if (newY.y < 0) newY.negate();
+
     var newZ = new THREE.Vector3().crossVectors(newX, newY).normalize();
+
+    // Choose newZ sign closest to +z; if wrong, flip newY to fix handedness
+    if (newZ.z < 0) {
+      newY.negate();
+      newZ.negate();
+    }
 
     // Build rotation matrix (rows are newX, newY, newZ)
     var m = new THREE.Matrix4();
