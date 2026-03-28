@@ -3109,7 +3109,7 @@
     }
 
     // Rotate PC axes group along with everything else
-    axesGroup.quaternion.copy(_rotAnim.axesQuatStart).multiply(quat);
+    axesGroup.quaternion.copy(quat).multiply(_rotAnim.axesQuatStart);
 
     // Optionally animate camera position (slerp on sphere to keep constant distance)
     if (_rotAnim.camPosStart) {
