@@ -23,6 +23,7 @@
   var calibrationTickSize = 0.02;
   var calibrationTickWidth = 2.0;
   var elevationFilterAngle = 90; // max elevation from view plane in degrees
+  var ringProjectionMode = false;
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -372,7 +373,10 @@
 
     constructObjects.push({
       line: line, rightLabel: rightLabel, leftLabel: leftLabel,
-      rightMarker: rMarker, leftMarker: lMarker
+      rightMarker: rMarker, leftMarker: lMarker,
+      _origLineLen: lineLen,
+      _origLinePos: mid.clone(),
+      _origLineQuat: quat.clone()
     });
   }
 
@@ -670,8 +674,19 @@
     return elevDeg > elevationFilterAngle;
   }
 
+  var _ringRight = new THREE.Vector3();
+  var _ringUp = new THREE.Vector3();
+  var _ringProj = new THREE.Vector3();
+
   function updateLabelVisibility() {
     camera.getWorldDirection(_camDir);
+
+    // Precompute view-plane basis for ring projection
+    if (ringProjectionMode) {
+      _ringRight.crossVectors(_camDir, camera.up).normalize();
+      _ringUp.crossVectors(_ringRight, _camDir).normalize();
+    }
+
     for (var i = 0; i < constructs.length; i++) {
       var isTempVisible = (profileTempVisibleConstruct === i);
       if ((!constructVisible[i] || isConstructElevationFiltered(i)) && !isTempVisible) {
@@ -682,29 +697,80 @@
         constructObjects[i].line.visible = false;
         continue;
       }
-      // Construct line: visible if permanently toggled (double-click), hovered, or temp-visible
-      var isHovered = (hoveredConstructIndex === i);
-      constructObjects[i].line.visible = constructLineVisible[i] || isHovered;
 
       var sc = constructSphereCoords[i];
+      var obj = constructObjects[i];
 
-      // When hovered, force both poles visible; otherwise back-face cull with 10° tolerance
-      var clv = constructLabelVisible[i];
-      if (isHovered) {
-        constructObjects[i].rightLabel.visible = true;
-        constructObjects[i].rightMarker.visible = true;
-        constructObjects[i].leftLabel.visible = true;
-        constructObjects[i].leftMarker.visible = true;
+      if (ringProjectionMode) {
+        // Project construct direction onto view plane and normalize to ring
+        var px = sc.rx * _ringRight.x + sc.ry * _ringRight.y + sc.rz * _ringRight.z;
+        var py = sc.rx * _ringUp.x + sc.ry * _ringUp.y + sc.rz * _ringUp.z;
+        var pLen = Math.sqrt(px * px + py * py);
+        if (pLen > 0.001) {
+          px /= pLen;
+          py /= pLen;
+        }
+        // Position on the ring (radius 1) in world coords
+        var rpx = _ringRight.x * px + _ringUp.x * py;
+        var rpy = _ringRight.y * px + _ringUp.y * py;
+        var rpz = _ringRight.z * px + _ringUp.z * py;
+
+        obj.rightMarker.position.set(rpx, rpy, rpz);
+        obj.rightLabel.position.set(rpx, rpy, rpz);
+        obj.leftMarker.position.set(-rpx, -rpy, -rpz);
+        obj.leftLabel.position.set(-rpx, -rpy, -rpz);
+
+        // In ring mode, show both poles (no back-face culling)
+        var clv = constructLabelVisible[i];
+        obj.rightLabel.visible = clv;
+        obj.rightMarker.visible = constructPointsGroup.visible;
+        obj.leftLabel.visible = clv;
+        obj.leftMarker.visible = constructPointsGroup.visible;
+        // In ring mode, reposition axis line to go between ring-projected poles
+        var isHovered = (hoveredConstructIndex === i);
+        obj.line.visible = constructLineVisible[i] || isHovered;
+        if (obj.line.visible) {
+          obj.line.position.set(0, 0, 0); // midpoint of diameter is origin
+          var ringDir = new THREE.Vector3(rpx, rpy, rpz).normalize();
+          obj.line.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), ringDir);
+          // Scale Y to match ring diameter (2), relative to original line length
+          var origLen = obj._origLineLen;
+          obj.line.scale.y = 2 / origLen;
+        }
       } else {
-        _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
-        var rightFacing = _poleDir.dot(_camDir) < facingThreshold;
-        constructObjects[i].rightLabel.visible = rightFacing && clv;
-        constructObjects[i].rightMarker.visible = rightFacing && constructPointsGroup.visible;
+        // Restore original sphere positions
+        obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+        obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+        obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+        obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
 
-        _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
-        var leftFacing = _poleDir.dot(_camDir) < facingThreshold;
-        constructObjects[i].leftLabel.visible = leftFacing && clv;
-        constructObjects[i].leftMarker.visible = leftFacing && constructPointsGroup.visible;
+        // Restore original line position, orientation, and scale
+        obj.line.position.copy(obj._origLinePos);
+        obj.line.quaternion.copy(obj._origLineQuat);
+        obj.line.scale.y = 1;
+
+        // Construct line: visible if permanently toggled (double-click), hovered, or temp-visible
+        var isHovered = (hoveredConstructIndex === i);
+        obj.line.visible = constructLineVisible[i] || isHovered;
+
+        // When hovered, force both poles visible; otherwise back-face cull with 10° tolerance
+        var clv = constructLabelVisible[i];
+        if (isHovered) {
+          obj.rightLabel.visible = true;
+          obj.rightMarker.visible = true;
+          obj.leftLabel.visible = true;
+          obj.leftMarker.visible = true;
+        } else {
+          _poleDir.set(sc.rx, sc.ry, sc.rz).normalize();
+          var rightFacing = _poleDir.dot(_camDir) < facingThreshold;
+          obj.rightLabel.visible = rightFacing && clv;
+          obj.rightMarker.visible = rightFacing && constructPointsGroup.visible;
+
+          _poleDir.set(sc.lx, sc.ly, sc.lz).normalize();
+          var leftFacing = _poleDir.dot(_camDir) < facingThreshold;
+          obj.leftLabel.visible = leftFacing && clv;
+          obj.leftMarker.visible = leftFacing && constructPointsGroup.visible;
+        }
       }
     }
   }
@@ -2119,6 +2185,9 @@
       constructLabelVisible[i] = v;
     }
   });
+  var cbRingProjection = addToggle(tabConstructs, "Ring Projection", false, function (v) {
+    ringProjectionMode = v;
+  });
 
   // Construct label size
   var conSizeLabel = document.createElement("label");
@@ -2389,6 +2458,7 @@
       calLabels: cbCalLabels.checked,
       elemLabels: cbElemLabels.checked,
       conLabels: cbConLabels.checked,
+      ringProjection: cbRingProjection.checked,
       deconflict: cbDeconflict.checked,
       sphereColor: sphereColorInput.value,
       elemColor: elemColorInput.value,
@@ -2446,6 +2516,7 @@
     setCheckbox(cbCalLabels, s.calLabels);
     setCheckbox(cbElemLabels, s.elemLabels);
     setCheckbox(cbConLabels, s.conLabels);
+    if (s.ringProjection !== undefined) setCheckbox(cbRingProjection, s.ringProjection);
     setCheckbox(cbDeconflict, s.deconflict);
 
     // Colors
