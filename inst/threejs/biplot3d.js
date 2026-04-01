@@ -2956,16 +2956,16 @@
     if (intersects.length > 0) {
       var ud = intersects[0].object.userData;
       if (ud.type === "element") {
-        selectElement(ud.index, event.metaKey || event.ctrlKey);
-        if (!(event.metaKey || event.ctrlKey)) { selectedConstructs = []; updateConstructSelection(); }
+        selectElement(ud.index, event.metaKey || event.ctrlKey || event.shiftKey);
+        if (!(event.metaKey || event.ctrlKey || event.shiftKey)) { selectedConstructs = []; updateConstructSelection(); }
         updateProfilePlot(ud.index);
       } else if (ud.type === "construct") {
-        selectConstruct(ud.index, event.metaKey || event.ctrlKey);
-        if (!(event.metaKey || event.ctrlKey)) { selectedElements = []; updateElementGlows(); updateDynamicSortVisibility(); }
+        selectConstruct(ud.index, event.metaKey || event.ctrlKey || event.shiftKey);
+        if (!(event.metaKey || event.ctrlKey || event.shiftKey)) { selectedElements = []; updateElementGlows(); updateDynamicSortVisibility(); }
       }
     } else {
       // Click on background: clear selection
-      if (!event.metaKey && !event.ctrlKey) {
+      if (!event.metaKey && !event.ctrlKey && !event.shiftKey) {
         selectedElements = [];
         selectedConstructs = [];
         updateElementGlows();
