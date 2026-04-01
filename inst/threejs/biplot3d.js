@@ -3572,6 +3572,26 @@
 
   document.addEventListener("click", function () { hideContextMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") hideContextMenu(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Delete" || e.key === "Backspace") {
+      if (document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA")) return;
+      if (selectedElements.length === 0 && selectedConstructs.length === 0) return;
+      e.preventDefault();
+      for (var t = 0; t < selectedElements.length; t++) {
+        elemCheckboxes[selectedElements[t]].checked = false;
+        elemCheckboxes[selectedElements[t]].dispatchEvent(new Event("change"));
+      }
+      selectedElements = [];
+      updateElementGlows();
+      updateDynamicSortVisibility();
+      for (var t = 0; t < selectedConstructs.length; t++) {
+        conCheckboxes[selectedConstructs[t]].checked = false;
+        conCheckboxes[selectedConstructs[t]].dispatchEvent(new Event("change"));
+      }
+      selectedConstructs = [];
+      updateConstructSelection();
+    }
+  });
 
   // --- Lasso (freeform) selection ---
   var lassoCanvas = document.createElement("canvas");
