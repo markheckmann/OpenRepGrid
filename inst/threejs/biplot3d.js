@@ -191,6 +191,7 @@
   var selectedConstructs = []; // indices of selected constructs
 
   // --- Colors ---
+  var elementCustomColors = elements.map(function () { return null; }); // per-element color overrides (null = use global)
   var elementColor = 0xbbbbbb;
   var selectionColor = 0x44aaff; // bright blue for selected elements
   var preferredPoleColor = 0x226644;   // green for preferred pole
@@ -1470,7 +1471,7 @@
 
     // Colors
     var textColor = isDark ? "#ccc" : "#333";
-    var lineColor = elemColorInput ? elemColorInput.value : (isDark ? "#5599dd" : "#2266aa");
+    var lineColor = elementCustomColors[elemIdx] || (elemColorInput ? elemColorInput.value : (isDark ? "#5599dd" : "#2266aa"));
     var gridColor = isDark ? "#444" : "#e0e0e0";
     var bgColor = isDark ? "transparent" : "transparent";
     var prefColor = isDark ? "#44bb77" : "#226644";
@@ -1719,9 +1720,14 @@
     };
   }
 
+  function getElementColor(i) {
+    if (elementCustomColors[i]) return elementCustomColors[i];
+    return elemColorInput ? elemColorInput.value : "#bbbbbb";
+  }
+
   function updateElementGlows() {
-    var baseColor = elemColorInput ? elemColorInput.value : "#bbbbbb";
     for (var i = 0; i < elementObjects.length; i++) {
+      var baseColor = getElementColor(i);
       var bi = benchmarkElements.indexOf(i);
       var isBenchmark = bi >= 0;
       var isSelected = selectedElements.indexOf(i) >= 0;
@@ -2609,6 +2615,7 @@
       deconflict: cbDeconflict.checked,
       sphereColor: sphereColorInput.value,
       elemColor: elemColorInput.value,
+      elementCustomColors: elementCustomColors.slice(),
       axisColor: axisColorInput.value,
       elemLabelSize: elemSizeRange.value,
       conLabelSize: conSizeRange.value,
@@ -2671,6 +2678,11 @@
     sphereColorInput.value = s.sphereColor;
     wireUniforms.uColor.value.set(s.sphereColor);
     elemColorInput.value = s.elemColor;
+    if (s.elementCustomColors) {
+      for (var i = 0; i < elementCustomColors.length; i++) {
+        elementCustomColors[i] = s.elementCustomColors[i] || null;
+      }
+    }
     axisColorInput.value = s.axisColor;
 
     // Sliders
@@ -3340,6 +3352,45 @@
       }
     });
 
+    // Color picker
+    var colorItem = document.createElement("div");
+    colorItem.className = "menu-item";
+    colorItem.style.display = "flex";
+    colorItem.style.alignItems = "center";
+    colorItem.style.gap = "6px";
+    var colorInput = document.createElement("input");
+    colorInput.type = "color";
+    colorInput.value = elementCustomColors[targets[0]] || (elemColorInput ? elemColorInput.value : "#bbbbbb");
+    colorInput.style.width = "22px";
+    colorInput.style.height = "22px";
+    colorInput.style.border = "none";
+    colorInput.style.padding = "0";
+    colorInput.style.cursor = "pointer";
+    colorInput.addEventListener("input", function () {
+      for (var t = 0; t < targets.length; t++) {
+        elementCustomColors[targets[t]] = colorInput.value;
+      }
+      updateElementGlows();
+      updateGridTableBoldState();
+    });
+    colorInput.addEventListener("click", function (e) { e.stopPropagation(); });
+    var colorLabel = document.createTextNode("Color" + suffix);
+    colorItem.appendChild(colorInput);
+    colorItem.appendChild(colorLabel);
+    contextMenu.appendChild(colorItem);
+
+    // Reset color
+    var anyCustom = targets.some(function (i) { return elementCustomColors[i] !== null; });
+    if (anyCustom) {
+      addMenuItem("Reset color" + suffix, function () {
+        for (var t = 0; t < targets.length; t++) {
+          elementCustomColors[targets[t]] = null;
+        }
+        updateElementGlows();
+        updateGridTableBoldState();
+      });
+    }
+
     showContextMenuAt(x, y);
   }
 
@@ -3523,6 +3574,7 @@
         elementProjections[i] = false;
         elementLabelVisible[i] = true;
         elementObjects[i].label.visible = true;
+        elementCustomColors[i] = null;
       }
       for (var i = 0; i < constructs.length; i++) {
         if (!conCheckboxes[i].checked) {
