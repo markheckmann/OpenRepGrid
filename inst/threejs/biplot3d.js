@@ -1583,7 +1583,7 @@
           bPoints.push({ x: bx, y: by, ci: ci });
         }
       }
-      var bColor = benchColors[bi % benchColors.length];
+      var bColor = elementCustomColors[bIdx] || benchColors[bi % benchColors.length];
       var bFootHovered = hoveredFootConstructIndex >= 0 && hoveredFootElementIndex === bIdx;
       // Dashed line
       if (bPoints.length > 1) {
@@ -1660,7 +1660,7 @@
       var legendX = leftMargin;
       for (var bi = 0; bi < benchmarkElements.length; bi++) {
         var bIdx = benchmarkElements[bi];
-        var bColor = benchColors[bi % benchColors.length];
+        var bColor = elementCustomColors[bIdx] || benchColors[bi % benchColors.length];
         profileCtx.setLineDash([4, 3]);
         profileCtx.strokeStyle = bColor;
         profileCtx.lineWidth = 1.2;
@@ -1734,7 +1734,7 @@
       var active = (i === selectedElementIndex) || isBenchmark || isSelected;
       elementObjects[i].glow.visible = active && elementVisible[i];
       if (isBenchmark) {
-        elementObjects[i].glow.material.color.set(benchColors[bi % benchColors.length]);
+        elementObjects[i].glow.material.color.set(elementCustomColors[i] || benchColors[bi % benchColors.length]);
       } else if (isSelected) {
         elementObjects[i].glow.material.color.set(selectionColor);
       } else {
