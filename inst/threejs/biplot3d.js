@@ -2329,6 +2329,12 @@
   var cbRingProjection = addToggle(tabConstructs, "Ring Projection", false, function (v) {
     ringProjectionMode = v;
   });
+  var scalePolesOnHover = false;
+  var cbScalePoles = addToggle(tabConstructs, "Scale Poles on Hover", false, function (v) {
+    scalePolesOnHover = v;
+    // Reset pole sizes when toggling off
+    if (!v) resetPoleScales();
+  });
 
   // Construct label size
   var conSizeLabel = document.createElement("label");
@@ -2611,6 +2617,7 @@
       elemLabels: cbElemLabels.checked,
       conLabels: cbConLabels.checked,
       ringProjection: cbRingProjection.checked,
+      scalePoles: cbScalePoles.checked,
       projErrors: cbProjError.checked,
       deconflict: cbDeconflict.checked,
       sphereColor: sphereColorInput.value,
@@ -2671,6 +2678,7 @@
     setCheckbox(cbElemLabels, s.elemLabels);
     setCheckbox(cbConLabels, s.conLabels);
     if (s.ringProjection !== undefined) setCheckbox(cbRingProjection, s.ringProjection);
+    if (s.scalePoles !== undefined) { setCheckbox(cbScalePoles, s.scalePoles); scalePolesOnHover = s.scalePoles; }
     if (s.projErrors !== undefined) setCheckbox(cbProjError, s.projErrors);
     setCheckbox(cbDeconflict, s.deconflict);
 
@@ -2811,6 +2819,7 @@
     elementObjects[idx].sphere.scale.setScalar(1.8);
     elementObjects[idx].sphere.material.emissive.setHex(0x444444);
     elementObjects[idx].label.element.style.fontWeight = "800";
+    if (scalePolesOnHover) scalePolesByElement(idx);
   }
 
   function unhighlightElement(idx) {
@@ -2818,6 +2827,7 @@
     elementObjects[idx].sphere.scale.setScalar(1.0);
     elementObjects[idx].sphere.material.emissive.setHex(0x000000);
     elementObjects[idx].label.element.style.fontWeight = "";
+    if (scalePolesOnHover) resetPoleScales();
   }
 
   function highlightConstruct(idx) {
@@ -2845,6 +2855,41 @@
     obj.leftLabel.element.style.fontWeight = "";
     obj.rightLabel.element.style.textShadow = "";
     obj.leftLabel.element.style.textShadow = "";
+  }
+
+  function resetPoleScales() {
+    for (var i = 0; i < constructObjects.length; i++) {
+      constructObjects[i].rightMarker.scale.setScalar(1.0);
+      constructObjects[i].leftMarker.scale.setScalar(1.0);
+      constructObjects[i].rightLabel.element.style.fontSize = "";
+      constructObjects[i].leftLabel.element.style.fontSize = "";
+    }
+  }
+
+  function scalePolesByElement(elemIdx) {
+    if (elemIdx < 0) return;
+    var scaleMin = meta.scale_min;
+    var scaleMax = meta.scale_max;
+    var scaleRange = scaleMax - scaleMin;
+    if (scaleRange === 0) return;
+    var minMarker = 0.3;
+    var maxMarker = 4.0;
+    var minFont = 7;
+    var maxFont = 18;
+    for (var c = 0; c < constructs.length; c++) {
+      var rating = ratings.values[c][elemIdx];
+      if (rating == null || isNaN(rating)) continue;
+      // Normalized 0..1 where 1 = high rating (right pole)
+      var t = (rating - scaleMin) / scaleRange;
+      var rightScale = minMarker + t * (maxMarker - minMarker);
+      var leftScale = minMarker + (1 - t) * (maxMarker - minMarker);
+      var rightFont = minFont + t * (maxFont - minFont);
+      var leftFont = minFont + (1 - t) * (maxFont - minFont);
+      constructObjects[c].rightMarker.scale.setScalar(rightScale);
+      constructObjects[c].leftMarker.scale.setScalar(leftScale);
+      constructObjects[c].rightLabel.element.style.fontSize = Math.round(rightFont) + "px";
+      constructObjects[c].leftLabel.element.style.fontSize = Math.round(leftFont) + "px";
+    }
   }
 
   function onMouseMove(event) {
