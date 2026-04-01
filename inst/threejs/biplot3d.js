@@ -2260,6 +2260,11 @@
   var cbDeconflict = addToggle(tabGeneral, "Deconflict Labels", true, function (v) {
     labelDeconflict = v;
   });
+  var tooltipsEnabled = true;
+  var cbTooltips = addToggle(tabGeneral, "Tooltips", true, function (v) {
+    tooltipsEnabled = v;
+    if (!v) tooltip.style.display = "none";
+  });
 
   // === Elements tab ===
   // Element color chooser
@@ -2620,6 +2625,7 @@
       scalePoles: cbScalePoles.checked,
       projErrors: cbProjError.checked,
       deconflict: cbDeconflict.checked,
+      tooltips: cbTooltips.checked,
       sphereColor: sphereColorInput.value,
       elemColor: elemColorInput.value,
       elementCustomColors: elementCustomColors.slice(),
@@ -2681,6 +2687,7 @@
     if (s.scalePoles !== undefined) { setCheckbox(cbScalePoles, s.scalePoles); scalePolesOnHover = s.scalePoles; }
     if (s.projErrors !== undefined) setCheckbox(cbProjError, s.projErrors);
     setCheckbox(cbDeconflict, s.deconflict);
+    if (s.tooltips !== undefined) { setCheckbox(cbTooltips, s.tooltips); tooltipsEnabled = s.tooltips; }
 
     // Colors
     sphereColorInput.value = s.sphereColor;
@@ -2923,7 +2930,7 @@
         var qualStr = ud.quality !== undefined
           ? " (quality: " + (ud.quality * 100).toFixed(1) + "%)" : "";
         tooltip.textContent = ud.name + qualStr;
-        tooltip.style.display = "block";
+        tooltip.style.display = tooltipsEnabled ? "block" : "none";
         tooltip.style.left = (event.clientX + 12) + "px";
         tooltip.style.top = (event.clientY - 8) + "px";
         if (ud.type === "element") newHoveredElement = ud.index;
@@ -2933,7 +2940,7 @@
         var cLeft = constructs[ud.constructIndex].left_pole;
         var cRight = constructs[ud.constructIndex].right_pole;
         tooltip.textContent = eName + " → " + cLeft + " – " + cRight;
-        tooltip.style.display = "block";
+        tooltip.style.display = tooltipsEnabled ? "block" : "none";
         tooltip.style.left = (event.clientX + 12) + "px";
         tooltip.style.top = (event.clientY - 8) + "px";
         newHoveredFootElem = ud.elementIndex;
