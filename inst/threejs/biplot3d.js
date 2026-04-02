@@ -216,13 +216,14 @@
     uCamDir: { value: new THREE.Vector3(0, 0, -1) },
     uDepthFade: { value: 1.0 }
   };
-  var wireMat = new THREE.ShaderMaterial({
+  var wireTubeMat = new THREE.ShaderMaterial({
     transparent: true,
+    side: THREE.DoubleSide,
     uniforms: wireUniforms,
     vertexShader: [
-      "varying vec3 vWorldNormal;",
+      "varying vec3 vWorldPos;",
       "void main() {",
-      "  vWorldNormal = normalize((modelMatrix * vec4(position, 1.0)).xyz);",
+      "  vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;",
       "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
       "}"
     ].join("\n"),
@@ -232,9 +233,10 @@
       "uniform float uOpacityBack;",
       "uniform vec3 uCamDir;",
       "uniform float uDepthFade;",
-      "varying vec3 vWorldNormal;",
+      "varying vec3 vWorldPos;",
       "void main() {",
-      "  float facing = dot(vWorldNormal, -uCamDir);",
+      "  vec3 sphereNormal = normalize(vWorldPos);",
+      "  float facing = dot(sphereNormal, -uCamDir);",
       "  float t = clamp(facing * 0.5 + 0.5, 0.0, 1.0);",
       "  float opacity = mix(uOpacityFront, mix(uOpacityBack, uOpacityFront, t), uDepthFade);",
       "  gl_FragColor = vec4(uColor, opacity);",
@@ -242,12 +244,24 @@
     ].join("\n")
   });
 
+  var wireRadius = 0.001; // tube radius for wireframe lines
+
   function buildGridLines(nLon, nLat) {
     // Clear existing lines
     while (sphereGroup.children.length > 0) {
-      sphereGroup.children[0].geometry.dispose();
-      sphereGroup.remove(sphereGroup.children[0]);
+      var child = sphereGroup.children[0];
+      if (child.geometry) child.geometry.dispose();
+      sphereGroup.remove(child);
     }
+
+    function makeTube(pts, closed) {
+      var curve = closed
+        ? new THREE.CatmullRomCurve3(pts, true)
+        : new THREE.CatmullRomCurve3(pts, false);
+      var tubeGeom = new THREE.TubeGeometry(curve, pts.length, wireRadius, 4, closed);
+      return new THREE.Mesh(tubeGeom, wireTubeMat);
+    }
+
     // Longitude lines (vertical great circles)
     for (var i = 0; i < nLon; i++) {
       var phi = (i / nLon) * Math.PI * 2;
@@ -260,8 +274,7 @@
           sphereRadius * Math.sin(theta) * Math.sin(phi)
         ));
       }
-      var geom = new THREE.BufferGeometry().setFromPoints(pts);
-      sphereGroup.add(new THREE.Line(geom, wireMat));
+      sphereGroup.add(makeTube(pts, false));
     }
     // Latitude lines (horizontal circles)
     for (var i = 1; i < nLat; i++) {
@@ -269,12 +282,11 @@
       var r = sphereRadius * Math.sin(theta);
       var y = sphereRadius * Math.cos(theta);
       var pts = [];
-      for (var j = 0; j <= gridPointsPerCurve; j++) {
+      for (var j = 0; j < gridPointsPerCurve; j++) {
         var phi = (j / gridPointsPerCurve) * Math.PI * 2;
         pts.push(new THREE.Vector3(r * Math.cos(phi), y, r * Math.sin(phi)));
       }
-      var geom = new THREE.BufferGeometry().setFromPoints(pts);
-      sphereGroup.add(new THREE.Line(geom, wireMat));
+      sphereGroup.add(makeTube(pts, true));
     }
   }
   var defaultLon = 32;
@@ -2161,6 +2173,25 @@
   var cbDepthFade = addToggle(tabGeneral, "Depth Fade", true, function (v) {
     wireUniforms.uDepthFade.value = v ? 1.0 : 0.0;
   });
+
+  // Wireframe width slider
+  var wireWidthLabel = document.createElement("label");
+  var wireWidthRange = document.createElement("input");
+  wireWidthRange.type = "range";
+  wireWidthRange.min = "0.5";
+  wireWidthRange.max = "4";
+  wireWidthRange.step = "0.25";
+  wireWidthRange.value = "1";
+  wireWidthRange.addEventListener("input", function () {
+    wireRadius = 0.001 * parseFloat(wireWidthRange.value);
+    var nLon = parseInt(gridDensityRange.value);
+    var nLat = Math.round(nLon * 0.75);
+    buildGridLines(nLon, nLat);
+  });
+  wireWidthLabel.appendChild(wireWidthRange);
+  wireWidthLabel.appendChild(document.createTextNode(" Wireframe Width"));
+  tabGeneral.appendChild(wireWidthLabel);
+
   var cbSilhouette = addToggle(tabGeneral, "Silhouette Ring", false, function (v) {
     silhouetteGroup.visible = v;
   });
@@ -2611,6 +2642,7 @@
       orthographic: cbOrtho.checked,
       darkMode: cbDarkMode.checked,
       wireframe: cbWireframe.checked,
+      wireWidth: wireWidthRange.value,
       depthFade: cbDepthFade.checked,
       silhouette: cbSilhouette.checked,
       silColor: silColorInput.value,
@@ -2661,6 +2693,10 @@
     if (s.orthographic !== undefined) setCheckbox(cbOrtho, s.orthographic);
     setCheckbox(cbDarkMode, s.darkMode);
     setCheckbox(cbWireframe, s.wireframe);
+    if (s.wireWidth !== undefined) {
+      wireWidthRange.value = s.wireWidth;
+      wireWidthRange.dispatchEvent(new Event("input"));
+    }
     setCheckbox(cbDepthFade, s.depthFade);
     if (s.silhouette !== undefined) setCheckbox(cbSilhouette, s.silhouette);
     if (s.silColor !== undefined) {
