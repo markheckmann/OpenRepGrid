@@ -25,6 +25,7 @@
   var elevationFilterAngle = 90; // max elevation from view plane in degrees
   var ringProjectionMode = false;
   var showProjectionErrors = false;
+  var projectionMode2D = false;
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -506,6 +507,28 @@
     elementProjectionGroups.push(g);
   }
 
+  function compute2DFoot(eVec, cVec) {
+    var rect = renderer.domElement.getBoundingClientRect();
+    // Project element to screen
+    var eScreen = eVec.clone().project(camera);
+    var ex = (eScreen.x * 0.5 + 0.5) * rect.width;
+    var ey = (-eScreen.y * 0.5 + 0.5) * rect.height;
+    // Project origin and axis endpoint to screen
+    var oScreen = new THREE.Vector3(0, 0, 0).project(camera);
+    var ox = (oScreen.x * 0.5 + 0.5) * rect.width;
+    var oy = (-oScreen.y * 0.5 + 0.5) * rect.height;
+    var aScreen = cVec.clone().project(camera);
+    var ax = (aScreen.x * 0.5 + 0.5) * rect.width;
+    var ay = (-aScreen.y * 0.5 + 0.5) * rect.height;
+    // Perpendicular foot in 2D
+    var dx = ax - ox, dy = ay - oy;
+    var len2 = dx * dx + dy * dy;
+    if (len2 < 1e-8) return null; // axis is edge-on
+    var t = ((ex - ox) * dx + (ey - oy) * dy) / len2;
+    // Map t back to 3D: foot = t * cVec
+    return cVec.clone().multiplyScalar(t);
+  }
+
   function buildProjectionsForElement(idx) {
     var group = elementProjectionGroups[idx];
     // Remove old foot dots from hoverTargets
@@ -533,8 +556,14 @@
       if (!constructVisible[j] || !constructLineVisible[j] || isConstructElevationFiltered(j)) continue;
       var con = constructs[j];
       var cVec = new THREE.Vector3(con.x, con.y, con.z);
-      var cDir = cVec.clone().normalize();
-      var foot = cDir.clone().multiplyScalar(eVec.dot(cDir));
+      var foot;
+      if (projectionMode2D) {
+        foot = compute2DFoot(eVec, cVec);
+        if (!foot) continue;
+      } else {
+        var cDir = cVec.clone().normalize();
+        foot = cDir.clone().multiplyScalar(eVec.dot(cDir));
+      }
 
       // Projection line from element to foot (cylinder mesh for variable thickness)
       var projDist = eVec.distanceTo(foot);
@@ -2355,6 +2384,10 @@
     showProjectionErrors = v;
     rebuildAllProjections();
   });
+  var cbProj2D = addToggle(tabElements, "2D Projection", false, function (v) {
+    projectionMode2D = v;
+    rebuildAllProjections();
+  });
 
   // === Constructs tab ===
   var cbConLabels = addToggle(tabConstructs, "Construct Labels", true, function (v) {
@@ -2656,6 +2689,7 @@
       ringProjection: cbRingProjection.checked,
       scalePoles: cbScalePoles.checked,
       projErrors: cbProjError.checked,
+      projMode2D: cbProj2D.checked,
       deconflict: cbDeconflict.checked,
       tooltips: cbTooltips.checked,
       sphereColor: sphereColorInput.value,
@@ -2722,6 +2756,7 @@
     if (s.ringProjection !== undefined) setCheckbox(cbRingProjection, s.ringProjection);
     if (s.scalePoles !== undefined) { setCheckbox(cbScalePoles, s.scalePoles); scalePolesOnHover = s.scalePoles; }
     if (s.projErrors !== undefined) setCheckbox(cbProjError, s.projErrors);
+    if (s.projMode2D !== undefined) { setCheckbox(cbProj2D, s.projMode2D); projectionMode2D = s.projMode2D; }
     setCheckbox(cbDeconflict, s.deconflict);
     if (s.tooltips !== undefined) { setCheckbox(cbTooltips, s.tooltips); tooltipsEnabled = s.tooltips; }
 
@@ -4179,7 +4214,7 @@
         _calDirty = false;
         _lastCalTime = now;
         buildCalibration();
-        if (elevationFilterAngle < 90) {
+        if (elevationFilterAngle < 90 || projectionMode2D) {
           rebuildAllProjections();
         }
       }
