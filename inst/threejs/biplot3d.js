@@ -2365,8 +2365,8 @@
   var cbRingProjection = addToggle(tabConstructs, "Ring Projection", false, function (v) {
     ringProjectionMode = v;
   });
-  var scalePolesOnHover = false;
-  var cbScalePoles = addToggle(tabConstructs, "Scale Poles on Hover", false, function (v) {
+  var scalePolesOnHover = true;
+  var cbScalePoles = addToggle(tabConstructs, "Scale Poles on Hover", true, function (v) {
     scalePolesOnHover = v;
     // Reset pole sizes when toggling off
     if (!v) resetPoleScales();
