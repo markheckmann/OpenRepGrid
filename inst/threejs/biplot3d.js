@@ -1224,15 +1224,15 @@
   profileCanvas.style.display = "none";
 
   // Profile font size control
-  var profileFontSize = 10;
+  var profileFontSize = 12;
   var profileFontControl = document.createElement("div");
   profileFontControl.className = "profile-font-control";
   var pfRange = document.createElement("input");
   pfRange.type = "range";
   pfRange.min = "7";
-  pfRange.max = "14";
+  pfRange.max = "18";
   pfRange.step = "1";
-  pfRange.value = "10";
+  pfRange.value = "12";
   var pfLabel = document.createElement("span");
   pfLabel.textContent = "Font";
   profileFontControl.appendChild(pfLabel);
