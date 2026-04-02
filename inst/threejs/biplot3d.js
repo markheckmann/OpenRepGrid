@@ -3129,10 +3129,21 @@
   var _anim = null;
   var _dataQuat = new THREE.Quaternion(); // accumulated data rotation (identity = original)
 
+  function rotateToElement(elemIdx) {
+    var elem = elements[elemIdx];
+    var eDir = new THREE.Vector3(elem.x, elem.y, elem.z).normalize();
+    if (eDir.x < 0) eDir.negate();
+    rotateToDirection(eDir);
+  }
+
   function rotateToConstruct(conIdx) {
     var con = constructs[conIdx];
     var cDir = new THREE.Vector3(con.x, con.y, con.z).normalize();
     if (cDir.x < 0) cDir.negate(); // pick pole closer to +x for minimal rotation
+    rotateToDirection(cDir);
+  }
+
+  function rotateToDirection(cDir) {
 
     // Rotation that maps construct direction → +x axis
     var targetQuat = new THREE.Quaternion().setFromUnitVectors(cDir, new THREE.Vector3(1, 0, 0));
@@ -3439,6 +3450,13 @@
         }
       }
     });
+
+    // Rotate to x-axis (single element only)
+    if (!isMulti) {
+      addMenuItem("Rotate to x-axis", function () {
+        rotateToElement(elemIdx);
+      });
+    }
 
     // Color picker
     var colorItem = document.createElement("div");
