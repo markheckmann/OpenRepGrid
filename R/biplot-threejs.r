@@ -117,7 +117,8 @@ biplotThreejs <- function(x, dim = 1:3,
     n_elements = ncol(x),
     n_constructs = nrow(x),
     scale_min = x@scale$min,
-    scale_max = x@scale$max
+    scale_max = x@scale$max,
+    ideal_element = ifelse(is.na(ideal(x)), -1L, ideal(x) - 1L)
   )
 
   # raw ratings matrix for grid table display (constructs x elements)

@@ -26,6 +26,8 @@
   var ringProjectionMode = false;
   var showProjectionErrors = false;
   var projectionMode2D = false;
+  var idealElementIndex = (meta.ideal_element !== undefined && meta.ideal_element !== null) ? meta.ideal_element : -1;
+  var indifferenceWidth = 0;
 
   // --- Scene setup ---
   var sceneContainer = document.getElementById("scene-container");
@@ -1858,6 +1860,74 @@
     }
   }
 
+  function updatePreferredFromIdeal() {
+    var midpoint = (meta.scale_min + meta.scale_max) / 2;
+    var halfIndiff = indifferenceWidth / 2;
+    for (var c = 0; c < constructs.length; c++) {
+      if (idealElementIndex < 0) {
+        constructs[c].preferred = "none";
+      } else {
+        var rating = ratings.values[c][idealElementIndex];
+        if (rating == null || isNaN(rating)) {
+          constructs[c].preferred = "none";
+        } else if (rating > midpoint + halfIndiff) {
+          constructs[c].preferred = "right";
+        } else if (rating < midpoint - halfIndiff) {
+          constructs[c].preferred = "left";
+        } else {
+          constructs[c].preferred = "none";
+        }
+      }
+    }
+    refreshPoleColors();
+  }
+
+  function refreshPoleColors() {
+    // Update 3D markers and CSS2D label classes
+    for (var i = 0; i < constructObjects.length; i++) {
+      var pref = constructs[i].preferred;
+      var rColor, lColor, rClass, lClass;
+      if (pref === "right") {
+        rColor = preferredPoleColor; lColor = nonpreferredPoleColor;
+        rClass = "label-construct-preferred"; lClass = "label-construct-nonpreferred";
+      } else if (pref === "left") {
+        rColor = nonpreferredPoleColor; lColor = preferredPoleColor;
+        rClass = "label-construct-nonpreferred"; lClass = "label-construct-preferred";
+      } else if (pref === "both") {
+        rColor = preferredPoleColor; lColor = preferredPoleColor;
+        rClass = "label-construct-preferred"; lClass = "label-construct-preferred";
+      } else {
+        rColor = neutralPoleColor; lColor = neutralPoleColor;
+        rClass = "label-construct-neutral"; lClass = "label-construct-neutral";
+      }
+      constructObjects[i].rightMarker.material.color.set(rColor);
+      constructObjects[i].leftMarker.material.color.set(lColor);
+      constructObjects[i].rightLabel.element.className = rClass;
+      constructObjects[i].leftLabel.element.className = lClass;
+    }
+    // Update grid table pole cells
+    var rows = document.querySelectorAll("#grid-table tbody tr");
+    for (var r = 0; r < rows.length; r++) {
+      var ci = parseInt(rows[r].dataset.constructIndex);
+      if (isNaN(ci)) continue;
+      var pref = constructs[ci].preferred;
+      var lCls, rCls;
+      if (pref === "left") { lCls = "col-preferred-pole"; rCls = "col-nonpreferred-pole"; }
+      else if (pref === "right") { lCls = "col-nonpreferred-pole"; rCls = "col-preferred-pole"; }
+      else if (pref === "both") { lCls = "col-preferred-pole"; rCls = "col-preferred-pole"; }
+      else { lCls = "col-neutral-pole"; rCls = "col-neutral-pole"; }
+      var tds = rows[r].querySelectorAll("td");
+      if (tds.length >= 2) {
+        tds[0].className = lCls;
+        tds[tds.length - 1].className = rCls;
+      }
+    }
+    // Respect current selection (selected constructs stay blue)
+    updateConstructSelection();
+    // Redraw profile plot if visible
+    if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+  }
+
   function updateProfilePlot(elemIdx) {
     selectedElementIndex = elemIdx;
     updateElementGlows();
@@ -2340,6 +2410,50 @@
   elemColorLabel.appendChild(document.createTextNode(" Element Color"));
   tabElements.appendChild(elemColorLabel);
 
+  // Ideal element selector
+  var idealLabel = document.createElement("label");
+  var idealSelect = document.createElement("select");
+  idealSelect.style.marginRight = "4px";
+  var noneOpt = document.createElement("option");
+  noneOpt.value = "-1";
+  noneOpt.textContent = "\u2014 None \u2014";
+  idealSelect.appendChild(noneOpt);
+  for (var i = 0; i < elements.length; i++) {
+    var opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = elements[i].name;
+    idealSelect.appendChild(opt);
+  }
+  idealSelect.value = idealElementIndex;
+  idealSelect.addEventListener("change", function () {
+    idealElementIndex = parseInt(idealSelect.value);
+    updatePreferredFromIdeal();
+  });
+  idealLabel.appendChild(idealSelect);
+  idealLabel.appendChild(document.createTextNode(" Ideal Element"));
+  tabElements.appendChild(idealLabel);
+
+  // Indifference width slider
+  var indiffLabel = document.createElement("label");
+  var indiffRange = document.createElement("input");
+  indiffRange.type = "range";
+  indiffRange.min = "0";
+  indiffRange.max = String(meta.scale_max - meta.scale_min - 1);
+  indiffRange.step = "1";
+  indiffRange.value = "0";
+  var indiffValueSpan = document.createElement("span");
+  indiffValueSpan.textContent = "0";
+  indiffRange.addEventListener("input", function () {
+    indifferenceWidth = parseInt(indiffRange.value);
+    indiffValueSpan.textContent = indiffRange.value;
+    if (idealElementIndex >= 0) updatePreferredFromIdeal();
+  });
+  indiffLabel.appendChild(indiffRange);
+  indiffLabel.appendChild(document.createTextNode(" Indifference ("));
+  indiffLabel.appendChild(indiffValueSpan);
+  indiffLabel.appendChild(document.createTextNode(")"));
+  tabElements.appendChild(indiffLabel);
+
   var cbElemLabels = addToggle(tabElements, "Element Labels", true, function (v) {
     for (var i = 0; i < elements.length; i++) {
       elementLabelVisible[i] = v;
@@ -2690,6 +2804,8 @@
       scalePoles: cbScalePoles.checked,
       projErrors: cbProjError.checked,
       projMode2D: cbProj2D.checked,
+      idealElement: idealElementIndex,
+      indifferenceWidth: indifferenceWidth,
       deconflict: cbDeconflict.checked,
       tooltips: cbTooltips.checked,
       sphereColor: sphereColorInput.value,
@@ -2757,6 +2873,16 @@
     if (s.scalePoles !== undefined) { setCheckbox(cbScalePoles, s.scalePoles); scalePolesOnHover = s.scalePoles; }
     if (s.projErrors !== undefined) setCheckbox(cbProjError, s.projErrors);
     if (s.projMode2D !== undefined) { setCheckbox(cbProj2D, s.projMode2D); projectionMode2D = s.projMode2D; }
+    if (s.idealElement !== undefined) {
+      idealElementIndex = s.idealElement;
+      idealSelect.value = s.idealElement;
+    }
+    if (s.indifferenceWidth !== undefined) {
+      indifferenceWidth = s.indifferenceWidth;
+      indiffRange.value = s.indifferenceWidth;
+      indiffValueSpan.textContent = s.indifferenceWidth;
+    }
+    if (s.idealElement !== undefined) updatePreferredFromIdeal();
     setCheckbox(cbDeconflict, s.deconflict);
     if (s.tooltips !== undefined) { setCheckbox(cbTooltips, s.tooltips); tooltipsEnabled = s.tooltips; }
 
@@ -3490,6 +3616,11 @@
     if (!isMulti) {
       addMenuItem("Rotate to x-axis", function () {
         rotateToElement(elemIdx);
+      });
+      addMenuItem("Set as ideal", function () {
+        idealElementIndex = elemIdx;
+        idealSelect.value = elemIdx;
+        updatePreferredFromIdeal();
       });
     }
 
