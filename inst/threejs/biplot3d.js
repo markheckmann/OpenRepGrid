@@ -1112,7 +1112,7 @@
     unhighlightGridCell();
   }
 
-  (function () {
+  function setupGridTableCellEvents() {
     var cells = document.querySelectorAll("#grid-table td.rating-cell");
     for (var c = 0; c < cells.length; c++) {
       (function (td) {
@@ -1170,12 +1170,13 @@
         });
       })(cells[c]);
     }
-  })();
+  }
+  setupGridTableCellEvents();
 
   // --- Grid table element header interactions ---
   var gridHoveredElement = -1;
   var gridHoverElemWasHidden = false;
-  (function () {
+  function setupGridTableHeaderEvents() {
     var headers = document.querySelectorAll("#grid-table th.element-header");
     for (var h = 0; h < headers.length; h++) {
       (function (th) {
@@ -1229,7 +1230,8 @@
         });
       })(headers[h]);
     }
-  })();
+  }
+  setupGridTableHeaderEvents();
 
   // --- Tab switching ---
   var tabBtns = document.querySelectorAll(".tab-btn");
@@ -1326,6 +1328,17 @@
   diffSortLabel.appendChild(document.createTextNode(" Difference"));
   diffSortLabel.style.display = "none";
   sortToggle.appendChild(diffSortLabel);
+
+  // Align constructs button
+  var alignBtn = document.createElement("button");
+  alignBtn.textContent = "Align";
+  alignBtn.title = "Reverse constructs so all preferred poles are on the right";
+  alignBtn.className = "toggle-all-btn";
+  alignBtn.style.marginLeft = "6px";
+  alignBtn.addEventListener("click", function () {
+    alignConstructs();
+  });
+  sortToggle.appendChild(alignBtn);
 
   function computeValueOrder(elemIdx) {
     return constructs.map(function (c, i) {
@@ -1926,6 +1939,88 @@
     updateConstructSelection();
     // Redraw profile plot if visible
     if (selectedElementIndex >= 0) drawProfilePlot(selectedElementIndex);
+  }
+
+  function reverseConstruct(ci) {
+    // Negate direction vector
+    constructs[ci].x *= -1;
+    constructs[ci].y *= -1;
+    constructs[ci].z *= -1;
+    // Swap pole labels on construct
+    var tmp = constructs[ci].left_pole;
+    constructs[ci].left_pole = constructs[ci].right_pole;
+    constructs[ci].right_pole = tmp;
+    // Swap preferred pole direction
+    if (constructs[ci].preferred === "left") constructs[ci].preferred = "right";
+    else if (constructs[ci].preferred === "right") constructs[ci].preferred = "left";
+    // Invert ratings: newRating = scaleMin + scaleMax - oldRating
+    var scaleSum = meta.scale_min + meta.scale_max;
+    for (var e = 0; e < ratings.values[ci].length; e++) {
+      if (ratings.values[ci][e] != null && !isNaN(ratings.values[ci][e])) {
+        ratings.values[ci][e] = scaleSum - ratings.values[ci][e];
+      }
+    }
+    // Swap ratings pole labels
+    var tmpR = ratings.left_poles[ci];
+    ratings.left_poles[ci] = ratings.right_poles[ci];
+    ratings.right_poles[ci] = tmpR;
+    // Negate calibration coords
+    if (calibration && calibration.construct_coords[ci]) {
+      calibration.construct_coords[ci][0] *= -1;
+      calibration.construct_coords[ci][1] *= -1;
+      calibration.construct_coords[ci][2] *= -1;
+    }
+    // Update initial coords for reset
+    initialConstructs[ci].x *= -1;
+    initialConstructs[ci].y *= -1;
+    initialConstructs[ci].z *= -1;
+    if (initialCalibCoords && initialCalibCoords[ci]) {
+      initialCalibCoords[ci][0] *= -1;
+      initialCalibCoords[ci][1] *= -1;
+      initialCalibCoords[ci][2] *= -1;
+    }
+    // Update sphere coords
+    var sc = constructSphereCoords[ci];
+    var tmpSc = sc.rx; sc.rx = sc.lx; sc.lx = tmpSc;
+    tmpSc = sc.ry; sc.ry = sc.ly; sc.ly = tmpSc;
+    tmpSc = sc.rz; sc.rz = sc.lz; sc.lz = tmpSc;
+    // Update 3D objects
+    var obj = constructObjects[ci];
+    obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+    obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+    obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+    obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+    obj.rightLabel.element.textContent = constructs[ci].right_pole;
+    obj.leftLabel.element.textContent = constructs[ci].left_pole;
+    // Update userData for tooltips
+    obj.rightMarker.userData.name = constructs[ci].right_pole + " \u2014 " + constructs[ci].left_pole;
+    obj.leftMarker.userData.name = constructs[ci].left_pole + " \u2014 " + constructs[ci].right_pole;
+  }
+
+  function alignConstructs() {
+    var changed = false;
+    for (var c = 0; c < constructs.length; c++) {
+      if (constructs[c].preferred === "left") {
+        reverseConstruct(c);
+        changed = true;
+      }
+    }
+    if (changed) {
+      refreshPoleColors();
+      buildCalibration();
+      rebuildAllProjections();
+      rebuildGridTable();
+    }
+  }
+
+  function rebuildGridTable() {
+    var container = document.getElementById("grid-table-container");
+    container.innerHTML = "";
+    buildGridTable();
+    setupGridTableConstructEvents();
+    setupGridTableCellEvents();
+    setupGridTableHeaderEvents();
+    updateGridTableBoldState();
   }
 
   function updateProfilePlot(elemIdx) {
