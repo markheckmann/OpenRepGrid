@@ -3786,6 +3786,24 @@
     }
   });
 
+  document.addEventListener("keydown", function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === "a") {
+      if (document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA")) return;
+      if (selectedElements.length > 0) {
+        e.preventDefault();
+        selectedElements = [];
+        for (var i = 0; i < elements.length; i++) selectedElements.push(i);
+        updateElementGlows();
+        updateDynamicSortVisibility();
+      } else if (selectedConstructs.length > 0) {
+        e.preventDefault();
+        selectedConstructs = [];
+        for (var i = 0; i < constructs.length; i++) selectedConstructs.push(i);
+        updateConstructSelection();
+      }
+    }
+  });
+
   // --- Lasso (freeform) selection ---
   var lassoCanvas = document.createElement("canvas");
   lassoCanvas.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;display:none;";
