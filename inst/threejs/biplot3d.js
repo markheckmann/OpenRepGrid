@@ -3385,11 +3385,12 @@
   }
 
   function resetPoleScales() {
+    var sz = conSizeRange.value + "px";
     for (var i = 0; i < constructObjects.length; i++) {
       constructObjects[i].rightMarker.scale.setScalar(1.0);
       constructObjects[i].leftMarker.scale.setScalar(1.0);
-      constructObjects[i].rightLabel.element.style.fontSize = "";
-      constructObjects[i].leftLabel.element.style.fontSize = "";
+      constructObjects[i].rightLabel.element.style.fontSize = sz;
+      constructObjects[i].leftLabel.element.style.fontSize = sz;
     }
   }
 
