@@ -73,6 +73,29 @@
   controls.rotateSpeed = 0.8;
   controls.zoomSpeed = 1.0;
   controls.panSpeed = 0.8;
+  var _orbitFirstState = null;
+  var _orbitDidMove = false;
+  var _orbitDebounce = null;
+  controls.addEventListener("start", function () {
+    if (_isRestoring) return;
+    if (!_orbitFirstState) _orbitFirstState = captureState();
+    _orbitDidMove = false;
+    if (_orbitDebounce) { clearTimeout(_orbitDebounce); _orbitDebounce = null; }
+  });
+  controls.addEventListener("change", function () {
+    if (_isRestoring) return;
+    _orbitDidMove = true;
+  });
+  controls.addEventListener("end", function () {
+    if (_isRestoring) return;
+    if (!_orbitFirstState || !_orbitDidMove) return;
+    if (_orbitDebounce) clearTimeout(_orbitDebounce);
+    _orbitDebounce = setTimeout(function () {
+      _orbitDebounce = null;
+      flushOrbitUndo();
+      redoStack = [];
+    }, 400);
+  });
 
   function switchCamera(toOrtho) {
     isOrthographic = toOrtho;
@@ -97,7 +120,9 @@
     }
 
     controls.object = camera;
+    var prevOrbitDidMove = _orbitDidMove;
     controls.update();
+    _orbitDidMove = prevOrbitDidMove;
   }
 
   var initialCameraPosition = camera.position.clone();
@@ -1024,6 +1049,8 @@
         });
 
         row.addEventListener("dblclick", function () {
+          pushUndoState();
+          _undoSuppressed = true;
           if (!constructVisible[ci]) {
             conCheckboxes[ci].checked = true;
             conCheckboxes[ci].dispatchEvent(new Event("change"));
@@ -1031,6 +1058,7 @@
           constructLineVisible[ci] = !constructLineVisible[ci];
           buildCalibration();
           rebuildAllProjections();
+          _undoSuppressed = false;
         });
 
         row.style.cursor = "pointer";
@@ -1278,6 +1306,7 @@
   });
   var removeBenchmarksBtn = document.getElementById("remove-benchmarks-btn");
   removeBenchmarksBtn.addEventListener("click", function () {
+    pushUndoState();
     benchmarkElements = [];
     removeBenchmarksBtn.style.display = "none";
     updateElementGlows();
@@ -1336,6 +1365,7 @@
   alignBtn.className = "toggle-all-btn";
   alignBtn.style.marginLeft = "6px";
   alignBtn.addEventListener("click", function () {
+    pushUndoState();
     alignConstructs();
   });
   sortToggle.appendChild(alignBtn);
@@ -2279,7 +2309,7 @@
     var cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = checked;
-    cb.addEventListener("change", function () { onChange(cb.checked); });
+    cb.addEventListener("change", function () { pushUndoState(); onChange(cb.checked); });
     label.appendChild(cb);
     label.appendChild(document.createTextNode(" " + labelText));
     parent.appendChild(label);
@@ -2291,6 +2321,8 @@
     btn.className = "toggle-all-btn";
     btn.textContent = "all/none";
     btn.addEventListener("click", function () {
+      pushUndoState();
+      _undoSuppressed = true;
       var cbs = getCheckboxes();
       var allChecked = cbs.every(function (c) { return c.checked; });
       var newVal = !allChecked;
@@ -2300,6 +2332,7 @@
           c.dispatchEvent(new Event("change"));
         }
       });
+      _undoSuppressed = false;
     });
     sectionDiv.appendChild(btn);
   }
@@ -2521,6 +2554,7 @@
   }
   idealSelect.value = idealElementIndex;
   idealSelect.addEventListener("change", function () {
+    pushUndoState();
     idealElementIndex = parseInt(idealSelect.value);
     updatePreferredFromIdeal();
   });
@@ -2823,6 +2857,7 @@
   resetBtn.className = "action-btn";
   resetBtn.textContent = "Reset Camera";
   resetBtn.addEventListener("click", function () {
+    pushUndoState();
     var inverseQuat = _dataQuat.clone().invert();
     _anim = {
       type: "reset",
@@ -2855,6 +2890,12 @@
   });
   guiPanel.appendChild(saveBtn);
 
+  // Make sliders and color inputs undoable (capture state on mousedown)
+  [wireWidthRange, silThickRange, silGlowRange, silGlowSizeRange, gridDensityRange,
+   elemSizeRange, conSizeRange, calSizeRange, tickSizeRange, tickWidthRange,
+   axisWidthRange, projWidthRange, pcAxisRange, elevRange, indiffRange, pfRange,
+   silColorInput, sphereColorInput, elemColorInput, axisColorInput].forEach(makeUndoable);
+
   // --- Snapshots ---
   var snapshotSection = addSectionTitle("Snapshots");
   var snapshots = [];
@@ -2867,10 +2908,98 @@
   snapshotBtn.textContent = "Take Snapshot";
   snapshotSection.body.appendChild(snapshotBtn);
 
+  // --- Undo/Redo ---
+  var undoStack = [];
+  var redoStack = [];
+  var maxUndoLevels = 50;
+  var _isRestoring = false;
+  var _undoSuppressed = false;
+
+  function flushOrbitUndo() {
+    if (_orbitDebounce) {
+      clearTimeout(_orbitDebounce);
+      _orbitDebounce = null;
+    }
+    if (_orbitFirstState) {
+      undoStack.push(_orbitFirstState);
+      if (undoStack.length > maxUndoLevels) undoStack.shift();
+      _orbitFirstState = null;
+    }
+  }
+
+  function pushUndoState() {
+    if (_isRestoring || _undoSuppressed) return;
+    flushOrbitUndo();
+    undoStack.push(captureState());
+    if (undoStack.length > maxUndoLevels) undoStack.shift();
+    redoStack = [];
+  }
+
+  function restoreWithCameraAnim(state) {
+    _anim = null;
+    // Save current camera state before restore
+    var camFrom = {
+      pos: camera.position.clone(),
+      zoom: camera.zoom,
+      target: controls.target.clone()
+    };
+    // Restore everything instantly
+    _isRestoring = true;
+    restoreState(state);
+    _isRestoring = false;
+    // Check if camera changed
+    var camTo = {
+      pos: camera.position.clone(),
+      zoom: camera.zoom,
+      target: controls.target.clone()
+    };
+    var dPos = camFrom.pos.distanceToSquared(camTo.pos);
+    var dTarget = camFrom.target.distanceToSquared(camTo.target);
+    var dZoom = (camFrom.zoom - camTo.zoom);
+    if (dPos > 1e-10 || dTarget > 1e-10 || dZoom * dZoom > 1e-10) {
+      // Set camera back to starting position, animate to target
+      camera.position.copy(camFrom.pos);
+      camera.zoom = camFrom.zoom;
+      camera.updateProjectionMatrix();
+      controls.target.copy(camFrom.target);
+      controls.update();
+      _anim = {
+        type: "undoCamera",
+        startTime: performance.now(),
+        duration: 500,
+        posStart: camFrom.pos,
+        posEnd: camTo.pos,
+        zoomStart: camFrom.zoom,
+        zoomEnd: camTo.zoom,
+        targetStart: camFrom.target,
+        targetEnd: camTo.target
+      };
+    }
+  }
+
+  function undo() {
+    flushOrbitUndo();
+    if (undoStack.length === 0) return;
+    redoStack.push(captureState());
+    restoreWithCameraAnim(undoStack.pop());
+  }
+
+  function redo() {
+    flushOrbitUndo();
+    if (redoStack.length === 0) return;
+    undoStack.push(captureState());
+    restoreWithCameraAnim(redoStack.pop());
+  }
+
+  function makeUndoable(el) {
+    el.addEventListener("mousedown", function () { pushUndoState(); });
+  }
+
   function captureState() {
     return {
       camera: { px: camera.position.x, py: camera.position.y, pz: camera.position.z,
-                 tx: controls.target.x, ty: controls.target.y, tz: controls.target.z },
+                 tx: controls.target.x, ty: controls.target.y, tz: controls.target.z,
+                 zoom: camera.zoom },
       elementVisible: elementVisible.slice(),
       elementLabelVisible: elementLabelVisible.slice(),
       constructVisible: constructVisible.slice(),
@@ -2881,6 +3010,26 @@
       selectedConstructs: selectedConstructs.slice(),
       benchmarkElements: benchmarkElements.slice(),
       selectedElementIndex: selectedElementIndex,
+      // Coordinates (mutable via rotation/alignment)
+      elemCoords: elements.map(function (e) { return { x: e.x, y: e.y, z: e.z }; }),
+      conCoords: constructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; }),
+      conSphereCoords: constructSphereCoords.map(function (sc) {
+        return { rx: sc.rx, ry: sc.ry, rz: sc.rz, lx: sc.lx, ly: sc.ly, lz: sc.lz };
+      }),
+      dataQuat: { x: _dataQuat.x, y: _dataQuat.y, z: _dataQuat.z, w: _dataQuat.w },
+      axesQuat: { x: axesGroup.quaternion.x, y: axesGroup.quaternion.y, z: axesGroup.quaternion.z, w: axesGroup.quaternion.w },
+      axesVisible: axesGroup.visible,
+      // Construct metadata (mutable via alignment)
+      conPreferred: constructs.map(function (c) { return c.preferred; }),
+      conLeftPoles: constructs.map(function (c) { return c.left_pole; }),
+      conRightPoles: constructs.map(function (c) { return c.right_pole; }),
+      ratingsValues: ratings.values.map(function (row) { return row.slice(); }),
+      ratingsLeftPoles: ratings.left_poles.slice(),
+      ratingsRightPoles: ratings.right_poles.slice(),
+      calibCoords: calibration ? calibration.construct_coords.map(function (c) { return [c[0], c[1], c[2]]; }) : null,
+      initConCoords: initialConstructs.map(function (c) { return { x: c.x, y: c.y, z: c.z }; }),
+      initCalibCoords: initialCalibCoords ? initialCalibCoords.map(function (c) { return [c[0], c[1], c[2]]; }) : null,
+      // UI state
       orthographic: cbOrtho.checked,
       darkMode: cbDarkMode.checked,
       wireframe: cbWireframe.checked,
@@ -2929,13 +3078,92 @@
   }
 
   function restoreState(s) {
+    // Restore orthographic mode first so correct camera is active
+    if (s.orthographic !== undefined) setCheckbox(cbOrtho, s.orthographic);
+
     // Camera
     camera.position.set(s.camera.px, s.camera.py, s.camera.pz);
+    if (s.camera.zoom !== undefined) {
+      camera.zoom = s.camera.zoom;
+      camera.updateProjectionMatrix();
+    }
     controls.target.set(s.camera.tx, s.camera.ty, s.camera.tz);
     controls.update();
 
-    // Display toggles
-    if (s.orthographic !== undefined) setCheckbox(cbOrtho, s.orthographic);
+    // Coordinates & rotation (if present in snapshot)
+    if (s.elemCoords) {
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].x = s.elemCoords[i].x; elements[i].y = s.elemCoords[i].y; elements[i].z = s.elemCoords[i].z;
+        elementObjects[i].sphere.position.set(elements[i].x, elements[i].y, elements[i].z);
+        elementObjects[i].label.position.set(elements[i].x, elements[i].y, elements[i].z);
+        elementObjects[i].glow.position.set(elements[i].x, elements[i].y, elements[i].z);
+      }
+    }
+    if (s.conCoords) {
+      for (var i = 0; i < constructs.length; i++) {
+        constructs[i].x = s.conCoords[i].x; constructs[i].y = s.conCoords[i].y; constructs[i].z = s.conCoords[i].z;
+        var sc = s.conSphereCoords[i];
+        constructSphereCoords[i] = { rx: sc.rx, ry: sc.ry, rz: sc.rz, lx: sc.lx, ly: sc.ly, lz: sc.lz };
+        var obj = constructObjects[i];
+        obj.rightMarker.position.set(sc.rx, sc.ry, sc.rz);
+        obj.rightLabel.position.set(sc.rx, sc.ry, sc.rz);
+        obj.leftMarker.position.set(sc.lx, sc.ly, sc.lz);
+        obj.leftLabel.position.set(sc.lx, sc.ly, sc.lz);
+        // Rebuild line position/orientation
+        var from = new THREE.Vector3(sc.lx, sc.ly, sc.lz);
+        var to = new THREE.Vector3(sc.rx, sc.ry, sc.rz);
+        var mid = new THREE.Vector3().addVectors(from, to).multiplyScalar(0.5);
+        var lineDir = new THREE.Vector3().subVectors(to, from).normalize();
+        var lq = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), lineDir);
+        obj.line.position.copy(mid);
+        obj.line.quaternion.copy(lq);
+        obj._origLinePos = mid.clone();
+        obj._origLineQuat = lq.clone();
+      }
+    }
+    if (s.dataQuat) _dataQuat.set(s.dataQuat.x, s.dataQuat.y, s.dataQuat.z, s.dataQuat.w);
+    if (s.axesQuat) axesGroup.quaternion.set(s.axesQuat.x, s.axesQuat.y, s.axesQuat.z, s.axesQuat.w);
+    if (s.axesVisible !== undefined) axesGroup.visible = s.axesVisible;
+    // Construct metadata
+    if (s.conPreferred) {
+      var needGridRebuild = false;
+      for (var i = 0; i < constructs.length; i++) {
+        if (constructs[i].preferred !== s.conPreferred[i] || constructs[i].left_pole !== s.conLeftPoles[i]) needGridRebuild = true;
+        constructs[i].preferred = s.conPreferred[i];
+        constructs[i].left_pole = s.conLeftPoles[i];
+        constructs[i].right_pole = s.conRightPoles[i];
+        constructObjects[i].rightLabel.element.textContent = constructs[i].right_pole;
+        constructObjects[i].leftLabel.element.textContent = constructs[i].left_pole;
+        constructObjects[i].rightMarker.userData.name = constructs[i].right_pole + " \u2014 " + constructs[i].left_pole;
+        constructObjects[i].leftMarker.userData.name = constructs[i].left_pole + " \u2014 " + constructs[i].right_pole;
+      }
+      refreshPoleColors();
+      if (needGridRebuild) rebuildGridTable();
+    }
+    if (s.ratingsValues) {
+      for (var i = 0; i < ratings.values.length; i++) {
+        ratings.values[i] = s.ratingsValues[i].slice();
+      }
+      ratings.left_poles = s.ratingsLeftPoles.slice();
+      ratings.right_poles = s.ratingsRightPoles.slice();
+    }
+    if (s.calibCoords && calibration) {
+      for (var i = 0; i < calibration.construct_coords.length; i++) {
+        calibration.construct_coords[i] = [s.calibCoords[i][0], s.calibCoords[i][1], s.calibCoords[i][2]];
+      }
+    }
+    if (s.initConCoords) {
+      for (var i = 0; i < initialConstructs.length; i++) {
+        initialConstructs[i] = { x: s.initConCoords[i].x, y: s.initConCoords[i].y, z: s.initConCoords[i].z };
+      }
+    }
+    if (s.initCalibCoords && initialCalibCoords) {
+      for (var i = 0; i < initialCalibCoords.length; i++) {
+        initialCalibCoords[i] = [s.initCalibCoords[i][0], s.initCalibCoords[i][1], s.initCalibCoords[i][2]];
+      }
+    }
+
+    // Display toggles (orthographic already restored above)
     setCheckbox(cbDarkMode, s.darkMode);
     setCheckbox(cbWireframe, s.wireframe);
     if (s.wireWidth !== undefined) {
@@ -3288,6 +3516,7 @@
     var intersects = raycaster.intersectObjects(hoverTargets);
 
     if (intersects.length > 0) {
+      pushUndoState();
       var ud = intersects[0].object.userData;
       if (ud.type === "element") {
         toggleElementProjection(ud.index);
@@ -3302,6 +3531,7 @@
   // Single click: select element (Cmd/Ctrl+click for multi-select)
   function onClick(event) {
     if (lassoJustFinished) { lassoJustFinished = false; return; }
+    if (_orbitDidMove) { _orbitDidMove = false; return; }
     var rect = renderer.domElement.getBoundingClientRect();
     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -3573,6 +3803,22 @@
       var interpPosQuat = new THREE.Quaternion().slerp(posQuat, ease);
       camera.position.copy(_anim.posStart).applyQuaternion(interpPosQuat);
       controls.update();
+    } else if (_anim.type === "undoCamera") {
+      // Slerp camera position on sphere to avoid zoom effect during rotation
+      var startDir = _anim.posStart.clone().normalize();
+      var endDir = _anim.posEnd.clone().normalize();
+      var posQuat = new THREE.Quaternion().setFromUnitVectors(startDir, endDir);
+      var interpQuat = new THREE.Quaternion().slerp(posQuat, ease);
+      // Interpolate distance separately
+      var startDist = _anim.posStart.length();
+      var endDist = _anim.posEnd.length();
+      var dist = startDist + (endDist - startDist) * ease;
+      camera.position.copy(_anim.posStart).normalize().applyQuaternion(interpQuat).multiplyScalar(dist);
+      // Interpolate zoom and target linearly
+      camera.zoom = _anim.zoomStart + (_anim.zoomEnd - _anim.zoomStart) * ease;
+      camera.updateProjectionMatrix();
+      controls.target.lerpVectors(_anim.targetStart, _anim.targetEnd, ease);
+      controls.update();
     }
 
     if (t >= 1) {
@@ -3601,7 +3847,10 @@
     item.textContent = text;
     item.addEventListener("click", function (e) {
       e.stopPropagation();
+      pushUndoState();
+      _undoSuppressed = true;
       onClick();
+      _undoSuppressed = false;
       hideContextMenu();
     });
     container.appendChild(item);
@@ -3733,6 +3982,7 @@
     colorInput.style.border = "none";
     colorInput.style.padding = "0";
     colorInput.style.cursor = "pointer";
+    makeUndoable(colorInput);
     colorInput.addEventListener("input", function () {
       for (var t = 0; t < targets.length; t++) {
         elementCustomColors[targets[t]] = colorInput.value;
@@ -3930,6 +4180,7 @@
       }
     }, conSub);
     addMenuItem("Reset to initial state", function () {
+      _undoSuppressed = true;
       camera.position.copy(initialCameraPosition);
       controls.target.copy(initialControlsTarget);
       controls.update();
@@ -3962,6 +4213,7 @@
       profileCanvas.style.display = "none";
       profileHint.style.display = "";
       removeBenchmarksBtn.style.display = "none";
+      _undoSuppressed = false;
     });
     showContextMenuAt(x, y);
   }
@@ -3991,11 +4243,26 @@
 
   document.addEventListener("click", function () { hideContextMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") hideContextMenu(); });
+
+  // Undo/Redo keyboard shortcuts
+  document.addEventListener("keydown", function (e) {
+    if (document.activeElement && (document.activeElement.tagName === "TEXTAREA" ||
+        (document.activeElement.tagName === "INPUT" && document.activeElement.type === "text"))) return;
+    if ((e.metaKey || e.ctrlKey) && !e.shiftKey && e.key === "z") {
+      e.preventDefault(); undo();
+    } else if ((e.metaKey || e.ctrlKey) && (e.key === "y" || (e.shiftKey && (e.key === "z" || e.key === "Z")))) {
+      e.preventDefault(); redo();
+    }
+  });
+
   document.addEventListener("keydown", function (e) {
     if (e.key === "Delete" || e.key === "Backspace") {
-      if (document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA")) return;
+      if (document.activeElement && (document.activeElement.tagName === "TEXTAREA" ||
+          (document.activeElement.tagName === "INPUT" && document.activeElement.type === "text"))) return;
       if (selectedElements.length === 0 && selectedConstructs.length === 0) return;
       e.preventDefault();
+      pushUndoState();
+      _undoSuppressed = true;
       for (var t = 0; t < selectedElements.length; t++) {
         elemCheckboxes[selectedElements[t]].checked = false;
         elemCheckboxes[selectedElements[t]].dispatchEvent(new Event("change"));
@@ -4009,12 +4276,14 @@
       }
       selectedConstructs = [];
       updateConstructSelection();
+      _undoSuppressed = false;
     }
   });
 
   document.addEventListener("keydown", function (e) {
     if ((e.metaKey || e.ctrlKey) && e.key === "a") {
-      if (document.activeElement && (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA")) return;
+      if (document.activeElement && (document.activeElement.tagName === "TEXTAREA" ||
+          (document.activeElement.tagName === "INPUT" && document.activeElement.type === "text"))) return;
       if (selectedElements.length > 0) {
         e.preventDefault();
         selectedElements = [];
